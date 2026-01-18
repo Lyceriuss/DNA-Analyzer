@@ -124,81 +124,65 @@
         }
     },
     "rs429358": {
-        "risk_genotypes": [
-            "CC",
-            "CT",
-            "TC"
-        ],
-        "strength_genotypes": [
-            "TT"
-        ],
+        "title": "Fat & Brain Health",
+        "badge_type": "RISK",
         "data_risk": {
             "gene": "APOE",
-            "title": "Lipid & Brain Metabolism",
+            "title": "The 'Inflammation' Firestarter",
             "badge_type": "RISK",
             "mechanisms": {
-                "what": "APOE transports cholesterol and fats in the bloodstream and clears amyloid plaque from the brain.",
-                "how": "You carry a variant associated with the APOE4 allele. Your body is inefficient at recycling cholesterol and clearing brain inflammation. Saturated fats tend to spike your inflammation markers significantly more than average.",
-                "yours": "Your Result: Reduced Clearance (E4 Pattern)."
+                "what": "APOE ferries cholesterol to your brain for repair.",
+                "how": "You carry the E4 variant. Your ferries are sloppy; they drop cholesterol in the arteries and trigger massive inflammation in the brain when exposed to saturated fats.",
+                "yours": "Your Result: Poor Lipid Clearance (E4)."
             },
             "action": {
-                "title": "Strict Lipid Management",
-                "body": "This is the most diet-responsive gene. You must aggressively limit saturated fats (butter, fatty beef, coconut oil) and prioritize Omega-3s (DHA) to protect the brain.",
-                "foods": [
-                    "Salmon (DHA)",
-                    "Olive Oil",
-                    "Avoid Butter/Coconut"
-                ]
-            },
-            "confidence": 5
+                "title": "The 'Mediterranean' Requirement",
+                "body": "Saturated fat (butter, coconut, fatty beef) is rocket fuel for your inflammation. You must switch to Monounsaturated fats (Olive Oil, Avocado) to protect your brain."
+            }
         },
         "data_strength": {
             "gene": "APOE",
-            "title": "The Longevity Variant",
+            "title": "The 'Teflon' Brain",
             "badge_type": "SUPERPOWER",
             "mechanisms": {
-                "what": "APOE transports cholesterol and fats.",
-                "how": "You likely carry the APOE2 or neutral APOE3 variant. Your lipid handling is robust, and you have a genetically lower baseline risk for neurodegeneration.",
+                "how": "You have the E2 or E3 variant. Your lipid transport system is efficient, keeping your arteries clear and your brain plaque-free well into old age.",
                 "yours": "Your Result: Efficient Clearance."
             },
             "action": {
-                "title": "Metabolic Freedom",
-                "body": "You have more flexibility with dietary fats, though a balanced diet is still recommended."
-            },
-            "confidence": 5
+                "title": "Dietary Flexibility",
+                "body": "Your body handles dietary fats well, giving you freedom in your macronutrient choices."
+            }
         }
     },
     "rs1006737": {
-        "title": "The 'Creativity vs Stability' Switch",
+        "title": "The 'Spark Plug' of the Brain",
         "badge_type": "RISK",
-        "mechanisms": {
-            "what": "CACNA1C controls calcium flow into brain cells, acting like the 'spark plug' of a neuron.",
-            "how": "Your variant makes these channels 'leaky' or hyper-excitable. Your spark plugs fire too easily, allowing for rapid associations (creativity) but leading to instability.",
-            "ancestral": "Stable Variant: Balanced firing.",
-            "yours": "Your Result: Hyper-Excitable ('Sparky')."
-        },
-        "action": {
-            "title": "Stabilize the Spark",
-            "body": "Since your neurons are naturally excitable, you need grounding. Magnesium Threonate acts as a natural calcium blocker to calm the system.",
-            "foods": [
-                "Magnesium Threonate",
-                "Darkness therapy",
-                "Limit Caffeine"
-            ]
-        },
-        "data_strength": {
-            "title": "The 'Steady Hand' Neurotype",
-            "badge_type": "SUPERPOWER",
+        "data_risk": {
+            "gene": "CACNA1C",
+            "title": "The 'Live Wire' (Creativity vs. Stability)",
+            "badge_type": "RISK",
             "mechanisms": {
-                "what": "CACNA1C controls calcium flow into brain cells.",
-                "how": "Your variant represents the highly stable configuration. Your neurons fire only when there is a strong, clear signal. This gives you a natural buffer against stress.",
-                "yours": "Your Result: Stable ('Insulated')."
+                "what": "CACNA1C controls how easily your brain cells fire electricity.",
+                "how": "You have the 'Live Wire' variant. Your neurons are hyper-excitable, firing at the slightest provocation. This grants rapid associations (creativity) but makes it hard to 'turn off' the noise, leading to anxiety, racing thoughts, and sleep issues.",
+                "yours": "Your Result: Hyper-Excitable ('Sparky')."
             },
             "action": {
-                "title": "Leverage Stability",
-                "body": "You are naturally suited for high-pressure roles requiring calm execution."
+                "title": "Chemical Grounding",
+                "body": "You need to physically block the calcium channels to calm the system. Magnesium Threonate is the only form that crosses the blood-brain barrier effectively to do this."
+            }
+        },
+        "data_strength": {
+            "gene": "CACNA1C",
+            "title": "The 'Steel Mind' (Stability)",
+            "badge_type": "SUPERPOWER",
+            "mechanisms": {
+                "how": "Your neurons are insulated. They refuse to fire unless the signal is clear and strong. This gives you an immense natural buffer against panic, stress, and emotional volatility.",
+                "yours": "Your Result: High Neural Stability."
             },
-            "gene": "CACNA1C"
+            "action": {
+                "title": "Crisis Management",
+                "body": "You are biologically suited for high-stakes environments (ER, Trading, First Response) where others freeze."
+            }
         }
     },
     "rs4988235": {
@@ -239,62 +223,34 @@
         }
     },
     "rs9939609": {
-        "risk_genotypes": [
-            "AA",
-            "AT"
-        ],
-        "strength_genotypes": [
-            "TT"
-        ],
+        "title": "The Hunger Switch",
+        "badge_type": "RISK",
         "data_risk": {
             "gene": "FTO",
-            "title": "The 'Appetite Thermostat'",
+            "title": "The 'Bottomless Pit' (Appetite)",
             "badge_type": "RISK",
             "mechanisms": {
-                "what": "FTO is the 'Hunger Hormone Regulator.' It influences levels of Ghrelin (the hunger hormone) and your brain's sensitivity to satiety signals after eating.",
-                "how": "Your variant keeps the 'Hunger Switch' stuck in the ON position. Your body produces higher baseline Ghrelin and has a delayed 'I'm full' signal. Physically, your brain seeks high-calorie foods to satisfy a false energy deficit.",
-                "ancestral": "Satiety Mode (TT): Normal signaling.",
-                "yours": "Your Result: Hunger Mode (Delayed Satiety)."
+                "what": "FTO regulates Ghrelin, the hormone that screams 'FEED ME'.",
+                "how": "Your Ghrelin switch is broken. Even after a full meal, your brain takes 20-30 minutes longer to register fullness. You are genetically wired to overeat.",
+                "yours": "Your Result: High Appetite Drive."
             },
-            "risks": [
-                "Weight: Higher risk of obesity and difficulty maintaining weight loss.",
-                "Cravings: Strong biological drive for sugar and fatty foods.",
-                "Metabolic: Reduced thermogenesis (heat production) from fat stores."
-            ],
             "action": {
-                "title": "Protein First Strategy",
-                "body": "You cannot rely on willpower against Ghrelin. You must hack the satiety signal. Eating 30g of protein at breakfast physically suppresses Ghrelin for hours. High-protein meals trigger satiety signals that bypass the FTO delay.",
-                "foods": [
-                    "High Protein Breakfast",
-                    "Volume Eating (Fiber)",
-                    "Avoid Liquid Calories"
-                ]
-            },
-            "confidence": 5
+                "title": "Protein First Rule",
+                "body": "Protein is the only nutrient that manually silences Ghrelin. You must eat 30g of protein *before* touching a single carb at every meal."
+            }
         },
         "data_strength": {
             "gene": "FTO",
-            "title": "The 'Appetite Thermostat'",
+            "title": "The 'Intuitive' Eater",
             "badge_type": "SUPERPOWER",
             "mechanisms": {
-                "what": "FTO regulates your hunger hormones (Ghrelin) and satiety sensitivity.",
-                "how": "You carry the 'Satiety' variant. Your brain receives a strong, clear 'I'm full' signal immediately after eating. You naturally regulate calorie intake without needing to count calories.",
-                "ancestral": "Risk Variant: High hunger drive.",
-                "yours": "Your Result: High Satiety Sensitivity."
+                "how": "Your hunger signals are precision instruments. When you need fuel, you get hungry. When you are full, the desire to eat vanishes instantly.",
+                "yours": "Your Result: Perfect Satiety Signaling."
             },
-            "risks": [
-                "Weight: Natural protection against obesity.",
-                "Metabolic: Efficient regulation of energy balance."
-            ],
             "action": {
-                "title": "Intuitive Eating",
-                "body": "Your hunger cues are accurate. Unlike carriers of the risk variant, you can trust your body's signals. Focus on nutrient density rather than restriction.",
-                "foods": [
-                    "Listen to Satiety Cues",
-                    "Standard Balanced Diet"
-                ]
-            },
-            "confidence": 5
+                "title": "Trust Your Gut",
+                "body": "Diet plans often backfire for you. Trust your natural hunger cues\u2014they are accurate."
+            }
         }
     },
     "rs1805087": {
@@ -484,127 +440,98 @@
         }
     },
     "rs7903146": {
-        "risk_genotypes": [
-            "TT",
-            "CT"
-        ],
-        "strength_genotypes": [
-            "CC"
-        ],
+        "title": "Sugar Processing",
+        "badge_type": "RISK",
         "data_risk": {
             "gene": "TCF7L2",
-            "title": "The Diabetic Risk",
+            "title": "The 'Fragile Pancreas'",
             "badge_type": "RISK",
             "mechanisms": {
-                "what": "TCF7L2 regulates insulin secretion from the pancreas. It is the single strongest genetic predictor of Type 2 Diabetes.",
-                "how": "Your variant causes the pancreas to 'tire out' easily. If you eat a high-carb diet, your insulin response blunts over time, leading to high blood sugar.",
-                "yours": "Your Result: Low Insulin Secretion."
+                "what": "This gene controls the insulin floodgates.",
+                "how": "Your floodgates are rusty. Under a heavy carb load, your pancreas hesitates, causing blood sugar to spike and linger. You are statistically 2x more likely to develop Type 2 Diabetes.",
+                "yours": "Your Result: Delayed Insulin Response."
             },
             "action": {
-                "title": "Carbohydrate Restriction",
-                "body": "You cannot process standard carbohydrate loads. A low-glycemic or Keto approach is not a fad for you; it is a metabolic requirement."
-            },
-            "confidence": 5
+                "title": "Post-Meal Movement",
+                "body": "You cannot sit after eating carbs. A 10-minute walk engages the GLUT4 transporters in your legs to suck up the sugar your pancreas missed."
+            }
         },
         "data_strength": {
             "gene": "TCF7L2",
-            "title": "The Insulin Fortress",
+            "title": "The 'Iron Pancreas'",
             "badge_type": "SUPERPOWER",
             "mechanisms": {
-                "what": "TCF7L2 regulates insulin secretion from the pancreas.",
-                "how": "You have the protective genotype. Your pancreas secretes insulin robustly and precisely, protecting you significantly against Type 2 Diabetes.",
-                "yours": "Your Result: Robust Insulin Secretion."
+                "how": "Your pancreas releases insulin with sniper-like precision. You handle carb-loading and blood sugar spikes with ease, making you highly resilient to metabolic disease.",
+                "yours": "Your Result: Robust Insulin Response."
             },
             "action": {
-                "title": "Metabolic Flexibility",
-                "body": "Your body handles blood sugar spikes well. While you shouldn't abuse it, you can utilize carbs for athletic recovery much better than the average person."
-            },
-            "confidence": 5
+                "title": "Carb Loading",
+                "body": "You can utilize carbohydrates for athletic recovery far more effectively than the average person."
+            }
         }
     },
     "rs17782313": {
-        "title": "The Appetite Control Center",
+        "title": "Appetite Regulation",
         "badge_type": "RISK",
-        "mechanisms": {
-            "what": "MC4R signals satiety (fullness) to the brain.",
-            "how": "Your receptor signal is weak. You may feel hungry even after eating.",
-            "yours": "Your Result: Higher Appetite Drive."
-        },
-        "action": {
-            "title": "Volume Eating",
-            "body": "Focus on high-volume, low-calorie foods (leafy greens) to trigger stretch receptors."
+        "data_risk": {
+            "gene": "MC4R",
+            "title": "The 'Silent' Stop Signal",
+            "badge_type": "RISK",
+            "mechanisms": {
+                "what": "MC4R neurons in the hypothalamus receive signals from body fat (Leptin) to tell you 'Stop Eating.'",
+                "how": "Your receptor has a 'blunted' response. Even when fat cells signal fullness, the brain only hears a whisper. You require significantly more food to trigger the neural sensation of satisfaction.",
+                "yours": "Your Result: Reduced Satiety Signaling."
+            },
+            "action": {
+                "title": "Volume Eating",
+                "body": "You cannot rely on calories to feel full; you need physical stretch. Eat massive volumes of low-calorie fiber (greens) to physically stretch the stomach and force the signal."
+            }
         },
         "data_strength": {
-            "title": "Natural Satiety",
+            "gene": "MC4R",
+            "title": "The 'Precision' Appetite",
             "badge_type": "SUPERPOWER",
             "mechanisms": {
-                "how": "Your satiety signal is strong and loud. You naturally stop eating when full.",
-                "yours": "Your Result: Strong Satiety."
+                "what": "MC4R integrates hormonal signals from the gut and fat tissue to regulate energy balance.",
+                "how": "Your receptors are highly tuned. As soon as your caloric needs are met, MC4R fires a potent 'Stop' signal. You naturally maintain leanness because overeating feels physically uncomfortable.",
+                "yours": "Your Result: High Precision Satiety."
             },
             "action": {
                 "title": "Intuitive Eating",
-                "body": "You can trust your hunger signals; they are accurate."
-            },
-            "gene": "MC4R"
+                "body": "Diet rules are unnecessary for you. Your biology is a better calorie counter than any app."
+            }
         }
     },
     "rs4680": {
-        "risk_genotypes": [
-            "AA"
-        ],
-        "strength_genotypes": [
-            "GG"
-        ],
+        "title": "Dopamine Clearance",
+        "badge_type": "RISK",
         "data_risk": {
             "gene": "COMT",
-            "title": "The 'Stress Cleaner' (Worrier)",
+            "title": "The Grandmaster (Worrier)",
             "badge_type": "RISK",
             "mechanisms": {
-                "what": "COMT is the janitor that cleans up neurotransmitters (Dopamine, Adrenaline) after they are used. It determines how long stress chemicals hang around.",
-                "how": "You are a 'Worrier' (Met/Met). Your janitor works 3-4x slower than average. Dopamine and Adrenaline linger in your brain. This makes you sharper and more attentive, but prone to anxiety because the stress signal doesn't turn off.",
-                "ancestral": "Fast Cleaner (Warrior).",
-                "yours": "Your Result: Slow Cleaner (High Dopamine/Anxiety)."
+                "what": "COMT is the enzyme responsible for breaking down catecholamines (Dopamine, Adrenaline, Norepinephrine) in the prefrontal cortex.",
+                "how": "Your enzyme works slowly. Dopamine lingers in your brain. This is a double-edged sword: You have incredible attention to detail, high IQ potential, and complex planning ability. But under stress, that lingering chemistry turns into anxiety, looping thoughts, and an inability to 'let it go.'",
+                "yours": "Your Result: Met/Met (Slow Clearance)."
             },
-            "risks": [
-                "Mood: High anxiety and lower stress threshold.",
-                "Hormones: Poor estrogen detoxification (PMS risks).",
-                "Pain: Lower pain threshold."
-            ],
             "action": {
-                "title": "Calm the Janitor",
-                "body": "You have a natural advantage in focus but a disadvantage in stress. Magnesium is critical to support this enzyme. Avoid stimulants (Caffeine) which add more mess for the slow janitor to clean up.",
-                "foods": [
-                    "Magnesium",
-                    "B6 (P5P)",
-                    "Limit Caffeine"
-                ]
-            },
-            "confidence": 5
+                "title": "Tactical Decompression",
+                "body": "You cannot just 'calm down' instantly; your chemistry prohibits it. It takes you 20+ minutes to clear adrenaline. When stressed, you must physically remove yourself from the stimulus. Magnesium and L-Theanine are your chemical allies to help speed up the clearance."
+            }
         },
         "data_strength": {
             "gene": "COMT",
-            "title": "The 'Stress Cleaner' (Warrior)",
+            "title": "The Crisis Commander (Warrior)",
             "badge_type": "SUPERPOWER",
             "mechanisms": {
-                "what": "COMT cleans up Dopamine and Adrenaline.",
-                "how": "You are a 'Warrior' (Val/Val). Your janitor works fast. You clear stress chemicals rapidly, making you cool under pressure. However, you may burn through Dopamine too fast, leading to lower motivation or focus in boring situations.",
-                "ancestral": "Slow Cleaner (Worrier).",
-                "yours": "Your Result: Fast Cleaner (High Stress Tolerance)."
+                "what": "COMT cleans the brain of stress neurochemicals, resetting your baseline for the next challenge.",
+                "how": "You are a 'Val/Val' genotype. Your enzymes are aggressive incinerators of stress. In high-pressure situations (public speaking, emergencies), while others freeze, your brain clears the fog instantly. You are biologically engineered for chaos and high-stakes performance.",
+                "yours": "Your Result: Val/Val (Fast Clearance)."
             },
-            "risks": [
-                "Focus: Procrastination or lack of motivation.",
-                "Mood: 'Flat' feeling due to low dopamine."
-            ],
             "action": {
-                "title": "Boost the signal",
-                "body": "You thrive on stress because it raises your dopamine to normal levels. To focus during boring tasks, you may need 'Good Stress' (exercise, deadlines) or protein-rich foods (Tyrosine) to rebuild dopamine.",
-                "foods": [
-                    "Tyrosine-rich foods",
-                    "High Intensity Exercise",
-                    "Cold Plunges"
-                ]
-            },
-            "confidence": 5
+                "title": "Seek Friction",
+                "body": "A quiet life is torture for you. You metabolize dopamine so fast that you can feel unmotivated in low-stress environments. You need deadlines, competition, and risk to feel fully alive and cognitively engaged."
+            }
         }
     },
     "rs662799": {
@@ -702,47 +629,34 @@
         }
     },
     "rs671": {
-        "risk_genotypes": [
-            "AA",
-            "AG"
-        ],
-        "strength_genotypes": [
-            "GG"
-        ],
+        "title": "Alcohol Toxicity",
+        "badge_type": "RISK",
         "data_risk": {
             "gene": "ALDH2",
-            "title": "Toxin Filtration (Acetaldehyde)",
+            "title": "The 'Poison' Filter",
             "badge_type": "RISK",
             "mechanisms": {
-                "what": "ALDH2 is the liver enzyme responsible for breaking down Acetaldehyde, a toxic byproduct of alcohol and exhaust fumes.",
-                "how": "Your enzyme is structurally broken (The 'Asian Flush' variant). When you drink alcohol, toxic Acetaldehyde accumulates immediately, causing DNA damage and inflammation 10-100x faster than in others.",
-                "yours": "Your Result: Zero/Low Efficiency."
+                "what": "ALDH2 turns Acetaldehyde (a toxic carcinogen) into harmless vinegar.",
+                "how": "Your filter is shattered. When you drink, toxins accumulate instantly. That 'flush' or rapid heartbeat isn't just annoying\u2014it's your body screaming about DNA damage.",
+                "yours": "Your Result: Broken Filter (Flush Risk)."
             },
             "action": {
-                "title": "Zero Tolerance",
-                "body": "Alcohol is essentially a carcinogen for your genotype. The 'flush' is a toxicity alarm. If you must drink, stick to clear spirits and take NAC (N-Acetyl Cysteine) beforehand to support glutathione.",
-                "foods": [
-                    "NAC Supplement",
-                    "Cruciferous Veggies",
-                    "Limit Alcohol"
-                ]
-            },
-            "confidence": 5
+                "title": "NAC Protection",
+                "body": "If you must drink, you need a prosthetic liver. Take N-Acetyl Cysteine (NAC) 30 mins before drinking to boost Glutathione reserves."
+            }
         },
         "data_strength": {
             "gene": "ALDH2",
-            "title": "The Iron Liver",
+            "title": "The 'Iron Liver'",
             "badge_type": "SUPERPOWER",
             "mechanisms": {
-                "what": "ALDH2 breaks down Acetaldehyde.",
-                "how": "Your enzyme functions at peak efficiency. You rapidly convert toxins into harmless acetate, preventing hangover symptoms and immediate DNA damage.",
-                "yours": "Your Result: High Efficiency."
+                "how": "Your enzyme works at turbo speed. You clear metabolic toxins and alcohol byproducts so fast they rarely have time to damage your cells.",
+                "yours": "Your Result: High-Speed Clearance."
             },
             "action": {
-                "title": "Social Advantage",
-                "body": "You can process social drinking with minimal biological cost, though moderation is always key."
-            },
-            "confidence": 5
+                "title": "Social Resilience",
+                "body": "You are the designated survivor of the party, but remember that alcohol is still a neurotoxin."
+            }
         }
     },
     "rs1801282": {
@@ -913,38 +827,35 @@
         }
     },
     "rs731236": {
-        "risk_genotypes": [
-            "TT",
-            "TC"
-        ],
-        "strength_genotypes": [
-            "CC"
-        ],
+        "title": "Immune & Calcium Signaling",
+        "badge_type": "RISK",
         "data_risk": {
             "gene": "VDR",
-            "title": "The 'Vitamin D Solar Panel'",
+            "title": "The 'Silenced' Receptor",
             "badge_type": "RISK",
             "mechanisms": {
-                "what": "The Vitamin D Receptor (VDR) is the 'solar panel' on your cells that catches Vitamin D and puts it to work.",
-                "how": "Your panels are smaller or fewer in number. Even if you have normal Vitamin D levels in your blood, your cells don't 'see' it well. You require higher blood levels to achieve the same immune and bone benefits.",
-                "ancestral": "High Sensitivity (CC).",
-                "yours": "Your Result: Low Sensitivity (Resistance)."
+                "what": "The Vitamin D Receptor (VDR) is a transcription factor. It enters the nucleus, binds to DNA, and acts as a 'Master Switch' for 900+ genes involved in immunity.",
+                "how": "Your receptor has a structural shape that reduces binding affinity. Even with Vitamin D in your blood, the 'key' turns the lock slowly. This leads to weaker transcription of antimicrobial peptides, leaving your immune system slower to react.",
+                "yours": "Your Result: Low Transcriptional Activity."
             },
-            "risks": [
-                "Immune: Lower resistance to viral infections.",
-                "Bone: Risk of lower bone density.",
-                "Mood: Seasonal Affective Disorder links."
-            ],
             "action": {
-                "title": "Aim Higher",
-                "body": "The standard 'sufficient' range for Vitamin D (30 ng/mL) is too low for you. You likely feel best in the upper optimal range (50-70 ng/mL) to overcome receptor resistance.",
-                "foods": [
-                    "Vitamin D3 + K2",
-                    "Regular Sun Exposure",
-                    "Test Levels Yearly"
-                ]
+                "title": "Force the Lock",
+                "body": "Because your receptor binding is weak, you need higher blood concentrations of Vitamin D to achieve the same gene activation as a normal person. Aim for 60-80 ng/mL."
+            }
+        },
+        "data_strength": {
+            "gene": "VDR",
+            "title": "The 'Amplified' Signal",
+            "badge_type": "SUPERPOWER",
+            "mechanisms": {
+                "what": "The Vitamin D Receptor (VDR) forms a complex with the Retinoid-X Receptor (RXR) to bind directly to DNA.",
+                "how": "Your receptor is highly sensitive. It creates a robust signal cascade even with moderate Vitamin D levels, resulting in aggressive production of natural antibiotics (cathelicidin).",
+                "yours": "Your Result: High Transcriptional Sensitivity."
             },
-            "confidence": 4
+            "action": {
+                "title": "Immune Shield",
+                "body": "Your robust VDR signaling provides a powerful baseline defense against respiratory infections."
+            }
         }
     },
     "rs1801394": {
@@ -1007,38 +918,35 @@
         }
     },
     "rs1799983": {
-        "risk_genotypes": [
-            "TT",
-            "GT"
-        ],
-        "strength_genotypes": [
-            "GG"
-        ],
+        "title": "Blood Flow & Pressure",
+        "badge_type": "RISK",
         "data_risk": {
             "gene": "NOS3",
-            "title": "The 'Blood Flow' Dial",
+            "title": "The 'Constricted' Vessel",
             "badge_type": "RISK",
             "mechanisms": {
-                "what": "NOS3 produces Nitric Oxide (NO), a gas that signals your blood vessels to relax and widen. This controls blood pressure and oxygen delivery to muscles.",
-                "how": "Your variant (Glu298Asp) makes the enzyme unstable. It breaks down faster, leading to lower levels of Nitric Oxide. Your blood vessels act 'stiff,' failing to dilate fully during exercise or stress.",
-                "ancestral": "Flexible Vessels (GG).",
-                "yours": "Your Result: Stiff Vessels (Low NO)."
+                "what": "NOS3 produces Nitric Oxide (NO), the gas that relaxes blood vessels to lower pressure.",
+                "how": "Your production is genetically low. Your vessels tend to stay tight (vasoconstricted). This raises blood pressure and reduces the 'pump' and nutrient delivery during exercise.",
+                "yours": "Your Result: Low Nitric Oxide."
             },
-            "risks": [
-                "Cardio: Hypertension (High Blood Pressure).",
-                "Performance: Poor 'pump' during exercise and slower recovery.",
-                "Sexual Health: ED risk due to poor blood flow."
-            ],
             "action": {
-                "title": "Boost the Nitrates",
-                "body": "You cannot rely on the enzyme alone; you must supply the raw materials. Nitrate-rich foods (Beets, Arugula) bypass the broken enzyme and create Nitric Oxide directly. L-Citrulline is also more effective than Arginine for you.",
-                "foods": [
-                    "Beetroot Juice",
-                    "Arugula/Spinach",
-                    "L-Citrulline"
-                ]
+                "title": "Nitrate Loading",
+                "body": "You need raw materials. Consume beets, arugula, or Citrulline supplements to provide the nitrates your body needs to force those vessels open."
+            }
+        },
+        "data_strength": {
+            "gene": "NOS3",
+            "title": "The 'Hydraulic' System",
+            "badge_type": "SUPERPOWER",
+            "mechanisms": {
+                "what": "NOS3 produces Nitric Oxide to dilate blood vessels on demand.",
+                "how": "Your blood vessels dilate instantly upon demand. You deliver oxygen and nutrients to muscles efficiently, giving you a natural endurance advantage and excellent blood pressure regulation.",
+                "yours": "Your Result: High Nitric Oxide."
             },
-            "confidence": 4
+            "action": {
+                "title": "Endurance Sport",
+                "body": "You are built for output. Cycling, running, and high-rep training suit your physiology perfectly."
+            }
         }
     },
     "rs3813034": {
@@ -1350,29 +1258,35 @@
         }
     },
     "rs13278062": {
-        "title": "The Longevity Gene",
+        "title": "Cellular Repair & Longevity",
         "badge_type": "RISK",
-        "mechanisms": {
-            "what": "SIRT1 repairs DNA.",
-            "how": "Lower expression = slower repair.",
-            "yours": "Your Result: Lower Efficiency."
-        },
-        "action": {
-            "title": "Activate Sirtuins",
-            "body": "Fasting and Resveratrol activate this pathway manually."
-        },
-        "data_strength": {
-            "title": "The Age Defier",
-            "badge_type": "SUPERPOWER",
+        "data_risk": {
+            "gene": "SIRT1",
+            "title": "The Sleeping Guardian",
+            "badge_type": "RISK",
             "mechanisms": {
-                "how": "High natural expression gives you robust DNA repair.",
-                "yours": "Your Result: High Expression."
+                "what": "SIRT1 is known as the 'Longevity Gene.' It scans your DNA for breaks and metabolic damage, coordinating repairs and silencing genes that cause aging.",
+                "how": "Your SIRT1 expression is naturally lower. Think of it as a repair crew that is understaffed. Biological damage (from sun, sugar, stress) accumulates faster because the cleanup crew can't keep up with the mess. This predisposes you to accelerated metabolic aging.",
+                "yours": "Your Result: Low Baseline Expression."
             },
             "action": {
-                "title": "Long-Term Health",
-                "body": "Your cellular aging clock runs slower than average."
+                "title": "Manual Activation (Hormesis)",
+                "body": "You must wake the crew up. SIRT1 is activated by 'perceived scarcity.' Intermittent Fasting (16+ hours) and Cold Exposure (Ice Baths) are non-negotiable for you. These stressors trick your body into survival mode, forcing SIRT1 to upregulate and repair the system."
+            }
+        },
+        "data_strength": {
+            "gene": "SIRT1",
+            "title": "The Timeless Phenotype",
+            "badge_type": "SUPERPOWER",
+            "mechanisms": {
+                "what": "SIRT1 is the commander of your cellular defense, regulating DNA repair, inflammation, and apoptosis (cell death).",
+                "how": "You have a genetic upregulation of this pathway. Your repair crews are working overtime, 24/7. Your body detects and fixes DNA breaks with incredible efficiency, keeping your 'biological age' younger than your chronological age. You are naturally resistant to the metabolic wear-and-tear of modern life.",
+                "yours": "Your Result: High Baseline Expression."
             },
-            "gene": "SIRT1"
+            "action": {
+                "title": "Compound Interest",
+                "body": "You have a winning lottery ticket; don't spend it all. If you combine this genetic advantage with fasting and clean living, you have the potential for exceptional longevity. Avoid 'spending' your advantage on smoking or excessive sugar."
+            }
         }
     },
     "rs2395185": {
@@ -1959,29 +1873,35 @@
         }
     },
     "rs660339": {
-        "title": "Metabolic Efficiency",
+        "title": "Mitochondrial Efficiency",
         "badge_type": "RISK",
-        "mechanisms": {
-            "what": "UCP2 controls energy burn vs storage in mitochondria.",
-            "how": "Your body is 'thrifty.' It prefers storing calories as fat rather than burning them as heat.",
-            "yours": "Your Result: High Storage Efficiency."
-        },
-        "action": {
-            "title": "Cold Thermogenesis",
-            "body": "Cold exposure (ice baths) forces UCP2 activation to burn fat."
-        },
-        "data_strength": {
-            "title": "The Furnace",
-            "badge_type": "SUPERPOWER",
+        "data_risk": {
+            "gene": "UCP2",
+            "title": "The 'Thrifty' Mitochondria",
+            "badge_type": "RISK",
             "mechanisms": {
-                "how": "Your mitochondria naturally 'leak' energy as heat, keeping you leaner.",
-                "yours": "Your Result: High Energy Burn."
+                "what": "Mitochondria produce energy by pumping protons across a membrane to spin a turbine. UCP2 is a valve that usually lets protons skip the turbine to generate heat.",
+                "how": "Your valve is sealed tight. Your mitochondria trap every single proton to make ATP (energy). While efficient for famine survival, today it means you store excess calories as fat rather than burning them as body heat.",
+                "yours": "Your Result: High Storage Efficiency."
             },
             "action": {
-                "title": "Carb Tolerance",
-                "body": "You convert excess calories to heat efficiently."
+                "title": "Cold Activation",
+                "body": "You must manually force the valves open. Cold Thermogenesis (Ice Baths) forces the body to activate UCP1/UCP2 to prevent hypothermia, burning fat for heat."
+            }
+        },
+        "data_strength": {
+            "gene": "UCP2",
+            "title": "The 'Leaky' Reactor",
+            "badge_type": "SUPERPOWER",
+            "mechanisms": {
+                "what": "UCP2 acts as an 'Uncoupling Protein' in the inner mitochondrial membrane.",
+                "how": "Your mitochondria are naturally 'leaky.' Instead of converting 100% of fuel into chemical energy (ATP), your cells allow a significant portion of protons to flow back into the matrix, releasing the energy as pure heat. This raises your Basal Metabolic Rate and protects against obesity.",
+                "yours": "Your Result: High Thermogenesis (The Furnace)."
             },
-            "gene": "UCP2"
+            "action": {
+                "title": "Carb Resilience",
+                "body": "You can handle caloric surpluses better than most. Your body naturally upregulates heat production after large meals to dissipate the excess energy."
+            }
         }
     },
     "rs4994": {
@@ -2473,27 +2393,33 @@
     "rs10065172": {
         "title": "Gut Autophagy",
         "badge_type": "RISK",
-        "mechanisms": {
-            "what": "IRGM helps cells eat bacteria (autophagy) in the gut lining.",
-            "how": "Reduced cleaning leads to higher risk of Crohn's and gut inflammation.",
-            "yours": "Your Result: Lower Autophagy."
-        },
-        "action": {
-            "title": "Fasting",
-            "body": "Intermittent fasting is critical to stimulate autophagy manually."
-        },
-        "data_strength": {
-            "title": "The Iron Gut",
-            "badge_type": "SUPERPOWER",
+        "data_risk": {
+            "gene": "IRGM",
+            "title": "The 'Blind' Sentry",
+            "badge_type": "RISK",
             "mechanisms": {
-                "how": "Your gut cells aggressively hunt down bad bacteria.",
-                "yours": "Your Result: High Autophagy."
+                "what": "IRGM orchestrates 'Xenophagy'\u2014the process where cells identify invading bacteria, wrap them in a membrane, and dissolve them.",
+                "how": "Your targeting system is faulty. Your gut cells are slower to recognize intracellular pathogens. This allows bacteria to linger inside the gut lining, triggering chronic inflammation.",
+                "yours": "Your Result: Impaired Bacterial Clearance."
             },
             "action": {
-                "title": "Digestion",
-                "body": "You have a robust defense against food poisoning and inflammation."
+                "title": "Stimulate Autophagy",
+                "body": "Since your baseline autophagy is low, you need lifestyle triggers. Fasting (16h+) and intense exercise are the strongest signals to manually activate the cellular cleanup crew."
+            }
+        },
+        "data_strength": {
+            "gene": "IRGM",
+            "title": "The 'Iron' Gut",
+            "badge_type": "SUPERPOWER",
+            "mechanisms": {
+                "what": "IRGM is the sniper of the immune system, specifically hunting intracellular threats in the gut lining.",
+                "how": "Your targeting system is aggressive. When a pathogen enters a cell, IRGM instantly tags it for destruction. Your cells rapidly envelop and incinerate the threat, creating a sterile, resilient gut environment.",
+                "yours": "Your Result: Rapid Pathogen Clearance."
             },
-            "gene": "IRGM"
+            "action": {
+                "title": "Travel Confidence",
+                "body": "You have a robust biological defense against food poisoning and foreign bacteria."
+            }
         }
     },
     "rs693": {
@@ -3123,29 +3049,35 @@
         }
     },
     "rs2535633": {
-        "title": "Epigenetic Clock",
+        "title": "Biological Age & Membrane Health",
         "badge_type": "RISK",
-        "mechanisms": {
-            "what": "ELOVL2 processes fatty acids and regulates biological aging markers.",
-            "how": "Associated with faster epigenetic aging.",
-            "yours": "Your Result: Faster Clock."
-        },
-        "action": {
-            "title": "Omega-3s",
-            "body": "Supplement High-DHA fish oil to bypass this enzyme's inefficiency."
-        },
-        "data_strength": {
-            "title": "The Ageless",
-            "badge_type": "SUPERPOWER",
+        "data_risk": {
+            "gene": "ELOVL2",
+            "title": "The Accelerated Clock",
+            "badge_type": "RISK",
             "mechanisms": {
-                "how": "Associated with slower epigenetic aging and better fatty acid balance.",
-                "yours": "Your Result: Slower Clock."
+                "what": "ELOVL2 is the rate-limiting enzyme in the synthesis of very long-chain polyunsaturated fatty acids (PUFAs). These fats are the structural 'bricks' of your cell membranes and the retina.",
+                "how": "Your variant operates with reduced efficiency. This creates a bottleneck in converting dietary fats into the flexible DHA and EPA your cells need. Research links this specific genotype to faster 'Epigenetic Aging'\u2014meaning your cells may biologically age faster than your chronological years due to membrane rigidity.",
+                "yours": "Your Result: Reduced Synthesis Efficiency."
             },
             "action": {
-                "title": "Youthful Skin",
-                "body": "Your fatty acid profile supports skin elasticity and longevity."
+                "title": "Bypass the Bottleneck",
+                "body": "Since your body struggles to manufacture these critical fats, you must bypass the factory entirely. High-dose DHA/EPA supplementation (Fish Oil or Algae Oil) provides the end-product directly, keeping your cell membranes fluid and youthful despite the genetic drag."
+            }
+        },
+        "data_strength": {
+            "gene": "ELOVL2",
+            "title": "The Ageless Phenotype",
+            "badge_type": "SUPERPOWER",
+            "mechanisms": {
+                "what": "ELOVL2 is the master regulator of fatty acid elongation, critical for maintaining the fluidity and integrity of every cell membrane in your body.",
+                "how": "You possess the 'Elite' efficiency variant. Your enzymes rapidly convert dietary precursors into long-chain fatty acids (DHA). This keeps your cell membranes incredibly fluid and permeable, which is a primary marker of youth. Your 'Epigenetic Clock' ticks slower than the average population because your cellular hardware is constantly renewing itself with high-quality materials.",
+                "yours": "Your Result: Elite Synthesis Efficiency."
             },
-            "gene": "ELOVL2"
+            "action": {
+                "title": "Skin & Vision Architecture",
+                "body": "Your efficient fatty acid metabolism is a cosmetic super-weapon. It supports exceptional skin elasticity and retinal health. To maximize this, ensure a steady intake of Omega-3s\u2014your body will utilize them with near-perfect efficiency to preserve your youth."
+            }
         }
     },
     "rs3731249": {
@@ -3512,30 +3444,34 @@
         }
     },
     "rs1805086": {
-        "title": "Muscle Hypertrophy",
+        "title": "Muscle Potential",
         "badge_type": "RISK",
-        "mechanisms": {
-            "what": "MYF5 is a key regulator of muscle differentiation and growth.",
-            "how": "You have the 'Endurance' profile. Your body resists adding bulk, preferring to stay lean and efficient. Gaining muscle mass requires significant caloric surplus.",
-            "yours": "Your Result: 'Hardgainer' Profile."
-        },
-        "action": {
-            "title": "High Volume Training",
-            "body": "To trigger growth, you need higher volume and metabolic stress rather than just heavy load."
-        },
-        "data_strength": {
-            "title": "The Builder Gene",
-            "badge_type": "SUPERPOWER",
+        "data_risk": {
+            "gene": "MYF5",
+            "title": "The 'Hardgainer'",
+            "badge_type": "RISK",
             "mechanisms": {
-                "what": "MYF5 regulates muscle satellite cell activation.",
-                "how": "Your body is primed for hypertrophy. When you lift, your satellite cells activate aggressively, adding muscle mass faster than the average person.",
-                "yours": "Your Result: High Hypertrophy Potential."
+                "what": "MYF5 decides how many satellite cells (muscle stem cells) are recruited when you lift.",
+                "how": "You recruit fewer cells. Your body prefers to stay lean and efficient (Endurance mode) rather than bulky. Building mass requires massive caloric surplus.",
+                "yours": "Your Result: Low Hypertrophy Response."
             },
             "action": {
-                "title": "Progressive Overload",
-                "body": "Your body responds exceptionally well to heavy compound lifts. Feed the machine."
+                "title": "Volume is King",
+                "body": "Heavy weights alone won't work. You need 'Metabolic Stress'\u2014high reps, drop sets, and time-under-tension\u2014to trigger growth."
+            }
+        },
+        "data_strength": {
+            "gene": "MYF5",
+            "title": "The 'Natural' Builder",
+            "badge_type": "SUPERPOWER",
+            "mechanisms": {
+                "how": "You are primed for growth. Even moderate stimulus causes your satellite cells to activate, packing on muscle density faster than the average person.",
+                "yours": "Your Result: High Hypertrophy Response."
             },
-            "gene": "MYF5"
+            "action": {
+                "title": "Feed the Machine",
+                "body": "Your limiting factor is usually food, not training. Eat big to get big."
+            }
         }
     },
     "rs4244285": {
@@ -3626,29 +3562,35 @@
         }
     },
     "rs6020": {
-        "title": "Blood Clotting (Prothrombin)",
+        "title": "Cardiovascular Clotting",
         "badge_type": "RISK",
-        "mechanisms": {
-            "what": "Factor II (Prothrombin) is a key protein in the blood clotting cascade.",
-            "how": "The risk variant increases prothrombin levels, making blood significantly more prone to clotting (thrombophilia).",
-            "yours": "Your Result: High Clotting Risk."
-        },
-        "action": {
-            "title": "Circulation Management",
-            "body": "Stay hydrated and move frequently during travel. Avoid smoking and estrogen-based therapies."
-        },
-        "data_strength": {
-            "title": "Optimal Circulation",
-            "badge_type": "SUPERPOWER",
+        "data_risk": {
+            "gene": "F2",
+            "title": "The 'Thick' Blood",
+            "badge_type": "RISK",
             "mechanisms": {
-                "how": "You have the standard, efficient clotting gene. Your blood flows optimally without excess thickening risk.",
-                "yours": "Your Result: Normal Flow."
+                "what": "Prothrombin is the precursor to Thrombin, the enzyme that converts liquid blood into a solid fibrin clot.",
+                "how": "You carry the G20210A mutation. This causes your liver to overproduce Prothrombin mRNA. You have 'too much glue' circulating in your veins. Your blood coagulates with very little provocation.",
+                "yours": "Your Result: Prothrombin Overproduction."
             },
             "action": {
-                "title": "Baseline Health",
-                "body": "You have a lower baseline risk for DVT or stroke compared to carriers."
+                "title": "Circulation Protocol",
+                "body": "Stasis is death. Never sit for more than 2 hours without moving. Hydration is non-negotiable to keep viscosity low."
+            }
+        },
+        "data_strength": {
+            "gene": "F2",
+            "title": "The 'Optimal' Flow",
+            "badge_type": "SUPERPOWER",
+            "mechanisms": {
+                "what": "The coagulation cascade balances the need to stop bleeding with the need to keep blood flowing.",
+                "how": "Your Prothrombin levels are perfectly regulated. You have the exact right amount of clotting factor to seal a wound instantly, but not enough to trigger random clots during travel.",
+                "yours": "Your Result: Optimal Hemodynamics."
             },
-            "gene": "F2"
+            "action": {
+                "title": "Vascular Health",
+                "body": "You have a natural protection against the clotting risks associated with aging and travel."
+            }
         }
     },
     "rs17608": {
@@ -4197,38 +4139,35 @@
         }
     },
     "rs2228570": {
-        "risk_genotypes": [
-            "TT",
-            "CT"
-        ],
-        "strength_genotypes": [
-            "CC"
-        ],
+        "title": "Immune & Calcium Signaling",
+        "badge_type": "RISK",
         "data_risk": {
             "gene": "VDR",
-            "title": "The 'Immune Director'",
+            "title": "The 'Silenced' Receptor",
             "badge_type": "RISK",
             "mechanisms": {
-                "what": "The VDR Fok1 variant determines the physical shape of the Vitamin D Receptor. It controls how aggressively your immune system responds to threats.",
-                "how": "Your variant (f allele, often T) creates a 'long' receptor protein that is less active. Your immune system is sluggish to activate macrophages and T-cells. You are more prone to lingering viral infections and low bone density.",
-                "ancestral": "Active Director (CC / F allele).",
-                "yours": "Your Result: Sluggish Director (Immune Lag)."
+                "what": "The Vitamin D Receptor (VDR) is a transcription factor. It enters the nucleus, binds to DNA, and acts as a 'Master Switch' for 900+ genes involved in immunity.",
+                "how": "Your receptor has a structural shape that reduces binding affinity. Even with Vitamin D in your blood, the 'key' turns the lock slowly. This leads to weaker transcription of antimicrobial peptides, leaving your immune system slower to react.",
+                "yours": "Your Result: Low Transcriptional Activity."
             },
-            "risks": [
-                "Immune: Frequent colds/flu.",
-                "Bone: Lower calcium absorption.",
-                "Autoimmune: Higher risk due to poor regulation."
-            ],
             "action": {
-                "title": "Cofactor Support",
-                "body": "Vitamin D does not work alone. The receptor needs Magnesium and Boron to lock onto DNA. Without these cofactors, even high-dose Vitamin D won't activate your sluggish receptor efficiently.",
-                "foods": [
-                    "Magnesium Glycinate",
-                    "Boron",
-                    "K2 (Directs Calcium)"
-                ]
+                "title": "Force the Lock",
+                "body": "Because your receptor binding is weak, you need higher blood concentrations of Vitamin D to achieve the same gene activation as a normal person. Aim for 60-80 ng/mL."
+            }
+        },
+        "data_strength": {
+            "gene": "VDR",
+            "title": "The 'Amplified' Signal",
+            "badge_type": "SUPERPOWER",
+            "mechanisms": {
+                "what": "The Vitamin D Receptor (VDR) forms a complex with the Retinoid-X Receptor (RXR) to bind directly to DNA.",
+                "how": "Your receptor is highly sensitive. It creates a robust signal cascade even with moderate Vitamin D levels, resulting in aggressive production of natural antibiotics (cathelicidin).",
+                "yours": "Your Result: High Transcriptional Sensitivity."
             },
-            "confidence": 5
+            "action": {
+                "title": "Immune Shield",
+                "body": "Your robust VDR signaling provides a powerful baseline defense against respiratory infections."
+            }
         }
     },
     "rs1333049": {
@@ -4266,29 +4205,34 @@
         }
     },
     "rs12255372": {
-        "title": "The Diabetic Risk",
+        "title": "Sugar Processing",
         "badge_type": "RISK",
-        "mechanisms": {
-            "what": "TCF7L2 regulates insulin secretion. It is the strongest genetic predictor of Type 2 Diabetes.",
-            "how": "Your pancreas 'tires out' easily under high carb loads, leading to blood sugar spikes.",
-            "yours": "Your Result: Low Insulin Secretion."
-        },
-        "action": {
-            "title": "Carb Restriction",
-            "body": "A low-glycemic or Keto approach is a metabolic requirement for you, not just a diet choice."
-        },
-        "data_strength": {
-            "title": "The Insulin Fortress",
-            "badge_type": "SUPERPOWER",
+        "data_risk": {
+            "gene": "TCF7L2",
+            "title": "The 'Fragile Pancreas'",
+            "badge_type": "RISK",
             "mechanisms": {
-                "how": "Your pancreas secretes insulin robustly and precisely, protecting you significantly against metabolic disease.",
-                "yours": "Your Result: Robust Insulin Secretion."
+                "what": "This gene controls the insulin floodgates.",
+                "how": "Your floodgates are rusty. Under a heavy carb load, your pancreas hesitates, causing blood sugar to spike and linger. You are statistically 2x more likely to develop Type 2 Diabetes.",
+                "yours": "Your Result: Delayed Insulin Response."
             },
             "action": {
-                "title": "Metabolic Flexibility",
-                "body": "You handle carbs well and can use them effectively for athletic recovery."
+                "title": "Post-Meal Movement",
+                "body": "You cannot sit after eating carbs. A 10-minute walk engages the GLUT4 transporters in your legs to suck up the sugar your pancreas missed."
+            }
+        },
+        "data_strength": {
+            "gene": "TCF7L2",
+            "title": "The 'Iron Pancreas'",
+            "badge_type": "SUPERPOWER",
+            "mechanisms": {
+                "how": "Your pancreas releases insulin with sniper-like precision. You handle carb-loading and blood sugar spikes with ease, making you highly resilient to metabolic disease.",
+                "yours": "Your Result: Robust Insulin Response."
             },
-            "gene": "TCF7L2"
+            "action": {
+                "title": "Carb Loading",
+                "body": "You can utilize carbohydrates for athletic recovery far more effectively than the average person."
+            }
         }
     },
     "rs2802292": {
@@ -4360,38 +4304,35 @@
         }
     },
     "rs2070744": {
-        "risk_genotypes": [
-            "TT",
-            "CT"
-        ],
-        "strength_genotypes": [
-            "CC"
-        ],
+        "title": "Blood Flow & Pressure",
+        "badge_type": "RISK",
         "data_risk": {
             "gene": "NOS3",
-            "title": "The 'Endurance' Pump",
+            "title": "The 'Constricted' Vessel",
             "badge_type": "RISK",
             "mechanisms": {
-                "what": "This variant of NOS3 (T-786C) affects the promoter region\u2014the volume knob for Nitric Oxide production.",
-                "how": "Your knob is turned down. You produce significantly less Nitric Oxide at baseline. This makes your arteries 'twitchy' and prone to spasming (vasoconstriction) under cold or stress, reducing oxygen delivery to the heart and muscles.",
-                "ancestral": "High Flow (CC).",
-                "yours": "Your Result: Low Flow (Vasospasm Risk)."
+                "what": "NOS3 produces Nitric Oxide (NO), the gas that relaxes blood vessels to lower pressure.",
+                "how": "Your production is genetically low. Your vessels tend to stay tight (vasoconstricted). This raises blood pressure and reduces the 'pump' and nutrient delivery during exercise.",
+                "yours": "Your Result: Low Nitric Oxide."
             },
-            "risks": [
-                "Cardio: Coronary artery spasm or chest pain (angina).",
-                "Circulation: Cold hands/Raynaud's phenomenon.",
-                "Headache: Migraines triggered by blood flow changes."
-            ],
             "action": {
-                "title": "Warm & Dilate",
-                "body": "Keep your core warm to prevent vasoconstriction. You need constant NO precursors. Beetroot powder (standardized nitrates) is more effective than Arginine for this specific genetic block.",
-                "foods": [
-                    "Beetroot",
-                    "Cocoa (Flavanols)",
-                    "Keep Extremities Warm"
-                ]
+                "title": "Nitrate Loading",
+                "body": "You need raw materials. Consume beets, arugula, or Citrulline supplements to provide the nitrates your body needs to force those vessels open."
+            }
+        },
+        "data_strength": {
+            "gene": "NOS3",
+            "title": "The 'Hydraulic' System",
+            "badge_type": "SUPERPOWER",
+            "mechanisms": {
+                "what": "NOS3 produces Nitric Oxide to dilate blood vessels on demand.",
+                "how": "Your blood vessels dilate instantly upon demand. You deliver oxygen and nutrients to muscles efficiently, giving you a natural endurance advantage and excellent blood pressure regulation.",
+                "yours": "Your Result: High Nitric Oxide."
             },
-            "confidence": 4
+            "action": {
+                "title": "Endurance Sport",
+                "body": "You are built for output. Cycling, running, and high-rep training suit your physiology perfectly."
+            }
         }
     },
     "rs5516": {
@@ -4429,71 +4370,65 @@
         }
     },
     "rs1800498": {
-        "risk_genotypes": [
-            "TT",
-            "CT",
-            "TC"
-        ],
-        "strength_genotypes": [
-            "CC",
-            "GG"
-        ],
+        "title": "The Reward Circuit",
+        "badge_type": "RISK",
         "data_risk": {
             "gene": "DRD2",
-            "title": "The Reward Seeker",
+            "title": "The 'Hungry Ghost' (Reward Deficiency)",
             "badge_type": "RISK",
             "mechanisms": {
-                "what": "DRD2 determines the density of dopamine receptors in your brain. It controls how much 'pleasure signal' you actually feel.",
-                "how": "You have fewer receptors than average (The A1 allele). This means you need *more* stimulation (sugar, scrolling, risks) to feel the same satisfaction others feel from a simple walk.",
+                "what": "DRD2 determines how much pleasure you feel from life's daily wins.",
+                "how": "You have 30-40% fewer dopamine receptors than average. Life feels 'muted' to you, forcing you to seek high-voltage stimulation (sugar, scrolling, risk-taking) just to feel normal.",
                 "yours": "Your Result: Low Receptor Density."
             },
             "action": {
                 "title": "Dopamine Fasting",
-                "body": "You are prone to addiction because you are dopamine-starved. The fix is not more stimulation, but 'resensitization.' Regular dopamine fasts (no phone/sugar for 24h) reset your receptor density."
-            },
-            "confidence": 5
+                "body": "You cannot 'fill' the bucket because it has a hole. You must 'shrink' the bucket. Regular 24-hour dopamine fasts (no screens, no sugar) will upregulate your receptors."
+            }
         },
         "data_strength": {
             "gene": "DRD2",
-            "title": "The 'Satisfied' Brain",
+            "title": "The 'Zen' Architect",
             "badge_type": "SUPERPOWER",
             "mechanisms": {
-                "what": "DRD2 determines the density of dopamine receptors in your brain.",
-                "how": "You have the optimal density of receptors. You derive deep satisfaction from simple tasks and sustainable goals. You are naturally resistant to addictive behaviors because your baseline satisfaction is high.",
-                "yours": "Your Result: High Receptor Density."
+                "how": "You are easily satisfied. Your brain efficiently processes small wins, allowing you to sustain motivation on long, boring projects without needing constant external validation.",
+                "yours": "Your Result: High Receptor Efficiency."
             },
             "action": {
-                "title": "Sustained Focus",
-                "body": "Your brain chemistry supports long-term projects. Where others get bored and need a 'hit' of novelty, you can sustain motivation naturally."
-            },
-            "confidence": 5
+                "title": "Deep Work",
+                "body": "You have a rare biological advantage for 'Deep Work' and long-term mastery."
+            }
         }
     },
     "rs6275": {
-        "title": "The Reward System",
+        "title": "The Reward Circuit",
         "badge_type": "RISK",
-        "mechanisms": {
-            "what": "DRD2 determines the density of dopamine receptors. It controls how much 'pleasure' you feel from life's events.",
-            "how": "Lower receptor density means you need MORE stimulation to feel normal satisfaction, making you prone to seeking novelty or sugar.",
-            "yours": "Your Result: Low Receptor Density."
-        },
-        "action": {
-            "title": "Dopamine Resensitization",
-            "body": "You don't need more stimulation; you need to reset your sensitivity. Regular 'Dopamine Fasts' are highly effective for this genotype."
-        },
-        "data_strength": {
-            "title": "The 'Satisfied' Brain",
-            "badge_type": "SUPERPOWER",
+        "data_risk": {
+            "gene": "DRD2",
+            "title": "The 'Hungry Ghost' (Reward Deficiency)",
+            "badge_type": "RISK",
             "mechanisms": {
-                "what": "DRD2 determines dopamine receptor density.",
-                "how": "You have high receptor density. You derive deep satisfaction from simple tasks and sustainable goals, protecting you from addiction.",
-                "yours": "Your Result: High Receptor Density."
+                "what": "DRD2 determines how much pleasure you feel from life's daily wins.",
+                "how": "You have 30-40% fewer dopamine receptors than average. Life feels 'muted' to you, forcing you to seek high-voltage stimulation (sugar, scrolling, risk-taking) just to feel normal.",
+                "yours": "Your Result: Low Receptor Density."
             },
             "action": {
-                "title": "Sustained Focus",
-                "body": "Your chemistry supports long-term projects without constant novelty."
+                "title": "Dopamine Fasting",
+                "body": "You cannot 'fill' the bucket because it has a hole. You must 'shrink' the bucket. Regular 24-hour dopamine fasts (no screens, no sugar) will upregulate your receptors."
+            }
+        },
+        "data_strength": {
+            "gene": "DRD2",
+            "title": "The 'Zen' Architect",
+            "badge_type": "SUPERPOWER",
+            "mechanisms": {
+                "how": "You are easily satisfied. Your brain efficiently processes small wins, allowing you to sustain motivation on long, boring projects without needing constant external validation.",
+                "yours": "Your Result: High Receptor Efficiency."
             },
-            "gene": "DRD2"
+            "action": {
+                "title": "Deep Work",
+                "body": "You have a rare biological advantage for 'Deep Work' and long-term mastery."
+            }
         }
     },
     "rs2740574_dupfix": {
@@ -4549,144 +4484,320 @@
         }
     },
     "rs12778366": {
-        "title": "The Longevity Gene",
+        "title": "Cellular Repair & Longevity",
         "badge_type": "RISK",
-        "mechanisms": {
-            "what": "SIRT1 repairs DNA.",
-            "how": "Lower expression = slower repair.",
-            "yours": "Your Result: Lower Efficiency."
-        },
-        "action": {
-            "title": "Activate Sirtuins",
-            "body": "Fasting and Resveratrol activate this pathway manually."
-        },
-        "data_strength": {
-            "title": "The Age Defier",
-            "badge_type": "SUPERPOWER",
+        "data_risk": {
+            "gene": "SIRT1",
+            "title": "The Sleeping Guardian",
+            "badge_type": "RISK",
             "mechanisms": {
-                "how": "High natural expression gives you robust DNA repair.",
-                "yours": "Your Result: High Expression."
+                "what": "SIRT1 is known as the 'Longevity Gene.' It scans your DNA for breaks and metabolic damage, coordinating repairs and silencing genes that cause aging.",
+                "how": "Your SIRT1 expression is naturally lower. Think of it as a repair crew that is understaffed. Biological damage (from sun, sugar, stress) accumulates faster because the cleanup crew can't keep up with the mess. This predisposes you to accelerated metabolic aging.",
+                "yours": "Your Result: Low Baseline Expression."
             },
             "action": {
-                "title": "Long-Term Health",
-                "body": "Your cellular aging clock runs slower than average."
+                "title": "Manual Activation (Hormesis)",
+                "body": "You must wake the crew up. SIRT1 is activated by 'perceived scarcity.' Intermittent Fasting (16+ hours) and Cold Exposure (Ice Baths) are non-negotiable for you. These stressors trick your body into survival mode, forcing SIRT1 to upregulate and repair the system."
+            }
+        },
+        "data_strength": {
+            "gene": "SIRT1",
+            "title": "The Timeless Phenotype",
+            "badge_type": "SUPERPOWER",
+            "mechanisms": {
+                "what": "SIRT1 is the commander of your cellular defense, regulating DNA repair, inflammation, and apoptosis (cell death).",
+                "how": "You have a genetic upregulation of this pathway. Your repair crews are working overtime, 24/7. Your body detects and fixes DNA breaks with incredible efficiency, keeping your 'biological age' younger than your chronological age. You are naturally resistant to the metabolic wear-and-tear of modern life.",
+                "yours": "Your Result: High Baseline Expression."
             },
-            "gene": "SIRT1"
+            "action": {
+                "title": "Compound Interest",
+                "body": "You have a winning lottery ticket; don't spend it all. If you combine this genetic advantage with fasting and clean living, you have the potential for exceptional longevity. Avoid 'spending' your advantage on smoking or excessive sugar."
+            }
         }
     },
     "rs659366": {
-        "title": "Metabolic Efficiency",
+        "title": "Mitochondrial Efficiency",
         "badge_type": "RISK",
-        "mechanisms": {
-            "what": "UCP2 controls energy burn vs storage in mitochondria.",
-            "how": "Your body is 'thrifty.' It prefers storing calories as fat rather than burning them as heat.",
-            "yours": "Your Result: High Storage Efficiency."
-        },
-        "action": {
-            "title": "Cold Thermogenesis",
-            "body": "Cold exposure (ice baths) forces UCP2 activation to burn fat."
-        },
-        "data_strength": {
-            "title": "The Furnace",
-            "badge_type": "SUPERPOWER",
+        "data_risk": {
+            "gene": "UCP2",
+            "title": "The 'Thrifty' Mitochondria",
+            "badge_type": "RISK",
             "mechanisms": {
-                "how": "Your mitochondria naturally 'leak' energy as heat, keeping you leaner.",
-                "yours": "Your Result: High Energy Burn."
+                "what": "Mitochondria produce energy by pumping protons across a membrane to spin a turbine. UCP2 is a valve that usually lets protons skip the turbine to generate heat.",
+                "how": "Your valve is sealed tight. Your mitochondria trap every single proton to make ATP (energy). While efficient for famine survival, today it means you store excess calories as fat rather than burning them as body heat.",
+                "yours": "Your Result: High Storage Efficiency."
             },
             "action": {
-                "title": "Carb Tolerance",
-                "body": "You convert excess calories to heat efficiently."
+                "title": "Cold Activation",
+                "body": "You must manually force the valves open. Cold Thermogenesis (Ice Baths) forces the body to activate UCP1/UCP2 to prevent hypothermia, burning fat for heat."
+            }
+        },
+        "data_strength": {
+            "gene": "UCP2",
+            "title": "The 'Leaky' Reactor",
+            "badge_type": "SUPERPOWER",
+            "mechanisms": {
+                "what": "UCP2 acts as an 'Uncoupling Protein' in the inner mitochondrial membrane.",
+                "how": "Your mitochondria are naturally 'leaky.' Instead of converting 100% of fuel into chemical energy (ATP), your cells allow a significant portion of protons to flow back into the matrix, releasing the energy as pure heat. This raises your Basal Metabolic Rate and protects against obesity.",
+                "yours": "Your Result: High Thermogenesis (The Furnace)."
             },
-            "gene": "UCP2"
+            "action": {
+                "title": "Carb Resilience",
+                "body": "You can handle caloric surpluses better than most. Your body naturally upregulates heat production after large meals to dissipate the excess energy."
+            }
         }
     },
     "rs7412": {
-        "risk_genotypes": [
-            "CC",
-            "CT",
-            "TC"
-        ],
-        "strength_genotypes": [
-            "TT"
-        ],
+        "title": "Fat & Brain Health",
+        "badge_type": "RISK",
         "data_risk": {
             "gene": "APOE",
-            "title": "Lipid & Brain Metabolism",
+            "title": "The 'Inflammation' Firestarter",
             "badge_type": "RISK",
             "mechanisms": {
-                "what": "APOE transports cholesterol and fats in the bloodstream and clears amyloid plaque from the brain.",
-                "how": "You carry a variant associated with the APOE4 allele. Your body is inefficient at recycling cholesterol and clearing brain inflammation. Saturated fats tend to spike your inflammation markers significantly more than average.",
-                "yours": "Your Result: Reduced Clearance (E4 Pattern)."
+                "what": "APOE ferries cholesterol to your brain for repair.",
+                "how": "You carry the E4 variant. Your ferries are sloppy; they drop cholesterol in the arteries and trigger massive inflammation in the brain when exposed to saturated fats.",
+                "yours": "Your Result: Poor Lipid Clearance (E4)."
             },
             "action": {
-                "title": "Strict Lipid Management",
-                "body": "This is the most diet-responsive gene. You must aggressively limit saturated fats (butter, fatty beef, coconut oil) and prioritize Omega-3s (DHA) to protect the brain.",
-                "foods": [
-                    "Salmon (DHA)",
-                    "Olive Oil",
-                    "Avoid Butter/Coconut"
-                ]
-            },
-            "confidence": 5
+                "title": "The 'Mediterranean' Requirement",
+                "body": "Saturated fat (butter, coconut, fatty beef) is rocket fuel for your inflammation. You must switch to Monounsaturated fats (Olive Oil, Avocado) to protect your brain."
+            }
         },
         "data_strength": {
             "gene": "APOE",
-            "title": "The Longevity Variant",
+            "title": "The 'Teflon' Brain",
             "badge_type": "SUPERPOWER",
             "mechanisms": {
-                "what": "APOE transports cholesterol and fats.",
-                "how": "You likely carry the APOE2 or neutral APOE3 variant. Your lipid handling is robust, and you have a genetically lower baseline risk for neurodegeneration.",
+                "how": "You have the E2 or E3 variant. Your lipid transport system is efficient, keeping your arteries clear and your brain plaque-free well into old age.",
                 "yours": "Your Result: Efficient Clearance."
             },
             "action": {
-                "title": "Metabolic Freedom",
-                "body": "You have more flexibility with dietary fats, though a balanced diet is still recommended."
-            },
-            "confidence": 5
+                "title": "Dietary Flexibility",
+                "body": "Your body handles dietary fats well, giving you freedom in your macronutrient choices."
+            }
         }
     },
     "rs17616434": {
-        "risk_genotypes": [
-            "AA",
-            "AG"
-        ],
-        "strength_genotypes": [
-            "GG"
-        ],
+        "title": "Alcohol Toxicity",
+        "badge_type": "RISK",
         "data_risk": {
             "gene": "ALDH2",
-            "title": "Toxin Filtration (Acetaldehyde)",
+            "title": "The 'Poison' Filter",
             "badge_type": "RISK",
             "mechanisms": {
-                "what": "ALDH2 is the liver enzyme responsible for breaking down Acetaldehyde, a toxic byproduct of alcohol and exhaust fumes.",
-                "how": "Your enzyme is structurally broken (The 'Asian Flush' variant). When you drink alcohol, toxic Acetaldehyde accumulates immediately, causing DNA damage and inflammation 10-100x faster than in others.",
-                "yours": "Your Result: Zero/Low Efficiency."
+                "what": "ALDH2 turns Acetaldehyde (a toxic carcinogen) into harmless vinegar.",
+                "how": "Your filter is shattered. When you drink, toxins accumulate instantly. That 'flush' or rapid heartbeat isn't just annoying\u2014it's your body screaming about DNA damage.",
+                "yours": "Your Result: Broken Filter (Flush Risk)."
             },
             "action": {
-                "title": "Zero Tolerance",
-                "body": "Alcohol is essentially a carcinogen for your genotype. The 'flush' is a toxicity alarm. If you must drink, stick to clear spirits and take NAC (N-Acetyl Cysteine) beforehand to support glutathione.",
-                "foods": [
-                    "NAC Supplement",
-                    "Cruciferous Veggies",
-                    "Limit Alcohol"
-                ]
-            },
-            "confidence": 5
+                "title": "NAC Protection",
+                "body": "If you must drink, you need a prosthetic liver. Take N-Acetyl Cysteine (NAC) 30 mins before drinking to boost Glutathione reserves."
+            }
         },
         "data_strength": {
             "gene": "ALDH2",
-            "title": "The Iron Liver",
+            "title": "The 'Iron Liver'",
             "badge_type": "SUPERPOWER",
             "mechanisms": {
-                "what": "ALDH2 breaks down Acetaldehyde.",
-                "how": "Your enzyme functions at peak efficiency. You rapidly convert toxins into harmless acetate, preventing hangover symptoms and immediate DNA damage.",
-                "yours": "Your Result: High Efficiency."
+                "how": "Your enzyme works at turbo speed. You clear metabolic toxins and alcohol byproducts so fast they rarely have time to damage your cells.",
+                "yours": "Your Result: High-Speed Clearance."
             },
             "action": {
-                "title": "Social Advantage",
-                "body": "You can process social drinking with minimal biological cost, though moderation is always key."
+                "title": "Social Resilience",
+                "body": "You are the designated survivor of the party, but remember that alcohol is still a neurotoxin."
+            }
+        }
+    },
+    "rs6265": {
+        "title": "Neuroplasticity & Adaptation",
+        "badge_type": "RISK",
+        "data_risk": {
+            "gene": "BDNF",
+            "title": "The 'Static' Neural Network",
+            "badge_type": "RISK",
+            "mechanisms": {
+                "what": "Brain-Derived Neurotrophic Factor (BDNF) is a protein that acts as 'fertilizer' for your neurons, encouraging the growth of new synapses and the repair of damaged ones.",
+                "how": "You carry the 'Met' allele, which affects the secretion of BDNF. Your brain releases this growth factor more reluctantly. This doesn't mean you can't learn, but it means 'neuro-friction' is higher for you. You are more prone to getting stuck in emotional ruts or finding it difficult to unlearn bad habits.",
+                "yours": "Your Result: Low Secretion (High Friction)."
             },
-            "confidence": 5
+            "action": {
+                "title": "High-Intensity Trigger",
+                "body": "You cannot rely on passive learning. You need a powerful physiological trigger to force BDNF release. High-Intensity Interval Training (HIIT) is the most potent tool you have. Sprinting or heavy lifting alerts your biology that adaptation is necessary, flooding the brain with the growth factor you lack."
+            }
+        },
+        "data_strength": {
+            "gene": "BDNF",
+            "title": "The Hyper-Plastic Mind",
+            "badge_type": "SUPERPOWER",
+            "mechanisms": {
+                "what": "Brain-Derived Neurotrophic Factor (BDNF) is the master molecule of learning, memory, and neural adaptation.",
+                "how": "You are a 'Val/Val' genotype, meaning your brain is bathed in BDNF. Your neural networks are incredibly malleable. You can wire in new skills (instruments, languages, complex movements) at a speed that baffles others. You adapt to trauma and stress rapidly because your brain physically rewires itself around the damage.",
+                "yours": "Your Result: Hyper-Plasticity (The Sponge)."
+            },
+            "action": {
+                "title": "Skill Stacking",
+                "body": "Your brain craves complexity. Boredom is your enemy. You should be learning two distinct skills at once (e.g., coding and martial arts) to utilize this capacity. Your brain is a Ferrari; don't drive it in a school zone."
+            }
+        }
+    },
+    "rs1695": {
+        "title": "Cellular Cleanup",
+        "badge_type": "RISK",
+        "data_risk": {
+            "gene": "GSTP1",
+            "title": "The 'Full Trash Can'",
+            "badge_type": "RISK",
+            "mechanisms": {
+                "what": "GSTP1 acts as the janitor, mopping up oxidative stress from exercise and pollution.",
+                "how": "Your janitor is on strike. Oxidative stress piles up in your cells, leading to longer soreness after workouts and 'brain fog' from city pollution.",
+                "yours": "Your Result: Slow Cleanup."
+            },
+            "action": {
+                "title": "Sulforaphane Hack",
+                "body": "Broccoli Sprouts contain Sulforaphane, which chemically forces this gene to wake up and start cleaning. Eat them 3x a week."
+            }
+        },
+        "data_strength": {
+            "gene": "GSTP1",
+            "title": "The 'Self-Cleaning' Cell",
+            "badge_type": "SUPERPOWER",
+            "mechanisms": {
+                "how": "Your cells are obsessive cleaners. You neutralize free radicals instantly, allowing you to recover from intense workouts and stress faster than anyone else.",
+                "yours": "Your Result: Rapid Detox."
+            },
+            "action": {
+                "title": "High Intensity",
+                "body": "You can tolerate higher training volumes and more metabolic stress than your peers."
+            }
+        }
+    },
+    "rs1544410": {
+        "title": "Immune & Calcium Signaling",
+        "badge_type": "RISK",
+        "data_risk": {
+            "gene": "VDR",
+            "title": "The 'Silenced' Receptor",
+            "badge_type": "RISK",
+            "mechanisms": {
+                "what": "The Vitamin D Receptor (VDR) is a transcription factor. It enters the nucleus, binds to DNA, and acts as a 'Master Switch' for 900+ genes involved in immunity.",
+                "how": "Your receptor has a structural shape that reduces binding affinity. Even with Vitamin D in your blood, the 'key' turns the lock slowly. This leads to weaker transcription of antimicrobial peptides, leaving your immune system slower to react.",
+                "yours": "Your Result: Low Transcriptional Activity."
+            },
+            "action": {
+                "title": "Force the Lock",
+                "body": "Because your receptor binding is weak, you need higher blood concentrations of Vitamin D to achieve the same gene activation as a normal person. Aim for 60-80 ng/mL."
+            }
+        },
+        "data_strength": {
+            "gene": "VDR",
+            "title": "The 'Amplified' Signal",
+            "badge_type": "SUPERPOWER",
+            "mechanisms": {
+                "what": "The Vitamin D Receptor (VDR) forms a complex with the Retinoid-X Receptor (RXR) to bind directly to DNA.",
+                "how": "Your receptor is highly sensitive. It creates a robust signal cascade even with moderate Vitamin D levels, resulting in aggressive production of natural antibiotics (cathelicidin).",
+                "yours": "Your Result: High Transcriptional Sensitivity."
+            },
+            "action": {
+                "title": "Immune Shield",
+                "body": "Your robust VDR signaling provides a powerful baseline defense against respiratory infections."
+            }
+        }
+    },
+    "rs8111989": {
+        "title": "Immune & Calcium Signaling",
+        "badge_type": "RISK",
+        "data_risk": {
+            "gene": "VDR",
+            "title": "The 'Silenced' Receptor",
+            "badge_type": "RISK",
+            "mechanisms": {
+                "what": "The Vitamin D Receptor (VDR) is a transcription factor. It enters the nucleus, binds to DNA, and acts as a 'Master Switch' for 900+ genes involved in immunity.",
+                "how": "Your receptor has a structural shape that reduces binding affinity. Even with Vitamin D in your blood, the 'key' turns the lock slowly. This leads to weaker transcription of antimicrobial peptides, leaving your immune system slower to react.",
+                "yours": "Your Result: Low Transcriptional Activity."
+            },
+            "action": {
+                "title": "Force the Lock",
+                "body": "Because your receptor binding is weak, you need higher blood concentrations of Vitamin D to achieve the same gene activation as a normal person. Aim for 60-80 ng/mL."
+            }
+        },
+        "data_strength": {
+            "gene": "VDR",
+            "title": "The 'Amplified' Signal",
+            "badge_type": "SUPERPOWER",
+            "mechanisms": {
+                "what": "The Vitamin D Receptor (VDR) forms a complex with the Retinoid-X Receptor (RXR) to bind directly to DNA.",
+                "how": "Your receptor is highly sensitive. It creates a robust signal cascade even with moderate Vitamin D levels, resulting in aggressive production of natural antibiotics (cathelicidin).",
+                "yours": "Your Result: High Transcriptional Sensitivity."
+            },
+            "action": {
+                "title": "Immune Shield",
+                "body": "Your robust VDR signaling provides a powerful baseline defense against respiratory infections."
+            }
+        }
+    },
+    "rs11568820": {
+        "title": "Immune & Calcium Signaling",
+        "badge_type": "RISK",
+        "data_risk": {
+            "gene": "VDR",
+            "title": "The 'Silenced' Receptor",
+            "badge_type": "RISK",
+            "mechanisms": {
+                "what": "The Vitamin D Receptor (VDR) is a transcription factor. It enters the nucleus, binds to DNA, and acts as a 'Master Switch' for 900+ genes involved in immunity.",
+                "how": "Your receptor has a structural shape that reduces binding affinity. Even with Vitamin D in your blood, the 'key' turns the lock slowly. This leads to weaker transcription of antimicrobial peptides, leaving your immune system slower to react.",
+                "yours": "Your Result: Low Transcriptional Activity."
+            },
+            "action": {
+                "title": "Force the Lock",
+                "body": "Because your receptor binding is weak, you need higher blood concentrations of Vitamin D to achieve the same gene activation as a normal person. Aim for 60-80 ng/mL."
+            }
+        },
+        "data_strength": {
+            "gene": "VDR",
+            "title": "The 'Amplified' Signal",
+            "badge_type": "SUPERPOWER",
+            "mechanisms": {
+                "what": "The Vitamin D Receptor (VDR) forms a complex with the Retinoid-X Receptor (RXR) to bind directly to DNA.",
+                "how": "Your receptor is highly sensitive. It creates a robust signal cascade even with moderate Vitamin D levels, resulting in aggressive production of natural antibiotics (cathelicidin).",
+                "yours": "Your Result: High Transcriptional Sensitivity."
+            },
+            "action": {
+                "title": "Immune Shield",
+                "body": "Your robust VDR signaling provides a powerful baseline defense against respiratory infections."
+            }
+        }
+    },
+    "rs6269": {
+        "title": "Dopamine Clearance",
+        "badge_type": "RISK",
+        "data_risk": {
+            "gene": "COMT",
+            "title": "The Grandmaster (Worrier)",
+            "badge_type": "RISK",
+            "mechanisms": {
+                "what": "COMT is the enzyme responsible for breaking down catecholamines (Dopamine, Adrenaline, Norepinephrine) in the prefrontal cortex.",
+                "how": "Your enzyme works slowly. Dopamine lingers in your brain. This is a double-edged sword: You have incredible attention to detail, high IQ potential, and complex planning ability. But under stress, that lingering chemistry turns into anxiety, looping thoughts, and an inability to 'let it go.'",
+                "yours": "Your Result: Met/Met (Slow Clearance)."
+            },
+            "action": {
+                "title": "Tactical Decompression",
+                "body": "You cannot just 'calm down' instantly; your chemistry prohibits it. It takes you 20+ minutes to clear adrenaline. When stressed, you must physically remove yourself from the stimulus. Magnesium and L-Theanine are your chemical allies to help speed up the clearance."
+            }
+        },
+        "data_strength": {
+            "gene": "COMT",
+            "title": "The Crisis Commander (Warrior)",
+            "badge_type": "SUPERPOWER",
+            "mechanisms": {
+                "what": "COMT cleans the brain of stress neurochemicals, resetting your baseline for the next challenge.",
+                "how": "You are a 'Val/Val' genotype. Your enzymes are aggressive incinerators of stress. In high-pressure situations (public speaking, emergencies), while others freeze, your brain clears the fog instantly. You are biologically engineered for chaos and high-stakes performance.",
+                "yours": "Your Result: Val/Val (Fast Clearance)."
+            },
+            "action": {
+                "title": "Seek Friction",
+                "body": "A quiet life is torture for you. You metabolize dopamine so fast that you can feel unmotivated in low-stress environments. You need deadlines, competition, and risk to feel fully alive and cognitively engaged."
+            }
         }
     }
 }
