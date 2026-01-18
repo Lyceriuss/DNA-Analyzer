@@ -11,7 +11,7 @@
             "GG"
         ],
         "data_risk": {
-            "gene": "NFE2L2 (NRF2)",
+            "gene": "NFE2L2",
             "title": "The 'Cellular Shield' & Detox Master",
             "badge_type": "RISK",
             "mechanisms": {
@@ -37,7 +37,7 @@
             "confidence": 4
         },
         "data_strength": {
-            "gene": "NFE2L2 (NRF2)",
+            "gene": "NFE2L2",
             "title": "The 'Cellular Shield' & Detox Master",
             "badge_type": "SUPERPOWER",
             "mechanisms": {
@@ -73,7 +73,7 @@
             "GG"
         ],
         "data_risk": {
-            "gene": "MTHFR (C677T)",
+            "gene": "MTHFR",
             "title": "The 'Methylation Engine'",
             "badge_type": "RISK",
             "mechanisms": {
@@ -133,28 +133,37 @@
             "TT"
         ],
         "data_risk": {
-            "gene": "APOE (E4)",
-            "title": "The 'Ancient Hunter' Lipid Transporter",
+            "gene": "APOE",
+            "title": "Lipid & Brain Metabolism",
             "badge_type": "RISK",
             "mechanisms": {
-                "what": "APOE is the 'taxi' that transports fats (cholesterol) and clears plaque (amyloid) from the brain. It determines how your body handles dietary fat and brain inflammation.",
-                "how": "You carry the E4 variant, the 'Thrifty' ancestral gene. It absorbs fat aggressively (great for starving hunters, bad for modern humans) and is structurally poor at cleaning up brain plaque, leading to accumulation over decades.",
-                "ancestral": "E3 (Neutral): Balanced transport.",
-                "yours": "Your Result: E4 (High Absorption / Low Cleanup)."
+                "what": "APOE transports cholesterol and fats in the bloodstream and clears amyloid plaque from the brain.",
+                "how": "You carry a variant associated with the APOE4 allele. Your body is inefficient at recycling cholesterol and clearing brain inflammation. Saturated fats tend to spike your inflammation markers significantly more than average.",
+                "yours": "Your Result: Reduced Clearance (E4 Pattern)."
             },
-            "risks": [
-                "Brain: Significantly higher risk of Alzheimer's and cognitive decline.",
-                "Cardio: Higher LDL cholesterol and sensitivity to saturated fats.",
-                "Inflammation: Stronger inflammatory response to injury."
-            ],
             "action": {
-                "title": "The Low-Sat-Fat Strategy",
-                "body": "Your body creates inflammation from Saturated Fats (Butter, Coconut oil, Fatty beef). The most powerful intervention is shifting to Monounsaturated fats (Olive Oil) and prioritizing Omega-3s (Fish oil) to aid brain cleanup.",
+                "title": "Strict Lipid Management",
+                "body": "This is the most diet-responsive gene. You must aggressively limit saturated fats (butter, fatty beef, coconut oil) and prioritize Omega-3s (DHA) to protect the brain.",
                 "foods": [
-                    "Olive Oil (EVOO)",
-                    "Fatty Fish (DHA)",
-                    "Reduce Cheese/Red Meat"
+                    "Salmon (DHA)",
+                    "Olive Oil",
+                    "Avoid Butter/Coconut"
                 ]
+            },
+            "confidence": 5
+        },
+        "data_strength": {
+            "gene": "APOE",
+            "title": "The Longevity Variant",
+            "badge_type": "SUPERPOWER",
+            "mechanisms": {
+                "what": "APOE transports cholesterol and fats.",
+                "how": "You likely carry the APOE2 or neutral APOE3 variant. Your lipid handling is robust, and you have a genetically lower baseline risk for neurodegeneration.",
+                "yours": "Your Result: Efficient Clearance."
+            },
+            "action": {
+                "title": "Metabolic Freedom",
+                "body": "You have more flexibility with dietary fats, though a balanced diet is still recommended."
             },
             "confidence": 5
         }
@@ -188,7 +197,8 @@
             "action": {
                 "title": "Leverage Stability",
                 "body": "You are naturally suited for high-pressure roles requiring calm execution."
-            }
+            },
+            "gene": "CACNA1C"
         }
     },
     "rs4988235": {
@@ -203,7 +213,7 @@
             "AA"
         ],
         "data_risk": {
-            "gene": "LCT (MCM6)",
+            "gene": "LCT",
             "title": "The 'Dairy Digest' Switch",
             "badge_type": "RISK",
             "mechanisms": {
@@ -442,7 +452,8 @@
             "action": {
                 "title": "Recovery",
                 "body": "You likely recover faster from workouts due to lower systemic inflammation."
-            }
+            },
+            "gene": "TNF"
         }
     },
     "rs1799945": {
@@ -468,7 +479,8 @@
             "action": {
                 "title": "Nutrient Synergy",
                 "body": "You don't need to worry about limiting red meat or spinach; your body handles the intake intelligently."
-            }
+            },
+            "gene": "HFE"
         }
     },
     "rs7903146": {
@@ -532,7 +544,8 @@
             "action": {
                 "title": "Intuitive Eating",
                 "body": "You can trust your hunger signals; they are accurate."
-            }
+            },
+            "gene": "MC4R"
         }
     },
     "rs4680": {
@@ -637,7 +650,7 @@
             "CC"
         ],
         "data_risk": {
-            "gene": "F5 (Factor V Leiden)",
+            "gene": "F5",
             "title": "The 'Clotting Switch'",
             "badge_type": "RISK",
             "mechanisms": {
@@ -684,7 +697,8 @@
             "action": {
                 "title": "Metabolic Resilience",
                 "body": "Your liver stays lean even with moderate dietary fat."
-            }
+            },
+            "gene": "PNPLA3"
         }
     },
     "rs671": {
@@ -697,16 +711,21 @@
         ],
         "data_risk": {
             "gene": "ALDH2",
-            "title": "The Alcohol Flush",
+            "title": "Toxin Filtration (Acetaldehyde)",
             "badge_type": "RISK",
             "mechanisms": {
-                "what": "ALDH2 breaks down Acetaldehyde (a toxic hangover chemical) into harmless acetate.",
-                "how": "You have the 'Flush' variant. Your enzyme is broken. Acetaldehyde accumulates immediately when you drink, causing facial flushing, rapid heart rate, and high toxicity.",
-                "yours": "Your Result: Broken Enzyme (Flush)."
+                "what": "ALDH2 is the liver enzyme responsible for breaking down Acetaldehyde, a toxic byproduct of alcohol and exhaust fumes.",
+                "how": "Your enzyme is structurally broken (The 'Asian Flush' variant). When you drink alcohol, toxic Acetaldehyde accumulates immediately, causing DNA damage and inflammation 10-100x faster than in others.",
+                "yours": "Your Result: Zero/Low Efficiency."
             },
             "action": {
                 "title": "Zero Tolerance",
-                "body": "Alcohol is essentially a poison for you. The flushing is a warning sign of high toxicity. Limit intake severely."
+                "body": "Alcohol is essentially a carcinogen for your genotype. The 'flush' is a toxicity alarm. If you must drink, stick to clear spirits and take NAC (N-Acetyl Cysteine) beforehand to support glutathione.",
+                "foods": [
+                    "NAC Supplement",
+                    "Cruciferous Veggies",
+                    "Limit Alcohol"
+                ]
             },
             "confidence": 5
         },
@@ -715,13 +734,13 @@
             "title": "The Iron Liver",
             "badge_type": "SUPERPOWER",
             "mechanisms": {
-                "what": "ALDH2 breaks down Acetaldehyde (a toxic hangover chemical).",
-                "how": "Your enzyme works at full speed. You clear alcohol toxins efficiently, preventing the 'Asian Flush' reaction and reducing immediate damage from drinking.",
+                "what": "ALDH2 breaks down Acetaldehyde.",
+                "how": "Your enzyme functions at peak efficiency. You rapidly convert toxins into harmless acetate, preventing hangover symptoms and immediate DNA damage.",
                 "yours": "Your Result: High Efficiency."
             },
             "action": {
                 "title": "Social Advantage",
-                "body": "You can process alcohol without the immediate toxic backlog, but remember that alcohol is still a neurotoxin regardless of how fast you clear it."
+                "body": "You can process social drinking with minimal biological cost, though moderation is always key."
             },
             "confidence": 5
         }
@@ -902,7 +921,7 @@
             "CC"
         ],
         "data_risk": {
-            "gene": "VDR (Taq)",
+            "gene": "VDR",
             "title": "The 'Vitamin D Solar Panel'",
             "badge_type": "RISK",
             "mechanisms": {
@@ -996,7 +1015,7 @@
             "GG"
         ],
         "data_risk": {
-            "gene": "NOS3 (eNOS)",
+            "gene": "NOS3",
             "title": "The 'Blood Flow' Dial",
             "badge_type": "RISK",
             "mechanisms": {
@@ -1032,7 +1051,7 @@
             "CC"
         ],
         "data_risk": {
-            "gene": "SLC6A4 (SERT)",
+            "gene": "SLC6A4",
             "title": "The Orchid (High Sensitivity)",
             "badge_type": "RISK",
             "mechanisms": {
@@ -1047,7 +1066,7 @@
             "confidence": 5
         },
         "data_strength": {
-            "gene": "SLC6A4 (SERT)",
+            "gene": "SLC6A4",
             "title": "The Dandelion (Resilience)",
             "badge_type": "SUPERPOWER",
             "mechanisms": {
@@ -1175,7 +1194,7 @@
             "CC"
         ],
         "data_risk": {
-            "gene": "IFNL3 (IL28B)",
+            "gene": "IFNL3",
             "title": "The 'Viral Bouncer'",
             "badge_type": "RISK",
             "mechanisms": {
@@ -1304,7 +1323,7 @@
             "TT"
         ],
         "data_risk": {
-            "gene": "MTHFR (A1298C)",
+            "gene": "MTHFR",
             "title": "The 'Brain Methylator'",
             "badge_type": "RISK",
             "mechanisms": {
@@ -1352,7 +1371,8 @@
             "action": {
                 "title": "Long-Term Health",
                 "body": "Your cellular aging clock runs slower than average."
-            }
+            },
+            "gene": "SIRT1"
         }
     },
     "rs2395185": {
@@ -1641,7 +1661,8 @@
             "action": {
                 "title": "Impact Sports",
                 "body": "Your skeletal structure is well-suited for high-impact activities (MMA, Rugby, Running)."
-            }
+            },
+            "gene": "LRP5"
         }
     },
     "rs2231142": {
@@ -1666,7 +1687,8 @@
             "action": {
                 "title": "Kidney Health",
                 "body": "You are highly protected against gout and kidney stones."
-            }
+            },
+            "gene": "ABCG2"
         }
     },
     "rs7754840": {
@@ -1958,7 +1980,8 @@
             "action": {
                 "title": "Carb Tolerance",
                 "body": "You convert excess calories to heat efficiently."
-            }
+            },
+            "gene": "UCP2"
         }
     },
     "rs4994": {
@@ -2018,7 +2041,8 @@
             "action": {
                 "title": "Fast Clearance",
                 "body": "You metabolize caffeine and meds faster than others."
-            }
+            },
+            "gene": "CYP3A4"
         }
     },
     "rs893703": {
@@ -2114,7 +2138,8 @@
             "action": {
                 "title": "Nutrient Synergy",
                 "body": "You don't need to worry about limiting red meat or spinach; your body handles the intake intelligently."
-            }
+            },
+            "gene": "HFE"
         }
     },
     "rs6152": {
@@ -2125,7 +2150,7 @@
             "A"
         ],
         "data_risk": {
-            "gene": "AR (Androgen Receptor)",
+            "gene": "AR",
             "title": "The 'Baldness' Receptor",
             "badge_type": "RISK",
             "mechanisms": {
@@ -2254,7 +2279,7 @@
             "GG"
         ],
         "data_risk": {
-            "gene": "DAO (AOC1)",
+            "gene": "DAO",
             "title": "The 'Histamine Bucket'",
             "badge_type": "RISK",
             "mechanisms": {
@@ -2337,7 +2362,8 @@
             "action": {
                 "title": "Cellular Integrity",
                 "body": "Your cells are highly resistant to mutation and damage."
-            }
+            },
+            "gene": "ATM"
         }
     },
     "rs1049434": {
@@ -2466,7 +2492,8 @@
             "action": {
                 "title": "Digestion",
                 "body": "You have a robust defense against food poisoning and inflammation."
-            }
+            },
+            "gene": "IRGM"
         }
     },
     "rs693": {
@@ -2650,7 +2677,7 @@
             "TT"
         ],
         "data_risk": {
-            "gene": "SLC2A4 (GLUT4)",
+            "gene": "SLC2A4",
             "title": "The 'Muscle Sugar' Door",
             "badge_type": "RISK",
             "mechanisms": {
@@ -2732,7 +2759,8 @@
             "action": {
                 "title": "Brain Health",
                 "body": "Your natural choline supply supports memory and focus."
-            }
+            },
+            "gene": "PEMT"
         }
     },
     "rs4961": {
@@ -3116,7 +3144,8 @@
             "action": {
                 "title": "Youthful Skin",
                 "body": "Your fatty acid profile supports skin elasticity and longevity."
-            }
+            },
+            "gene": "ELOVL2"
         }
     },
     "rs3731249": {
@@ -3141,7 +3170,8 @@
             "action": {
                 "title": "Cancer Defense",
                 "body": "You have a robust baseline defense against cellular mutation."
-            }
+            },
+            "gene": "CDKN2A"
         }
     },
     "rs17609940": {
@@ -3504,7 +3534,8 @@
             "action": {
                 "title": "Progressive Overload",
                 "body": "Your body responds exceptionally well to heavy compound lifts. Feed the machine."
-            }
+            },
+            "gene": "MYF5"
         }
     },
     "rs4244285": {
@@ -3563,7 +3594,8 @@
             "action": {
                 "title": "Resilience",
                 "body": "You process environmental choline esters efficiently."
-            }
+            },
+            "gene": "BCHE"
         }
     },
     "rs1254337": {
@@ -3589,7 +3621,8 @@
             "action": {
                 "title": "Dietary Freedom",
                 "body": "You can enjoy rich foods (red meat, seafood) with very little risk of joint inflammation."
-            }
+            },
+            "gene": "GLUT9"
         }
     },
     "rs6020": {
@@ -3614,7 +3647,8 @@
             "action": {
                 "title": "Baseline Health",
                 "body": "You have a lower baseline risk for DVT or stroke compared to carriers."
-            }
+            },
+            "gene": "F2"
         }
     },
     "rs17608": {
@@ -3880,7 +3914,8 @@
             "action": {
                 "title": "Vitamin D Synthesis",
                 "body": "You can safely tolerate moderate sun exposure to optimize Vitamin D levels without immediate burn risk."
-            }
+            },
+            "gene": "IRF4"
         }
     },
     "rs1805007": {
@@ -4170,7 +4205,7 @@
             "CC"
         ],
         "data_risk": {
-            "gene": "VDR (Fok1)",
+            "gene": "VDR",
             "title": "The 'Immune Director'",
             "badge_type": "RISK",
             "mechanisms": {
@@ -4252,7 +4287,8 @@
             "action": {
                 "title": "Metabolic Flexibility",
                 "body": "You handle carbs well and can use them effectively for athletic recovery."
-            }
+            },
+            "gene": "TCF7L2"
         }
     },
     "rs2802292": {
@@ -4367,7 +4403,7 @@
             "GG"
         ],
         "data_risk": {
-            "gene": "F5 (Factor V - H1299R)",
+            "gene": "F5",
             "title": "The 'Clotting' Co-Factor",
             "badge_type": "RISK",
             "mechanisms": {
@@ -4403,7 +4439,7 @@
             "GG"
         ],
         "data_risk": {
-            "gene": "DRD2 (Taq1A)",
+            "gene": "DRD2",
             "title": "The Reward Seeker",
             "badge_type": "RISK",
             "mechanisms": {
@@ -4418,7 +4454,7 @@
             "confidence": 5
         },
         "data_strength": {
-            "gene": "DRD2 (Taq1A)",
+            "gene": "DRD2",
             "title": "The 'Satisfied' Brain",
             "badge_type": "SUPERPOWER",
             "mechanisms": {
@@ -4456,7 +4492,8 @@
             "action": {
                 "title": "Sustained Focus",
                 "body": "Your chemistry supports long-term projects without constant novelty."
-            }
+            },
+            "gene": "DRD2"
         }
     },
     "rs2740574_dupfix": {
@@ -4481,7 +4518,8 @@
             "action": {
                 "title": "Fast Clearance",
                 "body": "You metabolize caffeine and meds faster than others."
-            }
+            },
+            "gene": "CYP3A4"
         }
     },
     "rs2943641": {
@@ -4506,7 +4544,8 @@
             "action": {
                 "title": "Carb Utilization",
                 "body": "You partition nutrients into muscle rather than fat very efficiently."
-            }
+            },
+            "gene": "IRS1"
         }
     },
     "rs12778366": {
@@ -4531,7 +4570,8 @@
             "action": {
                 "title": "Long-Term Health",
                 "body": "Your cellular aging clock runs slower than average."
-            }
+            },
+            "gene": "SIRT1"
         }
     },
     "rs659366": {
@@ -4556,7 +4596,97 @@
             "action": {
                 "title": "Carb Tolerance",
                 "body": "You convert excess calories to heat efficiently."
-            }
+            },
+            "gene": "UCP2"
+        }
+    },
+    "rs7412": {
+        "risk_genotypes": [
+            "CC",
+            "CT",
+            "TC"
+        ],
+        "strength_genotypes": [
+            "TT"
+        ],
+        "data_risk": {
+            "gene": "APOE",
+            "title": "Lipid & Brain Metabolism",
+            "badge_type": "RISK",
+            "mechanisms": {
+                "what": "APOE transports cholesterol and fats in the bloodstream and clears amyloid plaque from the brain.",
+                "how": "You carry a variant associated with the APOE4 allele. Your body is inefficient at recycling cholesterol and clearing brain inflammation. Saturated fats tend to spike your inflammation markers significantly more than average.",
+                "yours": "Your Result: Reduced Clearance (E4 Pattern)."
+            },
+            "action": {
+                "title": "Strict Lipid Management",
+                "body": "This is the most diet-responsive gene. You must aggressively limit saturated fats (butter, fatty beef, coconut oil) and prioritize Omega-3s (DHA) to protect the brain.",
+                "foods": [
+                    "Salmon (DHA)",
+                    "Olive Oil",
+                    "Avoid Butter/Coconut"
+                ]
+            },
+            "confidence": 5
+        },
+        "data_strength": {
+            "gene": "APOE",
+            "title": "The Longevity Variant",
+            "badge_type": "SUPERPOWER",
+            "mechanisms": {
+                "what": "APOE transports cholesterol and fats.",
+                "how": "You likely carry the APOE2 or neutral APOE3 variant. Your lipid handling is robust, and you have a genetically lower baseline risk for neurodegeneration.",
+                "yours": "Your Result: Efficient Clearance."
+            },
+            "action": {
+                "title": "Metabolic Freedom",
+                "body": "You have more flexibility with dietary fats, though a balanced diet is still recommended."
+            },
+            "confidence": 5
+        }
+    },
+    "rs17616434": {
+        "risk_genotypes": [
+            "AA",
+            "AG"
+        ],
+        "strength_genotypes": [
+            "GG"
+        ],
+        "data_risk": {
+            "gene": "ALDH2",
+            "title": "Toxin Filtration (Acetaldehyde)",
+            "badge_type": "RISK",
+            "mechanisms": {
+                "what": "ALDH2 is the liver enzyme responsible for breaking down Acetaldehyde, a toxic byproduct of alcohol and exhaust fumes.",
+                "how": "Your enzyme is structurally broken (The 'Asian Flush' variant). When you drink alcohol, toxic Acetaldehyde accumulates immediately, causing DNA damage and inflammation 10-100x faster than in others.",
+                "yours": "Your Result: Zero/Low Efficiency."
+            },
+            "action": {
+                "title": "Zero Tolerance",
+                "body": "Alcohol is essentially a carcinogen for your genotype. The 'flush' is a toxicity alarm. If you must drink, stick to clear spirits and take NAC (N-Acetyl Cysteine) beforehand to support glutathione.",
+                "foods": [
+                    "NAC Supplement",
+                    "Cruciferous Veggies",
+                    "Limit Alcohol"
+                ]
+            },
+            "confidence": 5
+        },
+        "data_strength": {
+            "gene": "ALDH2",
+            "title": "The Iron Liver",
+            "badge_type": "SUPERPOWER",
+            "mechanisms": {
+                "what": "ALDH2 breaks down Acetaldehyde.",
+                "how": "Your enzyme functions at peak efficiency. You rapidly convert toxins into harmless acetate, preventing hangover symptoms and immediate DNA damage.",
+                "yours": "Your Result: High Efficiency."
+            },
+            "action": {
+                "title": "Social Advantage",
+                "body": "You can process social drinking with minimal biological cost, though moderation is always key."
+            },
+            "confidence": 5
         }
     }
 }

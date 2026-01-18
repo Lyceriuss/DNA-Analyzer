@@ -5,151 +5,87 @@ import os
 TRAITS_PATH = "config/snp_traits.json"
 DEEP_DIVE_PATH = "config/deep_dive_content.json"
 
-# CONTENT DATABASE
+# CRITICAL RISK CONTENT (Fixed Structure)
 GENE_CONTENT = {
-    # 1. SLC2A9 (GLUT9) - Uric Acid
-    "SLC2A9": {
-        "title": "Uric Acid Filtration",
-        "badge_type": "RISK",
-        "mechanisms": {
-            "what": "SLC2A9 transports uric acid out of the blood and into the urine.",
-            "how": "Your transporter is lazy. Uric acid stays in your bloodstream longer, crystalizing in joints (Gout) if levels get too high.",
-            "yours": "Your Result: Poor Filtration (Gout Risk)."
-        },
-        "action": {
-            "title": "Limit Purines",
-            "body": "You must limit high-purine foods (beer, organ meats, shellfish) and stay hydrated to help your kidneys flush the excess."
-        },
-        "data_strength": {
-            "title": "The Gout Shield",
-            "badge_type": "SUPERPOWER",
+    # 1. APOE (The Alzheimer's / Lipid Gene)
+    "APOE": {
+        "risk_genotypes": ["CC", "CT", "TC"], 
+        "strength_genotypes": ["TT"], 
+        "data_risk": {  # <--- FIXED: Now nested properly
+            "gene": "APOE",
+            "title": "Lipid & Brain Metabolism",
+            "badge_type": "RISK",
             "mechanisms": {
-                "what": "SLC2A9 transports uric acid out of the blood.",
-                "how": "Your transporter works overtime, rapidly flushing uric acid from your system. You are virtually immune to gout caused by diet.",
-                "yours": "Your Result: High Filtration Efficiency."
+                "what": "APOE transports cholesterol and fats in the bloodstream and clears amyloid plaque from the brain.",
+                "how": "You carry a variant associated with the APOE4 allele. Your body is inefficient at recycling cholesterol and clearing brain inflammation. Saturated fats tend to spike your inflammation markers significantly more than average.",
+                "yours": "Your Result: Reduced Clearance (E4 Pattern)."
             },
             "action": {
-                "title": "Dietary Freedom",
-                "body": "You can enjoy rich foods (red meat, seafood) with very little risk of joint inflammation."
-            }
+                "title": "Strict Lipid Management",
+                "body": "This is the most diet-responsive gene. You must aggressively limit saturated fats (butter, fatty beef, coconut oil) and prioritize Omega-3s (DHA) to protect the brain.",
+                "foods": ["Salmon (DHA)", "Olive Oil", "Avoid Butter/Coconut"]
+            },
+            "confidence": 5
+        },
+        "data_strength": {
+            "gene": "APOE",
+            "title": "The Longevity Variant",
+            "badge_type": "SUPERPOWER",
+            "mechanisms": {
+                "what": "APOE transports cholesterol and fats.",
+                "how": "You likely carry the APOE2 or neutral APOE3 variant. Your lipid handling is robust, and you have a genetically lower baseline risk for neurodegeneration.",
+                "yours": "Your Result: Efficient Clearance."
+            },
+            "action": {
+                "title": "Metabolic Freedom",
+                "body": "You have more flexibility with dietary fats, though a balanced diet is still recommended."
+            },
+            "confidence": 5
         }
     },
 
-    # 2. MYF5 - Muscle Growth
-    "MYF5": {
-        "title": "Muscle Hypertrophy",
-        "badge_type": "RISK",
-        "mechanisms": {
-            "what": "MYF5 is a key regulator of muscle differentiation and growth.",
-            "how": "You have the 'Endurance' profile. Your body resists adding bulk, preferring to stay lean and efficient. Gaining muscle mass requires significant caloric surplus.",
-            "yours": "Your Result: 'Hardgainer' Profile."
-        },
-        "action": {
-            "title": "High Volume Training",
-            "body": "To trigger growth, you need higher volume and metabolic stress rather than just heavy load."
-        },
-        "data_strength": {
-            "title": "The Builder Gene",
-            "badge_type": "SUPERPOWER",
+    # 2. ALDH2 (The Alcohol Flush Gene)
+    "ALDH2": {
+        "risk_genotypes": ["AA", "AG"],
+        "strength_genotypes": ["GG"],
+        "data_risk": { # <--- FIXED: Now nested properly
+            "gene": "ALDH2",
+            "title": "Toxin Filtration (Acetaldehyde)",
+            "badge_type": "RISK",
             "mechanisms": {
-                "what": "MYF5 regulates muscle satellite cell activation.",
-                "how": "Your body is primed for hypertrophy. When you lift, your satellite cells activate aggressively, adding muscle mass faster than the average person.",
-                "yours": "Your Result: High Hypertrophy Potential."
+                "what": "ALDH2 is the liver enzyme responsible for breaking down Acetaldehyde, a toxic byproduct of alcohol and exhaust fumes.",
+                "how": "Your enzyme is structurally broken (The 'Asian Flush' variant). When you drink alcohol, toxic Acetaldehyde accumulates immediately, causing DNA damage and inflammation 10-100x faster than in others.",
+                "yours": "Your Result: Zero/Low Efficiency."
             },
             "action": {
-                "title": "Progressive Overload",
-                "body": "Your body responds exceptionally well to heavy compound lifts. Feed the machine."
-            }
-        }
-    },
-
-    # 3. IRF4 - Sun Sensitivity
-    "IRF4": {
-        "title": "Solar Defense (Melanin)",
-        "badge_type": "RISK",
-        "mechanisms": {
-            "what": "IRF4 controls melanin production and response to UV radiation.",
-            "how": "You have the 'Celtic' variant. Your skin produces very little melanin and burns instantly. You do not tan; you damage.",
-            "yours": "Your Result: High Sun Sensitivity."
-        },
-        "action": {
-            "title": "Strict UV Block",
-            "body": "Sunscreen is not optional. You accumulate DNA damage from UV exposure much faster than others."
+                "title": "Zero Tolerance",
+                "body": "Alcohol is essentially a carcinogen for your genotype. The 'flush' is a toxicity alarm. If you must drink, stick to clear spirits and take NAC (N-Acetyl Cysteine) beforehand to support glutathione.",
+                "foods": ["NAC Supplement", "Cruciferous Veggies", "Limit Alcohol"]
+            },
+            "confidence": 5
         },
         "data_strength": {
-            "title": "Solar Adaptation",
+            "gene": "ALDH2",
+            "title": "The Iron Liver",
             "badge_type": "SUPERPOWER",
             "mechanisms": {
-                "what": "IRF4 controls melanin production.",
-                "how": "Your skin adapts quickly to UV exposure by producing protective melanin (tanning) rather than burning.",
-                "yours": "Your Result: Low Sun Sensitivity."
+                "what": "ALDH2 breaks down Acetaldehyde.",
+                "how": "Your enzyme functions at peak efficiency. You rapidly convert toxins into harmless acetate, preventing hangover symptoms and immediate DNA damage.",
+                "yours": "Your Result: High Efficiency."
             },
             "action": {
-                "title": "Vitamin D Synthesis",
-                "body": "You can safely tolerate moderate sun exposure to optimize Vitamin D levels without immediate burn risk."
-            }
-        }
-    },
-
-    # 4. LRP5 - Bone Density
-    "LRP5": {
-        "title": "Skeletal Integrity",
-        "badge_type": "RISK",
-        "mechanisms": {
-            "what": "LRP5 signals bone cells to build minerals and density.",
-            "how": "Your signaling is weak, leading to lower peak bone mass. This increases the risk of stress fractures and osteoporosis later in life.",
-            "yours": "Your Result: Lower Bone Density."
-        },
-        "action": {
-            "title": "Heavy Loading",
-            "body": "Bones only get stronger under stress. You need axial loading (Squats/Deadlifts) to manually force bone mineralization."
-        },
-        "data_strength": {
-            "title": "The Unbreakable",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "LRP5 signals bone cells to build density.",
-                "how": "Your signaling is hyper-active. You naturally build extremely dense, heavy bones that are highly resistant to fracture.",
-                "yours": "Your Result: High Bone Density."
+                "title": "Social Advantage",
+                "body": "You can process social drinking with minimal biological cost, though moderation is always key."
             },
-            "action": {
-                "title": "Impact Sports",
-                "body": "Your skeletal structure is well-suited for high-impact activities (MMA, Rugby, Running)."
-            }
-        }
-    },
-
-    # 5. HFE - Iron Absorption
-    "HFE": {
-        "title": "Iron Regulation",
-        "badge_type": "RISK",
-        "mechanisms": {
-            "what": "HFE tells the gut when to stop absorbing iron.",
-            "how": "Your stop sign is broken (Hemochromatosis Carrier). Your body keeps absorbing iron even when you are full, risking organ damage from iron overload.",
-            "yours": "Your Result: Iron Overload Risk."
-        },
-        "action": {
-            "title": "Monitor Ferritin",
-            "body": "Donate blood regularly. It is the only way to manually remove excess iron from your system. Avoid iron supplements."
-        },
-        "data_strength": {
-            "title": "Iron Balance",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "HFE tells the gut when to stop absorbing iron.",
-                "how": "Your regulator works perfectly. You absorb exactly what you need and block the rest, preventing both anemia and toxicity.",
-                "yours": "Your Result: Optimal Regulation."
-            },
-            "action": {
-                "title": "Nutrient Synergy",
-                "body": "You don't need to worry about limiting red meat or spinach; your body handles the intake intelligently."
-            }
+            "confidence": 5
         }
     }
 }
 
-def complete_inject():
-    # 1. Load Traits to Map Genes -> All RSIDs
+def inject_critical_risks():
+    print("🚀 Starting Critical Risk Injection...")
+    
+    # 1. Load Traits to find correct RSIDs
     if not os.path.exists(TRAITS_PATH):
         print("❌ snp_traits.json not found!")
         return
@@ -157,28 +93,17 @@ def complete_inject():
     with open(TRAITS_PATH, 'r', encoding='utf-8') as f:
         traits = json.load(f)
 
-    # 2. Map Gene Name -> LIST of RSIDs
+    # 2. Map Gene Names to RSIDs (Smart Lookup)
     gene_map = {}
     for rsid, info in traits.items():
-        # Clean Name: "SLC2A9 (GLUT9)" -> "SLC2A9"
+        # Handle "APOE (rs429358)" -> "APOE"
         raw_name = info.get('gene', '')
-        
-        # Add exact match
-        if raw_name not in gene_map: gene_map[raw_name] = []
-        gene_map[raw_name].append(rsid)
-
-        # Add split match (e.g. SLC2A9 from SLC2A9 (GLUT9))
         clean_name = raw_name.split('(')[0].strip()
+        
         if clean_name not in gene_map: gene_map[clean_name] = []
         gene_map[clean_name].append(rsid)
-        
-        # Add parenthesis match (e.g. GLUT9 from SLC2A9 (GLUT9))
-        if '(' in raw_name:
-            alt_name = raw_name.split('(')[1].replace(')', '').strip()
-            if alt_name not in gene_map: gene_map[alt_name] = []
-            gene_map[alt_name].append(rsid)
 
-    # 3. Load Deep Dive File
+    # 3. Load Deep Dive Data
     if os.path.exists(DEEP_DIVE_PATH):
         with open(DEEP_DIVE_PATH, 'r', encoding='utf-8') as f:
             deep_dive_data = json.load(f)
@@ -186,25 +111,27 @@ def complete_inject():
         deep_dive_data = {}
 
     # 4. Inject
-    injected_count = 0
+    count = 0
     for gene_key, content in GENE_CONTENT.items():
         target_rsids = gene_map.get(gene_key, [])
         
         if target_rsids:
-            # Deduplicate RSIDs
-            target_rsids = list(set(target_rsids))
-            print(f"✅ {gene_key}: Injecting into {len(target_rsids)} RSIDs: {target_rsids}")
+            print(f"✅ Found {gene_key} at {target_rsids}. Injecting...")
             for rsid in target_rsids:
+                # Safe to set now because structure matches expectation
+                content['data_risk']['gene'] = gene_key
+                content['data_strength']['gene'] = gene_key
+                
                 deep_dive_data[rsid] = content
-                injected_count += 1
+                count += 1
         else:
-            print(f"⚠️ Gene '{gene_key}' not found in snp_traits.json (Check spelling?)")
+            print(f"⚠️ Warning: Could not find RSID for {gene_key} in your traits file.")
 
     # 5. Save
     with open(DEEP_DIVE_PATH, 'w', encoding='utf-8') as f:
         json.dump(deep_dive_data, f, indent=4)
 
-    print(f"\n🎉 Done. Updated {injected_count} deep dive entries.")
+    print(f"\n🎉 Success! Injected {count} critical risk stories.")
 
 if __name__ == "__main__":
-    complete_inject()
+    inject_critical_risks()

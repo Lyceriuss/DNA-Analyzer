@@ -91,17 +91,26 @@ def main():
             pdf.add_deep_dive_page(genotype, content, score_map, variant_map)
             processed_rsids.append(rsid)
             
-    # --- PAGE 4: STRENGTHS SUMMARY (THE FIX) ---
-    # Find High Impact / High Score traits that did NOT get a deep dive
+    # --- PAGE 4: STRENGTHS SUMMARY ---
     leftover_strengths = df[
-        (df["Score"] >= 7) &       # Strong Score (7, 8, 9)
-        (df["Impact"] == "High") & # Important Gene
-        (~df["RSID"].isin(processed_rsids)) # Wasn't in deep dives
-    ].head(10) # Top 10
+        (df["Score"] >= 7) &       # High Score
+        (df["Impact"] == "High") & # Important
+        (~df["RSID"].isin(processed_rsids))
+    ].head(12)
     
     if not leftover_strengths.empty:
-        print(f"📘 Generating Strengths Summary for {len(leftover_strengths)} traits...")
         pdf.add_strength_summary_page(leftover_strengths)
+
+    # --- PAGE 5: RISKS SUMMARY (NEW) ---
+    leftover_risks = df[
+        (df["Score"] <= 4) &       # Low Score (Risk)
+        (df["Impact"] == "High") & # Important
+        (~df["RSID"].isin(processed_rsids))
+    ].head(12)
+    
+    if not leftover_risks.empty:
+        print(f"📕 Generating Risk Summary for {len(leftover_risks)} traits...")
+        pdf.add_risk_summary_page(leftover_risks)
 
     pdf_path = os.path.join(OUTPUT_DIR, f"{filename}_Report.pdf")
     pdf.output(pdf_path)
