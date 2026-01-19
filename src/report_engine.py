@@ -1,9 +1,11 @@
 import json
 import os
 from fpdf import FPDF
+import math
 
 # CONFIG
 DEEP_DIVE_PATH = "config/deep_dive_content.json"
+EVIDENCE_PATH = "config/evidence_db.json"
 
 def clean_text(text):
     """Sanitizes text to prevent PDF encoding errors."""
@@ -20,12 +22,13 @@ def clean_text(text):
 
 class ReportEngine:
     def __init__(self):
-        self.deep_dive_data = self._load_deep_dive_data()
+        self.deep_dive_data = self._load_json(DEEP_DIVE_PATH)
+        self.evidence_db = self._load_json(EVIDENCE_PATH)
 
-    def _load_deep_dive_data(self):
-        if not os.path.exists(DEEP_DIVE_PATH): return {}
+    def _load_json(self, path):
+        if not os.path.exists(path): return {}
         try:
-            with open(DEEP_DIVE_PATH, 'r', encoding='utf-8') as f: return json.load(f)
+            with open(path, 'r', encoding='utf-8') as f: return json.load(f)
         except: return {}
 
     def get_content_for_rsid(self, rsid, score):
@@ -51,15 +54,19 @@ class ReportEngine:
             "confidence": content.get('confidence', 3)
         }
 
+    def get_evidence_for_gene(self, gene_name):
+        """Fetches the deep evidence object for a specific gene."""
+        if not gene_name: return None
+        clean_name = gene_name.split('(')[0].strip()
+        return self.evidence_db.get(clean_name, None)
+
 class PDFReport(FPDF):
     def header(self):
-        self.set_font('Arial', 'B', 18)
-        self.set_fill_color(44, 62, 80)
-        self.rect(0, 0, self.w, 20, 'F')
-        self.set_y(6)
-        self.set_text_color(255)
-        self.cell(0, 10, 'Personalized Genetic Trait Report', 0, 1, 'C')
-        self.ln(15)
+        if self.page_no() > 1:
+            self.set_font('Arial', 'I', 8)
+            self.set_text_color(128, 128, 128)
+            self.cell(0, 10, 'Personalized Genetic Trait Report', 0, 0, 'R')
+            self.ln(10)
 
     def footer(self):
         self.set_y(-15)
@@ -72,6 +79,17 @@ class PDFReport(FPDF):
         self.set_text_color(44, 62, 80)
         self.cell(0, 8, clean_text(title), 0, 1, 'L')
         self.ln(2)
+
+    def get_text_height(self, width, text, font_family, font_style, font_size):
+        """Calculates the height a block of text will consume."""
+        self.set_font(font_family, font_style, font_size)
+        text_w = self.get_string_width(text)
+        # Approximate lines needed
+        if width == 0: width = 1 # avoid div by zero
+        lines = (text_w / width) 
+        lines = math.ceil(lines * 1.1) + 1 
+        # Height ~ half font size in mm per line is a safe heuristic
+        return lines * (font_size * 0.5)
 
     def draw_table(self, df, col_widths, highlight_net=False):
         self.set_font('Arial', 'B', 8)
@@ -105,17 +123,8 @@ class PDFReport(FPDF):
                 self.cell(col_widths[i], 7, txt, 0, 0, 'C', fill)
             self.ln()
 
-    def draw_confidence_score(self, rating, x, y):
-        self.set_xy(x, y)
-        self.set_font('Arial', 'B', 9)
-        self.set_text_color(150)
-        self.cell(0, 5, clean_text("SCIENTIFIC CONFIDENCE:"), 0, 1)
-        self.set_xy(x, y + 5)
-        self.set_font('Arial', 'B', 14)
-        self.set_text_color(255, 165, 0)
-        self.cell(0, 6, f"{rating}/5  {'+'*int(rating)}", 0, 1)
-
     def draw_genotype_spectrum(self, user_gt, score_map, variant_map):
+        """Draws the table showing best-to-worst genotypes."""
         self.ln(5)
         self.set_font('Arial', 'B', 10)
         self.set_text_color(44, 62, 80)
@@ -125,13 +134,14 @@ class PDFReport(FPDF):
         
         for gt, score in sorted_gts:
             desc = variant_map.get(gt, "")
-            # Colors
+            # Color Coding based on score
             if score >= 7: r,g,b = 39, 174, 96   # Green
             elif score >= 5: r,g,b = 149, 165, 166 # Grey
             else: r,g,b = 231, 76, 60            # Red
             
             is_user = (gt == user_gt)
             self.set_fill_color(r, g, b)
+            
             if is_user:
                 self.set_draw_color(0) 
                 self.set_line_width(0.5)
@@ -140,11 +150,123 @@ class PDFReport(FPDF):
             
             self.set_font('Arial', 'B', 9)
             self.set_text_color(255)
-            self.cell(15, 8, gt, 1, 0, 'C', 1) 
+            self.cell(15, 8, clean_text(gt), 1, 0, 'C', 1) 
+            
             self.set_text_color(0)
             self.set_font('Arial', '' if not is_user else 'B', 9)
             marker = "  <-- YOUR GENOTYPE" if is_user else ""
             self.cell(0, 8, clean_text(f"  {desc}{marker}"), 0, 1)
+
+    def draw_body_evidence(self, evidence_data):
+        """Draws Mechanism and Study Quality in the body whitespace."""
+        if not evidence_data: return
+
+        current_y = self.get_y()
+        # Footer starts at -65 (approx 232mm). We need space.
+        if current_y > 225: return 
+
+        metrics = evidence_data.get('metrics', {})
+        mech = metrics.get('mechanistic_impact', {})
+        qual = metrics.get('study_quality', {})
+        
+        self.ln(5)
+        self.set_x(15)
+        
+        # 1. MECHANISTIC DETAIL
+        if 'detail' in mech:
+            self.set_font('Arial', 'B', 9)
+            self.set_text_color(100)
+            self.cell(0, 5, clean_text("MECHANISTIC CONTEXT:"), 0, 1)
+            self.set_font('Arial', '', 9)
+            self.set_text_color(50)
+            self.multi_cell(180, 4, clean_text(mech['detail']))
+            self.ln(3)
+
+        # 2. STUDY QUALITY
+        if 'detail' in qual and self.get_y() < 220:
+            self.set_x(15)
+            self.set_font('Arial', 'B', 9)
+            self.set_text_color(100)
+            self.cell(0, 5, clean_text("STUDY QUALITY & CONSENSUS:"), 0, 1)
+            self.set_font('Arial', '', 9)
+            self.set_text_color(50)
+            self.multi_cell(180, 4, clean_text(qual['detail']))
+
+    def draw_evidence_panel(self, evidence_data):
+        """Draws the bottom panel with Score, Bars, and METHODOLOGY."""
+        
+        if not evidence_data:
+            evidence_data = {
+                "metrics": {
+                    "mechanistic_impact": {"score": 3, "detail": "Mechanism inferred."},
+                    "study_quality": {"score": 2, "detail": "Small studies."},
+                    "methodology": {"score": 3, "detail": "Standard data."}
+                },
+                "consensus_label": "PRELIMINARY"
+            }
+
+        metrics = evidence_data.get('metrics', {})
+        mech = metrics.get('mechanistic_impact', {'score': 3})
+        qual = metrics.get('study_quality', {'score': 3})
+        meth = metrics.get('methodology', {'score': 3, 'detail': 'N/A'})
+
+        # Algorithm
+        raw_sum = (mech['score'] * 3) + qual['score'] + meth['score']
+        final_score = raw_sum / 5.0
+        if final_score > 5.0: final_score = 5.0
+
+        # Draw Panel
+        self.set_y(-65)
+        self.set_fill_color(245, 247, 250)
+        self.rect(10, self.get_y(), 190, 45, 'F')
+        
+        start_y = self.get_y() + 5
+        self.set_xy(15, start_y)
+
+        # LEFT: SCORE
+        self.set_font('Arial', 'B', 10)
+        self.set_text_color(100)
+        self.cell(40, 5, "CONFIDENCE SCORE", 0, 1, 'L')
+        self.set_font('Arial', 'B', 22)
+        self.set_text_color(44, 62, 80)
+        self.cell(40, 10, f"{final_score:.1f} / 5.0", 0, 1, 'L')
+        
+        bar_w = 30
+        fill_w = (final_score / 5.0) * bar_w
+        self.set_fill_color(200, 200, 200)
+        self.rect(15, self.get_y()+2, bar_w, 2, 'F')
+        self.set_fill_color(39, 174, 96)
+        self.rect(15, self.get_y()+2, fill_w, 2, 'F')
+        
+        # MIDDLE: BARS
+        self.set_xy(60, start_y)
+        self.set_font('Arial', 'B', 8)
+        self.set_text_color(100)
+        self.cell(30, 5, "BREAKDOWN", 0, 1, 'L')
+        
+        def draw_mini_bar(label, score, y_off):
+            self.set_xy(60, start_y + 6 + y_off)
+            self.set_font('Arial', '', 8)
+            self.set_text_color(50)
+            self.cell(25, 4, clean_text(label), 0, 0, 'L')
+            dots = "O " * int(score) + ". " * (5 - int(score))
+            self.set_font('Courier', 'B', 8) 
+            self.cell(20, 4, dots, 0, 0, 'L')
+
+        draw_mini_bar("Mechanism (3x)", mech['score'], 0)
+        draw_mini_bar("Study Quality", qual['score'], 5)
+        draw_mini_bar("Methodology", meth['score'], 10)
+
+        # RIGHT: METHODOLOGY AUDIT
+        self.set_xy(110, start_y)
+        self.set_font('Arial', 'B', 8)
+        self.set_text_color(100)
+        self.cell(0, 5, "METHODOLOGY AUDIT", 0, 1, 'L')
+        self.set_xy(110, start_y + 6)
+        self.set_font('Arial', 'I', 9)
+        self.set_text_color(0)
+        detail_text = clean_text(meth.get('detail', 'No detailed audit available.'))
+        self.multi_cell(85, 4, detail_text, 0, 'L')
 
     def add_strength_summary_page(self, strength_df):
         self.add_page()
@@ -153,33 +275,26 @@ class PDFReport(FPDF):
         self.set_font('Arial', '', 10)
         self.multi_cell(0, 5, clean_text("While these traits did not trigger a deep dive, they represent significant genetic advantages. You carry the OPTIMAL or ENHANCED variants for these genes."))
         self.ln(5)
-        
         for _, row in strength_df.iterrows():
-            self.set_fill_color(240, 255, 240) # Very Light Green
+            self.set_fill_color(240, 255, 240)
             self.rect(10, self.get_y(), 190, 18, 'F')
-            
             self.set_font('Arial', 'B', 11)
             self.set_text_color(39, 174, 96)
             self.cell(40, 8, clean_text(f"{row['Gene']} ({row['Result']})"), 0, 0)
-            
             self.set_font('Arial', 'I', 9)
             self.set_text_color(100)
             self.cell(0, 8, clean_text(f"  Domain: {row['Domain']}"), 0, 1)
-            
             desc = row['Interpretation']
             if row['Score'] >= 8 and "Normal" in desc:
                 desc = desc.replace("Normal", "Optimal")
                 desc = f"+ {desc}"
-            
             self.set_font('Arial', '', 10)
             self.set_text_color(0)
             self.set_xy(12, self.get_y())
             self.cell(0, 8, clean_text(desc), 0, 1)
-            
             self.ln(4)
             if self.get_y() > 260: self.add_page()
 
-    # --- NEW FUNCTION: RISK SUMMARY ---
     def add_risk_summary_page(self, risk_df):
         self.add_page()
         self.chapter_title("4. Other Genetic Risks (Executive Summary)")
@@ -187,30 +302,24 @@ class PDFReport(FPDF):
         self.set_font('Arial', '', 10)
         self.multi_cell(0, 5, clean_text("These traits did not trigger a detailed deep dive, but they represent areas of potential vulnerability. You carry RISK variants that may require lifestyle management."))
         self.ln(5)
-        
         for _, row in risk_df.iterrows():
-            self.set_fill_color(255, 240, 240) # Very Light Red
+            self.set_fill_color(255, 240, 240)
             self.rect(10, self.get_y(), 190, 18, 'F')
-            
             self.set_font('Arial', 'B', 11)
-            self.set_text_color(231, 76, 60) # Red
+            self.set_text_color(231, 76, 60)
             self.cell(40, 8, clean_text(f"{row['Gene']} ({row['Result']})"), 0, 0)
-            
             self.set_font('Arial', 'I', 9)
             self.set_text_color(100)
             self.cell(0, 8, clean_text(f"  Domain: {row['Domain']}"), 0, 1)
-            
             desc = row['Interpretation']
-            
             self.set_font('Arial', '', 10)
             self.set_text_color(0)
             self.set_xy(12, self.get_y())
-            self.cell(0, 8, clean_text(f"! {desc}"), 0, 1) # Add warning bang
-            
+            self.cell(0, 8, clean_text(f"! {desc}"), 0, 1)
             self.ln(4)
             if self.get_y() > 260: self.add_page()
 
-    def add_deep_dive_page(self, genotype, data, score_map, variant_map):
+    def add_deep_dive_page(self, genotype, data, score_map, variant_map, evidence=None):
         self.add_page()
         self.chapter_title(f"Deep Dive: {data['title']}")
         
@@ -248,17 +357,38 @@ class PDFReport(FPDF):
         self.multi_cell(0, 5, clean_text(data['mechanism'].get('how', '')))
         self.ln(5)
 
+        # --- DYNAMIC GREEN BOX ---
         start_y = self.get_y()
+        title_txt = f"INSIGHT: {data['action'].get('title', 'Action Plan')}"
+        body_txt = data['action'].get('body', '')
+        
+        # Calculate dynamic height
+        # Assuming body text area width is ~180mm (full width w/ padding)
+        # Using heuristic calculation to match FPDF text flow
+        self.set_font('Arial', '', 10)
+        # 180mm width roughly
+        lines = math.ceil(self.get_string_width(body_txt) / 180) + 1
+        # Base height 8mm (title) + lines * 5mm + padding
+        box_height = 10 + (lines * 5) + 5
+        if box_height < 25: box_height = 25 
+
         self.set_fill_color(235, 250, 235) 
-        self.rect(10, start_y, 190, 45, 'F')
+        self.rect(10, start_y, 190, box_height, 'F')
+        
         self.set_xy(15, start_y + 5)
         self.set_text_color(0, 100, 0)
         self.set_font('Arial', 'B', 12)
-        self.cell(0, 8, clean_text(f"INSIGHT: {data['action'].get('title', 'Action Plan')}"), 0, 1)
+        self.cell(0, 8, clean_text(title_txt), 0, 1)
+        
         self.set_x(15)
         self.set_text_color(0)
         self.set_font('Arial', '', 10)
-        self.multi_cell(130, 5, clean_text(data['action'].get('body', '')))
+        self.multi_cell(180, 5, clean_text(body_txt))
         
-        self.draw_confidence_score(data.get('confidence', 3), 150, start_y + 15)
-        self.ln(10)
+        # --- DRAW BODY EVIDENCE (Mech + Quality) ---
+        # Move cursor below green box
+        self.set_y(start_y + box_height) 
+        self.draw_body_evidence(evidence)
+        
+        # --- DRAW FOOTER PANEL (Score + Methodology) ---
+        self.draw_evidence_panel(evidence)
