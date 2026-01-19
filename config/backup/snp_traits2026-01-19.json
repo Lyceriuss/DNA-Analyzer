@@ -1,6 +1,6 @@
 {
     "rs1801133": {
-        "gene": "MTHFR (C677T)",
+        "gene": "MTHFR",
         "system": "Methylation",
         "trait": "Folate \u2192 active methylfolate conversion",
         "description": "MTHFR is the key enzyme turning folate into methylfolate for DNA repair, neurotransmitters and detox.",
@@ -610,7 +610,7 @@
         }
     },
     "rs1800497": {
-        "gene": "ANKK1 (Taq1A)",
+        "gene": "ANKK1/DRD2",
         "system": "Brain / Reward",
         "trait": "D2 dopamine receptor availability",
         "description": "This variant affects dopamine receptor levels and reward sensitivity.",
@@ -838,7 +838,7 @@
         }
     },
     "rs1800629": {
-        "gene": "TNF-alpha",
+        "gene": "TNF",
         "system": "Inflammation",
         "trait": "Baseline inflammation tendency",
         "description": "TNF-alpha is a master inflammatory cytokine influencing CRP and immune response.",
@@ -857,7 +857,7 @@
         }
     },
     "rs1800795": {
-        "gene": "IL6 (Promoter)",
+        "gene": "IL6",
         "system": "Inflammation",
         "trait": "Inflammatory reactivity (CRP levels)",
         "description": "IL6 influences CRP levels, inflammation, overtraining sensitivity and stress response.",
@@ -930,6 +930,25 @@
             "CT": 5,
             "TC": 5,
             "TT": 3
+        }
+    },
+    "rs7412": {
+        "gene": "APOE",
+        "system": "Lipids / Brain",
+        "trait": "APOE isoform (part 2)",
+        "description": "Together with rs429358 determines APOE2, APOE3 or APOE4.",
+        "impact": "High",
+        "variants": {
+            "CC": "APOE4-related pattern",
+            "CT": "APOE3-related pattern",
+            "TC": "APOE3-related pattern",
+            "TT": "APOE2-related (more protective)"
+        },
+        "scores": {
+            "CC": 3,
+            "CT": 5,
+            "TC": 5,
+            "TT": 8
         }
     },
     "rs699": {
@@ -1178,7 +1197,7 @@
         }
     },
     "rs1799983": {
-        "gene": "NOS3 (Glu298Asp)",
+        "gene": "NOS3",
         "system": "Cardiometabolic",
         "trait": "Endothelial nitric oxide production",
         "description": "Determines vasodilation capacity, BP regulation, and exercise oxygen delivery.",
@@ -1251,6 +1270,25 @@
             "CT": 5,
             "TC": 5,
             "TT": 4
+        }
+    },
+    "rs6269": {
+        "gene": "COMT",
+        "system": "Brain / Executive Function",
+        "trait": "COMT expression level",
+        "description": "Regulates COMT enzyme production affecting dopamine tone.",
+        "impact": "Medium",
+        "variants": {
+            "AA": "Lower dopamine (high COMT)",
+            "AG": "Balanced",
+            "GA": "Balanced",
+            "GG": "Higher dopamine (low COMT)"
+        },
+        "scores": {
+            "AA": 4,
+            "AG": 5,
+            "GA": 5,
+            "GG": 7
         }
     },
     "rs3813034": {
@@ -1346,6 +1384,25 @@
             "AG": 5,
             "GA": 5,
             "GG": 4
+        }
+    },
+    "rs1801131": {
+        "gene": "MTHFR",
+        "system": "Methylation",
+        "trait": "MTHFR A1298C (methylation cofactor balance)",
+        "description": "MTHFR A1298C influences methylation cofactor balance and neurotransmitter synthesis.",
+        "impact": "High",
+        "variants": {
+            "CC": "Near-optimal cofactor balance",
+            "CA": "Moderately reduced flexibility in methylation cycle",
+            "AC": "Moderately reduced flexibility in methylation cycle",
+            "AA": "More constrained methylation cofactor balance"
+        },
+        "scores": {
+            "CC": 8,
+            "CA": 6,
+            "AC": 6,
+            "AA": 4
         }
     },
     "rs3733890": {
@@ -1520,7 +1577,7 @@
         }
     },
     "rs16944": {
-        "gene": "IL1B (Promoter)",
+        "gene": "IL1B",
         "system": "Inflammation / Stress",
         "trait": "IL-1\u03b2 inflammation intensity",
         "description": "IL1B regulates acute inflammation. Strong alleles increase injury sensitivity.",
@@ -1557,8 +1614,27 @@
             "CC": 4
         }
     },
+    "rs731236": {
+        "gene": "VDR",
+        "system": "Vitamins / Hormones",
+        "trait": "Vitamin D receptor sensitivity (Taq)",
+        "description": "VDR mediates vitamin D effects on immunity, bone and metabolism.",
+        "impact": "High",
+        "variants": {
+            "TT": "Typical VDR response",
+            "TC": "Slightly altered receptor behavior",
+            "CT": "Slightly altered receptor behavior",
+            "CC": "More altered VDR signaling"
+        },
+        "scores": {
+            "TT": 6,
+            "TC": 5,
+            "CT": 5,
+            "CC": 4
+        }
+    },
     "rs1544410": {
-        "gene": "VDR (BsmI)",
+        "gene": "VDR",
         "system": "Vitamins / Hormones",
         "trait": "Vitamin D receptor sensitivity (Bsm)",
         "description": "Another common VDR site shaping tissue sensitivity to vitamin D.",
@@ -1842,6 +1918,25 @@
             "TT": 4
         }
     },
+    "rs17616434": {
+        "gene": "ALDH2",
+        "system": "Alcohol / Gut",
+        "trait": "Acetaldehyde clearance",
+        "description": "ALDH2 detoxifies acetaldehyde; impaired variants increase inflammation and gut sensitivity.",
+        "impact": "High",
+        "variants": {
+            "GG": "Efficient acetaldehyde clearance",
+            "GA": "Moderately reduced clearance",
+            "AG": "Moderately reduced clearance",
+            "AA": "Very low clearance (high sensitivity)"
+        },
+        "scores": {
+            "GG": 7,
+            "GA": 5,
+            "AG": 5,
+            "AA": 2
+        }
+    },
     "rs1229984": {
         "gene": "ADH1B",
         "system": "Gut / Alcohol",
@@ -2087,6 +2182,25 @@
             "TC": 5,
             "CT": 5,
             "CC": 3
+        }
+    },
+    "rs1800797": {
+        "gene": "IL6",
+        "system": "Fatigue / Recovery",
+        "trait": "Exercise-induced IL-6 signaling",
+        "description": "IL-6 drives mitochondrial repair post-exercise; altered variants slow recovery.",
+        "impact": "Medium",
+        "variants": {
+            "CC": "Effective IL-6 recovery signal",
+            "CT": "Balanced",
+            "TC": "Balanced",
+            "TT": "Blunted recovery signaling"
+        },
+        "scores": {
+            "CC": 6,
+            "CT": 5,
+            "TC": 5,
+            "TT": 4
         }
     },
     "rs1049434": {
@@ -2507,6 +2621,25 @@
             "GG": 7
         }
     },
+    "rs1800796": {
+        "gene": "IL6",
+        "system": "Inflammation / Tendons",
+        "trait": "IL-6 tendon healing and collagen synthesis",
+        "description": "IL6 regulates collagen deposition during repair; low-activity variants heal more slowly.",
+        "impact": "Medium",
+        "variants": {
+            "CC": "Stronger collagen repair response",
+            "CG": "Moderate repair",
+            "GC": "Moderate repair",
+            "GG": "Slower tendon and collagen repair"
+        },
+        "scores": {
+            "CC": 7,
+            "CG": 5,
+            "GC": 5,
+            "GG": 4
+        }
+    },
     "rs143383": {
         "gene": "GDF5",
         "system": "Joints / Cartilage",
@@ -2678,6 +2811,25 @@
             "AA": 4
         }
     },
+    "rs4880_dupfix": {
+        "gene": "SOD2",
+        "system": "Antioxidant Defense",
+        "trait": "Secondary mitochondrial ROS defense",
+        "description": "An additional SOD2-linked site affecting mitochondrial oxidative stress tolerance.",
+        "impact": "High",
+        "variants": {
+            "AA": "Strong antioxidant defense",
+            "AG": "Balanced",
+            "GA": "Balanced",
+            "GG": "Reduced oxidative stress tolerance"
+        },
+        "scores": {
+            "AA": 7,
+            "AG": 5,
+            "GA": 5,
+            "GG": 3
+        }
+    },
     "rs934078": {
         "gene": "DIO2",
         "system": "Thyroid / Metabolism",
@@ -2754,6 +2906,44 @@
             "GG": 3
         }
     },
+    "rs1815739_extra": {
+        "gene": "ACTN3",
+        "system": "Muscle / Power vs Endurance",
+        "trait": "Muscle fiber type composition (secondary)",
+        "description": "A secondary ACTN3-linked site refining power vs endurance profile.",
+        "impact": "Medium",
+        "variants": {
+            "CC": "Power-leaning",
+            "CT": "Balanced",
+            "TC": "Balanced",
+            "TT": "Endurance-leaning"
+        },
+        "scores": {
+            "CC": 7,
+            "CT": 5,
+            "TC": 5,
+            "TT": 4
+        }
+    },
+    "rs2854464": {
+        "gene": "ACTN3",
+        "system": "Muscle / Power",
+        "trait": "Fast-twitch power amplification",
+        "description": "Secondary ACTN3 site influencing explosive strength.",
+        "impact": "High",
+        "variants": {
+            "CC": "Highest fast-twitch activation",
+            "CT": "Moderate activation",
+            "TC": "Moderate activation",
+            "TT": "Lower fast-twitch output"
+        },
+        "scores": {
+            "CC": 8,
+            "CT": 6,
+            "TC": 6,
+            "TT": 4
+        }
+    },
     "rs13278062": {
         "gene": "SIRT1",
         "system": "Longevity",
@@ -2790,6 +2980,25 @@
             "CT": 6,
             "TC": 6,
             "TT": 4
+        }
+    },
+    "rs3025039": {
+        "gene": "VEGFA",
+        "system": "Longevity / Vascular",
+        "trait": "Microvascular aging",
+        "description": "VEGF influences microvascular integrity, nutrient delivery, and resilience to aging.",
+        "impact": "Medium",
+        "variants": {
+            "CC": "Strong microvascular maintenance",
+            "CT": "Moderate maintenance",
+            "TC": "Moderate maintenance",
+            "TT": "Reduced maintenance and slightly faster aging"
+        },
+        "scores": {
+            "CC": 7,
+            "CT": 5,
+            "TC": 5,
+            "TT": 3
         }
     },
     "rs2802295": {
@@ -3248,6 +3457,25 @@
             "TT": 3
         }
     },
+    "rs2228570": {
+        "gene": "VDR",
+        "system": "Muscle / Recovery",
+        "trait": "Vitamin D receptor activity & muscle strength",
+        "description": "VDR influences muscle fiber size, strength, and recovery capacity.",
+        "impact": "High",
+        "variants": {
+            "CC": "High muscle response to vitamin D",
+            "CT": "Moderate response",
+            "TC": "Moderate response",
+            "TT": "Lower VDR activity"
+        },
+        "scores": {
+            "CC": 7,
+            "CT": 5,
+            "TC": 5,
+            "TT": 3
+        }
+    },
     "rs1805065": {
         "gene": "ACTN2",
         "system": "Muscle",
@@ -3341,6 +3569,25 @@
             "AG": 6,
             "GA": 6,
             "GG": 4
+        }
+    },
+    "rs8111989": {
+        "gene": "VDR",
+        "system": "Muscle",
+        "trait": "Muscle recovery & power output",
+        "description": "Secondary VDR site linked to fast-twitch recruitment and repair.",
+        "impact": "Medium",
+        "variants": {
+            "CC": "Fast recovery / strong power",
+            "CT": "Moderate recovery",
+            "TC": "Moderate recovery",
+            "TT": "Slower recovery"
+        },
+        "scores": {
+            "CC": 7,
+            "CT": 5,
+            "TC": 5,
+            "TT": 4
         }
     },
     "rs1049434_TIER2": {
@@ -3474,6 +3721,25 @@
             "CG": 5,
             "GC": 5,
             "GG": 3
+        }
+    },
+    "rs12255372": {
+        "gene": "TCF7L2",
+        "system": "Glucose & Insulin Regulation",
+        "trait": "Type 2 Diabetes Risk (Secondary)",
+        "description": "A strong secondary marker for glucose handling and diabetes risk.",
+        "impact": "High",
+        "variants": {
+            "GG": "Normal risk",
+            "GT": "Increased risk",
+            "TG": "Increased risk",
+            "TT": "High risk (Fragile glucose control)"
+        },
+        "scores": {
+            "GG": 7,
+            "GT": 5,
+            "TG": 5,
+            "TT": 2
         }
     },
     "rs6323": {
@@ -5033,6 +5299,44 @@
         },
         "scores": {
             "GG": 8,
+            "GA": 5,
+            "AG": 5,
+            "AA": 3
+        }
+    },
+    "rs11568820": {
+        "gene": "VDR",
+        "system": "Vitamins / D",
+        "trait": "Gut Vitamin D Absorption (Cdx2)",
+        "description": "Influences the VDR in the intestine. The 'A' allele (sometimes reported as 'T' depending on strand) reduces Vitamin D absorption from food.",
+        "impact": "Medium",
+        "variants": {
+            "GG": "High absorption efficiency",
+            "GA": "Moderate absorption",
+            "AG": "Moderate absorption",
+            "AA": "Lower absorption (Need more D3/sun)"
+        },
+        "scores": {
+            "GG": 8,
+            "GA": 5,
+            "AG": 5,
+            "AA": 3
+        }
+    },
+    "rs1143627": {
+        "gene": "IL1B",
+        "system": "Inflammation",
+        "trait": "Pro-inflammatory Cytokine Production",
+        "description": "Alongside rs16944, this marker regulates IL-1 Beta production. High producers have more robust immune responses but higher chronic inflammation risk.",
+        "impact": "Medium",
+        "variants": {
+            "GG": "Low baseline inflammation",
+            "GA": "Moderate inflammation",
+            "AG": "Moderate inflammation",
+            "AA": "High inflammatory response"
+        },
+        "scores": {
+            "GG": 7,
             "GA": 5,
             "AG": 5,
             "AA": 3
