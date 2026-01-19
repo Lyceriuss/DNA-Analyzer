@@ -50,5 +50,281 @@
             "PMID:11588264",
             "PMID:16702326"
         ]
+    },
+    "MTHFR": {
+        "rsid": "rs1801133",
+        "metrics": {
+            "mechanistic_impact": {
+                "score": 5,
+                "rationale": "Direct enzymatic failure. The T-variant creates a thermolabile enzyme that degrades rapidly at body temperature.",
+                "detail": "The C677T mutation changes an alanine to a valine at codon 222. This renders the enzyme 'thermolabile'\u2014it literally falls apart at normal body heat. Homozygotes (TT) have ~70% reduced capacity to convert folate into its active form (5-MTHF), creating a massive bottleneck in the methylation cycle."
+            },
+            "study_quality": {
+                "score": 5,
+                "rationale": "One of the most studied SNPs in history. Meta-analyses cover tens of thousands of participants.",
+                "detail": "Supported by massive meta-analyses (e.g., Tsang et al. 2015 with 81 studies). The link between C677T and elevated homocysteine is considered established medical fact, not just a statistical association."
+            },
+            "methodology": {
+                "score": 4,
+                "rationale": "Biochemistry is solid (5/5), but clinical outcomes vary based on B-vitamin intake (Interaction), which complicates observational studies.",
+                "detail": "Enzymatic assays proving the activity loss are Gold Standard (5/5). However, some population studies show weak correlations with heart disease because the phenotype is 'rescue-able' by diet. If subjects eat fortified flour, the genetic defect is masked, lowering the 'Methodology' score for pure outcome prediction in modern cohorts."
+            }
+        },
+        "consensus_label": "CLINICAL STANDARD",
+        "methodology_audit": [
+            {
+                "study": "Frosst et al. (1995) - Nature Genetics",
+                "type": "Mechanistic Discovery",
+                "population": "N = 396 (Original Identification)",
+                "methods": "Isolated the enzyme from lymphocytes and heated it. Measured residual activity.",
+                "critique": "STRENGTH: The definitive paper proving the 'thermolabile' mechanism. WEAKNESS: Small sample size by modern standards, but the effect size was huge.",
+                "score_contribution": "Mechanistic Impact (5/5)"
+            },
+            {
+                "study": "Tsang et al. (2015) - Medicine",
+                "type": "Meta-Analysis",
+                "population": "N = 26,000+ (81 Studies)",
+                "methods": "Pooled analysis of MTHFR genotype and homocysteine levels across diverse populations.",
+                "critique": "STRENGTH: Massive statistical power confirming the phenotype. WEAKNESS: High heterogeneity between studies due to varying national folate fortification policies.",
+                "score_contribution": "Study Quality (5/5)"
+            },
+            {
+                "study": "McNulty et al. (2006) - Am J Clin Nutr",
+                "type": "Gene-Nutrient Interaction (RCT)",
+                "population": "N = 32 (Riboflavin Intervention)",
+                "methods": "Randomized placebo-controlled trial giving Riboflavin (B2) to MTHFR TT carriers.",
+                "critique": "STRENGTH: Proved that the enzyme needs FAD (B2) to stabilize. WEAKNESS: Very small sample size (N=32), but the mechanistic proof was elegant.",
+                "score_contribution": "Methodology (4/5)"
+            }
+        ],
+        "citations": [
+            "PMID:7611299",
+            "PMID:25590856",
+            "PMID:16365075"
+        ]
+    },
+    "COMT": {
+        "rsid": "rs4680",
+        "metrics": {
+            "mechanistic_impact": {
+                "score": 5,
+                "rationale": "Direct structural change in the enzyme responsible for clearing dopamine in the frontal cortex.",
+                "detail": "The Val158Met substitution changes the enzyme's structure, reducing its stability. The 'Met' (A) variant degrades 3-4x faster than the 'Val' (G) variant. In the Prefrontal Cortex (PFC), where dopamine transporters are scarce, COMT is the *only* cleanup crew. This means Genotype directly dictates PFC dopamine levels."
+            },
+            "study_quality": {
+                "score": 4,
+                "rationale": "Robust molecular evidence, but behavioral associations (stress/IQ) are noisy and harder to replicate.",
+                "detail": "The biochemical effect is undeniable (5/5). However, studies linking COMT to 'Stress Resilience' or 'IQ' often yield conflicting results because behavior is complex. We trust the mechanism, but the specific personality predictions are less certain than lipid levels."
+            },
+            "methodology": {
+                "score": 4,
+                "rationale": "Neuroimaging (fMRI) studies are high-tech but often small (N<100).",
+                "detail": "Much of the evidence comes from fMRI studies showing 'efficiency' in the brain. While high-tech, these studies often suffer from small sample sizes (N=50-100) compared to GWAS (N=100k+), increasing the risk of false positives in the behavioral domain."
+            }
+        },
+        "consensus_label": "NEURO-VALIDATED",
+        "methodology_audit": [
+            {
+                "study": "Chen et al. (2004) - Am J Hum Genet",
+                "type": "Functional Assay",
+                "population": "Post-mortem Human Brains",
+                "methods": "Measured COMT protein levels and enzyme activity directly in brain tissue relative to genotype.",
+                "critique": "STRENGTH: Direct measurement of the organ in question (Brain). Proved Met/Met has 40% lower activity. WEAKNESS: Post-mortem samples cannot measure behavior.",
+                "score_contribution": "Mechanistic Impact (5/5)"
+            },
+            {
+                "study": "Mier et al. (2010) - JAMA Psychiatry",
+                "type": "Meta-Analysis (fMRI)",
+                "population": "N = ~1,000 (Pooled fMRI data)",
+                "methods": "Analyzed brain activation during working memory tasks across dozens of studies.",
+                "critique": "STRENGTH: Confirmed the 'efficiency' hypothesis\u2014Val carriers need more brain power to do the same task. WEAKNESS: fMRI meta-analyses are notoriously difficult due to varying scanner protocols.",
+                "score_contribution": "Study Quality (4/5)"
+            }
+        ],
+        "citations": [
+            "PMID:15457404",
+            "PMID:19862102"
+        ]
+    },
+    "APOE": {
+        "rsid": "rs429358",
+        "metrics": {
+            "mechanistic_impact": {
+                "score": 5,
+                "rationale": "A structural change that alters lipid transport and amyloid clearance fundamental to Alzheimer's pathology.",
+                "detail": "The E4 allele changes the protein's shape (Arginine instead of Cysteine). This 'open' structure binds preferentially to VLDL particles and fails to clear Beta-Amyloid from the brain. It is not just a risk factor; it is a driver of the disease process."
+            },
+            "study_quality": {
+                "score": 5,
+                "rationale": "The single most replicated genetic association in longevity and neurology.",
+                "detail": "Replicated in every major ethnic group worldwide with odds ratios that are staggering (3x for heterozygotes, 12-15x for homozygotes). The statistical certainty is astronomical."
+            },
+            "methodology": {
+                "score": 5,
+                "rationale": "Gold standard case-control studies and longitudinal cohorts (framingham, etc.).",
+                "detail": "Evidence relies on massive longitudinal cohorts (tracking people for 30+ years) and post-mortem pathology. This is the highest tier of evidence possible for late-onset disease."
+            }
+        },
+        "consensus_label": "GWAS GOLD STANDARD",
+        "methodology_audit": [
+            {
+                "study": "Farrer et al. (1997) - JAMA",
+                "type": "Global Meta-Analysis",
+                "population": "N = 15,000+ (Cases & Controls)",
+                "methods": "Pooled data from 40 teams worldwide. Calculated odds ratios for Alzheimer's by age and genotype.",
+                "critique": "STRENGTH: The foundational study that defined the risk curves used in every clinic today. WEAKNESS: None significantly relevant to the validity of the finding.",
+                "score_contribution": "Study Quality (5/5)"
+            },
+            {
+                "study": "Castellano et al. (2011) - Sci Transl Med",
+                "type": "In Vivo Clearance Assay",
+                "population": "Transgenic Mice & Humans",
+                "methods": "Measured the half-life of Amyloid Beta in the brain fluid of mice/humans with different APOE versions.",
+                "critique": "STRENGTH: Proved the mechanism\u2014E4 isn't making more amyloid, it's failing to take out the trash (clearance is impaired).",
+                "score_contribution": "Mechanistic Impact (5/5)"
+            }
+        ],
+        "citations": [
+            "PMID:9343467",
+            "PMID:21715678"
+        ]
+    },
+    "FTO": {
+        "rsid": "rs9939609",
+        "metrics": {
+            "mechanistic_impact": {
+                "score": 5,
+                "rationale": "Mechanism recently solved: It acts as a long-range switch for IRX3/IRX5 genes, shifting fat cells from 'burning' to 'storing'.",
+                "detail": "For years, FTO was a mystery. We now know the risk variant disrupts a repressor binding site (ARID5B), unlocking the IRX3 and IRX5 genes. This forces adipocytes (fat cells) to store lipids as white fat rather than burning them as heat (thermogenesis). It is a fundamental shift in cellular energy thermodynamics."
+            },
+            "study_quality": {
+                "score": 5,
+                "rationale": "The single strongest genetic signal for BMI. Replicated in hundreds of thousands of people globally.",
+                "detail": "Since its discovery in 2007, FTO has been replicated in every major GWAS of obesity. The effect is detectable in children as young as 7. The p-values are often the most significant in the entire genome for body weight (e.g., p < 10^-100)."
+            },
+            "methodology": {
+                "score": 5,
+                "rationale": "Supported by CRISPR-Cas9 editing studies proving causality, not just association.",
+                "detail": "While initial studies were observational (GWAS), recent work (Claussnitzer et al.) used CRISPR to edit the single nucleotide in human cells, reversing the metabolic signature. This moves the methodology score to 5/5 because causal direction was proven in vitro."
+            }
+        },
+        "consensus_label": "GWAS GOLD STANDARD",
+        "methodology_audit": [
+            {
+                "study": "Frayling et al. (2007) - Science",
+                "type": "GWAS Discovery",
+                "population": "N = 38,759 (Discovery + Replication)",
+                "methods": "First major GWAS identifying rs9939609. Correlated genotype with BMI and Type 2 Diabetes risk.",
+                "critique": "STRENGTH: The landmark study that defined modern obesity genetics. WEAKNESS: Initially lacked mechanistic explanation (which came later).",
+                "score_contribution": "Study Quality (5/5)"
+            },
+            {
+                "study": "Claussnitzer et al. (2015) - NEJM",
+                "type": "Mechanistic Editing (CRISPR)",
+                "population": "Human Adipocyte Progenitors",
+                "methods": "Used CRISPR-Cas9 to switch the T allele to C in human cells. Measured thermogenesis and mitochondrial function.",
+                "critique": "STRENGTH: Proved direct causality. Editing one letter restored 'beige' fat burning capabilities. WEAKNESS: In vitro model, but validated in mouse models.",
+                "score_contribution": "Mechanistic Impact (5/5)"
+            },
+            {
+                "study": "Kilpel\u00e4inen et al. (2011) - PLOS Med",
+                "type": "Meta-Analysis (Interaction)",
+                "population": "N = 218,000 (Adults)",
+                "methods": "Examined if physical activity blunts the FTO effect. Found exercise reduces genetic risk by ~30%.",
+                "critique": "STRENGTH: Massive sample size. Proved lifestyle can modulate genetic expression (Epigenetics). WEAKNESS: Self-reported physical activity is often inaccurate.",
+                "score_contribution": "Methodology (4/5)"
+            }
+        ],
+        "citations": [
+            "PMID:17434869",
+            "PMID:26287746",
+            "PMID:22069379"
+        ]
+    },
+    "BDNF": {
+        "rsid": "rs6265",
+        "metrics": {
+            "mechanistic_impact": {
+                "score": 5,
+                "rationale": "The Val66Met variant physically prevents the growth factor from being secreted by neurons.",
+                "detail": "The 'Met' substitution interferes with the intracellular trafficking of the BDNF protein. It fails to get sorted into secretory granules, meaning less BDNF is released when neurons fire. This directly reduces synaptic plasticity and hippocampus volume."
+            },
+            "study_quality": {
+                "score": 4,
+                "rationale": "Strong neurobiological evidence, but human cognitive studies show variable effect sizes.",
+                "detail": "Molecular studies are definitive (5/5). However, associations with 'Depression' or 'Memory' in humans are highly heterogeneous. The effect is real, but it is often drowned out by environmental factors (stress, sleep), making the 'Study Quality' for specific outcomes slightly lower than FTO."
+            },
+            "methodology": {
+                "score": 4,
+                "rationale": "Reliance on fMRI and neuropsychological testing, which are less precise than serum biomarkers.",
+                "detail": "We cannot easily measure brain BDNF levels in living humans (serum BDNF is a poor proxy). Therefore, most evidence relies on volumetric MRI (hippocampus size) or memory tests, which have higher measurement error."
+            }
+        },
+        "consensus_label": "NEURO-MECHANISTIC",
+        "methodology_audit": [
+            {
+                "study": "Egan et al. (2003) - Cell",
+                "type": "Functional Discovery",
+                "population": "N = 641 (Humans) + In Vitro Neurons",
+                "methods": "Tested memory (Wisconsin Card Sort) and visualized protein secretion in cultured neurons.",
+                "critique": "STRENGTH: Elegantly combined human memory scores with cellular proof of secretion defects. WEAKNESS: Human cohort was relatively small by modern standards.",
+                "score_contribution": "Mechanistic Impact (5/5)"
+            },
+            {
+                "study": "Frodl et al. (2007) - Arch Gen Psych",
+                "type": "MRI Volumetric Study",
+                "population": "N = 60 (Depressed) + 60 (Control)",
+                "methods": "Measured Hippocampal volume via MRI over 3 years. Met carriers showed greater atrophy.",
+                "critique": "STRENGTH: Objective structural measurement of the brain. WEAKNESS: Small sample size (N=120 total) raises risk of replication failure.",
+                "score_contribution": "Methodology (4/5)"
+            }
+        ],
+        "citations": [
+            "PMID:12553913",
+            "PMID:17548744"
+        ]
+    },
+    "VDR": {
+        "rsid": "rs2228570",
+        "metrics": {
+            "mechanistic_impact": {
+                "score": 5,
+                "rationale": "A start-codon polymorphism that creates a longer or shorter receptor protein (FokI variant).",
+                "detail": "This variant (FokI) is located in the start codon (ATG). The 'f' (T) allele shifts the start site, creating a receptor that is 3 amino acids longer. The shorter 'F' (C) version is actually *more* efficient at binding Vitamin D and transcribing genes. This is a structural change in the receptor itself."
+            },
+            "study_quality": {
+                "score": 3,
+                "rationale": "Massive conflict in literature regarding cancer/immunity outcomes.",
+                "detail": "While the receptor mechanics are known, linking VDR genotypes to outcomes like 'Breast Cancer' or 'Tuberculosis' has produced conflicting meta-analyses. The signal is weak and heavily dependent on the population's baseline Vitamin D levels (Interaction), lowering the consensus score."
+            },
+            "methodology": {
+                "score": 4,
+                "rationale": "Transcriptional assays are solid, but clinical trials often fail to control for solar exposure.",
+                "detail": "In vitro studies measuring gene transcription rates are solid (4/5). However, human studies often fail because they rely on single-point Vitamin D blood tests or fail to account for latitude/sun exposure, adding noise to the genetic signal."
+            }
+        },
+        "consensus_label": "BIOCHEMICAL FACTOR",
+        "methodology_audit": [
+            {
+                "study": "Whitfield et al. (2001) - Mol Endocrinol",
+                "type": "Transcriptional Assay",
+                "population": "Cell Lines",
+                "methods": "Compared the 'Long' (f) vs 'Short' (F) receptor's ability to drive gene expression using a reporter gene.",
+                "critique": "STRENGTH: Proved the Short (F) variant is 1.7x more active transcriptionally. WEAKNESS: In vitro only; doesn't account for whole-body homeostasis.",
+                "score_contribution": "Mechanistic Impact (5/5)"
+            },
+            {
+                "study": "Raimondi et al. (2009) - Carcinogenesis",
+                "type": "Meta-Analysis (Cancer)",
+                "population": "N = 20,000+ (Cases)",
+                "methods": "Pooled analysis of VDR variants and cancer risk.",
+                "critique": "STRENGTH: Large sample size. WEAKNESS: Found only weak/null associations, highlighting the difficulty of linking this single gene to complex disease without nutrient data.",
+                "score_contribution": "Study Quality (3/5)"
+            }
+        ],
+        "citations": [
+            "PMID:11435610",
+            "PMID:19357199"
+        ]
     }
 }
