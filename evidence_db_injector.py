@@ -1,174 +1,310 @@
 import json
 import os
+import random
 
 # CONFIG
-EVIDENCE_PATH = "config/evidence_db.json"
+EVIDENCE_DIR = "config"
+EVIDENCE_FILE = "evidence_db.json"
+EVIDENCE_PATH = os.path.join(EVIDENCE_DIR, EVIDENCE_FILE)
+TRAITS_PATHS = ["snp_traits.json", "src/data/snp_traits.json", "config/snp_traits.json"]
 
-# BATCH 2 DATA: FTO, BDNF, VDR
+# QUALITY THRESHOLDS
+THRESHOLDS = {
+    "mechanistic_detail": 120,
+    "study_detail": 80,
+    "critique": 60
+}
+
 BATCH_ENTRIES = {
-    "FTO": {
-        "rsid": "rs9939609",
+    "SLC23A1": {
+        "rsid": "rs33972313", # Val276Ala or Intronic proxy
+        "affected_organs": ["Kidney", "Small Intestine"],
+        "impact_type": "Vitamin C Reabsorption",
         "metrics": {
             "mechanistic_impact": {
                 "score": 5,
-                "rationale": "Mechanism recently solved: It acts as a long-range switch for IRX3/IRX5 genes, shifting fat cells from 'burning' to 'storing'.",
-                "detail": "For years, FTO was a mystery. We now know the risk variant disrupts a repressor binding site (ARID5B), unlocking the IRX3 and IRX5 genes. This forces adipocytes (fat cells) to store lipids as white fat rather than burning them as heat (thermogenesis). It is a fundamental shift in cellular energy thermodynamics."
+                "rationale": "Variant reduces the efficiency of renal reabsorption of Ascorbic Acid.",
+                "detail": "SLC23A1 (SVCT1) is the specific transporter that reclaims Vitamin C from urine in the kidneys. The risk variant creates a 'leaky' filter. Instead of being reabsorbed back into the blood, Vitamin C spills into the urine at much lower concentrations. This means carriers have a lower 'Renal Threshold' and deplete Vitamin C stores roughly 20-30% faster than non-carriers."
             },
             "study_quality": {
                 "score": 5,
-                "rationale": "The single strongest genetic signal for BMI. Replicated in hundreds of thousands of people globally.",
-                "detail": "Since its discovery in 2007, FTO has been replicated in every major GWAS of obesity. The effect is detectable in children as young as 7. The p-values are often the most significant in the entire genome for body weight (e.g., p < 10^-100)."
+                "rationale": "Top GWAS hit for plasma Vitamin C concentrations.",
+                "detail": "Studies involving over 15,000 participants have confirmed this SNP as the strongest genetic determinant of Vitamin C status. Homozygous carriers often have sub-optimal blood levels even when meeting the RDA, suggesting a higher biological requirement to prevent scurvy-like symptoms (gum bleeding, fatigue)."
             },
             "methodology": {
                 "score": 5,
-                "rationale": "Supported by CRISPR-Cas9 editing studies proving causality, not just association.",
-                "detail": "While initial studies were observational (GWAS), recent work (Claussnitzer et al.) used CRISPR to edit the single nucleotide in human cells, reversing the metabolic signature. This moves the methodology score to 5/5 because causal direction was proven in vitro."
+                "rationale": "Plasma Ascorbate HPLC.",
+                "detail": "The relationship is linear: Each copy of the risk allele drops plasma Vitamin C by a measurable amount (micromoles/L). This is a direct measure of the nutrient in circulation."
             }
         },
-        "consensus_label": "GWAS GOLD STANDARD",
+        "consensus_label": "VITAMIN C DRAIN",
         "methodology_audit": [
             {
-                "study": "Frayling et al. (2007) - Science",
-                "type": "GWAS Discovery",
-                "population": "N = 38,759 (Discovery + Replication)",
-                "methods": "First major GWAS identifying rs9939609. Correlated genotype with BMI and Type 2 Diabetes risk.",
-                "critique": "STRENGTH: The landmark study that defined modern obesity genetics. WEAKNESS: Initially lacked mechanistic explanation (which came later).",
+                "study": "Timpson et al. (2010) - Am J Clin Nutr",
+                "type": "GWAS",
+                "population": "N = 15,000",
+                "methods": "Identified SLC23A1 variants as the master regulator of Vitamin C levels.",
+                "critique": "STRENGTH: Massive sample size defined the 'Nutrigenetic' requirement. WEAKNESS: None.",
                 "score_contribution": "Study Quality (5/5)"
             },
             {
-                "study": "Claussnitzer et al. (2015) - NEJM",
-                "type": "Mechanistic Editing (CRISPR)",
-                "population": "Human Adipocyte Progenitors",
-                "methods": "Used CRISPR-Cas9 to switch the T allele to C in human cells. Measured thermogenesis and mitochondrial function.",
-                "critique": "STRENGTH: Proved direct causality. Editing one letter restored 'beige' fat burning capabilities. WEAKNESS: In vitro model, but validated in mouse models.",
+                "study": "Eck et al. (2004) - Kidney Int",
+                "type": "Functional Physiology",
+                "population": "Knockout Models",
+                "methods": "Showed that loss of SVCT1 leads to massive urinary loss of ascorbate.",
+                "critique": "STRENGTH: Proved the kidney reabsorption mechanism is critical for homeostasis.",
                 "score_contribution": "Mechanistic Impact (5/5)"
-            },
-            {
-                "study": "Kilpeläinen et al. (2011) - PLOS Med",
-                "type": "Meta-Analysis (Interaction)",
-                "population": "N = 218,000 (Adults)",
-                "methods": "Examined if physical activity blunts the FTO effect. Found exercise reduces genetic risk by ~30%.",
-                "critique": "STRENGTH: Massive sample size. Proved lifestyle can modulate genetic expression (Epigenetics). WEAKNESS: Self-reported physical activity is often inaccurate.",
-                "score_contribution": "Methodology (4/5)"
             }
         ],
-        "citations": [
-            "PMID:17434869",
-            "PMID:26287746",
-            "PMID:22069379"
-        ]
+        "citations": ["PMID:20504978", "PMID:24172290"]
     },
-    "BDNF": {
-        "rsid": "rs6265",
+    "CETP": {
+        "rsid": "rs5882", # I405V
+        "affected_organs": ["Liver", "Blood Plasma"],
+        "impact_type": "HDL Cholesterol Metabolism",
         "metrics": {
             "mechanistic_impact": {
                 "score": 5,
-                "rationale": "The Val66Met variant physically prevents the growth factor from being secreted by neurons.",
-                "detail": "The 'Met' substitution interferes with the intracellular trafficking of the BDNF protein. It fails to get sorted into secretory granules, meaning less BDNF is released when neurons fire. This directly reduces synaptic plasticity and hippocampus volume."
+                "rationale": "Ile405Val substitution reduces the activity of the transfer protein.",
+                "detail": "Cholesteryl Ester Transfer Protein (CETP) acts as a shuttle, moving cholesterol from 'Good' HDL to 'Bad' LDL/VLDL . The 'Val' (V) variant is a 'Loss of Function' mutation. It slows down this shuttle. This keeps cholesterol trapped in the safe HDL particles, leading to naturally high HDL levels and reduced LDL formation. It is a cardioprotective mechanism."
             },
             "study_quality": {
-                "score": 4,
-                "rationale": "Strong neurobiological evidence, but human cognitive studies show variable effect sizes.",
-                "detail": "Molecular studies are definitive (5/5). However, associations with 'Depression' or 'Memory' in humans are highly heterogeneous. The effect is real, but it is often drowned out by environmental factors (stress, sleep), making the 'Study Quality' for specific outcomes slightly lower than FTO."
+                "score": 5,
+                "rationale": "Consistently linked to Longevity and Lower Heart Disease Risk.",
+                "detail": "The 'V' allele is significantly enriched in centenarians (people living past 100). It is one of the few validated 'Longevity Genes'. While drugs inhibiting CETP failed (due to off-target effects), the genetic reduction of CETP is unequivocally good for heart health."
             },
             "methodology": {
-                "score": 4,
-                "rationale": "Reliance on fMRI and neuropsychological testing, which are less precise than serum biomarkers.",
-                "detail": "We cannot easily measure brain BDNF levels in living humans (serum BDNF is a poor proxy). Therefore, most evidence relies on volumetric MRI (hippocampus size) or memory tests, which have higher measurement error."
+                "score": 5,
+                "rationale": "Lipid Panel & CETP Mass Assays.",
+                "detail": "The phenotype is visible on a standard cholesterol test (High HDL). We can also measure the mass of the CETP protein in plasma; V-carriers have normal protein levels but lower specific activity, confirming the kinetic defect."
             }
         },
-        "consensus_label": "NEURO-MECHANISTIC",
+        "consensus_label": "LONGEVITY LIPID",
         "methodology_audit": [
             {
-                "study": "Egan et al. (2003) - Cell",
-                "type": "Functional Discovery",
-                "population": "N = 641 (Humans) + In Vitro Neurons",
-                "methods": "Tested memory (Wisconsin Card Sort) and visualized protein secretion in cultured neurons.",
-                "critique": "STRENGTH: Elegantly combined human memory scores with cellular proof of secretion defects. WEAKNESS: Human cohort was relatively small by modern standards.",
-                "score_contribution": "Mechanistic Impact (5/5)"
+                "study": "Barzilai et al. (2003) - JAMA",
+                "type": "Longevity Cohort",
+                "population": "Ashkenazi Centenarians",
+                "methods": "Found homozygosity for the V allele was enriched in those >95 years old.",
+                "critique": "STRENGTH: Linked the biochemical lipid trait to actual survival outcomes.",
+                "score_contribution": "Study Quality (5/5)"
             },
             {
-                "study": "Frodl et al. (2007) - Arch Gen Psych",
-                "type": "MRI Volumetric Study",
-                "population": "N = 60 (Depressed) + 60 (Control)",
-                "methods": "Measured Hippocampal volume via MRI over 3 years. Met carriers showed greater atrophy.",
-                "critique": "STRENGTH: Objective structural measurement of the brain. WEAKNESS: Small sample size (N=120 total) raises risk of replication failure.",
-                "score_contribution": "Methodology (4/5)"
+                "study": "Bruce et al. (1998) - J Lipid Res",
+                "type": "Biochemistry",
+                "population": "Human Plasma",
+                "methods": "Characterized the kinetic properties of the I405V variant.",
+                "critique": "STRENGTH: Proved the variant slows down lipid transfer rates.",
+                "score_contribution": "Mechanistic Impact (5/5)"
             }
         ],
-        "citations": [
-            "PMID:12553913",
-            "PMID:17548744"
-        ]
+        "citations": ["PMID:14559897", "PMID:9590615"]
     },
-    "VDR": {
-        "rsid": "rs2228570",
+    "FKBP5": {
+        "rsid": "rs1360780",
+        "affected_organs": ["Brain (Amygdala/Hippocampus)", "Adrenal Axis"],
+        "impact_type": "Cortisol Receptor Sensitivity",
         "metrics": {
             "mechanistic_impact": {
                 "score": 5,
-                "rationale": "A start-codon polymorphism that creates a longer or shorter receptor protein (FokI variant).",
-                "detail": "This variant (FokI) is located in the start codon (ATG). The 'f' (T) allele shifts the start site, creating a receptor that is 3 amino acids longer. The shorter 'F' (C) version is actually *more* efficient at binding Vitamin D and transcribing genes. This is a structural change in the receptor itself."
+                "rationale": "Variant increases the induction of FKBP5 by stress, causing Glucocorticoid Resistance.",
+                "detail": "FKBP5 is a chaperone that binds to the Cortisol Receptor (GR) and stops it from signaling. It acts as a brake. The 'T' allele enhances the gene's response to stress. When a T-carrier gets stressed, they produce massive amounts of FKBP5. This floods the receptors, desensitizing them to cortisol. This breaks the negative feedback loop: the brain keeps screaming for more cortisol because it can't 'hear' the signal ."
             },
             "study_quality": {
-                "score": 3,
-                "rationale": "Massive conflict in literature regarding cancer/immunity outcomes.",
-                "detail": "While the receptor mechanics are known, linking VDR genotypes to outcomes like 'Breast Cancer' or 'Tuberculosis' has produced conflicting meta-analyses. The signal is weak and heavily dependent on the population's baseline Vitamin D levels (Interaction), lowering the consensus score."
+                "score": 5,
+                "rationale": "Major risk factor for PTSD and Mood Disorders after trauma.",
+                "detail": "This is the classic 'Gene x Environment' interaction for PTSD. The genotype alone does little, but if a T-carrier experiences childhood trauma, their risk of adult depression or PTSD skyrockets compared to non-carriers. It creates a 'sticky' stress response."
             },
             "methodology": {
-                "score": 4,
-                "rationale": "Transcriptional assays are solid, but clinical trials often fail to control for solar exposure.",
-                "detail": "In vitro studies measuring gene transcription rates are solid (4/5). However, human studies often fail because they rely on single-point Vitamin D blood tests or fail to account for latitude/sun exposure, adding noise to the genetic signal."
+                "score": 5,
+                "rationale": "Dexamethasone Suppression Test.",
+                "detail": "We give patients a synthetic steroid (Dexamethasone) that should turn off cortisol production. FKBP5 risk carriers fail to suppress cortisol (non-suppression), objectively proving the receptor resistance mechanism."
             }
         },
-        "consensus_label": "BIOCHEMICAL FACTOR",
+        "consensus_label": "STRESS MEMORY",
         "methodology_audit": [
             {
-                "study": "Whitfield et al. (2001) - Mol Endocrinol",
-                "type": "Transcriptional Assay",
-                "population": "Cell Lines",
-                "methods": "Compared the 'Long' (f) vs 'Short' (F) receptor's ability to drive gene expression using a reporter gene.",
-                "critique": "STRENGTH: Proved the Short (F) variant is 1.7x more active transcriptionally. WEAKNESS: In vitro only; doesn't account for whole-body homeostasis.",
-                "score_contribution": "Mechanistic Impact (5/5)"
+                "study": "Binder et al. (2004) - JAMA",
+                "type": "Clinical Genetics",
+                "population": "Depressed Patients",
+                "methods": "Discovered the link between FKBP5, antidepressant response, and HPA axis function.",
+                "critique": "STRENGTH: The seminal paper linking this chaperone to psychiatric outcomes.",
+                "score_contribution": "Study Quality (5/5)"
             },
             {
-                "study": "Raimondi et al. (2009) - Carcinogenesis",
-                "type": "Meta-Analysis (Cancer)",
-                "population": "N = 20,000+ (Cases)",
-                "methods": "Pooled analysis of VDR variants and cancer risk.",
-                "critique": "STRENGTH: Large sample size. WEAKNESS: Found only weak/null associations, highlighting the difficulty of linking this single gene to complex disease without nutrient data.",
-                "score_contribution": "Study Quality (3/5)"
+                "study": "Klengel et al. (2013) - Nature Neuroscience",
+                "type": "Epigenetics",
+                "population": "Trauma Cohort",
+                "methods": "Showed how the variant alters DNA methylation in response to childhood trauma.",
+                "critique": "STRENGTH: Explained the mechanism of the GxE interaction (epigenetic scarring).",
+                "score_contribution": "Mechanistic Impact (5/5)"
             }
         ],
-        "citations": [
-            "PMID:11435610",
-            "PMID:19357199"
-        ]
+        "citations": ["PMID:15520475", "PMID:23202364"]
+    },
+    "SIRT1": {
+        "rsid": "rs13278062",
+        "affected_organs": ["Systemic (Mitochondria)", "Liver", "Fat"],
+        "impact_type": "Metabolic Efficiency & Aging",
+        "metrics": {
+            "mechanistic_impact": {
+                "score": 4,
+                "rationale": "Promoter variant affects basal expression of SIRT1.",
+                "detail": "SIRT1 is the 'Famine Gene.' It turns on when energy is low (via NAD+) to burn fat and repair DNA. The risk variant lowers the baseline expression of SIRT1. This creates a state of 'Metabolic Inflexibility'—the body struggles to switch from burning sugar to burning fat. It mimics the opposite of calorie restriction, predisposing carriers to obesity and insulin resistance."
+            },
+            "study_quality": {
+                "score": 4,
+                "rationale": "Linked to BMI and Diabetes, but effect sizes are small.",
+                "detail": "Meta-analyses show associations with BMI and risk of Type 2 Diabetes, particularly in high-fat diet contexts. However, SIRT1 is part of a complex network (with AMPK/mTOR), so the single SNP effect is often masked by lifestyle factors (exercise is a potent SIRT1 activator that overrides the gene)."
+            },
+            "methodology": {
+                "score": 5,
+                "rationale": "mRNA Quantification & Metabolic Rate.",
+                "detail": "SIRT1 levels can be measured in muscle biopsies or white blood cells. Risk carriers show lower transcript levels and often lower resting metabolic rate (RMR) relative to muscle mass."
+            }
+        },
+        "consensus_label": "FASTING GENE",
+        "methodology_audit": [
+            {
+                "study": "Zillikens et al. (2009) - Diabetologia",
+                "type": "Population Study",
+                "population": "N = 6,000",
+                "methods": "Linked SIRT1 variants to BMI and insulin sensitivity.",
+                "critique": "STRENGTH: Large cohort validation of the metabolic phenotype.",
+                "score_contribution": "Study Quality (4/5)"
+            },
+            {
+                "study": "Rodgers et al. (2005) - Nature",
+                "type": "Molecular Biology",
+                "population": "Cell Models",
+                "methods": "Defined how SIRT1 controls gluconeogenesis via PGC-1alpha.",
+                "critique": "STRENGTH: Established the fundamental pathway of SIRT1 metabolic control.",
+                "score_contribution": "Mechanistic Impact (5/5)"
+            }
+        ],
+        "citations": ["PMID:19669749", "PMID:15742028"]
     }
 }
 
-def inject_batch_2():
-    print("🔬 Injecting BATCH 2 (FTO, BDNF, VDR)...")
+# --- UTILITY FUNCTIONS ---
 
+def check_duplicates(db):
+    print("\n🔍 DUPLICATE & CONFLICT CHECK:")
+    rsid_map = {}
+    duplicates = []
+    
+    for gene, data in db.items():
+        rsid = data.get('rsid')
+        if rsid:
+            if rsid in rsid_map:
+                duplicates.append(f"   ⚠️  Duplicate RSID {rsid}: Found in '{rsid_map[rsid]}' AND '{gene}'")
+            else:
+                rsid_map[rsid] = gene
+                
+    if not duplicates:
+        print("   ✅ No RSID duplicates found.")
+    else:
+        for d in duplicates:
+            print(d)
+
+    keys = sorted(db.keys())
+    collisions = []
+    for i in range(len(keys)):
+        for j in range(i + 1, len(keys)):
+            k1 = keys[i]
+            k2 = keys[j]
+            base1 = k1.split('_')[0]
+            base2 = k2.split('_')[0]
+            if base1 == base2 and base1 in k2 and base2 in k1:
+                 r1 = db[k1].get('rsid')
+                 r2 = db[k2].get('rsid')
+                 if r1 == r2:
+                     collisions.append(f"   🔴 Gene Name Collision (Same RSID): '{k1}' vs '{k2}'")
+
+    if collisions:
+        for c in collisions:
+            print(c)
+    else:
+        print("   ✅ No Key collisions found.")
+
+def validate_entry(gene, data):
+    issues = []
+    if "affected_organs" not in data: issues.append("❌ Missing 'affected_organs'")
+    if "impact_type" not in data: issues.append("❌ Missing 'impact_type'")
+    
+    mech_len = len(data['metrics']['mechanistic_impact']['detail'])
+    if mech_len < THRESHOLDS['mechanistic_detail']:
+        issues.append(f"❌ Low Detail (Mech): {mech_len} chars")
+
+    study_len = len(data['metrics']['study_quality']['detail'])
+    if study_len < THRESHOLDS['study_detail']:
+        issues.append(f"❌ Low Detail (Study): {study_len} chars")
+        
+    if not data.get('methodology_audit'):
+        issues.append("❌ Missing Audit")
+    else:
+        for audit in data['methodology_audit']:
+            if len(audit['critique']) < THRESHOLDS['critique']:
+                issues.append(f"⚠️  Weak Critique ({len(audit['critique'])} chars)")
+
+    return issues
+
+def analyze_coverage_and_show_gaps(db):
+    print("\n📊 CROSS-REFERENCE AUDIT:")
+    traits_file = None
+    for path in TRAITS_PATHS:
+        if os.path.exists(path):
+            traits_file = path
+            break
+            
+    if not traits_file: 
+        print("   ⚠️  snp_traits.json not found.")
+        return
+
+    try:
+        with open(traits_file, 'r', encoding='utf-8') as f:
+            traits_data = json.load(f)
+        
+        evidence_rsids = {v['rsid']: k for k, v in db.items() if 'rsid' in v}
+        traits_rsids = set(traits_data.keys())
+        matched = traits_rsids.intersection(evidence_rsids.keys())
+        missing = list(traits_rsids - evidence_rsids.keys())
+        
+        print(f"   ✅ Validated Matches: {len(matched)} / {len(traits_rsids)}")
+        print(f"   🔻 Remaining Gaps: {len(missing)}")
+        
+        if len(missing) > 0:
+            print("\n🎲 4 Random Gaps (Next Targets):")
+            random.shuffle(missing)
+            subset = missing[:4]
+            for rsid in subset:
+                trait_info = traits_data.get(rsid, {})
+                gene_name = trait_info.get('gene', 'Unknown Gene')
+                print(f"   🔹 {rsid} ({gene_name})")
+                
+    except Exception as e:
+        print(f"   ❌ Audit Error: {e}")
+
+def inject_batch_36():
+    print("🔬 Injecting BATCH 36 (SLC23A1, CETP, FKBP5, SIRT1)...")
     if os.path.exists(EVIDENCE_PATH):
         try:
-            with open(EVIDENCE_PATH, 'r', encoding='utf-8') as f:
-                content = f.read()
-                db = json.loads(content) if content.strip() else {}
-        except json.JSONDecodeError:
-            print("⚠️  JSON file corrupted. Starting fresh.")
-            db = {}
-    else:
-        db = {}
+            with open(EVIDENCE_PATH, 'r') as f: db = json.load(f)
+        except: db = {}
+    else: db = {}
 
-    # Update Database
     for gene, data in BATCH_ENTRIES.items():
-        db[gene] = data
-        print(f"   + Injected {gene} ({data['rsid']})")
+        if validate_entry(gene, data):
+            print(f"   ⚠️  Skipping {gene} due to quality issues.")
+        else:
+            db[gene] = data
+            print(f"   ✨ Injected {gene} ({data['rsid']})")
 
-    with open(EVIDENCE_PATH, 'w', encoding='utf-8') as f:
-        json.dump(db, f, indent=4)
-
-    print("✅ Batch 2 Injection Complete.")
+    with open(EVIDENCE_PATH, 'w') as f: json.dump(db, f, indent=4)
+    print("✅ Batch 36 Complete.")
+    
+    check_duplicates(db)
+    analyze_coverage_and_show_gaps(db)
 
 if __name__ == "__main__":
-    inject_batch_2()
+    inject_batch_36()
