@@ -32,6 +32,7 @@ class ReportEngine:
         except: return {}
         
         
+        
     def get_evidence_for_rsid(self, rsid):
         """
         Scans evidence_db.json for the entry matching the rsid.
@@ -126,7 +127,7 @@ class PDFReport(FPDF):
             self.ln()
 
     def draw_genotype_spectrum(self, user_gt, score_map, variant_map):
-        self.ln(5)
+        self.ln(-3)
         self.set_font('Arial', 'B', 10)
         self.set_text_color(44, 62, 80)
         self.cell(0, 8, "Genotype Possibilities (Best to Worst):", 0, 1)
@@ -179,13 +180,13 @@ class PDFReport(FPDF):
         qual = metrics.get('study_quality', {})
         
         # Spacer
-        self.ln(8) 
+        self.ln(4) 
         
         # HEADER
         self.set_font('Arial', 'B', 12)
         self.set_text_color(44, 62, 80) 
         self.cell(0, 8, "[ RESEARCH & VALIDATION ]", 0, 1, 'L')
-        self.ln(1)
+        self.ln(-2)
         
         # CONTENT
         self.set_draw_color(52, 152, 219) 
@@ -208,7 +209,7 @@ class PDFReport(FPDF):
             self.multi_cell(180, 5, clean_text(mech['detail'])) 
             
             # Space between blocks
-            self.ln(8) 
+            self.ln(4) 
 
         # 2. STUDY QUALITY
         if 'detail' in qual and self.get_y() < 220:
@@ -249,7 +250,7 @@ class PDFReport(FPDF):
         if final_score > 5.0: final_score = 5.0
 
         # Background
-        self.set_y(-60)
+        self.set_y(-45)
         self.set_fill_color(248, 250, 252)
         self.set_draw_color(220, 220, 220)
         self.rect(10, self.get_y(), 190, 40, 'DF')
@@ -260,7 +261,7 @@ class PDFReport(FPDF):
         # --- COL 1: SCORE ---
         self.set_font('Arial', 'B', 8)
         self.set_text_color(100) 
-        self.cell(40, 4, "CONFIDENCE SCORE", 0, 1, 'L')
+        self.cell(28, 4, "CONFIDENCE SCORE", 0, 1, 'L')
         
         # Big Number
         self.set_font('Arial', 'B', 24)
@@ -371,7 +372,7 @@ class PDFReport(FPDF):
         self.cell(0, 8, clean_text(f"Gene: {data['gene']}"), 0, 1)
         self.set_font('Arial', '', 10)
         self.set_text_color(80)
-        self.cell(0, 6, clean_text(f"Your Result: {genotype}"), 0, 1)
+        self.cell(4, 6, clean_text(f"Your Result: {genotype}"), 0, 1)
         self.ln(15)
 
         is_risk = (data['badge_type'] == "RISK")
@@ -393,7 +394,7 @@ class PDFReport(FPDF):
         self.set_font('Arial', '', 10)
         self.set_text_color(0, 0, 0)
         self.multi_cell(0, 5, clean_text(data['mechanism'].get('what', '')))
-        self.ln(2)
+        self.ln(1)
         self.multi_cell(0, 5, clean_text(data['mechanism'].get('how', '')))
         self.ln(5)
 
