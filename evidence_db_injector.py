@@ -1,7 +1,7 @@
 import json
 import os
 import random
-from script import NEW_ENTRIES
+# from script import NEW_ENTRIES
 
 # --- CONFIGURATION ---
 EVIDENCE_DIR = "config"

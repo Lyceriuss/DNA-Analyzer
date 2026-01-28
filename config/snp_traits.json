@@ -608,6 +608,83 @@
             "AG": 5,
             "AA": 4
         }
+    },"rs444697": {
+        "gene": "ASMT",
+        "system": "Brain / Pineal Gland",
+        "trait": "Melatonin Synthesis Efficiency",
+        "description": "The final enzyme in the melatonin production pathway. Converts N-acetylserotonin into melatonin.",
+        "impact": "Medium",
+        "variants": {
+            "AA": "High ASMT expression (Efficient melatonin production)",
+            "AG": "Reduced ASMT expression (Lower melatonin production / Circadian lag)",
+            "GG": "Low ASMT expression (Significant melatonin deficiency risk)"
+        },
+        "scores": { "AA": 8, "AG": 5, "GG": 3 }
+    },
+    "rs6214": {
+        "gene": "IGF1",
+        "system": "Muscles / Endocrine",
+        "trait": "Circulating Growth Factor Levels",
+        "description": "Determines the baseline concentration of Insulin-like Growth Factor 1, the primary driver of tissue growth and repair.",
+        "impact": "High",
+        "variants": {
+            "CC": "High circulating IGF-1 (Potent anabolic signal)",
+            "CT": "Moderate circulating IGF-1",
+            "TT": "Lower circulating IGF-1 (Reduced recovery potential)"
+        },
+        "scores": { "CC": 9, "CT": 6, "TT": 4 }
+    },
+    "rs2229765": {
+        "gene": "IGF1R",
+        "system": "Muscles / Cellular",
+        "trait": "Growth Factor Receptor Sensitivity",
+        "description": "Determines how sensitive muscle cells are to the IGF-1 signal. High sensitivity maximizes the anabolic response.",
+        "impact": "High",
+        "variants": {
+            "AA": "High receptor sensitivity (Efficient muscle protein synthesis)",
+            "AG": "Moderate receptor sensitivity",
+            "GG": "Lower receptor sensitivity (Anabolic resistance risk)"
+        },
+        "scores": { "AA": 9, "AG": 6, "GG": 4 }
+    },
+    "rs6263": {
+        "gene": "AR (Androgen Receptor)",
+        "system": "Muscles / Hormonal",
+        "trait": "Androgen Receptor Density/Sensitivity",
+        "description": "Influences how effectively testosterone and DHT bind to muscle cells to trigger hypertrophy and strength.",
+        "impact": "High",
+        "variants": {
+            "TT": "High receptor sensitivity (Optimized androgen response)",
+            "TC": "Moderate receptor sensitivity",
+            "CC": "Lower receptor sensitivity (Lower androgenic efficiency)"
+        },
+        "scores": { "TT": 9, "TC": 6, "CC": 4 }
+    },
+    "rs2234693": {
+        "gene": "ESR1",
+        "system": "Connective Tissue / Hormonal",
+        "trait": "Estrogen Receptor Alpha Sensitivity",
+        "description": "Regulates the protective effects of estrogen on tendons, ligaments, and bone density.",
+        "impact": "Medium",
+        "variants": {
+            "TT": "Optimized estrogen signaling (Tendon protection/compliance)",
+            "TC": "Moderate signaling efficiency",
+            "CC": "Reduced signaling efficiency (Increased tendon injury risk)"
+        },
+        "scores": { "TT": 8, "TC": 6, "CC": 4 }
+    },
+    "rs7799039": {
+        "gene": "LEP (Leptin)",
+        "system": "Adipose / Hypothalamus",
+        "trait": "Leptin Production & Satiety Signaling",
+        "description": "Determines the production levels of the satiety hormone leptin, which tells the brain you have enough fat stores.",
+        "impact": "High",
+        "variants": {
+            "GG": "High leptin production (Strong satiety signal / Metabolic stability)",
+            "GA": "Moderate leptin production",
+            "AA": "Low leptin production (Constant hunger / 'Thrifty' phenotype)"
+        },
+        "scores": { "GG": 8, "GA": 6, "AA": 3 }
     },
     "rs1800497": {
         "gene": "ANKK1 (Taq1A)",
@@ -5094,7 +5171,61 @@
             "CG": 5,
             "CC": 3
         }
+    },"rs12130333": {
+    "gene": "ANGPTL3",
+    "system": "Liver / Lipid Metabolism",
+    "trait": "Triglyceride Clearance & Lipid Partitioning",
+    "description": "Encodes Angiopoietin-like 3, a protein that inhibits Lipoprotein Lipase (LPL). It dictates whether fats stay in the blood or are stored in tissues.",
+    "impact": "High",
+    "variants": {
+      "CC": "High ANGPTL3 activity (Higher triglycerides / Lipid storage risk)",
+      "CT": "Balanced lipid partitioning",
+      "TC": "Balanced lipid partitioning",
+      "TT": "Low ANGPTL3 activity (Optimal triglyceride clearance / Cardio-protective)"
     },
+    "scores": { "CC": 3, "CT": 5, "TC": 5, "TT": 9 }
+  },"rs1054135": {
+    "gene": "FABP4 (A-FABP)",
+    "system": "Liver / Adipose Tissue",
+    "trait": "Fatty Acid Transport & Lipotoxicity Risk",
+    "description": "Regulates the transport of fatty acids within fat cells. Influences how easily fat is released into the blood and how it affects insulin sensitivity.",
+    "impact": "High",
+    "variants": {
+        "TT": "Optimal FABP4 expression (Efficient fat transport)",
+        "TC": "Reduced transport efficiency (Moderate risk)",
+        "CT": "Reduced transport efficiency (Moderate risk)",
+        "CC": "Low FABP4 expression (High risk of 'trapped' lipids and inflammation)"
+    },
+    "scores": { "TT": 8, "TC": 5, "CT": 5, "CC": 3 }
+},
+  "rs4402960": {
+    "gene": "IGF2BP2",
+    "system": "Pancreas / Glucose",
+    "trait": "First-Phase Insulin Secretion",
+    "description": "Regulates the development and function of pancreatic beta cells. It is one of the most significant markers for insulin-deficient endotypes.",
+    "impact": "High",
+    "variants": {
+      "GG": "Reduced beta-cell compensation (Higher risk for insulin deficiency)",
+      "GT": "Moderate insulin secretion",
+      "TG": "Moderate insulin secretion",
+      "TT": "Optimal beta-cell function (Protective against insulin burnout)"
+    },
+    "scores": { "GG": 3, "GT": 5, "TG": 5, "TT": 8 }
+  },
+  "rs7498665": {
+    "gene": "SH2B1",
+    "system": "Brain / Leptin Sensitivity",
+    "trait": "Leptin and Insulin Cross-Talk",
+    "description": "An adaptor protein that amplifies signals from leptin and insulin receptors in the brain to regulate body weight.",
+    "impact": "High",
+    "variants": {
+      "AA": "Optimal leptin sensitivity",
+      "AG": "Reduced signal amplification (Moderate Leptin Resistance)",
+      "GA": "Reduced signal amplification (Moderate Leptin Resistance)",
+      "GG": "High Leptin Resistance (Body brain thinks it is starving despite high fat stores)"
+    },
+    "scores": { "AA": 8, "AG": 4, "GA": 4, "GG": 2 }
+  },
     "rs7294919": {
         "gene": "CNTNAP2",
         "system": "Motor Control",

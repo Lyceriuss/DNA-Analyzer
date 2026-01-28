@@ -2150,41 +2150,7 @@
             "confidence": 4
         }
     },
-    "rs1042522": {
-        "risk_genotypes": [
-            "CC"
-        ],
-        "strength_genotypes": [
-            "GG",
-            "GC"
-        ],
-        "data_risk": {
-            "gene": "TP53",
-            "title": "The 'Guardian of the Genome'",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "p53 is a tumor suppressor protein. If a cell's DNA is damaged, p53 hits the brakes and forces the cell to either repair itself or self-destruct (apoptosis) so it doesn't become a tumor.",
-                "how": "Your variant (Pro72) is less efficient at triggering cell death in damaged cells. It acts like a hesitant brake pedal. Damaged cells are allowed to survive longer than they should, slightly increasing the risk that mutations will propagate.",
-                "ancestral": "Strict Guardian (Arg72).",
-                "yours": "Your Result: Hesitant Guardian (Reduced Apoptosis)."
-            },
-            "risks": [
-                "Longevity: Slightly higher risk of cancer development.",
-                "Aging: Accumulation of senescent 'Zombie' cells.",
-                "Metabolic: Reduced insulin sensitivity."
-            ],
-            "action": {
-                "title": "Clear the Zombies",
-                "body": "Since your body is slow to kill damaged cells, you must help it. Fasting (Autophagy) is the most powerful tool to clear out senescent cells. Senolytic compounds like Quercetin and Fisetin also help 'finish the job' that p53 started.",
-                "foods": [
-                    "Fisetin (Strawberries)",
-                    "Quercetin",
-                    "72hr Fasting"
-                ]
-            },
-            "confidence": 5
-        }
-    },
+
     "rs1801516": {
         "title": "DNA Damage Response",
         "badge_type": "RISK",
@@ -5723,7 +5689,203 @@
                 "body": "You have the biological hardware for 'Deep Work.' However, you must protect your attention from 'cheap' dopamine like social media, as your brain can easily get hyper-focused on the wrong things. Direct this laser focus toward complex problem-solving."
             }
         }
+    },"rs6214": {
+        "title": "Growth Signal (IGF1)",
+        "badge_type": "SUPERPOWER",
+        "data_strength": {
+            "gene": "IGF1",
+            "title": "The Anabolic Gas Pedal",
+            "badge_type": "SUPERPOWER",
+            "mechanisms": {
+                "what": "IGF-1 is the primary hormone responsible for childhood growth and adult muscle repair. It acts as the 'Gas Pedal' for cellular multiplication and protein synthesis.",
+                "how": "You carry the CC genotype, which is linked to higher circulating levels of IGF-1. Your body is biologically primed to remain in an anabolic state. When you stress your muscles, the signal to grow is louder and more persistent than average. This allows for faster recovery from high-volume training and a higher ceiling for total muscle mass.",
+                "yours": "Your Result: High Circulating IGF-1."
+            },
+            "action": {
+                "title": "Maximize Hypertrophy",
+                "body": "Since your signal is high, you should focus on high-volume hypertrophy training (8-12 reps). Ensure adequate protein intake (at least 2g/kg of body weight) to keep up with the synthesis signal. Note: High IGF-1 is a strength for muscle building but requires vigilant metabolic health to ensure that growth signal doesn't contribute to systemic insulin resistance."
+            }
+        }
     },
+    "rs2229765": {
+        "title": "Receptor Clarity (IGF1R)",
+        "badge_type": "SUPERPOWER",
+        "data_strength": {
+            "gene": "IGF1R",
+            "title": "The Clear Receiver",
+            "badge_type": "SUPERPOWER",
+            "mechanisms": {
+                "what": "If IGF-1 is the 'Signal,' the IGF1 Receptor is the 'Radio' that hears it. High receptor sensitivity ensures the message doesn't get lost.",
+                "how": "Your AA genotype represents high receptor sensitivity. Not only do you have a loud growth signal (from your IGF1 CC result), but your muscle cells are genetically tuned to 'hear' that signal clearly. This synergy creates an exceptionally efficient pathway for Muscle Protein Synthesis (MPS). You are likely a 'High Responder' to resistance training.",
+                "yours": "Your Result: High Receptor Sensitivity."
+            },
+            "action": {
+                "title": "Structural Integrity",
+                "body": "Your hardware is built for growth. However, because your muscle tissue grows so efficiently, it can easily outpace your tendons (especially with your COL5A1 stiffness). You must use controlled eccentrics to ensure your structural 'anchors' strengthen alongside your rapidly adapting muscle fibers."
+            }
+        }
+    },
+    "rs6263": {
+        "title": "Androgen Drive (AR)",
+        "badge_type": "SUPERPOWER",
+        "data_strength": {
+            "gene": "AR",
+            "title": "The Testosterone Amplifier",
+            "badge_type": "SUPERPOWER",
+            "mechanisms": {
+                "what": "The Androgen Receptor determines how much 'work' your testosterone actually does in the muscle cell. It is the bridge between hormones and physical strength.",
+                "how": "Your TT genotype is associated with higher AR sensitivity. This means that even with normal testosterone levels, your muscles extract more 'benefit' from the hormone. This translates to higher muscle density, lower body fat percentages, and increased explosive power. You have the genetic profile often seen in natural athletes who maintain 'dry' lean mass easily.",
+                "yours": "Your Result: High Androgen Sensitivity."
+            },
+            "action": {
+                "title": "Explosive Programming",
+                "body": "Your muscles respond best to high-tension, explosive movements (sprints, heavy triples). Avoid excessive steady-state cardio which can temporarily downregulate AR expression. Support this system with Zinc and Magnesium to ensure baseline testosterone remains optimal for these sensitive receptors."
+            }
+        }
+    },
+    "rs444697": {
+        "title": "Melatonin Synthesis (ASMT)",
+        "badge_type": "RISK",
+        "data_risk": {
+            "gene": "ASMT",
+            "title": "The Sleep Bottleneck",
+            "badge_type": "RISK",
+            "mechanisms": {
+                "what": "ASMT is the final 'worker' on the assembly line that turns serotonin into melatonin. It is the gatekeeper of your sleep-wake cycle.",
+                "how": "Your AG genotype indicates reduced enzyme activity. While you can produce melatonin, the process is slower and less efficient than the 'AA' baseline. This often results in 'Circadian Lag'—where your brain takes longer to transition into deep sleep mode after the sun goes down. If you are exposed to blue light late at night, your already sluggish ASMT worker can't keep up, leading to shallow sleep and poor morning recovery.",
+                "yours": "Your Result: Reduced Synthesis Efficiency."
+            },
+            "action": {
+                "title": "The Sunset Protocol",
+                "body": "You must manually assist your ASMT enzyme. Use blue-light blocking glasses 2 hours before bed and consider a micro-dose of melatonin (0.3mg) to bypass this genetic bottleneck. Because your synthesis is slow, early morning sunlight is critical to 'reset' the clock so the assembly line starts on time the following night."
+            }
+        }
+    },
+    "rs7799039": {
+        "title": "Leptin Signaling (LEP)",
+        "badge_type": "SUPERPOWER",
+        "data_strength": {
+            "gene": "LEP",
+            "title": "The Fullness Shield",
+            "badge_type": "SUPERPOWER",
+            "mechanisms": {
+                "what": "Leptin is the 'Stop Eating' hormone. It is produced by your fat cells and travels to the brain to signal that you have enough energy stored.",
+                "how": "You carry the GG genotype, associated with robust leptin production and high sensitivity. Unlike carriers of the 'A' allele who often feel a constant 'background hunger,' your brain receives a clear, loud signal when your energy needs are met. This makes it significantly easier for you to maintain a lean physique and resist the 'hedonic' urge to overeat processed foods.",
+                "yours": "Your Result: High Leptin Sensitivity."
+            },
+            "action": {
+                "title": "Protect the Signal",
+                "body": "Your satiety signaling is a major metabolic asset. To keep it sharp, avoid frequent snacking, which can lead to 'Leptin Resistance' over time. Focus on high-protein, high-fiber meals that allow your leptin levels to pulse naturally. This genetic profile is the perfect foundation for Intermittent Fasting (16:8), as your brain won't panic during the fasting window."
+            }
+        }
+    },
+    "rs2234693": {
+        "title": "Estrogen Protection (ESR1)",
+        "badge_type": "SUPERPOWER",
+        "data_strength": {
+            "gene": "ESR1",
+            "title": "The Tendon Buffer",
+            "badge_type": "SUPERPOWER",
+            "mechanisms": {
+                "what": "Estrogen isn't just a female hormone; in the male body, it is a critical regulator of tendon elasticity and bone mineral density through the Estrogen Receptor Alpha (ESR1).",
+                "how": "You have the TT genotype, which represents the most efficient version of this receptor. In a high-power athlete (like your ACE GG profile), this acts as a 'Biological Buffer.' While your COL5A1 gene makes your tendons stiff, your ESR1 ensures they stay properly hydrated and resilient. It provides the 'oil' that prevents your stiff 'springs' from becoming brittle and snapping under heavy loads.",
+                "yours": "Your Result: Optimal Receptor Sensitivity."
+            },
+            "action": {
+                "title": "Structural Resilience",
+                "body": "You can handle higher intensities than most, but don't take it for granted. Support your ESR1 signaling by ensuring you have healthy levels of aromatization (don't crush your estrogen too low with supplements) and include collagen-rich foods or gelatin 60 minutes before training to maximize the structural repair signal."
+            }
+        }
+    },
+    "rs12130333": {
+    "title": "Lipid Traffic Control (ANGPTL3)",
+    "badge_type": "RISK",
+    "data_risk": {
+      "gene": "ANGPTL3",
+      "title": "The Metabolic Dam",
+      "badge_type": "RISK",
+      "mechanisms": {
+        "what": "ANGPTL3 acts as a powerful brake on your body's ability to clear fat from the bloodstream. It inhibits Lipoprotein Lipase (LPL), the 'worker' enzyme that breaks down triglycerides.",
+        "how": "Your genotype (CC) results in higher levels of this 'brake.' Consequently, fats linger in your circulation for a longer duration and are more likely to be shunted toward ectopic storage (like the liver) rather than being utilized for energy or stored safely. This creates a profile where triglyceride levels remain stubbornly high even with moderate fat intake.",
+        "yours": "Your Result: High ANGPTL3 Activity."
+      },
+      "action": {
+        "title": "Unlocking the Brake",
+        "body": "Your primary strategy must be the reduction of VLDL production. Fructose is your biggest biological enemy, as it triggers the liver to pump out triglycerides that ANGPTL3 will then trap in your blood. Increasing Omega-3 fatty acids (EPA/DHA) is essential, as they naturally lower ANGPTL3 expression, essentially 'releasing the brake' on your fat metabolism."
+      }
+    }
+  },"rs1054135": {
+    "title": "Lipid Logistics (FABP4)",
+    "badge_type": "RISK",
+    "data_risk": {
+      "gene": "FABP4",
+      "title": "The Broken Suitcase",
+      "badge_type": "RISK",
+      "mechanisms": {
+        "what": "FABP4 (Fatty Acid Binding Protein 4) acts as a specialized 'biological suitcase' or chaperone. Its job is to bind to free fatty acids inside your fat cells and safely transport them to where they need to go—either to be burned for energy or stored as stable fat.",
+        "how": "Your genotype (CC) results in a 'Lower Expression' of these transport proteins. This means you have fewer 'suitcases' available to move fat. When fatty acids are released into your cells but have no chaperone to carry them, they become 'homeless' and reactive. These free-floating fats trigger inflammatory receptors (like TLR4) and cause endoplasmic reticulum stress. This prevents your fat cells from functioning as safe storage units, leading to 'fat spillover' into your bloodstream and organs.",
+        "yours": "Your Result: Low Chaperone Efficiency."
+      },
+      "action": {
+        "title": "Stabilize the Cargo",
+        "body": "Because your lipid transport is genetically 'fragile,' you must avoid rapid spikes in fatty acid release. This means avoiding extreme, aggressive calorie deficits which flood the system with more fat than your FABP4 can handle. Focus on anti-inflammatory 'chaperone support' through high-dose Omega-3 (EPA), which helps stabilize the fat cell membrane. Additionally, reducing refined sugar is mandatory; high insulin levels combined with your FABP4 bottleneck create a high-pressure environment for liver fat accumulation."
+      }
+    }
+  },
+  "rs4402960": {
+    "title": "Beta-Cell Resilience (IGF2BP2)",
+    "badge_type": "RISK",
+    "data_risk": {
+      "gene": "IGF2BP2",
+      "title": "The Fragile Pancreas",
+      "badge_type": "RISK",
+      "mechanisms": {
+        "what": "IGF2BP2 is a critical architect of the pancreatic beta-cells, which are the factories responsible for producing and secreting insulin in response to rising blood sugar.",
+        "how": "Your genotype (GG) is associated with reduced beta-cell mass and a lower 'First-Phase' insulin response. When you eat carbohydrates, your pancreas doesn't fire as quickly as it should. This leads to a delayed blood sugar spike followed by an 'overshoot' of insulin later on. Over time, your pancreatic factories can become 'burned out' because they have to work harder to compensate for their lower initial capacity.",
+        "yours": "Your Result: Reduced Beta-Cell Compensation."
+      },
+      "action": {
+        "title": "Glucose Smoothing",
+        "body": "You cannot afford 'glucose spikes.' Focus on the order of eating: fiber first, then protein, then complex carbs. This slows the arrival of sugar into the blood, giving your slower-responding beta-cells time to keep up. Strength training is vital for you; by building muscle, you create a 'sink' for glucose that doesn't require as much insulin to manage."
+      }
+    }
+  },
+  "rs1042522": {
+    "title": "Satiety Brake (POMC)",
+    "badge_type": "RISK",
+    "data_risk": {
+      "gene": "POMC",
+      "title": "The Silent Fullness Signal",
+      "badge_type": "RISK",
+      "mechanisms": {
+        "what": "The POMC gene is responsible for producing Pro-opiomelanocortin, which is processed into alpha-MSH—the primary 'stop eating' signal in the hypothalamus.",
+        "how": "Your genotype (CG) leads to a subtle but significant reduction in the production of these satiety peptides. In the Neuroendocrine cluster, this manifests as a delayed 'fullness' response. By the time your brain registers that you have had enough to eat, you have likely consumed 15-20% more calories than your metabolic baseline requires. This isn't a lack of willpower; it is a mechanical delay in the chemical signal that terminates a meal.",
+        "yours": "Your Result: Reduced alpha-MSH production."
+      },
+      "action": {
+        "title": "Manual Satiety Induction",
+        "body": "Because your chemical 'fullness' signal is slow, you must use mechanical signals to compensate. Drink 500ml of water 15 minutes before meals to trigger stomach stretch receptors (which use a different pathway). Use 'Time-Gaps': eat half your meal, wait 10 minutes, and then decide if you are truly hungry. This allows your lower levels of alpha-MSH to finally reach the receptors in your brain."
+      }
+    }
+  },
+  "rs7498665": {
+    "title": "Leptin Sensitivity (SH2B1)",
+    "badge_type": "RISK",
+    "data_risk": {
+      "gene": "SH2B1",
+      "title": "The Signal Mismatch",
+      "badge_type": "RISK",
+      "mechanisms": {
+        "what": "SH2B1 is a crucial 'adapter protein' that acts like a signal booster for the leptin receptor. Leptin is the hormone released by fat cells to tell your brain you have plenty of energy stored.",
+        "how": "With your genotype (AG), the booster is less efficient. Even if your leptin levels are high, the signal doesn't 'ring the bell' loudly enough in your brain. This creates a state of Leptin Resistance. Your brain perceives that you are in a state of energy scarcity (starvation) despite having adequate fat stores, leading to a suppressed metabolic rate and an increased drive to seek high-calorie, energy-dense foods.",
+        "yours": "Your Result: Blunted Leptin Signaling."
+      },
+      "action": {
+        "title": "Resensitization Protocol",
+        "body": "To 'clean' your leptin receptors, you must focus on reducing systemic inflammation. High levels of C-Reactive Protein (CRP) physically block leptin from crossing the blood-brain barrier. Avoid highly processed seed oils and prioritize 8 hours of sleep; sleep deprivation is the fastest way to further blunt SH2B1 activity, making your hunger virtually uncontrollable the following day."
+      }
+    }
+  },
     "rs3749034": {
         "title": "GABA Production",
         "badge_type": "RISK",

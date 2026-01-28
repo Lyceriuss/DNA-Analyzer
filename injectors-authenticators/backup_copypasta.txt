@@ -1,0 +1,284 @@
+
+Here is an example of an snp_traits.json entry:
+
+
+
+"rs40184": {
+
+        "gene": "SLC6A3 (DAT1)",
+
+        "system": "Brain / Dopamine",
+
+        "trait": "Dopamine Transporter Density",
+
+        "description": "Regulates how quickly dopamine is cleared from the synapse. High clearance means lower baseline dopamine; low clearance means higher dopamine.",
+
+        "impact": "Medium",
+
+        "variants": {
+
+            "CC": "High clearance (Lower baseline dopamine / Higher ADHD risk)",
+
+            "CT": "Balanced clearance",
+
+            "TC": "Balanced clearance",
+
+            "TT": "Low clearance (Higher baseline dopamine)"
+
+        },
+
+        "scores": {
+
+            "CC": 3,
+
+            "CT": 5,
+
+            "TC": 5,
+
+            "TT": 7
+
+        }
+
+    }
+
+
+
+deep_dive_content.json entry:
+
+
+
+"rs40184": {
+
+        "title": "Dopamine Transport (DAT1)",
+
+        "badge_type": "RISK",
+
+        "data_risk": {
+
+            "gene": "SLC6A3",
+
+            "title": "The 'Vacuum' Effect",
+
+            "badge_type": "RISK",
+
+            "mechanisms": {
+
+                "what": "The Dopamine Transporter (DAT) acts like a powerful biological vacuum cleaner, sucking dopamine out of the synaptic cleft after it has been released to terminate the neural signal.",
+
+                "how": "You have the High Expression genotype (10R allele). Your vacuum is hyper-active. You suck dopamine back up before it can fully stimulate the next neuron. This leaves you with chronically low tonic dopamine levels. Your brain is essentially starving for stimulation, leading to symptoms of inattention, seeking novelty, risk-taking behavior, and ADHD-like traits as you hunt for dopamine.",
+
+                "yours": "Your Result: High Transporter Density."
+
+            },
+
+            "action": {
+
+                "title": "Stimulation Control",
+
+                "body": "You likely self-medicate with caffeine, intensity, or drama. To manage this naturally, you must 'gamify' your life. Focus on tasks with high immediate feedback loops to keep dopamine pulsing. Cold showers increase dopamine by 250% for hours, acting as a natural substitute for stimulants."
+
+            }
+
+        },
+
+        "data_strength": {
+
+            "gene": "SLC6A3",
+
+            "title": "The 'Sticky' Dopamine",
+
+            "badge_type": "SUPERPOWER",
+
+            "mechanisms": {
+
+                "what": "Lower transporter density allows dopamine molecules to linger in the synapse for a longer duration, enhancing the neural signal strength.",
+
+                "how": "Your transporter density is genetically lower (9R allele). Dopamine stays active in the gap between neurons for much longer than average. This gives you natural focus, persistence, and a 'sticky' attention span. You do not need constant external stimulation to stay engaged with a task; your brain naturally holds onto interest.",
+
+                "yours": "Your Result: Low Transporter Density."
+
+            },
+
+            "action": {
+
+                "title": "Deep Focus Capability",
+
+                "body": "You have the biological hardware for 'Deep Work.' However, you must protect your attention from 'cheap' dopamine like social media, as your brain can easily get hyper-focused on the wrong things. Direct this laser focus toward complex problem-solving."
+
+            }
+
+        }
+
+    }
+
+
+
+evidence_db.json entry:
+
+
+# Guardrail Thresholds
+THRESHOLDS = {
+    "mechanistic_detail": 250,
+    "study_detail": 300,
+    "critique": 400
+}
+
+# Strict Organ List
+VALID_ORGANS = {
+    "Brain", "Eyes", "Thyroid", "Heart", "Lungs", "Liver", "Stomach", 
+    "Pancreas", "Spleen", "Kidneys", "Intestines", "Bladder", 
+    "Ovaries", "Uterus", "Testes", "Prostate", "Skin", "Bones", "Muscles"
+}
+
+
+"SLC6A3_DOPAMINE": {
+
+        "rsid": "rs40184",
+
+        "variant_identity": {
+
+            "gene_symbol": "SLC6A3",
+
+            "common_name": "Dopamine Transporter (DAT1)",
+
+            "rsid": "rs40184",
+
+            "biotype": "3' UTR Variant"
+
+        },
+
+        "affected_organs": [
+
+            "Brain"
+
+        ],
+
+        "affected_systems": [
+
+            "Nervous System"
+
+        ],
+
+        "impact_type": "Dopamine Reuptake",
+
+        "metabolic_connections": {
+
+            "upstream_requirements": [
+
+                {
+
+                    "molecule": "Dopamine",
+
+                    "role": "Cargo",
+
+                    "mechanism": "DAT1 vacuums dopamine back into the presynaptic neuron."
+
+                }
+
+            ],
+
+            "downstream_impacts": [
+
+                {
+
+                    "molecule": "Synaptic Dopamine",
+
+                    "effect": "Clearance",
+
+                    "consequence": "High DAT1 activity reduces the 'High' from dopamine."
+
+                },
+
+                {
+
+                    "molecule": "Focus",
+
+                    "effect": "Regulation",
+
+                    "consequence": "Low dopamine availability is linked to ADHD and distraction."
+
+                }
+
+            ]
+
+        },
+
+        "metrics": {
+
+            "mechanistic_impact": {
+
+                "score": 5,
+
+                "rationale": "3' UTR variant modulates mRNA stability and transporter density.",
+
+                "detail": "The Dopamine Transporter (DAT1/SLC6A3) is the primary regulator of dopamine duration in the synapse. It is the target of Ritalin and Cocaine. The rs40184 variant (often linked to the 10-repeat VNTR) affects the stability of the mRNA.  The 'Risk' allele leads to higher transporter density. This means dopamine is cleared *too fast*. The synapse is 'Dopamine Deficient' shortly after a signal fires. This results in a constant need for stimulation (fidgeting, risk-taking) to maintain dopamine levels, a hallmark of ADHD."
+
+            },
+
+            "study_quality": {
+
+                "score": 5,
+
+                "rationale": "One of the most studied genes in Psychiatry.",
+
+                "detail": "Consistent associations with ADHD, Bipolar Disorder, and response to stimulants. It defines the 'Dopamine Seeker' phenotype."
+
+            },
+
+            "methodology": {
+
+                "score": 5,
+
+                "rationale": "SPECT Imaging.",
+
+                "detail": "Radioactive tracers allow visualization of DAT density in living human brains."
+
+            }
+
+        },
+
+        "consensus_label": "FOCUS DRAIN",
+
+        "methodology_audit": [
+
+            {
+
+                "study": "Cook et al. (1995) - Am J Hum Genet",
+
+                "type": "Discovery",
+
+                "population": "ADHD Families",
+
+                "methods": "Haplotype-based haplotype relative risk (HHRR).",
+
+                "critique": "STRENGTH: The seminal paper linking DAT1 to ADHD. It found the 10-repeat allele was preferentially transmitted to ADHD children. CRITIQUE: While the association is robust, the functional effect is complex (sometimes 10R is high expression, sometimes low, depending on brain region). However, the clinical outcome (ADHD risk) is consistent. The audit suggests that for these carriers, 'Dopamine Management' (exercise, cold showers, tyrosine) is essential to keep the baseline up.",
+
+                "score_contribution": "Study Quality (5/5)"
+
+            },
+
+            {
+
+                "study": "Heinz et al. (2000) - Am J Psychiatry",
+
+                "type": "Neuroimaging",
+
+                "population": "Alcoholics/Controls",
+
+                "methods": "SPECT imaging of striatal DAT availability.",
+
+                "critique": "STRENGTH: Visualized the protein in vivo. Confirmed that genotype predicts transporter availability. CRITIQUE: This links the gene to addiction. A brain that clears dopamine too fast is hungrier for the next hit. This explains the comorbidity between ADHD and substance abuse (alcohol, nicotine, sugar). It reframes addiction not as a moral failing but as a 'Receptor Hunger' driven by aggressive reuptake machinery that leaves the synapse perpetually empty.",
+
+                "score_contribution": "Mechanistic Impact (5/5)"
+
+            }
+
+        ],
+
+        "citations": [
+
+            "PMID:7728151",
+
+            "PMID:10784460"
+
+        ]

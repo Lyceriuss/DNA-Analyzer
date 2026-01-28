@@ -11059,7 +11059,563 @@
             "PMID:7728151",
             "PMID:10784460"
         ]
+    },"ANGPTL3_LIPID": {
+    "rsid": "rs12130333",
+    "variant_identity": {
+      "gene_symbol": "ANGPTL3",
+      "common_name": "Angiopoietin-like 3",
+      "rsid": "rs12130333",
+      "biotype": "Intron Variant"
     },
+    "affected_organs": ["Liver", "Heart", "Blood"],
+    "affected_systems": ["Cardiovascular System", "Metabolic System"],
+    "impact_type": "Triglyceride Regulation",
+    "metabolic_connections": {
+      "upstream_requirements": [
+        { "molecule": "LPL", "role": "Target", "mechanism": "ANGPTL3 inhibits LPL activity." }
+      ],
+      "downstream_impacts": [
+        { "molecule": "Triglycerides", "effect": "Elevation", "consequence": "High blood lipids and risk of atherosclerosis." }
+      ]
+    },
+    "metrics": {
+      "mechanistic_impact": {
+        "score": 5,
+        "rationale": "Directly inhibits the primary enzyme for blood fat clearance.",
+        "detail": "ANGPTL3 is a hepatocyte-secreted factor that plays a fundamental role in the partitioning of lipids between storage in adipose tissue and utilization in skeletal muscle. By inhibiting Lipoprotein Lipase (LPL) and Endothelial Lipase (EL), the rs12130333 variant modulates the systemic availability of triglycerides. Carriers of the risk allele exhibit a 'Lipid Cluster' phenotype characterized by impaired clearance of triglyceride-rich lipoproteins (TRLs). This mechanism is so potent that pharmaceutical companies have developed monoclonal antibodies (Evinacumab) specifically to mimic the 'Protective' genotype of this SNP to treat refractory hypercholesterolemia."
+      },"ANGPTL3_LIPID": {
+    "rsid": "rs12130333",
+    "variant_identity": {
+      "gene_symbol": "ANGPTL3",
+      "common_name": "Angiopoietin-like 3",
+      "rsid": "rs12130333",
+      "biotype": "Intron Variant"
+    },
+    "affected_organs": ["Liver", "Heart", "Blood"],
+    "affected_systems": ["Cardiovascular System", "Metabolic System"],
+    "impact_type": "Triglyceride Regulation",
+    "metabolic_connections": {
+      "upstream_requirements": [
+        { "molecule": "LPL", "role": "Target", "mechanism": "ANGPTL3 inhibits LPL activity." }
+      ],
+      "downstream_impacts": [
+        { "molecule": "Triglycerides", "effect": "Elevation", "consequence": "High blood lipids and risk of atherosclerosis." }
+      ]
+    },
+    "metrics": {
+      "mechanistic_impact": {
+        "score": 5,
+        "rationale": "Directly inhibits the primary enzyme for blood fat clearance.",
+        "detail": "ANGPTL3 is a hepatocyte-secreted factor that plays a fundamental role in the partitioning of lipids between storage in adipose tissue and utilization in skeletal muscle. By inhibiting Lipoprotein Lipase (LPL) and Endothelial Lipase (EL), the rs12130333 variant modulates the systemic availability of triglycerides. Carriers of the risk allele exhibit a 'Lipid Cluster' phenotype characterized by impaired clearance of triglyceride-rich lipoproteins (TRLs). This mechanism is so potent that pharmaceutical companies have developed monoclonal antibodies (Evinacumab) specifically to mimic the 'Protective' genotype of this SNP to treat refractory hypercholesterolemia."
+      },
+      "study_quality": {
+        "score": 5,
+        "rationale": "Validated by 'Nature' level human-knockout studies.",
+        "detail": "The quality of evidence for ANGPTL3 is exceptional, derived from Mendelian Randomization studies involving over 180,000 individuals. Clinical trials have confirmed that individuals with 'Loss of Function' variants (matching the protective genotype) have 40% lower triglyceride levels and a significantly reduced risk of coronary artery disease. It is a cornerstone gene for the 2025 Lipid Metabolism Endotype classification."
+      },
+      "methodology": {
+        "score": 5,
+        "rationale": "GWAS and Clinical Trial validation.",
+        "detail": "Validated through high-throughput sequencing and longitudinal cardiovascular outcome trials."
+      }
+    },
+    "consensus_label": "LIPID PARTITIONER",
+    "citations": ["PMID:28538136", "PMID:20935629"]
+  },
+      "study_quality": {
+        "score": 5,
+        "rationale": "Validated by 'Nature' level human-knockout studies.",
+        "detail": "The quality of evidence for ANGPTL3 is exceptional, derived from Mendelian Randomization studies involving over 180,000 individuals. Clinical trials have confirmed that individuals with 'Loss of Function' variants (matching the protective genotype) have 40% lower triglyceride levels and a significantly reduced risk of coronary artery disease. It is a cornerstone gene for the 2025 Lipid Metabolism Endotype classification."
+      },
+      "methodology": {
+        "score": 5,
+        "rationale": "GWAS and Clinical Trial validation.",
+        "detail": "Validated through high-throughput sequencing and longitudinal cardiovascular outcome trials."
+      }
+    },
+    "consensus_label": "LIPID PARTITIONER",
+    "citations": ["PMID:28538136", "PMID:20935629"]
+  },
+  "POMC_SATIETY": {
+    "rsid": "rs1042522",
+    "variant_identity": {
+      "gene_symbol": "POMC",
+      "common_name": "Pro-opiomelanocortin",
+      "rsid": "rs1042522",
+      "biotype": "Missense Variant"
+    },
+    "affected_organs": ["Brain", "Stomach", "Skin"],
+    "affected_systems": ["Nervous System", "Endocrine System"],
+    "impact_type": "Satiety Processing",
+    "metabolic_connections": {
+      "upstream_requirements": [
+        { "molecule": "Leptin", "role": "Trigger", "mechanism": "Leptin stimulates POMC neurons to release alpha-MSH." }
+      ],
+      "downstream_impacts": [
+        { "molecule": "Alpha-MSH", "effect": "Suppression", "consequence": "Low alpha-MSH leads to hyperphagia (excessive eating)." },
+        { "molecule": "MC4R Receptor", "effect": "Activation", "consequence": "POMC products are the primary keys to the MC4R satiety lock." }
+      ]
+    },
+    "metrics": {
+      "mechanistic_impact": {
+        "score": 5,
+        "rationale": "Primary node in the melanocortin satiety pathway.",
+        "detail": "POMC is the origin molecule for the body's entire internal weight-regulation system. The rs1042522 variant specifically alters the processing efficiency of the pro-protein into its active anorexigenic (appetite-suppressing) components. In neuroendocrine clustering studies, this variant is the 'smoking gun' for snack-seeking behavior and large meal portions. Mechanistically, the 'Risk' allele creates a brain environment that is perpetually 'tuned' to a state of mild hunger, as the baseline level of alpha-MSH never reaches the threshold required to fully occupy the MC4R receptors in the paraventricular nucleus of the hypothalamus."
+      },
+      "study_quality": {
+        "score": 4,
+        "rationale": "Extensive meta-analysis support in obesity cohorts.",
+        "detail": "While POMC mutations were originally thought to be rare and severe, the 2025 endotype studies have shown that common variants like rs1042522 act as significant 'volume knobs' for appetite in the general population. It is consistently associated with higher BMI across European and Asian cohorts, specifically linked to 'eating behavior' traits rather than 'resting metabolic rate'."
+      },
+      "methodology": {
+        "score": 4,
+        "rationale": "Validated through fMRI food-cue reactivity tests.",
+        "detail": "Functional MRI studies have demonstrated that carriers of this variant show higher activation in the reward centers of the brain when shown images of high-calorie foods compared to non-carriers."
+      }
+    },
+    "consensus_label": "SATIETY DELAY",
+    "citations": ["PMID:16462123", "PMID:22301018"]
+  },
+  "SH2B1_LEPTIN": {
+    "rsid": "rs7498665",
+    "variant_identity": {
+      "gene_symbol": "SH2B1",
+      "common_name": "SH2B Adaptor Protein 1",
+      "rsid": "rs7498665",
+      "biotype": "Intron Variant"
+    },
+    "affected_organs": ["Brain", "Liver", "Muscles"],
+    "affected_systems": ["Nervous System", "Metabolic System"],
+    "impact_type": "Signal Transduction",
+    "metabolic_connections": {
+      "upstream_requirements": [
+        { "molecule": "Leptin Receptor", "role": "Anchor", "mechanism": "SH2B1 binds to Janus Kinase 2 (JAK2) to boost the signal." }
+      ],
+      "downstream_impacts": [
+        { "molecule": "JAK2/STAT3 Path", "effect": "Amplification", "consequence": "SH2B1 ensures the brain 'hears' the leptin signal." }
+      ]
+    },
+    "metrics": {
+      "mechanistic_impact": {
+        "score": 5,
+        "rationale": "Essential signal amplifier for both Insulin and Leptin.",
+        "detail": "SH2B1 is a unique 'scaffolding' protein. It doesn't just pass a signal; it organizes the intracellular machinery to ensure the message from the leptin receptor actually reaches the nucleus of the cell. The rs7498665 variant reduces the expression of this scaffold. Without enough SH2B1, the leptin signal 'leaks' and dissipates before it can trigger the metabolic changes needed to burn fat. This creates a highly specific endotype of 'Central Leptin Resistance,' where the body has plenty of fat (and therefore plenty of leptin), but the hypothalamus remains in a simulated state of starvation."
+      },
+      "study_quality": {
+        "score": 5,
+        "rationale": "Strong association with metabolic syndrome and 'class 3' obesity.",
+        "detail": "Human genetic studies, including large-scale GWAS, have identified SH2B1 as a major locus for body mass index and insulin resistance. Knockout models in mice and observed 'human knockouts' show nearly identical phenotypes of extreme hyperphagia and insulin resistance, making it one of the most mechanically certain genes in the neuroendocrine cluster."
+      },
+      "methodology": {
+        "score": 4,
+        "rationale": "Validated via cellular signal transduction assays.",
+        "detail": "In-vitro studies using human cell lines have confirmed that SH2B1 deficiency directly reduces the phosphorylation of STAT3, the final messenger in the leptin satiety path."
+      }
+    },
+    "consensus_label": "SIGNAL BOOSTER DEFICIENCY",
+    "citations": ["PMID:19822704", "PMID:17666487"]
+  },"IGF2BP2_INSULIN": {
+        "rsid": "rs4402960",
+        "variant_identity": {
+            "gene_symbol": "IGF2BP2",
+            "common_name": "Insulin Secretion Architect",
+            "rsid": "rs4402960",
+            "biotype": "Intron Variant"
+        },
+        "affected_organs": [
+            "Pancreas",
+            "Liver"
+        ],
+        "affected_systems": [
+            "Endocrine System",
+            "Metabolic System"
+        ],
+        "impact_type": "Beta-Cell Function",
+        "metabolic_connections": {
+            "upstream_requirements": [
+                {
+                    "molecule": "mRNA",
+                    "role": "Stabilization",
+                    "mechanism": "IGF2BP2 binds to and stabilizes transcripts required for insulin vesicle docking."
+                }
+            ],
+            "downstream_impacts": [
+                {
+                    "molecule": "First-Phase Insulin",
+                    "effect": "Reduction",
+                    "consequence": "Delayed pancreatic response to blood glucose spikes."
+                },
+                {
+                    "molecule": "Glucose Clearance",
+                    "effect": "Impairment",
+                    "consequence": "Higher post-prandial glucose levels leading to glycation risk."
+                }
+            ]
+        },
+        "metrics": {
+            "mechanistic_impact": {
+                "score": 5,
+                "rationale": "High impact on mRNA translation within pancreatic islets.",
+                "detail": "Insulin-like Growth Factor 2 Binding Protein 2 (IGF2BP2) is a critical regulator of the 'factory floor' in pancreatic beta cells. It is an RNA-binding protein that ensures the messages for insulin production and secretion are translated efficiently. The 'G' allele (Risk) is associated with reduced beta-cell mass and function. Mechanistically, this creates a 'Secretory Defect' endotype rather than an 'Insulin Resistance' endotype. The body is not necessarily ignoring insulin; the pancreas is simply too slow to fire the initial burst required to quench a glucose spike. This creates a profile where fasting glucose may appear normal, but the 2-hour post-meal window remains dangerously elevated."
+            },
+            "study_quality": {
+                "score": 5,
+                "rationale": "Genome-wide significance across massive global consortia.",
+                "detail": "Validated by the DIAGRAM and MAGIC consortia across over 200,000 individuals. It is one of the most robust signals in type 2 diabetes research, showing consistency across European, East Asian, and South Asian populations."
+            },
+            "methodology": {
+                "score": 4,
+                "rationale": "Physiological validation via IVGTT.",
+                "detail": "Direct measurement using Intravenous Glucose Tolerance Tests (IVGTT) confirms that G-allele carriers have significantly lower insulinogenic indices."
+            }
+        },
+        "consensus_label": "SECRETORY BOTTLENECK",
+        "methodology_audit": [
+            {
+                "study": "Zeggini et al. (2007) - Science",
+                "type": "Discovery",
+                "population": "UK/Multi-ethnic",
+                "methods": "Genome-wide association study (GWAS).",
+                "critique": "STRENGTH: Landmark study that identified IGF2BP2 as a primary diabetes risk locus. CRITIQUE: While the association is indisputable, the study primarily focused on clinical diagnosis. The audit indicates that for 'G' carriers, the risk is 'Secretory'—meaning traditional 'Insulin Sensitizers' (like Metformin) may be less effective than strategies that slow glucose entry (fiber, meal ordering) to match the pancreas's slower pace.",
+                "score_contribution": "Study Quality (5/5)"
+            },
+            {
+                "study": "Lyssenko et al. (2008) - J Clin Invest",
+                "type": "Physiological",
+                "population": "Scandinavian cohorts",
+                "methods": "Hyperinsulinemic-euglycemic clamps and OGTT.",
+                "critique": "STRENGTH: Proved that the risk allele impairs first-phase insulin secretion specifically. CRITIQUE: This distinguishes the gene from obesity-driven resistance. It reframes the risk as a structural/functional limitation of the pancreas. The advice is to build skeletal muscle mass to act as a 'glucose sink,' reducing the total burden placed on the beta-cells during every meal.",
+                "score_contribution": "Mechanistic Impact (5/5)"
+            }
+        ],
+        "citations": [
+            "PMID:17463245",
+            "PMID:18347311"
+        ]
+    },"FABP4_LIPID": {
+    "rsid": "rs1054135",
+    "variant_identity": {
+        "gene_symbol": "FABP4",
+        "common_name": "Adipocyte Fatty Acid Binding Protein",
+        "rsid": "rs1054135",
+        "biotype": "Promoter Variant"
+    },
+    "affected_organs": [
+        "Liver",
+        "Skin",
+        "Heart"
+    ],
+    "affected_systems": [
+        "Metabolic System",
+        "Cardiovascular System"
+    ],
+    "impact_type": "Lipid Chaperone Activity",
+    "metabolic_connections": {
+        "upstream_requirements": [
+            {
+                "molecule": "Long-Chain Fatty Acids",
+                "role": "Cargo",
+                "mechanism": "FABP4 binds fatty acids to make them water-soluble for transport."
+            }
+        ],
+        "downstream_impacts": [
+            {
+                "molecule": "PPAR-gamma",
+                "effect": "Activation",
+                "consequence": "FABP4 delivers ligands to PPARG to trigger fat cell healthy expansion."
+            },
+            {
+                "molecule": "Systemic Inflammation",
+                "effect": "Increase",
+                "consequence": "Low FABP4 efficiency causes fatty acids to trigger inflammatory TLR4 receptors."
+            }
+        ]
+    },
+    "metrics": {
+        "mechanistic_impact": {
+            "score": 5,
+            "rationale": "Primary chaperone for intracellular lipid trafficking.",
+            "detail": "FABP4 acts as the 'logistics manager' for lipids inside the adipocyte. Without efficient FABP4 activity (caused by the rs1054135 CC genotype), fatty acids become 'free' and reactive within the cell. This induces endoplasmic reticulum (ER) stress and triggers the release of inflammatory cytokines like TNF-alpha. Mechanistically, this bridges the gap between 'simple obesity' and 'metabolic disease.' It explains the 'Lipid Partitioning' endotype where fat is stored inefficiently, leading to high circulating free fatty acids (FFAs) that cause insulin resistance in the liver and muscles."
+        },
+        "study_quality": {
+            "score": 4,
+            "rationale": "Consistent association with metabolic syndrome and atherosclerosis.",
+            "detail": "Multiple longitudinal studies have confirmed that FABP4 promoter variants are predictive of long-term cardiovascular outcomes and type 2 diabetes risk. It is widely used in research as a biomarker for 'Adipose Tissue Dysfunction'."
+        },
+        "methodology": {
+            "score": 4,
+            "rationale": "Validated via adipose tissue gene expression (eQTL).",
+            "detail": "Studies using RNA-seq on human fat biopsies show the C-allele significantly reduces the mRNA expression of FABP4 in subcutaneous fat."
+        }
+    },
+    "consensus_label": "LIPID LOGISTICS",
+    "methodology_audit": [
+        {
+            "study": "Tuncman et al. (2006) - PNAS",
+            "type": "Molecular Biology",
+            "population": "Human Adipocytes / Mouse Models",
+            "methods": "Gene silencing and metabolic profiling.",
+            "critique": "STRENGTH: This landmark study proved that FABP4 deficiency leads to a 'metabolically healthy' phenotype in mice but 'dysfunctional' storage in humans. CRITIQUE: The human response is more complex due to compensatory mechanisms. The audit suggests that for 'Low FABP4' carriers, anti-inflammatory lipids (Omega-3) are critical to prevent the 'Free Fatty Acid' spillover that leads to systemic inflammation.",
+            "score_contribution": "Mechanistic Impact (5/5)"
+        },
+        {
+            "study": "Hotamisligil et al. (2015) - Nature Reviews",
+            "type": "Review/Meta-analysis",
+            "population": "Global",
+            "methods": "Synthesis of decade-long adipokine research.",
+            "critique": "STRENGTH: Confirmed FABP4 as a major drug target for metabolic disease. CRITIQUE: While the genetic link is strong, lifestyle factors like high-sugar diets significantly worsen the genetic 'bottleneck.' The advice for these carriers is to avoid refined carbohydrates which force rapid fat storage that their 'weakened' FABP4 machinery cannot handle.",
+            "score_contribution": "Study Quality (4/5)"
+        }
+    ],
+    "citations": [
+        "PMID:16432204",
+        "PMID:25849060"
+    ]
+},"IGF1_ANABOLIC": {
+        "rsid": "rs6214",
+        "variant_identity": {
+            "gene_symbol": "IGF1",
+            "common_name": "Growth Signal Master",
+            "rsid": "rs6214",
+            "biotype": "Promoter Variant"
+        },
+        "affected_organs": ["Muscles", "Liver"],
+        "affected_systems": ["Endocrine System"],
+        "impact_type": "Protein Synthesis Signal",
+        "metabolic_connections": {
+            "upstream_requirements": [
+                { "molecule": "Growth Hormone", "role": "Stimulus", "mechanism": "GH stimulates the liver to produce IGF-1." }
+            ],
+            "downstream_impacts": [
+                { "molecule": "mTORC1", "effect": "Activation", "consequence": "Directly triggers the muscle building process." }
+            ]
+        },
+        "metrics": {
+            "mechanistic_impact": {
+                "score": 5,
+                "rationale": "Directly correlates with serum IGF-1 concentration.",
+                "detail": "The rs6214 'C' allele is a gain-of-function variant in the IGF1 promoter. Carriers have ~15-20% higher circulating IGF-1. This is a primary determinant of lean body mass retention during aging and hypertrophy potential in youth. Mechanistically, it shortens the time required for satellite cell activation post-workout."
+            },
+            "study_quality": { "score": 5, "rationale": "Massive cohort studies.", "detail": "Validated in both sports performance and longevity research (e.g., Rotterdam Study)." }
+        },
+        "consensus_label": "GROWTH DRIVE",
+        "methodology_audit": [
+            {
+                "study": "Vaessen et al. (2001) - J Clin Endocrinol Metab",
+                "type": "Physiology",
+                "population": "Elderly and Young Adults",
+                "methods": "Genotype-Phenotype correlation of serum IGF-1.",
+                "critique": "STRENGTH: Proved the C-allele increases baseline IGF-1. CRITIQUE: While higher is better for muscle, extreme levels can influence cancer risk; the audit suggests a 'Sweet Spot' management through cruciferous vegetables (DIM) to balance growth signaling.",
+                "score_contribution": "Mechanistic Impact (5/5)"
+            }
+        ],
+        "citations": ["PMID:11549641"]
+    },
+    "ESR1_TENDON": {
+        "rsid": "rs2234693",
+        "variant_identity": { "gene_symbol": "ESR1", "common_name": "Estrogen Receptor Alpha", "rsid": "rs2234693", "biotype": "Intron Variant" },
+        "affected_organs": ["Muscles", "Bones"],
+        "affected_systems": ["Muscular System", "Skeletal System"],
+        "impact_type": "Connective Tissue Compliance",
+        "metabolic_connections": {
+            "upstream_requirements": [ { "molecule": "Estrogen", "role": "Ligand", "mechanism": "Binds to ESR1 to regulate collagen turnover." } ],
+            "downstream_impacts": [ { "molecule": "Collagen Type I", "effect": "Synthesis", "consequence": "Maintains tendon elasticity and prevents micro-ruptures." } ]
+        },
+        "metrics": {
+            "mechanistic_impact": { "score": 4, "rationale": "Critical for ligament/tendon resilience.", "detail": "The 'T' allele provides optimized estrogen signaling. In a fitness context, this acts as the 'oil' in the suspension system. It helps prevent the stiffness associated with the COL5A1 CC genotype from becoming pathological (tears)." },
+            "study_quality": { "score": 4, "rationale": "Linked to ACL/Tendon injury risk in multiple sports studies.", "detail": "Highly predictive of soft tissue injury in high-impact sports." }
+        },
+        "consensus_label": "STRUCTURAL OIL",
+        "citations": ["PMID:15689408"]
+    },
+    "ASMT_CIRCADIAN": {
+        "rsid": "rs444697",
+        "variant_identity": {
+            "gene_symbol": "ASMT",
+            "common_name": "Melatonin Finisher",
+            "rsid": "rs444697",
+            "biotype": "Promoter Variant"
+        },
+        "affected_organs": ["Brain", "Pineal Gland"],
+        "affected_systems": ["Nervous System", "Endocrine System"],
+        "impact_type": "Melatonin Bioavailability",
+        "metabolic_connections": {
+            "upstream_requirements": [
+                { "molecule": "N-Acetylserotonin", "role": "Substrate", "mechanism": "Direct precursor converted by ASMT." }
+            ],
+            "downstream_impacts": [
+                { "molecule": "Melatonin", "effect": "Synthesis", "consequence": "Lower ASMT leads to delayed sleep onset and reduced REM quality." }
+            ]
+        },
+        "metrics": {
+            "mechanistic_impact": {
+                "score": 4,
+                "rationale": "Direct enzyme kinetics.",
+                "detail": "ASMT (Acetylserotonin O-methyltransferase) is the rate-limiting step in the pineal gland. The 'G' allele significantly reduces mRNA expression. This creates a state of 'functional melatonin deficiency' where the person produces enough to survive, but not enough to counteract the oxidative stress of high-intensity training (like yours)."
+            },
+            "study_quality": { "score": 4, "rationale": "Validated in circadian rhythm disorder studies.", "detail": "Replicated across multiple sleep-latency and mood disorder trials." }
+        },
+        "consensus_label": "CIRCADIAN GATEKEEPER",
+        "citations": ["PMID:18431326"]
+    },
+    "IGF1R_SENSITIVITY": {
+        "rsid": "rs2229765",
+        "variant_identity": {
+            "gene_symbol": "IGF1R",
+            "common_name": "IGF-1 Receptor",
+            "rsid": "rs2229765",
+            "biotype": "Missense Variant"
+        },
+        "affected_organs": ["Muscles"],
+        "affected_systems": ["Muscular System"],
+        "impact_type": "Anabolic Efficiency",
+        "metabolic_connections": {
+            "upstream_requirements": [
+                { "molecule": "IGF-1", "role": "Ligand", "mechanism": "Binds to IGF1R to initiate the AKT/mTOR pathway." }
+            ],
+            "downstream_impacts": [
+                { "molecule": "Muscle Protein Synthesis", "effect": "Upregulation", "consequence": "AA carriers exhibit superior hypertrophy per unit of IGF-1." }
+            ]
+        },
+        "metrics": {
+            "mechanistic_impact": {
+                "score": 5,
+                "rationale": "Determines the 'gain' on the anabolic signal.",
+                "detail": "The IGF1R rs2229765 'A' allele is associated with increased receptor density and binding affinity. In your case, this creates a 'Perfect Anabolic Storm' when paired with your IGF1 CC (High Signal) result. You don't just have a loud signal; you have a perfect receiver. This is a primary differentiator for 'Hyper-Responders' to resistance training."
+            },
+            "study_quality": { "score": 4, "rationale": "Linked to longevity and muscle mass in older cohorts.", "detail": "Consistent findings in sarcopenia research and elite strength athletes." }
+        },
+        "consensus_label": "ANABOLIC RECEIVER",
+        "citations": ["PMID:12423910"]
+    },
+    "LEP_SATIETY": {
+        "rsid": "rs7799039",
+        "variant_identity": {
+            "gene_symbol": "LEP",
+            "common_name": "Leptin Master",
+            "rsid": "rs7799039",
+            "biotype": "Promoter Variant (-2548G/A)"
+        },
+        "affected_organs": ["Adipose Tissue", "Hypothalamus"],
+        "affected_systems": ["Metabolic System"],
+        "impact_type": "Energy Homeostasis",
+        "metabolic_connections": {
+            "upstream_requirements": [
+                { "molecule": "Adipose Mass", "role": "Source", "mechanism": "Fat cells release leptin in proportion to their size." }
+            ],
+            "downstream_impacts": [
+                { "molecule": "Thyroid Hormone", "effect": "Stimulation", "consequence": "High leptin signaling maintains a fast resting metabolic rate." }
+            ]
+        },
+        "metrics": {
+            "mechanistic_impact": {
+                "score": 5,
+                "rationale": "Master regulator of metabolic set-point.",
+                "detail": "The 'G' allele increases LEP promoter activity. This prevents the 'Leptin Crash' often seen during dieting, where the brain thinks it is starving. For 'GG' carriers, the metabolic rate remains protected even during calorie deficits, making fat loss significantly more sustainable."
+            },
+            "study_quality": { "score": 5, "rationale": "Widely replicated in obesity and metabolic research.", "detail": "The -2548G/A variant is a benchmark in nutrigenomics for predicting weight loss success." }
+        },
+        "consensus_label": "METABOLIC THERMOSTAT",
+        "citations": ["PMID:12056334"]
+    },"AR_SENSITIVITY": {
+        "rsid": "rs6263",
+        "variant_identity": {
+            "gene_symbol": "AR",
+            "common_name": "Androgen Receptor",
+            "rsid": "rs6263",
+            "biotype": "Intron Variant"
+        },
+        "affected_organs": ["Muscles", "Skin"],
+        "affected_systems": ["Endocrine System", "Muscular System"],
+        "impact_type": "Androgen Signaling Efficiency",
+        "metabolic_connections": {
+            "upstream_requirements": [
+                { "molecule": "Testosterone", "role": "Ligand", "mechanism": "Binds to the AR to initiate DNA transcription for muscle growth." }
+            ],
+            "downstream_impacts": [
+                { "molecule": "Myofibrillar Protein", "effect": "Synthesis", "consequence": "Higher AR density leads to increased muscle hardness and explosive power." }
+            ]
+        },
+        "metrics": {
+            "mechanistic_impact": {
+                "score": 5,
+                "rationale": "Modulates the 'CAG repeat' efficiency of androgen binding.",
+                "detail": "The Androgen Receptor (AR) is the primary gateway through which testosterone exerts its anabolic effects on skeletal muscle. The rs6263 'T' allele is associated with increased receptor density and higher sensitivity to circulating androgens. Mechanistically, this means that even at baseline testosterone levels, your muscles can extract a higher degree of physiological 'work' from the hormone. This translates to superior muscle protein synthesis, enhanced neuro-muscular recruitment, and a lower body fat 'set-point.' It defines the 'Dry Gains' phenotype where the body maintains a dense, lean muscularity with relatively lower effort compared to those with reduced receptor sensitivity."
+            },
+            "study_quality": {
+                "score": 4,
+                "rationale": "Strong association with lean mass and athletic power.",
+                "detail": "Extensive research in sports genomics and male health consistently links AR polymorphisms to significant variations in strength and muscle volume. Studies in elite power athletes show a high prevalence of the 'sensitive' genotype, confirming its role as a key differentiator in human physical potential and anabolic response to resistance training."
+            },
+            "methodology": {
+                "score": 4,
+                "rationale": "Quantification of receptor density via muscle biopsy.",
+                "detail": "Evidence is derived from direct protein quantification in human vastus lateralis samples. Using immunohistochemistry, researchers have confirmed that the 'T' allele correlates with a higher number of functional receptors available for androgen binding, providing a clear biological link between the genotype and the physical phenotype of increased muscle density."
+            }
+        },
+        "consensus_label": "ANABOLIC AMPLIFIER",
+        "methodology_audit": [
+            {
+                "study": "Mononen et al. (2000) - Journal of Molecular Medicine",
+                "type": "Functional Analysis",
+                "population": "Healthy Males",
+                "methods": "Genotyping and andrometric physical assessment.",
+                "critique": "STRENGTH: This study provided robust evidence that the AR genotype dictates the individual variability in muscle mass response to endogenous hormones. CRITIQUE: While the anabolic benefits are clear, the study warns that high sensitivity can also increase the risk of androgenic side effects like skin changes or hair follicle sensitivity if hormones are not balanced. The audit suggests that for 'T' allele carriers, the focus should be on 'Natural Optimization.' Because your receptors are so sensitive, you do not need 'super-physiological' levels to see results. Instead, prioritize Zinc and sleep to keep your natural production steady, allowing your high-sensitivity receptors to do the heavy lifting without triggering systemic hormonal feedback loops.",
+                "score_contribution": "Mechanistic Impact (5/5)"
+            }
+        ],
+        "citations": ["PMID:10997615"]
+    },
+    "ESR1_COMPLIANCE": {
+        "rsid": "rs2234693",
+        "variant_identity": {
+            "gene_symbol": "ESR1",
+            "common_name": "Estrogen Receptor Alpha",
+            "rsid": "rs2234693",
+            "biotype": "Intron Variant"
+        },
+        "affected_organs": ["Bones", "Muscles"],
+        "affected_systems": ["Skeletal System", "Muscular System"],
+        "impact_type": "Connective Tissue Resilience",
+        "metabolic_connections": {
+            "upstream_requirements": [
+                { "molecule": "Estradiol", "role": "Ligand", "mechanism": "Estrogen binds to ESR1 to regulate collagen synthesis and hydration." }
+            ],
+            "downstream_impacts": [
+                { "molecule": "Collagen Type I", "effect": "Maintenance", "consequence": "Protects against micro-tears and maintains tendon compliance under load." }
+            ]
+        },
+        "metrics": {
+            "mechanistic_impact": {
+                "score": 4,
+                "rationale": "Regulates tendon elasticity and bone mineral density.",
+                "detail": "Estrogen Receptor Alpha (ESR1) is critical for maintaining the structural integrity of connective tissues. In both men and women, estrogen signaling through ESR1 ensures that tendons remain hydrated and elastic. The 'T' allele provides optimized receptor signaling, which acts as a 'Biological Buffer' for the musculoskeletal system. Mechanistically, this promotes healthy collagen turnover and prevents the pathological 'stiffening' of tendons that leads to ruptures. For an individual with high power output, this variant is the 'safety valve' that ensures the connective tissue can withstand the intense mechanical tension generated by the muscles during explosive movements."
+            },
+            "study_quality": {
+                "score": 4,
+                "rationale": "Linked to soft-tissue injury risk in sports medicine.",
+                "detail": "Validated in multiple cohorts of athletes where the ESR1 genotype was found to be a significant predictor of ACL tears and Achilles tendinopathy. The data quality is high, particularly in the context of orthopedic health, where estrogen signaling is recognized as a master regulator of ligamentous strength and bone density across various populations."
+            },
+            "methodology": {
+                "score": 4,
+                "rationale": "In vitro fibroblast response to mechanical stress.",
+                "detail": "Research utilizes human fibroblast cultures to observe how different ESR1 genotypes respond to estrogenic stimulation under mechanical load. This allows for the measurement of specific collagen markers (like Type I and III), confirming that the 'T' allele facilitates a more robust and flexible repair response compared to the risk-associated 'C' allele."
+            }
+        },
+        "consensus_label": "STRUCTURAL PROTECTOR",
+        "methodology_audit": [
+            {
+                "study": "Posthumus et al. (2010) - Journal of Science and Medicine in Sport",
+                "type": "Case-Control",
+                "population": "Athletes with chronic tendon injuries",
+                "methods": "Genotype frequency analysis in injury vs control groups.",
+                "critique": "STRENGTH: This landmark study successfully identified the ESR1 'C' allele as a major risk factor for Achilles tendon injuries. CRITIQUE: The research highlights that the protective effects of the 'T' allele can be neutralized if the individual has excessively low estrogen levels or poor micronutrient intake. The audit suggests that for 'T' allele carriers, the goal is 'Hormonal Balance.' Do not use supplements that aggressively crush estrogen, as your tendons rely on that signal for elasticity. Pair this genetic advantage with Vitamin C and proline-rich foods to maximize the structural repair signal, especially since your COL5A1 stiffness already puts your 'suspension system' under high-tension stress during power training.",
+                "score_contribution": "Study Quality (4/5)"
+            }
+        ],
+        "citations": ["PMID:20185372"]
+    },
+    
     "UCP3_FATBURN": {
         "rsid": "rs1800849",
         "variant_identity": {
