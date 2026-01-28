@@ -30,6 +30,18 @@ class ReportEngine:
         try:
             with open(path, 'r', encoding='utf-8') as f: return json.load(f)
         except: return {}
+        
+        
+    def get_evidence_for_rsid(self, rsid):
+        """
+        Scans evidence_db.json for the entry matching the rsid.
+        MUST BE INDENTED TO BE PART OF THE CLASS.
+        """
+        if not rsid: return None
+        for key, data in self.evidence_db.items():
+            if data.get('rsid') == rsid:
+                return data
+        return None
 
     def get_content_for_rsid(self, rsid, score):
         if rsid not in self.deep_dive_data: return None
@@ -53,12 +65,7 @@ class ReportEngine:
             "action": content.get('action', {}),
             "confidence": content.get('confidence', 3)
         }
-
-    def get_evidence_for_gene(self, gene_name):
-        if not gene_name: return None
-        clean_name = gene_name.split('(')[0].strip()
-        return self.evidence_db.get(clean_name, None)
-
+        
 class PDFReport(FPDF):
     def header(self):
         if self.page_no() > 1:

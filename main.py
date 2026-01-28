@@ -115,16 +115,27 @@ def main():
     pdf.cell(0, 20, "SECTION 3:", 0, 1, 'C')
     pdf.cell(0, 20, "YOUR GENETIC SUPERPOWERS", 0, 1, 'C')
 
+# Section 3: Superpowers
     for _, row in prioritized_traits.iterrows():
         rsid = row['RSID']
         score = row['Score']
+        
+        # 1. GET CONTENT FIRST
         content = engine.get_content_for_rsid(rsid, score)
         
+        # 2. NOW CHECK IF CONTENT EXISTS
         if content and content['badge_type'] == 'SUPERPOWER':
-            evidence = engine.get_evidence_for_gene(content['gene'])
-            pdf.add_deep_dive_page(row['Result'], content, row['Score_Map'], row['Variant_Map'], evidence)
+            # 3. FETCH EVIDENCE USING RSID
+            evidence = engine.get_evidence_for_rsid(rsid)
+            
+            pdf.add_deep_dive_page(
+                row['Result'], 
+                content, 
+                row['Score_Map'], 
+                row['Variant_Map'], 
+                evidence=evidence
+            )
             processed_rsids.append(rsid)
-
     # --- RESTORED: EXECUTIVE SUMMARY (STRENGTHS) ---
     leftover_strengths = unique_df[
         (unique_df["Score"] >= 7) & 
@@ -149,8 +160,10 @@ def main():
         score = row['Score']
         content = engine.get_content_for_rsid(rsid, score)
         
-        if content and content['badge_type'] == 'RISK':
-            evidence = engine.get_evidence_for_gene(content['gene'])
+        if content and content['badge_type'] == 'RISK': # (or 'SUPERPOWER')
+            # ✅ Always use get_evidence_for_rsid(rsid) here
+            evidence = engine.get_evidence_for_rsid(rsid)
+            
             pdf.add_deep_dive_page(row['Result'], content, row['Score_Map'], row['Variant_Map'], evidence)
             processed_rsids.append(rsid)
 
