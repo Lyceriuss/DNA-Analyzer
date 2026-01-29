@@ -4,12 +4,15 @@ import pandas as pd
 from src.loader import load_dna_file
 from src.normalizer import resolve_genotype
 from src.domain_mapper import map_system_to_domain
+from src.proxy_handler import apply_proxies
 
 def run_analysis(dna_filepath, traits_filepath):
     # 1. Load DNA
     dna_data = load_dna_file(dna_filepath)
     if not dna_data: return pd.DataFrame() 
-
+    
+   # dna_data = apply_proxies(dna_data)
+    
     # 2. Load Traits
     try:
         with open(traits_filepath, 'r', encoding='utf-8') as f:

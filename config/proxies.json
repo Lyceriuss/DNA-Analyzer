@@ -1,0 +1,23 @@
+{
+    "rs1815739": {
+        "target_gene": "ACTN3",
+        "proxies": {
+            "rs16832327": {
+                "GG": "CC",
+                "GC": "CT",
+                "CG": "TC",
+                "CC": "TT"
+            }
+        }
+    },
+    "rs4646994": {
+    "target_gene": "ACE",
+    "proxies": {
+        "rs4341": {
+            "GG": "DD",  
+            "GC": "ID",
+            "CC": "II"  
+        }
+    }
+    }
+}
