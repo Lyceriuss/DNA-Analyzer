@@ -1,138 +1,81 @@
 import json
 import os
+import re
 import pandas as pd
+from src.loader import load_dna_file
+from src.normalizer import resolve_genotype
+from src.proxy_handler import apply_proxies
 
-EVIDENCE_PATH = "config/evidence_db.json"
-
-# Defining the specific genes researchers look for in these 3 primary endotypes
-ENDOTYPES = {
-    "Lipid Partitioning Cluster": [
-        "PNPLA3", "LPL", "PPARG", "APOA5", "FADS1", "ANGPTL3", "FABP4", "PLIN1"
-    ],
-    "Insulin-Glycemic Cluster": [
-        "TCF7L2", "SLC2A2", "KCNJ11", "GCK", "MTNR1B", "SLC30A8", "IGF2BP2", "IRS1"
-    ],
-    "Neuroendocrine (Hunger) Cluster": [
-        "MC4R", "FTO", "FOXO1", "BDNF", "LEPR", "POMC", "SH2B1", "PCSK1"
-    ],
-    "Hypertrophy & Power Cluster": [
-        "ACTN3", "MSTN", "ACE", "IGF1", "CKM", "AMPD1", "TRHR", "VDR",
-        "IL6",       # Post-exercise inflammation/recovery
-        "COL5A1",    # Tendon durability and stiffness
-        "PPARGC1A"   # Mitochondrial biogenesis/aerobic capacity
-    ],
-    "Longevity & DNA Repair Hub": [
-        "TP53",      # Guardian of the genome (rs1042523)
-        "FOXO3",     # The "Longevity Gene"
-        "SIRT1",     # Sirtuin 1 - metabolic aging
-        "TERT"       # Telomerase reverse transcriptase
-    ]
-}
-
-
-
-# Primary research SNPs for your missing endotype genes
-MISSING_GENES = {
-    "ANGPTL3": "rs12130333",  # Key regulator of triglycerides
-    # "FABP4":   "rs1054135",   # Adipocyte fatty acid-binding protein - Not found in the CSV
-    "IGF2BP2": "rs4402960",   # Strongest link to insulin secretion
-    "POMC":    "rs1042522",   # Pro-opiomelanocortin (Hunger/Satiety)
-    "SH2B1":   "rs7498665",    # Link to leptin sensitivity
-    "ACTN3": "rs1815739", # The R577X 'Sprint' variant
-    "MSTN":  "rs1805065", # Myostatin (GDF-8) regulator
-    "ACE":   "rs4646994", # Power/Endurance Indel (or proxy rs4341)
-    "VDR":   "rs1544410"  ,# BsmI variant linked to muscle strength
-    "CKM": "rs8111989",       # Muscle Creatine Kinase (Energy)
-    "AMPD1": "rs17602729",    # Muscle Fatigue Threshold
-    "IL6": "rs1800795",       # Post-exercise Inflammation
-    "PPARGC1A": "rs8192678",  # Mitochondrial Growth
-    "COL5A1": "rs12722",       # Tendon/Ligament Durability
-    "MSTN": "rs1805065", 
-    "IGF1": "rs6214",
-    "TRHR": "rs7832552",
-    "TERT": "rs2736098"
-}
-
-PROXIES = {
-    "ACTN3_Proxy": "rs16832327",
-    "MSTN_Proxy": "rs11681628",
-    "ACE_Proxy_1": "rs4341",
-    "ACE_Proxy_2": "rs4343"
-}
-
+# --- CONFIG PATHS ---
+PROXIES_PATH = "config/proxies.json"
+MUSCLE_LOGIC = "config/muscle_logic_gates_db.json"
+TRAITS_DB_PATH = "config/evidence_db.json"
 CSV_PATH = "data/input/MyHeritage_raw_dna_data_GA.csv"
 
-def check_proxies():
-    if not os.path.exists(CSV_PATH): return
-    df = pd.read_csv(CSV_PATH, comment='#', low_memory=False, names=['RSID', 'CHROM', 'POS', 'RESULT'])
+def evaluate_condition(logic_str, normalized_dna):
+    """Evaluates logic strings against normalized DNA data."""
+    # Find all rsXXXX == 'YY' patterns in the logic string
+    patterns = re.findall(r"(rs\d+) == '([ACGTDI]+)'", logic_str)
     
-    for label, rsid in PROXIES.items():
-        match = df[df['RSID'] == rsid]
-        if not match.empty:
-            print(f"✅ PROXY FOUND: {label} ({rsid}) | Result: {match.iloc[0]['RESULT']}")
-        else:
-            print(f"❌ PROXY MISSING: {label} ({rsid})")
-            
-def check_coverage():
-    if not os.path.exists(EVIDENCE_PATH):
-        print("❌ evidence_db.json not found.")
-        return
-
-    with open(EVIDENCE_PATH, 'r', encoding='utf-8') as f:
-        db = json.load(f)
-
-    # Extract all genes currently in your evidence database
-    current_genes = set()
-    for entry in db.values():
-        gene = entry.get("variant_identity", {}).get("gene_symbol")
-        if gene:
-            current_genes.add(gene.upper())
-
-    print("📊 --- OBESITY ENDOTYPE COVERAGE AUDIT --- 📊\n")
-
-    for cluster, target_genes in ENDOTYPES.items():
-        found = [g for g in target_genes if g in current_genes]
-        missing = [g for g in target_genes if g not in current_genes]
-        
-        coverage_pct = (len(found) / len(target_genes)) * 100
-        
-        print(f"🔹 {cluster}")
-        print(f"   Coverage: {len(found)}/{len(target_genes)} ({coverage_pct:.1f}%)")
-        print(f"   ✅ Found: {', '.join(found) if found else 'None'}")
-        print(f"   ❌ Missing: {', '.join(missing) if missing else 'None'}")
-        print("-" * 40)
-        
-        
-
-def check_file():
-    if not os.path.exists(CSV_PATH):
-        print(f"❌ File not found at {CSV_PATH}")
-        return
-
-    print(f"🔍 Searching {os.path.basename(CSV_PATH)} for missing markers...")
+    evaluated_str = logic_str
+    for rsid, target_gt in patterns:
+        user_val = normalized_dna.get(rsid, "MISSING")
+        # Direct comparison after standardization
+        match = (user_val == target_gt)
+        evaluated_str = evaluated_str.replace(f"{rsid} == '{target_gt}'", str(match))
     
-    # MyHeritage files use commas and skip comment lines starting with #
+    evaluated_str = evaluated_str.replace("AND", "and").replace("OR", "or")
+    
     try:
-        # Load the file, skipping comments
-        df = pd.read_csv(CSV_PATH, comment='#', low_memory=False, names=['RSID', 'CHROM', 'POS', 'RESULT'])
-        
-        found_count = 0
-        for gene, rsid in MISSING_GENES.items():
-            match = df[df['RSID'] == rsid]
-            if not match.empty:
-                result = match.iloc[0]['RESULT']
-                print(f"✅ FOUND: {gene} ({rsid}) | Your Genotype: {result}")
-                found_count += 1
-            else:
-                print(f"❌ MISSING: {gene} ({rsid})")
-        
-        print(f"\n📊 Summary: Found {found_count}/{len(MISSING_GENES)} missing markers.")
-        
+        return eval(evaluated_str, {"__builtins__": None}, {})
     except Exception as e:
-        print(f"❌ Error reading file: {e}")
+        print(f"⚠️ Logic error in [{logic_str}]: {e}")
+        return False
+
+def run_integrated_pipeline(dna_path, logic_path, proxies_path, traits_path):
+    # 1. Load DNA
+    dna_raw = load_dna_file(dna_path)
+    if not dna_raw: return
+
+    # 2. Load Support Files
+    if not os.path.exists(logic_path) or not os.path.exists(traits_path):
+        print("❌ Error: Missing configuration files.")
+        return
+
+    with open(logic_path, 'r') as f: logic_gates = json.load(f)
+    with open(traits_path, 'r') as f: traits_db = json.load(f)
+
+    # 3. Apply Proxies (Pass the path string to avoid the Type Error)
+    dna_patched = apply_proxies(dna_raw, proxies_path)
+
+    # 4. Normalize DNA for Logic Gates
+    normalized_dna = {}
+    for rsid, user_gt in dna_patched.items():
+        if rsid in traits_db:
+            # Resolve strand flips and sort genotypes
+            matched_gt, _ = resolve_genotype(user_gt, traits_db[rsid]['variants'])
+            if matched_gt:
+                normalized_dna[rsid] = matched_gt
+        else:
+            # Basic normalization for SNPs not in evidence_db
+            normalized_dna[rsid] = "".join(sorted(user_gt.replace("/", "").replace(" ", "")))
+
+    print("\n🏁 --- GENOMIC PIPELINE AUDIT: ACTIVE CONSTRAINTS --- 🏁\n")
+
+    for station_id, categories in logic_gates.items():
+        print(f"📍 {station_id.replace('_', ' ').title()}")
+        found_active = False
+        
+        for category, rules in categories.items():
+            for rule_id, rule_data in rules.items():
+                if evaluate_condition(rule_data['logic'], normalized_dna):
+                    print(f"  ✅ [TRIGGERED]: {rule_id.replace('_', ' ').upper()}")
+                    print(f"     👉 Instruction: {rule_data['instruction']}")
+                    found_active = True
+        
+        if not found_active:
+            print("  ⚪ No hardware constraints triggered.")
+        print("-" * 60)
 
 if __name__ == "__main__":
-    check_coverage()
-    check_proxies()
-    check_file()
-    
+    run_integrated_pipeline(CSV_PATH, MUSCLE_LOGIC, PROXIES_PATH, TRAITS_DB_PATH)

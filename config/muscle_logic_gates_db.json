@@ -1,0 +1,123 @@
+{
+"STATION_1_PREWORKOUT": {
+    "metabolic_fueling": {
+      "TRAIT_A_CARB_FRAGILITY": {
+        "logic": "rs7903146 == 'TT'",
+        "instruction": "Trait A: High TCF7L2 Risk. Fragile glucose handling. Pre-workout carbs will likely cause an insulin-driven performance crash."
+      },
+      "TRAIT_B_FAT_POWER": {
+        "logic": "rs4253778 == 'CC'",
+        "instruction": "Trait B: Elite PPARA Fat Oxidation. Your body is hard-wired to prioritize lipids during exercise. Training fasted maximizes this efficiency."
+      },
+      "TRAIT_C_INSULIN_EFFICIENCY": {
+        "logic": "rs2943641 == 'CC'",
+        "instruction": "Trait C: High IRS1 Sensitivity. Robust nutrient partitioning. You can successfully utilize 30g+ of carbs pre-lift for explosive drive."
+      }
+    },
+    "insulin_adrenaline_axis": {
+      "TRAIT_D_ADRENALINE_RESISTANCE": {
+        "logic": "rs1042713 == 'AA'",
+        "instruction": "Trait D: ADRB2 Resistance. Your adrenaline receptors are 'blunted'. You require a longer, higher-intensity warmup to mobilize energy stores."
+      },
+      "TRAIT_E_METABOLIC_CLASH": {
+        "logic": "rs553668 == 'GG'",
+        "instruction": "Trait E: ADRA2A Risk. Adrenaline aggressively shuts down your insulin. Avoid 'hype-up' stimulants if eating a fed pre-workout meal."
+      }
+    },
+    "nutrient_partitioning": {
+      "TRAIT_F_SENSORY_SWEET_LAG": {
+        "logic": "rs5400 == 'TT'",
+        "instruction": "Trait F: SLC2A2 Deficit. Impaired sugar-sensing in the brain. Sugary pre-workouts won't satisfy energy drive, leading to over-ingestion."
+      },
+      "TRAIT_G_GLUT4_LATENCY": {
+        "logic": "rs8192675 == 'TT'",
+        "instruction": "Trait G: Low SLC2A4 Response. Your muscles pull in glucose slowly. Pre-workout meals require a 60-minute lead time to reach muscle cells."
+      }
+    }
+  },
+
+  "STATION_2_WARMUP": {
+    "metabolic_switching": {
+      "lipid_oxidation_efficient": {
+        "logic": "rs1042713 == 'GG' AND rs1800849 == 'TT'",
+        "instruction": "Perform 15m Zone 2 Cardio. Your hardware has a high capacity for fat mobilization and mitochondrial heat production."
+      },
+      "lipid_oxidation_resistant": {
+        "logic": "rs1042713 == 'AA' OR rs4253778 == 'GG'",
+        "instruction": "Use HIIT-style warmup (30s sprints). You require a catecholamine spike (intensity) to force fat-mobilization from resistant receptors."
+      }
+    },
+    "oxygen_delivery": {
+      "fast_dilation": {
+        "logic": "rs1799983 == 'GG' AND rs2010963 == 'CC'",
+        "instruction": "Rapid vasodilation. 5-8m warmup is sufficient for peak oxygen delivery to the working muscle floor."
+      },
+      "slow_dilation": {
+        "logic": "rs1799983 == 'TT' OR rs1799752 == 'DD'",
+        "instruction": "Delayed vasodilation. 15m+ progressive warmup required to overcome high baseline vascular tension and NO deficiency."
+      }
+    }
+  },
+
+  "STATION_3_STRENGTH_STIMULUS": {
+    "fiber_specialization": {
+      "explosive_power_hardware": {
+        "logic": "rs1815739 == 'CC' AND rs1799752 == 'DD'",
+        "instruction": "Prioritize Heavy (85-95% 1RM) and Low Volume. High-torque engine thrives on maximal mechanical tension. Reps >8 are junk volume for your profile."
+      },
+      "hypertrophy_volume_hardware": {
+        "logic": "rs1815739 == 'TT'",
+        "instruction": "Prioritize Metabolic Stress (10-15 reps). You lack the fast-twitch anchor protein for max power; grow via volume and short rest intervals."
+      }
+    },
+    "fatigue_bottleneck": {
+      "atp_recycling_lag": {
+        "logic": "rs17602729 == 'TT' OR rs1049434_TIER2 == 'TT'",
+        "instruction": "Mandatory 3-5m rest between sets. Your system recycles ATP slowly. Short rest will result in exponential power drop-off."
+      }
+    }
+  },
+
+  "STATION_4_POST_WORKOUT_RESUPPLY": {
+    "inflammatory_shutdown": {
+      "omega_3_dependency": {
+        "logic": "rs174537 == 'TT' OR rs174547 == 'CC'",
+        "instruction": "Ingest 3g Marine-Source EPA/DHA immediately post-lift. You cannot convert plant fats; you must use pre-formed oils to stop the inflammatory cascade."
+      }
+    },
+    "tissue_repair": {
+      "collagen_bottleneck": {
+        "logic": "rs33972313 == 'TT' AND rs12722 == 'CC'",
+        "instruction": "Mandatory 500mg Vitamin C + Gelatin post-workout. Stiff tendons + low Vit-C transport = high risk of micro-tears not healing."
+      }
+    }
+  },
+
+  "STATION_5_SLEEP_MAINTENANCE": {
+    "inflammation_sleep_clash": {
+      "high_reactivity_cool_down": {
+        "logic": "rs1800795 == 'CC' OR rs1800629 == 'AA'",
+        "instruction": "Evening Cold Shower / Ice Bath. High inflammatory reactivity causes core temperature to stay high, blocking sleep onset post-training."
+      }
+    },
+    "melatonin_bottleneck": {
+      "circadian_lag": {
+        "logic": "rs444697 == 'GG' OR rs10830963 == 'GG'",
+        "instruction": "0.3mg Melatonin + 100% Blue Light Block at 9 PM. Your synthesis enzyme is slow; hardware-level intervention is required for morning recovery."
+      }
+    }
+  },
+
+  "STATION_6_FREQUENCY_LIMITS": {
+    "systemic_recovery": {
+      "high_friction_profile": {
+        "logic": "rs1799752 == 'DD' AND rs12722 == 'CC' AND rs1800795 == 'CC'",
+        "instruction": "3 Sessions Per Week Max. High-Power Engine + Stiff Chassis + Slow Clearance = Structural Failure if frequency exceeds 3x/week."
+      },
+      "fast_clearance_profile": {
+        "logic": "rs13278062 == 'CC' AND rs1800795 == 'GG'",
+        "instruction": "High Frequency Capable (5-6 days). Efficient cellular cleaning and low inflammatory baseline allows for rapid stimulus re-application."
+      }
+    }
+  }
+}
