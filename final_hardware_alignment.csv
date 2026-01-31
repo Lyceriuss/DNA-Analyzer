@@ -1,0 +1,80 @@
+RSID,Gene,Trait,User_CSV_Value,JSON_Expected,Status,Is_Ambiguous
+rs2236225,MTHFD1,Folate cycle backup enzyme,AG,"['CC', 'CT', 'TC', 'TT']",STRAND_MISMATCH (JSON likely Reverse),False
+rs662,PON1,Detoxification of oxidized lipids,CT,"['AA', 'AG', 'GA', 'GG']",STRAND_MISMATCH (JSON likely Reverse),False
+rs1800566,NQO1,Quinone detox & antioxidant recycling,GG,"['CC', 'CT', 'TC', 'TT']",STRAND_MISMATCH (JSON likely Reverse),False
+rs5082,APOA2,Saturated fat sensitivity,AA,"['TT', 'TC', 'CT', 'CC']",STRAND_MISMATCH (JSON likely Reverse),False
+rs328,LPL,Post-meal triglyceride clearance,CC,"['CC', 'CG', 'GC', 'GG']",ALIGNED_AMBIGUOUS (Verified Forward),True
+rs693,APOB,LDL particle production,AG,"['CC', 'CT', 'TC', 'TT']",STRAND_MISMATCH (JSON likely Reverse),False
+rs9939609,FTO,Appetite regulation,AT,"['TT', 'AT', 'TA', 'AA']",ALIGNED_AMBIGUOUS (Verified Forward),True
+rs6232,PCSK1,Satiety signaling,TT,"['AA', 'AG', 'GA', 'GG']",STRAND_MISMATCH (JSON likely Reverse),False
+rs7754840,CDKAL1,Insulin release strength,CG,"['CC', 'CT', 'TC', 'TT']",STRAND_MISMATCH (JSON likely Reverse),False
+rs10830963,MTNR1B,Fasting glucose tendency,CG,"['CC', 'CG', 'GC', 'GG']",ALIGNED_AMBIGUOUS (Verified Forward),True
+rs4880,SOD2,Mitochondrial antioxidant defense,AA,"['TT', 'TC', 'CT', 'CC']",STRAND_MISMATCH (JSON likely Reverse),False
+rs1050450,GPX1,Glutathione peroxidase activity,AG,"['CC', 'CT', 'TC', 'TT']",STRAND_MISMATCH (JSON likely Reverse),False
+rs1801198,TCN2,B12 transport in blood,CG,"['CC', 'CG', 'GC', 'GG']",ALIGNED_AMBIGUOUS (Verified Forward),True
+rs1799945,HFE,Iron absorption regulation,CC,"['CC', 'CG', 'GC', 'GG']",ALIGNED_AMBIGUOUS (Verified Forward),True
+rs6265,BDNF,Neuroplasticity & learning,CT,"['GG', 'GA', 'AG', 'AA']",STRAND_MISMATCH (JSON likely Reverse),False
+rs1800497,ANKK1 (Taq1A),D2 dopamine receptor availability,GG,"['CC', 'CT', 'TC', 'TT']",STRAND_MISMATCH (JSON likely Reverse),False
+rs1042714,ADRB2,Beta-2 receptor downregulation (Gln27Glu),CG,"['CC', 'CG', 'GC', 'GG']",ALIGNED_AMBIGUOUS (Verified Forward),True
+rs2010963,VEGFA (Secretion),Blood vessel growth (angiogenesis),CG,"['CC', 'CG', 'GC', 'GG']",ALIGNED_AMBIGUOUS (Verified Forward),True
+rs17602729,AMPD1,Muscle fatigue resistance,GG,"['CC', 'CT', 'TC', 'TT']",STRAND_MISMATCH (JSON likely Reverse),False
+rs1801260,CLOCK,Sleep duration & circadian alignment,GG,"['TT', 'TC', 'CT', 'CC']",STRAND_MISMATCH (JSON likely Reverse),False
+rs1800795,IL6 (Promoter),Inflammatory reactivity (CRP levels),GG,"['GG', 'GC', 'CG', 'CC']",ALIGNED_AMBIGUOUS (Verified Forward),True
+rs2476601,PTPN22,Autoimmune reactivity,GG,"['CC', 'CT', 'TC', 'TT']",STRAND_MISMATCH (JSON likely Reverse),False
+rs3024493,IL10,Anti-inflammatory signaling,AC,"['GG', 'GA', 'AG', 'AA']",STRAND_MISMATCH (JSON likely Reverse),False
+rs699,AGT,Baseline blood pressure regulation,AA,"['TT', 'TC', 'CT', 'CC']",STRAND_MISMATCH (JSON likely Reverse),False
+rs1056836,CYP1B1,Hormone & toxin hydroxylation,CG,"['CC', 'CG', 'GC', 'GG']",ALIGNED_AMBIGUOUS (Verified Forward),True
+rs1048943,CYP1A1,Xenobiotic detoxification,TT,"['AA', 'AG', 'GA', 'GG']",STRAND_MISMATCH (JSON likely Reverse),False
+rs2740574,CYP3A4,Drug metabolism rate,TT,"['AA', 'AG', 'GA', 'GG']",STRAND_MISMATCH (JSON likely Reverse),False
+rs3813034,SLC6A4,Serotonin transporter expression,AA,"['CC', 'CT', 'TC', 'TT']",STRAND_MISMATCH (JSON likely Reverse),False
+rs3733890,BHMT,Homocysteine remethylation (betaine pathway),AG,"['CC', 'CT', 'TC', 'TT']",STRAND_MISMATCH (JSON likely Reverse),False
+rs1979277,SHMT1,Serine ↔ glycine / folate channeling,GG,"['CC', 'CT', 'TC', 'TT']",STRAND_MISMATCH (JSON likely Reverse),False
+rs1801282,PPARG,Insulin sensitivity & fat storage pattern,CC,"['CC', 'CG', 'GC', 'GG']",ALIGNED_AMBIGUOUS (Verified Forward),True
+rs16944,IL1B (Promoter),IL-1β inflammation intensity,GG,"['CC', 'CT', 'TC', 'TT']",STRAND_MISMATCH (JSON likely Reverse),False
+rs1544410,VDR (BsmI),Vitamin D receptor sensitivity (Bsm),CT,"['GG', 'GA', 'AG', 'AA']",STRAND_MISMATCH (JSON likely Reverse),False
+rs6295,HTR1A,5-HT1A autoreceptor sensitivity,GG,"['CC', 'CG', 'GC', 'GG']",ALIGNED_AMBIGUOUS (Verified Forward),True
+rs25487,XRCC1,Base excision repair efficiency,CC,"['GG', 'GA', 'AG', 'AA']",STRAND_MISMATCH (JSON likely Reverse),False
+rs13181,ERCC2,Nucleotide excision repair,GT,"['CC', 'CT', 'TC', 'TT']",STRAND_MISMATCH (JSON likely Reverse),False
+rs11615,ERCC1,Cisplatin sensitivity / nucleotide repair,AG,"['CC', 'CT', 'TC', 'TT']",STRAND_MISMATCH (JSON likely Reverse),False
+rs1042522,TP53,p53 damage response efficiency,CG,"['GG', 'GC', 'CG', 'CC']",ALIGNED_AMBIGUOUS (Verified Forward),True
+rs1799950,BRCA1,Homologous recombination repair,TT,"['GG', 'GA', 'AG', 'AA']",STRAND_MISMATCH (JSON likely Reverse),False
+rs4988235,LCT,Lactase persistence (lactose tolerance),GG,"['CC', 'CT', 'TC', 'TT']",STRAND_MISMATCH (JSON likely Reverse),False
+rs2052129,HDC,Histamine production rate,GG,"['CC', 'CT', 'TC', 'TT']",STRAND_MISMATCH (JSON likely Reverse),False
+rs2241880,NOD2,Inflammatory response to gut bacteria,GG,"['CC', 'CT', 'TC', 'TT']",STRAND_MISMATCH (JSON likely Reverse),False
+rs660339,UCP2,Mitochondrial coupling efficiency,GG,"['CC', 'CT', 'TC', 'TT']",STRAND_MISMATCH (JSON likely Reverse),False
+rs1042173,SLC6A4,Serotonin transporter (fatigue sensitivity),AA,"['CC', 'CT', 'TC', 'TT']",STRAND_MISMATCH (JSON likely Reverse),False
+rs4994,ADRB3,Brown fat activation & weight regulation,AA,"['CC', 'CT', 'TC', 'TT']",STRAND_MISMATCH (JSON likely Reverse),False
+rs2293275,LHCGR,LH receptor sensitivity,TT,"['CC', 'CG', 'GC', 'GG']",STRAND_MISMATCH (JSON likely Reverse),True
+rs6166,FSHR,FSH receptor signaling strength (Ser680Asn),CT,"['AA', 'AG', 'GA', 'GG']",STRAND_MISMATCH (JSON likely Reverse),False
+rs1800012,COL1A1,Collagen type I stability (bone & tendons),AC,"['GG', 'GT', 'TG', 'TT']",STRAND_MISMATCH (JSON likely Reverse),False
+rs679620,MMP3,Tendon recovery and collagen turnover,TT,"['AA', 'AG', 'GA', 'GG']",STRAND_MISMATCH (JSON likely Reverse),False
+rs143383,GDF5,Joint surface resilience and knee injury risk,AG,"['CC', 'CT', 'TC', 'TT']",STRAND_MISMATCH (JSON likely Reverse),False
+rs479744,PLOD1,Collagen cross-link enzyme activity,GT,"['CC', 'CT', 'TC', 'TT']",STRAND_MISMATCH (JSON likely Reverse),False
+rs738409,PNPLA3,Liver fat accumulation (NAFLD risk),CC,"['CC', 'CG', 'GC', 'GG']",ALIGNED_AMBIGUOUS (Verified Forward),True
+rs13278062,SIRT1,Cellular repair efficiency (SIRT1 expression),GT,"['CC', 'CT', 'TC', 'TT']",STRAND_MISMATCH (JSON likely Reverse),False
+rs17609940,IGF1R,IGF-1 receptor sensitivity,GG,"['CC', 'CT', 'TC', 'TT']",STRAND_MISMATCH (JSON likely Reverse),False
+rs2535633,ELOVL2,Epigenetic aging rate,CG,"['CC', 'CT', 'TC', 'TT']",STRAND_MISMATCH (JSON likely Reverse),False
+rs1254337,GLUT9 (SLC2A9),Uric acid transport (metabolic inflammation),AT,"['AA', 'AG', 'GA', 'GG']",STRAND_MISMATCH (JSON likely Reverse),False
+rs4074995,MYH7,Type I fiber development,GG,"['CC', 'CT', 'TC', 'TT']",STRAND_MISMATCH (JSON likely Reverse),False
+rs4253778,PPARA,Fat metabolism in endurance,GG,"['CC', 'CG', 'GC', 'GG']",ALIGNED_AMBIGUOUS (Verified Forward),True
+rs1805086,MYF5,Satellite cell activation (muscle growth),TT,"['AA', 'AG', 'GA', 'GG']",STRAND_MISMATCH (JSON likely Reverse),False
+rs713598,TAS2R38,Bitter taste perception,CG,"['CC', 'CG', 'GC', 'GG']",ALIGNED_AMBIGUOUS (Verified Forward),True
+rs324981,NPSR1,Natural Short Sleeper,AT,"['CC', 'CT', 'TC', 'TT']",STRAND_MISMATCH (JSON likely Reverse),False
+rs1801253,ADRB1,Exercise Heart Rate Response,CC,"['CC', 'CG', 'GC', 'GG']",ALIGNED_AMBIGUOUS (Verified Forward),True
+rs10993994,MSRA,Optimism & Resilience,CT,"['AA', 'AG', 'GA', 'GG']",STRAND_MISMATCH (JSON likely Reverse),False
+rs6020,F2,Thrombophilia (Factor II Prothrombin),CC,"['GG', 'GA', 'AG', 'AA']",STRAND_MISMATCH (JSON likely Reverse),False
+rs1333049,CDKN2A/B,Coronary Artery Disease Risk (9p21 locus),CG,"['TT', 'TC', 'CT', 'CC']",STRAND_MISMATCH (JSON likely Reverse),False
+rs1256335,ALPL,Vitamin B6 Transport,AA,"['TT', 'TC', 'CT', 'CC']",STRAND_MISMATCH (JSON likely Reverse),False
+rs1045642,ABCB1 (MDR1),Blood-Brain Barrier Pump,AA,"['CC', 'CT', 'TC', 'TT']",STRAND_MISMATCH (JSON likely Reverse),False
+rs73598374,ADA,Deep Sleep Intensity (Adenosine),CC,"['GG', 'GA', 'AG', 'AA']",STRAND_MISMATCH (JSON likely Reverse),False
+rs1800407,OCA2,Eye Color (Green/Hazel vs Brown),CC,"['GG', 'GA', 'AG', 'AA']",STRAND_MISMATCH (JSON likely Reverse),False
+rs1803274,BCHE,Anesthesia Sensitivity (Pseudocholinesterase),CT,"['AA', 'AG', 'GA', 'GG']",STRAND_MISMATCH (JSON likely Reverse),False
+rs1051266,SLC19A1,Folate Absorption (RFC1 Transporter),CT,"['AA', 'AG', 'GA', 'GG']",STRAND_MISMATCH (JSON likely Reverse),False
+rs4588,GC,Vitamin D Binding Protein (Part 2),GG,"['CC', 'CA', 'AC', 'AA']",STRAND_MISMATCH (JSON likely Reverse),False
+rs1801272,CYP2A6,Nicotine Metabolism Speed,AA,"['AA', 'AT', 'TA', 'TT']",ALIGNED_AMBIGUOUS (Verified Forward),True
+rs2569190,CD14,Endotoxin (LPS) Sensitivity,AG,"['CC', 'CT', 'TC', 'TT']",STRAND_MISMATCH (JSON likely Reverse),False
+rs1799998,CYP11B2,Salt Sensitivity (Aldosterone),AA,"['TT', 'TC', 'CT', 'CC']",STRAND_MISMATCH (JSON likely Reverse),False
+rs6275,DRD2,Dopamine D2 Receptor Stability (C957T),AG,"['CC', 'CT', 'TC', 'TT']",STRAND_MISMATCH (JSON likely Reverse),False
+rs1800440,CYP1B1,Estrogen Detox (4-OH Estrogen),TT,"['AA', 'AG', 'GA', 'GG']",STRAND_MISMATCH (JSON likely Reverse),False
+rs894160,PLIN1,Weight Loss Resistance (Perilipin),CC,"['AA', 'AG', 'GA', 'GG']",STRAND_MISMATCH (JSON likely Reverse),False
+rs3813867,CYP2E1,Toxin & Solvent Metabolism,GG,"['GG', 'GC', 'CG', 'CC']",ALIGNED_AMBIGUOUS (Verified Forward),True
