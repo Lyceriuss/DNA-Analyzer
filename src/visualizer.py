@@ -85,3 +85,63 @@ def create_polar_chart(summary_df, output_path):
         print(f"✅ Polar chart saved to {output_path}")
     except Exception as e:
         print(f"⚠️ Failed to save polar chart (Kaleido error?): {e}")
+
+
+def create_heritage_pie_chart(df, output_path, parent1_name="Mom", parent2_name="Dad"):
+    """Generates a static PNG donut chart using Plotly, matching the polar chart's engine."""
+    print(f"📊 [DEBUG] Starting pie chart generation for {parent1_name} and {parent2_name}...")
+    
+    if df is None:
+        print("⚠️ [DEBUG] Aborted: The DataFrame passed is None.")
+        return
+        
+    if df.empty:
+        print("⚠️ [DEBUG] Aborted: The DataFrame is empty.")
+        return
+        
+    if 'Inheritance_Source' not in df.columns:
+        print(f"⚠️ [DEBUG] Aborted: 'Inheritance_Source' not found. Available columns: {df.columns.tolist()}")
+        return
+
+    counts = df['Inheritance_Source'].value_counts()
+    labels = counts.index.tolist()
+    values = counts.values.tolist()
+    
+    print(f"📊 [DEBUG] Data extracted: {dict(zip(labels, values))}")
+
+    if not values: 
+        print("⚠️ [DEBUG] Aborted: No valid data values to chart.")
+        return
+
+    # Map colors to match the PDF tables
+    color_map = {
+        f"Match: {parent1_name}": "rgba(231, 76, 60, 0.9)",   # Red
+        f"Match: {parent2_name}": "rgba(52, 152, 219, 0.9)",  # Blue
+        "Both Sides": "rgba(155, 89, 182, 0.9)",              # Purple
+        "Mixed / Recombined": "rgba(241, 196, 15, 0.9)",      # Yellow
+        "Unknown": "rgba(149, 165, 166, 0.9)",                # Gray
+        "Relatives Not Tested": "rgba(236, 240, 241, 0.9)"
+    }
+    marker_colors = [color_map.get(l, "rgba(189, 195, 199, 0.9)") for l in labels]
+
+    print("📊 [DEBUG] Drawing figure...")
+    fig = go.Figure(data=[go.Pie(
+        labels=labels, values=values, hole=0.45,
+        marker=dict(colors=marker_colors, line=dict(color='#ffffff', width=2)),
+        textinfo='percent', textfont=dict(size=14, color='white', family="Arial")
+    )])
+
+    fig.update_layout(
+        title=dict(text="Inherited Trait Distribution", font=dict(size=18, color="#2c3e50", family="Arial", weight="bold"), x=0.5),
+        margin=dict(t=50, b=20, l=20, r=150),
+        paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
+        legend=dict(orientation="v", y=0.5, x=1.02, xanchor="left", yanchor="middle"),
+        width=700, height=450
+    )
+
+    try:
+        print(f"📊 [DEBUG] Attempting to save to {output_path}...")
+        fig.write_image(output_path, scale=2)
+        print(f"✅ Heritage pie chart saved to {output_path}")
+    except Exception as e:
+        print(f"⚠️ Failed to save heritage pie chart: {e}")

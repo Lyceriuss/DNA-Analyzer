@@ -2,29 +2,146 @@ import os
 import glob
 import pandas as pd
 from src.analyzer import run_analysis
-from src.visualizer import create_polar_chart
+from src.visualizer import create_polar_chart, create_heritage_pie_chart
 from src.report_engine import PDFReport, ReportEngine
+from src.inheritance import analyze_inheritance  # NEW DEPENDENCY
 
 # CONFIG
 INPUT_DIR = "data/input"
 OUTPUT_DIR = "data/output"
 TRAITS_FILE = "config/snp_traits.json"
 
-def select_dna_file():
-    """Interactive selector for CSV files."""
-    csv_files = glob.glob(os.path.join(INPUT_DIR, "*.csv"))
-    if not csv_files:
-        print("❌ No CSV files found in 'data/input'.")
+def select_dna_file(prompt_title, exclude_files=None):
+    """
+    Robust interactive selector for CSV files with error handling and exclusions.
+    """
+    if exclude_files is None:
+        exclude_files = []
+        
+    if not os.path.exists(INPUT_DIR):
+        print(f"❌ Error: The directory '{INPUT_DIR}' does not exist.")
         return None
-    if len(csv_files) == 1:
-        return csv_files[0]
-    for i, f in enumerate(csv_files):
-        print(f"   [{i+1}] {os.path.basename(f)}")
-    try:
-        choice = int(input(f"\n👉 Select a file (1-{len(csv_files)}): ").strip()) - 1
-        return csv_files[choice] if 0 <= choice < len(csv_files) else None
-    except:
+
+    all_csvs = glob.glob(os.path.join(INPUT_DIR, "*.csv"))
+    available_files = [f for f in all_csvs if f not in exclude_files]
+    
+    if not available_files:
+        print(f"❌ No available CSV files left in '{INPUT_DIR}' to select.")
         return None
+
+    while True:
+        print(f"\n📂 {prompt_title.upper()}")
+        for i, f in enumerate(available_files):
+            print(f"   [{i+1}] {os.path.basename(f)}")
+        print("   [0] Cancel / Skip")
+            
+        choice_str = input(f"\n👉 Select an option (0-{len(available_files)}): ").strip()
+        
+        if not choice_str:
+            print("⚠️ Please enter a number.")
+            continue
+            
+        if not choice_str.isdigit():
+            print("⚠️ Invalid input. Please enter a valid number.")
+            continue
+            
+        choice = int(choice_str)
+        
+        if choice < 0 or choice > len(available_files):
+            print(f"⚠️ Number out of range. Please choose between 0 and {len(available_files)}.")
+            continue
+            
+        if choice == 0:
+            return None
+            
+        selected_file = available_files[choice - 1]
+        print(f"✅ Selected: {os.path.basename(selected_file)}")
+        return selected_file
+
+def gather_family_profiles():
+    """
+    Handles the workflow for selecting a primary profile and up to 2 relatives.
+    Returns a dictionary with the selected files.
+    """
+    print("\n🧬 --- PROFILE SELECTION MENU --- 🧬")
+    
+    selected_profiles = {
+        "child": None,
+        "parents": []
+    }
+    exclude_list = []
+    
+    # 1. Select Primary Profile
+    child_file = select_dna_file("Select Primary Profile (Main Subject)")
+    if not child_file:
+        print("❌ Primary profile selection cancelled. Exiting script.")
+        return None
+        
+    selected_profiles["child"] = child_file
+    exclude_list.append(child_file)
+    
+    # 2. Select Relatives Loop
+    print("\n" + "="*35)
+    print("👨‍👩‍👧 HERITAGE & FAMILY MODULE (Optional)")
+    print("="*35)
+    
+    while len(selected_profiles["parents"]) < 2:
+        num_parents = len(selected_profiles["parents"])
+        
+        # Display Current State
+        print("\n[ CURRENT FAMILY TREE ]")
+        print(f"👤 Main: {os.path.basename(selected_profiles['child'])}")
+        for p in selected_profiles["parents"]:
+            print(f"🧑 {p['label']}: {os.path.basename(p['file'])}")
+        print("-" * 25)
+        
+        # --- BLAZING FAST MENU ---
+        print(f"\n👉 Add a family profile? ({num_parents}/2 added)")
+        print("   [1] Add Mom")
+        print("   [2] Add Dad")
+        print("   [3] Add Custom (example: sibling/grandparent)")
+        print("   [0] No / Continue to Analysis")
+        
+        role_choice = input("\nSelect an option (0-3): ").strip()
+        
+        if role_choice == '0':
+            break  
+        elif role_choice == '1':
+            parent_label = "Mom"
+        elif role_choice == '2':
+            parent_label = "Dad"
+        elif role_choice == '3':
+            parent_label = input("Enter custom name (e.g., Sister, Grandpa): ").strip()
+            if not parent_label:
+                parent_label = f"Relative {num_parents + 1}"
+        else:
+            print("⚠️ Invalid input. Please type 0, 1, 2, or 3.")
+            continue
+            
+        # Select relative's file
+        p_file = select_dna_file(f"Select file for {parent_label.upper()}", exclude_list)
+        
+        if p_file:
+            selected_profiles["parents"].append({
+                "label": parent_label,
+                "file": p_file
+            })
+            exclude_list.append(p_file) 
+        else:
+            print(f"⚠️ Skipped adding {parent_label}.")
+
+    # --- Print Summary ---
+    print("\n" + "="*35)
+    print("✅ SELECTION COMPLETE")
+    print("="*35)
+    print(f"👤 Main Subject: {os.path.basename(selected_profiles['child'])}")
+    if not selected_profiles['parents']:
+        print("👪 Relatives: None selected (Standard Analysis)")
+    for p in selected_profiles['parents']:
+        print(f"🧑 {p['label']}: {os.path.basename(p['file'])}")
+    print("="*35 + "\n")
+        
+    return selected_profiles
 
 def clean_domain_names(df):
     replacements = {
@@ -43,11 +160,14 @@ def clean_domain_names(df):
     return df
 
 def main():
-    dna_file = select_dna_file()
-    if not dna_file: return
-    
+    # Execute the new robust profile gatherer
+    profiles = gather_family_profiles()
+    if not profiles or not profiles["child"]:
+        return
+        
+    dna_file = profiles["child"]
     filename = os.path.basename(dna_file).split('.')[0]
-    print(f"🚀 Starting Analysis for: {filename}")
+    print(f"🚀 Starting Primary Analysis for: {filename}")
 
     df = run_analysis(dna_file, TRAITS_FILE)
     if df.empty: return
@@ -115,7 +235,6 @@ def main():
     pdf.cell(0, 20, "SECTION 3:", 0, 1, 'C')
     pdf.cell(0, 20, "YOUR GENETIC SUPERPOWERS", 0, 1, 'C')
 
-# Section 3: Superpowers
     for _, row in prioritized_traits.iterrows():
         rsid = row['RSID']
         score = row['Score']
@@ -136,6 +255,7 @@ def main():
                 evidence=evidence
             )
             processed_rsids.append(rsid)
+            
     # --- RESTORED: EXECUTIVE SUMMARY (STRENGTHS) ---
     leftover_strengths = unique_df[
         (unique_df["Score"] >= 7) & 
@@ -160,10 +280,8 @@ def main():
         score = row['Score']
         content = engine.get_content_for_rsid(rsid, score)
         
-        if content and content['badge_type'] == 'RISK': # (or 'SUPERPOWER')
-            # ✅ Always use get_evidence_for_rsid(rsid) here
+        if content and content['badge_type'] == 'RISK':
             evidence = engine.get_evidence_for_rsid(rsid)
-            
             pdf.add_deep_dive_page(row['Result'], content, row['Score_Map'], row['Variant_Map'], evidence)
             processed_rsids.append(rsid)
 
@@ -176,8 +294,48 @@ def main():
     if not leftover_risks.empty:
         pdf.add_risk_summary_page(leftover_risks)
 
+# ---------------------------------------------------------
+    # INJECT HERITAGE / INHERITANCE MODULE HERE
+    # ---------------------------------------------------------
+    if profiles["parents"]:
+        print("\n🧬 Processing Heritage & Family Data...")
+        
+        # Analyze first relative
+        p1_info = profiles["parents"][0]
+        p1_df = run_analysis(p1_info['file'], TRAITS_FILE)
+        p1_name = p1_info['label']
+        
+        # Analyze second relative (if exists)
+        p2_df = None
+        p2_name = "Relative 2"
+        if len(profiles["parents"]) == 2:
+            p2_info = profiles["parents"][1]
+            p2_df = run_analysis(p2_info['file'], TRAITS_FILE)
+            p2_name = p2_info['label']
+            
+        # Run the inheritance matching logic
+        inheritance_df = analyze_inheritance(
+            unique_df, 
+            p1_df, 
+            p2_df, 
+            parent1_name=p1_name, 
+            parent2_name=p2_name
+        )
+        
+        # --- THIS IS THE PART THAT WAS MISSING! ---
+        pie_chart_path = os.path.join(OUTPUT_DIR, "heritage_pie.png")
+        create_heritage_pie_chart(inheritance_df, pie_chart_path, p1_name, p2_name)
+        
+        pdf.add_inheritance_page(
+            inheritance_df, 
+            parent1_name=p1_name, 
+            parent2_name=p2_name, 
+            two_parents=(len(profiles["parents"]) == 2),
+            chart_path=pie_chart_path
+        )
+
     pdf.output(os.path.join(OUTPUT_DIR, f"{filename}_Report.pdf"))
-    print(f"✅ Full Report Generated!")
+    print(f"\n✅ Full Report Generated for {filename}!")
 
 if __name__ == "__main__":
     main()
