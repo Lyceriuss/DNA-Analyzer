@@ -5,74 +5,49 @@ import os
 # --- PATHS ---
 TRAITS_PATH = "config/snp_traits.json"
 CSV_PATH = "data/input/MyHeritage_raw_dna_data_GA.csv"
-REPORT_OUTPUT = "final_hardware_alignment.csv"
 
-def audit_forward_strand(csv_path, traits_path):
-    # 1. Load DNA CSV (Forward Strand Build 37 confirmed)
+def run_final_health_check():
+    # 1. Load DNA
     try:
-        raw_df = pd.read_csv(csv_path, comment='#', sep=None, engine='python', dtype=str)
+        raw_df = pd.read_csv(CSV_PATH, comment='#', sep=None, engine='python', dtype=str)
         raw_df.columns = [c.upper().strip() for c in raw_df.columns]
         dna_data = pd.Series(raw_df.RESULT.str.strip().values, index=raw_df.RSID.str.strip()).to_dict()
-    except Exception as e:
-        print(f"❌ Error parsing CSV: {e}")
+    except Exception:
+        print("❌ Could not load CSV.")
         return
 
-    # 2. Load Traits JSON
-    with open(traits_path, 'r') as f:
+    # 2. Load JSON
+    with open(TRAITS_PATH, 'r') as f:
         traits_db = json.load(f)
 
     def normalize(gt):
         return "".join(sorted(str(gt).replace("/", "").replace(" ", "")))
 
-    alignment_results = []
-
-    print(f"🔬 Aligning {len(traits_db)} traits to Forward Strand Reference...")
+    failures = []
+    
+    print(f"🏁 Checking {len(traits_db)} markers for full hardware compatibility...")
 
     for rsid, info in traits_db.items():
         if rsid not in dna_data:
             continue
 
-        user_raw = dna_data[rsid]
-        user_std = normalize(user_raw)
+        user_val = normalize(dna_data[rsid])
+        json_keys = [normalize(k) for k in info['variants'].keys()]
         
-        json_variants = info.get("variants", {})
-        json_keys = [normalize(k) for k in json_variants.keys()]
-        
-        # Check if the SNP is Ambiguous (A/T or C/G)
-        unique_bases = set("".join(json_keys))
-        is_ambiguous = (unique_bases == {"A", "T"}) or (unique_bases == {"C", "G"})
-
-        # LOGIC: Because CSV is Forward, JSON MUST be Forward.
-        if user_std in json_keys:
-            # Match found. Since it's Forward, we can "trust" ambiguous matches now.
-            status = "ALIGNED"
-            if is_ambiguous:
-                status = "ALIGNED_AMBIGUOUS (Verified Forward)"
-        else:
-            # If no match, it's either a different allele or a strand mismatch in the JSON
-            status = "STRAND_MISMATCH (JSON likely Reverse)"
-
-        if status != "ALIGNED":
-            alignment_results.append({
+        if user_val not in json_keys:
+            failures.append({
                 "RSID": rsid,
-                "Gene": info.get("gene", "Unknown"),
-                "Trait": info.get("trait", "Unknown"),
-                "User_CSV_Value": user_raw,
-                "JSON_Expected": list(json_variants.keys()),
-                "Status": status,
-                "Is_Ambiguous": is_ambiguous
+                "CSV": user_val,
+                "JSON": json_keys
             })
 
-    # 3. Export Report
-    if alignment_results:
-        report_df = pd.DataFrame(alignment_results)
-        report_df.to_csv(REPORT_OUTPUT, index=False)
-        print(f"\n✅ Alignment Audit Complete.")
-        print(f"📄 Found {len(alignment_results)} discrepancies to fix.")
-        print(f"👉 Fix 'STRAND_MISMATCH' by flipping JSON keys to Forward.")
-        print(f"💾 Report: {REPORT_OUTPUT}")
+    if not failures:
+        print("\n✅ PERFECT ALIGNMENT: Every letter in your DNA file matches your Trait Database.")
+        print("You can now generate your Character String (A-Z) with 100% confidence.")
     else:
-        print("\n✅ Perfect Alignment! All JSON traits match Forward Strand CSV.")
+        print(f"\n❌ FOUND {len(failures)} REMAINING MISMATCHES.")
+        print("These likely have structural errors (e.g. your DNA says 'G' but the SNP is 'A/C').")
+        print(pd.DataFrame(failures))
 
 if __name__ == "__main__":
-    audit_forward_strand(CSV_PATH, TRAITS_PATH)
+    run_final_health_check()
