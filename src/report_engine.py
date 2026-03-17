@@ -423,3 +423,108 @@ class PDFReport(FPDF):
         self.set_y(start_y + box_height) 
         self.draw_body_evidence(evidence)
         self.draw_evidence_panel(evidence)
+        
+    def _truncate(self, text, length):
+        """Helper to keep table cells from overflowing the PDF margins."""
+        if not isinstance(text, str): text = str(text)
+        return text[:length-3] + "..." if len(text) > length else text
+
+    def add_inheritance_page(self, inheritance_df, parent1_name="Parent 1", parent2_name="Parent 2", two_parents=True, chart_path=None):
+        """
+        Draws the visual pie chart and splits the traits into separate tables for each relative.
+        """
+        self.add_page()
+        self.chapter_title("Family Trait Inheritance Breakdown")
+        self.ln(2)
+        
+        self.set_font('Arial', '', 10)
+        self.multi_cell(0, 5, clean_text("This section visualizes where your active genetic traits (Superpowers and Risks) originated, followed by the specific distinct traits passed down exclusively from each relative."))
+        self.ln(5)
+
+        # 1. Place the Donut Chart (If it was generated)
+        if chart_path and os.path.exists(chart_path):
+            # Center the image horizontally. 160w leaves 25 margin on each side (210 A4 width)
+            self.image(chart_path, x=25, w=160)
+            self.ln(5) # Move cursor below the image
+
+        # 2. Helper function to draw mini-tables dynamically
+        def draw_relative_table(df_subset, relative_name, relative_color):
+            if df_subset.empty: return
+            
+            # Sub-header for the specific relative
+            self.set_font('Arial', 'B', 12)
+            self.set_text_color(*relative_color)
+            self.cell(0, 8, clean_text(f"Traits Inherited Exclusively From {relative_name}"), 0, 1, 'L')
+            
+            # Table Headers
+            self.set_font('Arial', 'B', 9)
+            self.set_fill_color(*relative_color)
+            self.set_text_color(255)
+            
+            col_widths = [20, 55, 25, 25, 65]
+            headers = ["Gene", "Trait", "Your Result", f"{relative_name} Result", "Impact Summary"]
+            
+            for i, header in enumerate(headers):
+                self.cell(col_widths[i], 8, clean_text(header), 0, 0, 'C', 1)
+            self.ln()
+
+            # Table Rows
+            self.set_font('Arial', '', 8)
+            
+            # Limit to top 15 distinct traits per parent to prevent massive page overflow
+            display_df = df_subset.head(15)
+            
+            for idx, row in display_df.iterrows():
+                # Page break protection inside the table
+                if self.get_y() > 270:
+                    self.add_page()
+                    
+                self.set_fill_color(245, 245, 245)
+                fill = (idx % 2 == 1)
+                self.set_text_color(0)
+                
+                c_score = row.get('Child_Score', 5)
+                gene_txt = self._truncate(str(row.get('Gene', '')), 12)
+                trait_txt = self._truncate(str(row.get('Trait', '')), 35)
+                interp_txt = self._truncate(str(row.get('Interpretation', '')), 45)
+                
+                c_res = str(row.get('Child_Result', 'N/A'))
+                p_res = str(row.get(f'{relative_name}_Result', 'N/A'))
+
+                # Print row cells
+                self.cell(col_widths[0], 7, clean_text(gene_txt), 0, 0, 'C', fill)
+                self.cell(col_widths[1], 7, clean_text(trait_txt), 0, 0, 'C', fill)
+                
+                # Color code child result
+                if c_score >= 7: self.set_text_color(39, 174, 96) # Green Superpower
+                elif c_score <= 4: self.set_text_color(231, 76, 60) # Red Risk
+                else: self.set_text_color(0)
+                
+                self.set_font('Arial', 'B', 8)
+                self.cell(col_widths[2], 7, clean_text(c_res), 0, 0, 'C', fill)
+                
+                # Reset font for parent result and interpretation
+                self.set_text_color(0)
+                self.set_font('Arial', '', 8)
+                self.cell(col_widths[3], 7, clean_text(p_res), 0, 0, 'C', fill)
+                self.cell(col_widths[4], 7, clean_text(interp_txt), 0, 0, 'C', fill)
+                self.ln()
+                
+            self.ln(8) # Add space after table
+
+        # 3. Filter DataFrame and Draw Tables
+        
+        # Isolate traits matching ONLY Parent 1
+        p1_df = inheritance_df[inheritance_df['Inheritance_Source'] == f"Match: {parent1_name}"]
+        draw_relative_table(p1_df, parent1_name, (231, 76, 60)) # Red header for Parent 1
+
+        if two_parents:
+            # Check if we need a page break before drawing the second table
+            if self.get_y() > 220: 
+                self.add_page()
+                
+            # Isolate traits matching ONLY Parent 2
+            p2_df = inheritance_df[inheritance_df['Inheritance_Source'] == f"Match: {parent2_name}"]
+            draw_relative_table(p2_df, parent2_name, (52, 152, 219)) # Blue header for Parent 2
+        
+        
