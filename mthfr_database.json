@@ -1,0 +1,114 @@
+{
+    "MTHFR_1298": {
+        "rsid": "rs1801131",
+        "variant_identity": {
+            "gene_symbol": "MTHFR",
+            "common_name": "The Brain Folate Gene",
+            "rsid": "rs1801131",
+            "biotype": "Missense Variant (Glu429Ala)"
+        },
+        "affected_organs": [
+            "Brain",
+            "Liver"
+        ],
+        "affected_systems": [
+            "Nervous System",
+            "Methylation Cycle"
+        ],
+        "impact_type": "BH4 Synthesis Support",
+        "metabolic_connections": {
+            "upstream_requirements": [
+                {
+                    "molecule": "Folate",
+                    "role": "Substrate",
+                    "mechanism": "MTHFR supports the recycling of BH4 (Biopterin)."
+                }
+            ],
+            "downstream_impacts": [
+                {
+                    "molecule": "Serotonin/Dopamine",
+                    "effect": "Synthesis",
+                    "consequence": "BH4 is the rate-limiting cofactor for neurotransmitter production."
+                },
+                {
+                    "molecule": "Nitric Oxide",
+                    "effect": "Coupling",
+                    "consequence": "BH4 is required for NOS to make NO (blood flow)."
+                }
+            ]
+        },
+        "metrics": {
+            "mechanistic_impact": {
+                "score": 4,
+                "rationale": "Reduces enzyme activity by ~40%, distinct from C677T.",
+                "detail": "While the C677T variant affects the 'Methylation' tail (Homocysteine), the A1298C variant (rs1801131) affects the regulatory domain. It is less thermolabile but still reduces activity. Crucially, its impact is often more neurological.  It affects the recycling of BH4 (Tetrahydrobiopterin), a molecule needed to make Serotonin and Dopamine. Carriers may have normal homocysteine but struggle with mood, anxiety, or chronic pain due to low neurotransmitters."
+            },
+            "study_quality": {
+                "score": 4,
+                "rationale": "Linked to Depression and Pregnancy complications.",
+                "detail": "Compound heterozygotes (one C677T + one A1298C) have the highest risk profile, similar to a C677T homozygote. The link to psychiatric conditions is stronger than for vascular disease."
+            },
+            "methodology": {
+                "score": 4,
+                "rationale": "Enzyme Assays & Clinical Psychiatry.",
+                "detail": "Correlations with CSF neurotransmitter metabolites."
+            }
+        },
+        "consensus_label": "MOOD METHYLATOR",
+        "methodology_audit": [
+            {
+                "study": "Weisberg et al. (1998) - Mol Genet Metab",
+                "type": "Biochemistry",
+                "population": "Recombinant Enzyme",
+                "methods": "Kinetic analysis of A1298C.",
+                "critique": "STRENGTH: Proved the enzymatic defect is real but milder than C677T (60% activity vs 30%). CRITIQUE: The clinical significance is debated in isolation (heterozygotes alone often have no phenotype). It really matters most when combined with C677T (Compound Heterozygosity). Testing for just one misses the 'Synergy' that defines the severe phenotype. The audit suggests that A1298C carriers should focus on BH4 support (Royal Jelly, Vitamin C) rather than just heavy Methylfolate, which targets the other variant's pathway.",
+                "score_contribution": "Mechanistic Impact (4/5)"
+            },
+            {
+                "study": "Lok et al. (2013) - Depress Anxiety",
+                "type": "Meta-Analysis",
+                "population": "Depression Patients",
+                "methods": "Association with MDD.",
+                "critique": "STRENGTH: Found a significant link to depression, particularly in Asian populations. CRITIQUE: The effect is likely mediated by BH4 depletion. Since BH4 is also needed for Nitric Oxide (blood flow), these patients might have 'Cold Hands/Feet' (Raynaud's) or migraines alongside depression. This provides a physical sign to look for in the clinic. The intervention is 'SAMe' or 'BH4' support, differentiating it from the standard B-vitamin protocol used for homocysteine.",
+                "score_contribution": "Study Quality (4/5)"
+            }
+        ],
+        "citations": [
+            "PMID:9719624",
+            "PMID:23913816"
+        ],
+        "visualization_blueprint": {
+            "layout_type": "pathway_flow",
+            "components": {
+                "left_node": {
+                    "title": "Folate Input",
+                    "subtitle": "Requires B9 Substrate"
+                },
+                "center_node": {
+                    "title": "MTHFR",
+                    "shape": "circle"
+                },
+                "right_node": {
+                    "title": "BH4 Recycling",
+                    "subtitle": "Serotonin & Dopamine Synthesis"
+                }
+            },
+            "states": {
+                "reference_allele": {
+                    "genotype_example": "AA",
+                    "node_color": "#10B981",
+                    "node_label": "Normal Activity",
+                    "flow_speed": "fast",
+                    "clinical_badge": "Optimal Neurotransmitter Support"
+                },
+                "risk_allele": {
+                    "genotype_example": "CC (or AC)",
+                    "node_color": "#F59E0B",
+                    "node_label": "Decreased Activity (~60%)",
+                    "flow_speed": "slow",
+                    "clinical_badge": "Risk: Lower BH4 recycling. Associated with Mood/Anxiety impacts."
+                }
+            }
+        }
+    }
+}
