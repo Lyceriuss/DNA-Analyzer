@@ -1,5 +1,5 @@
 {
-    "rs1801131": {
+    "MTHFR_1298": {
         "rsid": "rs1801131",
         "variant_identity": {
             "gene_symbol": "MTHFR",
@@ -76,10 +76,9 @@
         "citations": [
             "PMID:9719624",
             "PMID:23913816"
-        ],
-        "name": "MTHFR_1298"
+        ]
     },
-    "rs17782313": {
+    "MC4R_OBESITY": {
         "rsid": "rs17782313",
         "variant_identity": {
             "gene_symbol": "MC4R",
@@ -150,10 +149,9 @@
         "citations": [
             "PMID:18454148",
             "PMID:22952184"
-        ],
-        "name": "MC4R_OBESITY"
+        ]
     },
-    "rs1110400": {
+    "MC1R_UV_RISK": {
         "rsid": "rs1110400",
         "variant_identity": {
             "gene_symbol": "MC1R",
@@ -230,10 +228,9 @@
         "citations": [
             "PMID:30518753",
             "PMID:18559666"
-        ],
-        "name": "MC1R_UV_RISK"
+        ]
     },
-    "rs17653216": {
+    "MGAM_STARCH": {
         "rsid": "rs17653216",
         "variant_identity": {
             "gene_symbol": "MGAM",
@@ -308,10 +305,9 @@
         "citations": [
             "PMID:17592362",
             "PMID:23202364"
-        ],
-        "name": "MGAM_STARCH"
+        ]
     },
-    "rs2010963": {
+    "VEGFA_ANGIO": {
         "rsid": "rs2010963",
         "variant_identity": {
             "gene_symbol": "VEGFA",
@@ -388,10 +384,9 @@
         "citations": [
             "PMID:16794025",
             "PMID:19003666"
-        ],
-        "name": "VEGFA_ANGIO"
+        ]
     },
-    "rs2066853": {
+    "AHR_TOXIN": {
         "rsid": "rs2066853",
         "variant_identity": {
             "gene_symbol": "AHR",
@@ -467,10 +462,9 @@
         "citations": [
             "PMID:10788467",
             "PMID:11532856"
-        ],
-        "name": "AHR_TOXIN"
+        ]
     },
-    "rs429358": {
+    "APOE_ALZ": {
         "rsid": "rs429358",
         "variant_identity": {
             "gene_symbol": "APOE",
@@ -547,10 +541,9 @@
         "citations": [
             "PMID:8346443",
             "PMID:16670756"
-        ],
-        "name": "APOE_ALZ"
+        ]
     },
-    "rs3923809": {
+    "BTBD9_RLS": {
         "rsid": "rs3923809",
         "variant_identity": {
             "gene_symbol": "BTBD9",
@@ -627,10 +620,9 @@
         "citations": [
             "PMID:17634454",
             "PMID:22654196"
-        ],
-        "name": "BTBD9_RLS"
+        ]
     },
-    "rs2740574": {
+    "CYP3A4_METABOLIC_RATE": {
         "rsid": "rs2740574",
         "variant_identity": {
             "gene_symbol": "CYP3A4",
@@ -712,10 +704,9 @@
         "citations": [
             "PMID:14553255",
             "PMID:12740574"
-        ],
-        "name": "CYP3A4_METABOLIC_RATE"
+        ]
     },
-    "rs1010151": {
+    "GLO1_AGE": {
         "rsid": "rs1010151",
         "variant_identity": {
             "gene_symbol": "GLO1",
@@ -793,10 +784,9 @@
         "citations": [
             "PMID:24485521",
             "PMID:22502755"
-        ],
-        "name": "GLO1_AGE"
+        ]
     },
-    "rs4149056": {
+    "SLCO1B1_STATIN": {
         "rsid": "rs4149056",
         "variant_identity": {
             "gene_symbol": "SLCO1B1",
@@ -873,10 +863,9 @@
         "citations": [
             "PMID:18650507",
             "PMID:16037740"
-        ],
-        "name": "SLCO1B1_STATIN"
+        ]
     },
-    "rs1799983": {
+    "NOS3_NITRIC": {
         "rsid": "rs1799983",
         "variant_identity": {
             "gene_symbol": "NOS3",
@@ -953,10 +942,9 @@
         "citations": [
             "PMID:10712469",
             "PMID:10525547"
-        ],
-        "name": "NOS3_NITRIC"
+        ]
     },
-    "rs3123554": {
+    "SHBG_BINDER": {
         "rsid": "rs3123554",
         "variant_identity": {
             "gene_symbol": "SHBG",
@@ -1034,10 +1022,9 @@
         "citations": [
             "PMID:20562875",
             "PMID:21525160"
-        ],
-        "name": "SHBG_BINDER"
+        ]
     },
-    "rs1799883": {
+    "FABP2_FAT": {
         "rsid": "rs1799883",
         "variant_identity": {
             "gene_symbol": "FABP2",
@@ -1113,10 +1100,9 @@
         "citations": [
             "PMID:7593333",
             "PMID:9155444"
-        ],
-        "name": "FABP2_FAT"
+        ]
     },
-    "rs5516": {
+    "F5_CLOT": {
         "rsid": "rs5516",
         "variant_identity": {
             "gene_symbol": "F5",
@@ -1192,10 +1178,9 @@
         "citations": [
             "PMID:14757770",
             "PMID:7715643"
-        ],
-        "name": "F5_CLOT"
+        ]
     },
-    "rs1801198": {
+    "TCN2_B12": {
         "rsid": "rs1801198",
         "variant_identity": {
             "gene_symbol": "TCN2",
@@ -1272,10 +1257,9 @@
         "citations": [
             "PMID:15755815",
             "PMID:12029031"
-        ],
-        "name": "TCN2_B12"
+        ]
     },
-    "rs35652124": {
+    "NRF2_DETOX": {
         "rsid": "rs35652124",
         "variant_identity": {
             "gene_symbol": "NFE2L2",
@@ -1352,10 +1336,9 @@
         "citations": [
             "PMID:17409416",
             "PMID:18490654"
-        ],
-        "name": "NRF2_DETOX"
+        ]
     },
-    "rs662": {
+    "PON1_OXIDATIVE_STRESS": {
         "rsid": "rs662",
         "variant_identity": {
             "gene_symbol": "PON1",
@@ -1438,73 +1421,89 @@
         "citations": [
             "PMID:11591606",
             "PMID:15847514"
-        ],
-        "name": "PON1_OXIDATIVE_STRESS"
+        ]
     },
-    "rs1042522": {
+    "TP53_TUMOR": {
         "rsid": "rs1042522",
         "variant_identity": {
-            "gene_symbol": "POMC",
-            "common_name": "Pro-opiomelanocortin",
+            "gene_symbol": "TP53",
+            "common_name": "The Genome Guardian",
             "rsid": "rs1042522",
-            "biotype": "Missense Variant"
+            "biotype": "Missense Variant (Pro72Arg)"
         },
         "affected_organs": [
-            "Brain",
-            "Stomach",
-            "Skin"
+            "Lungs",
+            "Skin",
+            "Stomach"
         ],
         "affected_systems": [
-            "Nervous System",
-            "Endocrine System"
+            "Cell Cycle Control",
+            "DNA Repair"
         ],
-        "impact_type": "Satiety Processing",
+        "impact_type": "Apoptosis Efficiency",
         "metabolic_connections": {
             "upstream_requirements": [
                 {
-                    "molecule": "Leptin",
+                    "molecule": "DNA Damage",
                     "role": "Trigger",
-                    "mechanism": "Leptin stimulates POMC neurons to release alpha-MSH."
+                    "mechanism": "Double-strand breaks activate p53 via ATM kinase."
                 }
             ],
             "downstream_impacts": [
                 {
-                    "molecule": "Alpha-MSH",
-                    "effect": "Suppression",
-                    "consequence": "Low alpha-MSH leads to hyperphagia (excessive eating)."
+                    "molecule": "Bax/PUMA",
+                    "effect": "Induction",
+                    "consequence": "p53 triggers these proteins to punch holes in mitochondria (Apoptosis)."
                 },
                 {
-                    "molecule": "MC4R Receptor",
-                    "effect": "Activation",
-                    "consequence": "POMC products are the primary keys to the MC4R satiety lock."
+                    "molecule": "p21",
+                    "effect": "Induction",
+                    "consequence": "Stops cell division to allow for repair."
                 }
             ]
         },
         "metrics": {
             "mechanistic_impact": {
                 "score": 5,
-                "rationale": "Primary node in the melanocortin satiety pathway.",
-                "detail": "POMC is the origin molecule for the body's entire internal weight-regulation system. The rs1042522 variant specifically alters the processing efficiency of the pro-protein into its active anorexigenic (appetite-suppressing) components. In neuroendocrine clustering studies, this variant is the 'smoking gun' for snack-seeking behavior and large meal portions. Mechanistically, the 'Risk' allele creates a brain environment that is perpetually 'tuned' to a state of mild hunger, as the baseline level of alpha-MSH never reaches the threshold required to fully occupy the MC4R receptors in the paraventricular nucleus of the hypothalamus."
+                "rationale": "Codon 72 polymorphism alters the protein's ability to trigger cell death.",
+                "detail": "p53 is the most important tumor suppressor in the human body. It decides whether a damaged cell should pause and repair (Arrest) or commit suicide (Apoptosis). The rs1042522 'G' allele (Arg72) makes the protein better at moving to the mitochondria and triggering suicide. The 'C' allele (Pro72) is better at pausing the cell cycle for repair. This creates a trade-off: Arg72 is a stronger 'killer' of cancer cells, but it burns through the stem cell pool faster (aging). Pro72 is gentler but might let some mutations slip through."
             },
             "study_quality": {
-                "score": 4,
-                "rationale": "Extensive meta-analysis support in obesity cohorts.",
-                "detail": "While POMC mutations were originally thought to be rare and severe, the 2025 endotype studies have shown that common variants like rs1042522 act as significant 'volume knobs' for appetite in the general population. It is consistently associated with higher BMI across European and Asian cohorts, specifically linked to 'eating behavior' traits rather than 'resting metabolic rate'."
+                "score": 5,
+                "rationale": "Thousands of papers; strong interaction with HPV status.",
+                "detail": "The Arg72 variant is famously susceptible to degradation by the HPV virus (E6 protein). Homozygous Arg72 carriers have a significantly higher risk of cervical cancer if infected with HPV because the virus can easily destroy their p53 defense. In other cancers, the data is mixed, supporting the 'Context Dependent' theory."
             },
             "methodology": {
-                "score": 4,
-                "rationale": "Validated through fMRI food-cue reactivity tests.",
-                "detail": "Functional MRI studies have demonstrated that carriers of this variant show higher activation in the reward centers of the brain when shown images of high-calorie foods compared to non-carriers."
+                "score": 5,
+                "rationale": "Crystal structures and viral degradation assays.",
+                "detail": "We have structural proof that the Proline residue alters the protein's twist, affecting how it binds to regulatory proteins like MDM2 and viral oncogenes."
             }
         },
-        "consensus_label": "SATIETY DELAY",
-        "citations": [
-            "PMID:16462123",
-            "PMID:22301018"
+        "consensus_label": "CELLULAR EXECUTIONER",
+        "methodology_audit": [
+            {
+                "study": "Storey et al. (1998) - Nature",
+                "type": " mechanistic / Case-Control",
+                "population": "Cervical Cancer Patients",
+                "methods": "Demonstrated Arg72 susceptibility to HPV E6 degradation.",
+                "critique": "This was a bombshell paper. STRENGTH: It provided a molecular mechanism for why some women clear HPV while others get cancer. The Arg72 variant is literally 'eaten' faster by the viral protein. WEAKNESS: Subsequent large-scale meta-analyses found the risk was real but smaller than Storey originally claimed (Odds Ratio ~1.5 vs ~7). This is a classic example of the 'Winner's Curse' in early genetic studies, where the initial discovery overestimates the effect size due to sample selection quirks.",
+                "score_contribution": "Mechanistic Impact (5/5)"
+            },
+            {
+                "study": "Dumont et al. (2003) - Nature Genetics",
+                "type": "Functional Analysis",
+                "population": "Knock-in Mice",
+                "methods": "Created mice with human Arg72 vs Pro72 to test apoptosis.",
+                "critique": "STRENGTH: Removed human confounding variables. The Arg72 mice were definitively better at killing UV-damaged skin cells (less skin cancer) but died younger from exhaustion of stem cells? (Aging trade-off). CRITIQUE: Mouse models of p53 are notoriously tricky because mice have different telomere biology than humans. While the apoptosis difference holds true, extrapolating the 'aging' or 'longevity' phenotype to humans is controversial and requires more longitudinal human data.",
+                "score_contribution": "Study Quality (5/5)"
+            }
         ],
-        "name": "POMC_SATIETY"
+        "citations": [
+            "PMID:9603729",
+            "PMID:12567184"
+        ]
     },
-    "rs10830963": {
+    "MTNR1B_SUGAR": {
         "rsid": "rs10830963",
         "variant_identity": {
             "gene_symbol": "MTNR1B",
@@ -1580,10 +1579,9 @@
         "citations": [
             "PMID:19060907",
             "PMID:27184844"
-        ],
-        "name": "MTNR1B_SUGAR"
+        ]
     },
-    "rs2228145": {
+    "IL6R_INFLAM": {
         "rsid": "rs2228145",
         "variant_identity": {
             "gene_symbol": "IL6R",
@@ -1660,10 +1658,9 @@
         "citations": [
             "PMID:22421340",
             "PMID:15568037"
-        ],
-        "name": "IL6R_INFLAM"
+        ]
     },
-    "rs662799": {
+    "APOA5_TRIGLYCERIDE_CLEARANCE": {
         "rsid": "rs662799",
         "variant_identity": {
             "gene_symbol": "APOA5",
@@ -1746,10 +1743,9 @@
         "citations": [
             "PMID:11588264",
             "PMID:17093172"
-        ],
-        "name": "APOA5_TRIGLYCERIDE_CLEARANCE"
+        ]
     },
-    "rs3736228": {
+    "LRP5_BONE": {
         "rsid": "rs3736228",
         "variant_identity": {
             "gene_symbol": "LRP5",
@@ -1824,10 +1820,9 @@
         "citations": [
             "PMID:15042436",
             "PMID:12011443"
-        ],
-        "name": "LRP5_BONE"
+        ]
     },
-    "rs7903146": {
+    "TCF7L2_DIABETES": {
         "rsid": "rs7903146",
         "variant_identity": {
             "gene_symbol": "TCF7L2",
@@ -1903,10 +1898,9 @@
         "citations": [
             "PMID:16415884",
             "PMID:17975666"
-        ],
-        "name": "TCF7L2_DIABETES"
+        ]
     },
-    "rs1800255": {
+    "COL3A1_TISSUE": {
         "rsid": "rs1800255",
         "variant_identity": {
             "gene_symbol": "COL3A1",
@@ -1984,10 +1978,9 @@
         "citations": [
             "PMID:20547141",
             "PMID:25649317"
-        ],
-        "name": "COL3A1_TISSUE"
+        ]
     },
-    "rs1611115": {
+    "DBH_STRESS": {
         "rsid": "rs1611115",
         "variant_identity": {
             "gene_symbol": "DBH",
@@ -2065,10 +2058,9 @@
         "citations": [
             "PMID:11343110",
             "PMID:22087220"
-        ],
-        "name": "DBH_STRESS"
+        ]
     },
-    "rs1260326": {
+    "GCKR_LIVER": {
         "rsid": "rs1260326",
         "variant_identity": {
             "gene_symbol": "GCKR",
@@ -2144,10 +2136,9 @@
         "citations": [
             "PMID:19033403",
             "PMID:19763171"
-        ],
-        "name": "GCKR_LIVER"
+        ]
     },
-    "rs2943641": {
+    "IRS1_INSULIN": {
         "rsid": "rs2943641",
         "variant_identity": {
             "gene_symbol": "IRS1",
@@ -2223,10 +2214,9 @@
         "citations": [
             "PMID:19503095",
             "PMID:21685912"
-        ],
-        "name": "IRS1_INSULIN"
+        ]
     },
-    "rs17226398": {
+    "SLC22A5_CARNITINE": {
         "rsid": "rs17226398",
         "variant_identity": {
             "gene_symbol": "SLC22A5",
@@ -2303,10 +2293,9 @@
         "citations": [
             "PMID:15107849",
             "PMID:25555476"
-        ],
-        "name": "SLC22A5_CARNITINE"
+        ]
     },
-    "rs1728986": {
+    "TNXB_JOINT": {
         "rsid": "rs1728986",
         "variant_identity": {
             "gene_symbol": "TNXB",
@@ -2382,10 +2371,9 @@
         "citations": [
             "PMID:15241680",
             "PMID:27409600"
-        ],
-        "name": "TNXB_JOINT"
+        ]
     },
-    "rs328": {
+    "LPL_FAT_CLEARANCE": {
         "rsid": "rs328",
         "variant_identity": {
             "gene_symbol": "LPL",
@@ -2468,10 +2456,9 @@
         "citations": [
             "PMID:19589522",
             "PMID:10397500"
-        ],
-        "name": "LPL_FAT_CLEARANCE"
+        ]
     },
-    "rs5082": {
+    "APOA2_SATFAT": {
         "rsid": "rs5082",
         "variant_identity": {
             "gene_symbol": "APOA2",
@@ -2547,10 +2534,9 @@
         "citations": [
             "PMID:19901143",
             "PMID:24025629"
-        ],
-        "name": "APOA2_SATFAT"
+        ]
     },
-    "rs11191548": {
+    "DRD1_RENAL_SODIUM": {
         "rsid": "rs11191548",
         "variant_identity": {
             "gene_symbol": "DRD1",
@@ -2633,10 +2619,9 @@
         "citations": [
             "PMID:11591606",
             "PMID:9597157"
-        ],
-        "name": "DRD1_RENAL_SODIUM"
+        ]
     },
-    "rs3774175": {
+    "SOD3_ANTIOX": {
         "rsid": "rs3774175",
         "variant_identity": {
             "gene_symbol": "SOD3",
@@ -2713,10 +2698,9 @@
         "citations": [
             "PMID:21900010",
             "PMID:16141870"
-        ],
-        "name": "SOD3_ANTIOX"
+        ]
     },
-    "rs1137101": {
+    "LEPR_HUNGER": {
         "rsid": "rs1137101",
         "variant_identity": {
             "gene_symbol": "LEPR",
@@ -2791,10 +2775,9 @@
         "citations": [
             "PMID:11600557",
             "PMID:19180068"
-        ],
-        "name": "LEPR_HUNGER"
+        ]
     },
-    "rs6020": {
+    "F2_PROTHROMBIN": {
         "rsid": "rs6020",
         "variant_identity": {
             "gene_symbol": "F2",
@@ -2870,10 +2853,9 @@
         "citations": [
             "PMID:8916109",
             "PMID:9716362"
-        ],
-        "name": "F2_PROTHROMBIN"
+        ]
     },
-    "rs9282858": {
+    "SRD5A2_DHT": {
         "rsid": "rs9282858",
         "variant_identity": {
             "gene_symbol": "SRD5A2",
@@ -2949,10 +2931,9 @@
         "citations": [
             "PMID:9194290",
             "PMID:11352864"
-        ],
-        "name": "SRD5A2_DHT"
+        ]
     },
-    "rs1979277": {
+    "SHMT1_FOLATE": {
         "rsid": "rs1979277",
         "variant_identity": {
             "gene_symbol": "SHMT1",
@@ -3029,10 +3010,9 @@
         "citations": [
             "PMID:21753063",
             "PMID:11830170"
-        ],
-        "name": "SHMT1_FOLATE"
+        ]
     },
-    "rs2235544": {
+    "DIO1_THYROID": {
         "rsid": "rs2235544",
         "variant_identity": {
             "gene_symbol": "DIO1",
@@ -3109,10 +3089,9 @@
         "citations": [
             "PMID:18492748",
             "PMID:12915668"
-        ],
-        "name": "DIO1_THYROID"
+        ]
     },
-    "rs2071403": {
+    "THRB_THYROID": {
         "rsid": "rs2071403",
         "variant_identity": {
             "gene_symbol": "THRB",
@@ -3189,10 +3168,9 @@
         "citations": [
             "PMID:22001757",
             "PMID:22235022"
-        ],
-        "name": "THRB_THYROID"
+        ]
     },
-    "rs4961": {
+    "ADD1_SALT": {
         "rsid": "rs4961",
         "variant_identity": {
             "gene_symbol": "ADD1",
@@ -3269,10 +3247,9 @@
         "citations": [
             "PMID:9607137",
             "PMID:15840014"
-        ],
-        "name": "ADD1_SALT"
+        ]
     },
-    "rs1800498": {
+    "DRD2_REWARD": {
         "rsid": "rs1800498",
         "variant_identity": {
             "gene_symbol": "DRD2",
@@ -3348,10 +3325,9 @@
         "citations": [
             "PMID:18454148",
             "PMID:18923395"
-        ],
-        "name": "DRD2_REWARD"
+        ]
     },
-    "rs12785878": {
+    "DHCR7_SUN": {
         "rsid": "rs12785878",
         "variant_identity": {
             "gene_symbol": "DHCR7",
@@ -3428,10 +3404,9 @@
         "citations": [
             "PMID:20541252",
             "PMID:20541252"
-        ],
-        "name": "DHCR7_SUN"
+        ]
     },
-    "rs2486758": {
+    "CYP17A1_TEST": {
         "rsid": "rs2486758",
         "variant_identity": {
             "gene_symbol": "CYP17A1",
@@ -3508,10 +3483,9 @@
         "citations": [
             "PMID:9426063",
             "PMID:17684146"
-        ],
-        "name": "CYP17A1_TEST"
+        ]
     },
-    "rs1946518": {
+    "IL18_INFLAM": {
         "rsid": "rs1946518",
         "variant_identity": {
             "gene_symbol": "IL18",
@@ -3587,10 +3561,9 @@
         "citations": [
             "PMID:11161559",
             "PMID:14530204"
-        ],
-        "name": "IL18_INFLAM"
+        ]
     },
-    "rs1800252": {
+    "COL2A1_CARTILAGE": {
         "rsid": "rs1800252",
         "variant_identity": {
             "gene_symbol": "COL2A1",
@@ -3665,10 +3638,9 @@
         "citations": [
             "PMID:17921179",
             "PMID:19165926"
-        ],
-        "name": "COL2A1_CARTILAGE"
+        ]
     },
-    "rs1051266": {
+    "SLC19A1_FOLATE": {
         "rsid": "rs1051266",
         "variant_identity": {
             "gene_symbol": "SLC19A1",
@@ -3745,10 +3717,9 @@
         "citations": [
             "PMID:11073713",
             "PMID:19606069"
-        ],
-        "name": "SLC19A1_FOLATE"
+        ]
     },
-    "rs4244285": {
+    "CYP2C19_DRUG": {
         "rsid": "rs4244285",
         "variant_identity": {
             "gene_symbol": "CYP2C19",
@@ -3823,10 +3794,9 @@
         "citations": [
             "PMID:19164781",
             "PMID:8206978"
-        ],
-        "name": "CYP2C19_DRUG"
+        ]
     },
-    "rs10757278": {
+    "CDKN2B_HEART": {
         "rsid": "rs10757278",
         "variant_identity": {
             "gene_symbol": "CDKN2B-AS1",
@@ -3901,10 +3871,9 @@
         "citations": [
             "PMID:17483474",
             "PMID:20167659"
-        ],
-        "name": "CDKN2B_HEART"
+        ]
     },
-    "rs6166": {
+    "FSHR_FERTILITY": {
         "rsid": "rs6166",
         "variant_identity": {
             "gene_symbol": "FSHR",
@@ -3981,10 +3950,9 @@
         "citations": [
             "PMID:10946893",
             "PMID:16150896"
-        ],
-        "name": "FSHR_FERTILITY"
+        ]
     },
-    "rs10065172": {
+    "IRGM_CROHN": {
         "rsid": "rs10065172",
         "variant_identity": {
             "gene_symbol": "IRGM",
@@ -4060,10 +4028,9 @@
         "citations": [
             "PMID:17554308",
             "PMID:18776917"
-        ],
-        "name": "IRGM_CROHN"
+        ]
     },
-    "rs1801133": {
+    "MTHFR_677": {
         "rsid": "rs1801133",
         "variant_identity": {
             "gene_symbol": "MTHFR",
@@ -4141,10 +4108,9 @@
         "citations": [
             "PMID:7647779",
             "PMID:12441293"
-        ],
-        "name": "MTHFR_677"
+        ]
     },
-    "rs12594956": {
+    "PGC1A_ENERGY": {
         "rsid": "rs12594956",
         "variant_identity": {
             "gene_symbol": "PPARGC1A",
@@ -4221,10 +4187,9 @@
         "citations": [
             "PMID:15545992",
             "PMID:16195562"
-        ],
-        "name": "PGC1A_ENERGY"
+        ]
     },
-    "rs231775": {
+    "CTLA4_IMMUNE": {
         "rsid": "rs231775",
         "variant_identity": {
             "gene_symbol": "CTLA4",
@@ -4301,10 +4266,9 @@
         "citations": [
             "PMID:12700513",
             "PMID:19268595"
-        ],
-        "name": "CTLA4_IMMUNE"
+        ]
     },
-    "rs174537": {
+    "FADS1_OMEGA": {
         "rsid": "rs174537",
         "variant_identity": {
             "gene_symbol": "FADS1",
@@ -4382,10 +4346,9 @@
         "citations": [
             "PMID:22503107",
             "PMID:16777934"
-        ],
-        "name": "FADS1_OMEGA"
+        ]
     },
-    "rs3758391": {
+    "SIRT3_MITO": {
         "rsid": "rs3758391",
         "variant_identity": {
             "gene_symbol": "SIRT3",
@@ -4462,10 +4425,9 @@
         "citations": [
             "PMID:15676283",
             "PMID:20966257"
-        ],
-        "name": "SIRT3_MITO"
+        ]
     },
-    "rs1256335": {
+    "ALPL_B6": {
         "rsid": "rs1256335",
         "variant_identity": {
             "gene_symbol": "ALPL",
@@ -4543,10 +4505,9 @@
         "citations": [
             "PMID:19671652",
             "PMID:7912999"
-        ],
-        "name": "ALPL_B6"
+        ]
     },
-    "rs20541": {
+    "IL13_ALLERGY": {
         "rsid": "rs20541",
         "variant_identity": {
             "gene_symbol": "IL13",
@@ -4623,10 +4584,9 @@
         "citations": [
             "PMID:10699176",
             "PMID:15711602"
-        ],
-        "name": "IL13_ALLERGY"
+        ]
     },
-    "rs13266634": {
+    "SLC30A8_ZINC": {
         "rsid": "rs13266634",
         "variant_identity": {
             "gene_symbol": "SLC30A8",
@@ -4701,10 +4661,9 @@
         "citations": [
             "PMID:17293876",
             "PMID:24584071"
-        ],
-        "name": "SLC30A8_ZINC"
+        ]
     },
-    "rs225014": {
+    "DIO2_THYROID": {
         "rsid": "rs225014",
         "variant_identity": {
             "gene_symbol": "DIO2",
@@ -4781,10 +4740,9 @@
         "citations": [
             "PMID:19190113",
             "PMID:25555476"
-        ],
-        "name": "DIO2_THYROID"
+        ]
     },
-    "rs5219": {
+    "KCNJ11_INSULIN": {
         "rsid": "rs5219",
         "variant_identity": {
             "gene_symbol": "KCNJ11",
@@ -4859,10 +4817,9 @@
         "citations": [
             "PMID:12724409",
             "PMID:12882913"
-        ],
-        "name": "KCNJ11_INSULIN"
+        ]
     },
-    "rs16969968": {
+    "CHRNA5_SMOKE": {
         "rsid": "rs16969968",
         "variant_identity": {
             "gene_symbol": "CHRNA5",
@@ -4939,10 +4896,9 @@
         "citations": [
             "PMID:17463249",
             "PMID:21248860"
-        ],
-        "name": "CHRNA5_SMOKE"
+        ]
     },
-    "rs558972": {
+    "GCK_SUGAR": {
         "rsid": "rs558972",
         "variant_identity": {
             "gene_symbol": "GCK",
@@ -5019,10 +4975,9 @@
         "citations": [
             "PMID:20081858",
             "PMID:33481132"
-        ],
-        "name": "GCK_SUGAR"
+        ]
     },
-    "rs3733890": {
+    "BHMT_METHYL": {
         "rsid": "rs3733890",
         "variant_identity": {
             "gene_symbol": "BHMT",
@@ -5099,10 +5054,9 @@
         "citations": [
             "PMID:12586183",
             "PMID:21178087"
-        ],
-        "name": "BHMT_METHYL"
+        ]
     },
-    "rs2236225": {
+    "MTHFD1_FOLATE_SUPPORT": {
         "rsid": "rs2236225",
         "variant_identity": {
             "gene_symbol": "MTHFD1",
@@ -5186,10 +5140,9 @@
         "citations": [
             "PMID:16752391",
             "PMID:19416617"
-        ],
-        "name": "MTHFD1_FOLATE_SUPPORT"
+        ]
     },
-    "rs7754840": {
+    "CDKAL1_INSULIN": {
         "rsid": "rs7754840",
         "variant_identity": {
             "gene_symbol": "CDKAL1",
@@ -5264,10 +5217,9 @@
         "citations": [
             "PMID:17554306",
             "PMID:21841314"
-        ],
-        "name": "CDKAL1_INSULIN"
+        ]
     },
-    "rs3813867": {
+    "CYP2E1_TOXIN": {
         "rsid": "rs3813867",
         "variant_identity": {
             "gene_symbol": "CYP2E1",
@@ -5343,10 +5295,9 @@
         "citations": [
             "PMID:1914217",
             "PMID:20568205"
-        ],
-        "name": "CYP2E1_TOXIN"
+        ]
     },
-    "rs6295": {
+    "HTR1A_MOOD": {
         "rsid": "rs6295",
         "variant_identity": {
             "gene_symbol": "HTR1A",
@@ -5421,10 +5372,9 @@
         "citations": [
             "PMID:14534250",
             "PMID:16585444"
-        ],
-        "name": "HTR1A_MOOD"
+        ]
     },
-    "rs4570625": {
+    "TPH2_MOOD": {
         "rsid": "rs4570625",
         "variant_identity": {
             "gene_symbol": "TPH2",
@@ -5499,10 +5449,9 @@
         "citations": [
             "PMID:15629710",
             "PMID:15858054"
-        ],
-        "name": "TPH2_MOOD"
+        ]
     },
-    "rs4253778": {
+    "PPARA_FAT": {
         "rsid": "rs4253778",
         "variant_identity": {
             "gene_symbol": "PPARA",
@@ -5579,10 +5528,9 @@
         "citations": [
             "PMID:16892405",
             "PMID:18204079"
-        ],
-        "name": "PPARA_FAT"
+        ]
     },
-    "rs1805007": {
+    "MC1R_SKIN": {
         "rsid": "rs1805007",
         "variant_identity": {
             "gene_symbol": "MC1R",
@@ -5657,10 +5605,9 @@
         "citations": [
             "PMID:7550356",
             "PMID:23123854"
-        ],
-        "name": "MC1R_SKIN"
+        ]
     },
-    "rs3024493": {
+    "IL10_INFLAM": {
         "rsid": "rs3024493",
         "variant_identity": {
             "gene_symbol": "IL10",
@@ -5736,10 +5683,9 @@
         "citations": [
             "PMID:9466318",
             "PMID:12073007"
-        ],
-        "name": "IL10_INFLAM"
+        ]
     },
-    "rs1800012": {
+    "COL1A1_BONE": {
         "rsid": "rs1800012",
         "variant_identity": {
             "gene_symbol": "COL1A1",
@@ -5816,10 +5762,9 @@
         "citations": [
             "PMID:8751456",
             "PMID:11156503"
-        ],
-        "name": "COL1A1_BONE"
+        ]
     },
-    "rs5370": {
+    "EDN1_VASO": {
         "rsid": "rs5370",
         "variant_identity": {
             "gene_symbol": "EDN1",
@@ -5895,10 +5840,9 @@
         "citations": [
             "PMID:9921903",
             "PMID:20528770"
-        ],
-        "name": "EDN1_VASO"
+        ]
     },
-    "rs17070145": {
+    "KIBRA_MEMORY": {
         "rsid": "rs17070145",
         "variant_identity": {
             "gene_symbol": "WWC1",
@@ -5974,10 +5918,9 @@
         "citations": [
             "PMID:17053149",
             "PMID:22993427"
-        ],
-        "name": "KIBRA_MEMORY"
+        ]
     },
-    "rs9282859": {
+    "HSD17B12_ESTROGEN": {
         "rsid": "rs9282859",
         "variant_identity": {
             "gene_symbol": "HSD17B12",
@@ -6054,10 +5997,9 @@
         "citations": [
             "PMID:19106202",
             "PMID:16449336"
-        ],
-        "name": "HSD17B12_ESTROGEN"
+        ]
     },
-    "rs2071749": {
+    "HMOX1_DETOX": {
         "rsid": "rs2071749",
         "variant_identity": {
             "gene_symbol": "HMOX1",
@@ -6135,10 +6077,9 @@
         "citations": [
             "PMID:12084373",
             "PMID:11342472"
-        ],
-        "name": "HMOX1_DETOX"
+        ]
     },
-    "rs4880": {
+    "SOD2_MITO": {
         "rsid": "rs4880",
         "variant_identity": {
             "gene_symbol": "SOD2",
@@ -6216,10 +6157,9 @@
         "citations": [
             "PMID:12612075",
             "PMID:16524450"
-        ],
-        "name": "SOD2_MITO"
+        ]
     },
-    "rs33972313": {
+    "SLC23A1_VITC": {
         "rsid": "rs33972313",
         "variant_identity": {
             "gene_symbol": "SLC23A1",
@@ -6296,10 +6236,9 @@
         "citations": [
             "PMID:20519558",
             "PMID:23376980"
-        ],
-        "name": "SLC23A1_VITC"
+        ]
     },
-    "rs1695": {
+    "GSTP1_GLUTATHIONE_DETOX": {
         "rsid": "rs1695",
         "variant_identity": {
             "gene_symbol": "GSTP1",
@@ -6383,10 +6322,9 @@
         "citations": [
             "PMID:11823131",
             "PMID:9169429"
-        ],
-        "name": "GSTP1_GLUTATHIONE_DETOX"
+        ]
     },
-    "rs1799930": {
+    "NAT2_ACETYL": {
         "rsid": "rs1799930",
         "variant_identity": {
             "gene_symbol": "NAT2",
@@ -6462,10 +6400,9 @@
         "citations": [
             "PMID:11113425",
             "PMID:16139655"
-        ],
-        "name": "NAT2_ACETYL"
+        ]
     },
-    "rs350843": {
+    "FOXO3_LONGEVITY": {
         "rsid": "rs350843",
         "variant_identity": {
             "gene_symbol": "FOXO3",
@@ -6543,10 +6480,9 @@
         "citations": [
             "PMID:18765803",
             "PMID:19196970"
-        ],
-        "name": "FOXO3_LONGEVITY"
+        ]
     },
-    "rs5751876": {
+    "ADORA2A_ANXIETY": {
         "rsid": "rs5751876",
         "variant_identity": {
             "gene_symbol": "ADORA2A",
@@ -6623,10 +6559,9 @@
         "citations": [
             "PMID:12784105",
             "PMID:17360352"
-        ],
-        "name": "ADORA2A_ANXIETY"
+        ]
     },
-    "rs6265": {
+    "BDNF_BRAIN": {
         "rsid": "rs6265",
         "variant_identity": {
             "gene_symbol": "BDNF",
@@ -6701,10 +6636,9 @@
         "citations": [
             "PMID:12553913",
             "PMID:20124113"
-        ],
-        "name": "BDNF_BRAIN"
+        ]
     },
-    "rs1229984": {
+    "ADH1B_ALCOHOL": {
         "rsid": "rs1229984",
         "variant_identity": {
             "gene_symbol": "ADH1B",
@@ -6780,10 +6714,9 @@
         "citations": [
             "PMID:1991849",
             "PMID:9667742"
-        ],
-        "name": "ADH1B_ALCOHOL"
+        ]
     },
-    "rs1761667": {
+    "CD36_FAT": {
         "rsid": "rs1761667",
         "variant_identity": {
             "gene_symbol": "CD36",
@@ -6861,10 +6794,9 @@
         "citations": [
             "PMID:21779084",
             "PMID:22262163"
-        ],
-        "name": "CD36_FAT"
+        ]
     },
-    "rs6323": {
+    "MAOA_WARRIOR": {
         "rsid": "rs6323",
         "variant_identity": {
             "gene_symbol": "MAOA",
@@ -6940,10 +6872,9 @@
         "citations": [
             "PMID:12161658",
             "PMID:16537376"
-        ],
-        "name": "MAOA_WARRIOR"
+        ]
     },
-    "rs1042713": {
+    "ADRB2_ADRENALINE_LIPOLYSIS": {
         "rsid": "rs1042713",
         "variant_identity": {
             "gene_symbol": "ADRB2",
@@ -7026,10 +6957,9 @@
         "citations": [
             "PMID:9259585",
             "PMID:16054593"
-        ],
-        "name": "ADRB2_ADRENALINE_LIPOLYSIS"
+        ]
     },
-    "rs1048943": {
+    "CYP1A1_DETOX": {
         "rsid": "rs1048943",
         "variant_identity": {
             "gene_symbol": "CYP1A1",
@@ -7106,10 +7036,9 @@
         "citations": [
             "PMID:2262024",
             "PMID:11895878"
-        ],
-        "name": "CYP1A1_DETOX"
+        ]
     },
-    "rs2073711": {
+    "COL11A1_JOINT": {
         "rsid": "rs2073711",
         "variant_identity": {
             "gene_symbol": "COL11A1",
@@ -7185,10 +7114,9 @@
         "citations": [
             "PMID:17924334",
             "PMID:24205342"
-        ],
-        "name": "COL11A1_JOINT"
+        ]
     },
-    "rs1801260": {
+    "CLOCK_RHYTHM": {
         "rsid": "rs1801260",
         "variant_identity": {
             "gene_symbol": "CLOCK",
@@ -7265,10 +7193,9 @@
         "citations": [
             "PMID:9753351",
             "PMID:18227811"
-        ],
-        "name": "CLOCK_RHYTHM"
+        ]
     },
-    "rs1042602": {
+    "TYR_PIGMENT": {
         "rsid": "rs1042602",
         "variant_identity": {
             "gene_symbol": "TYR",
@@ -7345,10 +7272,9 @@
         "citations": [
             "PMID:17952075",
             "PMID:1415268"
-        ],
-        "name": "TYR_PIGMENT"
+        ]
     },
-    "rs1045642": {
+    "ABCB1_PUMP": {
         "rsid": "rs1045642",
         "variant_identity": {
             "gene_symbol": "ABCB1",
@@ -7426,10 +7352,9 @@
         "citations": [
             "PMID:10639139",
             "PMID:17185560"
-        ],
-        "name": "ABCB1_PUMP"
+        ]
     },
-    "rs1799971": {
+    "OPRM1_PAIN": {
         "rsid": "rs1799971",
         "variant_identity": {
             "gene_symbol": "OPRM1",
@@ -7504,10 +7429,9 @@
         "citations": [
             "PMID:16842917",
             "PMID:19666542"
-        ],
-        "name": "OPRM1_PAIN"
+        ]
     },
-    "rs1800414": {
+    "ABCA1_HDL": {
         "rsid": "rs1800414",
         "variant_identity": {
             "gene_symbol": "ABCA1",
@@ -7584,10 +7508,9 @@
         "citations": [
             "PMID:11390435",
             "PMID:18506009"
-        ],
-        "name": "ABCA1_HDL"
+        ]
     },
-    "rs1042173": {
+    "SLC6A4_SEROTONIN": {
         "rsid": "rs1042173",
         "variant_identity": {
             "gene_symbol": "SLC6A4",
@@ -7664,10 +7587,9 @@
         "citations": [
             "PMID:12869754",
             "PMID:12130784"
-        ],
-        "name": "SLC6A4_SEROTONIN"
+        ]
     },
-    "rs45446698": {
+    "CYP3A5_DRUG": {
         "rsid": "rs45446698",
         "variant_identity": {
             "gene_symbol": "CYP3A5",
@@ -7745,10 +7667,9 @@
         "citations": [
             "PMID:11242105",
             "PMID:26044242"
-        ],
-        "name": "CYP3A5_DRUG"
+        ]
     },
-    "rs4343": {
+    "ACE_HTN": {
         "rsid": "rs4343",
         "variant_identity": {
             "gene_symbol": "ACE",
@@ -7825,10 +7746,9 @@
         "citations": [
             "PMID:9603538",
             "PMID:2394829"
-        ],
-        "name": "ACE_HTN"
+        ]
     },
-    "rs1800407": {
+    "OCA2_EYE": {
         "rsid": "rs1800407",
         "variant_identity": {
             "gene_symbol": "OCA2",
@@ -7905,10 +7825,9 @@
         "citations": [
             "PMID:18252222",
             "PMID:17290001"
-        ],
-        "name": "OCA2_EYE"
+        ]
     },
-    "rs2569190": {
+    "CD14_IMMUNE": {
         "rsid": "rs2569190",
         "variant_identity": {
             "gene_symbol": "CD14",
@@ -7985,10 +7904,9 @@
         "citations": [
             "PMID:10330349",
             "PMID:14501438"
-        ],
-        "name": "CD14_IMMUNE"
+        ]
     },
-    "rs713598": {
+    "TAS2R38_BITTER": {
         "rsid": "rs713598",
         "variant_identity": {
             "gene_symbol": "TAS2R38",
@@ -8065,10 +7983,9 @@
         "citations": [
             "PMID:15514494",
             "PMID:15723792"
-        ],
-        "name": "TAS2R38_BITTER"
+        ]
     },
-    "rs5400": {
+    "SLC2A2_SWEET": {
         "rsid": "rs5400",
         "variant_identity": {
             "gene_symbol": "SLC2A2",
@@ -8146,10 +8063,9 @@
         "citations": [
             "PMID:18460637",
             "PMID:17387588"
-        ],
-        "name": "SLC2A2_SWEET"
+        ]
     },
-    "rs16942": {
+    "BRCA1_REPAIR": {
         "rsid": "rs16942",
         "variant_identity": {
             "gene_symbol": "BRCA1",
@@ -8225,10 +8141,9 @@
         "citations": [
             "PMID:16280039",
             "PMID:11804549"
-        ],
-        "name": "BRCA1_REPAIR"
+        ]
     },
-    "rs679620": {
+    "MMP3_TISSUE": {
         "rsid": "rs679620",
         "variant_identity": {
             "gene_symbol": "MMP3",
@@ -8306,10 +8221,9 @@
         "citations": [
             "PMID:18927163",
             "PMID:11428818"
-        ],
-        "name": "MMP3_TISSUE"
+        ]
     },
-    "rs8192675": {
+    "SLC2A4_MUSCLE": {
         "rsid": "rs8192675",
         "variant_identity": {
             "gene_symbol": "SLC2A4",
@@ -8386,10 +8300,9 @@
         "citations": [
             "PMID:19651813",
             "PMID:20600552"
-        ],
-        "name": "SLC2A4_MUSCLE"
+        ]
     },
-    "rs57875989": {
+    "PER3_CLOCK": {
         "rsid": "rs57875989",
         "variant_identity": {
             "gene_symbol": "PER3",
@@ -8465,10 +8378,9 @@
         "citations": [
             "PMID:12749557",
             "PMID:17320387"
-        ],
-        "name": "PER3_CLOCK"
+        ]
     },
-    "rs324981": {
+    "NPSR1_SLEEP": {
         "rsid": "rs324981",
         "variant_identity": {
             "gene_symbol": "NPSR1",
@@ -8543,10 +8455,9 @@
         "citations": [
             "PMID:17999353",
             "PMID:16291938"
-        ],
-        "name": "NPSR1_SLEEP"
+        ]
     },
-    "rs2289360": {
+    "COL6A5_SKIN": {
         "rsid": "rs2289360",
         "variant_identity": {
             "gene_symbol": "COL6A5",
@@ -8622,10 +8533,9 @@
         "citations": [
             "PMID:24814194",
             "PMID:25647437"
-        ],
-        "name": "COL6A5_SKIN"
+        ]
     },
-    "rs12913832": {
+    "HERC2_BLUE": {
         "rsid": "rs12913832",
         "variant_identity": {
             "gene_symbol": "HERC2",
@@ -8702,10 +8612,9 @@
         "citations": [
             "PMID:22442009",
             "PMID:18172690"
-        ],
-        "name": "HERC2_BLUE"
+        ]
     },
-    "rs2016520": {
+    "PPARD_FATBURN": {
         "rsid": "rs2016520",
         "variant_identity": {
             "gene_symbol": "PPARD",
@@ -8781,10 +8690,9 @@
         "citations": [
             "PMID:15111543",
             "PMID:15328533"
-        ],
-        "name": "PPARD_FATBURN"
+        ]
     },
-    "rs1050450": {
+    "GPX1_OXIDANT": {
         "rsid": "rs1050450",
         "variant_identity": {
             "gene_symbol": "GPX1",
@@ -8862,10 +8770,9 @@
         "citations": [
             "PMID:12750283",
             "PMID:12880946"
-        ],
-        "name": "GPX1_OXIDANT"
+        ]
     },
-    "rs1800566": {
+    "NQO1_DETOX": {
         "rsid": "rs1800566",
         "variant_identity": {
             "gene_symbol": "NQO1",
@@ -8941,10 +8848,9 @@
         "citations": [
             "PMID:9010034",
             "PMID:11151322"
-        ],
-        "name": "NQO1_DETOX"
+        ]
     },
-    "rs2476601": {
+    "PTPN22_IMMUNE": {
         "rsid": "rs2476601",
         "variant_identity": {
             "gene_symbol": "PTPN22",
@@ -9021,10 +8927,9 @@
         "citations": [
             "PMID:15098031",
             "PMID:15504964"
-        ],
-        "name": "PTPN22_IMMUNE"
+        ]
     },
-    "rs987237": {
+    "TFAP2B_HUNGER": {
         "rsid": "rs987237",
         "variant_identity": {
             "gene_symbol": "TFAP2B",
@@ -9101,10 +9006,9 @@
         "citations": [
             "PMID:19935668",
             "PMID:22275083"
-        ],
-        "name": "TFAP2B_HUNGER"
+        ]
     },
-    "rs17608": {
+    "SERPINA1_LUNG": {
         "rsid": "rs17608",
         "variant_identity": {
             "gene_symbol": "SERPINA1",
@@ -9181,10 +9085,9 @@
         "citations": [
             "PMID:15849326",
             "PMID:1607563"
-        ],
-        "name": "SERPINA1_LUNG"
+        ]
     },
-    "rs6746030": {
+    "SCN9A_PAIN": {
         "rsid": "rs6746030",
         "variant_identity": {
             "gene_symbol": "SCN9A",
@@ -9261,10 +9164,9 @@
         "citations": [
             "PMID:20520834",
             "PMID:20418016"
-        ],
-        "name": "SCN9A_PAIN"
+        ]
     },
-    "rs1254337": {
+    "SLC2A9_URIC": {
         "rsid": "rs1254337",
         "variant_identity": {
             "gene_symbol": "SLC2A9",
@@ -9342,10 +9244,9 @@
         "citations": [
             "PMID:18391951",
             "PMID:18391952"
-        ],
-        "name": "SLC2A9_URIC"
+        ]
     },
-    "rs602662": {
+    "FUT2_B12": {
         "rsid": "rs602662",
         "variant_identity": {
             "gene_symbol": "FUT2",
@@ -9422,10 +9323,9 @@
         "citations": [
             "PMID:18776911",
             "PMID:28933758"
-        ],
-        "name": "FUT2_B12"
+        ]
     },
-    "rs1049434": {
+    "CKM_ATP_RECOVERY": {
         "rsid": "rs1049434",
         "variant_identity": {
             "gene_symbol": "CKM",
@@ -9507,10 +9407,9 @@
         "citations": [
             "PMID:21912204",
             "PMID:11823376"
-        ],
-        "name": "CKM_ATP_RECOVERY"
+        ]
     },
-    "rs1056836": {
+    "CYP1B1_ESTROGEN": {
         "rsid": "rs1056836",
         "variant_identity": {
             "gene_symbol": "CYP1B1",
@@ -9588,10 +9487,9 @@
         "citations": [
             "PMID:10037181",
             "PMID:25605584"
-        ],
-        "name": "CYP1B1_ESTROGEN"
+        ]
     },
-    "rs6311": {
+    "HTR2A_SEROTONIN": {
         "rsid": "rs6311",
         "variant_identity": {
             "gene_symbol": "HTR2A",
@@ -9666,10 +9564,9 @@
         "citations": [
             "PMID:15465576",
             "PMID:11978844"
-        ],
-        "name": "HTR2A_SEROTONIN"
+        ]
     },
-    "rs9923231": {
+    "VKORC1_CLOT": {
         "rsid": "rs9923231",
         "variant_identity": {
             "gene_symbol": "VKORC1",
@@ -9747,10 +9644,9 @@
         "citations": [
             "PMID:15930419",
             "PMID:21808938"
-        ],
-        "name": "VKORC1_CLOT"
+        ]
     },
-    "rs2293275": {
+    "LHCGR_FERTILITY": {
         "rsid": "rs2293275",
         "variant_identity": {
             "gene_symbol": "LHCGR",
@@ -9827,10 +9723,9 @@
         "citations": [
             "PMID:15117906",
             "PMID:11836287"
-        ],
-        "name": "LHCGR_FERTILITY"
+        ]
     },
-    "rs7454108": {
+    "HLA_DQ8_CELIAC": {
         "rsid": "rs7454108",
         "variant_identity": {
             "gene_symbol": "HLA-DQB1",
@@ -9907,10 +9802,9 @@
         "citations": [
             "PMID:2786343",
             "PMID:14981258"
-        ],
-        "name": "HLA_DQ8_CELIAC"
+        ]
     },
-    "rs143383": {
+    "GDF5_JOINT": {
         "rsid": "rs143383",
         "variant_identity": {
             "gene_symbol": "GDF5",
@@ -9987,10 +9881,9 @@
         "citations": [
             "PMID:17384641",
             "PMID:17966171"
-        ],
-        "name": "GDF5_JOINT"
+        ]
     },
-    "rs1061170": {
+    "CFH_EYE": {
         "rsid": "rs1061170",
         "variant_identity": {
             "gene_symbol": "CFH",
@@ -10066,10 +9959,9 @@
         "citations": [
             "PMID:15761122",
             "PMID:15870215"
-        ],
-        "name": "CFH_EYE"
+        ]
     },
-    "rs12722": {
+    "COL5A1_TENDON": {
         "rsid": "rs12722",
         "variant_identity": {
             "gene_symbol": "COL5A1",
@@ -10145,10 +10037,9 @@
         "citations": [
             "PMID:16805777",
             "PMID:19422650"
-        ],
-        "name": "COL5A1_TENDON"
+        ]
     },
-    "rs1135930": {
+    "NDUFS2_ENERGY": {
         "rsid": "rs1135930",
         "variant_identity": {
             "gene_symbol": "NDUFS2",
@@ -10224,10 +10115,9 @@
         "citations": [
             "PMID:25342728",
             "PMID:19366870"
-        ],
-        "name": "NDUFS2_ENERGY"
+        ]
     },
-    "rs73598374": {
+    "ADA_SLEEP": {
         "rsid": "rs73598374",
         "variant_identity": {
             "gene_symbol": "ADA",
@@ -10302,59 +10192,89 @@
         "citations": [
             "PMID:16203977",
             "PMID:22215920"
-        ],
-        "name": "ADA_SLEEP"
+        ]
     },
-    "rs2229765": {
+    "IGF1R_LONGEVITY": {
         "rsid": "rs2229765",
         "variant_identity": {
             "gene_symbol": "IGF1R",
-            "common_name": "IGF-1 Receptor",
+            "common_name": "Longevity Receptor",
             "rsid": "rs2229765",
             "biotype": "Missense Variant"
         },
         "affected_organs": [
-            "Muscles"
+            "Brain",
+            "Muscles",
+            "Skin"
         ],
         "affected_systems": [
-            "Muscular System"
+            "Endocrine System",
+            "Metabolic System"
         ],
-        "impact_type": "Anabolic Efficiency",
+        "impact_type": "Growth Signaling",
         "metabolic_connections": {
             "upstream_requirements": [
                 {
                     "molecule": "IGF-1",
                     "role": "Ligand",
-                    "mechanism": "Binds to IGF1R to initiate the AKT/mTOR pathway."
+                    "mechanism": "Binds receptor to drive growth and aging pathways (mTOR)."
                 }
             ],
             "downstream_impacts": [
                 {
-                    "molecule": "Muscle Protein Synthesis",
-                    "effect": "Upregulation",
-                    "consequence": "AA carriers exhibit superior hypertrophy per unit of IGF-1."
+                    "molecule": "FOXO3",
+                    "effect": "Activation",
+                    "consequence": "Reduced IGF signaling activates FOXO3 repair genes."
+                },
+                {
+                    "molecule": "Height",
+                    "effect": "Reduction",
+                    "consequence": "Carriers might be slightly shorter due to less growth signal."
                 }
             ]
         },
         "metrics": {
             "mechanistic_impact": {
                 "score": 5,
-                "rationale": "Determines the 'gain' on the anabolic signal.",
-                "detail": "The IGF1R rs2229765 'A' allele is associated with increased receptor density and binding affinity. In your case, this creates a 'Perfect Anabolic Storm' when paired with your IGF1 CC (High Signal) result. You don't just have a loud signal; you have a perfect receiver. This is a primary differentiator for 'Hyper-Responders' to resistance training."
+                "rationale": "Reduces receptor sensitivity, mimicking 'Caloric Restriction'.",
+                "detail": "IGF-1 signaling is the gas pedal for aging. It drives growth but accelerates cellular wear and tear. The rs2229765 'A' allele creates a slightly less effective receptor.  This 'Low Signaling' state mimics the effects of Caloric Restriction. Cells switch from 'Growth Mode' to 'Repair Mode' (Autophagy). Carriers are statistically more likely to become centenarians. They have 'Thrifty' cells that prioritize maintenance over multiplication, protecting against cancer and protein aggregation."
             },
             "study_quality": {
-                "score": 4,
-                "rationale": "Linked to longevity and muscle mass in older cohorts.",
-                "detail": "Consistent findings in sarcopenia research and elite strength athletes."
+                "score": 5,
+                "rationale": "Key finding in Centenarian Studies (Ashkenazi Jewish).",
+                "detail": "Suh et al. found functional mutations in IGF1R were enriched in people living to 100+. Replicated in model organisms (worms/flies/mice)."
+            },
+            "methodology": {
+                "score": 5,
+                "rationale": "Survival Analysis & Cell Assays.",
+                "detail": "Cells from centenarians showed reduced downstream phosphorylation (Akt pathway)."
             }
         },
-        "consensus_label": "ANABOLIC RECEIVER",
-        "citations": [
-            "PMID:12423910"
+        "consensus_label": "AGING BRAKE",
+        "methodology_audit": [
+            {
+                "study": "Suh et al. (2008) - PNAS",
+                "type": "Discovery",
+                "population": "Ashkenazi Centenarians",
+                "methods": "Sequencing of IGF1R.",
+                "critique": "STRENGTH: Found non-synonymous mutations in the kinase domain. The mutant receptors were less active. CRITIQUE: This connects human aging to the famous 'Dauer' pathway in C. elegans worms. It suggests that 'slowing down' metabolism preserves the chassis. The audit frames this as a 'Tortoise vs Hare' strategy. Carriers age slower but might struggle slightly more with muscle building (hypertrophy) due to the blunted anabolic signal.",
+                "score_contribution": "Mechanistic Impact (5/5)"
+            },
+            {
+                "study": "Schumacher et al. (2008) - Horm Metab Res",
+                "type": "Review",
+                "population": "General",
+                "methods": "IGF1R and lifespan.",
+                "critique": "STRENGTH: Validated the trade-off. Low IGF-1 is good for longevity (cancer protection) but bad for sarcopenia (muscle loss) in late life. CRITIQUE: This nuance is vital. The gene is good for getting *to* 90, but at 90, you might need extra protein to keep muscle mass. The actionable advice is age-dependent: prioritize DNA protection in midlife, but shift to pushing anabolism (protein/weights) in late life to counteract the genetic brake.",
+                "score_contribution": "Study Quality (5/5)"
+            }
         ],
-        "name": "IGF1R_SENSITIVITY"
+        "citations": [
+            "PMID:18316725",
+            "PMID:18504723"
+        ]
     },
-    "rs3749034": {
+    "GAD1_GABA": {
         "rsid": "rs3749034",
         "variant_identity": {
             "gene_symbol": "GAD1",
@@ -10429,10 +10349,9 @@
         "citations": [
             "PMID:17622223",
             "PMID:20595414"
-        ],
-        "name": "GAD1_GABA"
+        ]
     },
-    "rs324420": {
+    "FAAH_BLISS": {
         "rsid": "rs324420",
         "variant_identity": {
             "gene_symbol": "FAAH",
@@ -10508,10 +10427,9 @@
         "citations": [
             "PMID:19339359",
             "PMID:15163639"
-        ],
-        "name": "FAAH_BLISS"
+        ]
     },
-    "rs72921001": {
+    "OR6A2_CILANTRO": {
         "rsid": "rs72921001",
         "variant_identity": {
             "gene_symbol": "OR6A2",
@@ -10586,10 +10504,9 @@
         "citations": [
             "PMID:25553696",
             "PMID:15085152"
-        ],
-        "name": "OR6A2_CILANTRO"
+        ]
     },
-    "rs1800629": {
+    "TNF_INFLAM": {
         "rsid": "rs1800629",
         "variant_identity": {
             "gene_symbol": "TNF",
@@ -10666,10 +10583,9 @@
         "citations": [
             "PMID:9071576",
             "PMID:9141257"
-        ],
-        "name": "TNF_INFLAM"
+        ]
     },
-    "rs7501331": {
+    "BCMO1_VITA": {
         "rsid": "rs7501331",
         "variant_identity": {
             "gene_symbol": "BCMO1",
@@ -10747,10 +10663,9 @@
         "citations": [
             "PMID:19103647",
             "PMID:19158209"
-        ],
-        "name": "BCMO1_VITA"
+        ]
     },
-    "rs25487": {
+    "XRCC1_REPAIR": {
         "rsid": "rs25487",
         "variant_identity": {
             "gene_symbol": "XRCC1",
@@ -10826,10 +10741,9 @@
         "citations": [
             "PMID:10485456",
             "PMID:16120808"
-        ],
-        "name": "XRCC1_REPAIR"
+        ]
     },
-    "rs1800592": {
+    "UCP1_THERMO": {
         "rsid": "rs1800592",
         "variant_identity": {
             "gene_symbol": "UCP1",
@@ -10905,10 +10819,9 @@
         "citations": [
             "PMID:9185526",
             "PMID:14557253"
-        ],
-        "name": "UCP1_THERMO"
+        ]
     },
-    "rs6275": {
+    "DRD2_STABILITY": {
         "rsid": "rs6275",
         "variant_identity": {
             "gene_symbol": "DRD2",
@@ -10983,10 +10896,9 @@
         "citations": [
             "PMID:14657500",
             "PMID:15263904"
-        ],
-        "name": "DRD2_STABILITY"
+        ]
     },
-    "rs1801394": {
+    "MTRR_B12_RECYCLING": {
         "rsid": "rs1801394",
         "variant_identity": {
             "gene_symbol": "MTRR",
@@ -11069,10 +10981,9 @@
         "citations": [
             "PMID:10323736",
             "PMID:11397334"
-        ],
-        "name": "MTRR_B12_RECYCLING"
+        ]
     },
-    "rs40184": {
+    "SLC6A3_DOPAMINE": {
         "rsid": "rs40184",
         "variant_identity": {
             "gene_symbol": "SLC6A3",
@@ -11147,183 +11058,163 @@
         "citations": [
             "PMID:7728151",
             "PMID:10784460"
-        ],
-        "name": "SLC6A3_DOPAMINE"
+        ]
+    },"ANGPTL3_LIPID": {
+    "rsid": "rs12130333",
+    "variant_identity": {
+      "gene_symbol": "ANGPTL3",
+      "common_name": "Angiopoietin-like 3",
+      "rsid": "rs12130333",
+      "biotype": "Intron Variant"
     },
-    "rs12130333": {
-        "rsid": "rs12130333",
-        "variant_identity": {
-            "gene_symbol": "ANGPTL3",
-            "common_name": "Angiopoietin-like 3",
-            "rsid": "rs12130333",
-            "biotype": "Intron Variant"
-        },
-        "affected_organs": [
-            "Liver",
-            "Heart",
-            "Blood"
-        ],
-        "affected_systems": [
-            "Cardiovascular System",
-            "Metabolic System"
-        ],
-        "impact_type": "Triglyceride Regulation",
-        "metabolic_connections": {
-            "upstream_requirements": [
-                {
-                    "molecule": "LPL",
-                    "role": "Target",
-                    "mechanism": "ANGPTL3 inhibits LPL activity."
-                }
-            ],
-            "downstream_impacts": [
-                {
-                    "molecule": "Triglycerides",
-                    "effect": "Elevation",
-                    "consequence": "High blood lipids and risk of atherosclerosis."
-                }
-            ]
-        },
-        "metrics": {
-            "mechanistic_impact": {
-                "score": 5,
-                "rationale": "Directly inhibits the primary enzyme for blood fat clearance.",
-                "detail": "ANGPTL3 is a hepatocyte-secreted factor that plays a fundamental role in the partitioning of lipids between storage in adipose tissue and utilization in skeletal muscle. By inhibiting Lipoprotein Lipase (LPL) and Endothelial Lipase (EL), the rs12130333 variant modulates the systemic availability of triglycerides. Carriers of the risk allele exhibit a 'Lipid Cluster' phenotype characterized by impaired clearance of triglyceride-rich lipoproteins (TRLs). This mechanism is so potent that pharmaceutical companies have developed monoclonal antibodies (Evinacumab) specifically to mimic the 'Protective' genotype of this SNP to treat refractory hypercholesterolemia."
-            },
-            "ANGPTL3_LIPID": {
-                "rsid": "rs12130333",
-                "variant_identity": {
-                    "gene_symbol": "ANGPTL3",
-                    "common_name": "Angiopoietin-like 3",
-                    "rsid": "rs12130333",
-                    "biotype": "Intron Variant"
-                },
-                "affected_organs": [
-                    "Liver",
-                    "Heart",
-                    "Blood"
-                ],
-                "affected_systems": [
-                    "Cardiovascular System",
-                    "Metabolic System"
-                ],
-                "impact_type": "Triglyceride Regulation",
-                "metabolic_connections": {
-                    "upstream_requirements": [
-                        {
-                            "molecule": "LPL",
-                            "role": "Target",
-                            "mechanism": "ANGPTL3 inhibits LPL activity."
-                        }
-                    ],
-                    "downstream_impacts": [
-                        {
-                            "molecule": "Triglycerides",
-                            "effect": "Elevation",
-                            "consequence": "High blood lipids and risk of atherosclerosis."
-                        }
-                    ]
-                },
-                "metrics": {
-                    "mechanistic_impact": {
-                        "score": 5,
-                        "rationale": "Directly inhibits the primary enzyme for blood fat clearance.",
-                        "detail": "ANGPTL3 is a hepatocyte-secreted factor that plays a fundamental role in the partitioning of lipids between storage in adipose tissue and utilization in skeletal muscle. By inhibiting Lipoprotein Lipase (LPL) and Endothelial Lipase (EL), the rs12130333 variant modulates the systemic availability of triglycerides. Carriers of the risk allele exhibit a 'Lipid Cluster' phenotype characterized by impaired clearance of triglyceride-rich lipoproteins (TRLs). This mechanism is so potent that pharmaceutical companies have developed monoclonal antibodies (Evinacumab) specifically to mimic the 'Protective' genotype of this SNP to treat refractory hypercholesterolemia."
-                    },
-                    "study_quality": {
-                        "score": 5,
-                        "rationale": "Validated by 'Nature' level human-knockout studies.",
-                        "detail": "The quality of evidence for ANGPTL3 is exceptional, derived from Mendelian Randomization studies involving over 180,000 individuals. Clinical trials have confirmed that individuals with 'Loss of Function' variants (matching the protective genotype) have 40% lower triglyceride levels and a significantly reduced risk of coronary artery disease. It is a cornerstone gene for the 2025 Lipid Metabolism Endotype classification."
-                    },
-                    "methodology": {
-                        "score": 5,
-                        "rationale": "GWAS and Clinical Trial validation.",
-                        "detail": "Validated through high-throughput sequencing and longitudinal cardiovascular outcome trials."
-                    }
-                },
-                "consensus_label": "LIPID PARTITIONER",
-                "citations": [
-                    "PMID:28538136",
-                    "PMID:20935629"
-                ]
-            },
-            "study_quality": {
-                "score": 5,
-                "rationale": "Validated by 'Nature' level human-knockout studies.",
-                "detail": "The quality of evidence for ANGPTL3 is exceptional, derived from Mendelian Randomization studies involving over 180,000 individuals. Clinical trials have confirmed that individuals with 'Loss of Function' variants (matching the protective genotype) have 40% lower triglyceride levels and a significantly reduced risk of coronary artery disease. It is a cornerstone gene for the 2025 Lipid Metabolism Endotype classification."
-            },
-            "methodology": {
-                "score": 5,
-                "rationale": "GWAS and Clinical Trial validation.",
-                "detail": "Validated through high-throughput sequencing and longitudinal cardiovascular outcome trials."
-            }
-        },
-        "consensus_label": "LIPID PARTITIONER",
-        "citations": [
-            "PMID:28538136",
-            "PMID:20935629"
-        ],
-        "name": "ANGPTL3_LIPID"
+    "affected_organs": ["Liver", "Heart", "Blood"],
+    "affected_systems": ["Cardiovascular System", "Metabolic System"],
+    "impact_type": "Triglyceride Regulation",
+    "metabolic_connections": {
+      "upstream_requirements": [
+        { "molecule": "LPL", "role": "Target", "mechanism": "ANGPTL3 inhibits LPL activity." }
+      ],
+      "downstream_impacts": [
+        { "molecule": "Triglycerides", "effect": "Elevation", "consequence": "High blood lipids and risk of atherosclerosis." }
+      ]
     },
-    "rs7498665": {
-        "rsid": "rs7498665",
-        "variant_identity": {
-            "gene_symbol": "SH2B1",
-            "common_name": "SH2B Adaptor Protein 1",
-            "rsid": "rs7498665",
-            "biotype": "Intron Variant"
-        },
-        "affected_organs": [
-            "Brain",
-            "Liver",
-            "Muscles"
-        ],
-        "affected_systems": [
-            "Nervous System",
-            "Metabolic System"
-        ],
-        "impact_type": "Signal Transduction",
-        "metabolic_connections": {
-            "upstream_requirements": [
-                {
-                    "molecule": "Leptin Receptor",
-                    "role": "Anchor",
-                    "mechanism": "SH2B1 binds to Janus Kinase 2 (JAK2) to boost the signal."
-                }
-            ],
-            "downstream_impacts": [
-                {
-                    "molecule": "JAK2/STAT3 Path",
-                    "effect": "Amplification",
-                    "consequence": "SH2B1 ensures the brain 'hears' the leptin signal."
-                }
-            ]
-        },
-        "metrics": {
-            "mechanistic_impact": {
-                "score": 5,
-                "rationale": "Essential signal amplifier for both Insulin and Leptin.",
-                "detail": "SH2B1 is a unique 'scaffolding' protein. It doesn't just pass a signal; it organizes the intracellular machinery to ensure the message from the leptin receptor actually reaches the nucleus of the cell. The rs7498665 variant reduces the expression of this scaffold. Without enough SH2B1, the leptin signal 'leaks' and dissipates before it can trigger the metabolic changes needed to burn fat. This creates a highly specific endotype of 'Central Leptin Resistance,' where the body has plenty of fat (and therefore plenty of leptin), but the hypothalamus remains in a simulated state of starvation."
-            },
-            "study_quality": {
-                "score": 5,
-                "rationale": "Strong association with metabolic syndrome and 'class 3' obesity.",
-                "detail": "Human genetic studies, including large-scale GWAS, have identified SH2B1 as a major locus for body mass index and insulin resistance. Knockout models in mice and observed 'human knockouts' show nearly identical phenotypes of extreme hyperphagia and insulin resistance, making it one of the most mechanically certain genes in the neuroendocrine cluster."
-            },
-            "methodology": {
-                "score": 4,
-                "rationale": "Validated via cellular signal transduction assays.",
-                "detail": "In-vitro studies using human cell lines have confirmed that SH2B1 deficiency directly reduces the phosphorylation of STAT3, the final messenger in the leptin satiety path."
-            }
-        },
-        "consensus_label": "SIGNAL BOOSTER DEFICIENCY",
-        "citations": [
-            "PMID:19822704",
-            "PMID:17666487"
-        ],
-        "name": "SH2B1_LEPTIN"
+    "metrics": {
+      "mechanistic_impact": {
+        "score": 5,
+        "rationale": "Directly inhibits the primary enzyme for blood fat clearance.",
+        "detail": "ANGPTL3 is a hepatocyte-secreted factor that plays a fundamental role in the partitioning of lipids between storage in adipose tissue and utilization in skeletal muscle. By inhibiting Lipoprotein Lipase (LPL) and Endothelial Lipase (EL), the rs12130333 variant modulates the systemic availability of triglycerides. Carriers of the risk allele exhibit a 'Lipid Cluster' phenotype characterized by impaired clearance of triglyceride-rich lipoproteins (TRLs). This mechanism is so potent that pharmaceutical companies have developed monoclonal antibodies (Evinacumab) specifically to mimic the 'Protective' genotype of this SNP to treat refractory hypercholesterolemia."
+      },"ANGPTL3_LIPID": {
+    "rsid": "rs12130333",
+    "variant_identity": {
+      "gene_symbol": "ANGPTL3",
+      "common_name": "Angiopoietin-like 3",
+      "rsid": "rs12130333",
+      "biotype": "Intron Variant"
     },
-    "rs4402960": {
+    "affected_organs": ["Liver", "Heart", "Blood"],
+    "affected_systems": ["Cardiovascular System", "Metabolic System"],
+    "impact_type": "Triglyceride Regulation",
+    "metabolic_connections": {
+      "upstream_requirements": [
+        { "molecule": "LPL", "role": "Target", "mechanism": "ANGPTL3 inhibits LPL activity." }
+      ],
+      "downstream_impacts": [
+        { "molecule": "Triglycerides", "effect": "Elevation", "consequence": "High blood lipids and risk of atherosclerosis." }
+      ]
+    },
+    "metrics": {
+      "mechanistic_impact": {
+        "score": 5,
+        "rationale": "Directly inhibits the primary enzyme for blood fat clearance.",
+        "detail": "ANGPTL3 is a hepatocyte-secreted factor that plays a fundamental role in the partitioning of lipids between storage in adipose tissue and utilization in skeletal muscle. By inhibiting Lipoprotein Lipase (LPL) and Endothelial Lipase (EL), the rs12130333 variant modulates the systemic availability of triglycerides. Carriers of the risk allele exhibit a 'Lipid Cluster' phenotype characterized by impaired clearance of triglyceride-rich lipoproteins (TRLs). This mechanism is so potent that pharmaceutical companies have developed monoclonal antibodies (Evinacumab) specifically to mimic the 'Protective' genotype of this SNP to treat refractory hypercholesterolemia."
+      },
+      "study_quality": {
+        "score": 5,
+        "rationale": "Validated by 'Nature' level human-knockout studies.",
+        "detail": "The quality of evidence for ANGPTL3 is exceptional, derived from Mendelian Randomization studies involving over 180,000 individuals. Clinical trials have confirmed that individuals with 'Loss of Function' variants (matching the protective genotype) have 40% lower triglyceride levels and a significantly reduced risk of coronary artery disease. It is a cornerstone gene for the 2025 Lipid Metabolism Endotype classification."
+      },
+      "methodology": {
+        "score": 5,
+        "rationale": "GWAS and Clinical Trial validation.",
+        "detail": "Validated through high-throughput sequencing and longitudinal cardiovascular outcome trials."
+      }
+    },
+    "consensus_label": "LIPID PARTITIONER",
+    "citations": ["PMID:28538136", "PMID:20935629"]
+  },
+      "study_quality": {
+        "score": 5,
+        "rationale": "Validated by 'Nature' level human-knockout studies.",
+        "detail": "The quality of evidence for ANGPTL3 is exceptional, derived from Mendelian Randomization studies involving over 180,000 individuals. Clinical trials have confirmed that individuals with 'Loss of Function' variants (matching the protective genotype) have 40% lower triglyceride levels and a significantly reduced risk of coronary artery disease. It is a cornerstone gene for the 2025 Lipid Metabolism Endotype classification."
+      },
+      "methodology": {
+        "score": 5,
+        "rationale": "GWAS and Clinical Trial validation.",
+        "detail": "Validated through high-throughput sequencing and longitudinal cardiovascular outcome trials."
+      }
+    },
+    "consensus_label": "LIPID PARTITIONER",
+    "citations": ["PMID:28538136", "PMID:20935629"]
+  },
+  "POMC_SATIETY": {
+    "rsid": "rs1042522",
+    "variant_identity": {
+      "gene_symbol": "POMC",
+      "common_name": "Pro-opiomelanocortin",
+      "rsid": "rs1042522",
+      "biotype": "Missense Variant"
+    },
+    "affected_organs": ["Brain", "Stomach", "Skin"],
+    "affected_systems": ["Nervous System", "Endocrine System"],
+    "impact_type": "Satiety Processing",
+    "metabolic_connections": {
+      "upstream_requirements": [
+        { "molecule": "Leptin", "role": "Trigger", "mechanism": "Leptin stimulates POMC neurons to release alpha-MSH." }
+      ],
+      "downstream_impacts": [
+        { "molecule": "Alpha-MSH", "effect": "Suppression", "consequence": "Low alpha-MSH leads to hyperphagia (excessive eating)." },
+        { "molecule": "MC4R Receptor", "effect": "Activation", "consequence": "POMC products are the primary keys to the MC4R satiety lock." }
+      ]
+    },
+    "metrics": {
+      "mechanistic_impact": {
+        "score": 5,
+        "rationale": "Primary node in the melanocortin satiety pathway.",
+        "detail": "POMC is the origin molecule for the body's entire internal weight-regulation system. The rs1042522 variant specifically alters the processing efficiency of the pro-protein into its active anorexigenic (appetite-suppressing) components. In neuroendocrine clustering studies, this variant is the 'smoking gun' for snack-seeking behavior and large meal portions. Mechanistically, the 'Risk' allele creates a brain environment that is perpetually 'tuned' to a state of mild hunger, as the baseline level of alpha-MSH never reaches the threshold required to fully occupy the MC4R receptors in the paraventricular nucleus of the hypothalamus."
+      },
+      "study_quality": {
+        "score": 4,
+        "rationale": "Extensive meta-analysis support in obesity cohorts.",
+        "detail": "While POMC mutations were originally thought to be rare and severe, the 2025 endotype studies have shown that common variants like rs1042522 act as significant 'volume knobs' for appetite in the general population. It is consistently associated with higher BMI across European and Asian cohorts, specifically linked to 'eating behavior' traits rather than 'resting metabolic rate'."
+      },
+      "methodology": {
+        "score": 4,
+        "rationale": "Validated through fMRI food-cue reactivity tests.",
+        "detail": "Functional MRI studies have demonstrated that carriers of this variant show higher activation in the reward centers of the brain when shown images of high-calorie foods compared to non-carriers."
+      }
+    },
+    "consensus_label": "SATIETY DELAY",
+    "citations": ["PMID:16462123", "PMID:22301018"]
+  },
+  "SH2B1_LEPTIN": {
+    "rsid": "rs7498665",
+    "variant_identity": {
+      "gene_symbol": "SH2B1",
+      "common_name": "SH2B Adaptor Protein 1",
+      "rsid": "rs7498665",
+      "biotype": "Intron Variant"
+    },
+    "affected_organs": ["Brain", "Liver", "Muscles"],
+    "affected_systems": ["Nervous System", "Metabolic System"],
+    "impact_type": "Signal Transduction",
+    "metabolic_connections": {
+      "upstream_requirements": [
+        { "molecule": "Leptin Receptor", "role": "Anchor", "mechanism": "SH2B1 binds to Janus Kinase 2 (JAK2) to boost the signal." }
+      ],
+      "downstream_impacts": [
+        { "molecule": "JAK2/STAT3 Path", "effect": "Amplification", "consequence": "SH2B1 ensures the brain 'hears' the leptin signal." }
+      ]
+    },
+    "metrics": {
+      "mechanistic_impact": {
+        "score": 5,
+        "rationale": "Essential signal amplifier for both Insulin and Leptin.",
+        "detail": "SH2B1 is a unique 'scaffolding' protein. It doesn't just pass a signal; it organizes the intracellular machinery to ensure the message from the leptin receptor actually reaches the nucleus of the cell. The rs7498665 variant reduces the expression of this scaffold. Without enough SH2B1, the leptin signal 'leaks' and dissipates before it can trigger the metabolic changes needed to burn fat. This creates a highly specific endotype of 'Central Leptin Resistance,' where the body has plenty of fat (and therefore plenty of leptin), but the hypothalamus remains in a simulated state of starvation."
+      },
+      "study_quality": {
+        "score": 5,
+        "rationale": "Strong association with metabolic syndrome and 'class 3' obesity.",
+        "detail": "Human genetic studies, including large-scale GWAS, have identified SH2B1 as a major locus for body mass index and insulin resistance. Knockout models in mice and observed 'human knockouts' show nearly identical phenotypes of extreme hyperphagia and insulin resistance, making it one of the most mechanically certain genes in the neuroendocrine cluster."
+      },
+      "methodology": {
+        "score": 4,
+        "rationale": "Validated via cellular signal transduction assays.",
+        "detail": "In-vitro studies using human cell lines have confirmed that SH2B1 deficiency directly reduces the phosphorylation of STAT3, the final messenger in the leptin satiety path."
+      }
+    },
+    "consensus_label": "SIGNAL BOOSTER DEFICIENCY",
+    "citations": ["PMID:19822704", "PMID:17666487"]
+  },"IGF2BP2_INSULIN": {
         "rsid": "rs4402960",
         "variant_identity": {
             "gene_symbol": "IGF2BP2",
@@ -11385,7 +11276,7 @@
                 "type": "Discovery",
                 "population": "UK/Multi-ethnic",
                 "methods": "Genome-wide association study (GWAS).",
-                "critique": "STRENGTH: Landmark study that identified IGF2BP2 as a primary diabetes risk locus. CRITIQUE: While the association is indisputable, the study primarily focused on clinical diagnosis. The audit indicates that for 'G' carriers, the risk is 'Secretory'\u00e2\u20ac\u201dmeaning traditional 'Insulin Sensitizers' (like Metformin) may be less effective than strategies that slow glucose entry (fiber, meal ordering) to match the pancreas's slower pace.",
+                "critique": "STRENGTH: Landmark study that identified IGF2BP2 as a primary diabetes risk locus. CRITIQUE: While the association is indisputable, the study primarily focused on clinical diagnosis. The audit indicates that for 'G' carriers, the risk is 'Secretory'—meaning traditional 'Insulin Sensitizers' (like Metformin) may be less effective than strategies that slow glucose entry (fiber, meal ordering) to match the pancreas's slower pace.",
                 "score_contribution": "Study Quality (5/5)"
             },
             {
@@ -11400,91 +11291,87 @@
         "citations": [
             "PMID:17463245",
             "PMID:18347311"
-        ],
-        "name": "IGF2BP2_INSULIN"
-    },
-    "rs1054135": {
+        ]
+    },"FABP4_LIPID": {
+    "rsid": "rs1054135",
+    "variant_identity": {
+        "gene_symbol": "FABP4",
+        "common_name": "Adipocyte Fatty Acid Binding Protein",
         "rsid": "rs1054135",
-        "variant_identity": {
-            "gene_symbol": "FABP4",
-            "common_name": "Adipocyte Fatty Acid Binding Protein",
-            "rsid": "rs1054135",
-            "biotype": "Promoter Variant"
-        },
-        "affected_organs": [
-            "Liver",
-            "Skin",
-            "Heart"
-        ],
-        "affected_systems": [
-            "Metabolic System",
-            "Cardiovascular System"
-        ],
-        "impact_type": "Lipid Chaperone Activity",
-        "metabolic_connections": {
-            "upstream_requirements": [
-                {
-                    "molecule": "Long-Chain Fatty Acids",
-                    "role": "Cargo",
-                    "mechanism": "FABP4 binds fatty acids to make them water-soluble for transport."
-                }
-            ],
-            "downstream_impacts": [
-                {
-                    "molecule": "PPAR-gamma",
-                    "effect": "Activation",
-                    "consequence": "FABP4 delivers ligands to PPARG to trigger fat cell healthy expansion."
-                },
-                {
-                    "molecule": "Systemic Inflammation",
-                    "effect": "Increase",
-                    "consequence": "Low FABP4 efficiency causes fatty acids to trigger inflammatory TLR4 receptors."
-                }
-            ]
-        },
-        "metrics": {
-            "mechanistic_impact": {
-                "score": 5,
-                "rationale": "Primary chaperone for intracellular lipid trafficking.",
-                "detail": "FABP4 acts as the 'logistics manager' for lipids inside the adipocyte. Without efficient FABP4 activity (caused by the rs1054135 CC genotype), fatty acids become 'free' and reactive within the cell. This induces endoplasmic reticulum (ER) stress and triggers the release of inflammatory cytokines like TNF-alpha. Mechanistically, this bridges the gap between 'simple obesity' and 'metabolic disease.' It explains the 'Lipid Partitioning' endotype where fat is stored inefficiently, leading to high circulating free fatty acids (FFAs) that cause insulin resistance in the liver and muscles."
-            },
-            "study_quality": {
-                "score": 4,
-                "rationale": "Consistent association with metabolic syndrome and atherosclerosis.",
-                "detail": "Multiple longitudinal studies have confirmed that FABP4 promoter variants are predictive of long-term cardiovascular outcomes and type 2 diabetes risk. It is widely used in research as a biomarker for 'Adipose Tissue Dysfunction'."
-            },
-            "methodology": {
-                "score": 4,
-                "rationale": "Validated via adipose tissue gene expression (eQTL).",
-                "detail": "Studies using RNA-seq on human fat biopsies show the C-allele significantly reduces the mRNA expression of FABP4 in subcutaneous fat."
-            }
-        },
-        "consensus_label": "LIPID LOGISTICS",
-        "methodology_audit": [
-            {
-                "study": "Tuncman et al. (2006) - PNAS",
-                "type": "Molecular Biology",
-                "population": "Human Adipocytes / Mouse Models",
-                "methods": "Gene silencing and metabolic profiling.",
-                "critique": "STRENGTH: This landmark study proved that FABP4 deficiency leads to a 'metabolically healthy' phenotype in mice but 'dysfunctional' storage in humans. CRITIQUE: The human response is more complex due to compensatory mechanisms. The audit suggests that for 'Low FABP4' carriers, anti-inflammatory lipids (Omega-3) are critical to prevent the 'Free Fatty Acid' spillover that leads to systemic inflammation.",
-                "score_contribution": "Mechanistic Impact (5/5)"
-            },
-            {
-                "study": "Hotamisligil et al. (2015) - Nature Reviews",
-                "type": "Review/Meta-analysis",
-                "population": "Global",
-                "methods": "Synthesis of decade-long adipokine research.",
-                "critique": "STRENGTH: Confirmed FABP4 as a major drug target for metabolic disease. CRITIQUE: While the genetic link is strong, lifestyle factors like high-sugar diets significantly worsen the genetic 'bottleneck.' The advice for these carriers is to avoid refined carbohydrates which force rapid fat storage that their 'weakened' FABP4 machinery cannot handle.",
-                "score_contribution": "Study Quality (4/5)"
-            }
-        ],
-        "citations": [
-            "PMID:16432204",
-            "PMID:25849060"
-        ],
-        "name": "FABP4_LIPID"
+        "biotype": "Promoter Variant"
     },
-    "rs6214": {
+    "affected_organs": [
+        "Liver",
+        "Skin",
+        "Heart"
+    ],
+    "affected_systems": [
+        "Metabolic System",
+        "Cardiovascular System"
+    ],
+    "impact_type": "Lipid Chaperone Activity",
+    "metabolic_connections": {
+        "upstream_requirements": [
+            {
+                "molecule": "Long-Chain Fatty Acids",
+                "role": "Cargo",
+                "mechanism": "FABP4 binds fatty acids to make them water-soluble for transport."
+            }
+        ],
+        "downstream_impacts": [
+            {
+                "molecule": "PPAR-gamma",
+                "effect": "Activation",
+                "consequence": "FABP4 delivers ligands to PPARG to trigger fat cell healthy expansion."
+            },
+            {
+                "molecule": "Systemic Inflammation",
+                "effect": "Increase",
+                "consequence": "Low FABP4 efficiency causes fatty acids to trigger inflammatory TLR4 receptors."
+            }
+        ]
+    },
+    "metrics": {
+        "mechanistic_impact": {
+            "score": 5,
+            "rationale": "Primary chaperone for intracellular lipid trafficking.",
+            "detail": "FABP4 acts as the 'logistics manager' for lipids inside the adipocyte. Without efficient FABP4 activity (caused by the rs1054135 CC genotype), fatty acids become 'free' and reactive within the cell. This induces endoplasmic reticulum (ER) stress and triggers the release of inflammatory cytokines like TNF-alpha. Mechanistically, this bridges the gap between 'simple obesity' and 'metabolic disease.' It explains the 'Lipid Partitioning' endotype where fat is stored inefficiently, leading to high circulating free fatty acids (FFAs) that cause insulin resistance in the liver and muscles."
+        },
+        "study_quality": {
+            "score": 4,
+            "rationale": "Consistent association with metabolic syndrome and atherosclerosis.",
+            "detail": "Multiple longitudinal studies have confirmed that FABP4 promoter variants are predictive of long-term cardiovascular outcomes and type 2 diabetes risk. It is widely used in research as a biomarker for 'Adipose Tissue Dysfunction'."
+        },
+        "methodology": {
+            "score": 4,
+            "rationale": "Validated via adipose tissue gene expression (eQTL).",
+            "detail": "Studies using RNA-seq on human fat biopsies show the C-allele significantly reduces the mRNA expression of FABP4 in subcutaneous fat."
+        }
+    },
+    "consensus_label": "LIPID LOGISTICS",
+    "methodology_audit": [
+        {
+            "study": "Tuncman et al. (2006) - PNAS",
+            "type": "Molecular Biology",
+            "population": "Human Adipocytes / Mouse Models",
+            "methods": "Gene silencing and metabolic profiling.",
+            "critique": "STRENGTH: This landmark study proved that FABP4 deficiency leads to a 'metabolically healthy' phenotype in mice but 'dysfunctional' storage in humans. CRITIQUE: The human response is more complex due to compensatory mechanisms. The audit suggests that for 'Low FABP4' carriers, anti-inflammatory lipids (Omega-3) are critical to prevent the 'Free Fatty Acid' spillover that leads to systemic inflammation.",
+            "score_contribution": "Mechanistic Impact (5/5)"
+        },
+        {
+            "study": "Hotamisligil et al. (2015) - Nature Reviews",
+            "type": "Review/Meta-analysis",
+            "population": "Global",
+            "methods": "Synthesis of decade-long adipokine research.",
+            "critique": "STRENGTH: Confirmed FABP4 as a major drug target for metabolic disease. CRITIQUE: While the genetic link is strong, lifestyle factors like high-sugar diets significantly worsen the genetic 'bottleneck.' The advice for these carriers is to avoid refined carbohydrates which force rapid fat storage that their 'weakened' FABP4 machinery cannot handle.",
+            "score_contribution": "Study Quality (4/5)"
+        }
+    ],
+    "citations": [
+        "PMID:16432204",
+        "PMID:25849060"
+    ]
+},"IGF1_ANABOLIC": {
         "rsid": "rs6214",
         "variant_identity": {
             "gene_symbol": "IGF1",
@@ -11492,28 +11379,15 @@
             "rsid": "rs6214",
             "biotype": "Promoter Variant"
         },
-        "affected_organs": [
-            "Muscles",
-            "Liver"
-        ],
-        "affected_systems": [
-            "Endocrine System"
-        ],
+        "affected_organs": ["Muscles", "Liver"],
+        "affected_systems": ["Endocrine System"],
         "impact_type": "Protein Synthesis Signal",
         "metabolic_connections": {
             "upstream_requirements": [
-                {
-                    "molecule": "Growth Hormone",
-                    "role": "Stimulus",
-                    "mechanism": "GH stimulates the liver to produce IGF-1."
-                }
+                { "molecule": "Growth Hormone", "role": "Stimulus", "mechanism": "GH stimulates the liver to produce IGF-1." }
             ],
             "downstream_impacts": [
-                {
-                    "molecule": "mTORC1",
-                    "effect": "Activation",
-                    "consequence": "Directly triggers the muscle building process."
-                }
+                { "molecule": "mTORC1", "effect": "Activation", "consequence": "Directly triggers the muscle building process." }
             ]
         },
         "metrics": {
@@ -11522,11 +11396,7 @@
                 "rationale": "Directly correlates with serum IGF-1 concentration.",
                 "detail": "The rs6214 'C' allele is a gain-of-function variant in the IGF1 promoter. Carriers have ~15-20% higher circulating IGF-1. This is a primary determinant of lean body mass retention during aging and hypertrophy potential in youth. Mechanistically, it shortens the time required for satellite cell activation post-workout."
             },
-            "study_quality": {
-                "score": 5,
-                "rationale": "Massive cohort studies.",
-                "detail": "Validated in both sports performance and longevity research (e.g., Rotterdam Study)."
-            }
+            "study_quality": { "score": 5, "rationale": "Massive cohort studies.", "detail": "Validated in both sports performance and longevity research (e.g., Rotterdam Study)." }
         },
         "consensus_label": "GROWTH DRIVE",
         "methodology_audit": [
@@ -11539,78 +11409,26 @@
                 "score_contribution": "Mechanistic Impact (5/5)"
             }
         ],
-        "citations": [
-            "PMID:11549641"
-        ],
-        "name": "IGF1_ANABOLIC"
+        "citations": ["PMID:11549641"]
     },
-    "rs2234693": {
+    "ESR1_TENDON": {
         "rsid": "rs2234693",
-        "variant_identity": {
-            "gene_symbol": "ESR1",
-            "common_name": "Estrogen Receptor Alpha",
-            "rsid": "rs2234693",
-            "biotype": "Intron Variant"
-        },
-        "affected_organs": [
-            "Bones",
-            "Muscles"
-        ],
-        "affected_systems": [
-            "Skeletal System",
-            "Muscular System"
-        ],
-        "impact_type": "Connective Tissue Resilience",
+        "variant_identity": { "gene_symbol": "ESR1", "common_name": "Estrogen Receptor Alpha", "rsid": "rs2234693", "biotype": "Intron Variant" },
+        "affected_organs": ["Muscles", "Bones"],
+        "affected_systems": ["Muscular System", "Skeletal System"],
+        "impact_type": "Connective Tissue Compliance",
         "metabolic_connections": {
-            "upstream_requirements": [
-                {
-                    "molecule": "Estradiol",
-                    "role": "Ligand",
-                    "mechanism": "Estrogen binds to ESR1 to regulate collagen synthesis and hydration."
-                }
-            ],
-            "downstream_impacts": [
-                {
-                    "molecule": "Collagen Type I",
-                    "effect": "Maintenance",
-                    "consequence": "Protects against micro-tears and maintains tendon compliance under load."
-                }
-            ]
+            "upstream_requirements": [ { "molecule": "Estrogen", "role": "Ligand", "mechanism": "Binds to ESR1 to regulate collagen turnover." } ],
+            "downstream_impacts": [ { "molecule": "Collagen Type I", "effect": "Synthesis", "consequence": "Maintains tendon elasticity and prevents micro-ruptures." } ]
         },
         "metrics": {
-            "mechanistic_impact": {
-                "score": 4,
-                "rationale": "Regulates tendon elasticity and bone mineral density.",
-                "detail": "Estrogen Receptor Alpha (ESR1) is critical for maintaining the structural integrity of connective tissues. In both men and women, estrogen signaling through ESR1 ensures that tendons remain hydrated and elastic. The 'T' allele provides optimized receptor signaling, which acts as a 'Biological Buffer' for the musculoskeletal system. Mechanistically, this promotes healthy collagen turnover and prevents the pathological 'stiffening' of tendons that leads to ruptures. For an individual with high power output, this variant is the 'safety valve' that ensures the connective tissue can withstand the intense mechanical tension generated by the muscles during explosive movements."
-            },
-            "study_quality": {
-                "score": 4,
-                "rationale": "Linked to soft-tissue injury risk in sports medicine.",
-                "detail": "Validated in multiple cohorts of athletes where the ESR1 genotype was found to be a significant predictor of ACL tears and Achilles tendinopathy. The data quality is high, particularly in the context of orthopedic health, where estrogen signaling is recognized as a master regulator of ligamentous strength and bone density across various populations."
-            },
-            "methodology": {
-                "score": 4,
-                "rationale": "In vitro fibroblast response to mechanical stress.",
-                "detail": "Research utilizes human fibroblast cultures to observe how different ESR1 genotypes respond to estrogenic stimulation under mechanical load. This allows for the measurement of specific collagen markers (like Type I and III), confirming that the 'T' allele facilitates a more robust and flexible repair response compared to the risk-associated 'C' allele."
-            }
+            "mechanistic_impact": { "score": 4, "rationale": "Critical for ligament/tendon resilience.", "detail": "The 'T' allele provides optimized estrogen signaling. In a fitness context, this acts as the 'oil' in the suspension system. It helps prevent the stiffness associated with the COL5A1 CC genotype from becoming pathological (tears)." },
+            "study_quality": { "score": 4, "rationale": "Linked to ACL/Tendon injury risk in multiple sports studies.", "detail": "Highly predictive of soft tissue injury in high-impact sports." }
         },
-        "consensus_label": "STRUCTURAL PROTECTOR",
-        "methodology_audit": [
-            {
-                "study": "Posthumus et al. (2010) - Journal of Science and Medicine in Sport",
-                "type": "Case-Control",
-                "population": "Athletes with chronic tendon injuries",
-                "methods": "Genotype frequency analysis in injury vs control groups.",
-                "critique": "STRENGTH: This landmark study successfully identified the ESR1 'C' allele as a major risk factor for Achilles tendon injuries. CRITIQUE: The research highlights that the protective effects of the 'T' allele can be neutralized if the individual has excessively low estrogen levels or poor micronutrient intake. The audit suggests that for 'T' allele carriers, the goal is 'Hormonal Balance.' Do not use supplements that aggressively crush estrogen, as your tendons rely on that signal for elasticity. Pair this genetic advantage with Vitamin C and proline-rich foods to maximize the structural repair signal, especially since your COL5A1 stiffness already puts your 'suspension system' under high-tension stress during power training.",
-                "score_contribution": "Study Quality (4/5)"
-            }
-        ],
-        "citations": [
-            "PMID:20185372"
-        ],
-        "name": "ESR1_COMPLIANCE"
+        "consensus_label": "STRUCTURAL OIL",
+        "citations": ["PMID:15689408"]
     },
-    "rs444697": {
+    "ASMT_CIRCADIAN": {
         "rsid": "rs444697",
         "variant_identity": {
             "gene_symbol": "ASMT",
@@ -11618,29 +11436,15 @@
             "rsid": "rs444697",
             "biotype": "Promoter Variant"
         },
-        "affected_organs": [
-            "Brain",
-            "Pineal Gland"
-        ],
-        "affected_systems": [
-            "Nervous System",
-            "Endocrine System"
-        ],
+        "affected_organs": ["Brain", "Pineal Gland"],
+        "affected_systems": ["Nervous System", "Endocrine System"],
         "impact_type": "Melatonin Bioavailability",
         "metabolic_connections": {
             "upstream_requirements": [
-                {
-                    "molecule": "N-Acetylserotonin",
-                    "role": "Substrate",
-                    "mechanism": "Direct precursor converted by ASMT."
-                }
+                { "molecule": "N-Acetylserotonin", "role": "Substrate", "mechanism": "Direct precursor converted by ASMT." }
             ],
             "downstream_impacts": [
-                {
-                    "molecule": "Melatonin",
-                    "effect": "Synthesis",
-                    "consequence": "Lower ASMT leads to delayed sleep onset and reduced REM quality."
-                }
+                { "molecule": "Melatonin", "effect": "Synthesis", "consequence": "Lower ASMT leads to delayed sleep onset and reduced REM quality." }
             ]
         },
         "metrics": {
@@ -11649,19 +11453,42 @@
                 "rationale": "Direct enzyme kinetics.",
                 "detail": "ASMT (Acetylserotonin O-methyltransferase) is the rate-limiting step in the pineal gland. The 'G' allele significantly reduces mRNA expression. This creates a state of 'functional melatonin deficiency' where the person produces enough to survive, but not enough to counteract the oxidative stress of high-intensity training (like yours)."
             },
-            "study_quality": {
-                "score": 4,
-                "rationale": "Validated in circadian rhythm disorder studies.",
-                "detail": "Replicated across multiple sleep-latency and mood disorder trials."
-            }
+            "study_quality": { "score": 4, "rationale": "Validated in circadian rhythm disorder studies.", "detail": "Replicated across multiple sleep-latency and mood disorder trials." }
         },
         "consensus_label": "CIRCADIAN GATEKEEPER",
-        "citations": [
-            "PMID:18431326"
-        ],
-        "name": "ASMT_CIRCADIAN"
+        "citations": ["PMID:18431326"]
     },
-    "rs7799039": {
+    "IGF1R_SENSITIVITY": {
+        "rsid": "rs2229765",
+        "variant_identity": {
+            "gene_symbol": "IGF1R",
+            "common_name": "IGF-1 Receptor",
+            "rsid": "rs2229765",
+            "biotype": "Missense Variant"
+        },
+        "affected_organs": ["Muscles"],
+        "affected_systems": ["Muscular System"],
+        "impact_type": "Anabolic Efficiency",
+        "metabolic_connections": {
+            "upstream_requirements": [
+                { "molecule": "IGF-1", "role": "Ligand", "mechanism": "Binds to IGF1R to initiate the AKT/mTOR pathway." }
+            ],
+            "downstream_impacts": [
+                { "molecule": "Muscle Protein Synthesis", "effect": "Upregulation", "consequence": "AA carriers exhibit superior hypertrophy per unit of IGF-1." }
+            ]
+        },
+        "metrics": {
+            "mechanistic_impact": {
+                "score": 5,
+                "rationale": "Determines the 'gain' on the anabolic signal.",
+                "detail": "The IGF1R rs2229765 'A' allele is associated with increased receptor density and binding affinity. In your case, this creates a 'Perfect Anabolic Storm' when paired with your IGF1 CC (High Signal) result. You don't just have a loud signal; you have a perfect receiver. This is a primary differentiator for 'Hyper-Responders' to resistance training."
+            },
+            "study_quality": { "score": 4, "rationale": "Linked to longevity and muscle mass in older cohorts.", "detail": "Consistent findings in sarcopenia research and elite strength athletes." }
+        },
+        "consensus_label": "ANABOLIC RECEIVER",
+        "citations": ["PMID:12423910"]
+    },
+    "LEP_SATIETY": {
         "rsid": "rs7799039",
         "variant_identity": {
             "gene_symbol": "LEP",
@@ -11669,28 +11496,15 @@
             "rsid": "rs7799039",
             "biotype": "Promoter Variant (-2548G/A)"
         },
-        "affected_organs": [
-            "Adipose Tissue",
-            "Hypothalamus"
-        ],
-        "affected_systems": [
-            "Metabolic System"
-        ],
+        "affected_organs": ["Adipose Tissue", "Hypothalamus"],
+        "affected_systems": ["Metabolic System"],
         "impact_type": "Energy Homeostasis",
         "metabolic_connections": {
             "upstream_requirements": [
-                {
-                    "molecule": "Adipose Mass",
-                    "role": "Source",
-                    "mechanism": "Fat cells release leptin in proportion to their size."
-                }
+                { "molecule": "Adipose Mass", "role": "Source", "mechanism": "Fat cells release leptin in proportion to their size." }
             ],
             "downstream_impacts": [
-                {
-                    "molecule": "Thyroid Hormone",
-                    "effect": "Stimulation",
-                    "consequence": "High leptin signaling maintains a fast resting metabolic rate."
-                }
+                { "molecule": "Thyroid Hormone", "effect": "Stimulation", "consequence": "High leptin signaling maintains a fast resting metabolic rate." }
             ]
         },
         "metrics": {
@@ -11699,19 +11513,11 @@
                 "rationale": "Master regulator of metabolic set-point.",
                 "detail": "The 'G' allele increases LEP promoter activity. This prevents the 'Leptin Crash' often seen during dieting, where the brain thinks it is starving. For 'GG' carriers, the metabolic rate remains protected even during calorie deficits, making fat loss significantly more sustainable."
             },
-            "study_quality": {
-                "score": 5,
-                "rationale": "Widely replicated in obesity and metabolic research.",
-                "detail": "The -2548G/A variant is a benchmark in nutrigenomics for predicting weight loss success."
-            }
+            "study_quality": { "score": 5, "rationale": "Widely replicated in obesity and metabolic research.", "detail": "The -2548G/A variant is a benchmark in nutrigenomics for predicting weight loss success." }
         },
         "consensus_label": "METABOLIC THERMOSTAT",
-        "citations": [
-            "PMID:12056334"
-        ],
-        "name": "LEP_SATIETY"
-    },
-    "rs6263": {
+        "citations": ["PMID:12056334"]
+    },"AR_SENSITIVITY": {
         "rsid": "rs6263",
         "variant_identity": {
             "gene_symbol": "AR",
@@ -11719,29 +11525,15 @@
             "rsid": "rs6263",
             "biotype": "Intron Variant"
         },
-        "affected_organs": [
-            "Muscles",
-            "Skin"
-        ],
-        "affected_systems": [
-            "Endocrine System",
-            "Muscular System"
-        ],
+        "affected_organs": ["Muscles", "Skin"],
+        "affected_systems": ["Endocrine System", "Muscular System"],
         "impact_type": "Androgen Signaling Efficiency",
         "metabolic_connections": {
             "upstream_requirements": [
-                {
-                    "molecule": "Testosterone",
-                    "role": "Ligand",
-                    "mechanism": "Binds to the AR to initiate DNA transcription for muscle growth."
-                }
+                { "molecule": "Testosterone", "role": "Ligand", "mechanism": "Binds to the AR to initiate DNA transcription for muscle growth." }
             ],
             "downstream_impacts": [
-                {
-                    "molecule": "Myofibrillar Protein",
-                    "effect": "Synthesis",
-                    "consequence": "Higher AR density leads to increased muscle hardness and explosive power."
-                }
+                { "molecule": "Myofibrillar Protein", "effect": "Synthesis", "consequence": "Higher AR density leads to increased muscle hardness and explosive power." }
             ]
         },
         "metrics": {
@@ -11772,12 +11564,59 @@
                 "score_contribution": "Mechanistic Impact (5/5)"
             }
         ],
-        "citations": [
-            "PMID:10997615"
-        ],
-        "name": "AR_SENSITIVITY"
+        "citations": ["PMID:10997615"]
     },
-    "rs1800849": {
+    "ESR1_COMPLIANCE": {
+        "rsid": "rs2234693",
+        "variant_identity": {
+            "gene_symbol": "ESR1",
+            "common_name": "Estrogen Receptor Alpha",
+            "rsid": "rs2234693",
+            "biotype": "Intron Variant"
+        },
+        "affected_organs": ["Bones", "Muscles"],
+        "affected_systems": ["Skeletal System", "Muscular System"],
+        "impact_type": "Connective Tissue Resilience",
+        "metabolic_connections": {
+            "upstream_requirements": [
+                { "molecule": "Estradiol", "role": "Ligand", "mechanism": "Estrogen binds to ESR1 to regulate collagen synthesis and hydration." }
+            ],
+            "downstream_impacts": [
+                { "molecule": "Collagen Type I", "effect": "Maintenance", "consequence": "Protects against micro-tears and maintains tendon compliance under load." }
+            ]
+        },
+        "metrics": {
+            "mechanistic_impact": {
+                "score": 4,
+                "rationale": "Regulates tendon elasticity and bone mineral density.",
+                "detail": "Estrogen Receptor Alpha (ESR1) is critical for maintaining the structural integrity of connective tissues. In both men and women, estrogen signaling through ESR1 ensures that tendons remain hydrated and elastic. The 'T' allele provides optimized receptor signaling, which acts as a 'Biological Buffer' for the musculoskeletal system. Mechanistically, this promotes healthy collagen turnover and prevents the pathological 'stiffening' of tendons that leads to ruptures. For an individual with high power output, this variant is the 'safety valve' that ensures the connective tissue can withstand the intense mechanical tension generated by the muscles during explosive movements."
+            },
+            "study_quality": {
+                "score": 4,
+                "rationale": "Linked to soft-tissue injury risk in sports medicine.",
+                "detail": "Validated in multiple cohorts of athletes where the ESR1 genotype was found to be a significant predictor of ACL tears and Achilles tendinopathy. The data quality is high, particularly in the context of orthopedic health, where estrogen signaling is recognized as a master regulator of ligamentous strength and bone density across various populations."
+            },
+            "methodology": {
+                "score": 4,
+                "rationale": "In vitro fibroblast response to mechanical stress.",
+                "detail": "Research utilizes human fibroblast cultures to observe how different ESR1 genotypes respond to estrogenic stimulation under mechanical load. This allows for the measurement of specific collagen markers (like Type I and III), confirming that the 'T' allele facilitates a more robust and flexible repair response compared to the risk-associated 'C' allele."
+            }
+        },
+        "consensus_label": "STRUCTURAL PROTECTOR",
+        "methodology_audit": [
+            {
+                "study": "Posthumus et al. (2010) - Journal of Science and Medicine in Sport",
+                "type": "Case-Control",
+                "population": "Athletes with chronic tendon injuries",
+                "methods": "Genotype frequency analysis in injury vs control groups.",
+                "critique": "STRENGTH: This landmark study successfully identified the ESR1 'C' allele as a major risk factor for Achilles tendon injuries. CRITIQUE: The research highlights that the protective effects of the 'T' allele can be neutralized if the individual has excessively low estrogen levels or poor micronutrient intake. The audit suggests that for 'T' allele carriers, the goal is 'Hormonal Balance.' Do not use supplements that aggressively crush estrogen, as your tendons rely on that signal for elasticity. Pair this genetic advantage with Vitamin C and proline-rich foods to maximize the structural repair signal, especially since your COL5A1 stiffness already puts your 'suspension system' under high-tension stress during power training.",
+                "score_contribution": "Study Quality (4/5)"
+            }
+        ],
+        "citations": ["PMID:20185372"]
+    },
+    
+    "UCP3_FATBURN": {
         "rsid": "rs1800849",
         "variant_identity": {
             "gene_symbol": "UCP3",
@@ -11852,10 +11691,9 @@
         "citations": [
             "PMID:10377183",
             "PMID:10997615"
-        ],
-        "name": "UCP3_FATBURN"
+        ]
     },
-    "rs1047303": {
+    "HSD17B3_TESTO": {
         "rsid": "rs1047303",
         "variant_identity": {
             "gene_symbol": "HSD17B3",
@@ -11931,10 +11769,9 @@
         "citations": [
             "PMID:11836287",
             "PMID:17261292"
-        ],
-        "name": "HSD17B3_TESTO"
+        ]
     },
-    "rs3813034": {
+    "SLC6A4_POLY": {
         "rsid": "rs3813034",
         "variant_identity": {
             "gene_symbol": "SLC6A4",
@@ -12011,10 +11848,9 @@
         "citations": [
             "PMID:19642110",
             "PMID:19104508"
-        ],
-        "name": "SLC6A4_POLY"
+        ]
     },
-    "rs3737965": {
+    "COL18A1_MATRIX": {
         "rsid": "rs3737965",
         "variant_identity": {
             "gene_symbol": "COL18A1",
@@ -12092,10 +11928,9 @@
         "citations": [
             "PMID:11781871",
             "PMID:17062672"
-        ],
-        "name": "COL18A1_MATRIX"
+        ]
     },
-    "rs2535633": {
+    "ELOVL2_AGING": {
         "rsid": "rs2535633",
         "variant_identity": {
             "gene_symbol": "ELOVL2",
@@ -12174,10 +12009,9 @@
         "citations": [
             "PMID:23167635",
             "PMID:21873336"
-        ],
-        "name": "ELOVL2_AGING"
+        ]
     },
-    "rs838133": {
+    "FGF21_SWEET": {
         "rsid": "rs838133",
         "variant_identity": {
             "gene_symbol": "FGF21",
@@ -12254,10 +12088,9 @@
         "citations": [
             "PMID:28467924",
             "PMID:26698910"
-        ],
-        "name": "FGF21_SWEET"
+        ]
     },
-    "rs5186": {
+    "AGTR1_BP": {
         "rsid": "rs5186",
         "variant_identity": {
             "gene_symbol": "AGTR1",
@@ -12334,10 +12167,9 @@
         "citations": [
             "PMID:17965723",
             "PMID:8021009"
-        ],
-        "name": "AGTR1_BP"
+        ]
     },
-    "rs1799998": {
+    "CYP11B2_SALT": {
         "rsid": "rs1799998",
         "variant_identity": {
             "gene_symbol": "CYP11B2",
@@ -12414,10 +12246,9 @@
         "citations": [
             "PMID:18259006",
             "PMID:10523363"
-        ],
-        "name": "CYP11B2_SALT"
+        ]
     },
-    "rs2285477": {
+    "COX7A1_AEROBIC": {
         "rsid": "rs2285477",
         "variant_identity": {
             "gene_symbol": "COX7A1",
@@ -12494,10 +12325,9 @@
         "citations": [
             "PMID:16129333",
             "PMID:16801579"
-        ],
-        "name": "COX7A1_AEROBIC"
+        ]
     },
-    "rs1360780": {
+    "FKBP5_STRESS": {
         "rsid": "rs1360780",
         "variant_identity": {
             "gene_symbol": "FKBP5",
@@ -12574,10 +12404,9 @@
         "citations": [
             "PMID:15572715",
             "PMID:23201972"
-        ],
-        "name": "FKBP5_STRESS"
+        ]
     },
-    "rs13181": {
+    "ERCC2_REPAIR": {
         "rsid": "rs13181",
         "variant_identity": {
             "gene_symbol": "ERCC2",
@@ -12653,10 +12482,9 @@
         "citations": [
             "PMID:12118023",
             "PMID:11920585"
-        ],
-        "name": "ERCC2_REPAIR"
+        ]
     },
-    "rs12203592": {
+    "IRF4_PIGMENT": {
         "rsid": "rs12203592",
         "variant_identity": {
             "gene_symbol": "IRF4",
@@ -12733,10 +12561,9 @@
         "citations": [
             "PMID:18488028",
             "PMID:24267890"
-        ],
-        "name": "IRF4_PIGMENT"
+        ]
     },
-    "rs1205": {
+    "CRP_BASE": {
         "rsid": "rs1205",
         "variant_identity": {
             "gene_symbol": "CRP",
@@ -12813,10 +12640,9 @@
         "citations": [
             "PMID:21315437",
             "PMID:14551260"
-        ],
-        "name": "CRP_BASE"
+        ]
     },
-    "rs2271683": {
+    "ELN_SKIN": {
         "rsid": "rs2271683",
         "variant_identity": {
             "gene_symbol": "ELN",
@@ -12893,10 +12719,9 @@
         "citations": [
             "PMID:21558953",
             "PMID:26833777"
-        ],
-        "name": "ELN_SKIN"
+        ]
     },
-    "rs1801272": {
+    "CYP2A6_NICOTINE": {
         "rsid": "rs1801272",
         "variant_identity": {
             "gene_symbol": "CYP2A6",
@@ -12972,10 +12797,9 @@
         "citations": [
             "PMID:9655397",
             "PMID:15822993"
-        ],
-        "name": "CYP2A6_NICOTINE"
+        ]
     },
-    "rs521674": {
+    "ADRA2B_MEMORY_2": {
         "rsid": "rs521674",
         "variant_identity": {
             "gene_symbol": "ADRA2B",
@@ -13050,10 +12874,9 @@
         "citations": [
             "PMID:24155307",
             "PMID:17660816"
-        ],
-        "name": "ADRA2B_MEMORY_2"
+        ]
     },
-    "rs10741657": {
+    "CYP2R1_VITD": {
         "rsid": "rs10741657",
         "variant_identity": {
             "gene_symbol": "CYP2R1",
@@ -13131,10 +12954,9 @@
         "citations": [
             "PMID:20627240",
             "PMID:22259066"
-        ],
-        "name": "CYP2R1_VITD"
+        ]
     },
-    "rs7946": {
+    "PEMT_CHOLINE": {
         "rsid": "rs7946",
         "variant_identity": {
             "gene_symbol": "PEMT",
@@ -13211,10 +13033,9 @@
         "citations": [
             "PMID:16230335",
             "PMID:15795287"
-        ],
-        "name": "PEMT_CHOLINE"
+        ]
     },
-    "rs894160": {
+    "PLIN1_FAT_LOCK": {
         "rsid": "rs894160",
         "variant_identity": {
             "gene_symbol": "PLIN1",
@@ -13290,10 +13111,9 @@
         "citations": [
             "PMID:15687399",
             "PMID:19116323"
-        ],
-        "name": "PLIN1_FAT_LOCK"
+        ]
     },
-    "rs553668": {
+    "ADRA2A_SUGAR": {
         "rsid": "rs553668",
         "variant_identity": {
             "gene_symbol": "ADRA2A",
@@ -13370,10 +13190,9 @@
         "citations": [
             "PMID:19965719",
             "PMID:24130353"
-        ],
-        "name": "ADRA2A_SUGAR"
+        ]
     },
-    "rs1803274": {
+    "BCHE_ANESTHESIA": {
         "rsid": "rs1803274",
         "variant_identity": {
             "gene_symbol": "BCHE",
@@ -13450,10 +13269,9 @@
         "citations": [
             "PMID:1349199",
             "PMID:7486103"
-        ],
-        "name": "BCHE_ANESTHESIA"
+        ]
     },
-    "rs1800588": {
+    "LIPC_HDL": {
         "rsid": "rs1800588",
         "variant_identity": {
             "gene_symbol": "LIPC",
@@ -13530,10 +13348,9 @@
         "citations": [
             "PMID:8113431",
             "PMID:22607825"
-        ],
-        "name": "LIPC_HDL"
+        ]
     },
-    "rs671": {
+    "ALDH2_FLUSH": {
         "rsid": "rs671",
         "variant_identity": {
             "gene_symbol": "ALDH2",
@@ -13611,10 +13428,9 @@
         "citations": [
             "PMID:6116083",
             "PMID:18787169"
-        ],
-        "name": "ALDH2_FLUSH"
+        ]
     },
-    "rs885479": {
+    "MC1R_REDHEAD": {
         "rsid": "rs885479",
         "variant_identity": {
             "gene_symbol": "MC1R",
@@ -13691,10 +13507,9 @@
         "citations": [
             "PMID:7581459",
             "PMID:15284108"
-        ],
-        "name": "MC1R_REDHEAD"
+        ]
     },
-    "rs35874116": {
+    "TAS1R2_SWEET": {
         "rsid": "rs35874116",
         "variant_identity": {
             "gene_symbol": "TAS1R2",
@@ -13772,10 +13587,9 @@
         "citations": [
             "PMID:20423973",
             "PMID:23467416"
-        ],
-        "name": "TAS1R2_SWEET"
+        ]
     },
-    "rs53576": {
+    "OXTR_EMPATHY": {
         "rsid": "rs53576",
         "variant_identity": {
             "gene_symbol": "OXTR",
@@ -13851,10 +13665,9 @@
         "citations": [
             "PMID:19934046",
             "PMID:21640337"
-        ],
-        "name": "OXTR_EMPATHY"
+        ]
     },
-    "rs762551": {
+    "CYP1A2_CAFFEINE_METABOLISM": {
         "rsid": "rs762551",
         "variant_identity": {
             "gene_symbol": "CYP1A2",
@@ -13938,10 +13751,9 @@
         "citations": [
             "PMID:16522833",
             "PMID:10429815"
-        ],
-        "name": "CYP1A2_CAFFEINE_METABOLISM"
+        ]
     },
-    "rs3827760": {
+    "EDAR_THICK_HAIR": {
         "rsid": "rs3827760",
         "variant_identity": {
             "gene_symbol": "EDAR",
@@ -14016,10 +13828,9 @@
         "citations": [
             "PMID:18523011",
             "PMID:23415220"
-        ],
-        "name": "EDAR_THICK_HAIR"
+        ]
     },
-    "rs1052133": {
+    "OGG1_DNA_REPAIR": {
         "rsid": "rs1052133",
         "variant_identity": {
             "gene_symbol": "OGG1",
@@ -14095,10 +13906,9 @@
         "citations": [
             "PMID:19667076",
             "PMID:16172228"
-        ],
-        "name": "OGG1_DNA_REPAIR"
+        ]
     },
-    "rs9340799": {
+    "ESR1_ESTROGEN_SENSITIVITY": {
         "rsid": "rs9340799",
         "variant_identity": {
             "gene_symbol": "ESR1",
@@ -14182,10 +13992,9 @@
         "citations": [
             "PMID:15522906",
             "PMID:16511598"
-        ],
-        "name": "ESR1_ESTROGEN_SENSITIVITY"
+        ]
     },
-    "rs2239681": {
+    "NDUFB6_MITOCHONDRIA": {
         "rsid": "rs2239681",
         "variant_identity": {
             "gene_symbol": "NDUFB6",
@@ -14266,10 +14075,9 @@
         "citations": [
             "PMID:17909621",
             "PMID:18426860"
-        ],
-        "name": "NDUFB6_MITOCHONDRIA"
+        ]
     },
-    "rs6152": {
+    "AR_ANDROGEN_SENSITIVITY": {
         "rsid": "rs6152",
         "variant_identity": {
             "gene_symbol": "AR",
@@ -14352,10 +14160,9 @@
         "citations": [
             "PMID:16001362",
             "PMID:11231244"
-        ],
-        "name": "AR_ANDROGEN_SENSITIVITY"
+        ]
     },
-    "rs1799945": {
+    "HFE_H63D_IRON": {
         "rsid": "rs1799945",
         "variant_identity": {
             "gene_symbol": "HFE",
@@ -14433,10 +14240,9 @@
         "citations": [
             "PMID:25093819",
             "PMID:11812508"
-        ],
-        "name": "HFE_H63D_IRON"
+        ]
     },
-    "rs12942023": {
+    "FUT8_CONGENER_TOLERANCE": {
         "rsid": "rs12942023",
         "variant_identity": {
             "gene_symbol": "FUT8",
@@ -14514,10 +14320,9 @@
         "citations": [
             "PMID:23754426",
             "PMID:18834964"
-        ],
-        "name": "FUT8_CONGENER_TOLERANCE"
+        ]
     },
-    "rs893703": {
+    "CYP2D6_METABOLISM_SPEED": {
         "rsid": "rs893703",
         "variant_identity": {
             "gene_symbol": "CYP2D6",
@@ -14599,10 +14404,9 @@
         "citations": [
             "PMID:24263584",
             "PMID:22588147"
-        ],
-        "name": "CYP2D6_METABOLISM_SPEED"
+        ]
     },
-    "rs1800795": {
+    "IL6_INFLAMMATION_PROMOTER": {
         "rsid": "rs1800795",
         "variant_identity": {
             "gene_symbol": "IL6",
@@ -14685,10 +14489,9 @@
         "citations": [
             "PMID:25133763",
             "PMID:18452504"
-        ],
-        "name": "IL6_INFLAMMATION_PROMOTER"
+        ]
     },
-    "rs3731249": {
+    "CDKN2A_TUMOR_SUPPRESSION": {
         "rsid": "rs3731249",
         "variant_identity": {
             "gene_symbol": "CDKN2A",
@@ -14765,10 +14568,9 @@
         "citations": [
             "PMID:26527286",
             "PMID:22672589"
-        ],
-        "name": "CDKN2A_TUMOR_SUPPRESSION"
+        ]
     },
-    "rs1501299": {
+    "ADIPOQ_INSULIN_SENSITIVITY": {
         "rsid": "rs1501299",
         "variant_identity": {
             "gene_symbol": "ADIPOQ",
@@ -14851,10 +14653,9 @@
         "citations": [
             "PMID:12453905",
             "PMID:16685043"
-        ],
-        "name": "ADIPOQ_INSULIN_SENSITIVITY"
+        ]
     },
-    "rs17822931": {
+    "ABCC11_BODY_ODOR": {
         "rsid": "rs17822931",
         "variant_identity": {
             "gene_symbol": "ABCC11",
@@ -14930,10 +14731,9 @@
         "citations": [
             "PMID:16444273",
             "PMID:19710689"
-        ],
-        "name": "ABCC11_BODY_ODOR"
+        ]
     },
-    "rs479744": {
+    "PLOD1_COLLAGEN_STRENGTH": {
         "rsid": "rs479744",
         "variant_identity": {
             "gene_symbol": "PLOD1",
@@ -15016,10 +14816,9 @@
         "citations": [
             "PMID:17097935",
             "PMID:19553218"
-        ],
-        "name": "PLOD1_COLLAGEN_STRENGTH"
+        ]
     },
-    "rs1799950": {
+    "BRCA1_REPAIR_CAPACITY": {
         "rsid": "rs1799950",
         "variant_identity": {
             "gene_symbol": "BRCA1",
@@ -15101,10 +14900,9 @@
         "citations": [
             "PMID:18199735",
             "PMID:24510363"
-        ],
-        "name": "BRCA1_REPAIR_CAPACITY"
+        ]
     },
-    "rs1001179": {
+    "CAT_OXIDATIVE_SHIELD": {
         "rsid": "rs1001179",
         "variant_identity": {
             "gene_symbol": "CAT",
@@ -15186,10 +14984,9 @@
         "citations": [
             "PMID:19244165",
             "PMID:15509935"
-        ],
-        "name": "CAT_OXIDATIVE_SHIELD"
+        ]
     },
-    "rs713041": {
+    "GPX4_LIPID_DEFENSE": {
         "rsid": "rs713041",
         "variant_identity": {
             "gene_symbol": "GPX4",
@@ -15272,10 +15069,9 @@
         "citations": [
             "PMID:12749557",
             "PMID:15133612"
-        ],
-        "name": "GPX4_LIPID_DEFENSE"
+        ]
     },
-    "rs41423247": {
+    "NR3C1_STRESS_SENSITIVITY": {
         "rsid": "rs41423247",
         "variant_identity": {
             "gene_symbol": "NR3C1",
@@ -15358,10 +15154,9 @@
         "citations": [
             "PMID:15126535",
             "PMID:16832002"
-        ],
-        "name": "NR3C1_STRESS_SENSITIVITY"
+        ]
     },
-    "rs659366": {
+    "UCP2_METABOLIC_EFFICIENCY": {
         "rsid": "rs659366",
         "variant_identity": {
             "gene_symbol": "UCP2",
@@ -15444,10 +15239,9 @@
         "citations": [
             "PMID:20185738",
             "PMID:19159002"
-        ],
-        "name": "UCP2_METABOLIC_EFFICIENCY"
+        ]
     },
-    "rs8101881": {
+    "TFAM_MITO_REPLICATION": {
         "rsid": "rs8101881",
         "variant_identity": {
             "gene_symbol": "TFAM",
@@ -15529,10 +15323,9 @@
         "citations": [
             "PMID:18468962",
             "PMID:17544216"
-        ],
-        "name": "TFAM_MITO_REPLICATION"
+        ]
     },
-    "rs2395185": {
+    "HLA_DQA1_CELIAC_RISK": {
         "rsid": "rs2395185",
         "variant_identity": {
             "gene_symbol": "HLA-DQA1",
@@ -15615,10 +15408,9 @@
         "citations": [
             "PMID:22936858",
             "PMID:18311140"
-        ],
-        "name": "HLA_DQA1_CELIAC_RISK"
+        ]
     },
-    "rs4994": {
+    "ADRB3_FAT_BURNING": {
         "rsid": "rs4994",
         "variant_identity": {
             "gene_symbol": "ADRB3",
@@ -15701,10 +15493,9 @@
         "citations": [
             "PMID:7632212",
             "PMID:21191416"
-        ],
-        "name": "ADRB3_FAT_BURNING"
+        ]
     },
-    "rs660339": {
+    "UCP2_ALA55VAL_EFFICIENCY": {
         "rsid": "rs660339",
         "variant_identity": {
             "gene_symbol": "UCP2",
@@ -15787,10 +15578,9 @@
         "citations": [
             "PMID:10375057",
             "PMID:18402928"
-        ],
-        "name": "UCP2_ALA55VAL_EFFICIENCY"
+        ]
     },
-    "rs16906252": {
+    "MMP12_LUNG_ELASTICITY": {
         "rsid": "rs16906252",
         "variant_identity": {
             "gene_symbol": "MMP12",
@@ -15872,10 +15662,9 @@
         "citations": [
             "PMID:20018968",
             "PMID:12019206"
-        ],
-        "name": "MMP12_LUNG_ELASTICITY"
+        ]
     },
-    "rs1051740": {
+    "EPHX1_DETOX_SPEED": {
         "rsid": "rs1051740",
         "variant_identity": {
             "gene_symbol": "EPHX1",
@@ -15958,10 +15747,9 @@
         "citations": [
             "PMID:9751264",
             "PMID:8162054"
-        ],
-        "name": "EPHX1_DETOX_SPEED"
+        ]
     },
-    "rs1006737": {
+    "CACNA1C_MOOD_CREATIVITY": {
         "rsid": "rs1006737",
         "variant_identity": {
             "gene_symbol": "CACNA1C",
@@ -16043,10 +15831,9 @@
         "citations": [
             "PMID:18711365",
             "PMID:20048220"
-        ],
-        "name": "CACNA1C_MOOD_CREATIVITY"
+        ]
     },
-    "rs174547": {
+    "FADS2_OMEGA_CONVERSION": {
         "rsid": "rs174547",
         "variant_identity": {
             "gene_symbol": "FADS2",
@@ -16128,10 +15915,9 @@
         "citations": [
             "PMID:22560091",
             "PMID:16679363"
-        ],
-        "name": "FADS2_OMEGA_CONVERSION"
+        ]
     },
-    "rs10993994": {
+    "MSRA_OPTIMISM_RESILIENCE": {
         "rsid": "rs10993994",
         "variant_identity": {
             "gene_symbol": "MSRA",
@@ -16213,10 +15999,9 @@
         "citations": [
             "PMID:24191010",
             "PMID:11687635"
-        ],
-        "name": "MSRA_OPTIMISM_RESILIENCE"
+        ]
     },
-    "rs1801516": {
+    "ATM_DNA_BREAKS": {
         "rsid": "rs1801516",
         "variant_identity": {
             "gene_symbol": "ATM",
@@ -16299,10 +16084,9 @@
         "citations": [
             "PMID:15713961",
             "PMID:23552252"
-        ],
-        "name": "ATM_DNA_BREAKS"
+        ]
     },
-    "rs16835198": {
+    "FNDC5_EXERCISE_RESPONSE": {
         "rsid": "rs16835198",
         "variant_identity": {
             "gene_symbol": "FNDC5",
@@ -16385,10 +16169,9 @@
         "citations": [
             "PMID:23656987",
             "PMID:22237023"
-        ],
-        "name": "FNDC5_EXERCISE_RESPONSE"
+        ]
     },
-    "rs1800955": {
+    "DRD4_NOVELTY_SEEKING": {
         "rsid": "rs1800955",
         "variant_identity": {
             "gene_symbol": "DRD4",
@@ -16468,10 +16251,9 @@
         "citations": [
             "PMID:10697331",
             "PMID:20603445"
-        ],
-        "name": "DRD4_NOVELTY_SEEKING"
+        ]
     },
-    "rs2052129": {
+    "HDC_HISTAMINE_PRODUCTION": {
         "rsid": "rs2052129",
         "variant_identity": {
             "gene_symbol": "HDC",
@@ -16554,10 +16336,9 @@
         "citations": [
             "PMID:20463175",
             "PMID:17490952"
-        ],
-        "name": "HDC_HISTAMINE_PRODUCTION"
+        ]
     },
-    "rs4680": {
+    "COMT_STRESS_RESPONSE": {
         "rsid": "rs4680",
         "variant_identity": {
             "gene_symbol": "COMT",
@@ -16639,10 +16420,9 @@
         "citations": [
             "PMID:12379849",
             "PMID:16938600"
-        ],
-        "name": "COMT_STRESS_RESPONSE"
+        ]
     },
-    "rs8031440": {
+    "ACAN_JOINT_HYDRATION": {
         "rsid": "rs8031440",
         "variant_identity": {
             "gene_symbol": "ACAN",
@@ -16724,10 +16504,9 @@
         "citations": [
             "PMID:23349914",
             "PMID:23342000"
-        ],
-        "name": "ACAN_JOINT_HYDRATION"
+        ]
     },
-    "rs1801253": {
+    "ADRB1_HEART_RATE_RESPONSE": {
         "rsid": "rs1801253",
         "variant_identity": {
             "gene_symbol": "ADRB1",
@@ -16810,10 +16589,9 @@
         "citations": [
             "PMID:17062758",
             "PMID:17609204"
-        ],
-        "name": "ADRB1_HEART_RATE_RESPONSE"
+        ]
     },
-    "rs1256049": {
+    "ESR1_ESTROGEN_SIGNALING": {
         "rsid": "rs1256049",
         "variant_identity": {
             "gene_symbol": "ESR1",
@@ -16896,10 +16674,9 @@
         "citations": [
             "PMID:14559296",
             "PMID:12351582"
-        ],
-        "name": "ESR1_ESTROGEN_SIGNALING"
+        ]
     },
-    "rs699005": {
+    "COL1A1_TENDON_STRENGTH": {
         "rsid": "rs699005",
         "variant_identity": {
             "gene_symbol": "COL1A1",
@@ -16982,10 +16759,9 @@
         "citations": [
             "PMID:19214936",
             "PMID:19478040"
-        ],
-        "name": "COL1A1_TENDON_STRENGTH"
+        ]
     },
-    "rs16944": {
+    "IL1B_INFLAMMATION_INTENSITY": {
         "rsid": "rs16944",
         "variant_identity": {
             "gene_symbol": "IL1B",
@@ -17068,10 +16844,9 @@
         "citations": [
             "PMID:10716449",
             "PMID:22079374"
-        ],
-        "name": "IL1B_INFLAMMATION_INTENSITY"
+        ]
     },
-    "rs137852": {
+    "COL5A2_LIGAMENT_STRUCTURE": {
         "rsid": "rs137852",
         "variant_identity": {
             "gene_symbol": "COL5A2",
@@ -17154,10 +16929,9 @@
         "citations": [
             "PMID:19372091",
             "PMID:24662660"
-        ],
-        "name": "COL5A2_LIGAMENT_STRUCTURE"
+        ]
     },
-    "rs11185098": {
+    "DAO_HISTAMINE_SHIELD": {
         "rsid": "rs11185098",
         "variant_identity": {
             "gene_symbol": "DAO",
@@ -17240,10 +17014,9 @@
         "citations": [
             "PMID:21488903",
             "PMID:32824107"
-        ],
-        "name": "DAO_HISTAMINE_SHIELD"
+        ]
     },
-    "rs676925": {
+    "MMP1_COLLAGEN_DEGRADATION": {
         "rsid": "rs676925",
         "variant_identity": {
             "gene_symbol": "MMP1",
@@ -17326,10 +17099,9 @@
         "citations": [
             "PMID:9865735",
             "PMID:22154562"
-        ],
-        "name": "MMP1_COLLAGEN_DEGRADATION"
+        ]
     },
-    "rs1042714": {
+    "ADRB2_RECEPTOR_DOWNREGULATION": {
         "rsid": "rs1042714",
         "variant_identity": {
             "gene_symbol": "ADRB2",
@@ -17412,10 +17184,9 @@
         "citations": [
             "PMID:10968263",
             "PMID:10956383"
-        ],
-        "name": "ADRB2_RECEPTOR_DOWNREGULATION"
+        ]
     },
-    "rs1544410": {
+    "VDR_VITAMIN_D_SENSITIVITY": {
         "rsid": "rs1544410",
         "variant_identity": {
             "gene_symbol": "VDR",
@@ -17498,10 +17269,9 @@
         "citations": [
             "PMID:15528243",
             "PMID:21346772"
-        ],
-        "name": "VDR_VITAMIN_D_SENSITIVITY"
+        ]
     },
-    "rs6259": {
+    "SHBG_HORMONE_BINDING": {
         "rsid": "rs6259",
         "variant_identity": {
             "gene_symbol": "SHBG",
@@ -17583,10 +17353,9 @@
         "citations": [
             "PMID:20581827",
             "PMID:27039021"
-        ],
-        "name": "SHBG_HORMONE_BINDING"
+        ]
     },
-    "rs1815739": {
+    "ACTN3_FAST_TWITCH_POWER": {
         "rsid": "rs1815739",
         "variant_identity": {
             "gene_symbol": "ACTN3",
@@ -17667,10 +17436,9 @@
         "citations": [
             "PMID:12879365",
             "PMID:24571931"
-        ],
-        "name": "ACTN3_FAST_TWITCH_POWER"
+        ]
     },
-    "rs6025": {
+    "F5_FACTOR_V_LEIDEN": {
         "rsid": "rs6025",
         "variant_identity": {
             "gene_symbol": "F5",
@@ -17753,10 +17521,9 @@
         "citations": [
             "PMID:8164741",
             "PMID:7888661"
-        ],
-        "name": "F5_FACTOR_V_LEIDEN"
+        ]
     },
-    "rs2241880": {
+    "NOD2_GUT_IMMUNITY": {
         "rsid": "rs2241880",
         "variant_identity": {
             "gene_symbol": "NOD2",
@@ -17838,10 +17605,9 @@
         "citations": [
             "PMID:11385566",
             "PMID:12738470"
-        ],
-        "name": "NOD2_GUT_IMMUNITY"
+        ]
     },
-    "rs17609940": {
+    "IGF1R_GROWTH_SENSITIVITY": {
         "rsid": "rs17609940",
         "variant_identity": {
             "gene_symbol": "IGF1R",
@@ -17924,10 +17690,9 @@
         "citations": [
             "PMID:18316725",
             "PMID:12672771"
-        ],
-        "name": "IGF1R_GROWTH_SENSITIVITY"
+        ]
     },
-    "rs1799752": {
+    "ACE_PRESSURE_REGULATION": {
         "rsid": "rs1799752",
         "variant_identity": {
             "gene_symbol": "ACE",
@@ -18010,10 +17775,9 @@
         "citations": [
             "PMID:9590690",
             "PMID:2115112"
-        ],
-        "name": "ACE_PRESSURE_REGULATION"
+        ]
     },
-    "rs7041": {
+    "GC_VITAMIN_D_TRANSPORT": {
         "rsid": "rs7041",
         "variant_identity": {
             "gene_symbol": "GC",
@@ -18091,10 +17855,9 @@
         "citations": [
             "PMID:24224623",
             "PMID:20427121"
-        ],
-        "name": "GC_VITAMIN_D_TRANSPORT"
+        ]
     },
-    "rs10427255": {
+    "ZEB2_PHOTIC_SNEEZE": {
         "rsid": "rs10427255",
         "variant_identity": {
             "gene_symbol": "ZEB2",
@@ -18166,10 +17929,9 @@
         "citations": [
             "PMID:20585627",
             "PMID:20186466"
-        ],
-        "name": "ZEB2_PHOTIC_SNEEZE"
+        ]
     },
-    "rs11645428": {
+    "BCMO1_VITAMIN_A_CONVERSION": {
         "rsid": "rs11645428",
         "variant_identity": {
             "gene_symbol": "BCO1",
@@ -18252,10 +18014,9 @@
         "citations": [
             "PMID:19103647",
             "PMID:22113863"
-        ],
-        "name": "BCMO1_VITAMIN_A_CONVERSION"
+        ]
     },
-    "rs7294919": {
+    "CNTNAP2_MOTOR_PRECISION": {
         "rsid": "rs7294919",
         "variant_identity": {
             "gene_symbol": "CNTNAP2",
@@ -18337,10 +18098,9 @@
         "citations": [
             "PMID:18946059",
             "PMID:20045101"
-        ],
-        "name": "CNTNAP2_MOTOR_PRECISION"
+        ]
     },
-    "rs1800440": {
+    "CYP1B1_ESTROGEN_DETOX": {
         "rsid": "rs1800440",
         "variant_identity": {
             "gene_symbol": "CYP1B1",
@@ -18423,10 +18183,9 @@
         "citations": [
             "PMID:11923454",
             "PMID:17673525"
-        ],
-        "name": "CYP1B1_ESTROGEN_DETOX"
+        ]
     },
-    "rs5882": {
+    "CETP_HDL_REMODELING": {
         "rsid": "rs5882",
         "variant_identity": {
             "gene_symbol": "CETP",
@@ -18508,10 +18267,9 @@
         "citations": [
             "PMID:14559954",
             "PMID:17570922"
-        ],
-        "name": "CETP_HDL_REMODELING"
+        ]
     },
-    "rs12979860": {
+    "IFNL3_VIRAL_CLEARANCE": {
         "rsid": "rs12979860",
         "variant_identity": {
             "gene_symbol": "IFNL3",
@@ -18587,10 +18345,9 @@
         "citations": [
             "PMID:19684573",
             "PMID:19759530"
-        ],
-        "name": "IFNL3_VIRAL_CLEARANCE"
+        ]
     },
-    "rs8192678": {
+    "PPARGC1A_MITO_BIOGENESIS": {
         "rsid": "rs8192678",
         "variant_identity": {
             "gene_symbol": "PPARGC1A",
@@ -18673,10 +18430,9 @@
         "citations": [
             "PMID:11719835",
             "PMID:15608146"
-        ],
-        "name": "PPARGC1A_MITO_BIOGENESIS"
+        ]
     },
-    "rs2070974": {
+    "TYR_MELANIN_SYNTHESIS": {
         "rsid": "rs2070974",
         "variant_identity": {
             "gene_symbol": "TYR",
@@ -18758,10 +18514,9 @@
         "citations": [
             "PMID:19193630",
             "PMID:19105926"
-        ],
-        "name": "TYR_MELANIN_SYNTHESIS"
+        ]
     },
-    "rs1800790": {
+    "FGB_FIBRINOGEN": {
         "rsid": "rs1800790",
         "variant_identity": {
             "gene_symbol": "FGB",
@@ -18844,10 +18599,9 @@
         "citations": [
             "PMID:1845187",
             "PMID:17204652"
-        ],
-        "name": "FGB_FIBRINOGEN"
+        ]
     },
-    "rs12778366": {
+    "SIRT1_METABOLIC_CLOCK": {
         "rsid": "rs12778366",
         "variant_identity": {
             "gene_symbol": "SIRT1",
@@ -18933,10 +18687,9 @@
         "citations": [
             "PMID:21193606",
             "PMID:17604747"
-        ],
-        "name": "SIRT1_METABOLIC_CLOCK"
+        ]
     },
-    "rs2802295": {
+    "FOXO1_GLUCOSE_AGING": {
         "rsid": "rs2802295",
         "variant_identity": {
             "gene_symbol": "FOXO1",
@@ -19019,10 +18772,9 @@
         "citations": [
             "PMID:18765806",
             "PMID:18216850"
-        ],
-        "name": "FOXO1_GLUCOSE_AGING"
+        ]
     },
-    "rs1049353": {
+    "CNR1_REWARD_SENSITIVITY": {
         "rsid": "rs1049353",
         "variant_identity": {
             "gene_symbol": "CNR1",
@@ -19105,10 +18857,9 @@
         "citations": [
             "PMID:15314647",
             "PMID:18430774"
-        ],
-        "name": "CNR1_REWARD_SENSITIVITY"
+        ]
     },
-    "rs601338": {
+    "FUT2_SECRETOR_STATUS": {
         "rsid": "rs601338",
         "variant_identity": {
             "gene_symbol": "FUT2",
@@ -19186,10 +18937,9 @@
         "citations": [
             "PMID:21611146",
             "PMID:20062061"
-        ],
-        "name": "FUT2_SECRETOR_STATUS"
+        ]
     },
-    "rs11615": {
+    "ERCC1_DNA_RECOVERY": {
         "rsid": "rs11615",
         "variant_identity": {
             "gene_symbol": "ERCC1",
@@ -19272,10 +19022,9 @@
         "citations": [
             "PMID:12354435",
             "PMID:17183313"
-        ],
-        "name": "ERCC1_DNA_RECOVERY"
+        ]
     },
-    "rs11558538": {
+    "HNMT_HISTAMINE_CLEANUP": {
         "rsid": "rs11558538",
         "variant_identity": {
             "gene_symbol": "HNMT",
@@ -19358,10 +19107,9 @@
         "citations": [
             "PMID:9463314",
             "PMID:16198642"
-        ],
-        "name": "HNMT_HISTAMINE_CLEANUP"
+        ]
     },
-    "rs4074995": {
+    "MYH7_SLOW_TWITCH_FIBER": {
         "rsid": "rs4074995",
         "variant_identity": {
             "gene_symbol": "MYH7",
@@ -19443,10 +19191,9 @@
         "citations": [
             "PMID:24885823",
             "PMID:19682283"
-        ],
-        "name": "MYH7_SLOW_TWITCH_FIBER"
+        ]
     },
-    "rs1800562": {
+    "HFE_IRON_SENSING": {
         "rsid": "rs1800562",
         "variant_identity": {
             "gene_symbol": "HFE",
@@ -19525,10 +19272,9 @@
         "citations": [
             "PMID:8755920",
             "PMID:18199863"
-        ],
-        "name": "HFE_IRON_SENSING"
+        ]
     },
-    "rs13331": {
+    "OR2M7_ASPARAGUS_ODOR": {
         "rsid": "rs13331",
         "variant_identity": {
             "gene_symbol": "OR2M7",
@@ -19605,10 +19351,9 @@
         "citations": [
             "PMID:27965201",
             "PMID:22383892"
-        ],
-        "name": "OR2M7_ASPARAGUS_ODOR"
+        ]
     },
-    "rs17602729": {
+    "AMPD1_FATIGUE_RESISTANCE": {
         "rsid": "rs17602729",
         "variant_identity": {
             "gene_symbol": "AMPD1",
@@ -19690,10 +19435,9 @@
         "citations": [
             "PMID:6246581",
             "PMID:12704313"
-        ],
-        "name": "AMPD1_FATIGUE_RESISTANCE"
+        ]
     },
-    "rs1805087": {
+    "MTR_METHYLATION_RECYCLING": {
         "rsid": "rs1805087",
         "variant_identity": {
             "gene_symbol": "MTR",
@@ -19775,10 +19519,9 @@
         "citations": [
             "PMID:10444621",
             "PMID:11231244"
-        ],
-        "name": "MTR_METHYLATION_RECYCLING"
+        ]
     },
-    "rs738409": {
+    "PNPLA3_LIVER_FAT": {
         "rsid": "rs738409",
         "variant_identity": {
             "gene_symbol": "PNPLA3",
@@ -19860,10 +19603,9 @@
         "citations": [
             "PMID:18820647",
             "PMID:20448043"
-        ],
-        "name": "PNPLA3_LIVER_FAT"
+        ]
     },
-    "rs2231142": {
+    "ABCG2_URIC_ACID": {
         "rsid": "rs2231142",
         "variant_identity": {
             "gene_symbol": "ABCG2",
@@ -19946,10 +19688,9 @@
         "citations": [
             "PMID:19506252",
             "PMID:24618731"
-        ],
-        "name": "ABCG2_URIC_ACID"
+        ]
     },
-    "rs234706": {
+    "CBS_TRANSSULFURATION": {
         "rsid": "rs234706",
         "variant_identity": {
             "gene_symbol": "CBS",
@@ -20032,10 +19773,9 @@
         "citations": [
             "PMID:10633129",
             "PMID:12529853"
-        ],
-        "name": "CBS_TRANSSULFURATION"
+        ]
     },
-    "rs605059": {
+    "ESR2_ESTROGEN_BETA": {
         "rsid": "rs605059",
         "variant_identity": {
             "gene_symbol": "ESR2",
@@ -20118,10 +19858,9 @@
         "citations": [
             "PMID:11443528",
             "PMID:17452498"
-        ],
-        "name": "ESR2_ESTROGEN_BETA"
+        ]
     },
-    "rs1333049": {
+    "9P21_CARDIAC_RISK": {
         "rsid": "rs1333049",
         "variant_identity": {
             "gene_symbol": "CDKN2A/B",
@@ -20203,10 +19942,9 @@
         "citations": [
             "PMID:17478681",
             "PMID:20044490"
-        ],
-        "name": "9P21_CARDIAC_RISK"
+        ]
     },
-    "rs6536": {
+    "TRPM6_MAGNESIUM_ABSORPTION": {
         "rsid": "rs6536",
         "variant_identity": {
             "gene_symbol": "TRPM6",
@@ -20289,10 +20027,9 @@
         "citations": [
             "PMID:11938084",
             "PMID:19366860"
-        ],
-        "name": "TRPM6_MAGNESIUM_ABSORPTION"
+        ]
     },
-    "rs6165": {
+    "FSHR_RECEPTOR_SENSITIVITY": {
         "rsid": "rs6165",
         "variant_identity": {
             "gene_symbol": "FSHR",
@@ -20375,10 +20112,9 @@
         "citations": [
             "PMID:11836306",
             "PMID:20451177"
-        ],
-        "name": "FSHR_RECEPTOR_SENSITIVITY"
+        ]
     },
-    "rs523349": {
+    "SRD5A1_DHT_CONVERSION": {
         "rsid": "rs523349",
         "variant_identity": {
             "gene_symbol": "SRD5A1",
@@ -20462,10 +20198,9 @@
         "citations": [
             "PMID:10667469",
             "PMID:16449339"
-        ],
-        "name": "SRD5A1_DHT_CONVERSION"
+        ]
     },
-    "rs693": {
+    "APOB_LDL_PARTICLE": {
         "rsid": "rs693",
         "variant_identity": {
             "gene_symbol": "APOB",
@@ -20548,10 +20283,9 @@
         "citations": [
             "PMID:17967586",
             "PMID:31592344"
-        ],
-        "name": "APOB_LDL_PARTICLE"
+        ]
     },
-    "rs419598": {
+    "IL1RN_INFLAMMATORY_RECOVERY": {
         "rsid": "rs419598",
         "variant_identity": {
             "gene_symbol": "IL1RN",
@@ -20635,10 +20369,9 @@
         "citations": [
             "PMID:12047970",
             "PMID:17452608"
-        ],
-        "name": "IL1RN_INFLAMMATORY_RECOVERY"
+        ]
     },
-    "rs2070744": {
+    "NOS3_MITO_EFFICIENCY": {
         "rsid": "rs2070744",
         "variant_identity": {
             "gene_symbol": "NOS3",
@@ -20722,10 +20455,9 @@
         "citations": [
             "PMID:10767332",
             "PMID:14551243"
-        ],
-        "name": "NOS3_MITO_EFFICIENCY"
+        ]
     },
-    "rs4988235": {
+    "LCT_LACTOSE_TOLERANCE": {
         "rsid": "rs4988235",
         "variant_identity": {
             "gene_symbol": "LCT",
@@ -20801,10 +20533,9 @@
         "citations": [
             "PMID:11788828",
             "PMID:17159977"
-        ],
-        "name": "LCT_LACTOSE_TOLERANCE"
+        ]
     },
-    "rs6232": {
+    "PCSK1_SATIETY_SIGNALING": {
         "rsid": "rs6232",
         "variant_identity": {
             "gene_symbol": "PCSK1",
@@ -20887,10 +20618,9 @@
         "citations": [
             "PMID:18193058",
             "PMID:12704314"
-        ],
-        "name": "PCSK1_SATIETY_SIGNALING"
+        ]
     },
-    "rs1805065": {
+    "ACTN2_MUSCLE_STABILITY": {
         "rsid": "rs1805065",
         "variant_identity": {
             "gene_symbol": "ACTN2",
@@ -20971,10 +20701,9 @@
         "citations": [
             "PMID:16123131",
             "PMID:15322131"
-        ],
-        "name": "ACTN2_MUSCLE_STABILITY"
+        ]
     },
-    "rs934078": {
+    "DIO2_THYROID_CONVERSION": {
         "rsid": "rs934078",
         "variant_identity": {
             "gene_symbol": "DIO2",
@@ -21057,10 +20786,9 @@
         "citations": [
             "PMID:19190113",
             "PMID:31253018"
-        ],
-        "name": "DIO2_THYROID_CONVERSION"
+        ]
     },
-    "rs2304672": {
+    "NR1D1_METABOLIC_RHYTHM": {
         "rsid": "rs2304672",
         "variant_identity": {
             "gene_symbol": "NR1D1",
@@ -21143,10 +20871,9 @@
         "citations": [
             "PMID:19460595",
             "PMID:17962551"
-        ],
-        "name": "NR1D1_METABOLIC_RHYTHM"
+        ]
     },
-    "rs11209026": {
+    "IL23R_GUT_PROTECTION": {
         "rsid": "rs11209026",
         "variant_identity": {
             "gene_symbol": "IL23R",
@@ -21229,10 +20956,9 @@
         "citations": [
             "PMID:17068223",
             "PMID:21248248"
-        ],
-        "name": "IL23R_GUT_PROTECTION"
+        ]
     },
-    "rs4588": {
+    "GC_DBP_TRANSPORT": {
         "rsid": "rs4588",
         "variant_identity": {
             "gene_symbol": "GC",
@@ -21310,10 +21036,9 @@
         "citations": [
             "PMID:20427121",
             "PMID:24224623"
-        ],
-        "name": "GC_DBP_TRANSPORT"
+        ]
     },
-    "rs9536314": {
+    "KL_KLOTHO_LONGEVITY": {
         "rsid": "rs9536314",
         "variant_identity": {
             "gene_symbol": "KL",
@@ -21397,10 +21122,9 @@
         "citations": [
             "PMID:24828042",
             "PMID:11805335"
-        ],
-        "name": "KL_KLOTHO_LONGEVITY"
+        ]
     },
-    "rs559870": {
+    "MMP3_COLLAGEN_REMODELING": {
         "rsid": "rs559870",
         "variant_identity": {
             "gene_symbol": "MMP3",
@@ -21484,10 +21208,9 @@
         "citations": [
             "PMID:12742211",
             "PMID:22154562"
-        ],
-        "name": "MMP3_COLLAGEN_REMODELING"
+        ]
     },
-    "rs8007267": {
+    "GCH1_PAIN_TOLERANCE": {
         "rsid": "rs8007267",
         "variant_identity": {
             "gene_symbol": "GCH1",
@@ -21570,10 +21293,9 @@
         "citations": [
             "PMID:17057711",
             "PMID:14551243"
-        ],
-        "name": "GCH1_PAIN_TOLERANCE"
+        ]
     },
-    "rs3741942": {
+    "NDUFS2_ETC_EFFICIENCY": {
         "rsid": "rs3741942",
         "variant_identity": {
             "gene_symbol": "NDUFS2",
@@ -21656,10 +21378,9 @@
         "citations": [
             "PMID:17444511",
             "PMID:15155511"
-        ],
-        "name": "NDUFS2_ETC_EFFICIENCY"
+        ]
     },
-    "rs1801282": {
+    "PPARG_INSULIN_FAT_PATTERN": {
         "rsid": "rs1801282",
         "variant_identity": {
             "gene_symbol": "PPARG",
@@ -21742,10 +21463,9 @@
         "citations": [
             "PMID:10973256",
             "PMID:11553556"
-        ],
-        "name": "PPARG_INSULIN_FAT_PATTERN"
+        ]
     },
-    "rs1805086": {
+    "MYF5_SATELLITE_ACTIVATION": {
         "rsid": "rs1805086",
         "variant_identity": {
             "gene_symbol": "MYF5",
@@ -21827,10 +21547,9 @@
         "citations": [
             "PMID:22952587",
             "PMID:20130131"
-        ],
-        "name": "MYF5_SATELLITE_ACTIVATION"
+        ]
     },
-    "rs13278062": {
+    "SIRT1_REPAIR_EFFICIENCY": {
         "rsid": "rs13278062",
         "variant_identity": {
             "gene_symbol": "SIRT1",
@@ -21914,10 +21633,9 @@
         "citations": [
             "PMID:21193606",
             "PMID:17604747"
-        ],
-        "name": "SIRT1_REPAIR_EFFICIENCY"
+        ]
     },
-    "rs4654748": {
+    "LMNA_NUCLEAR_STABILITY": {
         "rsid": "rs4654748",
         "variant_identity": {
             "gene_symbol": "LMNA",
@@ -22000,10 +21718,9 @@
         "citations": [
             "PMID:21516087",
             "PMID:23348846"
-        ],
-        "name": "LMNA_NUCLEAR_STABILITY"
+        ]
     },
-    "rs2802292": {
+    "FOXO3_STRESS_DEFENSE": {
         "rsid": "rs2802292",
         "variant_identity": {
             "gene_symbol": "FOXO3",
@@ -22087,10 +21804,9 @@
         "citations": [
             "PMID:18765806",
             "PMID:18216850"
-        ],
-        "name": "FOXO3_STRESS_DEFENSE"
+        ]
     },
-    "rs9939609": {
+    "FTO_APPETITE_REGULATION": {
         "rsid": "rs9939609",
         "variant_identity": {
             "gene_symbol": "FTO",
@@ -22173,10 +21889,9 @@
         "citations": [
             "PMID:17434869",
             "PMID:23863710"
-        ],
-        "name": "FTO_APPETITE_REGULATION"
+        ]
     },
-    "rs1800497": {
+    "ANKK1_DOPAMINE_AVAILABILITY": {
         "rsid": "rs1800497",
         "variant_identity": {
             "gene_symbol": "ANKK1",
@@ -22258,7 +21973,6 @@
         "citations": [
             "PMID:2329528",
             "PMID:9104443"
-        ],
-        "name": "ANKK1_DOPAMINE_AVAILABILITY"
+        ]
     }
 }

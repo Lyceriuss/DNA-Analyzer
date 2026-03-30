@@ -1,0 +1,221 @@
+{
+    "MTHFR_677": {
+        "rsid": "rs1801133",
+        "variant_identity": {
+            "gene_symbol": "MTHFR",
+            "common_name": "The Methylation Master Gene",
+            "rsid": "rs1801133",
+            "biotype": "Missense Variant (Ala222Val)"
+        },
+        "affected_organs": [
+            "Cardiovascular System",
+            "Brain",
+            "Liver"
+        ],
+        "affected_systems": [
+            "Folate Cycle",
+            "Homocysteine Clearance"
+        ],
+        "impact_type": "Systemic Methylation Bottleneck",
+        "scores": {
+            "GG": 100,
+            "GA": 60,
+            "AA": 20
+        },
+        "variants": {
+            "GG": "Optimal Factory Output (Healthy Neurotransmitter Flow)",
+            "GA": "Moderate Factory Bottleneck (Reduced Output)",
+            "AA": "Severe Factory Bottleneck (Starved Output, Toxic Buildup)"
+        },
+        "metabolic_connections": {
+            "upstream_requirements": [
+                {
+                    "molecule": "Folate",
+                    "role": "Substrate",
+                    "mechanism": "Converted into 5-MTHF by the MTHFR enzyme."
+                }
+            ],
+            "downstream_impacts": [
+                {
+                    "molecule": "Homocysteine",
+                    "effect": "Clearance",
+                    "consequence": "Requires 5-MTHF to be recycled into Methionine. Failure leads to vascular inflammation."
+                },
+                {
+                    "molecule": "SAMe",
+                    "effect": "Synthesis",
+                    "consequence": "The universal methyl donor required for DNA repair and neurotransmitter production."
+                }
+            ]
+        },
+        "metrics": {
+            "mechanistic_impact": {
+                "score": 5,
+                "rationale": "Severe thermolability. AA genotype reduces enzyme output to ~30% of normal.",
+                "detail": "This is the primary MTHFR mutation (clinically known as C677T). It sits directly in the catalytic domain. The factory becomes highly unstable under heat or stress, causing raw folate to back up and homocysteine levels to rise dangerously in the blood."
+            },
+            "study_quality": {
+                "score": 5,
+                "rationale": "Tens of thousands of citations linking to cardiovascular and psychiatric risk.",
+                "detail": "This is one of the most thoroughly researched genetic variants in human history, with established clinical guidelines for supplementation (Methylfolate)."
+            }
+        },
+        "consensus_label": "CARDIO METHYLATOR",
+        "visualization_blueprint": {
+            "layout_type": "supply_chain",
+            "components": {
+                "left_node": {
+                    "title": "Raw Folate",
+                    "subtitle": "Dietary Input"
+                },
+                "center_node": {
+                    "title": "MTHFR Factory",
+                    "shape": "hexagon"
+                },
+                "right_node": {
+                    "title": "Brain Fuel",
+                    "subtitle": "SAMe / Neurotransmitters"
+                },
+                "top_node": {
+                    "title": "Homocysteine Cloud",
+                    "subtitle": "Inflammatory Buildup"
+                }
+            },
+            "states": {
+                "GG": {
+                    "label": "Optimal Factory Output",
+                    "explanation": "The factory processes folate perfectly. Raw materials are efficiently converted into SAMe (brain fuel) to build serotonin and dopamine. Homocysteine is safely recycled with zero buildup."
+                },
+                "GA": {
+                    "label": "Moderate Factory Bottleneck",
+                    "explanation": "The factory is fragile. Processing drops to 60%. The brain receives less fuel for neurotransmitters, while unprocessed materials begin to form a moderate cloud of inflammatory homocysteine."
+                },
+                "AA": {
+                    "label": "Severe Factory Bottleneck",
+                    "explanation": "Severe factory breakdown. Processing plummets to 20%. The brain is starved of resources needed for mood stability, while a massive, toxic cloud of homocysteine builds up in the system."
+                }
+            }
+        }
+    },
+    "MTHFR_1298": {
+        "rsid": "rs1801131",
+        "variant_identity": {
+            "gene_symbol": "MTHFR",
+            "common_name": "The Brain Folate Gene",
+            "rsid": "rs1801131",
+            "biotype": "Missense Variant (Glu429Ala)"
+        },
+        "affected_organs": [
+            "Brain",
+            "Liver"
+        ],
+        "affected_systems": [
+            "Nervous System",
+            "BH4 Recycling Cycle",
+            "Methylation Cycle"
+        ],
+        "impact_type": "Neurotransmitter Synthesis Bottleneck",
+        "scores": {
+            "TT": 100,
+            "TG": 60,
+            "GG": 40
+        },
+        "variants": {
+            "TT": "Optimal BH4 Recycling (Healthy Neurotransmitter Levels)",
+            "TG": "Moderately Reduced BH4 Recycling (Mild Serotonin/Dopamine impact)",
+            "GG": "Significantly Reduced BH4 Recycling (Neurotransmitter Starvation)"
+        },
+        "metabolic_connections": {
+            "upstream_requirements": [
+                {
+                    "molecule": "Folate",
+                    "role": "Substrate",
+                    "mechanism": "MTHFR supports the recycling of BH4 (Biopterin)."
+                }
+            ],
+            "downstream_impacts": [
+                {
+                    "molecule": "Serotonin/Dopamine",
+                    "effect": "Synthesis",
+                    "consequence": "BH4 is the rate-limiting cofactor for neurotransmitter production."
+                },
+                {
+                    "molecule": "Nitric Oxide",
+                    "effect": "Coupling",
+                    "consequence": "BH4 is required for NOS to make NO (blood flow)."
+                }
+            ]
+        },
+        "metrics": {
+            "mechanistic_impact": {
+                "score": 4,
+                "rationale": "Reduces enzyme activity by ~40%, distinct from C677T.",
+                "detail": "While the 677 variant affects the 'Methylation' tail (Homocysteine), this variant (clinically known as A1298C) affects the regulatory domain. It is less thermolabile but still reduces activity. Crucially, its impact is often more neurological. It affects the recycling of BH4 (Tetrahydrobiopterin). Carriers may have normal homocysteine but struggle with mood, anxiety, or chronic pain due to low neurotransmitters."
+            },
+            "study_quality": {
+                "score": 4,
+                "rationale": "Linked to Depression and Pregnancy complications.",
+                "detail": "Compound heterozygotes (having a mutation on both 677 and 1298) have the highest risk profile. The link to psychiatric conditions is stronger here than for vascular disease."
+            },
+            "methodology": {
+                "score": 4,
+                "rationale": "Enzyme Assays & Clinical Psychiatry.",
+                "detail": "Correlations with CSF neurotransmitter metabolites."
+            }
+        },
+        "consensus_label": "MOOD METHYLATOR",
+        "methodology_audit": [
+            {
+                "study": "Weisberg et al. (1998) - Mol Genet Metab",
+                "type": "Biochemistry",
+                "population": "Recombinant Enzyme",
+                "methods": "Kinetic analysis.",
+                "critique": "STRENGTH: Proved the enzymatic defect is real but milder than C677T (60% activity vs 30%). CRITIQUE: The clinical significance is debated in isolation. It matters most when combined with the other variant (Compound Heterozygosity).",
+                "score_contribution": "Mechanistic Impact (4/5)"
+            },
+            {
+                "study": "Lok et al. (2013) - Depress Anxiety",
+                "type": "Meta-Analysis",
+                "population": "Depression Patients",
+                "methods": "Association with MDD.",
+                "critique": "STRENGTH: Found a significant link to depression. CRITIQUE: The effect is likely mediated by BH4 depletion. Since BH4 is also needed for Nitric Oxide (blood flow), these patients might have 'Cold Hands/Feet' (Raynaud's) alongside depression. Intervention often leans toward SAMe or BH4 support.",
+                "score_contribution": "Study Quality (4/5)"
+            }
+        ],
+        "citations": [
+            "PMID:9719624",
+            "PMID:23913816"
+        ],
+        "visualization_blueprint": {
+            "layout_type": "figure_8_pooling",
+            "components": {
+                "left_node": {
+                    "title": "Folate Input",
+                    "subtitle": "Requires B9 Substrate"
+                },
+                "center_node": {
+                    "title": "MTHFR",
+                    "shape": "circle"
+                },
+                "right_node": {
+                    "title": "BH4 Recycling",
+                    "subtitle": "Serotonin & Dopamine Synthesis"
+                }
+            },
+            "states": {
+                "TT": {
+                    "label": "Optimal Recycling (Fully Charged)",
+                    "explanation": "The recycling engine is spinning smoothly. 'Dead' BH2 molecules are instantly recharged back into active BH4, giving your brain the constant fuel it needs to make Serotonin and Dopamine."
+                },
+                "TG": {
+                    "label": "Moderate Jam (Sluggish Recharge)",
+                    "explanation": "The recycling engine is struggling. Depleted BH2 molecules linger in the gears before being recharged, causing a mild drop in the active fuel your brain needs for mood stability."
+                },
+                "GG": {
+                    "label": "Severe Jam (Dead Battery Pile-up)",
+                    "explanation": "The recycling engine is broken. 'Dead' BH2 molecules get trapped in the gears and pile up as a massive, unusable swarm. Because they can't be recharged, your brain is starved of the active BH4 it needs to make Serotonin and Dopamine."
+                }
+            }
+        }
+    }
+}
