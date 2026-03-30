@@ -1,0 +1,175 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>MTHFR Supply Chain Simulator</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <style>
+            body { background-color: #020617; color: #f8fafc; font-family: system-ui, sans-serif; margin: 0; padding: 2rem; }
+            .app-container { max-width: 1000px; margin: 0 auto; }
+            .canvas-wrapper { position: relative; width: 100%; height: 500px; background-color: #0f172a; border-radius: 1.5rem; border: 1px solid #1e293b; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); overflow: hidden; margin-bottom: 1.5rem; }
+            canvas { display: block; width: 100%; height: 100%; }
+            .path-label { position: absolute; padding: 0.35rem 1rem; border-radius: 9999px; font-size: 0.85rem; font-weight: 800; letter-spacing: 0.05em; background: rgba(15,23,42,0.9); transform: translate(-50%, -50%); z-index: 10; white-space: nowrap; transition: all 0.3s; backdrop-filter: blur(4px); }
+            
+            /* Buttons */
+            .btn-group { display: flex; gap: 0.5rem; background: #0f172a; padding: 0.5rem; border-radius: 1rem; border: 1px solid #334155; margin-bottom: 1.5rem; }
+            .geno-btn { flex: 1; padding: 0.75rem 1.5rem; border-radius: 0.5rem; font-weight: 600; color: #94a3b8; transition: all 0.2s; cursor: pointer; border: 1px solid transparent; text-align: center; }
+            .geno-btn.active { color: #ffffff; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+            .btn-optimal.active { background: #22c55e; border-color: #16a34a; }
+            .btn-moderate.active { background: #f59e0b; border-color: #d97706; }
+            .btn-severe.active { background: #ef4444; border-color: #dc2626; }
+
+            /* Stats */
+            .stats-grid { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
+            .stat-card { flex: 1; background: #0f172a; border: 1px solid #1e293b; border-radius: 1rem; padding: 1.5rem; text-align: center; position: relative; overflow: hidden; }
+            .stat-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; }
+            .card-fuel::before { background: #22c55e; }
+            .card-toxin::before { background: #ef4444; }
+            .stat-title { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #94a3b8; margin-bottom: 0.5rem; }
+            .stat-number { font-size: 3rem; font-weight: 900; line-height: 1; font-family: monospace; }
+            
+            .info-nugget { background: #1e293b; border-left: 4px solid #3b82f6; padding: 1.5rem; border-radius: 0.75rem; transition: all 0.3s ease; }
+        </style>
+    </head>
+    <body>
+        <div class="app-container">
+            <h1 class="text-3xl font-bold mb-1">MTHFR Supply Chain Pipeline</h1>
+            <p class="text-slate-400 mb-6">System: Folate Cycle | rs1801133</p>
+
+            <div class="btn-group">
+                <button class="geno-btn btn-optimal active" onclick="setGenotype('GG', 'optimal')">GG (Optimal)</button>
+                <button class="geno-btn btn-moderate" onclick="setGenotype('GA', 'moderate')">GA (Moderate)</button>
+                <button class="geno-btn btn-severe" onclick="setGenotype('AA', 'severe')">AA (Severe)</button>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card card-fuel">
+                    <div class="stat-title">Brain Fuel Generated</div>
+                    <div class="stat-number text-green-400" id="stat-fuel">0</div>
+                </div>
+                <div class="stat-card card-toxin">
+                    <div class="stat-title">Homocysteine Buildup</div>
+                    <div class="stat-number text-red-400" id="stat-toxin">0</div>
+                </div>
+            </div>
+
+            <div class="canvas-wrapper">
+                <div class="path-label text-blue-400 border border-blue-800" style="left: 15%; top: 50%;">Raw Folate</div>
+                <div class="path-label text-red-400 border border-red-800" style="left: 50%; top: 15%;">Homocysteine Cloud</div>
+                <div class="path-label text-green-400 border border-green-800" style="left: 85%; top: 50%;">Brain Fuel</div>
+                <div class="path-label text-slate-200" id="factory-label" style="left: 50%; top: 60%; border: 1px solid #22c55e;">FACTORY: 100% CAPACITY</div>
+                <canvas id="simCanvas"></canvas>
+            </div>
+
+            <div class="info-nugget" id="nugget-box">
+                <h3 class="text-xl font-bold text-white mb-2" id="nugget-title">Genotype: GG</h3>
+                <p class="text-slate-300 font-medium text-lg mb-3" id="nugget-impact">Optimal Factory Output</p>
+                <p class="text-slate-400 text-sm" id="nugget-explain"><strong>The Supply Chain:</strong> The factory processes folate perfectly. Raw materials are efficiently converted into SAMe (brain fuel) to build serotonin and dopamine. Homocysteine is safely recycled with zero buildup.</p>
+            </div>
+        </div>
+
+        <script>
+            const canvas = document.getElementById('simCanvas');
+            const ctx = canvas.getContext('2d');
+            function resize() { canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; }
+            window.addEventListener('resize', resize); resize();
+
+            const variantsData = {"GG": "Optimal Factory Output (Healthy Neurotransmitter Flow)", "GA": "Moderate Factory Bottleneck (Reduced Output)", "AA": "Severe Factory Bottleneck (Starved Output, Toxic Buildup)"};
+            const scoresData = {"GG": 100, "GA": 60, "AA": 20};
+            const statesData = {"GG": {"label": "Optimal Factory Output", "explanation": "The factory processes folate perfectly. Raw materials are efficiently converted into SAMe (brain fuel) to build serotonin and dopamine. Homocysteine is safely recycled with zero buildup."}, "GA": {"label": "Moderate Factory Bottleneck", "explanation": "The factory is fragile. Processing drops to 60%. The brain receives less fuel for neurotransmitters, while unprocessed materials begin to form a moderate cloud of inflammatory homocysteine."}, "AA": {"label": "Severe Factory Bottleneck", "explanation": "Severe factory breakdown. Processing plummets to 20%. The brain is starved of resources needed for mood stability, while a massive, toxic cloud of homocysteine builds up in the system."}};
+
+            let currentCapacity = scoresData['GG'] / 100.0; 
+            let particles = [];
+            let fuelCount = 0; let toxinCount = 0;
+
+            function setGenotype(genotype, severity) {
+                document.querySelectorAll('.geno-btn').forEach(btn => btn.classList.remove('active'));
+                event.target.classList.add('active');
+
+                currentCapacity = scoresData[genotype] / 100.0;
+                document.getElementById('nugget-title').innerText = "Genotype: " + genotype;
+                document.getElementById('nugget-impact').innerText = statesData[genotype].label;
+                document.getElementById('nugget-explain').innerHTML = "<strong>The Supply Chain:</strong> " + statesData[genotype].explanation;
+                
+                const flabel = document.getElementById('factory-label');
+                flabel.innerText = "FACTORY: " + scoresData[genotype] + "% CAPACITY";
+                
+                let box = document.getElementById('nugget-box');
+                if (severity === 'optimal') {
+                    flabel.style.borderColor = "#22c55e"; flabel.style.color = "#4ade80"; box.style.borderLeftColor = "#22c55e";
+                } else if (severity === 'moderate') {
+                    flabel.style.borderColor = "#f59e0b"; flabel.style.color = "#fbbf24"; box.style.borderLeftColor = "#f59e0b";
+                } else {
+                    flabel.style.borderColor = "#ef4444"; flabel.style.color = "#f87171"; box.style.borderLeftColor = "#ef4444";
+                }
+            }
+
+            class Particle {
+                constructor() {
+                    this.x = -10; this.y = canvas.height / 2 + (Math.random() - 0.5) * 20;
+                    this.vx = 2 + Math.random(); this.vy = 0;
+                    this.state = 'raw'; this.color = '#60a5fa';
+                    this.orbitCenterX = canvas.width / 2; this.orbitCenterY = canvas.height * 0.25;
+                    this.angle = Math.random() * Math.PI * 2; this.orbitRadius = 10 + Math.random() * 60;
+                }
+                update() {
+                    if (this.state === 'dead') return;
+                    if (this.state === 'raw') {
+                        this.x += this.vx; this.y += this.vy;
+                        if (this.x >= canvas.width / 2 - 15) {
+                            if (Math.random() <= currentCapacity) {
+                                this.state = 'fuel'; this.color = '#4ade80'; this.vx = 3 + Math.random() * 2;
+                                fuelCount++; document.getElementById('stat-fuel').innerText = fuelCount;
+                            } else {
+                                this.state = 'toxin'; this.color = '#f87171';
+                                toxinCount++; document.getElementById('stat-toxin').innerText = toxinCount;
+                            }
+                        }
+                    } else if (this.state === 'fuel') {
+                        this.x += this.vx; if (this.x > canvas.width + 10) this.state = 'dead';
+                    } else if (this.state === 'toxin') {
+                        this.angle += 0.02 + Math.random() * 0.03;
+                        this.x += (this.orbitCenterX + Math.cos(this.angle) * this.orbitRadius - this.x) * 0.05;
+                        this.y += (this.orbitCenterY + Math.sin(this.angle) * this.orbitRadius - this.y) * 0.05;
+                    }
+                }
+                draw() {
+                    if (this.state === 'dead') return;
+                    ctx.beginPath(); ctx.arc(this.x, this.y, 5, 0, Math.PI * 2);
+                    ctx.fillStyle = this.color; ctx.shadowBlur = 10; ctx.shadowColor = this.color; ctx.fill(); ctx.shadowBlur = 0;
+                }
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.beginPath(); ctx.moveTo(0, canvas.height / 2); ctx.lineTo(canvas.width, canvas.height / 2);
+                ctx.strokeStyle = '#334155'; ctx.lineWidth = 2; ctx.setLineDash([5, 10]); ctx.stroke(); ctx.setLineDash([]); 
+
+                if (particles.length < 300 && Math.random() < 0.2) particles.push(new Particle());
+
+                let toxinLiving = 0;
+                for (let i = particles.length - 1; i >= 0; i--) {
+                    particles[i].update(); particles[i].draw();
+                    if (particles[i].state === 'toxin') toxinLiving++;
+                    if (particles[i].state === 'dead' || toxinLiving > 150) {
+                        if(particles[i].state === 'toxin') toxinLiving--;
+                        particles.splice(i, 1);
+                    }
+                }
+
+                let fc = currentCapacity > 0.8 ? '#22c55e' : (currentCapacity > 0.4 ? '#f59e0b' : '#ef4444');
+                ctx.beginPath(); ctx.rect(canvas.width/2 - 30, canvas.height/2 - 30, 60, 60);
+                ctx.fillStyle = "rgba(15, 23, 42, 0.9)"; ctx.fill();
+                ctx.lineWidth = 3; ctx.strokeStyle = fc; ctx.shadowBlur = 20; ctx.shadowColor = fc; ctx.stroke();
+                ctx.shadowBlur = 0; ctx.fillStyle = fc; ctx.font = "bold 14px sans-serif"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+                ctx.fillText("MTHFR", canvas.width/2, canvas.height/2);
+
+                requestAnimationFrame(animate);
+            }
+            animate();
+        </script>
+    </body>
+    </html>
+    

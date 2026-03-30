@@ -1,0 +1,170 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>MTHFR BH4 Recycling Simulator</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <style>
+            body { background-color: #111827; color: #f8fafc; font-family: system-ui, sans-serif; margin: 0; padding: 2rem; }
+            .app-container { max-width: 1000px; margin: 0 auto; }
+            .canvas-wrapper { position: relative; width: 100%; height: 500px; background-color: #0f172a; border-radius: 1.5rem; border: 1px solid #1e293b; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); overflow: hidden; margin-bottom: 1.5rem; }
+            canvas { display: block; width: 100%; height: 100%; }
+            .path-label { position: absolute; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; background: #0f172a; transform: translate(-50%, -50%); z-index: 10; white-space: nowrap; }
+            .cycle-title { position: absolute; top: 80px; font-size: 1.25rem; font-weight: 700; color: #cbd5e1; transform: translateX(-50%); letter-spacing: 0.05em; z-index: 10; }
+            
+            /* Buttons */
+            .btn-group { display: flex; gap: 0.5rem; background: #0f172a; padding: 0.5rem; border-radius: 1rem; border: 1px solid #334155; margin-bottom: 1.5rem; }
+            .geno-btn { flex: 1; padding: 0.75rem 1.5rem; border-radius: 0.5rem; font-weight: 600; color: #94a3b8; transition: all 0.2s; cursor: pointer; border: 1px solid transparent; }
+            .geno-btn.active { color: #ffffff; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+            .btn-optimal.active { background: #22c55e; border-color: #16a34a; }
+            .btn-moderate.active { background: #f59e0b; border-color: #d97706; }
+            .btn-severe.active { background: #ef4444; border-color: #dc2626; }
+            
+            .info-nugget { background: #1e293b; border-left: 4px solid #3b82f6; padding: 1.5rem; border-radius: 0.75rem; transition: all 0.3s ease; }
+        </style>
+    </head>
+    <body>
+        <div class="app-container">
+            <h1 class="text-3xl font-bold mb-1">MTHFR Pathway</h1>
+            <p class="text-slate-400 mb-6">System: Nervous System | rs1801131</p>
+
+            <div class="btn-group">
+                <button class="geno-btn btn-optimal active" onclick="setGenotype('TT', 'optimal')">TT (Optimal)</button>
+                <button class="geno-btn btn-moderate" onclick="setGenotype('TG', 'moderate')">TG (Moderate)</button>
+                <button class="geno-btn btn-severe" onclick="setGenotype('GG', 'severe')">GG (Severe)</button>
+            </div>
+
+            <div class="canvas-wrapper">
+                <div class="cycle-title" style="left: 30%;">FOLATE CYCLE</div>
+                <div class="cycle-title" style="left: 70%;">BH4 RECYCLING CYCLE</div>
+                
+                <div class="path-label text-blue-400 border border-blue-500" style="left: 15%; top: 50%;">Folate Input</div>
+                <div class="path-label text-green-400 border border-green-500" style="left: 85%; top: 50%;">BH4 Recycling</div>
+                <div class="path-label text-green-400 border border-green-500" id="mthfr-status-label" style="left: 50%; top: 56%;">NORMAL CLEARANCE</div>
+                <canvas id="simCanvas"></canvas>
+            </div>
+
+            <div class="info-nugget" id="nugget-box">
+                <h3 class="text-xl font-bold text-white mb-2" id="nugget-title">Genotype: TT</h3>
+                <p class="text-slate-300 font-medium text-lg mb-2" id="nugget-impact">Optimal Clearance</p>
+                <p class="text-slate-400 text-sm"><strong>Biological Impact:</strong> <span id="nugget-explain">The neurotransmitter cycle is flowing perfectly. BH4 is recycled efficiently, ensuring your brain has a constant, healthy supply of serotonin and dopamine.</span></p>
+            </div>
+        </div>
+
+        <script>
+            const canvas = document.getElementById('simCanvas');
+            const ctx = canvas.getContext('2d');
+            function resize() { canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; }
+            window.addEventListener('resize', resize); resize();
+
+            const scoresData = {"TT": 100, "TG": 60, "GG": 40};
+            const statesData = {"TT": {"label": "Optimal Clearance", "explanation": "The neurotransmitter cycle is flowing perfectly. BH4 is recycled efficiently, ensuring your brain has a constant, healthy supply of serotonin and dopamine."}, "TG": {"label": "Moderate Pooling", "explanation": "The recycling loop is sluggish. You have a 40% drop in efficiency, meaning molecules linger in the cycle longer, mildly reducing the available serotonin and dopamine for mood stability."}, "GG": {"label": "Severe Pooling", "explanation": "The BH4 recycling loop is heavily bottlenecked. Processing molecules get 'stuck in the mud,' starving the brain of the cofactors needed to produce mood-regulating neurotransmitters."}};
+            
+            let currentSeverity = 'optimal';
+            let particles = [];
+
+            function setGenotype(genotype, severity) {
+                document.querySelectorAll('.geno-btn').forEach(btn => btn.classList.remove('active'));
+                event.target.classList.add('active');
+                
+                currentSeverity = severity;
+                document.getElementById('nugget-title').innerText = "Genotype: " + genotype;
+                document.getElementById('nugget-impact').innerText = statesData[genotype].label;
+                document.getElementById('nugget-explain').innerText = statesData[genotype].explanation;
+
+                const mlabel = document.getElementById('mthfr-status-label');
+                const box = document.getElementById('nugget-box');
+                
+                if (severity === 'optimal') {
+                    mlabel.innerText = "NORMAL CLEARANCE"; mlabel.style.borderColor = "#22c55e"; mlabel.style.color = "#4ade80";
+                    box.style.borderLeftColor = "#22c55e";
+                } else if (severity === 'moderate') {
+                    mlabel.innerText = "MODERATE POOLING"; mlabel.style.borderColor = "#f59e0b"; mlabel.style.color = "#fbbf24";
+                    box.style.borderLeftColor = "#f59e0b";
+                } else {
+                    mlabel.innerText = "SEVERE POOLING"; mlabel.style.borderColor = "#ef4444"; mlabel.style.color = "#f87171";
+                    box.style.borderLeftColor = "#ef4444";
+                }
+            }
+
+            function getPathPos(t) {
+                const CX = canvas.width / 2; const CY = canvas.height / 2;
+                return { x: CX + (canvas.width * 0.32) * Math.sin(t), y: CY + (canvas.height * 0.28) * Math.sin(t) * Math.cos(t) };
+            }
+
+            class Particle {
+                constructor() {
+                    this.t = 1.5 * Math.PI; this.speed = 0.006 + Math.random() * 0.003;
+                    this.state = 'folate'; this.color = '#3b82f6'; this.lapsRemaining = 0;
+                    this.offsetX = (Math.random() - 0.5) * 45; this.offsetY = (Math.random() - 0.5) * 45;
+                    this.wobbleSpeed = 2 + Math.random() * 4;
+                }
+                update() {
+                    if (this.state === 'dead') return;
+                    let prevT = this.t; this.t += this.speed;
+
+                    if (this.t >= 2 * Math.PI) {
+                        this.t -= 2 * Math.PI;
+                        if (this.state === 'folate') {
+                            this.state = 'methionine'; this.color = '#4ade80';
+                            let failRate = currentSeverity === 'moderate' ? 0.40 : (currentSeverity === 'severe' ? 0.85 : 0);
+                            if (Math.random() < failRate) {
+                                this.lapsRemaining = currentSeverity === 'severe' ? 6 : 3;
+                                this.color = currentSeverity === 'severe' ? '#ef4444' : '#f59e0b';
+                            }
+                        }
+                    }
+
+                    if (this.state === 'methionine' && prevT < Math.PI && this.t >= Math.PI) {
+                        if (this.lapsRemaining > 0) {
+                            this.t -= Math.PI; this.lapsRemaining--;
+                        } else {
+                            this.state = 'dead';
+                        }
+                    }
+                }
+                draw() {
+                    if (this.state === 'dead') return;
+                    let pos = getPathPos(this.t);
+                    if (this.lapsRemaining > 0) {
+                        pos.x += this.offsetX * Math.sin(this.t * this.wobbleSpeed);
+                        pos.y += this.offsetY * Math.cos(this.t * this.wobbleSpeed);
+                    }
+                    ctx.beginPath(); ctx.arc(pos.x, pos.y, 6, 0, Math.PI * 2);
+                    ctx.fillStyle = this.color; ctx.shadowBlur = this.lapsRemaining > 0 ? 15 : 8;
+                    ctx.shadowColor = this.color; ctx.fill(); ctx.shadowBlur = 0;
+                }
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.beginPath();
+                for (let i = 0; i <= Math.PI * 2; i += 0.05) {
+                    let p = getPathPos(i);
+                    if (i === 0) ctx.moveTo(p.x, p.y); else ctx.lineTo(p.x, p.y);
+                }
+                ctx.strokeStyle = '#334155'; ctx.lineWidth = 3; ctx.setLineDash([8, 12]); ctx.stroke(); ctx.setLineDash([]); 
+
+                if (particles.length < 250 && Math.random() < 0.1) particles.push(new Particle());
+
+                for (let i = particles.length - 1; i >= 0; i--) {
+                    particles[i].update(); particles[i].draw();
+                    if (particles[i].state === 'dead') particles.splice(i, 1);
+                }
+
+                let c = currentSeverity === 'severe' ? '#ef4444' : (currentSeverity === 'moderate' ? '#f59e0b' : '#22c55e');
+                ctx.beginPath(); ctx.arc(canvas.width/2, canvas.height/2, 45, 0, Math.PI*2);
+                ctx.fillStyle = "rgba(15, 23, 42, 0.9)"; ctx.fill();
+                ctx.lineWidth = 3; ctx.strokeStyle = c; ctx.shadowBlur = 25; ctx.shadowColor = c; ctx.stroke();
+                ctx.shadowBlur = 0; ctx.fillStyle = c; ctx.font = "bold 14px sans-serif"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+                ctx.fillText("MTHFR", canvas.width/2, canvas.height/2);
+
+                requestAnimationFrame(animate);
+            }
+            animate();
+        </script>
+    </body>
+    </html>
+    
