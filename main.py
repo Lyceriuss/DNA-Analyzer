@@ -3,7 +3,7 @@ import glob
 import pandas as pd
 from src.analyzer import run_analysis
 from src.visualizer import create_polar_chart, create_heritage_pie_chart
-from src.report_engine import PDFReport, ReportEngine
+from src.report_engine import PDFReport, ReportEngine, clean_text
 from src.inheritance import analyze_inheritance  # NEW DEPENDENCY
 
 # CONFIG
@@ -160,21 +160,38 @@ def clean_domain_names(df):
     return df
 
 def main():
-    # Execute the new robust profile gatherer
+    # 1. LANGUAGE SELECTION (Backend stays English, PDF becomes Modular)
+    print("\n🌍 SELECT REPORT LANGUAGE")
+    print("   [1] English (Standard)")
+    print("   [2] Swedish (Svenska)")
+    lang_input = input("\n👉 Select language (1-2): ").strip()
+    language = "Swedish" if lang_input == "2" else "English"
+    
+    engine = ReportEngine(language=language)
+
+    # Reference our PDF Label Map (Ensures no hardcoded English in the PDF)
+    from src.report_engine import PDF_LABELS
+    L = engine.labels
+
+    # 2. PROFILE GATHERING
     profiles = gather_family_profiles()
     if not profiles or not profiles["child"]:
+        print("❌ Analysis aborted: No primary profile selected.")
         return
         
     dna_file = profiles["child"]
     filename = os.path.basename(dna_file).split('.')[0]
-    print(f"🚀 Starting Primary Analysis for: {filename}")
+    print(f"🚀 Starting Primary Analysis for: {filename} ({language})")
 
+    # 3. PRIMARY ANALYSIS
     df = run_analysis(dna_file, TRAITS_FILE)
-    if df.empty: return
+    if df.empty: 
+        print("❌ Error: Analysis returned no data.")
+        return
 
     df = clean_domain_names(df)
     
-    # Dashboard Data
+    # 4. DASHBOARD DATA AGGREGATION
     summary = df.groupby("Domain").agg(
         Positive=("Score", lambda x: (x > 5).sum()),
         Negative=("Score", lambda x: (x < 5).sum()),
@@ -183,129 +200,121 @@ def main():
     summary["Net"] = summary["Positive"] - summary["Negative"]
     summary = summary.sort_values(by="Net", ascending=False)
 
+    # Generate Visuals
     create_polar_chart(summary, os.path.join(OUTPUT_DIR, "polar_chart.png"))
 
-    # Init Engine
-    engine = ReportEngine()
-    pdf = PDFReport('P', 'mm', 'A4')
+    # 5. INITIALIZE ENGINES
+    engine = ReportEngine(language=language)
+    # Note: We pass the labels (L) to the PDFReport for internal modularity
+    pdf = PDFReport('P', 'mm', 'A4', labels=L)
     pdf.set_auto_page_break(auto=True, margin=15)
     
-    # Page 1 & 2 (Summary)
+    # --- PAGE 1: DASHBOARD ---
     pdf.add_page()
-    pdf.chapter_title("1. Genetic Profile Dashboard")
+    pdf.chapter_title(L['dash_title'])
     pdf.ln(5)
-    pdf.draw_table(summary[["Domain", "Positive", "Baseline", "Negative", "Net"]], [70, 25, 25, 25, 25], highlight_net=True)
+    
+    # Localize Table Headers for Dashboard
+    summary_pdf = summary[["Domain", "Positive", "Baseline", "Negative", "Net"]].copy()
+    summary_pdf.columns = L['cols_dash']
+    pdf.draw_table(summary_pdf, [70, 25, 25, 25, 25], highlight_net=True)
+    
     if os.path.exists(os.path.join(OUTPUT_DIR, "polar_chart.png")):
         pdf.ln(10)
         pdf.image(os.path.join(OUTPUT_DIR, "polar_chart.png"), x=50, w=110)
 
+    # --- PAGE 2: KEY ACTIVE TRAITS ---
     pdf.add_page()
-    pdf.chapter_title("2. Key Active Traits")
+    pdf.chapter_title(L['active_title'])
     unique_df = df.drop_duplicates(subset=['Gene'], keep='first')
     
-    inc_df = unique_df[unique_df["Score"] > 5][["Domain", "Trait", "Gene", "Impact", "Result", "Score", "Interpretation"]]
+    # A. Increased Function Table
+    inc_df = unique_df[unique_df["Score"] > 5][["Domain", "Trait", "Gene", "Impact", "Result", "Score", "Interpretation"]].copy()
     if not inc_df.empty:
         pdf.ln(5)
         pdf.set_font('Arial', 'B', 12)
         pdf.set_text_color(39, 174, 96)
-        pdf.cell(0, 10, f"Increased Function (+): {len(inc_df)} Traits", 0, 1)
+        pdf.cell(0, 10, f"{L['inc_fn']}: {len(inc_df)}", 0, 1)
+        inc_df.columns = L['cols_active'] # Localize Headers
         pdf.draw_table(inc_df, [25, 45, 25, 15, 12, 10, 58])
 
-    dec_df = unique_df[unique_df["Score"] < 5][["Domain", "Trait", "Gene", "Impact", "Result", "Score", "Interpretation"]]
+    # B. Decreased Function Table
+    dec_df = unique_df[unique_df["Score"] < 5][["Domain", "Trait", "Gene", "Impact", "Result", "Score", "Interpretation"]].copy()
     if not dec_df.empty:
         pdf.ln(10)
         pdf.set_font('Arial', 'B', 12)
         pdf.set_text_color(231, 76, 60)
-        pdf.cell(0, 10, f"Decreased Function (-): {len(dec_df)} Traits", 0, 1)
+        pdf.cell(0, 10, f"{L['dec_fn']}: {len(dec_df)}", 0, 1)
+        dec_df.columns = L['cols_active'] # Localize Headers
         pdf.draw_table(dec_df, [25, 45, 25, 15, 12, 10, 58])
 
-    # Deep Dives
-    print("📘 Generating Deep Dives...")
+    # --- DEEP DIVES & SUMMARIES ---
+    print(f"📘 Generating {language} Deep Dives...")
     prioritized_traits = unique_df.sort_values(by="Impact", ascending=True)
-    
     processed_rsids = []
     
-    # Section 3: Superpowers
+    # SECTION 3: SUPERPOWERS (Cover & Content)
     pdf.add_page()
     pdf.set_fill_color(39, 174, 96)
     pdf.rect(0, 0, 210, 297, 'F')
     pdf.set_y(130)
     pdf.set_font('Arial', 'B', 30)
     pdf.set_text_color(255)
-    pdf.cell(0, 20, "SECTION 3:", 0, 1, 'C')
-    pdf.cell(0, 20, "YOUR GENETIC SUPERPOWERS", 0, 1, 'C')
+    pdf.cell(0, 20, f"{L['section']} 3:", 0, 1, 'C')
+    pdf.cell(0, 20, clean_text(L['superpowers']), 0, 1, 'C')
 
     for _, row in prioritized_traits.iterrows():
         rsid = row['RSID']
-        score = row['Score']
+        content = engine.get_content_for_rsid(rsid, row['Score'])
         
-        # 1. GET CONTENT FIRST
-        content = engine.get_content_for_rsid(rsid, score)
-        
-        # 2. NOW CHECK IF CONTENT EXISTS
         if content and content['badge_type'] == 'SUPERPOWER':
-            # 3. FETCH EVIDENCE USING RSID
             evidence = engine.get_evidence_for_rsid(rsid)
-            
-            pdf.add_deep_dive_page(
-                row['Result'], 
-                content, 
-                row['Score_Map'], 
-                row['Variant_Map'], 
-                evidence=evidence
-            )
+            pdf.add_deep_dive_page(row['Result'], content, row['Score_Map'], row['Variant_Map'], evidence)
             processed_rsids.append(rsid)
             
-    # --- RESTORED: EXECUTIVE SUMMARY (STRENGTHS) ---
+    # Strength Summary Fallback
     leftover_strengths = unique_df[
         (unique_df["Score"] >= 7) & 
         (~unique_df["RSID"].isin(processed_rsids))
     ].head(12)
-    
     if not leftover_strengths.empty:
         pdf.add_strength_summary_page(leftover_strengths)
 
-    # Section 4: Risks
+    # SECTION 4: RISKS (Cover & Content)
     pdf.add_page()
     pdf.set_fill_color(231, 76, 60)
     pdf.rect(0, 0, 210, 297, 'F')
     pdf.set_y(130)
     pdf.set_font('Arial', 'B', 30)
     pdf.set_text_color(255)
-    pdf.cell(0, 20, "SECTION 4:", 0, 1, 'C')
-    pdf.cell(0, 20, "YOUR GENETIC RISKS", 0, 1, 'C')
+    pdf.cell(0, 20, f"{L['section']} 4:", 0, 1, 'C')
+    pdf.cell(0, 20, clean_text(L['risks']), 0, 1, 'C')
 
     for _, row in prioritized_traits.iterrows():
         rsid = row['RSID']
-        score = row['Score']
-        content = engine.get_content_for_rsid(rsid, score)
+        content = engine.get_content_for_rsid(rsid, row['Score'])
         
         if content and content['badge_type'] == 'RISK':
             evidence = engine.get_evidence_for_rsid(rsid)
             pdf.add_deep_dive_page(row['Result'], content, row['Score_Map'], row['Variant_Map'], evidence)
             processed_rsids.append(rsid)
 
-    # --- RESTORED: EXECUTIVE SUMMARY (RISKS) ---
+    # Risk Summary Fallback
     leftover_risks = unique_df[
         (unique_df["Score"] <= 4) & 
         (~unique_df["RSID"].isin(processed_rsids))
     ].head(12)
-    
     if not leftover_risks.empty:
         pdf.add_risk_summary_page(leftover_risks)
 
-# ---------------------------------------------------------
-    # INJECT HERITAGE / INHERITANCE MODULE HERE
-    # ---------------------------------------------------------
+    # --- HERITAGE / INHERITANCE MODULE ---
     if profiles["parents"]:
-        print("\n🧬 Processing Heritage & Family Data...")
+        print(f"\n🧬 Processing Heritage Data (Mode: {language})")
         
-        # Analyze first relative
         p1_info = profiles["parents"][0]
         p1_df = run_analysis(p1_info['file'], TRAITS_FILE)
         p1_name = p1_info['label']
         
-        # Analyze second relative (if exists)
         p2_df = None
         p2_name = "Relative 2"
         if len(profiles["parents"]) == 2:
@@ -313,7 +322,6 @@ def main():
             p2_df = run_analysis(p2_info['file'], TRAITS_FILE)
             p2_name = p2_info['label']
             
-        # Run the inheritance matching logic
         inheritance_df = analyze_inheritance(
             unique_df, 
             p1_df, 
@@ -322,7 +330,6 @@ def main():
             parent2_name=p2_name
         )
         
-        # --- THIS IS THE PART THAT WAS MISSING! ---
         pie_chart_path = os.path.join(OUTPUT_DIR, "heritage_pie.png")
         create_heritage_pie_chart(inheritance_df, pie_chart_path, p1_name, p2_name)
         
@@ -334,8 +341,10 @@ def main():
             chart_path=pie_chart_path
         )
 
-    pdf.output(os.path.join(OUTPUT_DIR, f"{filename}_Report.pdf"))
-    print(f"\n✅ Full Report Generated for {filename}!")
+    # Final Output
+    output_path = os.path.join(OUTPUT_DIR, f"{filename}_{language}_Report.pdf")
+    pdf.output(output_path)
+    print(f"\n✅ Full {language} Report Generated: {output_path}")
 
 if __name__ == "__main__":
     main()
