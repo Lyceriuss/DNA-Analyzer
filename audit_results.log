@@ -1,0 +1,564 @@
+[rs35652124] PASS | NFE2L2 (NRF2) is a master regulator of antioxidant and detox genes, and variants like rs35652124 influence the body's ability to manage oxidative stress.
+[rs1801133] PASS | The entry accurately describes the MTHFR enzyme's role in producing methyl groups essential for DNA synthesis, repair, and neurotransmitter production, linking reduced efficiency to impaired states and high efficiency to robust function.
+[rs429358] FAIL | The SNP rs429358 is one of two key SNPs defining APOE isoforms, which are lipid transporters impacting lipids and brain aging. The narrative correctly describes the biological effects of APOE isoforms but is logically inverted with the provided score logic for rs429358 genotypes.
+   REASON: Logical or factual mismatch detected.
+[rs1006737] FAIL | No summary provided.
+   REASON: Logical or factual mismatch detected.
+[2026-04-16 19:37:55] rs35652124 | 1178 t | PASS | The NFE2L2 (NRF2) gene regulates antioxidant and detox genes, with variants affecting oxidative stress handling. Scores below 5 indicate risk due to impaired defense, while scores above 5 indicate a robust defense system.
+[2026-04-16 19:38:02] rs1801133 | 1706 t | PASS | The narrative accurately describes the MTHFR enzyme's function, the impact of its variants on efficiency, and the associated health risks, aligning with clinical consensus for rs1801133.
+[2026-04-16 19:38:02] rs429358 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:02] rs1006737 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:02] rs4988235 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:02] rs9939609 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:02] rs1805087 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:02] rs1801260 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:02] rs4880 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:02] rs1800629 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:02] rs1799945 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:02] rs7903146 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:02] rs17782313 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:02] rs4680 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:02] rs662799 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:02] rs6025 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:02] rs738409 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:02] rs671 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:02] rs1801282 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:02] rs1048943 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:08] rs53576 | 1523 t | PASS | The OXTR gene, specifically rs53576, influences oxytocin receptor density, impacting social bonding, empathy, and stress resilience, with the GG genotype associated with higher empathy and social stress relief, and the AA genotype linked to lower empathy and social reciprocity.
+[2026-04-16 19:38:08] rs174537 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:14] rs1801394 | 1579 t | PASS | The MTRR SNP logic accurately describes how variants affect B12 regeneration and its downstream impact on homocysteine and methylation stability, with specific genotypes correlating to either efficient B12 recycling or a functional B12 deficiency.
+[2026-04-16 19:38:14] rs1799983 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:14] rs3813034 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:14] rs2235544 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:14] rs1800955 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:14] rs2476601 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:14] rs12979860 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:14] rs4570625 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:20] rs6323 | 1693 t | PASS | The MAOA gene metabolizes neurotransmitters, with low activity variants (scores < 5) linked to aggression and mood issues under stress, while high activity variants (scores > 5) promote rapid clearance and resilience.
+[2026-04-16 19:38:20] rs13278062 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:20] rs2395185 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:20] rs699 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:20] rs1052133 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:25] rs4253778 | 1399 t | PASS | The SNP logic accurately describes how PPARA variants influence the body's metabolic flexibility, specifically its ability to switch between fat and glucose utilization during prolonged efforts, impacting endurance and metabolic health.
+[2026-04-16 19:38:25] rs601338 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:25] rs1799930 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:25] rs3736228 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:25] rs2231142 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:25] rs7754840 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:31] rs12594956 | 1547 t | PASS | The SNP logic accurately describes how PPARGC1A variants influence PGC-1α activity, linking lower function to metabolic and fitness risks, and higher function to improved endurance and metabolic efficiency, consistent with current biological understanding.
+[2026-04-16 19:38:31] rs2241880 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:31] rs6259 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:31] rs1056836 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:31] rs523349 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:31] rs1800012 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:31] rs660339 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:31] rs4994 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:31] rs2740574 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:31] rs893703 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:31] rs1800255 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:31] rs1800562 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:31] rs6152 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:31] rs419598 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:31] rs1799752 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:31] rs11185098 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:31] rs1801516 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:31] rs1049434 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:31] rs8101881 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:31] rs1229984 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:31] rs10065172 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:31] rs693 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:31] rs16944 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:31] rs25487 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:31] rs1799950 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:31] rs2239681 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:31] rs8192675 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:31] rs2285477 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:31] rs7946 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:31] rs4961 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:31] rs4149056 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:31] rs5751876 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:39] rs350843 | 2094 t | FAIL | The narrative incorrectly identifies the 'G allele' as the 'Longevity' variant, which contradicts the provided score logic where the 'GG' genotype is associated with a risk score (4) and the 'CC' genotype with a superpower score (8).
+[2026-04-16 19:38:39] rs234706 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:39] rs1501299 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:39] rs13181 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:39] rs3758391 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:39] rs2535633 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:39] rs3731249 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:39] rs17609940 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:39] rs679620 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:39] rs143383 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:39] rs8031440 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:39] rs1728986 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:39] rs934078 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs324420 | 2944 t | FAIL | The rs324420 variant in the FAAH gene influences anandamide breakdown, affecting pain tolerance and anxiety, with genotypes scoring above 5 considered a superpower, but no genotype strictly meeting the criteria for risk based on the provided logic.
+[2026-04-16 19:38:52] rs1611115 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs676925 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1805086 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs4244285 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1803274 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1254337 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs6020 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs17608 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1047303 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs45446698 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1800252 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs5219 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs10757278 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs12203592 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1805007 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1110400 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs3741942 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs2486758 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs2293275 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs7454108 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs2071403 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1049434_TIER2 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1333049 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs2802292 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs8192678 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs2070744 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs5516 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1800498 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs6275 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs2740574_dupfix | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs2943641 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs12778366 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs659366 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs6265 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1695 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1544410 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1815739 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs4343 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs521674 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs762551 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1045642 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs174547 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs328 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs328_TIER2 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs11645428 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs602662 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1800795 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1205 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs9536314 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1050450 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1042173 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1799971 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs699005 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs559870 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs225014 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1800440 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs3123554 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1137101 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs3733890 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs7501331 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs33972313 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs57875989 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs40184 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs6214 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs2229765 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs6263 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs444697 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs7799039 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs2234693 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs12130333 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1054135 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs4402960 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1042522 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs7498665 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs3749034 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs2016520 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1042713 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1042714 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1042713_dupfix | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs838133 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1001179 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs662 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1360780 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs6311 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs41423247 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs9340799 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1256049 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs3024493 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs17602729 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs17070145 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs885479 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs3813867 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs5082 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1799883 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs11558538 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs11191548 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs11191548_TIER2 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs324981 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1049353 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1256335 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs3774175 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs8007267 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs2271683 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs10741657 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs2228145 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs5370 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs16835198 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs6536 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1051266 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs9923231 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs894160 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1761667 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs5400 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs6746030 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs10830963 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs73598374 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs2066853 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs5186 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1801272 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs2052129 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs16942 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs2802295 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs5882 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs12785878 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs7041 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs4588 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs6295 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs9282858 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1260326 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1800566 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs2071749 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs713041 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs17822931 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs713598 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1800592 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs17226398 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1800849 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs553668 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs16969968 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs662799_TIER2 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1800588 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1010151 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1801198 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs137852 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs3923809 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs2304672 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs2569190 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1946518 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs558972 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs35874116 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs10993994 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs16906252 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1979277 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1061170 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1800790 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1800790_TIER2 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1799998 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs17653216 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs6232 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs987237 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs231775 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1051740 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs20541 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1805065 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs11615 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1801253 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs2010963 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs4074995 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs12722 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs479744 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs7294919 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs11209026 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs605059 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs9282859 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs4654748 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs13266634 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs2236225 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1800497 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs6165 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs6166 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs2073711 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs2289360 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs3827760 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs2070974 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1042602 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs1800407 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs12913832 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs72921001 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs13331 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs3737965 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs12942023 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:38:52] rs10427255 | 0 t | FAIL | Missing 'risks' list or core mechanisms.
+[2026-04-16 19:49:59.744499] rs35652124 | 1297 tokens | PASS | The narratives accurately describe the NFE2L2 gene's role in oxidative stress response, with 'RISK' reflecting impaired function for low scores and 'STRENGTH' reflecting robust function for high scores, and both 'how' sections are specific.
+[2026-04-16 19:50:04.200802] rs1801133 | 1256 tokens | PASS | The narratives accurately describe the bottleneck and advantage associated with the MTHFR gene's function, and the biochemical role is correctly represented.
+[2026-04-16 19:50:09.474885] rs429358 | 1418 tokens | PASS | The narratives accurately describe the bottleneck associated with low scores and the advantage associated with high scores, aligning with APOE's role in lipid transport and brain health.
+[2026-04-16 19:50:14.135266] rs1006737 | 1344 tokens | PASS | The narratives accurately describe the gene's role as a calcium channel affecting neuronal excitability, with the risk perspective aligning with impaired regulation (low scores) and the strength perspective aligning with robust regulation (high scores).
+[2026-04-16 19:50:14.135266] rs4988235 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:50:20.333926] rs9939609 | 1520 tokens | PASS | Both risk and strength narratives accurately describe the physiological implications of FTO variants on hunger, satiety, and obesity risk, aligning with the score logic and providing specific mechanistic explanations.
+[2026-04-16 19:50:27.758430] rs1805087 | 1842 tokens | FAIL | The 'data_risk' narrative is not logically supported as all provided genotype scores (AA=6, AG=8, GG=9) indicate an advantage (scores > 5), not a bottleneck.
+[2026-04-16 19:50:33.967576] rs1801260 | 1495 tokens | FAIL | The logic for both risk and strength narratives aligns with the score interpretations, and the gene's functional role is accurately described; however, the required 'how' sections are missing from both narratives.
+[2026-04-16 19:50:40.081353] rs4880 | 1442 tokens | PASS | Both risk and strength narratives accurately describe the implications of the rs4880 genotypes (Val/Val and Ala/Ala respectively) based on the provided score logic and SOD2's biochemical role in neutralizing mitochondrial superoxide radicals, with specific mechanisms described.
+[2026-04-16 19:50:47.475645] rs1800629 | 1791 tokens | PASS | The narratives accurately describe the implications of TNF-alpha regulation, linking low scores to excessive inflammation and high scores to controlled inflammatory responses, consistent with its role as an inflammatory cytokine.
+[2026-04-16 19:50:56.523665] rs1799945 | 2203 tokens | FAIL | The risk narrative accurately describes HFE-related iron overload, but the provided score logic does not include any scores below 5, thus failing to associate the risk with 'low scores' as per the audit rule.
+[2026-04-16 19:51:01.865334] rs7903146 | 1358 tokens | PASS | Both the risk and strength narratives accurately describe the TCF7L2 gene's role in insulin response and beta-cell function, aligning with the provided score logic for bottleneck and advantage states.
+[2026-04-16 19:51:07.269753] rs17782313 | 1431 tokens | PASS | The narratives accurately describe the bottleneck and advantage associated with MC4R's role in hunger drive and energy balance, and the biochemical role is correctly represented.
+[2026-04-16 19:51:12.267587] rs4680 | 1364 tokens | PASS | The narratives accurately describe the COMT gene's role in dopamine and adrenaline breakdown, with the 'RISK' perspective aligning with low activity (Met/Met) and low scores, and the 'STRENGTH' perspective aligning with high activity (Val/Val) and high scores.
+[2026-04-16 19:51:17.046473] rs662799 | 1324 tokens | PASS | Both the risk and strength narratives accurately describe the implications of APOA5's role in triglyceride metabolism, aligning with the defined score logic and providing specific 'how' details.
+[2026-04-16 19:51:17.047472] rs6025 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:51:25.818381] rs738409 | 2064 tokens | FAIL | The risk narrative accurately describes the PNPLA3 I148M variant's effect, but the provided score logic for the risk alleles (CG, GG) does not classify them as 'Bottleneck/Impaired' because their scores (5) are not less than 5.
+[2026-04-16 19:51:33.139345] rs671 | 1497 tokens | PASS | Both the risk and strength narratives accurately reflect the logic of the scoring system and the factual biochemical role of the ALDH2 enzyme, with specific 'how' sections.
+[2026-04-16 19:51:33.141342] rs1801282 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:51:42.818580] rs1048943 | 2285 tokens | FAIL | The risk narrative describes a bottleneck due to hyper-activity, which contradicts the definition of 'Bottleneck/Impaired' for low scores, while the strength narrative accurately describes the advantage of balanced activity.
+[2026-04-16 19:51:46.738889] rs53576 | 1117 tokens | PASS | Both risk and strength narratives accurately reflect the score logic and the gene's biochemical role, providing specific explanations for the observed effects.
+[2026-04-16 19:51:46.739886] rs174537 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:51:50.279598] rs1801394 | 1008 tokens | PASS | Both the risk and strength narratives accurately reflect the MTRR gene's role in B12 regeneration and its implications for functional B12 status, aligning with the defined score logic.
+[2026-04-16 19:51:54.561699] rs1799983 | 1207 tokens | PASS | The narratives accurately describe the physiological consequences of the NOS3 (Glu298Asp) variant, linking low scores to impaired vasodilation and high scores to robust vasodilation, consistent with the gene's known biochemical role.
+[2026-04-16 19:51:59.121808] rs3813034 | 1109 tokens | PASS | The narratives accurately describe the impact of SLC6A4 alleles on serotonin transport and their associated psychological predispositions, aligning with the defined score logic.
+[2026-04-16 19:51:59.122803] rs2235544 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:51:59.122803] rs1800955 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:51:59.122803] rs2476601 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:51:59.123800] rs12979860 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:51:59.123800] rs4570625 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:52:03.742515] rs6323 | 1101 tokens | PASS | Both risk and strength narratives accurately reflect the biochemical role of MAOA in neurotransmitter metabolism and align with the defined score logic for low and high activity variants, respectively.
+[2026-04-16 19:52:09.191488] rs13278062 | 1441 tokens | FAIL | The narratives for both risk and strength are logically inconsistent with the provided score logic, as all genotypes result in a neutral score of 5, which does not allow for either a bottleneck (<5) or an advantage (>5).
+[2026-04-16 19:52:09.193484] rs2395185 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:52:09.195479] rs699 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:52:09.197479] rs1052133 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:52:14.451586] rs4253778 | 1293 tokens | PASS | The narratives accurately reflect the gene's role in fat vs glucose metabolism, with the risk perspective aligning with impaired function (low scores) and the strength perspective aligning with robust function (high scores).
+[2026-04-16 19:52:20.874757] rs601338 | 1515 tokens | FAIL | The risk narrative incorrectly associates the 'Non-Secretor' phenotype and its risks with the 'AA' genotype, which the ground truth defines as an advantage.
+[2026-04-16 19:52:24.223677] rs1799930 | 1044 tokens | PASS | The narratives accurately describe the biochemical role of NAT2 in detoxification, linking slow acetylation to toxin accumulation and increased risk, and fast acetylation to efficient toxin removal and reduced risk.
+[2026-04-16 19:52:33.295817] rs3736228 | 2078 tokens | PASS | The narratives accurately describe the physiological consequences of LRP5 activity, aligning low scores with impaired bone density and high scores with robust bone mineralization, consistent with the gene's known role.
+[2026-04-16 19:52:38.660550] rs2231142 | 1345 tokens | PASS | The narratives accurately describe ABCG2's role as a uric acid transporter, with the risk perspective detailing consequences of impaired function (low scores) and the strength perspective detailing benefits of robust function (high scores), both including specific 'how' descriptions.
+[2026-04-16 19:52:38.661493] rs7754840 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:52:43.373764] rs12594956 | 1212 tokens | PASS | Both the risk and strength narratives accurately reflect the impact of PPARGC1A activity on mitochondrial creation and endurance adaptation, aligning with the provided score logic and gene description.
+[2026-04-16 19:52:43.373764] rs2241880 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:52:47.389819] rs6259 | 1123 tokens | PASS | The narratives accurately describe the implications of SHBG levels on free hormone availability, aligning with the defined score logic and the gene's biochemical role.
+[2026-04-16 19:52:58.367834] rs1056836 | 2431 tokens | FAIL | The strength narrative contains a factual error regarding CYP1B1's role in estrogen metabolism (incorrectly attributing the 'clean 2-hydroxy' pathway), and the risk narrative describes a bottleneck not supported by any genotype score falling below the threshold of 5.
+[2026-04-16 19:52:58.368805] rs523349 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:53:12.381650] rs1800012 | 2993 tokens | FAIL | The risk narrative describes a bottleneck, but the provided scores for COL1A1 (CC=6, AC=8, AA=9) are all above 5, indicating only advantages and no bottleneck state for this gene.
+[2026-04-16 19:53:17.734720] rs660339 | 1391 tokens | PASS | Both narratives accurately describe the biochemical role of UCP2 in mitochondrial proton leak, correctly associating the 'risk' perspective with low proton leak (low scores) and the 'strength' perspective with high proton leak (high scores).
+[2026-04-16 19:53:17.736706] rs4994 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:53:23.051611] rs2740574 | 1340 tokens | PASS | The narratives accurately describe the implications of CYP3A4 activity based on the provided score logic and gene function, with specific examples for both risk and strength.
+[2026-04-16 19:53:23.053597] rs893703 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:53:23.055592] rs1800255 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:53:27.258441] rs1800562 | 1146 tokens | PASS | The narratives accurately describe the bottleneck associated with low scores (iron overload due to impaired HFE function) and the advantage associated with high scores (tight iron regulation by functional HFE), consistent with the gene's biochemical role.
+[2026-04-16 19:53:27.259409] rs6152 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:53:27.260409] rs419598 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:53:33.442862] rs1799752 | 1538 tokens | PASS | The narratives accurately describe the physiological effects of the ACE I/D polymorphism, correctly associating the low-scoring DD genotype with cardiovascular strain (bottleneck) and the high-scoring II genotype with improved oxygen delivery (advantage), while maintaining factual accuracy regarding ACE's biochemical role.
+[2026-04-16 19:53:33.442862] rs11185098 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:53:41.880591] rs1801516 | 1914 tokens | FAIL | The logic for both risk and strength narratives aligns with the score interpretation, but the strength narrative inaccurately describes ATM's primary role as detecting single-strand breaks, which is primarily associated with ATR.
+[2026-04-16 19:53:41.882585] rs1049434 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:53:41.884589] rs8101881 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:53:41.886574] rs1229984 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:53:47.963576] rs10065172 | 1474 tokens | PASS | The narratives accurately describe the functional consequences of IRGM's role in autophagy, linking impaired function to increased risk and robust function to increased strength in pathogen defense.
+[2026-04-16 19:53:47.964545] rs693 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:54:06.978820] rs16944 | 3850 tokens | FAIL | The narratives contradict the provided score logic; the risk narrative describes a high secretor (corresponding to high scores, which are labeled as an advantage) as a bottleneck, while the strength narrative describes a proportionate response instead of the advantage associated with high scores.
+[2026-04-16 19:54:06.978820] rs25487 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:54:11.344786] rs1799950 | 1180 tokens | PASS | The narratives accurately reflect the score logic, describing a bottleneck for low scores and an advantage for high scores, and correctly state BRCA1's role in DNA repair.
+[2026-04-16 19:54:11.345757] rs2239681 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:54:11.345757] rs8192675 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:54:11.345757] rs2285477 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:54:15.695886] rs7946 | 1205 tokens | PASS | The narratives accurately describe PEMT's role in endogenous choline synthesis, logically linking low scores to impaired synthesis and associated risks, and high scores to robust synthesis and associated advantages.
+[2026-04-16 19:54:15.697885] rs4961 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:54:15.699877] rs4149056 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:54:15.701867] rs5751876 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:54:25.332561] rs350843 | 2233 tokens | FAIL | The strength narrative incorrectly identifies the 'G allele' as the 'Longevity variant', as the homozygous 'GG' genotype is associated with the lowest score (4) and impaired function, contradicting the provided score logic where C-containing genotypes (CC, CG, GC) have higher scores.
+[2026-04-16 19:54:25.333559] rs234706 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:54:25.335556] rs1501299 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:54:25.337555] rs13181 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:54:25.339541] rs3758391 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:54:33.466540] rs2535633 | 1686 tokens | FAIL | Both the risk and strength narratives are inconsistent with the provided score logic, as all genotypes are assigned a score of 5, which does not meet the criteria for either a bottleneck (score < 5) or an advantage (score > 5).
+[2026-04-16 19:54:38.548665] rs3731249 | 1239 tokens | PASS | The narratives accurately describe the bottleneck and advantage associated with CDKN2A's role in cell cycle regulation, aligning with the provided score logic and biochemical function.
+[2026-04-16 19:54:38.550659] rs17609940 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:54:42.931654] rs679620 | 1209 tokens | PASS | The narratives accurately describe the biochemical role of MMP3 in collagen remodeling and logically link enzyme activity levels to the associated risks and strengths in tissue adaptation and healing.
+[2026-04-16 19:54:42.933640] rs143383 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:54:42.935680] rs8031440 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:54:42.937635] rs1728986 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:54:47.128384] rs934078 | 1047 tokens | PASS | The narratives accurately describe the implications of DIO2's role in T4 to T3 conversion, with the 'RISK' perspective aligning with impaired conversion (low scores) and the 'STRENGTH' perspective aligning with robust conversion (high scores), both reflecting the gene's known biochemical function.
+[2026-04-16 19:54:52.501841] rs324420 | 1299 tokens | PASS | The narratives accurately reflect the gene's biochemical role and align the described risks with lower scores and strengths with higher scores, consistent with the provided score logic.
+[2026-04-16 19:54:52.503828] rs1611115 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:54:52.505822] rs676925 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:54:58.015801] rs1805086 | 1341 tokens | PASS | The narratives accurately describe the implications of MYF5's role in muscle fiber formation, aligning with the defined score logic for both bottleneck and advantage states.
+[2026-04-16 19:54:58.017804] rs4244285 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:55:03.739496] rs1803274 | 1384 tokens | PASS | Both the 'RISK' and 'STRENGTH' narratives accurately describe the implications of BCHE enzyme activity levels, aligning with the provided score logic and the gene's known biochemical role in metabolizing muscle relaxants and neurotoxins.
+[2026-04-16 19:55:10.328584] rs1254337 | 1659 tokens | PASS | The narratives accurately describe the implications of GLUT9's role in uric acid transport, with the risk narrative aligning with impaired excretion (low scores) and the strength narrative with efficient excretion (high scores), and both are specific.
+[2026-04-16 19:55:18.453446] rs6020 | 1984 tokens | PASS | The narratives accurately describe the risk and strength profiles associated with the F2 gene and its G20210A mutation, aligning with the provided score logic and biochemical facts.
+[2026-04-16 19:55:18.454440] rs17608 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:55:18.455440] rs1047303 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:55:18.455440] rs45446698 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:55:18.456438] rs1800252 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:55:18.457430] rs5219 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:55:18.458428] rs10757278 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:55:26.603812] rs12203592 | 1811 tokens | PASS | The narratives accurately describe the gene's role in pigmentation and UV sensitivity, with the risk perspective aligning with impaired function and the strength perspective with robust function, and both provide specific explanations.
+[2026-04-16 19:55:32.944784] rs1805007 | 1548 tokens | PASS | The narratives accurately describe the bottleneck and advantage associated with MC1R function, aligning with its biochemical role in UV sensitivity and melanin production.
+[2026-04-16 19:55:32.944784] rs1110400 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:55:32.944784] rs3741942 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:55:32.945782] rs2486758 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:55:32.945782] rs2293275 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:55:32.945782] rs7454108 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:55:32.946779] rs2071403 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:55:32.946779] rs1049434_TIER2 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:55:32.946779] rs1333049 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:55:32.947776] rs2802292 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:55:32.947776] rs8192678 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:55:39.090498] rs2070744 | 1579 tokens | PASS | The narratives accurately describe the physiological consequences of both impaired and robust NOS3 function, consistent with the provided score logic and the gene's known role in nitric oxide production and vasodilation.
+[2026-04-16 19:55:39.090498] rs5516 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 19:55:43.968840] rs1800498 | 1301 tokens | PASS | The narratives accurately describe the impact of DRD2 genotypes on D2 receptor density and associated behavioral traits, aligning with the score logic for both risk and strength.
+[2026-04-16 19:55:48.866660] rs6275 | 1294 tokens | PASS | The narratives accurately describe the implications of high and low DRD2 receptor density, aligning with the provided score logic for bottleneck and advantage states.
+[2026-04-16 19:55:55.544515] rs2740574_dupfix | 1634 tokens | PASS | The narrative accurately describes the impact of CYP3A4 activity on drug and toxin clearance, aligning low scores with impaired metabolism and high scores with robust metabolism.
+[2026-04-16 19:56:04.200797] rs2943641 | 1749 tokens | PASS | The narratives accurately describe the impact of IRS1 signaling on insulin sensitivity, aligning risk with impaired signaling (low scores) and strength with robust signaling (high scores), with specific explanations for each.
+[2026-04-16 19:56:11.117491] rs12778366 | 1463 tokens | PASS | The narratives accurately describe the bottleneck and advantage associated with low and high scores, respectively, and correctly reflect SIRT1's role in genome maintenance and metabolic health, with specific explanations for both risk and strength.
+[2026-04-16 19:56:24.262597] rs659366 | 2861 tokens | PASS | The narratives accurately describe the biochemical role of UCP2 in mitochondrial uncoupling and its impact on metabolism, with the risk narrative aligning with lower uncoupling activity (score 5) and the strength narrative with higher uncoupling activity (scores > 5).
+[2026-04-16 19:56:30.012495] rs6265 | 1455 tokens | PASS | The narratives accurately describe the implications of BDNF genotypes (rs6265 Val66Met) based on the provided score logic and biochemical role, with specific 'how' sections for both risk and strength.
+[2026-04-16 19:56:34.948694] rs1695 | 1324 tokens | PASS | The narratives accurately describe the functional implications of GSTP1 variants, linking low scores to impaired detoxification and high scores to robust detoxification, consistent with the gene's biochemical role.
+[2026-04-16 19:56:39.662705] rs1544410 | 1330 tokens | PASS | The narratives accurately describe the implications of VDR variants on vitamin D sensitivity, immune function, and bone health, aligning with the provided score logic and biochemical role.
+[2026-04-16 19:56:44.480772] rs1815739 | 1349 tokens | PASS | The narratives accurately describe the genetic advantages and disadvantages associated with ACTN3 genotypes, aligning with the provided score logic and the gene's known role in muscle performance.
+[2026-04-16 19:57:03.920560] rs4343 | 4108 tokens | PASS | The narrative accurately describes the physiological consequences of high and low ACE levels, aligning with the concepts of bottleneck/impaired and advantage/robust, respectively, and provides specific explanations for each.
+[2026-04-16 19:57:16.135320] rs521674 | 2707 tokens | FAIL | The narrative's 'risk' perspective correctly identifies the described vulnerability of the GG genotype, but this genotype is assigned a high score (10) in the ground truth, which contradicts the audit rule that 'data_risk' should describe bottlenecks associated with low scores.
+[2026-04-16 19:57:21.366508] rs762551 | 1391 tokens | PASS | The narratives accurately describe the implications of CYP1A2 activity on caffeine metabolism and cardiovascular response, aligning with the provided score logic for both bottleneck and advantage scenarios.
+[2026-04-16 19:57:26.016373] rs1045642 | 1126 tokens | PASS | Both narratives accurately describe the implications of high and low ABCB1 (P-gp) efflux pump activity, aligning with the provided score logic and the gene's known biochemical role.
+[2026-04-16 19:57:34.757481] rs174547 | 2122 tokens | PASS | The narratives accurately describe the biochemical role of FADS2 and logically align the risk and strength perspectives with the defined score thresholds for efficiency in ALA conversion.
+[2026-04-16 19:57:46.059482] rs328 | 2518 tokens | FAIL | The strength narrative accurately describes the advantage of enhanced LPL activity and aligns with the high scores. However, the risk narrative describes a bottleneck (sluggish enzyme) that is inconsistent with the provided LPL scores (6, 8, 9), all of which indicate advantage/robust activity.
+[2026-04-16 19:57:54.725818] rs328_TIER2 | 1680 tokens | FAIL | The 'RISK' narrative describes a scenario for scores < 5, but the provided score logic for LPL (CC=6, CG=8, GG=10) ensures all genotypes result in scores ≥ 6, making the described risk condition impossible to achieve.
+[2026-04-16 19:57:59.680852] rs11645428 | 1325 tokens | PASS | The narratives accurately describe the BCMO1 gene's role in converting plant carotenoids to active vitamin A, detailing both the risks of impaired conversion and the strengths of robust activity with specific 'how' explanations.
+[2026-04-16 19:58:06.472473] rs602662 | 1615 tokens | PASS | The narratives accurately reflect the genetic implications of FUT2 secretor status on gut microbiome, B12 absorption, and pathogen susceptibility, aligning with the provided score logic and biochemical facts.
+[2026-04-16 19:58:21.868908] rs1800795 | 3076 tokens | PASS | The narratives accurately describe the implications of impaired and robust IL-6 promoter function, with clear explanations of the underlying mechanisms and factual gene role.
+[2026-04-16 19:58:28.476807] rs1205 | 1458 tokens | PASS | The narratives accurately describe the implications of high and low baseline CRP levels, aligning with the provided score logic and the gene's known role in inflammation.
+[2026-04-16 19:58:41.977655] rs9536314 | 2842 tokens | PASS | The narrative accurately describes the risks associated with lower Klotho levels and the strengths linked to higher Klotho expression, consistent with its anti-aging role and the provided score logic.
+[2026-04-16 19:58:46.916485] rs1050450 | 1257 tokens | PASS | The narratives accurately describe the biochemical role of GPX1, with the risk perspective aligning with impaired activity (low scores) and the strength perspective aligning with robust activity (high scores), both providing specific mechanistic details.
+[2026-04-16 19:58:54.748511] rs1042173 | 1839 tokens | PASS | The narratives accurately describe the biochemical role of SLC6A4, correctly linking the 'Short' allele to impaired serotonin reuptake and increased stress response (bottleneck) and the 'Long' allele to robust serotonin reuptake and resilience (advantage).
+[2026-04-16 19:59:00.264823] rs1799971 | 1386 tokens | PASS | The narratives accurately describe the OPRM1 gene's role in pain perception and endorphin sensitivity, aligning the risk perspective with low scores and the strength perspective with high scores, consistent with the ground truth.
+[2026-04-16 19:59:06.238873] rs699005 | 1503 tokens | PASS | The narratives accurately describe the implications of COL1A1 expression on tendon biomechanics, aligning with the defined bottleneck and advantage scores.
+[2026-04-16 19:59:10.640816] rs559870 | 1124 tokens | PASS | The narratives accurately reflect the gene's role in collagen turnover and tissue remodeling, with 'RISK' aligning with impaired activity (low scores) and 'STRENGTH' with robust activity (high scores).
+[2026-04-16 19:59:16.698862] rs225014 | 1565 tokens | PASS | The narratives accurately describe the functional implications of DIO2's role in T4 to T3 conversion, aligning with the defined score logic for both impaired and robust activity.
+[2026-04-16 19:59:47.440852] rs1800440 | 6381 tokens | FAIL | The narratives' logical alignment with the score interpretation is inverted relative to the gene's described biochemical impact, and the 'strength' narrative contains a factual inaccuracy regarding CYP1B1's primary metabolic pathway.
+[2026-04-16 19:59:52.129468] rs3123554 | 1220 tokens | PASS | The narratives accurately describe the implications of SHBG binding affinity on free testosterone levels, consistent with the provided score logic and the gene's biochemical role.
+[2026-04-16 19:59:59.552294] rs1137101 | 1494 tokens | PASS | Both the risk and strength narratives accurately describe the implications of impaired and robust leptin receptor function, aligning with the gene's known role in leptin signaling and its impact on metabolism and appetite.
+[2026-04-16 20:00:04.858471] rs3733890 | 1463 tokens | FAIL | The narratives accurately describe the risks associated with low scores and strengths associated with high scores, and the biochemical role of BHMT is correctly stated; however, the 'how' section is missing, leading to a schema failure.
+[2026-04-16 20:00:10.465809] rs7501331 | 1309 tokens | PASS | The narratives accurately describe the implications of BCO1's role in beta-carotene to Vitamin A conversion efficiency, aligning low scores with impaired conversion (risk) and high scores with robust conversion (strength).
+[2026-04-16 20:00:19.210489] rs33972313 | 1912 tokens | PASS | The narratives accurately describe the implications of SLC23A1 activity on Vitamin C levels, with the risk perspective aligning with impaired transport and the strength perspective with robust reabsorption, consistent with the gene's known function and score logic.
+[2026-04-16 20:00:38.074646] rs57875989 | 4005 tokens | FAIL | The narratives accurately describe the phenotypic implications of PER3 variants, aligning low scores with impaired sleep patterns and high scores with robust circadian rhythms, but the specific biochemical role (catalysis, substrate) of the gene is not detailed in the provided ground truth or narratives for verification.
+[2026-04-16 20:00:45.249928] rs40184 | 1720 tokens | PASS | The narratives accurately describe the functional consequences of high and low dopamine clearance, aligning with the provided score logic for bottleneck/impaired and advantage/robust states, respectively, and correctly reflect the gene's biochemical role.
+[2026-04-16 20:00:45.249928] rs6214 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 20:00:45.250924] rs2229765 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 20:00:45.250924] rs6263 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 20:00:45.250924] rs444697 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 20:00:45.251923] rs7799039 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 20:00:45.251923] rs2234693 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 20:00:45.251923] rs12130333 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 20:00:45.252919] rs1054135 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 20:00:45.252919] rs4402960 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 20:00:45.252919] rs1042522 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 20:00:45.253917] rs7498665 | 0 tokens | FAIL | Incomplete dual-perspective architecture.
+[2026-04-16 20:00:48.672971] rs3749034 | 1007 tokens | PASS | The narratives accurately describe the biochemical role of GAD1, linking impaired function to anxiety and robust function to tranquility, consistent with the provided score logic.
+[2026-04-16 20:00:57.026607] rs2016520 | 2000 tokens | FAIL | The 'data_risk' narrative is logically inconsistent with the provided score logic, as all genotypes (TT, TC, CC) for PPARD yield scores greater than 5, indicating an advantage rather than a bottleneck or impairment.
+[2026-04-16 20:01:03.050829] rs1042713 | 1479 tokens | FAIL | The risk narrative incorrectly references the 'Glu27 allele' instead of Arg16 for rs1042713, despite the described physiological effect aligning with the low score.
+[2026-04-16 20:01:11.019720] rs1042714 | 1860 tokens | FAIL | The 'RISK' narrative describes an impaired state, but the provided score logic for all genotypes (CC=6, CG=7, GG=9) indicates an 'Advantage/Robust' status, creating a logical contradiction.
+[2026-04-16 20:01:16.158492] rs1042713_dupfix | 1391 tokens | PASS | The narratives accurately describe the bottleneck and advantage of ADRB2's role in adrenaline-driven fat mobilization, consistent with the score logic and gene function.
+[2026-04-16 20:01:22.157363] rs838133 | 1577 tokens | PASS | The narratives accurately describe the bottleneck and advantage associated with FGF21's role in sugar intake regulation, aligning with the score logic and gene function.
+[2026-04-16 20:01:27.473864] rs1001179 | 1356 tokens | PASS | The narratives accurately align the gene's biochemical role and its impact on hydrogen peroxide with the provided score logic for both risk (low activity) and strength (high activity).
+[2026-04-16 20:01:33.317112] rs662 | 1445 tokens | PASS | The narratives accurately describe the implications of high and low PON1 enzyme activity, aligning with its known role in detoxifying oxidized lipids and pesticides, and are consistent with the provided score logic.
+[2026-04-16 20:01:37.415447] rs1360780 | 1195 tokens | PASS | The narratives accurately describe FKBP5's role in cortisol regulation, with the risk perspective detailing impaired stress recovery and the strength perspective detailing robust stress recovery, both supported by specific biochemical mechanisms.
+[2026-04-16 20:01:45.373479] rs6311 | 1718 tokens | PASS | The narratives accurately describe the bottleneck and advantage states associated with HTR2A's role in serotonin signaling, aligning with the score logic and providing specific, non-generic descriptions.
+[2026-04-16 20:01:57.730532] rs41423247 | 2708 tokens | FAIL | The narratives incorrectly describe the impact of the variants on cortisol sensitivity, contradicting the ground truth that the 'G' variant is linked to higher sensitivity.
+[2026-04-16 20:02:02.092475] rs9340799 | 1167 tokens | PASS | The narratives accurately describe the implications of high and low scores for ESR1 receptor efficiency, aligning with the provided score logic and biochemical role.
+[2026-04-16 20:02:10.187499] rs1256049 | 1919 tokens | PASS | The narratives accurately describe the bottleneck and advantage associated with ESR1 receptor efficiency, aligning with the provided score logic and the gene's biochemical role in estrogen signaling.
+[2026-04-16 20:02:14.984754] rs3024493 | 1348 tokens | PASS | The narratives accurately describe the implications of low and high IL-10 activity, aligning with the provided score logic and the gene's role in inflammation resolution. Both 'how' sections are specific and informative.
+[2026-04-16 20:02:20.105286] rs17602729 | 1283 tokens | PASS | The narratives accurately describe the biochemical role of AMPD1 in AMP recycling, linking low scores to impaired function and early fatigue, and high scores to efficient function and sustained power output.
+[2026-04-16 20:02:27.908553] rs17070145 | 1932 tokens | FAIL | The 'RISK' narrative incorrectly describes the 'T' allele as requiring more effort for memory encoding, which contradicts the ground truth stating 'T' allele carriers perform better on memory tasks, though the 'STRENGTH' narrative accurately reflects this advantage.
+[2026-04-16 20:02:36.195582] rs885479 | 1993 tokens | PASS | The narratives accurately reflect MC1R's role in eumelanin/pheomelanin balance, describing the risks of impaired function (UV sensitivity, skin cancer) and the strengths of robust function (protective tanning), consistent with the provided score logic.
+[2026-04-16 20:02:51.678517] rs3813867 | 3101 tokens | FAIL | The risk narrative describes a problem associated with high enzyme activity (generating free radicals) which corresponds to high scores, rather than a bottleneck associated with low scores as per the audit rule.
+[2026-04-16 20:02:58.373851] rs5082 | 1623 tokens | FAIL | The narrative's descriptions of risk and strength align with the score logic for APOA2's role in saturated fat response, but the specific genotypes/alleles mentioned (CC, T-allele) do not match the ground truth (AA, AG, GG).
+[2026-04-16 20:03:08.651738] rs1799883 | 2376 tokens | FAIL | The 'risk' narrative describes the consequences of hyper-efficient absorption (associated with high scores), while the 'strength' narrative describes the benefits of less efficient absorption (associated with low scores), which inverts the intended logic mapping of scores to 'Advantage/Robust' and 'Bottleneck/Impaired' categories.
+[2026-04-16 20:03:13.968782] rs11558538 | 1449 tokens | PASS | The narrative accurately describes the biochemical role of HNMT, linking reduced activity to brain-related histamine intolerance symptoms and robust activity to resistance against these symptoms, consistent with the provided score logic.
+[2026-04-16 20:03:18.962422] rs11191548 | 1266 tokens | PASS | The narrative accurately describes the implications of DRD1 receptor function for both risk (lower density/binding, difficulty with activation/working memory) and strength (strong executive control, planning, impulse resistance), consistent with its role in motivation and working memory.
+[2026-04-16 20:03:24.185807] rs11191548_TIER2 | 1302 tokens | PASS | The narratives accurately describe the cognitive implications of DRD1 receptor function, aligning with the defined score logic for both bottleneck and advantage states, and correctly identify DRD1 as a receptor.
+[2026-04-16 20:03:34.143629] rs324981 | 2160 tokens | FAIL | The narratives describe both risk and strength perspectives, but the provided score logic assigns a neutral score of 5 to all genotypes, which does not support either a bottleneck (scores < 5) or an advantage (scores > 5).
+[2026-04-16 20:03:39.714743] rs1049353 | 1397 tokens | PASS | The narratives accurately describe the impact of CNR1 on the endocannabinoid system, stress response, and gut motility, with the risk narrative aligning with impaired function (low scores) and the strength narrative aligning with robust function (high scores).
+[2026-04-16 20:03:45.434035] rs1256335 | 1402 tokens | PASS | The narratives accurately describe the ALPL gene's role in B6 cellular uptake, linking low activity to functional B6 deficiency and high activity to robust B6 absorption and neurotransmitter support.
+[2026-04-16 20:03:50.479771] rs3774175 | 1194 tokens | PASS | The narratives accurately describe the bottleneck and advantage associated with SOD3's role in protecting against oxidative stress, and the biochemical role of the gene is correctly stated.
+[2026-04-16 20:03:56.104036] rs8007267 | 1488 tokens | PASS | The narratives accurately describe the biochemical role of GCH1 in BH4 production and its impact on neurotransmitters, nitric oxide, and pain sensitivity, aligning with the defined score logic.
+[2026-04-16 20:04:07.130460] rs2271683 | 2457 tokens | FAIL | The narratives accurately describe the risks and strengths associated with elastin production and integrity, aligning with the gene's role, but lack a specific explanation of the molecular mechanism ('how') the variant influences these outcomes.
+[2026-04-16 20:04:10.666808] rs10741657 | 1063 tokens | PASS | The narratives accurately describe the impact of CYP2R1's conversion efficiency on vitamin D levels and supplement response, aligning with the defined score logic and biochemical role.
+[2026-04-16 20:04:16.466833] rs2228145 | 1451 tokens | FAIL | The strength narrative incorrectly describes an advantage/amplified signal when no scores exceed 5, which is the threshold for an advantage.
+[2026-04-16 20:04:25.361560] rs5370 | 2192 tokens | PASS | The narratives accurately describe the physiological consequences of high and low EDN1 levels, aligning with the gene's known role as a vasoconstrictor and the provided score logic for risk and strength.
+[2026-04-16 20:04:30.512793] rs16835198 | 1279 tokens | PASS | The narratives accurately describe the metabolic advantages and disadvantages associated with FNDC5/Irisin production, consistent with the gene's known function and the score logic.
+[2026-04-16 20:04:34.594465] rs6536 | 1163 tokens | PASS | Both risk and strength narratives accurately describe TRPM6's role in magnesium regulation, and their logic aligns with the provided score interpretations.
+[2026-04-16 20:04:41.146294] rs1051266 | 1472 tokens | PASS | The narratives accurately describe SLC19A1's role in folate transport, linking impaired transport to low scores and efficient transport to high scores, with relevant physiological consequences.
+[2026-04-16 20:04:47.249606] rs9923231 | 1369 tokens | PASS | The narratives accurately describe the biochemical role of VKORC1 in Vitamin K recycling and its impact on vascular calcification and bone density, with the risk narrative aligning with low scores and the strength narrative with high scores.
+[2026-04-16 20:04:52.549801] rs894160 | 1434 tokens | PASS | The narratives accurately describe the role of PLIN1 in coating fat droplets and its impact on fat release, aligning with the bottleneck and advantage described in the ground truth.
+[2026-04-16 20:04:58.060540] rs1761667 | 1537 tokens | FAIL | The risk narrative incorrectly describes the 'High Sensitivity' (G allele) as a bottleneck, while the ground truth identifies the 'Low Sensitivity' (A allele) as the bottleneck.
+[2026-04-16 20:05:03.495487] rs5400 | 1425 tokens | PASS | Both the risk and strength narratives accurately describe the implications of SLC2A2's role in brain glucose sensing, aligning with the provided score logic and biochemical function.
+[2026-04-16 20:05:09.214486] rs6746030 | 1445 tokens | PASS | The narratives accurately describe the gene's role in regulating sodium channels and pain perception, aligning low scores with increased pain sensitivity (risk) and high scores with a higher pain threshold (strength).
+[2026-04-16 20:05:20.520799] rs10830963 | 2566 tokens | PASS | The narratives accurately describe the impact of MTNR1B on insulin secretion and glucose levels, with the risk narrative aligning with scores of 5 (not robust) and the strength narrative with scores of 7 (robust), consistent with the gene's biochemical role.
+[2026-04-16 20:05:31.549455] rs73598374 | 2581 tokens | PASS | The narratives accurately describe the implications of ADA's role in adenosine breakdown, with faster breakdown linked to sleep impairment (corresponding to lower scores) and slower breakdown linked to sleep advantages (corresponding to higher scores), consistent with the provided score logic and biochemical facts.
+[2026-04-16 20:05:41.643351] rs2066853 | 2359 tokens | FAIL | The narrative fails schema validation as it lacks a dedicated 'how' section for either the risk or strength perspective, despite the logical and factual accuracy of the descriptions provided.
+[2026-04-16 20:05:49.848407] rs5186 | 1920 tokens | PASS | The narratives accurately describe the gene's role in vascular constriction and blood pressure reactivity, aligning risk with low scores and strength with high scores, with specific explanations for each.
+[2026-04-16 20:05:54.903584] rs1801272 | 1340 tokens | PASS | The narratives accurately describe the risks associated with fast nicotine metabolism (corresponding to low scores) and the strengths associated with slow nicotine metabolism (corresponding to high scores) based on CYP2A6's known role.
+[2026-04-16 20:06:04.227487] rs2052129 | 2029 tokens | FAIL | The risk narrative incorrectly describes impaired HDC function (low score) as leading to unregulated, excessive histamine, rather than reduced histamine production.
+[2026-04-16 20:06:11.214310] rs16942 | 1634 tokens | PASS | The narratives accurately describe the risk of impaired repair and the strength of robust repair, consistent with BRCA1's role in DNA repair and the provided score logic.
+[2026-04-16 20:06:17.929577] rs2802295 | 1450 tokens | PASS | The narratives accurately describe the implications of high and low FOXO1 activity, consistent with its role in metabolic regulation and cellular maintenance, and provide specific 'how' explanations.
+[2026-04-16 20:06:23.584938] rs5882 | 1392 tokens | PASS | The narratives accurately describe the biochemical role of CETP and correctly align the risk and strength perspectives with the corresponding score interpretations (low scores for hyper-activity/risk, high scores for reduced activity/strength).
+[2026-04-16 20:06:27.651895] rs12785878 | 1147 tokens | PASS | The narratives accurately describe the implications of DHCR7 variants on Vitamin D synthesis, aligning with the provided score logic and biochemical function, with specific 'how' sections for both risk and strength.
+[2026-04-16 20:06:31.778380] rs7041 | 1055 tokens | PASS | The narratives accurately describe the implications of high and low GC scores on vitamin D transport efficiency, aligning with the gene's established biochemical role.
+[2026-04-16 20:06:35.883695] rs4588 | 1039 tokens | PASS | The narratives accurately describe the implications of GC gene variants on Vitamin D transport efficiency, aligning with the defined score logic for risk and strength.
+[2026-04-16 20:06:42.601890] rs6295 | 1564 tokens | FAIL | The risk narrative incorrectly describes the G allele (scores of 5) as impaired, despite the ground truth defining impairment only for scores less than 5.
+[2026-04-16 20:06:49.143804] rs9282858 | 1551 tokens | PASS | The narrative accurately describes the biochemical role of SRD5A2 and logically links enzyme activity levels to the associated risks (high DHT, low score) and strengths (low DHT, high score), with specific 'how' sections.
+[2026-04-16 20:06:55.183813] rs1260326 | 1472 tokens | PASS | Both the 'RISK' and 'STRENGTH' narratives accurately describe the role of GCKR in liver glucose and triglyceride metabolism, aligning correctly with the score logic for bottleneck/impaired and advantage/robust outcomes, respectively.
+[2026-04-16 20:07:00.512837] rs1800566 | 1402 tokens | PASS | Both the risk and strength narratives accurately reflect the NQO1 gene's biochemical role in quinone clearance and antioxidant recycling, aligning logically with the low and high score interpretations, respectively.
+[2026-04-16 20:07:04.885655] rs2071749 | 1145 tokens | PASS | The narratives accurately describe the gene's role in heme breakdown and oxidative stress protection, with the risk narrative aligning with impaired function and the strength narrative with robust function.
+[2026-04-16 20:07:10.773723] rs713041 | 1450 tokens | PASS | Both risk and strength narratives accurately reflect the biochemical role of GPX4 in protecting cell membranes from oxidative damage, aligning with low and high scores respectively, and provide specific mechanistic details.
+[2026-04-16 20:07:16.818430] rs17822931 | 1534 tokens | PASS | The narratives accurately describe the phenotypes (wet/dry earwax, body odor) associated with the ABCC11 gene, linking the 'wet' genotype to higher body odor (bottleneck) and the 'dry' genotype to lower body odor (advantage), consistent with the provided score logic and biochemical role.
+[2026-04-16 20:07:28.373824] rs713598 | 2731 tokens | FAIL | The narratives incorrectly assign risk to the supertaster genotype (PAV/PAV, score 9) which the ground truth defines as an advantage, and strength to the non-taster genotype (AVI/AVI, score 3) which the ground truth defines as a bottleneck.
+[2026-04-16 20:07:31.784502] rs1800592 | 968 tokens | PASS | The narratives accurately reflect the UCP1 gene's role in thermogenesis, with the risk perspective aligning with impaired function (low scores) and the strength perspective aligning with robust function (high scores).
+[2026-04-16 20:07:36.591652] rs17226398 | 1303 tokens | PASS | The narratives accurately describe SLC22A5's role as an organic cation transporter for carnitine, linking low scores to inefficient cellular uptake and impaired fat oxidation, and high scores to avid uptake and robust fat burning.
+[2026-04-16 20:07:42.070368] rs1800849 | 1484 tokens | PASS | The narratives accurately describe the biochemical role of UCP3 in mitochondrial uncoupling and its implications for metabolic rate and weight management, aligning with the defined score logic for both bottleneck and advantage scenarios.
+[2026-04-16 20:07:50.581553] rs553668 | 2046 tokens | FAIL | The narratives fail to consistently align with the gene's specific role in adrenaline's insulin suppression, particularly in describing the advantage and the precise bottleneck mechanism for increased blood sugar.
+[2026-04-16 20:07:55.691451] rs16969968 | 1326 tokens | PASS | The narratives accurately describe the impact of CHRNA5 variants on nicotine receptor function, linking low scores to impaired response and increased dependency risk, and high scores to robust response and reduced dependency.
+[2026-04-16 20:08:00.565533] rs662799_TIER2 | 1244 tokens | PASS | The narratives accurately describe the impact of APOA5 variants on triglyceride metabolism, aligning with the defined score logic for risk and strength.
+[2026-04-16 20:08:13.547521] rs1800588 | 2836 tokens | FAIL | The 'data_risk' narrative incorrectly states that low LIPC activity might raise HDL-C, which contradicts the ground truth's specific association of the T allele (linked to higher activity) with higher HDL-C.
+[2026-04-16 20:08:17.608535] rs1010151 | 1177 tokens | PASS | The narratives accurately describe the GLO1 gene's role in detoxifying AGE precursors, correctly associating lower efficiency with increased aging risks and higher efficiency with protective advantages.
+[2026-04-16 20:08:23.249091] rs1801198 | 1267 tokens | PASS | The narratives accurately describe the TCN2 gene's role in B12 transport, with the risk narrative aligning with impaired transport (low scores) and the strength narrative with robust transport (high scores).
+[2026-04-16 20:08:29.518552] rs137852 | 1528 tokens | PASS | The narratives accurately describe the impact of COL5A2 on tendon stiffness and joint stability, aligning with the score logic for both risk (bottleneck) and strength (advantage) perspectives. The gene's biochemical role is accurately reflected, and the explanations are specific.
+[2026-04-16 20:08:35.993793] rs3923809 | 1501 tokens | PASS | Both narratives accurately describe the implications of BTBD9 gene variants, linking low scores to impaired iron/dopamine function and Restless Legs Syndrome symptoms, and high scores to robust iron/dopamine levels and restorative sleep.
+[2026-04-16 20:08:50.485959] rs2304672 | 2576 tokens | FAIL | The strength narrative inaccurately states that NR1D1 fires up mitochondrial biogenesis; NR1D1 is a transcriptional repressor that regulates genes involved in mitochondrial function.
+[2026-04-16 20:08:59.157559] rs2569190 | 1888 tokens | PASS | The narratives accurately describe the risk and strength profiles based on CD14's role in inflammation and gut barrier function, aligning with the provided score logic where the 'A' allele corresponds to the 'T' allele in the description, indicating higher inflammation.
+[2026-04-16 20:09:10.273794] rs1946518 | 2013 tokens | PASS | The narratives accurately describe the implications of high and low IL-18 production, aligning with the score logic where low scores indicate a risk of high production and high scores indicate an advantage of low production, consistent with IL-18's role as a pro-inflammatory cytokine.
+[2026-04-16 20:09:15.768246] rs558972 | 1316 tokens | PASS | The narratives accurately describe the implications of glucokinase activity on glucose sensing and insulin release, aligning with the defined score logic for risk (impaired glucose threshold) and strength (robust glucose sensing).
+[2026-04-16 20:09:20.111757] rs35874116 | 1210 tokens | PASS | The narratives accurately describe the implications of high and low sugar taste sensitivity linked to the TAS1R2 gene, aligning with the provided score logic and biochemical role.
+[2026-04-16 20:09:26.903844] rs10993994 | 1578 tokens | PASS | The narratives accurately describe the impact of MSRA activity on protein repair and oxidative damage, aligning with the gene's known biochemical role and the score logic.
+[2026-04-16 20:09:41.671485] rs16906252 | 3162 tokens | FAIL | The narratives accurately describe the biological implications of MMP12 activity (high activity is risk, low activity is strength), but the audit rules' expectation to link 'risk' to low scores (bottleneck) and 'strength' to high scores (advantage) is inverted relative to the gene's biology, where high activity (associated with high scores) is the risk.
+[2026-04-16 20:09:47.176756] rs1979277 | 1374 tokens | PASS | The narratives accurately describe the implications of high and low SHMT1 scores based on its role in folate partitioning for DNA synthesis and methylation, with specific mechanisms provided for both risk and strength.
+[2026-04-16 20:09:53.099852] rs1061170 | 1367 tokens | PASS | Both narrative perspectives accurately reflect the score logic for CFH, describing the bottleneck associated with low scores and the advantage associated with high scores, consistent with CFH's role in regulating ocular inflammation and AMD risk.
+[2026-04-16 20:10:00.493400] rs1800790 | 1820 tokens | PASS | The narratives accurately describe the implications of high and regulated fibrinogen levels associated with rs1800790, aligning with the score logic for risk and strength.
+[2026-04-16 20:10:08.284686] rs1800790_TIER2 | 1995 tokens | PASS | The narratives accurately describe the bottleneck and advantage phenotypes associated with FGB's role in blood clot formation and regulation, aligning with the provided score logic and gene description.
+[2026-04-16 20:10:18.987829] rs1799998 | 2410 tokens | FAIL | The 'data_risk' narrative describes an enzyme that is 'hyper-active' and produces 'excess Aldosterone,' which contradicts the ground truth definition that low scores (associated with risk) represent a 'Bottleneck/Impaired' state for enzyme function. The 'data_strength' narrative accurately describes robust regulation for high scores, and the gene's biochemical role is accurately represented.
+[2026-04-16 20:10:23.922466] rs17653216 | 1287 tokens | PASS | The narratives accurately describe the gene's role in starch digestion, providing specific physiological outcomes for both reduced and enhanced enzyme activity, aligning with the defined score logic.
+[2026-04-16 20:10:28.959486] rs6232 | 1040 tokens | PASS | The narratives accurately describe the PCSK1 gene's role in satiety hormone activation, with the risk perspective detailing impaired function and the strength perspective detailing robust function, aligning with the score logic.
+[2026-04-16 20:10:39.856686] rs987237 | 2375 tokens | PASS | The narratives accurately describe the phenotypic implications of the gene variants, aligning with the provided ground truth for both risk and strength.
+[2026-04-16 20:10:45.706483] rs231775 | 1413 tokens | PASS | The narratives accurately describe the CTLA4 gene's role as an immune brake, linking weak function to increased autoimmune risk and robust function to resistance against autoimmunity, with specific mechanistic explanations.
+[2026-04-16 20:10:51.032561] rs1051740 | 1302 tokens | PASS | The narratives accurately reflect the score logic for both risk and strength, and the biochemical role of EPHX1 in detoxifying epoxides is correctly described with specific examples.
+[2026-04-16 20:10:58.736490] rs20541 | 1867 tokens | PASS | The narratives accurately describe the role of IL13 in allergic responses, with the risk perspective aligning with over-production and the strength perspective with low production of allergic cytokines, consistent with the score logic.
+[2026-04-16 20:11:04.830462] rs1805065 | 1504 tokens | PASS | The narratives accurately describe the implications of ACTN2's role in Z-disc stability, aligning risk with impaired function and strength with robust endurance based on the score logic.
+[2026-04-16 20:11:09.559320] rs11615 | 1174 tokens | PASS | The narratives accurately describe ERCC1's role in DNA excision repair, linking low scores to reduced efficiency against environmental damage and high scores to robust repair of bulky DNA lesions, with specific 'how' details for both.
+[2026-04-16 20:11:25.447709] rs1801253 | 3509 tokens | FAIL | The logic fails because the 'risk' narrative describes a characteristic of the high-scoring genotype (CC=7) instead of a bottleneck for low scores, and the 'strength' narrative describes a characteristic of neutral-scoring genotypes (CG=5, GG=5) instead of the advantage for high scores.
+[2026-04-16 20:11:30.252551] rs2010963 | 1250 tokens | PASS | The narratives accurately describe the implications of VEGFA secretion levels on new blood vessel formation, aligning with the score logic and gene function.
+[2026-04-16 20:11:35.354458] rs4074995 | 1306 tokens | PASS | The narratives accurately describe MYH7's role in heart muscle function and endurance, with the risk perspective aligning with impaired efficiency for low scores and the strength perspective aligning with robust cardiovascular capabilities for high scores, consistent with the provided score logic and gene description.
+[2026-04-16 20:11:41.989797] rs12722 | 1634 tokens | PASS | Both narratives accurately describe the impact of COL5A1 on tendon structure, with the risk narrative aligning with increased compliance and injury susceptibility, and the strength narrative aligning with increased stiffness and injury resistance, consistent with the gene's role in flexibility vs stiffness.
+[2026-04-16 20:11:50.227797] rs479744 | 1808 tokens | FAIL | The risk narrative incorrectly describes a bottleneck (less active enzyme, weaker collagen) when the ground truth indicates all genotypes for PLOD1 are associated with an advantage (scores > 5) due to increased enzyme activity and stiffer collagen.
+[2026-04-16 20:11:57.832938] rs7294919 | 1445 tokens | PASS | The narratives accurately describe the bottleneck and advantage associated with the gene's score logic and its known biological function related to neuronal connectivity and cognitive processing.
+[2026-04-16 20:12:05.245803] rs11209026 | 1715 tokens | PASS | The narratives accurately reflect the risk associated with the non-protective allele and the strength associated with the protective allele of IL23R, consistent with its role in immune regulation and inflammatory bowel disease.
+[2026-04-16 20:12:10.629795] rs605059 | 1304 tokens | PASS | The narratives accurately describe the implications of low and high ESR2 receptor activity, aligning with its role in modulating estrogen response in the brain for both risk and strength perspectives.
+[2026-04-16 20:12:24.178709] rs9282859 | 2671 tokens | FAIL | The 'RISK' narrative incorrectly states reduced enzyme activity and lower estradiol, which contradicts the ground truth that the T allele increases estradiol synthesis and cancer risk, leading to a misrepresentation of associated symptoms.
+[2026-04-16 20:12:31.375465] rs4654748 | 1475 tokens | PASS | The narratives accurately describe the implications of LMNA variants on nuclear structural integrity, mechanical stress resistance, cellular senescence, and genomic stability, aligning with the score logic for both risk and strength.
+[2026-04-16 20:12:37.060705] rs13266634 | 1505 tokens | PASS | Both risk and strength narratives accurately describe the implications of impaired and efficient zinc transport by SLC30A8, aligning with the provided score logic and the gene's biochemical role in insulin packaging.
+[2026-04-16 20:12:44.771843] rs2236225 | 1705 tokens | PASS | The narratives accurately describe the implications of MTHFD1 activity levels, linking low scores to a bottleneck in folate metabolism with plausible downstream effects on choline and high scores to robust purine synthesis supporting cell division and development.
+[2026-04-16 20:12:51.846437] rs1800497 | 1766 tokens | PASS | Both narratives accurately reflect the impact of the ANKK1 (Taq1A) variant on D2 dopamine receptor levels and reward sensitivity, aligning with the defined score logic.
+[2026-04-16 20:13:03.119542] rs6165 | 2355 tokens | FAIL | The narrative accurately aligns risk with low scores and strength with high scores for FSHR, and the gene's biochemical role is correctly implied. However, the required 'how' section is missing from the narrative structure.
+[2026-04-16 20:13:08.376336] rs6166 | 1315 tokens | PASS | The narratives accurately describe the implications of FSHR sensitivity based on the provided score logic, linking reduced sensitivity to risk and enhanced sensitivity to strength.
+[2026-04-16 20:13:14.332821] rs2073711 | 1397 tokens | PASS | The narratives accurately describe the implications of COL11A1 variants on collagen structural integrity, aligning risk with impaired function and strength with robust function, consistent with the gene's role in intervertebral disc health.
+[2026-04-16 20:13:21.615720] rs2289360 | 1774 tokens | FAIL | The narratives accurately describe the phenotypic outcomes of impaired or robust skin barrier function consistent with COL6A5's role in microfibril and tissue elasticity, but they lack explicit 'how' sections explaining the mechanism.
+[2026-04-16 20:13:30.963723] rs3827760 | 1926 tokens | PASS | The narratives accurately describe the risk and strength associated with the EDAR variant rs3827760, linking specific genotypes to their respective physiological effects on sweat glands and cooling efficiency, consistent with the provided score logic and gene function.
+[2026-04-16 20:13:36.555511] rs2070974 | 1349 tokens | PASS | The narratives accurately describe the implications of TYR activity on melanin synthesis and UV sensitivity, aligning with the score logic and biochemical role.
+[2026-04-16 20:13:41.537794] rs1042602 | 1309 tokens | PASS | The narratives accurately describe the impact of TYR enzyme activity on melanin production, sun protection, and skin cancer risk, aligning with the defined score logic for bottlenecks and advantages.
+[2026-04-16 20:13:49.881856] rs1800407 | 1749 tokens | PASS | The narratives accurately describe the implications of OCA2 variants on melanin production and UV protection, aligning with the provided score logic and the gene's known biochemical role.
+[2026-04-16 20:13:55.459883] rs12913832 | 1450 tokens | PASS | The narratives accurately describe the HERC2 gene's role in influencing OCA2 expression and melanin production, linking low scores to impaired melanin and increased UV sensitivity, and high scores to robust melanin and eye protection, consistent with the provided score logic.
+[2026-04-16 20:14:00.642471] rs72921001 | 1341 tokens | PASS | The narratives accurately describe the bottleneck and advantage associated with the OR6A2 gene's role as an olfactory receptor for cilantro aldehydes, providing specific mechanisms for divergent perception.
+[2026-04-16 20:14:14.733569] rs13331 | 2874 tokens | FAIL | The risk narrative describes hyperosmia, which contradicts the ground truth's bottleneck of impaired asparagus odor detection, and the strength narrative describes a general standard olfactory threshold, which does not align with the ground truth's specific advantage of robust asparagus odor detection. Additionally, the explanations for 'how' these outcomes occur are generic.
+[2026-04-16 20:14:19.869856] rs3737965 | 1237 tokens | FAIL | The narratives accurately describe the implications of basement membrane strength related to COL18A1, aligning with the score logic and gene function, but the required 'how' sections are missing from the narrative perspectives.
+[2026-04-16 20:14:28.331743] rs12942023 | 1768 tokens | FAIL | The narratives describe FUT8's role in immune function and growth factor signaling, which contradicts the ground truth's definition of its role in alcohol congener detoxification, leading to a misalignment of the described risks and strengths.
+[2026-04-16 20:14:34.320433] rs10427255 | 1444 tokens | FAIL | The narrative perspectives on risk and strength describe general neural sensitivity and pain perception, which do not align with the ground truth description of ZEB2's role in ACHOO syndrome.

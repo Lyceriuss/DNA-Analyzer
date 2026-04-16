@@ -1,26 +1,30 @@
 {
     "rs1801133": {
-        "gene": "MTHFR",
+        "gene": "MTHFR (C677T)",
         "system": "Methylation",
-        "trait": "Folate \u00e2\u2020\u2019 active methylfolate conversion",
-        "description": "MTHFR converts folate to active methylfolate, essential for DNA synthesis, repair, and methylation processes.",
+        "trait": "Folate \u2192 active methylfolate conversion",
+        "description": "MTHFR is the key enzyme turning folate into methylfolate for DNA repair, neurotransmitters and detox.",
         "impact": "High",
         "variants": {
-            "GG": "Optimal MTHFR function",
-            "GA": "Moderately reduced enzyme activity",
-            "AA": "Strongly reduced MTHFR activity"
+            "GG": "Near-optimal MTHFR function",
+            "CC": "Near-optimal MTHFR function",
+            "CT": "Moderately reduced enzyme activity",
+            "TC": "Moderately reduced enzyme activity",
+            "TT": "Strongly reduced MTHFR activity"
         },
         "scores": {
             "GG": 9,
-            "GA": 6,
-            "AA": 2
+            "CC": 9,
+            "CT": 6,
+            "TC": 6,
+            "TT": 2
         }
     },
     "rs2236225": {
         "gene": "MTHFD1",
         "system": "Methylation",
-        "trait": "Folate metabolism",
-        "description": "G>A variant reduces MTHFD1 activity, affecting folate metabolism.",
+        "trait": "Folate cycle backup enzyme",
+        "description": "MTHFD1 supports folate cycling and methylation robustness.",
         "impact": "Medium",
         "variants": {
             "GG": "Efficient folate cycling",
@@ -28,8 +32,8 @@
             "AA": "More reduced efficiency"
         },
         "scores": {
-            "GG": 9,
-            "AG": 6,
+            "GG": 7,
+            "AG": 5,
             "AA": 3
         }
     },
@@ -40,14 +44,16 @@
         "description": "MTR uses B12 to remethylate homocysteine, affecting methylation and cardiovascular health.",
         "impact": "High",
         "variants": {
-            "AA": "Baseline MTR activity",
-            "AG": "Increased MTR activity",
-            "GG": "Optimal MTR activity"
+            "AA": "Typical MTR activity",
+            "AG": "Slightly reduced MTR activity",
+            "GA": "Slightly reduced MTR activity",
+            "GG": "More reduced MTR activity"
         },
         "scores": {
             "AA": 6,
-            "AG": 8,
-            "GG": 9
+            "AG": 5,
+            "GA": 5,
+            "GG": 4
         }
     },
     "rs1801394": {
@@ -59,11 +65,13 @@
         "variants": {
             "AA": "Efficient recycling",
             "AG": "Moderately reduced recycling",
+            "GA": "Moderately reduced recycling",
             "GG": "Low B12 recycling"
         },
         "scores": {
-            "AA": 9,
-            "AG": 6,
+            "AA": 7,
+            "AG": 5,
+            "GA": 5,
             "GG": 3
         }
     },
@@ -74,14 +82,16 @@
         "description": "CYP1A2 controls caffeine clearance rate and cardiovascular response.",
         "impact": "Medium",
         "variants": {
-            "CC": "Slow caffeine metabolizer",
+            "AA": "Fast caffeine metabolizer",
             "AC": "Intermediate caffeine metabolizer",
-            "AA": "Fast caffeine metabolizer"
+            "CA": "Intermediate caffeine metabolizer",
+            "CC": "Slow caffeine metabolizer"
         },
         "scores": {
-            "CC": 3,
-            "AC": 6,
-            "AA": 9
+            "AA": 7,
+            "AC": 5,
+            "CA": 5,
+            "CC": 3
         }
     },
     "rs662": {
@@ -151,8 +161,8 @@
             "AA": "Significantly reduced activity"
         },
         "scores": {
-            "GG": 9,
-            "AG": 6,
+            "GG": 7,
+            "AG": 5,
             "AA": 3
         }
     },
@@ -177,17 +187,17 @@
         "gene": "LPL",
         "system": "Lipids",
         "trait": "Post-meal triglyceride clearance",
-        "description": "G allele (Ser447Ter) enhances LPL activity, improving triglyceride clearance.",
-        "impact": "Beneficial",
+        "description": "LPL breaks down circulating triglycerides after meals.",
+        "impact": "Medium",
         "variants": {
-            "CC": "Normal LPL activity",
-            "CG": "Enhanced LPL activity",
-            "GG": "Optimal LPL activity"
+            "CC": "Normal Triglyceride",
+            "CG": "Intermediate",
+            "GG": "Slow"
         },
         "scores": {
-            "CC": 6,
-            "CG": 8,
-            "GG": 9
+            "CC": 5,
+            "CG": 6,
+            "GG": 6
         }
     },
     "rs662799": {
@@ -198,30 +208,34 @@
         "impact": "High",
         "variants": {
             "AA": "Low triglycerides tendency",
-            "AG": "Typical triglyceride levels",
-            "GG": "Higher triglyceride tendency"
+            "AC": "Typical triglyceride levels",
+            "CA": "Typical triglyceride levels",
+            "CC": "Higher triglyceride tendency"
         },
         "scores": {
             "AA": 7,
-            "AG": 5,
-            "GG": 3
+            "AC": 5,
+            "CA": 5,
+            "CC": 3
         }
     },
     "rs1800588": {
         "gene": "LIPC",
         "system": "Lipids / HDL",
         "trait": "HDL cholesterol control",
-        "description": "LIPC activity influences HDL-C levels; T allele linked to higher HDL-C.",
+        "description": "LIPC regulates HDL production and liver lipid processing.",
         "impact": "Medium",
         "variants": {
-            "CC": "Higher LIPC activity, lower HDL-C",
-            "CT": "Typical LIPC activity, intermediate HDL-C",
-            "TT": "Lower LIPC activity, higher HDL-C"
+            "CC": "Higher HDL levels",
+            "CT": "Typical HDL",
+            "TC": "Typical HDL",
+            "TT": "Lower HDL production"
         },
         "scores": {
-            "CC": 3,
-            "CT": 6,
-            "TT": 9
+            "CC": 7,
+            "CT": 5,
+            "TC": 5,
+            "TT": 4
         }
     },
     "rs693": {
@@ -231,14 +245,14 @@
         "description": "APOB influences LDL particle number.",
         "impact": "High",
         "variants": {
-            "GG": "Associated with lower LDL particle production",
-            "AG": "Associated with typical LDL particle production",
-            "AA": "Associated with higher LDL particle production"
+            "GG": "Lower LDL particle production",
+            "AG": "Typical LDL production",
+            "AA": "Higher LDL particle output"
         },
         "scores": {
-            "GG": 9,
-            "AG": 6,
-            "AA": 3
+            "GG": 6,
+            "AG": 5,
+            "AA": 4
         }
     },
     "rs9939609": {
@@ -253,9 +267,9 @@
             "TT": "Normal"
         },
         "scores": {
-            "AA": 3,
-            "AT": 6,
-            "TT": 9
+            "AA": 8,
+            "AT": 5,
+            "TT": 5
         }
     },
     "rs6232": {
@@ -320,14 +334,16 @@
         "description": "GCKR influences fasting glucose and triglycerides via liver glucose regulation.",
         "impact": "Medium",
         "variants": {
-            "CC": "Higher fasting glucose, lower triglycerides.",
-            "CT": "Intermediate fasting glucose/triglycerides.",
-            "TT": "Lower fasting glucose, higher triglycerides."
+            "CC": "Lower fasting glucose tendency",
+            "CT": "Typical fasting glucose",
+            "TC": "Typical fasting glucose",
+            "TT": "Higher fasting glucose tendency"
         },
         "scores": {
-            "CC": 5,
-            "CT": 6,
-            "TT": 7
+            "CC": 6,
+            "CT": 5,
+            "TC": 5,
+            "TT": 4
         }
     },
     "rs13266634": {
@@ -395,9 +411,9 @@
             "GG": "Lower SOD2 activity"
         },
         "scores": {
-            "AA": 9,
+            "AA": 7,
             "AG": 6,
-            "GG": 3
+            "GG": 4
         }
     },
     "rs1050450": {
@@ -412,9 +428,9 @@
             "AA": "Lower GPX1 activity"
         },
         "scores": {
-            "GG": 9,
-            "AG": 6,
-            "AA": 3
+            "GG": 6,
+            "AG": 5,
+            "AA": 4
         }
     },
     "rs10741657": {
@@ -430,9 +446,9 @@
             "AA": "Lower vitamin D activation"
         },
         "scores": {
-            "GG": 9,
-            "GA": 7,
-            "AG": 7,
+            "GG": 6,
+            "GA": 5,
+            "AG": 5,
             "AA": 4
         }
     },
@@ -443,13 +459,15 @@
         "description": "GC (DBP) binds and transports vitamin D in the blood.",
         "impact": "Medium",
         "variants": {
-            "AA": "Higher vitamin D binding",
-            "AC": "Typical binding",
+            "TT": "Higher vitamin D binding",
+            "TC": "Typical binding",
+            "CT": "Typical binding",
             "CC": "Lower vitamin D binding"
         },
         "scores": {
-            "AA": 9,
-            "AC": 7,
+            "TT": 6,
+            "TC": 5,
+            "CT": 5,
             "CC": 4
         }
     },
@@ -460,14 +478,16 @@
         "description": "FUT2 affects B12 absorption and secretor status, shaping gut microbiome composition.",
         "impact": "Medium",
         "variants": {
-            "GG": "Secretor (typical B12 absorption, diverse microbiome)",
-            "AG": "Secretor (typical B12 absorption, diverse microbiome)",
-            "AA": "Non-secretor (lower B12 absorption, altered microbiome)"
+            "AA": "Typical secretor status",
+            "AG": "Typical secretor status",
+            "GA": "Typical secretor status",
+            "GG": "Non-secretor (lower B12 absorption)"
         },
         "scores": {
-            "GG": 9,
-            "AG": 8,
-            "AA": 3
+            "AA": 5,
+            "AG": 5,
+            "GA": 5,
+            "GG": 4
         }
     },
     "rs1801198": {
@@ -482,9 +502,9 @@
             "GG": "Lower"
         },
         "scores": {
-            "CC": 9,
-            "CG": 6,
-            "GG": 3
+            "CC": 7,
+            "CG": 5,
+            "GG": 5
         }
     },
     "rs11645428": {
@@ -532,11 +552,13 @@
         "variants": {
             "GG": "Fast dopamine breakdown (more even emotions)",
             "AG": "Balanced dopamine breakdown",
+            "GA": "Balanced dopamine breakdown",
             "AA": "Slow dopamine breakdown (more intensity)"
         },
         "scores": {
-            "GG": 9,
-            "AG": 6,
+            "GG": 7,
+            "AG": 5,
+            "GA": 5,
             "AA": 3
         }
     },
@@ -663,7 +685,7 @@
         "gene": "ANKK1 (Taq1A)",
         "system": "Brain / Reward",
         "trait": "D2 dopamine receptor availability",
-        "description": "This variant affects D2 dopamine receptor levels and reward sensitivity.",
+        "description": "This variant affects dopamine receptor levels and reward sensitivity.",
         "impact": "Medium",
         "variants": {
             "GG": "Higher D2 receptor availability",
@@ -671,26 +693,28 @@
             "AA": "Lowest D2 receptor availability"
         },
         "scores": {
-            "GG": 9,
-            "AG": 6,
-            "AA": 3
+            "GG": 6,
+            "AG": 5,
+            "AA": 4
         }
     },
     "rs1042713": {
         "gene": "ADRB2",
         "system": "Cardio / Stress",
-        "trait": "Beta-2 adrenergic receptor downregulation (Gly16Arg)",
-        "description": "Arg16 (A) increases receptor downregulation, reducing sustained response to adrenaline.",
+        "trait": "Beta-2 receptor sensitivity (Gly16Arg)",
+        "description": "ADRB2 responds to adrenaline; affects stress response and exercise performance.",
         "impact": "Medium",
         "variants": {
-            "GG": "Typical receptor response; less downregulation.",
-            "AG": "Intermediate receptor response; moderate downregulation.",
-            "AA": "Reduced receptor response; increased downregulation."
+            "GG": "Typical beta-2 sensitivity",
+            "AG": "Altered adrenergic response",
+            "GA": "Altered adrenergic response",
+            "AA": "More altered adrenergic response"
         },
         "scores": {
-            "GG": 9,
-            "AG": 6,
-            "AA": 3
+            "GG": 6,
+            "AG": 5,
+            "GA": 5,
+            "AA": 4
         }
     },
     "rs1042714": {
@@ -700,14 +724,14 @@
         "description": "Affects how quickly beta-2 receptors downregulate under chronic stress/stimulants.",
         "impact": "Medium",
         "variants": {
-            "CC": "Faster Receptor Downregulation",
-            "CG": "Intermediate Receptor Downregulation",
-            "GG": "Slower Receptor Downregulation"
+            "CC": "Standard",
+            "CG": "Intermediate",
+            "GG": "Higher"
         },
         "scores": {
             "CC": 6,
-            "CG": 7,
-            "GG": 9
+            "CG": 5,
+            "GG": 5
         }
     },
     "rs2010963": {
@@ -715,16 +739,16 @@
         "system": "Hormones / Recovery",
         "trait": "Blood vessel growth (angiogenesis)",
         "description": "VEGFA regulates new blood vessel formation and endurance adaptations.",
-        "impact": "High",
+        "impact": "Medium",
         "variants": {
             "CC": "Optimal",
             "CG": "Intermediate",
             "GG": "Reduced"
         },
         "scores": {
-            "CC": 9,
+            "CC": 7,
             "CG": 6,
-            "GG": 3
+            "GG": 6
         }
     },
     "rs1815739": {
@@ -736,12 +760,14 @@
         "variants": {
             "CC": "Highest power potential",
             "CT": "Mixed power/endurance",
+            "TC": "Mixed power/endurance",
             "TT": "Endurance-leaning muscle profile"
         },
         "scores": {
-            "CC": 9,
+            "CC": 7,
             "CT": 6,
-            "TT": 3
+            "TC": 6,
+            "TT": 4
         }
     },
     "rs17602729": {
@@ -787,14 +813,16 @@
         "description": "UCP1 uncouples mitochondria in brown fat to generate heat instead of ATP.",
         "impact": "Medium",
         "variants": {
-            "AA": "Reduced UCP1 activity and thermogenesis.",
-            "GA": "Intermediate UCP1 activity and thermogenesis.",
-            "GG": "Optimal UCP1 activity and thermogenesis."
+            "GG": "Typical thermogenesis",
+            "GA": "Slight increase in thermogenesis",
+            "AG": "Slight increase in thermogenesis",
+            "AA": "Reduced brown-fat activity"
         },
         "scores": {
-            "AA": 3,
+            "GG": 5,
             "GA": 6,
-            "GG": 9
+            "AG": 6,
+            "AA": 4
         }
     },
     "rs659366": {
@@ -859,14 +887,16 @@
         "description": "NR1D1 regulates sleep pressure and metabolic circadian signaling.",
         "impact": "Medium",
         "variants": {
-            "CC": "Optimal circadian rhythm stability",
-            "CT": "Balanced circadian rhythm",
-            "TT": "Shifted circadian rhythm (evening preference)"
+            "CC": "Stable metabolic circadian rhythms",
+            "CT": "Balanced rhythms",
+            "TC": "Balanced rhythms",
+            "TT": "Shifted rhythm (evening preference)"
         },
         "scores": {
-            "CC": 9,
-            "CT": 6,
-            "TT": 3
+            "CC": 7,
+            "CT": 5,
+            "TC": 5,
+            "TT": 4
         }
     },
     "rs1800629": {
@@ -895,14 +925,14 @@
         "description": "IL6 influences CRP levels, inflammation, overtraining sensitivity and stress response.",
         "impact": "Medium",
         "variants": {
-            "GG": "Higher IL-6 production, increased inflammatory reactivity",
-            "GC": "Intermediate IL-6 production, moderate inflammatory reactivity",
-            "CC": "Lower IL-6 production, reduced inflammatory reactivity"
+            "GG": "Normal",
+            "GC": "Increased",
+            "CC": "High"
         },
         "scores": {
-            "GG": 3,
-            "GC": 6,
-            "CC": 9
+            "GG": 7,
+            "GC": 5,
+            "CC": 5
         }
     },
     "rs2476601": {
@@ -929,14 +959,14 @@
         "description": "IL10 controls resolution of inflammation. Lower activity = prolonged inflammatory response.",
         "impact": "Medium",
         "variants": {
-            "AA": "Low",
+            "AA": "High",
             "AC": "Normal",
-            "CC": "High"
+            "CC": "Low"
         },
         "scores": {
-            "AA": 2,
-            "AC": 6,
-            "CC": 9
+            "AA": 5,
+            "AC": 5,
+            "CC": 5
         }
     },
     "rs429358": {
@@ -946,13 +976,15 @@
         "description": "One of two key SNPs defining APOE2/3/4 isoforms impacting lipids and brain aging.",
         "impact": "High",
         "variants": {
-            "CC": "Homozygous for the C allele, associated with APOE2.",
-            "CT": "Heterozygous for C and T alleles.",
-            "TT": "Homozygous for the T allele, associated with APOE3/4."
+            "CC": "Part of APOE2/2 or 2/3 genotype",
+            "CT": "Part of APOE3/4 genotype",
+            "TC": "Part of APOE3/4 genotype",
+            "TT": "Part of APOE4/4 genotype"
         },
         "scores": {
             "CC": 8,
             "CT": 5,
+            "TC": 5,
             "TT": 3
         }
     },
@@ -968,8 +1000,8 @@
             "GG": "Higher BP / salt-sensitive hypertension"
         },
         "scores": {
-            "AA": 9,
-            "AG": 6,
+            "AA": 7,
+            "AG": 5,
             "GG": 3
         }
     },
@@ -985,9 +1017,9 @@
             "DD": "Higher ACE activity / higher BP risk"
         },
         "scores": {
-            "II": 9,
-            "ID": 6,
-            "DD": 3
+            "II": 7,
+            "ID": 5,
+            "DD": 4
         }
     },
     "rs5186": {
@@ -1054,33 +1086,35 @@
         "description": "PGC-1\u03b1 controls mitochondrial creation and endurance adaptation.",
         "impact": "High",
         "variants": {
-            "CC": "Optimal mitochondrial biogenesis",
-            "CT": "Balanced mitochondrial adaptation",
-            "TC": "Balanced mitochondrial adaptation",
-            "TT": "Impaired mitochondrial adaptation"
+            "CC": "High endurance potential",
+            "CT": "Balanced endurance response",
+            "TC": "Balanced endurance response",
+            "TT": "Lower mitochondrial adaptation"
         },
         "scores": {
-            "CC": 9,
-            "CT": 6,
-            "TC": 6,
-            "TT": 3
+            "CC": 7,
+            "CT": 5,
+            "TC": 5,
+            "TT": 4
         }
     },
     "rs699005": {
         "gene": "COL1A1",
         "system": "Connective Tissue",
-        "trait": "Tendon strength, flexibility, and injury risk",
-        "description": "Influences COL1A1 expression, affecting collagen type I quantity and tendon biomechanics.",
+        "trait": "Tendon strength & injury risk",
+        "description": "COL1A1 influences collagen type I structure; important for tendon stability.",
         "impact": "Medium",
         "variants": {
-            "GG": "Optimal COL1A1 expression, strong and stiff tendons.",
-            "GT": "Intermediate COL1A1 expression, balanced tendon properties.",
-            "TT": "Reduced COL1A1 expression, more flexible but weaker tendons, higher injury risk."
+            "GG": "Normal tendon strength",
+            "GT": "Higher tensile strength",
+            "TG": "Higher tensile strength",
+            "TT": "More flexible but injury prone"
         },
         "scores": {
-            "GG": 9,
+            "GG": 5,
             "GT": 6,
-            "TT": 3
+            "TG": 6,
+            "TT": 4
         }
     },
     "rs9340799": {
@@ -1111,12 +1145,14 @@
         "variants": {
             "AA": "Lower DHT conversion",
             "AG": "Typical DHT levels",
+            "GA": "Typical DHT levels",
             "GG": "Higher DHT conversion"
         },
         "scores": {
-            "AA": 3,
-            "AG": 6,
-            "GG": 9
+            "AA": 4,
+            "AG": 5,
+            "GA": 5,
+            "GG": 7
         }
     },
     "rs2071749": {
@@ -1128,11 +1164,13 @@
         "variants": {
             "AA": "Higher HMOX1 induction",
             "AG": "Typical induction",
+            "GA": "Typical induction",
             "GG": "Reduced induction"
         },
         "scores": {
-            "AA": 9,
-            "AG": 7,
+            "AA": 7,
+            "AG": 5,
+            "GA": 5,
             "GG": 4
         }
     },
@@ -1182,8 +1220,8 @@
             "CC": "Lower CYP3A4 activity"
         },
         "scores": {
-            "TT": 9,
-            "CT": 6,
+            "TT": 7,
+            "CT": 5,
             "CC": 3
         }
     },
@@ -1253,12 +1291,14 @@
         "variants": {
             "CC": "Higher D1 function",
             "CT": "Typical",
+            "TC": "Typical",
             "TT": "Reduced D1 function"
         },
         "scores": {
-            "CC": 9,
-            "CT": 6,
-            "TT": 3
+            "CC": 6,
+            "CT": 5,
+            "TC": 5,
+            "TT": 4
         }
     },
     "rs3813034": {
@@ -1268,13 +1308,13 @@
         "description": "Influences stress sensitivity, mood stability and SSRI response.",
         "impact": "High",
         "variants": {
-            "CC": "Higher serotonin transport",
-            "AC": "Balanced",
+            "GG": "Higher serotonin transport",
+            "AG": "Balanced",
             "AA": "Lower transport / higher reactivity"
         },
         "scores": {
-            "CC": 7,
-            "AC": 5,
+            "GG": 7,
+            "AG": 5,
             "AA": 3
         }
     },
@@ -1300,35 +1340,39 @@
     "rs2802292": {
         "gene": "FOXO3",
         "system": "Longevity",
-        "trait": "Cellular stress resistance & Longevity",
-        "description": "The C allele is associated with enhanced FOXO3 activity, promoting stress resistance and longevity.",
-        "impact": "Beneficial (C allele)",
+        "trait": "Cellular stress resistance",
+        "description": "Another FOXO3 site associated with survival under stress.",
+        "impact": "High",
         "variants": {
-            "TT": "Typical stress resistance",
-            "TC": "Enhanced stress resistance",
-            "CC": "Optimal stress resistance"
+            "TT": "Optimal stress resistance",
+            "TC": "Intermediate",
+            "CT": "Intermediate",
+            "CC": "Lower resistance"
         },
         "scores": {
-            "TT": 6,
-            "TC": 8,
-            "CC": 9
+            "TT": 8,
+            "TC": 6,
+            "CT": 6,
+            "CC": 4
         }
     },
     "rs1800498": {
         "gene": "DRD2",
         "system": "Eating Behavior",
         "trait": "Reward system sensitivity",
-        "description": "Influences dopamine D2 receptor density, affecting reward sensitivity and risk for compensatory behaviors.",
+        "description": "Influences food reward sensitivity and overeating risk.",
         "impact": "Medium",
         "variants": {
-            "CC": "Higher D2 receptor density, higher reward sensitivity",
-            "CT": "Typical D2 receptor density, typical reward sensitivity",
-            "TT": "Lower D2 receptor density, lower reward sensitivity"
+            "CC": "Lower reward sensitivity",
+            "CT": "Typical",
+            "TC": "Typical",
+            "TT": "Higher reward sensitivity"
         },
         "scores": {
-            "CC": 9,
-            "CT": 6,
-            "TT": 3
+            "CC": 7,
+            "CT": 5,
+            "TC": 5,
+            "TT": 4
         }
     },
     "rs987237": {
@@ -1340,12 +1384,14 @@
         "variants": {
             "AA": "Lower appetite",
             "AG": "Balanced appetite",
+            "GA": "Balanced appetite",
             "GG": "Higher appetite"
         },
         "scores": {
-            "AA": 9,
-            "AG": 6,
-            "GG": 3
+            "AA": 7,
+            "AG": 5,
+            "GA": 5,
+            "GG": 4
         }
     },
     "rs3733890": {
@@ -1355,31 +1401,33 @@
         "description": "BHMT provides a backup route to remethylate homocysteine using betaine.",
         "impact": "Medium",
         "variants": {
-            "GG": "Optimal BHMT activity for homocysteine remethylation",
-            "AG": "Moderately reduced BHMT activity for homocysteine remethylation",
-            "AA": "Significantly reduced BHMT activity for homocysteine remethylation"
+            "GG": "Efficient BHMT support",
+            "AG": "Typical BHMT activity",
+            "AA": "Slightly reduced BHMT capacity"
         },
         "scores": {
-            "GG": 9,
-            "AG": 6,
-            "AA": 3
+            "GG": 7,
+            "AG": 5,
+            "AA": 4
         }
     },
     "rs234706": {
         "gene": "CBS",
         "system": "Methylation / Sulfur",
-        "trait": "Homocysteine conversion",
-        "description": "CBS converts homocysteine to cystathionine, initiating sulfur metabolism.",
-        "impact": "Increased CBS activity",
+        "trait": "Homocysteine \u2192 cystathionine (transsulfuration)",
+        "description": "CBS diverts homocysteine into sulfur detox and glutathione production.",
+        "impact": "High",
         "variants": {
-            "GG": "Normal CBS activity",
-            "GA": "Increased CBS activity, enhanced homocysteine conversion",
-            "AA": "Significantly increased CBS activity, optimal homocysteine conversion"
+            "GG": "Balanced CBS flux",
+            "GA": "Shifted flux (may lower homocysteine, increase sulfur load)",
+            "AG": "Shifted flux (may lower homocysteine, increase sulfur load)",
+            "AA": "More pronounced CBS upregulation tendency"
         },
         "scores": {
             "GG": 6,
-            "GA": 8,
-            "AA": 9
+            "GA": 5,
+            "AG": 5,
+            "AA": 4
         }
     },
     "rs1979277": {
@@ -1402,18 +1450,20 @@
     "rs5882": {
         "gene": "CETP",
         "system": "Lipids / HDL",
-        "trait": "HDL-C levels & remodeling",
-        "description": "rs5882 (TaqIB) A allele reduces CETP activity, leading to higher HDL-C levels, generally considered beneficial.",
+        "trait": "HDL remodeling efficiency",
+        "description": "CETP transfers cholesterol esters between HDL and other lipoproteins.",
         "impact": "Medium",
         "variants": {
-            "GG": "Higher CETP activity, typically lower HDL-C",
-            "AG": "Intermediate CETP activity, moderate HDL-C",
-            "AA": "Lower CETP activity, typically higher HDL-C"
+            "AA": "Typical CETP function",
+            "AG": "Slightly reduced CETP activity (often higher HDL)",
+            "GA": "Slightly reduced CETP activity (often higher HDL)",
+            "GG": "Lower CETP activity (HDL may be higher, but particle quality varies)"
         },
         "scores": {
-            "GG": 3,
+            "AA": 5,
             "AG": 6,
-            "AA": 9
+            "GA": 6,
+            "GG": 6
         }
     },
     "rs1801282": {
@@ -1440,14 +1490,16 @@
         "description": "ADIPOQ affects adiponectin, a hormone that improves insulin sensitivity and fat burning.",
         "impact": "High",
         "variants": {
-            "GG": "Lower adiponectin levels",
+            "GG": "Lower adiponectin tendency",
             "GT": "Typical adiponectin levels",
-            "TT": "Higher adiponectin levels"
+            "TG": "Typical adiponectin levels",
+            "TT": "Higher adiponectin tendency"
         },
         "scores": {
             "GG": 4,
-            "GT": 7,
-            "TT": 9
+            "GT": 5,
+            "TG": 5,
+            "TT": 7
         }
     },
     "rs1137101": {
@@ -1497,12 +1549,14 @@
         "variants": {
             "CC": "Lower baseline CRP tendency",
             "CT": "Typical CRP",
+            "TC": "Typical CRP",
             "TT": "Higher baseline CRP tendency"
         },
         "scores": {
-            "CC": 9,
-            "CT": 6,
-            "TT": 3
+            "CC": 7,
+            "CT": 5,
+            "TC": 5,
+            "TT": 4
         }
     },
     "rs16944": {
@@ -1562,17 +1616,19 @@
         "gene": "HTR2A",
         "system": "Brain / Serotonin",
         "trait": "5-HT2A receptor expression & signaling",
-        "description": "HTR2A affects cortical serotonin signaling, stress processing, and sleep.",
+        "description": "HTR2A affects cortical serotonin signaling, stress processing and sleep architecture.",
         "impact": "Medium",
         "variants": {
-            "CC": "Typical 5-HT2A receptor expression",
-            "CT": "Altered 5-HT2A receptor expression/signaling",
-            "TT": "Reduced 5-HT2A receptor expression/signaling"
+            "CC": "Typical 5-HT2A expression",
+            "CT": "Altered receptor expression pattern",
+            "TC": "Altered receptor expression pattern",
+            "TT": "More shifted 5-HT2A signaling"
         },
         "scores": {
-            "CC": 7,
+            "CC": 6,
             "CT": 5,
-            "TT": 3
+            "TC": 5,
+            "TT": 4
         }
     },
     "rs6295": {
@@ -1601,11 +1657,13 @@
         "variants": {
             "CC": "Strong cell cycle control",
             "CT": "Moderately reduced control",
+            "TC": "Moderately reduced control",
             "TT": "Weaker checkpoint control (higher stress sensitivity)"
         },
         "scores": {
-            "CC": 9,
-            "CT": 6,
+            "CC": 7,
+            "CT": 5,
+            "TC": 5,
             "TT": 3
         }
     },
@@ -1621,8 +1679,8 @@
             "TT": "Reduced repair efficiency"
         },
         "scores": {
-            "CC": 9,
-            "CT": 6,
+            "CC": 7,
+            "CT": 5,
             "TT": 3
         }
     },
@@ -1674,9 +1732,9 @@
             "AA": "Reduced ERCC1 activity"
         },
         "scores": {
-            "GG": 9,
-            "AG": 6,
-            "AA": 3
+            "GG": 6,
+            "AG": 5,
+            "AA": 4
         }
     },
     "rs1042522": {
@@ -1691,9 +1749,9 @@
             "CC": "Lower (Pro/Pro)"
         },
         "scores": {
-            "GG": 9,
+            "GG": 8,
             "GC": 6,
-            "CC": 3
+            "CC": 6
         }
     },
     "rs1799950": {
@@ -1708,8 +1766,8 @@
             "TT": "Lower BRCA1 repair efficiency"
         },
         "scores": {
-            "CC": 9,
-            "CT": 6,
+            "CC": 7,
+            "CT": 5,
             "TT": 3
         }
     },
@@ -1722,12 +1780,14 @@
         "variants": {
             "CC": "Efficient BRCA1 signaling",
             "CT": "Moderately reduced BRCA1 signaling",
+            "TC": "Moderately reduced BRCA1 signaling",
             "TT": "Lower BRCA1 activity"
         },
         "scores": {
-            "CC": 9,
-            "CT": 6,
-            "TT": 3
+            "CC": 6,
+            "CT": 5,
+            "TC": 5,
+            "TT": 4
         }
     },
     "rs601338": {
@@ -1775,11 +1835,13 @@
         "variants": {
             "GG": "Strong DAO activity",
             "GA": "Moderate activity",
+            "AG": "Moderate activity",
             "AA": "Low DAO activity (higher histamine intolerance risk)"
         },
         "scores": {
             "GG": 7,
             "GA": 5,
+            "AG": 5,
             "AA": 3
         }
     },
@@ -1791,13 +1853,13 @@
         "impact": "Medium",
         "variants": {
             "GG": "Lower histamine production",
-            "GT": "Typical",
-            "TT": "Higher histamine production tendency"
+            "AG": "Typical",
+            "AA": "Higher histamine production tendency"
         },
         "scores": {
-            "GG": 7,
-            "GT": 5,
-            "TT": 3
+            "GG": 6,
+            "AG": 5,
+            "AA": 4
         }
     },
     "rs1229984": {
@@ -1883,12 +1945,14 @@
         "variants": {
             "CC": "Efficient carnitine uptake",
             "CT": "Moderately reduced uptake",
+            "TC": "Moderately reduced uptake",
             "TT": "Low carnitine absorption"
         },
         "scores": {
-            "CC": 9,
-            "CT": 6,
-            "TT": 3
+            "CC": 6,
+            "CT": 5,
+            "TC": 5,
+            "TT": 4
         }
     },
     "rs660339": {
@@ -1934,13 +1998,15 @@
         "description": "Impacts efficiency of Complex I, influencing ATP output and fatigue tolerance.",
         "impact": "High",
         "variants": {
-            "CC": "Optimal Complex I efficiency",
-            "CT": "Moderately reduced Complex I efficiency",
-            "TT": "Significantly reduced Complex I efficiency"
+            "CC": "High Complex I efficiency",
+            "CT": "Moderate",
+            "TC": "Moderate",
+            "TT": "Reduced ETC efficiency (higher fatigue)"
         },
         "scores": {
-            "CC": 9,
-            "CT": 6,
+            "CC": 7,
+            "CT": 5,
+            "TC": 5,
             "TT": 3
         }
     },
@@ -1965,19 +2031,19 @@
     },
     "rs1042173": {
         "gene": "SLC6A4",
-        "system": "Neurotransmitter / Mood & Cognition",
-        "trait": "Central fatigue sensitivity & mood regulation",
-        "description": "Influences SERT expression, affecting synaptic serotonin levels, impacting central fatigue and mood.",
+        "system": "Mitochondria / Stress-Fatigue",
+        "trait": "Serotonin transporter (fatigue sensitivity)",
+        "description": "Serotonin availability affects central fatigue and endurance.",
         "impact": "Medium",
         "variants": {
-            "CC": "Higher central fatigue tendency",
-            "AC": "Moderate central fatigue",
-            "AA": "Lower central fatigue tendency"
+            "GG": "Lower central fatigue",
+            "AG": "Moderate fatigue",
+            "AA": "Higher central fatigue tendency"
         },
         "scores": {
-            "CC": 3,
-            "AC": 6,
-            "AA": 9
+            "GG": 6,
+            "AG": 5,
+            "AA": 4
         }
     },
     "rs4994": {
@@ -2023,13 +2089,15 @@
         "description": "eNOS-derived nitric oxide regulates mitochondrial biogenesis and ATP effectiveness.",
         "impact": "High",
         "variants": {
-            "TT": "Optimal eNOS activity, robust NO production.",
-            "TC": "Moderate eNOS activity, balanced NO production.",
-            "CC": "Reduced eNOS activity, impaired NO production."
+            "TT": "High NO production (good mitochondrial support)",
+            "TC": "Moderate",
+            "CT": "Moderate",
+            "CC": "Low NO (reduced endurance + higher BP)"
         },
         "scores": {
-            "TT": 9,
-            "TC": 6,
+            "TT": 7,
+            "TC": 5,
+            "CT": 5,
             "CC": 3
         }
     },
@@ -2040,13 +2108,15 @@
         "description": "COL12A1 influences muscular\u2013tendon integration and strain resilience.",
         "impact": "High",
         "variants": {
-            "AA": "Strong tendon\u2013muscle integration",
-            "AT": "Moderate integration",
+            "CC": "Strong tendon\u2013muscle integration",
+            "CT": "Moderate integration",
+            "TC": "Moderate integration",
             "TT": "Higher strain injury risk"
         },
         "scores": {
-            "AA": 9,
-            "AT": 6,
+            "CC": 7,
+            "CT": 5,
+            "TC": 5,
             "TT": 3
         }
     },
@@ -2057,13 +2127,15 @@
         "description": "Affects final electron transport step; alters peak aerobic capacity.",
         "impact": "High",
         "variants": {
-            "CC": "Optimal Complex IV activity",
-            "CT": "Moderate Complex IV activity",
-            "TT": "Reduced Complex IV activity"
+            "CC": "High Complex IV activity",
+            "CT": "Moderate",
+            "TC": "Moderate",
+            "TT": "Reduced OXPHOS capacity"
         },
         "scores": {
-            "CC": 9,
-            "CT": 6,
+            "CC": 7,
+            "CT": 5,
+            "TC": 5,
             "TT": 3
         }
     },
@@ -2108,18 +2180,20 @@
     "rs2486758": {
         "gene": "CYP17A1",
         "system": "Sex Hormones",
-        "trait": "Testosterone synthesis capacity",
-        "description": "CYP17A1 C allele increases enzyme activity, enhancing sex steroid production.",
+        "trait": "Testosterone synthesis rate",
+        "description": "CYP17A1 regulates sex steroid production (DHEA \u2192 testosterone).",
         "impact": "High",
         "variants": {
-            "TT": "Baseline testosterone synthesis capacity",
-            "CT": "Moderate testosterone synthesis capacity",
-            "CC": "Higher testosterone synthesis capacity"
+            "CC": "Lower testosterone production",
+            "CT": "Moderate production",
+            "TC": "Moderate production",
+            "TT": "Higher testosterone synthesis capacity"
         },
         "scores": {
-            "TT": 6,
-            "CT": 8,
-            "CC": 9
+            "CC": 4,
+            "CT": 5,
+            "TC": 5,
+            "TT": 7
         }
     },
     "rs2293275": {
@@ -2129,14 +2203,14 @@
         "description": "LHCGR controls how strongly testes/ovaries respond to LH to produce testosterone/estrogen.",
         "impact": "High",
         "variants": {
-            "CC": "Normal",
-            "CT": "Intermediate",
+            "AA": "Normal",
+            "AT": "Intermediate",
             "TT": "Reduced"
         },
         "scores": {
-            "CC": 7,
-            "CT": 5,
-            "TT": 3
+            "AA": 4,
+            "AT": 5,
+            "TT": 5
         }
     },
     "rs6165": {
@@ -2146,14 +2220,16 @@
         "description": "FSHR influences ovarian follicle maturation and Sertoli cell responsiveness.",
         "impact": "Medium",
         "variants": {
-            "AA": "Higher FSH receptor sensitivity",
-            "AG": "Moderate FSH receptor sensitivity",
-            "GG": "Lower FSH receptor sensitivity"
+            "AA": "Lower FSH sensitivity",
+            "AG": "Moderate FSH signaling",
+            "GA": "Moderate FSH signaling",
+            "GG": "Higher FSH receptor sensitivity"
         },
         "scores": {
-            "AA": 9,
-            "AG": 6,
-            "GG": 3
+            "AA": 4,
+            "AG": 5,
+            "GA": 5,
+            "GG": 7
         }
     },
     "rs6166": {
@@ -2201,29 +2277,33 @@
         "variants": {
             "AA": "Higher estrogen sensitivity",
             "AG": "Balanced sensitivity",
+            "GA": "Balanced sensitivity",
             "GG": "Lower estrogen receptor sensitivity"
         },
         "scores": {
-            "AA": 9,
-            "AG": 6,
-            "GG": 3
+            "AA": 7,
+            "AG": 5,
+            "GA": 5,
+            "GG": 4
         }
     },
     "rs523349": {
         "gene": "SRD5A1",
         "system": "Sex Hormones",
         "trait": "DHT conversion (5-alpha reductase type 1)",
-        "description": "Influences conversion of testosterone to DHT, impacting levels in tissues like skin, liver, and brain.",
-        "impact": "Altered DHT levels",
+        "description": "Controls conversion of testosterone into DHT in skin, liver and brain.",
+        "impact": "High",
         "variants": {
             "CC": "Higher DHT conversion",
             "CG": "Moderate conversion",
+            "GC": "Moderate conversion",
             "GG": "Lower DHT conversion"
         },
         "scores": {
-            "CC": 3,
-            "CG": 6,
-            "GG": 9
+            "CC": 7,
+            "CG": 5,
+            "GC": 5,
+            "GG": 3
         }
     },
     "rs3123554": {
@@ -2247,35 +2327,39 @@
     },
     "rs9282859": {
         "gene": "HSD17B12",
-        "system": "Sex Hormones & Cancer Risk",
-        "trait": "Estradiol levels & associated risk",
-        "description": "HSD17B12 converts estrone to estradiol. T allele increases synthesis, raising estradiol levels and potentially increasing cancer risk.",
-        "impact": "High",
+        "system": "Sex Hormones",
+        "trait": "Estradiol synthesis efficiency",
+        "description": "HSD17B12 controls conversion of estrone to estradiol.",
+        "impact": "Medium",
         "variants": {
-            "CC": "Lower estradiol synthesis, potentially lower risk",
-            "CT": "Moderate estradiol synthesis, moderate risk",
-            "TT": "Higher estradiol synthesis, potentially higher risk"
+            "CC": "Lower estradiol synthesis",
+            "CT": "Moderate synthesis",
+            "TC": "Moderate synthesis",
+            "TT": "Higher estradiol synthesis"
         },
         "scores": {
-            "CC": 8,
-            "CT": 6,
-            "TT": 3
+            "CC": 4,
+            "CT": 5,
+            "TC": 5,
+            "TT": 7
         }
     },
     "rs45446698": {
         "gene": "CYP3A5",
-        "system": "Drug / Hormone Metabolism",
-        "trait": "Steroid hormone and drug metabolism speed",
-        "description": "CYP3A5*3 (rs45446698) reduces enzyme activity, slowing metabolism of steroid hormones and drugs.",
+        "system": "Sex Hormones / Metabolism",
+        "trait": "Steroid hormone metabolism speed",
+        "description": "CYP3A5 accelerates metabolism of testosterone and cortisol.",
         "impact": "High",
         "variants": {
-            "CC": "Fast steroid and drug metabolism",
-            "CT": "Moderate steroid and drug metabolism",
-            "TT": "Slow steroid and drug metabolism (higher baseline hormones/drug levels)"
+            "CC": "Slow steroid metabolism",
+            "CT": "Moderate metabolism",
+            "TC": "Moderate metabolism",
+            "TT": "Fast steroid metabolism (lower baseline hormones)"
         },
         "scores": {
-            "CC": 9,
-            "CT": 6,
+            "CC": 7,
+            "CT": 5,
+            "TC": 5,
             "TT": 3
         }
     },
@@ -2310,26 +2394,28 @@
             "AA": "Higher stiffness and lower hypermobility risk"
         },
         "scores": {
-            "CC": 6,
-            "AC": 8,
-            "AA": 9
+            "CC": 5,
+            "AC": 6,
+            "AA": 7
         }
     },
     "rs1800255": {
         "gene": "COL3A1",
         "system": "Connective Tissue",
-        "trait": "Collagen type III strength and tissue integrity",
-        "description": "COL3A1 variants reduce collagen type III expression, leading to weaker connective tissue, increased laxity, and higher injury risk.",
+        "trait": "Collagen type III elasticity (skin, vessels, ligaments)",
+        "description": "COL3A1 affects elasticity; weaker variants increase joint laxity and injury risk.",
         "impact": "High",
         "variants": {
-            "CC": "Optimal collagen type III strength and tissue integrity.",
-            "CT": "Moderately reduced collagen type III strength; increased tissue laxity.",
-            "TT": "Significantly reduced collagen type III strength; increased hypermobility and fragility."
+            "CC": "Strong collagen III fibers",
+            "CT": "Moderate elasticity",
+            "TC": "Moderate elasticity",
+            "TT": "Higher elasticity and slightly more hypermobility"
         },
         "scores": {
-            "CC": 9,
-            "CT": 6,
-            "TT": 3
+            "CC": 7,
+            "CT": 5,
+            "TC": 5,
+            "TT": 4
         }
     },
     "rs1800252": {
@@ -2339,13 +2425,15 @@
         "description": "COL2A1 is essential for cartilage structure; variants shift knee/hip injury sensitivity.",
         "impact": "High",
         "variants": {
-            "CC": "Optimal cartilage matrix integrity",
+            "CC": "Strong cartilage matrix",
             "CT": "Moderate cartilage resilience",
-            "TT": "Reduced cartilage durability and increased risk"
+            "TC": "Moderate cartilage resilience",
+            "TT": "Reduced cartilage durability"
         },
         "scores": {
-            "CC": 9,
-            "CT": 6,
+            "CC": 7,
+            "CT": 5,
+            "TC": 5,
             "TT": 3
         }
     },
@@ -2358,12 +2446,14 @@
         "variants": {
             "AA": "Strong collagen cross-linking",
             "AG": "Balanced collagen formation",
+            "GA": "Balanced collagen formation",
             "GG": "Reduced cross-link stability"
         },
         "scores": {
-            "AA": 9,
-            "AG": 6,
-            "GG": 3
+            "AA": 7,
+            "AG": 5,
+            "GA": 5,
+            "GG": 4
         }
     },
     "rs2289360": {
@@ -2392,13 +2482,15 @@
         "description": "COL5A2 affects tendon stiffness and propensity for joint hypermobility.",
         "impact": "Medium",
         "variants": {
-            "CC": "Increased tendon stiffness, reduced flexibility.",
-            "CT": "Balanced tendon structure and flexibility.",
-            "TT": "Reduced tendon stiffness, increased flexibility, injury risk."
+            "CC": "Strong, stiff tendons",
+            "CT": "Balanced structure",
+            "TC": "Balanced structure",
+            "TT": "More flexible but injury-prone"
         },
         "scores": {
             "CC": 7,
             "CT": 5,
+            "TC": 5,
             "TT": 4
         }
     },
@@ -2431,8 +2523,8 @@
             "AA": "Higher injury and osteoarthritis risk"
         },
         "scores": {
-            "GG": 9,
-            "AG": 6,
+            "GG": 7,
+            "AG": 5,
             "AA": 3
         }
     },
@@ -2458,18 +2550,18 @@
     "rs479744": {
         "gene": "PLOD1",
         "system": "Collagen Cross-Linking",
-        "trait": "Collagen cross-linking and stability",
-        "description": "PLOD1 activity affects collagen cross-linking. The T allele increases enzyme activity, potentially leading to stiffer collagen.",
+        "trait": "Collagen cross-link enzyme activity",
+        "description": "PLOD1 stabilizes collagen fibers; weaker variants increase ligament laxity.",
         "impact": "Medium",
         "variants": {
-            "GG": "Standard Activity",
-            "GT": "Increased Activity",
-            "TT": "High Activity"
+            "GG": "Standard",
+            "GT": "Intermediate",
+            "TT": "Risk"
         },
         "scores": {
-            "GG": 6,
-            "GT": 8,
-            "TT": 9
+            "GG": 5,
+            "GT": 5,
+            "TT": 5
         }
     },
     "rs2271683": {
@@ -2477,16 +2569,18 @@
         "system": "Connective Tissue",
         "trait": "Elastin fiber elasticity",
         "description": "ELN controls elastin production, shaping flexibility vs stiffness in ligaments and skin.",
-        "impact": "High",
+        "impact": "Medium",
         "variants": {
             "AA": "Higher elasticity (more flexible tissues)",
             "AG": "Balanced elasticity",
+            "GA": "Balanced elasticity",
             "GG": "Stiffer, less flexible tissues"
         },
         "scores": {
-            "AA": 9,
-            "AG": 6,
-            "GG": 3
+            "AA": 4,
+            "AG": 5,
+            "GA": 5,
+            "GG": 7
         }
     },
     "rs1728986": {
@@ -2498,28 +2592,32 @@
         "variants": {
             "CC": "Lower hypermobility risk",
             "CT": "Moderate laxity",
+            "TC": "Moderate laxity",
             "TT": "Higher joint laxity and hypermobility tendency"
         },
         "scores": {
             "CC": 7,
             "CT": 5,
+            "TC": 5,
             "TT": 3
         }
     },
     "rs1800790": {
         "gene": "FGB",
-        "system": "Tissue Repair & Cardiovascular Health",
-        "trait": "Fibrinogen levels, tissue repair quality, and cardiovascular risk",
-        "description": "rs1800790 (G-455A) influences FGB expression and fibrinogen levels, impacting tissue repair quality and cardiovascular risk.",
+        "system": "Tissue Repair",
+        "trait": "Fibrinogen levels and micro-tear repair",
+        "description": "FGB affects micro-tear recovery and collagen deposition in tendons and ligaments.",
         "impact": "Medium",
         "variants": {
-            "CC": "Optimal fibrinogen levels for efficient tissue repair and lower cardiovascular risk.",
-            "CT": "Moderately elevated fibrinogen, balanced impact on repair and risk.",
-            "TT": "Higher fibrinogen levels, potentially impacting optimal tissue repair and increasing cardiovascular risk."
+            "CC": "Efficient micro-tear healing",
+            "CT": "Moderate healing",
+            "TC": "Moderate healing",
+            "TT": "Slower connective tissue repair"
         },
         "scores": {
-            "CC": 8,
-            "CT": 6,
+            "CC": 7,
+            "CT": 5,
+            "TC": 5,
             "TT": 4
         }
     },
@@ -2565,17 +2663,19 @@
         "gene": "ADRB2",
         "system": "Fat Mobilization",
         "trait": "Adrenaline-driven fat release",
-        "description": "This ADRB2 SNP affects adrenaline-driven fat mobilization during exercise.",
+        "description": "This secondary ADRB2 SNP affects how easily fat stores are mobilized during exercise.",
         "impact": "Medium",
         "variants": {
-            "GG": "Optimal adrenaline-driven fat release",
-            "GA": "Moderate adrenaline-driven fat release",
-            "AA": "Reduced adrenaline-driven fat release"
+            "GG": "Higher lipolysis",
+            "GA": "Moderate lipolysis",
+            "AG": "Moderate lipolysis",
+            "AA": "Slower fat release during exercise"
         },
         "scores": {
-            "GG": 8,
+            "GG": 7,
             "GA": 5,
-            "AA": 2
+            "AG": 5,
+            "AA": 4
         }
     },
     "rs934078": {
@@ -2587,12 +2687,14 @@
         "variants": {
             "CC": "Optimal T3 activation",
             "CT": "Moderate activation",
+            "TC": "Moderate activation",
             "TT": "Reduced activation / lower metabolism"
         },
         "scores": {
-            "CC": 9,
-            "CT": 6,
-            "TT": 3
+            "CC": 7,
+            "CT": 5,
+            "TC": 5,
+            "TT": 4
         }
     },
     "rs2071403": {
@@ -2602,14 +2704,16 @@
         "description": "THRB affects how tissues respond to circulating thyroid hormones T3 and T4.",
         "impact": "High",
         "variants": {
-            "GG": "Reduced receptor sensitivity",
-            "AG": "Moderate receptor sensitivity",
-            "AA": "High receptor sensitivity"
+            "AA": "High receptor sensitivity",
+            "AG": "Moderate sensitivity",
+            "GA": "Moderate sensitivity",
+            "GG": "Reduced sensitivity"
         },
         "scores": {
-            "GG": 3,
-            "AG": 6,
-            "AA": 9
+            "AA": 7,
+            "AG": 5,
+            "GA": 5,
+            "GG": 4
         }
     },
     "rs738409": {
@@ -2674,11 +2778,13 @@
         "variants": {
             "CC": "Strong mitochondrial resilience",
             "CT": "Balanced function",
+            "TC": "Balanced function",
             "TT": "Reduced mitochondrial protection"
         },
         "scores": {
             "CC": 8,
             "CT": 6,
+            "TC": 6,
             "TT": 4
         }
     },
@@ -2710,11 +2816,13 @@
         "variants": {
             "CC": "Stable nuclear structure",
             "CT": "Moderate stability",
+            "TC": "Moderate stability",
             "TT": "Reduced stability and higher senescence"
         },
         "scores": {
-            "CC": 9,
-            "CT": 6,
+            "CC": 7,
+            "CT": 5,
+            "TC": 5,
             "TT": 3
         }
     },
@@ -2726,13 +2834,13 @@
         "impact": "High",
         "variants": {
             "GG": "Low IGF1R (slower aging)",
-            "CG": "Moderate signaling",
-            "CC": "High IGF1R activity (faster aging)"
+            "AG": "Moderate signaling",
+            "AA": "High IGF1R activity (faster aging)"
         },
         "scores": {
             "GG": 8,
-            "CG": 6,
-            "CC": 4
+            "AG": 6,
+            "AA": 4
         }
     },
     "rs2535633": {
@@ -2759,14 +2867,16 @@
         "description": "IRF4 affects pigmentation, UV sensitivity, and wrinkle formation rate.",
         "impact": "High",
         "variants": {
-            "CC": "Higher UV sensitivity, lighter skin",
+            "CC": "Low UV sensitivity",
             "CT": "Moderate UV sensitivity",
-            "TT": "Lower UV sensitivity, darker skin"
+            "TC": "Moderate UV sensitivity",
+            "TT": "High UV sensitivity / faster aging"
         },
         "scores": {
-            "CC": 3,
-            "CT": 6,
-            "TT": 9
+            "CC": 7,
+            "CT": 5,
+            "TC": 5,
+            "TT": 3
         }
     },
     "rs1805007": {
@@ -2778,11 +2888,13 @@
         "variants": {
             "CC": "Typical melanin response",
             "CT": "Weaker UV protection",
+            "TC": "Weaker UV protection",
             "TT": "High sun sensitivity / rapid photoaging"
         },
         "scores": {
-            "CC": 9,
-            "CT": 6,
+            "CC": 6,
+            "CT": 4,
+            "TC": 4,
             "TT": 2
         }
     },
@@ -2795,11 +2907,13 @@
         "variants": {
             "AA": "Higher eumelanin (protective)",
             "AG": "Balanced",
+            "GA": "Balanced",
             "GG": "Higher pheomelanin (more oxidative stress)"
         },
         "scores": {
-            "AA": 9,
-            "AG": 6,
+            "AA": 7,
+            "AG": 5,
+            "GA": 5,
             "GG": 3
         }
     },
@@ -2807,16 +2921,18 @@
         "gene": "TYR",
         "system": "Skin / UV",
         "trait": "Melanin synthesis efficiency",
-        "description": "TYR regulates melanin synthesis. T-allele reduces activity, increasing UV sensitivity.",
+        "description": "TYR regulates melanin production. Low-function variants increase UV aging rate.",
         "impact": "Medium",
         "variants": {
-            "CC": "Optimal melanin production, higher UV protection",
-            "CT": "Reduced melanin production, moderate UV sensitivity",
-            "TT": "Significantly reduced melanin, higher UV sensitivity"
+            "CC": "High melanin production",
+            "CT": "Moderate production",
+            "TC": "Moderate production",
+            "TT": "Lower melanin / higher UV sensitivity"
         },
         "scores": {
-            "CC": 9,
-            "CT": 6,
+            "CC": 7,
+            "CT": 5,
+            "TC": 5,
             "TT": 3
         }
     },
@@ -2846,30 +2962,34 @@
         "description": "SOD1 neutralizes ROS generated by UV radiation and environmental stress.",
         "impact": "High",
         "variants": {
-            "CC": "Optimal ROS defense",
-            "CT": "Moderate ROS defense",
-            "TT": "Reduced ROS defense"
+            "CC": "High ROS defense",
+            "CT": "Moderate defense",
+            "TC": "Moderate defense",
+            "TT": "Reduced antioxidant defense"
         },
         "scores": {
-            "CC": 9,
-            "CT": 6,
+            "CC": 7,
+            "CT": 5,
+            "TC": 5,
             "TT": 3
         }
     },
     "rs3774175": {
         "gene": "SOD3",
         "system": "Skin / Extracellular Antioxidants",
-        "trait": "Extracellular Antioxidant Capacity / Collagen Protection",
-        "description": "SOD3 protects extracellular collagen from oxidative stress.",
+        "trait": "Collagen protection from oxidative stress",
+        "description": "SOD3 protects extracellular collagen from UV-induced radicals.",
         "impact": "Medium",
         "variants": {
             "CC": "Strong extracellular protection",
-            "CT": "Moderate protection",
+            "CT": "Moderate",
+            "TC": "Moderate",
             "TT": "Lower protection"
         },
         "scores": {
-            "CC": 9,
-            "CT": 6,
+            "CC": 7,
+            "CT": 5,
+            "TC": 5,
             "TT": 3
         }
     },
@@ -2901,12 +3021,14 @@
         "variants": {
             "CC": "Efficient remodeling",
             "CT": "Balanced remodeling",
+            "TC": "Balanced remodeling",
             "TT": "Slower remodeling"
         },
         "scores": {
-            "CC": 9,
-            "CT": 6,
-            "TT": 3
+            "CC": 7,
+            "CT": 5,
+            "TC": 5,
+            "TT": 4
         }
     },
     "rs3737965": {
@@ -2937,11 +3059,13 @@
         "variants": {
             "GG": "High omega-3 conversion",
             "GT": "Moderate conversion",
+            "TG": "Moderate conversion",
             "TT": "Low EPA/DHA conversion (higher inflammation)"
         },
         "scores": {
-            "GG": 9,
-            "GT": 6,
+            "GG": 7,
+            "GT": 5,
+            "TG": 5,
             "TT": 3
         }
     },
@@ -2969,16 +3093,18 @@
         "system": "Lipids",
         "trait": "LPL enzyme efficiency (fat clearance)",
         "description": "Affects how fast blood lipids clear after meals.",
-        "impact": "High",
+        "impact": "Medium",
         "variants": {
             "CC": "Typical clearance",
-            "CG": "Faster clearance",
-            "GG": "Optimal clearance"
+            "CG": "Slightly faster clearance",
+            "GC": "Slightly faster clearance",
+            "GG": "Fastest clearance"
         },
         "scores": {
-            "CC": 6,
-            "CG": 8,
-            "GG": 10
+            "CC": 5,
+            "CG": 6,
+            "GC": 6,
+            "GG": 7
         }
     },
     "rs10757278": {
@@ -3009,11 +3135,13 @@
         "variants": {
             "CC": "Stronger sodium excretion (lower BP)",
             "CT": "Moderate",
+            "TC": "Moderate",
             "TT": "Reduced sodium excretion (higher BP sensitivity)"
         },
         "scores": {
             "CC": 7,
             "CT": 5,
+            "TC": 5,
             "TT": 3
         }
     },
@@ -3048,9 +3176,9 @@
             "TT": "Low Uric"
         },
         "scores": {
-            "AA": 3,
-            "AT": 6,
-            "TT": 9
+            "AA": 5,
+            "AT": 5,
+            "TT": 5
         }
     },
     "rs558972": {
@@ -3100,11 +3228,13 @@
         "variants": {
             "CC": "Strong vitamin K recycling",
             "CT": "Moderate efficiency",
+            "TC": "Moderate efficiency",
             "TT": "Low recycling (higher calcification risk)"
         },
         "scores": {
-            "CC": 9,
-            "CT": 6,
+            "CC": 7,
+            "CT": 5,
+            "TC": 5,
             "TT": 3
         }
     },
@@ -3139,9 +3269,9 @@
             "AA": "Lower type I fiber ratio"
         },
         "scores": {
-            "GG": 9,
-            "AG": 6,
-            "AA": 3
+            "GG": 7,
+            "AG": 5,
+            "AA": 4
         }
     },
     "rs16835198": {
@@ -3153,11 +3283,13 @@
         "variants": {
             "AA": "High irisin release (better endurance)",
             "AG": "Moderate",
+            "GA": "Moderate",
             "GG": "Low irisin (more fatigue)"
         },
         "scores": {
-            "AA": 9,
-            "AG": 6,
+            "AA": 7,
+            "AG": 5,
+            "GA": 5,
             "GG": 3
         }
     },
@@ -3168,14 +3300,14 @@
         "description": "PPAR\u03b1 determines fat vs glucose preference during long efforts.",
         "impact": "High",
         "variants": {
-            "CC": "Reduced fat oxidation, may favor glucose for power.",
-            "CG": "Intermediate fat oxidation efficiency.",
-            "GG": "Efficient fat oxidation, beneficial for endurance."
+            "CC": "Endurance/Slow",
+            "CG": "Mixed",
+            "GG": "Power/Fast"
         },
         "scores": {
-            "CC": 3,
+            "CC": 8,
             "CG": 6,
-            "GG": 9
+            "GG": 6
         }
     },
     "rs1805086": {
@@ -3256,16 +3388,18 @@
         "gene": "SLC23A1",
         "system": "Vitamins & Mineral Metabolism",
         "trait": "Vitamin C absorption efficiency",
-        "description": "Controls Vitamin C transport into the bloodstream. Critical for collagen and immunity.",
+        "description": "Controls the transport of Vitamin C into the bloodstream. Critical for collagen and immunity.",
         "impact": "Medium",
         "variants": {
             "CC": "Efficient absorption",
             "CT": "Reduced absorption",
+            "TC": "Reduced absorption",
             "TT": "Low absorption (Higher Vitamin C requirement)"
         },
         "scores": {
-            "CC": 9,
+            "CC": 7,
             "CT": 5,
+            "TC": 5,
             "TT": 3
         }
     },
@@ -3319,26 +3453,30 @@
             "GG": "Super Taster"
         },
         "scores": {
-            "CC": 3,
-            "CG": 6,
-            "GG": 9
+            "CC": 8,
+            "CG": 5,
+            "GG": 5
         }
     },
     "rs6323": {
         "gene": "MAOA",
         "system": "Brain / Neurotransmitters",
-        "trait": "Monoamine Oxidase A Activity",
-        "description": "MAOA metabolizes neurotransmitters. Low activity variants (e.g., 'Warrior') are linked to aggression/mood issues under stress.",
+        "trait": "The Warrior Gene (Monoamine Oxidase A)",
+        "description": "MAOA breaks down serotonin and dopamine. The 'Warrior' variant breaks them down slowly, leading to mood swings and higher aggression under stress.",
         "impact": "High",
         "variants": {
-            "TT": "Low activity (Warrior) - Slower neurotransmitter breakdown, linked to aggression/mood issues under stress.",
-            "TG": "Intermediate activity - Balanced neurotransmitter breakdown.",
-            "GG": "High activity - Efficient neurotransmitter breakdown."
+            "T": "Low activity (Warrior) - Higher risk of aggression/mood swings",
+            "G": "High activity - Efficient neurotransmitter recycling",
+            "TT": "Low activity (Warrior) - Higher risk of aggression/mood swings",
+            "GG": "High activity - Efficient neurotransmitter recycling",
+            "TG": "Intermediate activity (Females only)"
         },
         "scores": {
+            "T": 3,
+            "G": 8,
             "TT": 3,
-            "TG": 5,
-            "GG": 8
+            "GG": 8,
+            "TG": 5
         }
     },
     "rs17822931": {
@@ -3364,16 +3502,18 @@
         "gene": "SLC2A2",
         "system": "Diet / Sugar",
         "trait": "Glucose sensing & Sweet tooth",
-        "description": "The T allele reduces GLUT2 expression, impairing brain glucose sensing and increasing sweet food preference.",
+        "description": "GLUT2 glucose sensor in the brain. Risk variants cause the brain to not sense sugar efficiently, leading to higher sugar consumption.",
         "impact": "Medium",
         "variants": {
-            "CC": "Optimal glucose sensing",
-            "CT": "Moderately impaired glucose sensing",
-            "TT": "Significantly impaired glucose sensing, higher sweet tooth"
+            "CC": "Typical sugar response",
+            "CT": "Moderate sweet tooth",
+            "TC": "Moderate sweet tooth",
+            "TT": "High sweet tooth / higher sugar intake"
         },
         "scores": {
-            "CC": 9,
-            "CT": 6,
+            "CC": 7,
+            "CT": 5,
+            "TC": 5,
             "TT": 3
         }
     },
@@ -3422,14 +3562,16 @@
         "description": "GAD1 converts glutamate (excitatory) into GABA (calming). Poor conversion is linked to anxiety and neuroticism.",
         "impact": "Medium",
         "variants": {
-            "GG": "Optimal GABA production",
-            "GA": "Moderate GABA production",
-            "AA": "Reduced GABA production / higher anxiety tendency"
+            "GG": "Efficient GABA production",
+            "GA": "Moderate efficiency",
+            "AG": "Moderate efficiency",
+            "AA": "Lower GABA levels / higher anxiety tendency"
         },
         "scores": {
-            "GG": 9,
-            "GA": 6,
-            "AA": 3
+            "GG": 7,
+            "GA": 5,
+            "AG": 5,
+            "AA": 4
         }
     },
     "rs1049353": {
@@ -3439,13 +3581,15 @@
         "description": "Affects the endocannabinoid system, influencing gut motility and stress response.",
         "impact": "Medium",
         "variants": {
-            "CC": "Typical CB1 receptor signaling",
-            "CT": "Altered CB1 receptor signaling",
+            "CC": "Typical signaling",
+            "CT": "Altered signaling",
+            "TC": "Altered signaling",
             "TT": "Associated with higher anxiety / abdominal obesity"
         },
         "scores": {
             "CC": 7,
             "CT": 5,
+            "TC": 5,
             "TT": 4
         }
     },
@@ -3491,16 +3635,18 @@
         "gene": "SLCO1B1",
         "system": "Drug Metabolism",
         "trait": "Statin Safety (Muscle Pain Risk)",
-        "description": "C allele reduces SLCO1B1 statin transport, increasing blood levels and myopathy risk.",
+        "description": "SLCO1B1 transports statins into the liver. Poor function (C allele) leads to high blood levels of statins, increasing the risk of muscle damage (myopathy).",
         "impact": "High",
         "variants": {
-            "TT": "Normal statin transport; typical safety.",
-            "TC": "Reduced statin transport; moderate myopathy risk.",
-            "CC": "Markedly reduced statin transport; high myopathy risk."
+            "TT": "Normal transport (Typical statin safety)",
+            "TC": "Intermediate transport (Moderate risk)",
+            "CT": "Intermediate transport (Moderate risk)",
+            "CC": "Low transport (High risk of statin-induced muscle pain)"
         },
         "scores": {
             "TT": 8,
             "TC": 5,
+            "CT": 5,
             "CC": 2
         }
     },
@@ -3600,13 +3746,15 @@
         "description": "GPX4 protects cell membranes (lipids) from oxidative death (ferroptosis). Critical for brain and vessel health.",
         "impact": "Medium",
         "variants": {
-            "TT": "Optimal GPX4 activity; strong lipid protection",
-            "TC": "Moderate GPX4 activity; balanced protection",
-            "CC": "Reduced GPX4 activity; higher oxidative stress risk"
+            "TT": "Strong lipid protection",
+            "TC": "Moderate protection",
+            "CT": "Moderate protection",
+            "CC": "Reduced protection (Higher oxidative stress)"
         },
         "scores": {
-            "TT": 9,
-            "TC": 6,
+            "TT": 7,
+            "TC": 5,
+            "CT": 5,
             "CC": 3
         }
     },
@@ -3639,9 +3787,9 @@
             "GG": "High Risk"
         },
         "scores": {
-            "CC": 9,
-            "CG": 6,
-            "GG": 3
+            "CC": 5,
+            "CG": 5,
+            "GG": 5
         }
     },
     "rs174547": {
@@ -3672,12 +3820,14 @@
         "variants": {
             "CC": "Efficient AGE detoxification",
             "CA": "Moderate efficiency",
+            "AC": "Moderate efficiency",
             "AA": "Reduced detoxification efficiency"
         },
         "scores": {
-            "CC": 9,
-            "CA": 6,
-            "AA": 3
+            "CC": 7,
+            "CA": 5,
+            "AC": 5,
+            "AA": 4
         }
     },
     "rs3827760": {
@@ -3689,11 +3839,13 @@
         "variants": {
             "GG": "Typical hair thickness/shape",
             "GA": "Increased hair thickness/Asian morphology",
+            "AG": "Increased hair thickness/Asian morphology",
             "AA": "Thick hair / Shovel-shaped teeth"
         },
         "scores": {
             "GG": 5,
             "GA": 6,
+            "AG": 6,
             "AA": 8
         }
     },
@@ -3813,16 +3965,18 @@
         "gene": "LRP5",
         "system": "Bone Health",
         "trait": "Bone Mineral Density & Fracture Risk",
-        "description": "LRP5 supports bone density. T allele linked to lower BMD and higher fracture risk.",
+        "description": "LRP5 helps build bone density. This marker is strongly associated with lumbar spine bone density and osteoporosis risk.",
         "impact": "High",
         "variants": {
-            "CC": "Optimal bone density potential",
-            "CT": "Slightly reduced bone density potential",
+            "CC": "Normal bone density potential",
+            "CT": "Slightly reduced density potential",
+            "TC": "Slightly reduced density potential",
             "TT": "Lower bone density / Higher fracture risk"
         },
         "scores": {
-            "CC": 9,
-            "CT": 6,
+            "CC": 7,
+            "CT": 5,
+            "TC": 5,
             "TT": 3
         }
     },
@@ -3849,17 +4003,19 @@
         "gene": "HERC2",
         "system": "Appearance",
         "trait": "Eye Color Probability",
-        "description": "The primary determinant of Blue vs. Brown eyes (influencing OCA2 expression).",
-        "impact": "High",
+        "description": "The primary determinant of Blue vs. Brown eyes (influencing OCA2).",
+        "impact": "Low",
         "variants": {
-            "GG": "Highest probability of Blue/Green eyes",
-            "GA": "Intermediate probability of Hazel/Brown eyes",
-            "AA": "Highest probability of Brown eyes"
+            "GG": "Likely Blue/Green eyes",
+            "GA": "Likely Hazel/Brown eyes",
+            "AG": "Likely Hazel/Brown eyes",
+            "AA": "Likely Brown eyes"
         },
         "scores": {
-            "GG": 9,
-            "GA": 6,
-            "AA": 3
+            "GG": 5,
+            "GA": 5,
+            "AG": 5,
+            "AA": 5
         }
     },
     "rs6152": {
@@ -3887,17 +4043,19 @@
         "gene": "DBH",
         "system": "Brain / Stress",
         "trait": "Dopamine \u2192 Adrenaline Conversion",
-        "description": "DBH converts Dopamine to Norepinephrine. Variants affect dopamine/norepinephrine balance, influencing drive and stress response.",
+        "description": "DBH converts Dopamine into Norepinephrine (Adrenaline). Variants determine your balance of 'drive' (dopamine) vs 'alertness/anxiety' (adrenaline).",
         "impact": "High",
         "variants": {
-            "CC": "Normal conversion (Balanced dopamine/norepinephrine)",
-            "CT": "Reduced conversion (Higher dopamine / Lower norepinephrine)",
-            "TT": "Low conversion (High dopamine / Low norepinephrine; 'cold hands', lower stress threshold)"
+            "CC": "Normal conversion (Balanced)",
+            "CT": "Reduced conversion (Higher Dopamine / Lower Adrenaline)",
+            "TC": "Reduced conversion (Higher Dopamine / Lower Adrenaline)",
+            "TT": "Low conversion (High Dopamine / Low Adrenaline - 'Cold hands', lower stress threshold)"
         },
         "scores": {
-            "CC": 9,
+            "CC": 5,
             "CT": 6,
-            "TT": 3
+            "TC": 6,
+            "TT": 8
         }
     },
     "rs4570625": {
@@ -3980,7 +4138,7 @@
         "gene": "ABCB1 (MDR1)",
         "system": "Drug Transport",
         "trait": "Blood-Brain Barrier Pump",
-        "description": "Regulates P-gp efflux pump activity. Low activity (AA) increases drug/toxin brain penetration and sensitivity.",
+        "description": "Controls the pump that pushes drugs/toxins out of the brain. Low activity means medications (like loperamide or antidepressants) may enter the brain more easily.",
         "impact": "Medium",
         "variants": {
             "GG": "High pump activity (Good protection)",
@@ -3988,8 +4146,8 @@
             "AA": "Low pump activity (Higher drug sensitivity)"
         },
         "scores": {
-            "GG": 9,
-            "AG": 6,
+            "GG": 7,
+            "AG": 5,
             "AA": 3
         }
     },
@@ -4016,16 +4174,18 @@
         "gene": "CAT",
         "system": "Antioxidant / Aging",
         "trait": "Hydrogen Peroxide Breakdown (Greying Hair)",
-        "description": "Catalase breaks down hydrogen peroxide. Low levels increase oxidative stress, linked to earlier greying.",
+        "description": "Catalase breaks down hydrogen peroxide. Low levels are associated with oxidative stress and earlier greying of hair.",
         "impact": "Low",
         "variants": {
             "CC": "High Catalase levels",
             "CT": "Moderate levels",
+            "TC": "Moderate levels",
             "TT": "Low Catalase levels (Higher oxidative stress)"
         },
         "scores": {
             "CC": 8,
             "CT": 5,
+            "TC": 5,
             "TT": 4
         }
     },
@@ -4033,16 +4193,18 @@
         "gene": "NAT2",
         "system": "Detox",
         "trait": "Acetylation Rate (Toxin/Drug Clearance)",
-        "description": "NAT2 detoxifies drugs/carcinogens. Slow acetylators accumulate toxins, increasing chemical sensitivity.",
+        "description": "NAT2 detoxifies carcinogens (like smoke/exhaust) and certain drugs. 'Slow acetylators' accumulate toxins faster and are more sensitive to chemicals.",
         "impact": "High",
         "variants": {
             "GG": "Fast acetylator (Efficient detox)",
             "GA": "Intermediate acetylator",
+            "AG": "Intermediate acetylator",
             "AA": "Slow acetylator (Chemical sensitivity / higher risk from smoke)"
         },
         "scores": {
             "GG": 8,
             "GA": 5,
+            "AG": 5,
             "AA": 3
         }
     },
@@ -4088,7 +4250,7 @@
         "gene": "ADA",
         "system": "Sleep",
         "trait": "Deep Sleep Intensity (Adenosine)",
-        "description": "ADA breaks down adenosine. Slower breakdown yields deeper, more intense sleep, but also more grogginess.",
+        "description": "ADA breaks down adenosine (the chemical that makes you sleepy). Slower breakdown leads to deeper, more intense slow-wave sleep and more grogginess upon waking.",
         "impact": "Medium",
         "variants": {
             "CC": "Efficient breakdown (Lighter sleeper)",
@@ -4096,9 +4258,9 @@
             "TT": "Slowest breakdown (Deepest sleep)"
         },
         "scores": {
-            "CC": 6,
+            "CC": 5,
             "CT": 7,
-            "TT": 9
+            "TT": 8
         }
     },
     "rs20541": {
@@ -4129,12 +4291,14 @@
         "variants": {
             "TT": "Typical fat burning",
             "TC": "Enhanced fat oxidation",
-            "CC": "High endurance potential"
+            "CT": "Enhanced fat oxidation",
+            "CC": "High endurance potential (Elite endurance athlete trait)"
         },
         "scores": {
-            "TT": 6,
-            "TC": 8,
-            "CC": 10
+            "TT": 5,
+            "TC": 7,
+            "CT": 7,
+            "CC": 9
         }
     },
     "rs1800407": {
@@ -4163,12 +4327,14 @@
         "variants": {
             "CC": "High sweet sensitivity (Need less sugar)",
             "CT": "Moderate sensitivity",
+            "TC": "Moderate sensitivity",
             "TT": "Low sweet sensitivity (May consume more sugar)"
         },
         "scores": {
-            "CC": 9,
-            "CT": 6,
-            "TT": 3
+            "CC": 8,
+            "CT": 5,
+            "TC": 5,
+            "TT": 4
         }
     },
     "rs72921001": {
@@ -4290,11 +4456,13 @@
         "variants": {
             "GG": "Efficient toxin processing",
             "GA": "Reduced efficiency",
+            "AG": "Reduced efficiency",
             "AA": "Higher sensitivity to environmental toxins"
         },
         "scores": {
-            "GG": 9,
-            "GA": 6,
+            "GG": 7,
+            "GA": 5,
+            "AG": 5,
             "AA": 3
         }
     },
@@ -4305,13 +4473,15 @@
         "description": "IL1RN produces the 'off switch' for inflammation (IL-1 receptor antagonist). Low production leads to chronic, prolonged inflammation.",
         "impact": "High",
         "variants": {
-            "CC": "Optimal IL-1RA production, robust anti-inflammatory response.",
-            "CT": "Reduced IL-1RA production, moderate anti-inflammatory response.",
-            "TT": "Low IL-1RA production, increased risk of chronic inflammation."
+            "CC": "Normal anti-inflammatory response",
+            "CT": "Reduced resolution capacity",
+            "TC": "Reduced resolution capacity",
+            "TT": "Low IL-1RA (Higher risk of chronic inflammation)"
         },
         "scores": {
-            "CC": 9,
-            "CT": 6,
+            "CC": 7,
+            "CT": 5,
+            "TC": 5,
             "TT": 3
         }
     },
@@ -4337,25 +4507,25 @@
     "rs4588": {
         "gene": "GC",
         "system": "Vitamins / D",
-        "trait": "Vitamin D Binding Protein",
-        "description": "With rs7041, defines Gc1s, Gc1f, Gc2 isoforms. T allele (Gc2) has lower Vitamin D affinity and total D levels.",
+        "trait": "Vitamin D Binding Protein (Part 2)",
+        "description": "Works with rs7041 (in your list) to define the Gc1s, Gc1f, and Gc2 isoforms. 'Gc2' carriers (A allele here) have lower Vitamin D affinity.",
         "impact": "Medium",
         "variants": {
-            "GG": "Optimal DBP affinity",
-            "GT": "Intermediate DBP affinity",
-            "TT": "Lower DBP affinity, lower total D levels"
+            "GG": "Gc1 variant (Higher affinity)",
+            "GT": "Gc1/Gc2 mix",
+            "TT": "Gc2 variant (Lower affinity / lower D levels)"
         },
         "scores": {
-            "GG": 9,
-            "GT": 6,
-            "TT": 3
+            "GG": 7,
+            "GT": 5,
+            "TT": 4
         }
     },
     "rs1801272": {
         "gene": "CYP2A6",
         "system": "Detox / Addiction",
         "trait": "Nicotine Metabolism Speed",
-        "description": "CYP2A6 metabolizes nicotine. Slow metabolizers experience prolonged effects, potentially smoking less but facing harder withdrawals.",
+        "description": "CYP2A6 breaks down nicotine. 'Slow metabolizers' feel the buzz longer and smoke fewer cigarettes, but may have harder withdrawals.",
         "impact": "Medium",
         "variants": {
             "AA": "Slow",
@@ -4363,25 +4533,27 @@
             "TT": "Fast"
         },
         "scores": {
-            "AA": 3,
-            "AT": 6,
-            "TT": 9
+            "AA": 6,
+            "AT": 5,
+            "TT": 5
         }
     },
     "rs553668": {
         "gene": "ADRA2A",
         "system": "Metabolism / Stress",
         "trait": "Adrenaline-Induced Insulin Resistance",
-        "description": "Influences adrenaline's insulin suppression. Risk variants cause excessive insulin shutdown, increasing blood sugar and metabolic risk.",
+        "description": "Influences how adrenaline suppresses insulin. Risk variants cause adrenaline to shut down insulin too strongly, leading to high blood sugar and belly fat.",
         "impact": "High",
         "variants": {
             "AA": "Normal response",
+            "AK": "Altered response (Note: K=G or T on some chips)",
             "AG": "Altered response",
             "GG": "Strong insulin suppression (Metabolic risk)"
         },
         "scores": {
             "AA": 7,
             "AG": 5,
+            "GA": 5,
             "GG": 3
         }
     },
@@ -4427,16 +4599,18 @@
         "gene": "BCO1",
         "system": "Vitamins / A",
         "trait": "Beta-Carotene Conversion (Secondary)",
-        "description": "Reduces beta-carotene to Vitamin A conversion efficiency.",
+        "description": "Works alongside rs11645428. Having risk variants in BOTH significantly cripples the ability to turn carrots into Vitamin A.",
         "impact": "Medium",
         "variants": {
-            "CC": "Efficient beta-carotene to Vitamin A conversion",
-            "CT": "Reduced beta-carotene to Vitamin A conversion",
-            "TT": "Significantly reduced beta-carotene to Vitamin A conversion"
+            "CC": "Efficient conversion",
+            "CT": "Reduced efficiency",
+            "TC": "Reduced efficiency",
+            "TT": "Poor conversion (Need Retinol form of Vit A)"
         },
         "scores": {
-            "CC": 9,
-            "CT": 6,
+            "CC": 7,
+            "CT": 5,
+            "TC": 5,
             "TT": 3
         }
     },
@@ -4447,13 +4621,15 @@
         "description": "IL-18 is a pro-inflammatory cytokine linked to heart disease and metabolic syndrome.",
         "impact": "Medium",
         "variants": {
-            "TT": "Associated with lower IL-18 levels and reduced inflammation risk.",
-            "TG": "Associated with moderate IL-18 levels.",
-            "GG": "Associated with higher IL-18 levels and increased inflammation risk."
+            "TT": "Lower IL-18 levels",
+            "TG": "Moderate levels",
+            "GT": "Moderate levels",
+            "GG": "Higher IL-18 levels (Inflammation prone)"
         },
         "scores": {
             "TT": 7,
             "TG": 5,
+            "GT": 5,
             "GG": 4
         }
     },
@@ -4480,16 +4656,18 @@
         "gene": "OGG1",
         "system": "DNA Repair / Antioxidant",
         "trait": "Oxidative DNA Damage Repair",
-        "description": "OGG1 repairs oxidative DNA damage. 'C' allele (Ser326Cys) reduces activity, increasing oxidative stress vulnerability.",
+        "description": "OGG1 repairs DNA damaged by oxidative stress (8-oxoG). The 'C' allele (Ser326Cys) has reduced activity, making cells more vulnerable to free radical damage.",
         "impact": "High",
         "variants": {
             "GG": "Efficient repair",
             "GC": "Reduced repair capacity",
+            "CG": "Reduced repair capacity",
             "CC": "Low repair capacity (Higher oxidative stress risk)"
         },
         "scores": {
-            "GG": 9,
-            "GC": 6,
+            "GG": 8,
+            "GC": 5,
+            "CG": 5,
             "CC": 3
         }
     },
@@ -4516,17 +4694,19 @@
         "gene": "SCN9A",
         "system": "Nervous System",
         "trait": "Pain Sensitivity Threshold",
-        "description": "SCN9A regulates sodium channels in pain neurons. 'A' allele linked to lower pain threshold (higher sensitivity).",
+        "description": "SCN9A controls sodium channels in pain neurons. The 'A' allele is associated with a lower threshold for pain (higher sensitivity).",
         "impact": "Medium",
         "variants": {
             "GG": "Typical pain threshold",
             "GA": "Increased pain sensitivity",
+            "AG": "Increased pain sensitivity",
             "AA": "High pain sensitivity"
         },
         "scores": {
-            "GG": 9,
-            "GA": 6,
-            "AA": 3
+            "GG": 7,
+            "GA": 5,
+            "AG": 5,
+            "AA": 4
         }
     },
     "rs12979860": {
@@ -4538,11 +4718,13 @@
         "variants": {
             "CC": "Strong viral clearance",
             "CT": "Moderate clearance",
+            "TC": "Moderate clearance",
             "TT": "Reduced viral clearance efficiency"
         },
         "scores": {
             "CC": 8,
             "CT": 5,
+            "TC": 5,
             "TT": 3
         }
     },
@@ -4567,17 +4749,17 @@
         "gene": "CYP11B2",
         "system": "Cardiovascular",
         "trait": "Salt Sensitivity (Aldosterone)",
-        "description": "Regulates aldosterone synthesis. Higher aldosterone increases sodium retention and blood pressure.",
+        "description": "Regulates aldosterone synthesis. High producers retain more sodium and water, raising blood pressure.",
         "impact": "Medium",
         "variants": {
-            "AA": "Higher aldosterone levels, increased salt sensitivity.",
-            "AG": "Intermediate aldosterone levels.",
-            "GG": "Normal/Lower aldosterone levels."
+            "AA": "Normal aldosterone levels",
+            "AG": "Increased aldosterone",
+            "GG": "High aldosterone (Salt-sensitive BP)"
         },
         "scores": {
-            "AA": 3,
-            "AG": 6,
-            "GG": 9
+            "AA": 7,
+            "AG": 5,
+            "GG": 3
         }
     },
     "rs1800849": {
@@ -4625,11 +4807,13 @@
         "variants": {
             "GG": "Normal metabolism (No flush)",
             "GA": "Slow metabolism (Flush reaction)",
+            "AG": "Slow metabolism (Flush reaction)",
             "AA": "Very slow metabolism (Severe flush / Toxicity)"
         },
         "scores": {
-            "GG": 9,
+            "GG": 8,
             "GA": 4,
+            "AG": 4,
             "AA": 1
         }
     },
@@ -4656,16 +4840,18 @@
         "gene": "IL23R",
         "system": "Gut / Immune",
         "trait": "Protection Against IBD/Crohn's",
-        "description": "The 'A' allele provides significant protection against Crohn's disease and Ulcerative Colitis.",
+        "description": "A rare variant where the 'A' allele provides significant protection against developing Crohn's disease and Ulcerative Colitis.",
         "impact": "Medium",
         "variants": {
             "GG": "Typical risk",
             "GA": "Protective (Lower IBD risk)",
+            "AG": "Protective (Lower IBD risk)",
             "AA": "Highly protective"
         },
         "scores": {
             "GG": 5,
             "GA": 8,
+            "AG": 8,
             "AA": 9
         }
     },
@@ -4692,16 +4878,18 @@
         "gene": "IRS1",
         "system": "Metabolism / Insulin",
         "trait": "Insulin Resistance & Type 2 Diabetes",
-        "description": "T allele impairs IRS1 signaling, increasing insulin resistance and fasting insulin.",
+        "description": "IRS1 is crucial for insulin signaling. The 'T' allele is associated with insulin resistance and higher fasting insulin levels.",
         "impact": "High",
         "variants": {
             "CC": "Sensitive to insulin",
             "CT": "Moderate resistance",
+            "TC": "Moderate resistance",
             "TT": "Insulin resistance tendency"
         },
         "scores": {
             "CC": 8,
             "CT": 5,
+            "TC": 5,
             "TT": 3
         }
     },
@@ -4764,17 +4952,19 @@
         "gene": "ADRA2B",
         "system": "Brain / Memory",
         "trait": "Emotional Memory (Flashbulb Memories)",
-        "description": "This gene influences how strongly the brain records emotional events. The deletion allele (GG) is associated with enhanced emotional memory and increased attention to emotional stimuli, potentially increasing susceptibility to PTSD.",
+        "description": "This gene influences how strongly the brain records emotional events. Carriers often have vivid memories and may be more susceptible to PTSD.",
         "impact": "Medium",
         "variants": {
             "AA": "Typical emotional memory",
             "AG": "Enhanced emotional memory",
+            "GA": "Enhanced emotional memory",
             "GG": "Strong emotional memory / Higher trauma sensitivity"
         },
         "scores": {
-            "AA": 6,
-            "AG": 8,
-            "GG": 10
+            "AA": 4,
+            "AG": 6,
+            "GA": 6,
+            "GG": 8
         }
     },
     "rs1006737": {
@@ -4872,16 +5062,18 @@
         "gene": "FABP4 (A-FABP)",
         "system": "Liver / Adipose Tissue",
         "trait": "Fatty Acid Transport & Lipotoxicity Risk",
-        "description": "Regulates fatty acid transport within adipocytes. Low activity may increase intracellular lipotoxicity and inflammation.",
+        "description": "Regulates the transport of fatty acids within fat cells. Influences how easily fat is released into the blood and how it affects insulin sensitivity.",
         "impact": "High",
         "variants": {
-            "TT": "Optimal FABP4 activity for internal lipid handling.",
-            "TC": "Moderately reduced FABP4 activity; moderate lipotoxicity risk.",
-            "CC": "Significantly reduced FABP4 activity; high lipotoxicity risk."
+            "TT": "Optimal FABP4 expression (Efficient fat transport)",
+            "TC": "Reduced transport efficiency (Moderate risk)",
+            "CT": "Reduced transport efficiency (Moderate risk)",
+            "CC": "Low FABP4 expression (High risk of 'trapped' lipids and inflammation)"
         },
         "scores": {
             "TT": 8,
             "TC": 5,
+            "CT": 5,
             "CC": 3
         }
     },

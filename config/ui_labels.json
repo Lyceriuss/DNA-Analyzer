@@ -2,6 +2,16 @@
   "English": {
     "header_tag": "Personalized Genetic Trait Report",
     "footer_page_label": "Page",
+    "introduction": {
+      "title": "The Science Behind Your Report",
+      "subtitle": "How DNA Analysis Works",
+      "snps_header": "What are SNPs?",
+      "snps_body": "Your DNA contains 3 billion 'letters'. A Single Nucleotide Polymorphism (SNP) is a single-letter change (e.g., A to G) in that code. These variations are what we analyze to determine your unique biological tendencies.",
+      "gathering_header": "What We Gather",
+      "gathering_body": "By cross-referencing your SNPs with clinical research, we can determine the efficiency of specific enzymes (like EPHX1). This helps us see if a biological pathway is likely to be 'Fast', 'Slow', or 'Standard'.",
+      "limitations_header": "Genetics vs. Lifestyle",
+      "limitations_body": "DNA is your hardware, but lifestyle is your software. These results show your genetic potential; how you eat, sleep, and move determines how those genes are actually expressed (Epigenetics)."
+    },
     "dash_title": "1. Genetic Profile Dashboard",
     "active_title": "2. Key Active Traits",
     "inc_fn": "Increased Function (+)",
@@ -42,6 +52,16 @@
   "Swedish": {
     "header_tag": "Personlig Genetisk Profilrapport",
     "footer_page_label": "Sida",
+    "introduction": {
+      "title": "Vetenskapen bakom din rapport",
+      "subtitle": "Hur DNA-analys fungerar",
+      "snps_header": "Vad är SNPs?",
+      "snps_body": "Ditt DNA består av 3 miljarder 'bokstäver'. En Single Nucleotide Polymorphism (SNP) är en ändring av en enstaka bokstav (t.ex. A till G). Det är dessa variationer vi analyserar för att förstå dina unika biologiska tendenser.",
+      "gathering_header": "Vad vi utläser",
+      "gathering_body": "Genom att korsreferera dina SNPs med klinisk forskning kan vi fastställa effektiviteten hos specifika enzymer (som EPHX1). Detta hjälper oss att se om en biologisk process sannolikt är 'Snabb', 'Långsam' eller 'Standard'.",
+      "limitations_header": "Genetik vs. Livsstil",
+      "limitations_body": "DNA är din hårdvara, men livsstilen är din mjukvara. Dessa resultat visar din genetiska potential; hur du äter, sover och rör dig avgör hur dessa gener faktiskt uttrycks (Epigenetik)."
+    },
     "dash_title": "1. Genetisk Översikt",
     "active_title": "2. Aktiva Genetiska Drag",
     "inc_fn": "Ökad Funktion (+)",
@@ -78,6 +98,5 @@
     "cols_dash": ["Område", "Positiva", "Baslinje", "Negativa", "Netto"],
     "cols_active": ["Område", "Egenskap", "Gen", "Påverkan", "Resultat", "Poäng", "Tolkning"],
     "cols_heritage": ["Gen", "Egenskap", "Ditt Resultat", "Resultat", "Sammanfattning"]
-
   }
 }
