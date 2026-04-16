@@ -223,6 +223,13 @@ def main():
         pdf.ln(10)
         pdf.image(os.path.join(OUTPUT_DIR, "polar_chart.png"), x=50, w=110)
 
+    
+    # --- PAGE 1.5: SCIENCE & METHODOLOGY ---
+    # This method handles its own pdf.add_page() internally
+    print(f"🧬 Generating {language} Educational Foundation...")
+    pdf.add_educational_page()
+    
+    
     # --- PAGE 2: KEY ACTIVE TRAITS ---
     pdf.add_page()
     pdf.chapter_title(L['active_title'])

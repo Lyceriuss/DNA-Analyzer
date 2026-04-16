@@ -1,0 +1,500 @@
+[2026-04-16 16:34:28] rs1800566 | ARCHETYPE A (Loss of Function - LoF). rs1800566 (C609T, P187S) significantly reduces NQO1 enzyme activity. The wild-type (GG) should reflect high activity (9-10), while the homozygous variant (AA) should reflect significantly reduced activity (2-4). The original score for GG (7) was too low for a wild-type in an LoF context, which should be optimal. Scores were adjusted to align with the LoF archetype.
+  OLD: {'GG': 7, 'AG': 5, 'AA': 3}
+  NEW: {'GG': 9, 'AG': 6, 'AA': 3}
+
+[2026-04-16 16:34:45] rs328 | INCORRECT LOGIC. rs328 (LPL S447X) is a Gain of Function (GoF) variant. The G allele introduces a premature stop codon, leading to a truncated LPL protein that is more active and resistant to inhibition. This results in enhanced triglyceride hydrolysis and improved post-meal triglyceride clearance. The original scores and variant descriptions were inverted, suggesting the GG genotype was 'slow' or 'intermediate' when it should be 'optimal' or 'fast'. Scores have been adjusted to reflect the GoF archetype, where the G allele confers a beneficial effect.
+  OLD: {'CC': 5, 'CG': 6, 'GG': 6}
+  NEW: {'CC': 6, 'CG': 8, 'GG': 9}
+
+[2026-04-16 16:35:06] rs1800588 | The input incorrectly associates the CC genotype with higher HDL and the TT genotype with lower HDL. Scientific consensus indicates the C allele leads to higher LIPC activity and thus lower HDL-C, while the T allele leads to lower LIPC activity and thus higher HDL-C. The scores were inverted to reflect this, aligning with ARCHETYPE A where a 'loss of function' in LIPC activity (T allele) leads to a beneficial outcome (higher HDL).
+  OLD: {'CC': 7, 'CT': 5, 'TC': 5, 'TT': 4}
+  NEW: {'CC': 3, 'CT': 6, 'TT': 9}
+
+[2026-04-16 16:35:16] rs693 | The rs693 G allele is associated with lower LDL particle production, which is generally considered favorable for cardiovascular health. The A allele is associated with higher LDL particle production, which is considered unfavorable. The original scores (6, 5, 4) were too compressed and did not fully utilize the 1-10 scale to reflect this clinical impact. Following ARCHETYPE C (Risk Trade-off) and SCORE ALIGNMENT, the scores have been adjusted to reflect that lower LDL production (GG) is optimal (9), typical production (AG) is baseline (6), and higher production (AA) is impaired (3).
+  OLD: {'GG': 6, 'AG': 5, 'AA': 4}
+  NEW: {'GG': 9, 'AG': 6, 'AA': 3}
+
+[2026-04-16 16:35:23] rs9939609 | The A allele of rs9939609 is associated with increased obesity risk, increased food intake, and reduced satiety. This represents an impairment in healthy appetite regulation, fitting ARCHETYPE A (Loss of Function) where the 'normal' function is compromised. Therefore, the AA genotype (High Risk) should have a lower score, and the TT genotype (Normal) should have a higher score. The original scores were inverted.
+  OLD: {'AA': 8, 'AT': 5, 'TT': 5}
+  NEW: {'AA': 3, 'AT': 6, 'TT': 9}
+
+[2026-04-16 16:36:06] rs1260326 | The original entry incorrectly described the effect of the rs1260326 T allele on fasting glucose and triglycerides. The T allele is associated with lower fasting glucose but higher triglycerides, representing a trade-off (ARCHETYPE C). The original 'variants' descriptions were inverted, and the 'scores' did not reflect the T allele's beneficial effect on glucose handling. The corrected entry aligns scores with the primary trait 'Liver glucose handling' (lower fasting glucose is generally favorable) while acknowledging the triglyceride trade-off in the descriptions.
+  OLD: {'CC': 6, 'CT': 5, 'TC': 5, 'TT': 4}
+  NEW: {'CC': 5, 'CT': 6, 'TT': 7}
+
+[2026-04-16 16:36:46] rs4880 | rs4880 (SOD2) is a Loss of Function (LoF) archetype. The G allele (Valine) is associated with reduced SOD2 activity and/or mitochondrial import efficiency compared to the A allele (Alanine). The original scores did not fully reflect the LoF archetype where the optimal (AA) genotype should be scored higher (9-10) and the impaired (GG) genotype lower (2-4). Scores were adjusted to align with this archetype.
+  OLD: {'AA': 7, 'AG': 6, 'GG': 4}
+  NEW: {'AA': 9, 'AG': 6, 'GG': 3}
+
+[2026-04-16 16:36:56] rs1050450 | This is an ARCHETYPE A (Loss of Function - LoF) variant. The G allele (Proline) is associated with higher GPX1 activity, which is beneficial for antioxidant defense. The A allele (Leucine) is associated with reduced enzyme activity. Therefore, the GG genotype represents optimal activity, AG typical/baseline, and AA impaired activity. The original scores (6, 5, 4) were too compressed and did not adequately reflect the functional difference according to the LoF archetype, where optimal function should be scored higher (9-10) and impaired function lower (2-4). Scores were adjusted to align with this archetype.
+  OLD: {'GG': 6, 'AG': 5, 'AA': 4}
+  NEW: {'GG': 9, 'AG': 6, 'AA': 3}
+
+[2026-04-16 16:37:05] rs10741657 | This variant (rs10741657 G>A) in CYP2R1 follows ARCHETYPE A (Loss of Function - LoF). The A allele is associated with reduced CYP2R1 enzyme activity, leading to lower 25(OH)D levels. The original scores (6, 5, 4) were too low for the 'Higher' and 'Typical' activity levels of the GG and GA/AG genotypes, respectively, within a 1-10 scale where 9-10 represents optimal function. Corrected scores align with the LoF archetype: GG (HomoRef) is optimal (9), GA/AG (Het) is typical (7), and AA (HomoVar) is lower (4).
+  OLD: {'GG': 6, 'GA': 5, 'AG': 5, 'AA': 4}
+  NEW: {'GG': 9, 'GA': 7, 'AG': 7, 'AA': 4}
+
+[2026-04-16 16:37:28] rs7041 | rs7041 in GC affects Vitamin D Binding Protein (DBP) affinity. The A allele is associated with higher binding affinity, leading to more efficient transport and higher total vitamin D levels. This represents a 'Gain of Function' (ARCHETYPE B) for the transport aspect of vitamin D metabolism. Conversely, the C allele is associated with lower binding affinity, leading to less efficient transport and lower total vitamin D levels, which can be considered a 'Loss of Function' (ARCHETYPE A) for transport. Therefore, the scores were adjusted to reflect AA as optimal for transport, AC as typical, and CC as less optimal.
+  OLD: {'AA': 6, 'AC': 5, 'CC': 4}
+  NEW: {'AA': 9, 'AC': 7, 'CC': 4}
+
+[2026-04-16 16:37:35] rs602662 | FUT2 rs602662 (G428A) is a classic Loss of Function (LoF) variant. The G allele is wild-type, leading to 'secretor' status, which is associated with typical B12 absorption and a diverse gut microbiome. The A allele introduces a premature stop codon, resulting in 'non-secretor' status, which is a loss of function linked to lower B12 absorption and an altered microbiome. Therefore, the GG and AG genotypes (secretor) should have high scores, and the AA genotype (non-secretor) should have a low score. The original data had incorrect genotypes (AG and GA are redundant) and inverted scores, treating the non-secretor status as having a higher score than secretor status, which is incorrect for B12 absorption and general gut health. Scores were adjusted to reflect the LoF archetype.
+  OLD: {'AA': 5, 'AG': 5, 'GA': 5, 'GG': 4}
+  NEW: {'GG': 9, 'AG': 8, 'AA': 3}
+
+[2026-04-16 16:37:43] rs1801198 | The rs1801198 G allele in TCN2 (Pro259Arg) is associated with reduced B12 binding and transport efficiency, making it a Loss of Function (LoF) variant. The original scores did not fully reflect this LoF archetype, as the homozygous variant (GG) was not sufficiently differentiated from the heterozygous (CG) and the wild-type (CC) was not scored high enough. Scores were adjusted to reflect a clear LoF pattern: CC (Optimal) -> CG (Reduced) -> GG (Impaired).
+  OLD: {'CC': 7, 'CG': 5, 'GG': 5}
+  NEW: {'CC': 9, 'CG': 6, 'GG': 3}
+
+[2026-04-16 16:38:11] rs4680 | COMT Val158Met (rs4680) is an ARCHETYPE A (Loss of Function - LoF) variant. The 'A' allele (Met) reduces COMT enzyme activity, leading to slower dopamine breakdown. Therefore, the Val/Val (GG) genotype, with highest activity, should receive a higher score (9-10), and Met/Met (AA) with lowest activity should receive a lower score (2-4). The original scores for GG (7) and AG (5) were slightly low for the optimal range of an LoF archetype. Scores were adjusted to better reflect the archetype. Additionally, 'AG' and 'GA' were consolidated into a single heterozygous genotype 'AG'.
+  OLD: {'GG': 7, 'AG': 5, 'GA': 5, 'AA': 3}
+  NEW: {'GG': 9, 'AG': 6, 'AA': 3}
+
+[2026-04-16 16:39:06] rs1800497 | rs1800497 (Taq1A) is an ARCHETYPE A (Loss of Function). The 'A' allele (A1) is associated with lower D2 dopamine receptor availability, which is generally considered less optimal for reward and executive function. The original scores were too compressed and did not adequately reflect the optimal (GG) vs. impaired (AA) states according to the LoF archetype. Scores were adjusted to provide a clearer distinction.
+  OLD: {'GG': 6, 'AG': 5, 'AA': 4}
+  NEW: {'GG': 9, 'AG': 6, 'AA': 3}
+
+[2026-04-16 16:39:17] rs1042713 | rs1042713 (Gly16Arg) in ADRB2 is an ARCHETYPE A (Loss of Function). The Arg16 (A) allele is associated with increased beta-2 adrenergic receptor downregulation, leading to a reduced sustained functional response to agonists compared to the Gly16 (G) allele. The original scores were too compressed and did not reflect the LoF archetype's range. Descriptions were updated for clinical accuracy and brevity. Redundant 'GA' genotype was merged with 'AG'.
+  OLD: {'GG': 6, 'AG': 5, 'GA': 5, 'AA': 4}
+  NEW: {'GG': 9, 'AG': 6, 'AA': 3}
+
+[2026-04-16 16:39:30] rs1042714 | This variant (Gln27Glu) in ADRB2 affects the rate of beta-2 adrenergic receptor downregulation. The Glu27 allele (G) is associated with slower receptor downregulation, meaning the receptor maintains its function and responsiveness for longer under chronic stimulation. This represents a 'gain of function' (ARCHETYPE B) for sustained receptor activity. The original scores (CC:6, CG:5, GG:5) incorrectly assigned lower scores to the G allele genotypes, implying a negative effect, which contradicts the established understanding of Glu27 leading to reduced downregulation and potentially better sustained function. Scores were adjusted to reflect that slower downregulation (GG) is more optimal for sustained receptor activity.
+  OLD: {'CC': 6, 'CG': 5, 'GG': 5}
+  NEW: {'CC': 6, 'CG': 7, 'GG': 9}
+
+[2026-04-16 16:39:36] rs2010963 | rs2010963 (VEGFA C>G) follows a Loss of Function (LoF) archetype. The C allele is associated with higher VEGFA expression and better angiogenesis/endurance, making CC optimal. The G allele is associated with lower expression and reduced function. The original scores (7, 6, 6) did not adequately differentiate between 'Optimal' and 'Reduced' function. Scores were adjusted to reflect a clear LoF, with CC (Optimal) at 9 and GG (Reduced) at 3. The impact was updated to 'High' to reflect this significant functional difference.
+  OLD: {'CC': 7, 'CG': 6, 'GG': 6}
+  NEW: {'CC': 9, 'CG': 6, 'GG': 3}
+
+[2026-04-16 16:39:47] rs1815739 | The original entry had a redundant genotype (TC) and the scores for 'Fast-twitch muscle fiber power' did not fully reflect the 'Loss of Function' archetype for the T allele. The C allele (R577) produces functional alpha-actinin-3, essential for fast-twitch muscle fibers and power. The T allele (X577) leads to a deficiency. Therefore, CC represents optimal power potential, CT is intermediate, and TT is deficient for power. Scores were adjusted to align with ARCHETYPE A (LoF for power): CC (High, 9), CT (Intermediate, 6), TT (Low, 3).
+  OLD: {'CC': 7, 'CT': 6, 'TC': 6, 'TT': 4}
+  NEW: {'CC': 9, 'CT': 6, 'TT': 3}
+
+[2026-04-16 16:40:24] rs1800592 | The rs1800592 'G' allele is associated with increased UCP1 expression and activity, leading to higher brown fat thermogenesis. This represents a Gain of Function (GoF) for the 'G' allele. The original scores and variant descriptions were inconsistent with this established relationship, as they implied the heterozygous state ('GA') had higher activity than the homozygous 'G' state ('GG'). The scores and variant descriptions have been corrected to reflect that the 'G' allele confers optimal activity, with 'GG' having the highest score and 'AA' (reduced activity) having the lowest.
+  OLD: {'GG': 5, 'GA': 6, 'AG': 6, 'AA': 4}
+  NEW: {'AA': 3, 'GA': 6, 'GG': 9}
+
+[2026-04-16 16:41:09] rs2304672 | This variant (rs2304672) in NR1D1 influences circadian rhythm stability and timing. The C allele is associated with a more robust and typical circadian rhythm, which is generally considered optimal for metabolic health and sleep timing. The T allele is linked to an evening chronotype and potentially less stable rhythms, representing a subtle deviation from optimal. This aligns with a subtle Loss of Function archetype for the T allele in maintaining optimal rhythm. Scores were adjusted to reflect CC as optimal (9), CT as balanced (6), and TT as less optimal/shifted (3). The redundant 'TC' genotype was removed to ensure exactly three genotypes.
+  OLD: {'CC': 7, 'CT': 5, 'TC': 5, 'TT': 4}
+  NEW: {'CC': 9, 'CT': 6, 'TT': 3}
+
+[2026-04-16 16:41:30] rs1800795 | The original entry incorrectly interprets the impact of the rs1800795 alleles on IL-6 production and inflammatory reactivity. The G allele is associated with higher IL-6 production, leading to increased inflammatory reactivity. Conversely, the C allele is associated with lower IL-6 production, resulting in reduced inflammatory reactivity. Therefore, the scoring and variant descriptions were inverted. This falls under ARCHETYPE A (Loss of Function - LoF) if we consider 'optimal' as reduced inflammatory response. The C allele leads to a 'better' outcome (lower inflammation), thus should receive a higher score. Scores were adjusted to reflect that lower inflammatory reactivity is more favorable.
+  OLD: {'GG': 7, 'GC': 5, 'CC': 5}
+  NEW: {'GG': 3, 'GC': 6, 'CC': 9}
+
+[2026-04-16 16:41:55] rs3024493 | rs3024493 (C>A) in IL10 is a classic ARCHETYPE A (Loss of Function) for anti-inflammatory activity. The A allele is associated with reduced IL-10 production, leading to a weaker anti-inflammatory response. The original 'variants' descriptions were inverted, and the scores were uniform, which is clinically inaccurate. Scores were adjusted to reflect that CC (higher IL-10 production) is optimal, AC is normal, and AA (lower IL-10 production) is impaired.
+  OLD: {'AA': 5, 'AC': 5, 'CC': 5}
+  NEW: {'AA': 2, 'AC': 6, 'CC': 9}
+
+[2026-04-16 16:42:10] rs429358 | The input failed on Guardrail 8 (Exactly 3 Genotypes) as 'CT' and 'TC' represent the same heterozygous genotype and should be consolidated. It also failed on Guardrail 5 (Description Accuracy) for the 'CT'/'TC' variant description, which was too specific and potentially misleading without considering the rs7412 genotype. The scoring aligns with ARCHETYPE A (Loss of Function), where the C allele at rs429358 is associated with APOE2 (generally protective for AD/lipids), and the T allele is associated with APOE3/4 (APOE4 increases AD/lipid risk). Therefore, CC (more C alleles) is scored higher, and TT (more T alleles) is scored lower, which is consistent with the archetype.
+  OLD: {'CC': 8, 'CT': 5, 'TC': 5, 'TT': 3}
+  NEW: {'CC': 8, 'CT': 5, 'TT': 3}
+
+[2026-04-16 16:42:25] rs699 | The rs699 G allele (T235) is associated with increased angiotensinogen levels and activity, leading to higher blood pressure. The A allele (M235) is associated with lower levels and lower blood pressure. For the trait 'Baseline blood pressure regulation', the AA genotype represents a more favorable state (lower BP), while the GG genotype represents a less favorable state (higher BP). This aligns with ARCHETYPE A (Loss of Function) where the 'G' allele leads to a 'loss' of optimal blood pressure regulation. The original scores for AA (7) and AG (5) were slightly low for 'optimal' and 'typical' states, respectively, according to the archetype's suggested ranges (9-10 for optimal, 5-7 for intermediate). Adjusting AA to 9 and AG to 6 better reflects the optimal and typical states within the 10-point scale, while GG at 3 remains appropriate for an impaired state.
+  OLD: {'AA': 7, 'AG': 5, 'GG': 3}
+  NEW: {'AA': 9, 'AG': 6, 'GG': 3}
+
+[2026-04-16 16:42:40] rs1799752 | The ACE I/D polymorphism (rs1799752) is a classic example where lower ACE activity (II genotype) is generally associated with beneficial cardiovascular outcomes (lower BP, endurance advantage), while higher ACE activity (DD genotype) is associated with increased risk for hypertension. This aligns with Archetype C (Risk Trade-off) where the 'optimal' state for the primary trait (BP/endurance) is lower enzyme activity. Therefore, the II genotype should receive a high score, and the DD genotype a low score. The original scores (7, 5, 4) were acceptable but could be improved to better reflect the 'High' impact by using a wider range (9, 6, 3) which more clearly differentiates the optimal from the risk state according to Guardrail 4 (7-10 = Optimal/Fast/Healthy, 1-4 = Impaired/Slow/Risk).
+  OLD: {'II': 7, 'ID': 5, 'DD': 4}
+  NEW: {'II': 9, 'ID': 6, 'DD': 3}
+
+[2026-04-16 16:43:31] rs12594956 | The rs12594956 T allele (Ser482) is associated with reduced transcriptional activity of PPARGC1A, leading to lower mitochondrial biogenesis. This is an ARCHETYPE A (Loss of Function) scenario. The original scores for CC (7) and TT (4) did not fully align with the archetype's scoring range (9-10 for optimal WT, 2-4 for impaired variant). Scores were adjusted to better reflect the LoF impact, with CC as optimal and TT as impaired.
+  OLD: {'CC': 7, 'CT': 5, 'TC': 5, 'TT': 4}
+  NEW: {'CC': 9, 'CT': 6, 'TC': 6, 'TT': 3}
+
+[2026-04-16 16:43:50] rs699005 | The original entry failed to accurately reflect the impact of rs699005 (G>T) on COL1A1 expression and its subsequent effect on tendon biomechanics. The G allele is associated with higher COL1A1 expression, leading to stronger, stiffer tendons, while the T allele leads to reduced expression, resulting in more flexible but potentially weaker tendons. The original scores and variant descriptions were inconsistent with this established understanding, incorrectly suggesting the heterozygous GT genotype conferred 'Higher tensile strength' compared to GG. This variant aligns with ARCHETYPE A (Loss of Function), where the T allele represents a reduction in optimal collagen production for tendon strength. Scores were adjusted to reflect GG as optimal, GT as intermediate, and TT as impaired/risk. Heterozygous genotypes (GT/TG) were consolidated.
+  OLD: {'GG': 5, 'GT': 6, 'TG': 6, 'TT': 4}
+  NEW: {'GG': 9, 'GT': 6, 'TT': 3}
+
+[2026-04-16 16:44:15] rs9282858 | The variant rs9282858 (V89L) in SRD5A2 is an ARCHETYPE B (Gain of Function - GoF) for enzyme activity. The 'G' allele (Leucine) is associated with higher 5α-reductase activity, leading to higher DHT conversion. The 'A' allele (Valine) is associated with lower activity. Therefore, GG should reflect optimal/fast activity (score 9), AG intermediate (score 6), and AA impaired/slow activity (score 3). The original scores (4, 5, 7) were not fully aligned with the GoF archetype's optimal range. Additionally, the 'variants' object incorrectly listed 'AG' and 'GA' as separate entries; these have been merged into a single 'AG' entry to ensure exactly 3 genotypes.
+  OLD: {'AA': 4, 'AG': 5, 'GA': 5, 'GG': 7}
+  NEW: {'AA': 3, 'AG': 6, 'GG': 9}
+
+[2026-04-16 16:44:26] rs2071749 | This variant impacts HMOX1 induction, which is protective against oxidative stress. Higher induction is beneficial. The 'AA' genotype is associated with higher induction, making it an optimal state (GoF archetype). The 'GG' genotype is associated with reduced induction, making it a less optimal state. Scores were adjusted to reflect this GoF pattern, and the redundant genotype 'GA' was removed to ensure exactly three genotypes.
+  OLD: {'AA': 7, 'AG': 5, 'GA': 5, 'GG': 4}
+  NEW: {'AA': 9, 'AG': 7, 'GG': 4}
+
+[2026-04-16 16:45:09] rs2740574 | ARCHETYPE A (Loss of Function - LoF) applies. The C allele of rs2740574 (CYP3A4*22) is associated with reduced CYP3A4 activity. Therefore, the TT genotype represents higher activity, and the CC genotype represents lower activity. The original scores for TT (7) and CT (5) were slightly understated for 'High' and 'Intermediate' activity respectively, according to the LoF archetype's suggested range (9-10 for WT/High). Scores were adjusted to better reflect the 'High' activity of TT (9) and the 'Intermediate' activity of CT (6), while maintaining the 'Lower' activity of CC (3).
+  OLD: {'TT': 7, 'CT': 5, 'CC': 3}
+  NEW: {'TT': 9, 'CT': 6, 'CC': 3}
+
+[2026-04-16 16:45:49] rs11191548 | The variant rs11191548-T is associated with reduced DRD1 expression and function, making the TT genotype a 'loss of function' compared to the CC genotype. This aligns with ARCHETYPE A (Loss of Function - LoF). The original scores (6, 5, 4) were too compressed and did not accurately reflect the optimal function of CC (which should be high) and the impaired function of TT (which should be low). Scores were adjusted to reflect CC as optimal, CT as typical, and TT as impaired. The redundant 'TC' variant was removed.
+  OLD: {'CC': 6, 'CT': 5, 'TC': 5, 'TT': 4}
+  NEW: {'CC': 9, 'CT': 6, 'TT': 3}
+
+[2026-04-16 16:46:17] rs2802292 | The C allele of rs2802292 is associated with increased FOXO3 activity, leading to enhanced cellular stress resistance and longevity. This represents a Gain of Function (GoF) for beneficial traits. The original scores incorrectly assigned a lower score to the beneficial CC genotype and a higher score to the TT genotype. Scores were adjusted to reflect CC as optimal, TC as enhanced, and TT as typical/baseline.
+  OLD: {'TT': 8, 'TC': 6, 'CT': 6, 'CC': 4}
+  NEW: {'TT': 6, 'TC': 8, 'CC': 9}
+
+[2026-04-16 16:46:27] rs1800498 | The original entry incorrectly describes the impact of the DRD2 Taq1A (rs1800498) variant on reward sensitivity and dopamine D2 receptor density. The T allele (A1) is associated with *lower* D2 receptor density and *reduced* reward sensitivity, which is considered less optimal, fitting an ARCHETYPE A (Loss of Function) model for optimal reward processing. The scores and descriptions were inverted, and redundant genotypes were present. The C allele (A2) is associated with higher D2 receptor density and higher reward sensitivity, which is the more optimal state.
+  OLD: {'CC': 7, 'CT': 5, 'TC': 5, 'TT': 4}
+  NEW: {'CC': 9, 'CT': 6, 'TT': 3}
+
+[2026-04-16 16:46:37] rs987237 | The G allele of rs987237 in TFAP2B is associated with higher appetite and increased risk of obesity. Therefore, the AA genotype, linked to lower appetite, represents the optimal state for appetite regulation. This aligns with ARCHETYPE A (Loss of Function) where the G allele impairs optimal appetite control. Scores were adjusted to reflect AA as optimal (9), AG as balanced (6), and GG as impaired (3). The 'AG' and 'GA' variants were consolidated into a single 'AG' entry as they represent the same heterozygous genotype.
+  OLD: {'AA': 7, 'AG': 5, 'GA': 5, 'GG': 4}
+  NEW: {'AA': 9, 'AG': 6, 'GG': 3}
+
+[2026-04-16 16:46:45] rs3733890 | rs3733890 in BHMT is a Loss of Function (LoF) variant. The A allele is associated with reduced BHMT enzyme activity, impairing homocysteine remethylation via the betaine pathway. For LoF, the wild-type (GG) should have a high score (9-10) indicating optimal function, while the homozygous variant (AA) should have a low score (2-4) indicating significantly reduced function. The original scores (GG: 7, AG: 5, AA: 4) did not fully reflect this, as the wild-type GG score of 7 was not high enough for optimal function in an LoF context. Scores and variant descriptions have been adjusted to align with the LoF archetype (9/6/3).
+  OLD: {'GG': 7, 'AG': 5, 'AA': 4}
+  NEW: {'GG': 9, 'AG': 6, 'AA': 3}
+
+[2026-04-16 16:46:57] rs234706 | FAIL. rs234706 (CBS) is a Gain of Function (GoF) variant. The A allele increases CBS expression and activity, enhancing homocysteine conversion. The original scores were inverted, treating it as a LoF. Also, 'GA' and 'AG' were consolidated into 'GA' to meet the 'exactly 3 genotypes' rule, as they represent the same heterozygous state.
+  OLD: {'GG': 6, 'GA': 5, 'AG': 5, 'AA': 4}
+  NEW: {'GG': 6, 'GA': 8, 'AA': 9}
+
+[2026-04-16 16:47:28] rs5882 | The rs5882 (TaqIB) A allele is associated with lower CETP activity, which generally leads to higher HDL-C levels. Higher HDL-C is typically considered a beneficial outcome. Therefore, the genotype with lower CETP activity (AA) should receive a higher score, reflecting a 'gain of beneficial outcome' (similar to Archetype B, where the variant leads to an optimal state). The original scores were inverted and the variant descriptions were inaccurate regarding CETP activity levels for each genotype. The redundant 'GA' genotype was removed.
+  OLD: {'AA': 5, 'AG': 6, 'GA': 6, 'GG': 6}
+  NEW: {'GG': 3, 'AG': 6, 'AA': 9}
+
+[2026-04-16 16:47:48] rs1501299 | The variant rs1501299 in ADIPOQ is a Gain of Function (GoF) archetype. Higher adiponectin levels are associated with improved insulin sensitivity and are considered beneficial. The original scores (GG: 4, GT: 5, TT: 7) did not fully align with the GoF scoring archetype where optimal function should be in the 8-10 range and baseline in the 6-7 range. The heterozygous entries 'GT' and 'TG' were redundant and have been consolidated into 'GT'. Scores were adjusted to reflect a clearer GoF progression: GG (lower adiponectin) at 4, GT (typical adiponectin) at 7, and TT (higher adiponectin) at 9.
+  OLD: {'GG': 4, 'GT': 5, 'TG': 5, 'TT': 7}
+  NEW: {'GG': 4, 'GT': 7, 'TT': 9}
+
+[2026-04-16 16:48:16] rs1205 | The T allele of rs1205 is associated with increased baseline C-reactive protein (CRP) levels, which is generally considered less favorable. This aligns with a Loss of Function (LoF) archetype, where the 'function' is maintaining a healthy, lower inflammatory state. The original entry had a redundant 'TC' genotype. Scores were adjusted to reflect a clearer gradient where the CC genotype (lower CRP) is optimal, and the TT genotype (higher CRP) is less optimal.
+  OLD: {'CC': 7, 'CT': 5, 'TC': 5, 'TT': 4}
+  NEW: {'CC': 9, 'CT': 6, 'TT': 3}
+
+[2026-04-16 16:49:03] rs6311 | The input contained a redundant genotype (TC) and the scores were slightly adjusted to better reflect the 'loss of optimal function' archetype. The T allele of rs6311 is associated with reduced 5-HT2A receptor density and altered signaling, which is generally considered a less optimal state for typical serotonin function. Therefore, the homozygous variant (TT) should have a lower score, aligning with the 'Impaired/Slow/Risk' range. Descriptions were also refined for clarity and brevity.
+  OLD: {'CC': 6, 'CT': 5, 'TC': 5, 'TT': 4}
+  NEW: {'CC': 7, 'CT': 5, 'TT': 3}
+
+[2026-04-16 16:49:21] rs3731249 | This is a Loss of Function (LoF) archetype. The rs3731249 (p.Ala148Thr) variant in CDKN2A impairs its tumor suppressor function, leading to reduced cell cycle control and increased cancer risk. The initial wild-type score (CC=7) was too low for optimal function in a LoF context. Scores were adjusted to reflect optimal wild-type function (9) and impaired variant function (3). Heterozygous genotypes (CT/TC) were consolidated into a single 'CT' entry as per the 'EXACTLY 3 GENOTYPES' guardrail.
+  OLD: {'CC': 7, 'CT': 5, 'TC': 5, 'TT': 3}
+  NEW: {'CC': 9, 'CT': 6, 'TT': 3}
+
+[2026-04-16 16:49:32] rs25487 | This is an ARCHETYPE A (Loss of Function - LoF) scenario. The XRCC1 Arg399Gln variant (T allele) is associated with reduced DNA repair efficiency. The 'CC' genotype represents the wild-type with higher function, while 'TT' represents reduced function. To align more closely with the LoF archetype's scoring guidance (Wild-Type: 9-10, Variant: 2-4), the scores for 'CC' and 'CT' were adjusted upwards while maintaining the relative functional impact.
+  OLD: {'CC': 7, 'CT': 5, 'TT': 3}
+  NEW: {'CC': 9, 'CT': 6, 'TT': 3}
+
+[2026-04-16 16:49:59] rs11615 | The variant rs11615 in ERCC1 is associated with altered DNA repair capacity. The 'AA' genotype is described as having 'Reduced ERCC1 activity', indicating a Loss of Function (LoF) archetype. According to ARCHETYPE A (LoF), the wild-type (GG) should have a high score (9-10) for efficient function, while the variant (AA) should have a low score (2-4) for reduced function. The original scores (6, 5, 4) were too compressed and did not adequately reflect the LoF impact. Scores were adjusted to align with the LoF archetype.
+  OLD: {'GG': 6, 'AG': 5, 'AA': 4}
+  NEW: {'GG': 9, 'AG': 6, 'AA': 3}
+
+[2026-04-16 16:50:07] rs1042522 | The variant rs1042522 (TP53 Arg72Pro) affects p53's ability to induce apoptosis and suppress tumors. The Arginine (G) allele is generally associated with more efficient apoptosis induction, while the Proline (C) allele is linked to reduced apoptotic potential. This aligns with ARCHETYPE A (Loss of Function) for the C allele's apoptotic role. The original scores incorrectly assigned the same value to GC and CC, despite CC being described as 'Lower'. The scores have been adjusted to reflect GG as optimal, GC as intermediate, and CC as lower, consistent with the functional impact.
+  OLD: {'GG': 8, 'GC': 6, 'CC': 6}
+  NEW: {'GG': 9, 'GC': 6, 'CC': 3}
+
+[2026-04-16 16:50:15] rs1799950 | ARCHETYPE A (Loss of Function - LoF). rs1799950 (c.68_69delAG) is a frameshift deletion in BRCA1, leading to a non-functional protein and impaired DNA repair. The original scores for the wild-type (CC) were too low for 'Strong BRCA1 function' in a LoF context. Scores were adjusted to better reflect optimal function for the wild-type allele (9-10 range) and maintain the relative decrease for heterozygous and homozygous variant genotypes.
+  OLD: {'CC': 7, 'CT': 5, 'TT': 3}
+  NEW: {'CC': 9, 'CT': 6, 'TT': 3}
+
+[2026-04-16 16:50:22] rs16942 | ARCHETYPE A (Loss of Function - LoF) applies. The variant reduces BRCA1 activity, impacting DNA repair. The original scores (6, 5, 4) were too compressed and did not adequately reflect the LoF archetype where the wild-type (CC) should be high and the homozygous variant (TT) should be low. Scores were adjusted to align with the LoF archetype (9, 6, 3). The redundant 'TC' variant was removed.
+  OLD: {'CC': 6, 'CT': 5, 'TC': 5, 'TT': 4}
+  NEW: {'CC': 9, 'CT': 6, 'TT': 3}
+
+[2026-04-16 17:06:12] rs11185098 | The variant rs11185098 in DAO is a Loss of Function (LoF) archetype. The provided scores (7, 5, 3) correctly reflect this, with GG having strong activity and AA having low activity. The descriptions are accurate and concise. However, the input JSON incorrectly lists 'GA' and 'AG' as separate genotypes. These represent the same heterozygous state and should be consolidated into a single entry (e.g., 'GA').
+  OLD: {'GG': 7, 'GA': 5, 'AG': 5, 'AA': 3}
+  NEW: {'GG': 7, 'GA': 5, 'AA': 3}
+
+[2026-04-16 17:07:15] rs17226398 | rs17226398 in SLC22A5 is a classic Loss of Function (LoF) variant (ARCHETYPE A). The T allele reduces carnitine transport activity. The original scores did not align with this archetype, as the wild-type (CC) was scored too low (6) and the homozygous variant (TT) was scored too high (4) relative to the wild-type. For an LoF, the wild-type should represent optimal function (high score), and the variant should represent impaired function (low score). Scores were adjusted to reflect this LoF pattern.
+  OLD: {'CC': 6, 'CT': 5, 'TC': 5, 'TT': 4}
+  NEW: {'CC': 9, 'CT': 6, 'TT': 3}
+
+[2026-04-16 17:07:43] rs2239681 | ARCHETYPE A (Loss of Function - LoF). rs2239681 (C>T) in NDUFB6 is associated with reduced Complex I efficiency. The T allele leads to decreased function. The original scores for the wild-type (CC) were too low for an 'optimal' state. Scores were adjusted to reflect a clear LoF archetype (9/6/3). Heterozygous genotypes (CT/TC) were consolidated into a single 'CT' entry.
+  OLD: {'CC': 7, 'CT': 5, 'TC': 5, 'TT': 3}
+  NEW: {'CC': 9, 'CT': 6, 'TT': 3}
+
+[2026-04-16 17:08:15] rs1042173 | The original entry incorrectly associated the C allele with lower fatigue and the A allele with higher fatigue. Biologically, the C allele (rs1042173) is linked to higher SERT expression, leading to lower synaptic serotonin and thus higher central fatigue. Conversely, the A allele is linked to lower SERT expression, resulting in higher synaptic serotonin and lower central fatigue. The scores and variant descriptions were inverted. This is an inverse Loss of Function (LoF) archetype where reduced SERT activity (A allele) is beneficial for synaptic serotonin levels and fatigue. The 'system' and 'trait' were also refined for clinical accuracy.
+  OLD: {'CC': 7, 'AC': 5, 'AA': 3}
+  NEW: {'CC': 3, 'AC': 6, 'AA': 9}
+
+[2026-04-16 17:08:42] rs2070744 | rs2070744 (NOS3 E298D) is an ARCHETYPE A (Loss of Function). The T allele (G894) is associated with optimal eNOS activity and NO production, while the C allele (T894) is linked to reduced activity. The original scores for TT (7) and TC (5) were too conservative for optimal and intermediate function, respectively. Adjusted TT to 9 and TC to 6 to better reflect the optimal/intermediate function in a 1-10 scale. Consolidated redundant 'CT' genotype.
+  OLD: {'TT': 7, 'TC': 5, 'CT': 5, 'CC': 3}
+  NEW: {'TT': 9, 'TC': 6, 'CC': 3}
+
+[2026-04-16 17:08:49] rs1049434 | This variant follows ARCHETYPE A (Loss of Function - LoF). The 'AA' genotype is described as 'Strong tendon–muscle integration', which is an optimal outcome. The 'TT' genotype is associated with 'Higher strain injury risk', indicating an impaired function. For LoF, the wild-type (AA) should have a high score (9-10) and the variant (TT) a low score (2-4). The original 'AA' score of 7 was too low for an optimal outcome. Scores were adjusted to reflect 'AA' as optimal (9), 'AT' as moderate (6), and 'TT' as impaired (3).
+  OLD: {'AA': 7, 'AT': 5, 'TT': 3}
+  NEW: {'AA': 9, 'AT': 6, 'TT': 3}
+
+[2026-04-16 17:08:58] rs2285477 | The variant rs2285477 in COX7A1 is associated with Complex IV activity and aerobic capacity. The C allele is linked to higher activity, while the T allele is associated with reduced function. This aligns with ARCHETYPE A (Loss of Function - LoF), where the variant (T allele) reduces enzyme efficiency. The original scores for the 'High Complex IV activity' (CC) genotype were too low (7) for an optimal state in an LoF archetype. Scores were adjusted to reflect the 9-10 range for optimal function (CC=9) and a baseline for heterozygous (CT=6), while maintaining the low score for homozygous variant (TT=3). The redundant 'TC' genotype was removed.
+  OLD: {'CC': 7, 'CT': 5, 'TC': 5, 'TT': 3}
+  NEW: {'CC': 9, 'CT': 6, 'TT': 3}
+
+[2026-04-16 17:09:39] rs2486758 | The rs2486758 C allele in CYP17A1 is associated with increased transcriptional activity and higher enzyme function, leading to enhanced sex steroid production. This represents a Gain of Function (GoF) archetype. The original entry incorrectly assigned 'lower production' to CC and 'higher production' to TT, and consequently, the scores were inverted. The C allele should confer higher activity and thus higher scores. Scores were adjusted to reflect the GoF of the C allele, with TT as baseline (6), CT as moderate (8), and CC as optimal (9).
+  OLD: {'CC': 4, 'CT': 5, 'TC': 5, 'TT': 7}
+  NEW: {'TT': 6, 'CT': 8, 'CC': 9}
+
+[2026-04-16 17:09:55] rs6165 | The original entry incorrectly mapped the genotypes to FSH receptor sensitivity. rs6165 (Ala307Thr) in FSHR: The A allele (Alanine) is associated with higher FSH sensitivity, while the G allele (Threonine) is associated with lower FSH sensitivity. The original 'variants' descriptions and 'scores' were inverted. This is an ARCHETYPE A (Loss of Function) scenario where the G allele leads to a 'loss' of optimal FSH receptor sensitivity. Scores were adjusted to reflect this, with AA (optimal sensitivity) receiving a high score and GG (lower sensitivity) receiving a low score. The redundant 'GA' genotype was consolidated into 'AG'.
+  OLD: {'AA': 4, 'AG': 5, 'GA': 5, 'GG': 7}
+  NEW: {'AA': 9, 'AG': 6, 'GG': 3}
+
+[2026-04-16 17:10:24] rs605059 | The G allele of rs605059 is associated with lower ESR2 expression and reduced estrogen sensitivity, representing a Loss of Function (LoF) compared to the A allele. Therefore, the AA genotype (higher sensitivity) should have a higher score, and the GG genotype (lower sensitivity) should have a lower score, following ARCHETYPE A. The original scores were not optimally aligned with this archetype, and the 'GA' variant was redundant.
+  OLD: {'AA': 7, 'AG': 5, 'GA': 5, 'GG': 4}
+  NEW: {'AA': 9, 'AG': 6, 'GG': 3}
+
+[2026-04-16 17:10:35] rs523349 | This variant (rs523349, V89L) in SRD5A1 affects 5-alpha reductase type 1 activity. The C allele leads to higher activity and thus higher DHT levels, while the G allele leads to lower activity and lower DHT levels. Clinically, lower DHT levels are often considered beneficial for reducing risk of conditions like BPH and androgenetic alopecia. Therefore, this falls under ARCHETYPE C (Risk Trade-off). The original scores were inverted, implying higher DHT was more optimal. Scores have been adjusted to reflect that lower DHT conversion (GG) is generally more favorable from a health perspective, making it a higher score, and higher DHT conversion (CC) less favorable, making it a lower score.
+  OLD: {'CC': 7, 'CG': 5, 'GC': 5, 'GG': 3}
+  NEW: {'CC': 3, 'CG': 6, 'GG': 9}
+
+[2026-04-16 17:11:07] rs9282859 | ARCHETYPE C (Risk Trade-off). The T allele of rs9282859 in HSD17B12 is associated with increased HSD17B12 activity, leading to higher estradiol synthesis. While this represents a 'gain of function' for enzymatic efficiency, higher circulating estradiol levels are a known risk factor for hormone-sensitive cancers (e.g., breast cancer). Therefore, the scoring is adjusted to reflect the health risk, where lower estradiol synthesis (and thus lower risk) receives a higher score, aligning with the principle of prioritizing overall health outcomes over mere enzymatic efficiency.
+  OLD: {'CC': 4, 'CT': 5, 'TC': 5, 'TT': 7}
+  NEW: {'CC': 8, 'CT': 6, 'TT': 3}
+
+[2026-04-16 17:11:29] rs45446698 | CYP3A5*3 (rs45446698) is a classic Loss of Function (LoF) variant. The variant allele (represented by 'T' in the input, corresponding to the 'A' allele in rs45446698) leads to reduced or absent enzyme activity, resulting in SLOWER metabolism. The wild-type allele (represented by 'C' in the input, corresponding to the 'G' allele) leads to functional, FAST metabolism. The original entry incorrectly inverted the descriptions for 'CC' (describing it as 'Slow' instead of 'Fast') and 'TT' (describing it as 'Fast' instead of 'Slow'). The scores were also misaligned with the actual biological effect and the LoF archetype. Scores were adjusted to reflect the LoF archetype: CC (Fast) -> 9, CT (Moderate) -> 6, TT (Slow) -> 3. The overall description was also made more specific to the variant's impact.
+  OLD: {'CC': 7, 'CT': 5, 'TC': 5, 'TT': 3}
+  NEW: {'CC': 9, 'CT': 6, 'TT': 3}
+
+[2026-04-16 17:11:52] rs1800012 | The A allele of rs1800012 (COL1A1) is associated with increased collagen stiffness and bone mineral density, reducing hypermobility risk. This represents a Gain of Function (GoF) for collagen stability. The original scores (5, 6, 7) were too low and did not adequately reflect the beneficial impact of the A allele for the stated trait. Scores were adjusted to align with the GoF archetype, where the optimal variant (AA) receives a higher score.
+  OLD: {'CC': 5, 'AC': 6, 'AA': 7}
+  NEW: {'CC': 6, 'AC': 8, 'AA': 9}
+
+[2026-04-16 17:12:03] rs1800255 | This variant (rs1800255, C>T) in the COL3A1 promoter region is associated with reduced COL3A1 expression, leading to weaker collagen type III. This represents a Loss of Function (LoF) for connective tissue strength and integrity (ARCHETYPE A). The original scores for CC (7) were too low for an optimal wild-type state, and the description for TT was misleading. Scores have been adjusted to reflect a clear LoF, with the wild-type (CC) being optimal (9) and the homozygous variant (TT) being significantly impaired (3). Variant descriptions have been clarified to emphasize reduced strength and increased fragility/laxity, rather than 'higher elasticity' which can be misinterpreted as beneficial. The redundant 'TC' variant was removed.
+  OLD: {'CC': 7, 'CT': 5, 'TC': 5, 'TT': 4}
+  NEW: {'CC': 9, 'CT': 6, 'TT': 3}
+
+[2026-04-16 17:12:14] rs1800252 | rs1800252 in COL2A1 is a Loss of Function (LoF) archetype. The T allele is associated with reduced cartilage durability and increased risk of osteoarthritis. Therefore, the CC genotype represents optimal function, CT represents moderate function, and TT represents reduced function. The original scores (7, 5, 3) were slightly conservative for the optimal and heterozygous states. They have been adjusted to align with the LoF archetype (9/6/3). The heterozygous genotypes CT and TC were consolidated into a single CT entry as per the schema requirement for exactly 3 genotypes.
+  OLD: {'CC': 7, 'CT': 5, 'TC': 5, 'TT': 3}
+  NEW: {'CC': 9, 'CT': 6, 'TT': 3}
+
+[2026-04-16 17:12:26] rs2073711 | rs2073711 in COL11A1 is an ARCHETYPE A (Loss of Function - LoF) variant. The G allele is associated with reduced collagen cross-link stability, predisposing to conditions like intervertebral disc degeneration. The A allele is considered more optimal. The original entry incorrectly listed 'AG' and 'GA' as separate genotypes; these were merged into a single 'AG' entry. Scores were adjusted to better reflect the LoF archetype: AA (optimal) to 9, AG (baseline) to 6, and GG (impaired) to 3, providing a clearer distinction between optimal and impaired function.
+  OLD: {'AA': 7, 'AG': 5, 'GA': 5, 'GG': 4}
+  NEW: {'AA': 9, 'AG': 6, 'GG': 3}
+
+[2026-04-16 17:12:45] rs137852 | The original entry had redundant heterozygous genotypes (CT and TC) which violates the 'EXACTLY 3 GENOTYPES' guardrail. This variant represents a Risk Trade-off (ARCHETYPE C). The C allele is associated with increased tendon stiffness, while the T allele is linked to increased flexibility and potential injury risk. The scoring reflects a general preference for balanced or slightly stiffer tendons (CC=7) over excessively flexible ones (TT=4) in terms of overall tissue integrity and injury prevention. Descriptions were also refined for brevity and clarity.
+  OLD: {'CC': 7, 'CT': 5, 'TC': 5, 'TT': 4}
+  NEW: {'CC': 7, 'CT': 5, 'TT': 4}
+
+[2026-04-16 17:13:01] rs143383 | The rs143383 A allele in GDF5 is associated with reduced GDF5 expression, leading to increased risk of osteoarthritis and impaired joint health. This represents a 'Loss of Function' (LoF) archetype for the protective role of GDF5. The wild-type GG genotype is protective and should be scored higher (9-10) to reflect optimal function, while the AA genotype is associated with higher risk (2-4). The original score of 7 for GG was too low for an optimal, protective genotype in an LoF context. Scores were adjusted to reflect this archetype more accurately.
+  OLD: {'GG': 7, 'AG': 5, 'AA': 3}
+  NEW: {'GG': 9, 'AG': 6, 'AA': 3}
+
+[2026-04-16 17:13:34] rs479744 | The T allele of rs479744 in PLOD1 is associated with increased enzyme activity, leading to more collagen cross-linking. This is a Gain of Function (GoF) archetype. The original entry incorrectly described the TT variant as 'Risk' and 'weaker' leading to laxity, and assigned flat scores. Increased activity would typically lead to stiffer collagen, not laxity. Scores were adjusted to reflect higher activity for the T allele (GoF: GG baseline, TT high). The description and variant labels were updated for clinical accuracy and brevity.
+  OLD: {'GG': 5, 'GT': 5, 'TT': 5}
+  NEW: {'GG': 6, 'GT': 8, 'TT': 9}
+
+[2026-04-16 17:13:45] rs2271683 | The original scoring incorrectly assigned higher scores to the 'stiffer, less flexible tissues' (GG) genotype, while 'higher elasticity' (AA) is generally considered more optimal for elastin function. This is an ARCHETYPE A (Loss of Function) scenario where the G allele leads to a less optimal elastic function. The scores have been inverted to reflect that higher elasticity is optimal. Additionally, the 'GA' genotype was redundant and has been merged with 'AG' to ensure exactly three genotypes.
+  OLD: {'AA': 4, 'AG': 5, 'GA': 5, 'GG': 7}
+  NEW: {'AA': 9, 'AG': 6, 'GG': 3}
+
+[2026-04-16 17:13:53] rs1728986 | ARCHETYPE A (Loss of Function - LoF). The T allele of rs1728986 in TNXB is associated with increased joint laxity and hypermobility, indicating a less optimal function for connective tissue integrity. Therefore, the CC genotype (lower risk) should have a higher score, and the TT genotype (higher risk) should have a lower score. The provided scores (7, 5, 3) correctly reflect this LoF gradient. However, the input contained redundant heterozygous entries ('CT' and 'TC') which must be consolidated into a single 'CT' entry.
+  OLD: {'CC': 7, 'CT': 5, 'TC': 5, 'TT': 3}
+  NEW: {'CC': 7, 'CT': 5, 'TT': 3}
+
+[2026-04-16 17:14:23] rs1800790 | rs1800790 (G-455A) in FGB is associated with higher fibrinogen levels (T allele). While fibrinogen is crucial for initial clotting, chronically elevated levels are a cardiovascular risk factor and may impair optimal long-term tissue repair quality. This is an ARCHETYPE C (Risk Trade-off). The original scores were slightly low for the optimal genotype (7 instead of 8) and the variant descriptions were refined for clinical accuracy and brevity. The redundant 'TC' entry was consolidated into 'CT'.
+  OLD: {'CC': 7, 'CT': 5, 'TC': 5, 'TT': 4}
+  NEW: {'CC': 8, 'CT': 6, 'TT': 4}
+
+[2026-04-16 17:14:55] rs1042713_dupfix | The variant rs1042713 (Gln27Glu) in ADRB2 is an ARCHETYPE A (Loss of Function - LoF). The A allele (Glu) is associated with reduced receptor function and slower lipolysis. The original scores were too compressed (7, 5, 4) for a clear LoF. Scores have been adjusted to better reflect the LoF archetype (8, 5, 2) where the wild-type (GG) is optimal and the homozygous variant (AA) is impaired. The heterozygous genotypes 'GA' and 'AG' were consolidated into a single 'GA' entry.
+  OLD: {'GG': 7, 'GA': 5, 'AG': 5, 'AA': 4}
+  NEW: {'GG': 8, 'GA': 5, 'AA': 2}
+
+[2026-04-16 17:15:04] rs934078 | The rs934078 (DIO2) variant is a classic ARCHETYPE A (Loss of Function). The T allele (Ala92) is associated with reduced T4 to T3 conversion efficiency compared to the C allele (Thr92). The original scores (CC=7, CT=5, TT=4) were too compressed and did not fully reflect the optimal (CC) vs. impaired (TT) states. Scores were adjusted to better align with a LoF archetype (9/6/3). Additionally, the 'variants' section had redundant entries for heterozygous genotypes (CT and TC) which were consolidated into a single 'CT' entry.
+  OLD: {'CC': 7, 'CT': 5, 'TC': 5, 'TT': 4}
+  NEW: {'CC': 9, 'CT': 6, 'TT': 3}
+
+[2026-04-16 17:15:15] rs2071403 | The variant rs2071403 (G>A) in THRB is associated with the A allele leading to increased thyroid receptor sensitivity, making it a Gain of Function (GoF) for the A allele. The original scores (AA=7, GG=4) were not fully aligned with the GoF archetype where the 'optimal' variant should score higher. Scores were adjusted to reflect this GoF, with AA (High sensitivity) receiving a higher score and GG (Reduced sensitivity) a lower score. Additionally, the input contained redundant 'AG' and 'GA' genotypes, which were consolidated into a single 'AG' entry.
+  OLD: {'AA': 7, 'AG': 5, 'GA': 5, 'GG': 4}
+  NEW: {'GG': 3, 'AG': 6, 'AA': 9}
+
+[2026-04-16 17:15:57] rs3758391 | SIRT3 C>T (rs3758391) is a Loss of Function variant. The C allele is associated with higher SIRT3 activity and mitochondrial resilience, while the T allele reduces this protective function. The scores align with this LoF archetype (CC optimal, TT impaired). However, the input contained redundant heterozygous entries ('CT' and 'TC') which have been consolidated into a single 'CT' entry to adhere to the 'exactly 3 genotypes' schema requirement.
+  OLD: {'CC': 8, 'CT': 6, 'TC': 6, 'TT': 4}
+  NEW: {'CC': 8, 'CT': 6, 'TT': 4}
+
+[2026-04-16 17:16:14] rs4654748 | The variant rs4654748 in LMNA represents a Loss of Function (LoF) archetype, where the TT genotype leads to reduced nuclear stability and increased senescence. The original entry had redundant heterozygous genotypes (CT and TC) and the scoring for the wild-type (CC) was not optimally aligned with the 'High (9-10)' range for LoF archetypes. Scores were adjusted to 9 (CC), 6 (CT), and 3 (TT) to better reflect the LoF archetype (Wild-Type: High, Variant: Low) and to consolidate heterozygous entries.
+  OLD: {'CC': 7, 'CT': 5, 'TC': 5, 'TT': 3}
+  NEW: {'CC': 9, 'CT': 6, 'TT': 3}
+
+[2026-04-16 17:16:47] rs12203592 | The input incorrectly assigns the effects of the C and T alleles for rs12203592. The C allele is associated with higher UV sensitivity, lighter skin, and increased melanoma risk. The T allele is associated with lower UV sensitivity, darker skin, and reduced melanoma risk. The input's 'variants' descriptions and 'scores' were inverted relative to these established biological effects. This is a direct risk factor archetype where lower UV sensitivity is considered optimal. Scores were adjusted to reflect that TT (lower UV sensitivity) is optimal (9) and CC (higher UV sensitivity) is impaired (3). The heterozygous entries 'CT' and 'TC' were consolidated into 'CT' as per schema requirements.
+  OLD: {'CC': 7, 'CT': 5, 'TC': 5, 'TT': 3}
+  NEW: {'CC': 3, 'CT': 6, 'TT': 9}
+
+[2026-04-16 17:16:54] rs1805007 | rs1805007 (MC1R) is a Loss of Function (LoF) variant. The T allele (Arg151Cys) reduces MC1R receptor function, leading to decreased melanin production and increased sun sensitivity. For LoF, the wild-type (CC) should have a high score (9-10) reflecting optimal function, and the homozygous variant (TT) a low score (2-4). The original scores (CC: 6, CT: 4, TT: 2) were too low for the wild-type and heterozygous genotypes. The 'TC' variant was also redundant and removed.
+  OLD: {'CC': 6, 'CT': 4, 'TC': 4, 'TT': 2}
+  NEW: {'CC': 9, 'CT': 6, 'TT': 2}
+
+[2026-04-16 17:17:03] rs885479 | MC1R R151C (rs885479) is a loss-of-function variant. Reduced MC1R activity leads to decreased eumelanin and increased pheomelanin, which offers less UV protection and increases oxidative stress. This aligns with ARCHETYPE A (Loss of Function). The wild-type (AA) should have a high score for optimal protection, and the homozygous variant (GG) should have a low score for impaired protection. Original AA score (7) was adjusted to 9 to better reflect optimal function. Heterozygous entries (AG/GA) were consolidated into AG as per schema requirements.
+  OLD: {'AA': 7, 'AG': 5, 'GA': 5, 'GG': 3}
+  NEW: {'AA': 9, 'AG': 6, 'GG': 3}
+
+[2026-04-16 17:17:12] rs2070974 | This variant, rs2070974 (S192Y) in TYR, is a Loss of Function (LoF) archetype. The T allele reduces tyrosinase enzyme activity, leading to lower melanin production and increased UV sensitivity. The original scores (7, 5, 3) were slightly low for the optimal (CC) genotype. For a LoF, the wild-type (CC) should be scored higher (e.g., 9-10) to reflect optimal function, while the homozygous variant (TT) should be low (2-4). The heterozygous entries (CT/TC) were redundant and have been combined.
+  OLD: {'CC': 7, 'CT': 5, 'TC': 5, 'TT': 3}
+  NEW: {'CC': 9, 'CT': 6, 'TT': 3}
+
+[2026-04-16 17:17:29] rs1110400 | SOD1 is an antioxidant enzyme. A variant that reduces its activity leads to decreased protection against oxidative stress, fitting the Loss of Function (LoF) archetype. The original scores were compressed (7, 5, 3). For LoF, the wild-type (CC) should reflect optimal function with a higher score (e.g., 9-10), while the homozygous variant (TT) should reflect impaired function (e.g., 2-4). Scores were adjusted to better reflect this range (9, 6, 3). Additionally, the 'variants' object contained a redundant 'TC' entry, which was consolidated with 'CT' to ensure exactly three genotypes.
+  OLD: {'CC': 7, 'CT': 5, 'TC': 5, 'TT': 3}
+  NEW: {'CC': 9, 'CT': 6, 'TT': 3}
+
+[2026-04-16 17:17:40] rs3774175 | rs3774175 (C>T) in SOD3 is a Loss of Function (LoF) variant, where the T allele is associated with reduced SOD3 activity and lower extracellular antioxidant protection. The original scores for the wild-type (CC) were too low (7) for 'Strong protection' in a LoF archetype, which typically assigns 9-10 for optimal wild-type function. Scores were adjusted to reflect this, and heterozygous genotypes were consolidated.
+  OLD: {'CC': 7, 'CT': 5, 'TC': 5, 'TT': 3}
+  NEW: {'CC': 9, 'CT': 6, 'TT': 3}
+
+[2026-04-16 17:18:07] rs559870 | The variant rs559870 C>T in MMP3 is associated with altered MMP3 expression and activity. The T allele is generally linked to increased MMP3 activity, leading to greater collagen degradation. In the context of 'Collagen remodeling efficiency' and 'firmness vs sagging', increased degradation is detrimental to firmness. Therefore, the C allele (lower activity, less degradation) is considered 'efficient' for collagen retention. This aligns with ARCHETYPE A (Loss of Function for collagen retention/firmness). The original scores were too compressed for a clear LoF archetype. Scores were adjusted to reflect a wider range, with CC (optimal for firmness) receiving a higher score and TT (suboptimal for firmness) receiving a lower score. The heterozygous genotypes 'CT' and 'TC' were consolidated into a single 'CT' entry.
+  OLD: {'CC': 7, 'CT': 5, 'TC': 5, 'TT': 4}
+  NEW: {'CC': 9, 'CT': 6, 'TT': 3}
+
+[2026-04-16 17:18:25] rs174537 | The rs174537 variant in FADS1 affects the efficiency of fatty acid desaturation. The G allele is associated with higher FADS1 activity and more efficient conversion of ALA to EPA/DHA. The T allele is associated with lower activity. This represents a Loss of Function (LoF) archetype for the T allele. The original scores were too low for the optimal GG genotype. Scores were adjusted to reflect optimal (9), moderate (6), and impaired (3) function. Additionally, the 'variants' section was corrected to include exactly 3 genotypes by merging 'GT' and 'TG' into a single 'GT' entry.
+  OLD: {'GG': 7, 'GT': 5, 'TG': 5, 'TT': 3}
+  NEW: {'GG': 9, 'GT': 6, 'TT': 3}
+
+[2026-04-16 17:18:43] rs328_TIER2 | rs328 (S447X) in LPL is a well-established gain-of-function (GoF) variant (ARCHETYPE B). The G allele leads to a truncated, more active LPL protein, improving triglyceride clearance. The original scores (5, 6, 7) were too low for a GoF variant described as 'fastest clearance'. Scores were adjusted to reflect optimal activity for GG (10) and baseline for CC (6). The 'impact' was updated to 'High' to reflect the significant improvement in lipid clearance. Consolidated redundant 'CG' and 'GC' genotypes into a single 'CG' entry.
+  OLD: {'CC': 5, 'CG': 6, 'GC': 6, 'GG': 7}
+  NEW: {'CC': 6, 'CG': 8, 'GG': 10}
+
+[2026-04-16 17:19:07] rs11191548_TIER2 | The variant rs11191548 in DRD1 affects renal sodium excretion. The C allele is associated with stronger excretion and lower blood pressure sensitivity, while the T allele is associated with reduced excretion and higher blood pressure sensitivity. This represents a Loss of Function (LoF) archetype, where the T allele impairs the beneficial function. The original descriptions and scores (CC: 7, CT/TC: 5, TT: 3) are clinically accurate and align with the LoF archetype (Wild-Type (CC) is good, Variant (TT) is impaired). However, the input listed CT and TC as separate genotypes, which are functionally identical and should be consolidated into a single heterozygous entry (CT) to conform to the expected 3-genotype schema.
+  OLD: {'CC': 7, 'CT': 5, 'TC': 5, 'TT': 3}
+  NEW: {'CC': 7, 'CT': 5, 'TT': 3}
+
+[2026-04-16 17:19:22] rs1254337 | INCORRECT LOGIC. rs1254337 in GLUT9 (SLC2A9) is a major determinant of serum uric acid levels. The T allele is associated with lower uric acid levels, indicating a more efficient uric acid transport/excretion. This represents a beneficial effect for uric acid regulation, aligning with a 'Gain of Function' or 'Optimal Function' archetype. Therefore, the TT genotype should have the highest score (optimal uric acid regulation), and the AA genotype (higher uric acid) should have the lowest score. The original scores were flat and did not reflect the known impact of the variant.
+  OLD: {'AA': 5, 'AT': 5, 'TT': 5}
+  NEW: {'AA': 3, 'AT': 6, 'TT': 9}
+
+[2026-04-16 17:19:52] rs9923231 | This is an ARCHETYPE A (Loss of Function - LoF) variant. The T allele of rs9923231 (often referred to as -1639G>A, where A is the low activity allele, or 1173C>T, where T is the low activity allele) leads to reduced VKORC1 activity, impairing vitamin K recycling. This results in lower levels of active vitamin K, impacting both clotting factor carboxylation and non-clotting vitamin K-dependent proteins like MGP, which is crucial for vascular calcification resistance. Therefore, 'Strong vitamin K recycling' (CC) should have a high score, and 'Low recycling' (TT) should have a low score. The original scores (7, 5, 3) were directionally correct but slightly underestimated the optimal state. Adjusted scores (9, 6, 3) better reflect the LoF archetype. Additionally, 'CT' and 'TC' were redundant and have been consolidated into a single 'CT' entry as per schema requirements.
+  OLD: {'CC': 7, 'CT': 5, 'TC': 5, 'TT': 3}
+  NEW: {'CC': 9, 'CT': 6, 'TT': 3}
+
+[2026-04-16 17:20:11] rs4074995 | The variant GG is associated with a 'Higher type I fiber ratio', which is beneficial for endurance. This represents an optimal function for Type I fiber development (ARCHETYPE B). The original score of 7 for GG was too low to reflect 'optimal'. Scores were adjusted to better reflect the optimal (GG), balanced (AG), and less optimal (AA) states for endurance.
+  OLD: {'GG': 7, 'AG': 5, 'AA': 4}
+  NEW: {'GG': 9, 'AG': 6, 'AA': 3}
+
+[2026-04-16 17:20:25] rs16835198 | The input contained an incorrect genotype structure, listing 'AG' and 'GA' separately instead of combining them into a single heterozygous 'AG' entry, violating the 'EXACTLY 3 GENOTYPES' guardrail. Additionally, the scoring was adjusted to better reflect the 'High' and 'Low' irisin release descriptions. This variant is treated as a functional spectrum where higher irisin release is beneficial, aligning with ARCHETYPE B (Gain of Function) for the optimal allele. The AA genotype, associated with 'High irisin release (better endurance)', was elevated to 9 to reflect an optimal state. The heterozygous AG genotype was set to 6 (moderate), and the GG genotype, associated with 'Low irisin (more fatigue)', was kept at 3 (impaired).
+  OLD: {'AA': 7, 'AG': 5, 'GA': 5, 'GG': 3}
+  NEW: {'AA': 9, 'AG': 6, 'GG': 3}
+
+[2026-04-16 17:20:40] rs4253778 | The C allele (162V) of rs4253778 in PPARA is associated with reduced transcriptional activity and less efficient fatty acid oxidation compared to the G allele (162L). For the trait 'Fat metabolism in endurance,' efficient fat oxidation (G allele) is beneficial. Thus, the C allele represents a 'Loss of Function' (ARCHETYPE A) for optimal fat metabolism in endurance. The original scores were inverted, with CC having a higher score than GG. The scores have been adjusted to reflect that GG (efficient fat oxidation) is optimal, and CC (reduced fat oxidation) is impaired for endurance. The 'variants' descriptions are also updated to align with this.
+  OLD: {'CC': 8, 'CG': 6, 'GG': 6}
+  NEW: {'CC': 3, 'CG': 6, 'GG': 9}
+
+[2026-04-16 17:21:17] rs33972313 | rs33972313 in SLC23A1 is a Loss of Function (LoF) variant. The T allele is associated with reduced Vitamin C absorption. The original scores for CC (7) were too low for an 'Efficient' wild-type genotype in a LoF archetype. Scores were adjusted to reflect optimal function (9) for the wild-type, while maintaining appropriate scores for heterozygote (5) and homozygote variant (3). The redundant 'TC' genotype was merged with 'CT' to adhere to the 'exactly 3 genotypes' rule.
+  OLD: {'CC': 7, 'CT': 5, 'TC': 5, 'TT': 3}
+  NEW: {'CC': 9, 'CT': 5, 'TT': 3}
+
+[2026-04-16 17:21:40] rs713598 | TAS2R38 (rs713598) is an ARCHETYPE B (Gain of Function - GoF) for bitter taste perception. The GG genotype (PAV/PAV) confers 'Super Taster' status, representing a gain in the ability to detect bitter compounds. Therefore, 'Super Taster' should have the highest score, and 'Non-Taster' (CC) should have the lowest. The original scores were inverted.
+  OLD: {'CC': 8, 'CG': 5, 'GG': 5}
+  NEW: {'CC': 3, 'CG': 6, 'GG': 9}
+
+[2026-04-16 17:21:56] rs6323 | The original entry incorrectly listed single alleles ('T', 'G') alongside genotypes ('TT', 'GG', 'TG') in both 'variants' and 'scores', violating the 'Exactly 3 Genotypes' guardrail. The 'description' was also over the word limit. The core scoring logic, however, correctly identified MAOA as an ARCHETYPE A (Loss of Function) scenario, where lower activity (TT) leads to a lower score and higher activity (GG) leads to a higher score, reflecting optimal neurotransmitter clearance. The 'variants' letters (T, G) were preserved as per instructions.
+  OLD: {'T': 3, 'G': 8, 'TT': 3, 'GG': 8, 'TG': 5}
+  NEW: {'TT': 3, 'TG': 5, 'GG': 8}
+
+[2026-04-16 17:22:19] rs5400 | This is an ARCHETYPE A (Loss of Function). The T allele of rs5400 in SLC2A2 reduces GLUT2 expression and function, leading to impaired glucose sensing in the brain and pancreas. This results in a higher preference for sweet foods and potentially higher sugar intake. Therefore, the wild-type (CC) should have a high score (9) representing optimal function, and the homozygous variant (TT) should have a low score (3) representing impaired function. The heterozygous (CT) is intermediate (6). The original scores were not optimally aligned with the LoF archetype, and the 'variants' object contained redundant heterozygous entries.
+  OLD: {'CC': 7, 'CT': 5, 'TC': 5, 'TT': 3}
+  NEW: {'CC': 9, 'CT': 6, 'TT': 3}
+
+[2026-04-16 17:22:46] rs3749034 | This variant is a Loss of Function (LoF) archetype. The A allele is associated with lower GAD1 activity, leading to reduced GABA production. The original scores (GG: 7, GA/AG: 5, AA: 4) were not optimally aligned with a clear LoF model where the wild-type (GG) should be higher and the homozygous variant (AA) lower. Additionally, the 'GA' and 'AG' genotypes were redundant and have been combined. Scores were adjusted to reflect a clearer LoF pattern: GG (optimal) at 9, GA (moderate) at 6, and AA (reduced) at 3. Variant descriptions were also slightly refined for clarity.
+  OLD: {'GG': 7, 'GA': 5, 'AG': 5, 'AA': 4}
+  NEW: {'GG': 9, 'GA': 6, 'AA': 3}
+
+[2026-04-16 17:22:55] rs1049353 | The input contained four genotypes (CC, CT, TC, TT) instead of the required three (HomoRef, Het, HomoVar). CT and TC represent the same heterozygous genotype and must be combined. The variant rs1049353 (C>T) in CNR1 is associated with altered CB1 receptor function, where the T allele is linked to less optimal outcomes like higher anxiety and abdominal obesity. This aligns with ARCHETYPE A (Loss of Function / Detrimental Alteration), where the variant allele leads to a lower score. The original scores (7, 5, 4) for CC, CT, TT respectively are appropriate for this archetype, with CC being typical, CT altered, and TT associated with increased risk.
+  OLD: {'CC': 7, 'CT': 5, 'TC': 5, 'TT': 4}
+  NEW: {'CC': 7, 'CT': 5, 'TT': 4}
+
+[2026-04-16 17:23:25] rs4149056 | ARCHETYPE A (Loss of Function - LoF): The C allele of rs4149056 in SLCO1B1 reduces statin transport into the liver, leading to higher systemic statin levels and increased risk of myopathy. The original scores correctly reflect this LoF (TT high, CC low). However, the description was too long, and the 'variants' section contained redundant heterozygous entries (TC and CT) which needed consolidation.
+  OLD: {'TT': 8, 'TC': 5, 'CT': 5, 'CC': 2}
+  NEW: {'TT': 8, 'TC': 5, 'CC': 2}
+
+[2026-04-16 17:24:21] rs713041 | The variant rs713041 (C>T) in GPX4 affects enzyme activity. The T allele is associated with higher GPX4 activity and better protection against lipid peroxidation and ferroptosis, while the C allele is associated with reduced activity. This fits ARCHETYPE A (Loss of Function) where the CC genotype represents the impaired state. Scores were adjusted to align with the LoF archetype (Wild-Type: 9-10, Variant: 2-4). The original entry also contained redundant heterozygous genotypes (TC and CT) which have been consolidated.
+  OLD: {'TT': 7, 'TC': 5, 'CT': 5, 'CC': 3}
+  NEW: {'TT': 9, 'TC': 6, 'CC': 3}
+
+[2026-04-16 17:24:43] rs1333049 | The rs1333049 variant at the 9p21 locus is a well-established risk factor for Coronary Artery Disease. The G allele is associated with increased risk. This is a direct risk allele scenario. The original scores of 5, 5, 5 did not reflect the known risk gradient. Scores were adjusted to reflect increasing risk with the G allele (CC = lowest risk, GG = highest risk).
+  OLD: {'CC': 5, 'CG': 5, 'GG': 5}
+  NEW: {'CC': 9, 'CG': 6, 'GG': 3}
+
+[2026-04-16 17:24:59] rs1010151 | ARCHETYPE A (Loss of Function - LoF). The 'A' allele of rs1010151 is known to reduce GLO1 expression and activity, leading to impaired detoxification of AGE precursors. The original scores were not optimally aligned with the LoF archetype's range (9-10 for optimal, 2-4 for impaired). Scores were adjusted to reflect this LoF more clearly.
+  OLD: {'CC': 7, 'CA': 5, 'AC': 5, 'AA': 4}
+  NEW: {'CC': 9, 'CA': 6, 'AA': 3}
+
+[2026-04-16 17:25:11] rs3827760 | The original entry incorrectly listed 'GA' and 'AG' as separate genotypes, which are identical heterozygous states. The scoring and description were clinically accurate, reflecting the EDAR 370A variant's association with increased hair thickness and shovel-shaped incisors, a distinct phenotypic variation often considered an adaptation. The scoring pattern (GG: 5, GA: 6, AA: 8) aligns with a 'Phenotypic Variation / Adaptation' archetype, where the A allele leads to a more pronounced expression of these traits, similar to a 'Gain of Function' in terms of phenotypic effect.
+  OLD: {'GG': 5, 'GA': 6, 'AG': 6, 'AA': 8}
+  NEW: {'GG': 5, 'GA': 6, 'AA': 8}
+
+[2026-04-16 17:26:37] rs3736228 | This variant (rs3736228, LRP5) is an ARCHETYPE A (Loss of Function - LoF). The T allele is associated with reduced bone mineral density and increased fracture risk, indicating a less optimal function for bone health. The original scores were not fully aligned with a clear LoF pattern (e.g., CC at 7 could be higher). Scores were adjusted to reflect a stronger LoF impact (9/6/3). Additionally, the 'variants' keys were consolidated from four to three (CC, CT, TT) as 'TC' is redundant with 'CT'. The description was also made more concise.
+  OLD: {'CC': 7, 'CT': 5, 'TC': 5, 'TT': 3}
+  NEW: {'CC': 9, 'CT': 6, 'TT': 3}
+
+[2026-04-16 17:26:55] rs12913832 | The initial entry had redundant genotypes (GA and AG) and incorrect, uniform scores. This variant is a primary determinant of eye color, with the G allele strongly associated with blue eyes and the A allele with brown eyes. It's not a classic LoF/GoF archetype for enzyme activity, but rather a direct phenotypic determinant. Scores are adjusted to reflect the probability of blue eyes, with GG (blue) receiving a high score, GA (intermediate/hazel) an intermediate score, and AA (brown) a lower score. The 'impact' was also updated from 'Low' to 'High' given its role as a 'primary determinant'.
+  OLD: {'GG': 5, 'GA': 5, 'AG': 5, 'AA': 5}
+  NEW: {'GG': 9, 'GA': 6, 'AA': 3}
+
+[2026-04-16 17:27:12] rs1611115 | ARCHETYPE A (Loss of Function - LoF) applies. The T allele of rs1611115 is associated with reduced DBH enzyme activity, leading to lower conversion of dopamine to norepinephrine. Therefore, the CC genotype represents optimal conversion, and the TT genotype represents impaired conversion. The original scores were inverted, assigning a higher score to the LoF genotype (TT) and a lower score to the wild-type (CC). Scores have been adjusted to reflect the LoF archetype: CC (optimal) = 9, CT (intermediate) = 6, TT (impaired) = 3. The heterozygous entries (CT/TC) were combined into a single CT entry.
+  OLD: {'CC': 5, 'CT': 6, 'TC': 6, 'TT': 8}
+  NEW: {'CC': 9, 'CT': 6, 'TT': 3}
+
+[2026-04-16 17:28:00] rs1045642 | rs1045642 (ABCB1) is an ARCHETYPE A (Loss of Function) for P-gp efflux pump activity. The A allele is associated with reduced pump function. The original scores (7/5/3) were slightly low for the 'High' wild-type. Scores were adjusted to better reflect the optimal (9), moderate (6), and low (3) activity levels. The description was also shortened to meet the brevity guardrail.
+  OLD: {'GG': 7, 'AG': 5, 'AA': 3}
+  NEW: {'GG': 9, 'AG': 6, 'AA': 3}
+
+[2026-04-16 17:28:22] rs1001179 | rs1001179 (C>T) in CAT is an ARCHETYPE A (Loss of Function) variant, where the T allele leads to reduced catalase activity and increased oxidative stress. The provided scores (CC=8, CT=5, TT=4) accurately reflect this LoF pattern. However, the input incorrectly listed 'CT' and 'TC' as separate genotypes; these represent the same heterozygous state and must be consolidated. Additionally, the description was slightly over the 20-word limit and has been made more concise.
+  OLD: {'CC': 8, 'CT': 5, 'TC': 5, 'TT': 4}
+  NEW: {'CC': 8, 'CT': 5, 'TT': 4}
+
+[2026-04-16 17:28:31] rs1799930 | NAT2 is a classic Loss of Function (LoF) archetype, where the 'A' allele leads to reduced enzyme activity and slower detoxification. The initial scores (8, 5, 3) correctly reflect this LoF pattern. However, the input contained redundant genotype keys ('GA' and 'AG') which must be consolidated into a single 'GA' entry. Additionally, the 'description' exceeded the brevity limit and was revised.
+  OLD: {'GG': 8, 'GA': 5, 'AG': 5, 'AA': 3}
+  NEW: {'GG': 8, 'GA': 5, 'AA': 3}
+
+[2026-04-16 17:29:12] rs73598374 | The rs73598374 variant in ADA reduces adenosine deaminase activity. This leads to higher adenosine levels, which in turn increases 'Deep Sleep Intensity'. Therefore, for the trait 'Deep Sleep Intensity', the variant (TT) represents a 'Gain of Function' as it enhances the trait. Applying ARCHETYPE B (GoF), the wild-type-like allele (CC) should be baseline (6), and the variant allele (TT) should be optimal (9). The original scores (5, 7, 8) were adjusted to better reflect this GoF for the trait. The description was also shortened to meet the brevity guardrail.
+  OLD: {'CC': 5, 'CT': 7, 'TT': 8}
+  NEW: {'CC': 6, 'CT': 7, 'TT': 9}
+
+[2026-04-16 17:29:33] rs2016520 | The variant rs2016520 in PPARD is a Gain of Function (GoF) archetype, where the 'C' allele enhances fat oxidation for endurance. The original scores (TT=5, TC=7, CC=9) correctly identified the beneficial direction of the 'C' allele. However, a score of 5 for 'Typical fat burning' (TT genotype) is slightly low for a baseline in a GoF context. For a GoF, the wild-type/typical state should represent a healthy baseline (6-7). Scores were adjusted to better reflect a clear GoF progression where the baseline is healthy, and the variant improves function.
+  OLD: {'TT': 5, 'TC': 7, 'CT': 7, 'CC': 9}
+  NEW: {'TT': 6, 'TC': 8, 'CC': 10}
+
+[2026-04-16 17:29:52] rs35874116 | This is an ARCHETYPE A (Loss of Function) scenario. The T allele is associated with reduced sweet taste sensitivity. Therefore, the CC genotype represents optimal function (high sensitivity), and the TT genotype represents reduced function (low sensitivity). The original scores were not optimally aligned with this archetype, and the heterozygous entries were duplicated. Scores were adjusted to reflect the LoF archetype more clearly (CC: 9, CT: 6, TT: 3) and heterozygous entries were combined.
+  OLD: {'CC': 8, 'CT': 5, 'TC': 5, 'TT': 4}
+  NEW: {'CC': 9, 'CT': 6, 'TT': 3}
+
+[2026-04-16 17:31:19] rs2066853 | rs2066853 (AHR R554K) is an ARCHETYPE A (Loss of Function - LoF) variant. The A allele reduces AHR transcriptional activity, leading to less efficient detoxification of environmental toxins. Therefore, the GG genotype (wild-type) should have an optimal score (9-10) reflecting 'Efficient toxin processing', while the AA genotype (homozygous variant) should have a low score (2-4) reflecting 'Higher sensitivity'. The original score for GG (7) was too low for 'Efficient' in this LoF context, requiring adjustment to 9.
+  OLD: {'GG': 7, 'GA': 5, 'AG': 5, 'AA': 3}
+  NEW: {'GG': 9, 'GA': 6, 'AA': 3}
+
+[2026-04-16 17:31:29] rs419598 | This is an ARCHETYPE A (Loss of Function - LoF) scenario. The IL1RN gene produces IL-1RA, an anti-inflammatory 'off switch'. The 'TT' genotype is associated with lower IL-1RA production, leading to reduced inflammation resolution. The original scores (7, 5, 3) followed the LoF pattern but were slightly conservative for the 'optimal' (CC) genotype. The 'TC' and 'CT' entries were redundant and needed consolidation. Scores were adjusted to better reflect optimal (9) for the wild-type and intermediate (6) for the heterozygote, while maintaining the low score (3) for the variant.
+  OLD: {'CC': 7, 'CT': 5, 'TC': 5, 'TT': 3}
+  NEW: {'CC': 9, 'CT': 6, 'TT': 3}
+
+[2026-04-16 17:31:53] rs4588 | The variant rs4588 in GC determines DBP isoforms. The T allele (Gc2) is associated with lower Vitamin D affinity and lower total D levels, indicating a less optimal function. This aligns with ARCHETYPE A (Loss of Function). The original description was too long and incorrectly referred to an 'A allele' instead of 'T'. Scores were adjusted to reflect a clearer LoF pattern: GG (optimal affinity) should be high, TT (lower affinity) should be low.
+  OLD: {'GG': 7, 'GT': 5, 'TT': 4}
+  NEW: {'GG': 9, 'GT': 6, 'TT': 3}
+
+[2026-04-16 17:32:01] rs1801272 | CYP2A6 metabolizes nicotine. The 'TT' genotype is associated with 'Fast' metabolism, meaning higher enzyme activity, while 'AA' is 'Slow', indicating lower activity. This aligns with an ARCHETYPE A (Loss of Function) for enzyme speed. The original scores (6, 5, 5) were inconsistent, as 'Fast' and 'Intermediate' should not have similar scores, and 'Fast' should be significantly higher than 'Slow'. Scores were adjusted to reflect the LoF archetype: 'Fast' (TT) is optimal (9), 'Intermediate' (AT) is moderate (6), and 'Slow' (AA) is impaired (3). The description was also slightly refined for brevity.
+  OLD: {'AA': 6, 'AT': 5, 'TT': 5}
+  NEW: {'AA': 3, 'AT': 6, 'TT': 9}
+
+[2026-04-16 17:32:17] rs553668 | The variant rs553668 in ADRA2A influences adrenaline's suppression of insulin. The G allele (or the allele associated with increased function) leads to increased ADRA2A activity, resulting in stronger insulin suppression and higher blood glucose, especially under stress. This represents a 'Loss of Function' from a metabolic health perspective, as the normal insulin response is impaired. The scoring (AA=7, AG=5, GG=3) correctly reflects this archetype, where the homozygous variant (GG) is associated with increased metabolic risk. The original 'description' was slightly over the word limit and has been shortened. The primary reason for 'FAIL' is that the input contained four genotypes ('AA', 'AK', 'AG', 'GG') and duplicate score entries ('AG', 'GA'), violating the 'EXACTLY 3 GENOTYPES' rule for the output schema. The 'AK' entry, which is not a standard biallelic genotype, and the redundant 'GA' score entry have been removed to conform to the schema, while preserving the core A/G alleles as per the 'TRUST VARIANTS' rule.
+  OLD: {'AA': 7, 'AG': 5, 'GA': 5, 'GG': 3}
+  NEW: {'AA': 7, 'AG': 5, 'GG': 3}
+
+[2026-04-16 17:34:01] rs7501331 | This is a Loss of Function (LoF) archetype. The rs7501331 T allele reduces BCO1 enzyme activity, impairing beta-carotene conversion to Vitamin A. The original 'CC' score of 7 was too low for the optimal (wild-type) state in an LoF scenario, which should be 9-10. The description was also too long, and the 'CT' and 'TC' genotypes were redundantly listed, violating the 'exactly 3 genotypes' rule. Scores and description have been adjusted to reflect LoF archetype and brevity.
+  OLD: {'CC': 7, 'CT': 5, 'TC': 5, 'TT': 3}
+  NEW: {'CC': 9, 'CT': 6, 'TT': 3}
+
+[2026-04-16 17:34:12] rs1946518 | The variant G allele is associated with higher IL-18 levels, a pro-inflammatory cytokine. Therefore, the TT genotype (lower IL-18) is more favorable, and the GG genotype (higher IL-18) is less favorable, aligning with a risk archetype where lower levels of a detrimental substance are preferred. The original scoring correctly reflects this (TT=7, GG=4). However, the 'variants' field contained redundant entries ('TG' and 'GT') which needed consolidation into a single 'TG' entry for the heterozygous genotype, and the descriptions were slightly refined for clarity and consistency.
+  OLD: {'TT': 7, 'TG': 5, 'GT': 5, 'GG': 4}
+  NEW: {'TT': 7, 'TG': 5, 'GG': 4}
+
+[2026-04-16 17:34:33] rs1052133 | This variant (rs1052133, OGG1 Ser326Cys) represents a Loss of Function (LoF) archetype, where the 'C' allele reduces enzyme activity. The original scores were slightly misaligned with the typical LoF scoring range (9-10 for wild-type, 2-4 for homozygous variant). The description was also over the word limit, and heterozygous genotypes were duplicated. Scores were adjusted to reflect a clearer LoF gradient, the description was shortened, and heterozygous entries were consolidated.
+  OLD: {'GG': 8, 'GC': 5, 'CG': 5, 'CC': 3}
+  NEW: {'GG': 9, 'GC': 6, 'CC': 3}
+
+[2026-04-16 17:34:56] rs6746030 | SCN9A R189H (rs6746030) is associated with increased pain sensitivity for the 'A' allele. This aligns with an ARCHETYPE A (Loss of Function) for pain tolerance/threshold. Scores were adjusted to reflect lower pain tolerance (lower scores) for 'A' alleles, aligning with the 1-10 scale. Heterozygous genotypes were consolidated, and the description was shortened for brevity.
+  OLD: {'GG': 7, 'GA': 5, 'AG': 5, 'AA': 4}
+  NEW: {'GG': 9, 'GA': 6, 'AA': 3}
+
+[2026-04-16 17:35:10] rs12979860 | The variant rs12979860 in IFNL3 (IL28B) is a classic example where the 'C' allele is associated with a robust interferon response and improved viral clearance, particularly for Hepatitis C. The 'T' allele is linked to reduced clearance efficiency. This aligns with an Archetype A (Loss of Function) or Archetype B (Gain of Function) scenario, where the 'C' allele confers optimal function. The provided scores (CC: 8, CT: 5, TT: 3) accurately reflect this functional impact, with CC being optimal and TT being impaired. However, the input contained a redundant 'TC' genotype entry, which is identical to 'CT'. Per the schema, there must be exactly 3 genotypes (HomoRef, Het, HomoVar). The 'TC' entry has been removed for structural correctness.
+  OLD: {'CC': 8, 'CT': 5, 'TC': 5, 'TT': 3}
+  NEW: {'CC': 8, 'CT': 5, 'TT': 3}
+
+[2026-04-16 17:35:40] rs1799998 | The original entry incorrectly assigned descriptions and scores to the homozygous genotypes for rs1799998. For the CYP11B2 G>A polymorphism, the A allele is associated with higher aldosterone production and increased risk of salt-sensitive hypertension, while the G allele is associated with lower/normal aldosterone. The original entry inverted this, assigning 'Normal' to AA and 'High' to GG. This variant represents a 'Risk Trade-off' (Archetype C) where higher aldosterone (GoF for enzyme) leads to a less favorable cardiovascular outcome (LoF for optimal health). Therefore, higher aldosterone levels should correspond to lower scores.
+  OLD: {'AA': 7, 'AG': 5, 'GG': 3}
+  NEW: {'AA': 3, 'AG': 6, 'GG': 9}
+
+[2026-04-16 17:36:10] rs671 | This is an ARCHETYPE A (Loss of Function - LoF) variant. The A allele severely impairs ALDH2 enzyme function, leading to reduced acetaldehyde breakdown. The original entry incorrectly listed 'GA' and 'AG' as separate genotypes; these represent the same heterozygous state and should be combined into one entry (e.g., 'GA') to meet the 'exactly 3 genotypes' requirement. The wild-type 'GG' score was slightly low for an optimal state in an LoF archetype and has been adjusted from 8 to 9. Heterozygous 'GA' and homozygous variant 'AA' scores were appropriate for reduced and severely impaired function, respectively.
+  OLD: {'GG': 8, 'GA': 4, 'AG': 4, 'AA': 1}
+  NEW: {'GG': 9, 'GA': 4, 'AA': 1}
+
+[2026-04-16 17:36:31] rs11209026 | The variant rs11209026 in IL23R is associated with protection against Inflammatory Bowel Disease (IBD). The 'A' allele is the protective allele. Therefore, genotypes with the 'A' allele should have higher scores, reflecting a beneficial outcome. This aligns with ARCHETYPE B (Gain of Function) for the protective mechanism. The original scores correctly reflect this, but the 'description' was slightly over the word limit, and the 'variants' object had redundant entries for the heterozygous state (GA and AG) which should be consolidated into one entry (e.g., GA) to match the schema's expectation of exactly three genotypes (HomoRef, Het, HomoVar).
+  OLD: {'GG': 5, 'GA': 8, 'AG': 8, 'AA': 9}
+  NEW: {'GG': 5, 'GA': 8, 'AA': 9}
+
+[2026-04-16 17:36:49] rs2943641 | ARCHETYPE A (Loss of Function - LoF): The 'T' allele of rs2943641 (G972R) in IRS1 is known to impair insulin signaling, leading to reduced insulin sensitivity. The scores align with this LoF archetype (CC=optimal, CT=moderate, TT=impaired). However, the 'variants' field incorrectly listed 'TC' as a separate genotype, and the 'description' exceeded the word limit.
+  OLD: {'CC': 8, 'CT': 5, 'TC': 5, 'TT': 3}
+  NEW: {'CC': 8, 'CT': 5, 'TT': 3}
+
+[2026-04-16 17:37:33] rs521674 | The rs521674 variant in ADRA2B is a 9-bp deletion polymorphism. Assuming the user's 'AA' represents the insertion allele (typical) and 'GG' represents the deletion allele (enhanced), this variant functions as a Gain of Function (GoF) for emotional memory intensity. The deletion allele (GG) leads to enhanced emotional memory and increased attention to emotional stimuli. According to ARCHETYPE B (GoF), the Wild-Type (or typical) allele should be scored as Baseline (6-7), and the Variant (enhanced) allele as Optimal (8-10). The original score of 'AA': 4 was too low for a 'Typical' baseline. Scores were adjusted to reflect a clear GoF gradient, with 'AA' as baseline (6) and 'GG' as optimal for memory strength (10). The description was also slightly refined for clarity.
+  OLD: {'AA': 4, 'AG': 6, 'GA': 6, 'GG': 8}
+  NEW: {'AA': 6, 'AG': 8, 'GG': 10}
+
+[2026-04-16 17:38:47] rs1054135 | The input contained four genotypes (TT, TC, CT, CC) instead of the required three (HomoRef, Het, HomoVar). TC and CT represent the same heterozygous genotype and must be combined. The scoring logic aligns with ARCHETYPE A (Loss of Function), where the C allele leads to reduced FABP4 activity, which is interpreted as detrimental for internal lipid handling and increases lipotoxicity risk, thus warranting lower scores.
+  OLD: {'TT': 8, 'TC': 5, 'CT': 5, 'CC': 3}
+  NEW: {'TT': 8, 'TC': 5, 'CC': 3}
+

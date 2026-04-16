@@ -590,3 +590,41 @@ class PDFReport(FPDF):
                 
             p2_df = inheritance_df[inheritance_df['Inheritance_Source'] == f"Match: {parent2_name}"]
             draw_relative_table(p2_df, parent2_name, (52, 152, 219))
+            
+            
+    def add_educational_page(self):
+        self.add_page()
+        
+        # Access the nested dictionary
+        intro_L = self.labels.get('introduction', {})
+        
+        # Title & Subtitle
+        self.set_font('Arial', 'B', 24)
+        self.set_text_color(44, 62, 80)
+        self.cell(0, 12, clean_text(intro_L.get('title', 'Introduction')), 0, 1, 'L')
+        
+        self.set_font('Arial', 'B', 14)
+        self.set_text_color(100, 100, 100)
+        self.cell(0, 10, clean_text(intro_L.get('subtitle', '')), 0, 1, 'L')
+        self.ln(5)
+
+        # Helper to draw the modular blocks
+        def draw_block(header_key, body_key, color):
+            self.set_fill_color(*color)
+            self.rect(10, self.get_y(), 3, 28, 'F') # The accent bar
+            
+            self.set_x(16)
+            self.set_font('Arial', 'B', 12)
+            self.set_text_color(44, 62, 80)
+            self.cell(0, 7, clean_text(intro_L.get(header_key, '')), 0, 1)
+            
+            self.set_x(16)
+            self.set_font('Arial', '', 10)
+            self.set_text_color(0)
+            self.multi_cell(185, 5, clean_text(intro_L.get(body_key, '')))
+            self.ln(8)
+
+        # Draw sections with coordinated colors
+        draw_block('snps_header', 'snps_body', (52, 152, 219))       # Blue
+        draw_block('gathering_header', 'gathering_body', (46, 204, 113)) # Green
+        draw_block('limitations_header', 'limitations_body', (155, 89, 182)) # Purple
