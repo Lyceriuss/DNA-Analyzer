@@ -39,7 +39,7 @@
         "data_strength": {
             "gene": "NFE2L2",
             "title": "The 'Cellular Shield' & Detox Master",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Think of NRF2 as the 'General' of your cellular defense army.",
                 "how": "Your genotype represents the 'Hair-Trigger' defense system. Your cells detect oxidative stress instantly and flood your system with antioxidants before damage occurs.",
@@ -101,7 +101,7 @@
         "data_strength": {
             "gene": "MTHFR",
             "title": "The 'Methylation Engine'",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "MTHFR converts folate into the active fuel for DNA repair and detox.",
                 "how": "Your enzyme functions at 100% efficiency. You have a robust capacity to repair DNA, clear toxins, and manufacture neurotransmitters without needing specialized support.",
@@ -143,7 +143,7 @@
         "data_strength": {
             "gene": "APOE",
             "title": "The 'Longevity' Transporter",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "APOE is the master regulator of lipid transport and brain plaque clearance.",
                 "how": "You carry the neutral (E3) or protective (E2) variant. Your lipid transporters are robust and efficient. They rapidly clear amyloid debris and recycle cholesterol without triggering inflammation. This provides a potent biological buffer against cognitive decline and allows for greater dietary flexibility with fats.",
@@ -175,7 +175,7 @@
         "data_strength": {
             "gene": "CACNA1C",
             "title": "The 'Insulated' Mind",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "CACNA1C regulates the threshold at which neurons fire action potentials in response to stimuli.",
                 "how": "Your channels are tightly regulated. Your neurons require a strong, clear signal to fire. This creates a high signal-to-noise ratio in the brain. You are naturally buffered against sensory overload, anxiety, and panic because your biology refuses to react to 'noise.' You maintain cognitive clarity in high-pressure environments where others become overwhelmed.",
@@ -244,7 +244,7 @@
         "data_strength": {
             "gene": "FTO",
             "title": "The 'Intuitive' Eater",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "FTO acts as the caloric thermostat for the human body.",
                 "how": "Your thermostat is highly sensitive. As soon as you consume adequate energy, Ghrelin levels plummet and Dopamine signaling for food shuts off. You naturally stop eating when you are full because food literally stops tasting good. You are resistant to obesity by design.",
@@ -276,7 +276,7 @@
         "data_strength": {
             "gene": "MTR",
             "title": "The 'Efficient' Recycler",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "MTR drives the final step of the methylation cycle, regenerating Methionine for protein synthesis and DNA repair.",
                 "how": "Your enzyme functions at peak velocity. You scavenge Vitamin B12 efficiently from dietary sources and rapidly convert toxic Homocysteine into useful fuel. This ensures a constant supply of SAMe (the universal methyl donor), providing a robust biochemical foundation for mood stability and cellular repair.",
@@ -314,7 +314,7 @@
         "data_strength": {
             "gene": "CLOCK",
             "title": "The Master Clock",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "The CLOCK gene regulates your internal 24-hour timer.",
                 "how": "You have the variant for a robust, stable circadian rhythm. Your body naturally aligns with the sun, promoting high-quality sleep and metabolic synchronization.",
@@ -347,7 +347,7 @@
         "data_strength": {
             "gene": "SOD2",
             "title": "The 'Armored' Reactor",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "SOD2 acts as the first line of defense against mitochondrial oxidative stress.",
                 "how": "You have the high-efficiency variant (Ala/Ala). Your mitochondria are heavily shielded. You can run your metabolism at 'Red Line' intensities (HIIT, Sprints) with minimal oxidative damage. This preserves mitochondrial density and function well into old age.",
@@ -379,7 +379,7 @@
         "data_strength": {
             "gene": "TNF",
             "title": "The 'Cool' System",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "TNF-a regulates the intensity of the immune response.",
                 "how": "You have the 'Low Secretor' genotype. Your body neutralizes threats with surgical precision rather than massive swelling. You rarely suffer from the systemic inflammation that drives aging and chronic disease. You recover from injuries faster because you aren't constantly inflamed.",
@@ -411,7 +411,7 @@
         "data_strength": {
             "gene": "HFE",
             "title": "The 'Calibrated' System",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "HFE acts as the master thermostat for iron, ensuring you have enough to carry oxygen but not enough to cause toxicity.",
                 "how": "Your HFE gene signals perfectly. When iron stores are sufficient, you produce Hepcidin to block further absorption. When stores drop, you downregulate Hepcidin to absorb more. This tight regulation protects you from both Anemia (low energy) and Hemochromatosis (organ damage).",
@@ -443,7 +443,7 @@
         "data_strength": {
             "gene": "TCF7L2",
             "title": "The 'Iron' Pancreas",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "TCF7L2 ensures a rapid and robust release of insulin the moment glucose enters the bloodstream.",
                 "how": "Your genotype allows for a sharp, precise insulin response. You clear blood sugar spikes rapidly, preventing the glycation damage that ages skin and organs. Your beta-cells are highly resilient, giving you a massive genetic buffer against metabolic disease even in the modern food environment.",
@@ -475,7 +475,7 @@
         "data_strength": {
             "gene": "MC4R",
             "title": "The 'Precision' Regulator",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "MC4R integrates metabolic signals to tightly regulate energy intake and expenditure.",
                 "how": "Your receptor is highly sensitive. As soon as your caloric needs are met, MC4R fires a potent 'Stop' signal that makes food suddenly unappealing. You naturally maintain leanness because overeating feels physically uncomfortable or even nauseating to you. You are naturally protected against obesity.",
@@ -507,7 +507,7 @@
         "data_strength": {
             "gene": "COMT",
             "title": "The 'Warrior' (Stress Tolerance)",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Rapid clearance of catecholamines allows the brain to reset instantly after a stressful event.",
                 "how": "You have the Val/Val genotype (High Activity). Your enzyme incinerates dopamine and adrenaline. In high-pressure situations (combat, trading, emergency medicine), your mind stays clear while others panic. However, your baseline dopamine drops quickly, so you may struggle with motivation in low-stress, boring environments.",
@@ -539,7 +539,7 @@
         "data_strength": {
             "gene": "APOA5",
             "title": "The 'Clear' Blood",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "High levels of APOA5 ensure rapid disposal of dietary fats.",
                 "how": "Your body produces abundant APOA5. You act like a vacuum cleaner for blood fats. Your triglyceride levels remain low even after fatty meals, protecting your arteries from the inflammatory damage caused by circulating lipids.",
@@ -605,7 +605,7 @@
         "data_strength": {
             "gene": "PNPLA3",
             "title": "The 'Clean' Liver",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "PNPLA3 ensures that fat is mobilized out of the liver for energy rather than stored.",
                 "how": "Your enzyme works perfectly. You efficiently hydrolyze liver fat, keeping your organ lean and functional. You are naturally resistant to the liver damage often caused by the modern high-sugar diet.",
@@ -637,7 +637,7 @@
         "data_strength": {
             "gene": "ALDH2",
             "title": "The 'Industrial' Liver",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "ALDH2 is the rapid-response unit for neutralizing environmental aldehydes.",
                 "how": "Your enzyme works at hyper-speed. You convert toxins into harmless energy almost instantly. This protects your DNA from the mutation risks associated with alcohol, smoke, and exhaust fumes. You have a 'cast-iron' tolerance for environmental stressors.",
@@ -703,7 +703,7 @@
         "data_strength": {
             "gene": "CYP1A1",
             "title": "The 'Balanced' Detoxifier",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Effective detoxification requires a balance between Phase 1 (Activation) and Phase 2 (Elimination).",
                 "how": "Your CYP1A1 activity is perfectly paced. It prepares toxins for removal without overwhelming your downstream systems. This balance prevents the accumulation of dangerous intermediates, protecting your DNA from mutation.",
@@ -751,7 +751,7 @@
         "data_strength": {
             "gene": "OXTR",
             "title": "The 'Empathy Antenna'",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "OXTR controls social bonding and emotional sensitivity.",
                 "how": "You carry the 'Empath' variant (GG). You have a high density of oxytocin receptors. You read emotions easily and gain immense stress relief from social bonding.",
@@ -764,7 +764,7 @@
             ],
             "action": {
                 "title": "Emotional Boundaries",
-                "body": "Your superpower is connection, but your kryptonite is other people's stress. You absorb it. You must practice strict emotional boundaries to prevent burnout.",
+                "body": "Your Strength is connection, but your kryptonite is other people's stress. You absorb it. You must practice strict emotional boundaries to prevent burnout.",
                 "foods": [
                     "Social Bonding",
                     "Setting Boundaries",
@@ -829,7 +829,7 @@
         "data_strength": {
             "gene": "VDR",
             "title": "The 'Amplified' Signal",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "VDR forms a complex with RXR (Retinoid X Receptor) to activate the 'Genome Defense' program.",
                 "how": "Your receptor is hypersensitive. It creates a robust signal cascade even with moderate sun exposure. You aggressively produce cathelicidins (natural antibiotics) and absorb calcium efficiently. This gives you a 'Teflon' immune system that repels respiratory viruses and maintains bone density with ease.",
@@ -878,7 +878,7 @@
         "data_strength": {
             "gene": "MTRR",
             "title": "The 'B12 Battery Charger'",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "MTRR recharges Vitamin B12 for continuous use in methylation.",
                 "how": "Your enzyme works flawlessly, ensuring that every molecule of B12 you consume is recycled thousands of times. You require very little dietary B12 to maintain optimal cellular function.",
@@ -920,7 +920,7 @@
         "data_strength": {
             "gene": "NOS3",
             "title": "The 'Hydraulic' System",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "NOS3 maintains the flexibility and responsiveness of the entire vascular system.",
                 "how": "Your vessels dilate instantly upon demand. When you exercise or get stressed, your NOS3 enzyme floods the arteries with Nitric Oxide, dropping resistance and delivering massive amounts of oxygen to tissues. This is the genetic signature of elite endurance athletes and those with naturally healthy blood pressure.",
@@ -952,7 +952,7 @@
         "data_strength": {
             "gene": "SLC6A4",
             "title": "The 'Resilient' Anchor",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Efficient serotonin transport regulates mood stability and stress response.",
                 "how": "You carry the 'Long' (L) allele. You produce abundant transporters. Your brain recycles serotonin efficiently, creating a stable chemical environment. You are naturally buffered against depression and tend to maintain a 'sunny' disposition even during hard times.",
@@ -1175,7 +1175,7 @@
         "data_strength": {
             "gene": "MAOA",
             "title": "The 'Warrior' Gene",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "MAOA breaks down stress chemicals and mood neurotransmitters.",
                 "how": "You carry the 'High Activity' variant. Your enzyme clears chemicals rapidly. This makes you chemically resilient to trauma and stress\u2014you 'bounce back' quickly because you don't let stress chemicals linger.",
@@ -1252,7 +1252,7 @@
         "data_strength": {
             "gene": "SIRT1",
             "title": "The Timeless Phenotype",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "SIRT1 is the commander of your cellular defense, regulating DNA repair, inflammation, and apoptosis (cell death).",
                 "how": "You have a genetic upregulation of this pathway. Your repair crews are working overtime, 24/7. Your body detects and fixes DNA breaks with incredible efficiency, keeping your 'biological age' younger than your chronological age. You are naturally resistant to the metabolic wear-and-tear of modern life.",
@@ -1405,7 +1405,7 @@
         "data_strength": {
             "gene": "PPARA",
             "title": "The 'Fat Furnace'",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "PPARA switches your body into 'Fat Burning Mode'.",
                 "how": "You carry the 'Endurance' variant. Your body switches seamlessly from burning carbs to burning fat. You preserve glycogen and can go for hours without 'bonking.' This is the elite endurance athlete genotype.",
@@ -1448,7 +1448,7 @@
         "data_strength": {
             "gene": "FUT2",
             "title": "The 'Secretor'",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Secreting blood antigens into the gut creates a thriving ecosystem for the microbiome.",
                 "how": "You are a 'Secretor.' You feed your gut bacteria every minute of the day. This supports a diverse, robust microbiome and ensures highly efficient absorption of Vitamin B12. Your gut barrier is naturally thicker and more resilient against chronic issues.",
@@ -1480,7 +1480,7 @@
         "data_strength": {
             "gene": "NAT2",
             "title": "The 'Fast' Acetylator",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "NAT2 acts as a rapid-response disposal unit for environmental carcinogens.",
                 "how": "You are a 'Fast Acetylator.' Your liver tags toxins almost instantly upon entry. This minimizes the 'Time-Under-Tension' your cells experience with carcinogens. You have a significantly lower risk profile for smoke-related issues than the general population.",
@@ -1512,7 +1512,7 @@
         "data_strength": {
             "gene": "LRP5",
             "title": "The 'Unbreakable' Skeleton",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "LRP5 drives the deposition of bone matrix, determining the ultimate strength of your skeleton.",
                 "how": "Your signaling is hyper-active. Your body aggressively mineralizes bone, creating a skeleton that is dense, heavy, and incredibly resilient. You are naturally protected against fractures and age-related bone loss.",
@@ -1544,7 +1544,7 @@
         "data_strength": {
             "gene": "ABCG2",
             "title": "The 'Efficient' Pump",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "ABCG2 prevents the accumulation of toxic metabolic waste products.",
                 "how": "Your pump operates at full capacity. You efficiently clear uric acid regardless of diet. This protects your joints from crystals and your kidneys from stones, allowing you to enjoy a richer diet without inflammatory consequences.",
@@ -1627,7 +1627,7 @@
         "data_strength": {
             "gene": "PPARGC1A",
             "title": "The 'Mitochondrial Builder'",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "PGC-1alpha drives the creation of new mitochondria.",
                 "how": "You carry the 'High Responder' variant. Your body rapidly builds new energy power plants in response to exercise. You adapt quickly to endurance training and have a naturally higher capacity for fat burning.",
@@ -1703,7 +1703,7 @@
         "data_strength": {
             "gene": "SHBG",
             "title": "The 'Bioavailable' Hormone",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Optimal SHBG levels ensure hormones are transported but available.",
                 "how": "You have naturally lower SHBG binding. A higher percentage of your testosterone is 'Free' and biologically active. You get more muscle-building and mood-enhancing bang for your buck from the hormones you produce.",
@@ -1735,7 +1735,7 @@
         "data_strength": {
             "gene": "CYP1B1",
             "title": "Clean Hormone Detox",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Balanced hydroxylation pathways protect tissues from hormonal damage.",
                 "how": "Your enzyme favors the 'clean' detox pathway (2-hydroxy). You clear estrogens safely without generating toxic byproducts. This protects your reproductive tissues and breast health long-term.",
@@ -1802,7 +1802,7 @@
         "data_strength": {
             "gene": "COL1A1",
             "title": "The 'Steel' Tendon",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Dense collagen cross-linking provides structural stiffness and power transfer.",
                 "how": "Your collagen architecture is pristine. Your tendons function like stiff springs, transferring force from muscle to bone with zero energy leak. You are resistant to injury and naturally fast because your 'springs' are tight.",
@@ -1834,7 +1834,7 @@
         "data_strength": {
             "gene": "UCP2",
             "title": "The 'Leaky' Reactor",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "UCP2 acts as an 'Uncoupling Protein' in the inner mitochondrial membrane.",
                 "how": "Your mitochondria are naturally 'leaky.' Instead of converting 100% of fuel into chemical energy (ATP), your cells allow a significant portion of protons to flow back into the matrix, releasing the energy as pure heat. This raises your Basal Metabolic Rate and protects against obesity.",
@@ -1901,7 +1901,7 @@
         "data_strength": {
             "gene": "CYP3A4",
             "title": "The 'Iron' Shield",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "CYP3A4 acts as the primary incinerator for foreign chemicals entering the body.",
                 "how": "Your liver is a fortress. You metabolize drugs and toxins with exceptional speed. This prevents accumulation and toxicity. You can handle caffeine, environmental exposures, and medications with minimal side effects.",
@@ -2003,7 +2003,7 @@
         "data_strength": {
             "gene": "HFE",
             "title": "The 'Calibrated' System",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "HFE acts as the master thermostat for iron, ensuring you have enough to carry oxygen but not enough to cause toxicity.",
                 "how": "Your HFE gene signals perfectly. When iron stores are sufficient, you produce Hepcidin to block further absorption. When stores drop, you downregulate Hepcidin to absorb more. This tight regulation protects you from both Anemia (low energy) and Hemochromatosis (organ damage).",
@@ -2103,7 +2103,7 @@
         "data_strength": {
             "gene": "ACE",
             "title": "The True Endurance Type",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Lower ACE activity results in more relaxed blood vessels (vasodilation) and improved metabolic efficiency at the cellular level.",
                 "how": "You carry the Insertion (I) allele. Your low ACE levels allow for exceptional capillary density and oxygen delivery to working muscles. Your muscles can run on less oxygen than the average person, giving you a massive advantage in high-altitude environments and long-duration aerobic events (marathons, triathlons).",
@@ -2171,7 +2171,7 @@
         "data_strength": {
             "gene": "ATM",
             "title": "The 'Guardian' Phenotype",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "ATM acts as the master checkpoint for the cell cycle, halting division if DNA damage is detected.",
                 "how": "Your surveillance system is hyper-vigilant. It detects even single-strand breaks instantly and halts the cell cycle to force a repair. This makes your cells incredibly resistant to mutation and genomic instability.",
@@ -2307,7 +2307,7 @@
         "data_strength": {
             "gene": "IRGM",
             "title": "The 'Iron' Gut",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "IRGM is the sniper of the mucosal immune system, hunting down threats before they can cause inflammation.",
                 "how": "Your targeting system is aggressive. When a pathogen touches your gut lining, IRGM instantly tags it for destruction. Your cells envelop and incinerate the threat before it can establish a foothold. You have a 'cast iron' stomach and are highly resistant to food poisoning and gut inflammation.",
@@ -2372,7 +2372,7 @@
         "data_strength": {
             "gene": "IL1B",
             "title": "The 'Targeted' Response",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "A controlled IL-1B response ensures infection fighting without collateral damage.",
                 "how": "Your cytokine response is proportionate. You mount a defense when needed, but you don't stay inflamed. This protects your organs from the wear-and-tear of chronic immune activation, a key marker of longevity.",
@@ -2439,7 +2439,7 @@
         "data_strength": {
             "gene": "BRCA1",
             "title": "The 'Iron' Genome",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Efficient BRCA1 activity ensures DNA breaks are repaired error-free via Homologous Recombination.",
                 "how": "Your repair machinery acts with surgical precision. When DNA strands break, BRCA1 coordinates a perfect fix instantly. This keeps your genetic code stable and mutation-free, providing a massive baseline protection against cellular aging and disease.",
@@ -2571,7 +2571,7 @@
         "data_strength": {
             "gene": "PEMT",
             "title": "The 'Self-Sufficient' Brain",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "PEMT is an enzyme that methylates phosphatidylethanolamine to create fresh Choline within the liver.",
                 "how": "Your enzyme activity is robust. Even on a low-choline diet, your liver can manufacture what it needs to keep cell membranes healthy and the brain sharp. You have a natural buffer against fatty liver disease and cognitive decline.",
@@ -2671,7 +2671,7 @@
         "data_strength": {
             "gene": "ACTN3",
             "title": "The Sprinter Phenotype",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "ACTN3 anchors the actin filaments in the muscle sarcomere, allowing for violent, high-velocity contractions without damage.",
                 "how": "You have the 'Power' genotype (RR). Your muscle fibers are saturated with alpha-actinin-3. This allows your muscles to contract at maximum velocity and recover instantly from eccentric damage. This is the genetic prerequisite for elite sprinting and Olympic weightlifting. You are built to generate force.",
@@ -2754,7 +2754,7 @@
         "data_strength": {
             "gene": "FOXO3",
             "title": "The 'Centenarian' Gene",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "FOXO3 regulates cellular repair and longevity.",
                 "how": "You carry the rare 'Longevity' variant (G allele). This genotype is found at much higher frequencies in people living to 100+. Your cells have a superior ability to repair DNA damage and resist oxidative stress.",
@@ -2934,7 +2934,7 @@
         "data_strength": {
             "gene": "ELOVL2",
             "title": "The Ageless Phenotype",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "ELOVL2 is the master regulator of fatty acid elongation, critical for maintaining the fluidity and integrity of every cell membrane in your body.",
                 "how": "You possess the 'Elite' efficiency variant. Your enzymes rapidly convert dietary precursors into long-chain fatty acids (DHA). This keeps your cell membranes incredibly fluid and permeable, which is a primary marker of youth. Your 'Epigenetic Clock' ticks slower than the average population because your cellular hardware is constantly renewing itself with high-quality materials.",
@@ -2966,7 +2966,7 @@
         "data_strength": {
             "gene": "CDKN2A",
             "title": "The 'Terminator' Mechanism",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "CDKN2A regulates the G1/S checkpoint of the cell cycle, ensuring only perfect DNA is replicated.",
                 "how": "You have a robust surveillance system. Your body aggressively halts the division of any cell showing the slightest sign of instability. This 'Zero Tolerance' policy preserves the genomic integrity of your tissues and provides a powerful shield against cancer and aging.",
@@ -3032,7 +3032,7 @@
         "data_strength": {
             "gene": "MMP3",
             "title": "The 'Adaptive' Structure",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Balanced MMP3 activity ensures rapid adaptation of connective tissue to training loads.",
                 "how": "Your remodeling enzymes are active. When you lift weights, your tendons and ligaments adapt rapidly to the new stress. You recover flexibility quickly and are less prone to chronic tendon issues.",
@@ -3169,7 +3169,7 @@
         "data_strength": {
             "gene": "DIO2",
             "title": "The 'High Energy' Thyroid",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Efficient Deiodinase activity ensures cells are flooded with active metabolic hormones.",
                 "how": "Your enzyme works perfectly. You rapidly convert T4 to active T3, keeping your metabolic fire burning hot. You likely have good energy levels, clear thinking, and an easier time managing body composition.",
@@ -3218,7 +3218,7 @@
         "data_strength": {
             "gene": "FAAH",
             "title": "The 'Bliss Molecule' Breaker",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "FAAH breaks down Anandamide (The Bliss Molecule).",
                 "how": "You carry the 'High Bliss' variant (A allele). Your enzyme is broken/slow. You have permanently elevated levels of Anandamide. You are naturally chill, feel less pain, and 'unlearn' fear memories faster than the average person.",
@@ -3329,7 +3329,7 @@
         "data_strength": {
             "gene": "MYF5",
             "title": "The 'Anabolic' Responder",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "MYF5 regulates the proliferation of muscle satellite cells, which are the biological prerequisite for hypertrophy (growth).",
                 "how": "You are a 'High Responder.' Even moderate resistance training triggers a cascade of satellite cell activation. Your body is eager to repair micro-tears by laying down new contractile tissue. You add density and size significantly faster than the average population given the same stimulus.",
@@ -3395,7 +3395,7 @@
         "data_strength": {
             "gene": "BCHE",
             "title": "The 'Iron Stomach'",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "BCHE acts as a scavenger enzyme, neutralizing poisons before they reach the nervous system.",
                 "how": "Your enzyme activity is robust. You rapidly hydrolyze toxic esters, providing a strong biological shield against environmental neurotoxins. While you shouldn't drink pesticide, your threshold for toxicity is significantly higher than the average person.",
@@ -3427,7 +3427,7 @@
         "data_strength": {
             "gene": "SLC2A9",
             "title": "The 'Flush' Phenotype",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "SLC2A9 maintains the balance of Uric Acid, which acts as an antioxidant at normal levels but a toxin at high levels.",
                 "how": "Your variant creates a 'loose' gate. Your kidneys dump uric acid into the urine with exceptional efficiency. You maintain naturally low serum urate levels, making you virtually immune to dietary-induced Gout and protecting your blood vessels from urate-induced hypertension.",
@@ -3459,7 +3459,7 @@
         "data_strength": {
             "gene": "F2",
             "title": "The 'Optimal' Flow",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "The coagulation cascade is a delicate balance between bleeding and clotting ",
                 "how": "Your Prothrombin levels are perfectly regulated. You have the exact right amount of clotting factor to seal a wound instantly, but not enough to trigger random clots during travel or stress. Your vascular risk profile is baseline optimal.",
@@ -3731,7 +3731,7 @@
         "data_strength": {
             "gene": "IRF4",
             "title": "The 'Adaptive' Skin",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "IRF4 regulates the tanning response, allowing skin to darken protectively in response to UV stress.",
                 "how": "Your skin adapts rapidly. Upon UV exposure, you efficiently upregulate melanin, creating a natural barrier that absorbs radiation before it hits your DNA. This allows you to harvest Vitamin D with a lower risk of burn damage.",
@@ -3763,7 +3763,7 @@
         "data_strength": {
             "gene": "MC1R",
             "title": "The 'Sun' Shield",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "MC1R stimulates the production of Eumelanin, the dark pigment that protects DNA from UV radiation.",
                 "how": "Your receptor is highly active. Upon sun exposure, you rapidly produce protective melanin (tan). This natural shield absorbs UV radiation before it can damage your DNA, significantly lowering your risk of melanoma and photo-aging.",
@@ -4038,7 +4038,7 @@
         "data_strength": {
             "gene": "VDR",
             "title": "The 'Amplified' Signal",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "VDR forms a complex with RXR (Retinoid X Receptor) to activate the 'Genome Defense' program.",
                 "how": "Your receptor is hypersensitive. It creates a robust signal cascade even with moderate sun exposure. You aggressively produce cathelicidins (natural antibiotics) and absorb calcium efficiently. This gives you a 'Teflon' immune system that repels respiratory viruses and maintains bone density with ease.",
@@ -4104,7 +4104,7 @@
         "data_strength": {
             "gene": "TCF7L2",
             "title": "The 'Iron' Pancreas",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "TCF7L2 ensures a rapid and robust release of insulin the moment glucose enters the bloodstream.",
                 "how": "Your genotype allows for a sharp, precise insulin response. You clear blood sugar spikes rapidly, preventing the glycation damage that ages skin and organs. Your beta-cells are highly resilient, giving you a massive genetic buffer against metabolic disease even in the modern food environment.",
@@ -4204,7 +4204,7 @@
         "data_strength": {
             "gene": "NOS3",
             "title": "The 'Hydraulic' System",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "NOS3 maintains the flexibility and responsiveness of the entire vascular system.",
                 "how": "Your vessels dilate instantly upon demand. When you exercise or get stressed, your NOS3 enzyme floods the arteries with Nitric Oxide, dropping resistance and delivering massive amounts of oxygen to tissues. This is the genetic signature of elite endurance athletes and those with naturally healthy blood pressure.",
@@ -4270,7 +4270,7 @@
         "data_strength": {
             "gene": "DRD2",
             "title": "The 'Zen' Architect",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "DRD2 determines the 'Reward Prediction Error'\u2014how good something feels compared to what you expected.",
                 "how": "You have a high density of D2 receptors. You are easily satisfied. Your brain efficiently processes small wins, allowing you to sustain motivation on long, boring projects without needing constant external validation. You are naturally immune to the 'doom scrolling' loop.",
@@ -4302,7 +4302,7 @@
         "data_strength": {
             "gene": "DRD2",
             "title": "The 'Zen' Architect",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "DRD2 determines the 'Reward Prediction Error'\u2014how good something feels compared to what you expected.",
                 "how": "You have a high density of D2 receptors. You are easily satisfied. Your brain efficiently processes small wins, allowing you to sustain motivation on long, boring projects without needing constant external validation. You are naturally immune to the 'doom scrolling' loop.",
@@ -4334,7 +4334,7 @@
         "data_strength": {
             "gene": "CYP3A4",
             "title": "The 'Iron' Shield",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "CYP3A4 acts as the primary incinerator for foreign chemicals entering the body.",
                 "how": "Your liver is a fortress. You metabolize drugs and toxins with exceptional speed. This prevents accumulation and toxicity. You can handle caffeine, environmental exposures, and medications with minimal side effects.",
@@ -4366,7 +4366,7 @@
         "data_strength": {
             "gene": "IRS1",
             "title": "The 'Nutrient Partitioning' Master",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "IRS1 dictates whether calories are sent to muscle cells (for repair) or fat cells (for storage).",
                 "how": "Your receptors are hypersensitive. A tiny amount of insulin opens the floodgates to your muscles. You rapidly soak up nutrients after a meal, driving recovery and keeping blood sugar stable. You are the person who builds muscle easily and stays lean.",
@@ -4398,7 +4398,7 @@
         "data_strength": {
             "gene": "SIRT1",
             "title": "The Timeless Phenotype",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "SIRT1 is the commander of your cellular defense, regulating DNA repair, inflammation, and apoptosis (cell death).",
                 "how": "You have a genetic upregulation of this pathway. Your repair crews are working overtime, 24/7. Your body detects and fixes DNA breaks with incredible efficiency, keeping your 'biological age' younger than your chronological age. You are naturally resistant to the metabolic wear-and-tear of modern life.",
@@ -4430,7 +4430,7 @@
         "data_strength": {
             "gene": "UCP2",
             "title": "The 'Leaky' Reactor",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "UCP2 acts as an 'Uncoupling Protein' in the inner mitochondrial membrane.",
                 "how": "Your mitochondria are naturally 'leaky.' Instead of converting 100% of fuel into chemical energy (ATP), your cells allow a significant portion of protons to flow back into the matrix, releasing the energy as pure heat. This raises your Basal Metabolic Rate and protects against obesity.",
@@ -4462,7 +4462,7 @@
         "data_strength": {
             "gene": "APOE",
             "title": "The 'Longevity' Transporter",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "APOE is the master regulator of lipid transport and brain plaque clearance.",
                 "how": "You carry the neutral (E3) or protective (E2) variant. Your lipid transporters are robust and efficient. They rapidly clear amyloid debris and recycle cholesterol without triggering inflammation. This provides a potent biological buffer against cognitive decline and allows for greater dietary flexibility with fats.",
@@ -4494,7 +4494,7 @@
         "data_strength": {
             "gene": "ALDH2",
             "title": "The 'Industrial' Liver",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "ALDH2 is the rapid-response unit for neutralizing environmental aldehydes.",
                 "how": "Your enzyme works at hyper-speed. You convert toxins into harmless energy almost instantly. This protects your DNA from the mutation risks associated with alcohol, smoke, and exhaust fumes. You have a 'cast-iron' tolerance for environmental stressors.",
@@ -4526,7 +4526,7 @@
         "data_strength": {
             "gene": "BDNF",
             "title": "The 'Sponge' Mind",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "High constitutive levels of BDNF allow for rapid synaptic plasticity and adaptation.",
                 "how": "You are Val/Val. Your brain is bathed in growth factors. You can pick up new skills (languages, instruments) at a speed that baffles others. Your brain rewires itself around trauma and stress with exceptional speed, making you highly resilient to depression and cognitive decline.",
@@ -4558,7 +4558,7 @@
         "data_strength": {
             "gene": "GSTP1",
             "title": "The 'Teflon' Cell",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "GSTP1 provides the primary defense against oxidative damage in lung and muscle tissue.",
                 "how": "Your enzymes work at peak efficiency. You neutralize oxidative threats instantly. This allows you to train harder, recover faster, and breathe polluted air with significantly less cellular damage than the average person.",
@@ -4590,7 +4590,7 @@
         "data_strength": {
             "gene": "VDR",
             "title": "The 'Amplified' Signal",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "VDR forms a complex with RXR (Retinoid X Receptor) to activate the 'Genome Defense' program.",
                 "how": "Your receptor is hypersensitive. It creates a robust signal cascade even with moderate sun exposure. You aggressively produce cathelicidins (natural antibiotics) and absorb calcium efficiently. This gives you a 'Teflon' immune system that repels respiratory viruses and maintains bone density with ease.",
@@ -4622,7 +4622,7 @@
         "data_strength": {
             "gene": "VDR",
             "title": "The 'Amplified' Signal",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "VDR forms a complex with RXR (Retinoid X Receptor) to activate the 'Genome Defense' program.",
                 "how": "Your receptor is hypersensitive. It creates a robust signal cascade even with moderate sun exposure. You aggressively produce cathelicidins (natural antibiotics) and absorb calcium efficiently. This gives you a 'Teflon' immune system that repels respiratory viruses and maintains bone density with ease.",
@@ -4654,7 +4654,7 @@
         "data_strength": {
             "gene": "VDR",
             "title": "The 'Amplified' Signal",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "VDR forms a complex with RXR (Retinoid X Receptor) to activate the 'Genome Defense' program.",
                 "how": "Your receptor is hypersensitive. It creates a robust signal cascade even with moderate sun exposure. You aggressively produce cathelicidins (natural antibiotics) and absorb calcium efficiently. This gives you a 'Teflon' immune system that repels respiratory viruses and maintains bone density with ease.",
@@ -4686,7 +4686,7 @@
         "data_strength": {
             "gene": "COMT",
             "title": "The 'Warrior' (Stress Tolerance)",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Rapid clearance of catecholamines allows the brain to reset instantly after a stressful event.",
                 "how": "You have the Val/Val genotype (High Activity). Your enzyme incinerates dopamine and adrenaline. In high-pressure situations (combat, trading, emergency medicine), your mind stays clear while others panic. However, your baseline dopamine drops quickly, so you may struggle with motivation in low-stress, boring environments.",
@@ -4718,7 +4718,7 @@
         "data_strength": {
             "gene": "ACTN3",
             "title": "The Sprinter Phenotype",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "ACTN3 anchors the actin filaments in the muscle sarcomere, allowing for violent, high-velocity contractions without damage.",
                 "how": "You have the 'Power' genotype (RR). Your muscle fibers are saturated with alpha-actinin-3. This allows your muscles to contract at maximum velocity and recover instantly from eccentric damage. This is the genetic prerequisite for elite sprinting and Olympic weightlifting. You are built to generate force.",
@@ -4750,7 +4750,7 @@
         "data_strength": {
             "gene": "ACTN3",
             "title": "The Sprinter Phenotype",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "ACTN3 anchors the actin filaments in the muscle sarcomere, allowing for violent, high-velocity contractions without damage.",
                 "how": "You have the 'Power' genotype (RR). Your muscle fibers are saturated with alpha-actinin-3. This allows your muscles to contract at maximum velocity and recover instantly from eccentric damage. This is the genetic prerequisite for elite sprinting and Olympic weightlifting. You are built to generate force.",
@@ -4782,7 +4782,7 @@
         "data_strength": {
             "gene": "ACE",
             "title": "The True Endurance Type",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Lower ACE activity results in more relaxed blood vessels (vasodilation) and improved metabolic efficiency at the cellular level.",
                 "how": "You carry the Insertion (I) allele. Your low ACE levels allow for exceptional capillary density and oxygen delivery to working muscles. Your muscles can run on less oxygen than the average person, giving you a massive advantage in high-altitude environments and long-duration aerobic events (marathons, triathlons).",
@@ -4814,7 +4814,7 @@
         "data_strength": {
             "gene": "ADRA2B",
             "title": "The 'Resilient' Mind",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Standard norepinephrine signaling allows the brain to prioritize information without attaching excessive emotional weight.",
                 "how": "You do not carry the deletion. Your amygdala does not 'over-stamp' negative memories with adrenaline. You can experience a stressful event, process it, and move on without it lingering as a traumatic flashback. You have a natural 'Teflon' quality regarding emotional stress.",
@@ -4846,7 +4846,7 @@
         "data_strength": {
             "gene": "CYP1A2",
             "title": "The 'Performance' Metabolizer",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Rapid CYP1A2 activity turns caffeine from a stressor into a transient performance enhancer.",
                 "how": "You clear caffeine efficiently. You get the acute dopamine and adrenaline spike for focus or workout performance, but the drug is cleared before it can disrupt your sleep cycle. For you, coffee is cardioprotective and a pure bio-hack with almost no biological cost.",
@@ -4878,7 +4878,7 @@
         "data_strength": {
             "gene": "ABCB1",
             "title": "The 'Iron' Barrier",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "A robust efflux pump ensures the brain remains a pristine, toxin-free environment.",
                 "how": "Your P-glycoprotein pump is aggressive. It identifies and ejects toxins, heavy metals, and drugs from the brain with high efficiency. You are naturally protected against neurotoxicity and the cognitive side effects of many systemic medications.",
@@ -4910,7 +4910,7 @@
         "data_strength": {
             "gene": "FADS2",
             "title": "The 'Efficient' Converter",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Efficient desaturase activity allows for dietary flexibility in sourcing essential fatty acids.",
                 "how": "Your enzyme works well. You can convert a significant portion of plant-based ALA into usable EPA and DHA. This gives you an evolutionary advantage on low-meat diets, as you can synthesize brain-building fats from nuts and seeds.",
@@ -4942,7 +4942,7 @@
         "data_strength": {
             "gene": "LPL",
             "title": "The 'Fat Burner'",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Rapid LPL activity ensures that blood lipids are immediately stripped and used for energy.",
                 "how": "Your LPL enzyme is aggressive. You strip triglycerides from the blood instantly, keeping your arteries clean and clear. You channel dietary fat directly into tissues for combustion (energy) rather than letting it linger in circulation.",
@@ -4974,7 +4974,7 @@
         "data_strength": {
             "gene": "LPL",
             "title": "The 'Fat Burner'",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Rapid LPL activity ensures that blood lipids are immediately stripped and used for energy.",
                 "how": "Your LPL enzyme is aggressive. You strip triglycerides from the blood instantly, keeping your arteries clean and clear. You channel dietary fat directly into tissues for combustion (energy) rather than letting it linger in circulation.",
@@ -5006,7 +5006,7 @@
         "data_strength": {
             "gene": "BCMO1",
             "title": "The 'Omnivore' Advantage",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Efficient BCMO1 activity allows the body to source Vitamin A from the entire plant kingdom.",
                 "how": "Your enzyme works perfectly. You can essentially turn a carrot into Retinol on demand. This gives you tremendous dietary flexibility and protects you from Vitamin A toxicity, as your body only converts what it needs.",
@@ -5038,7 +5038,7 @@
         "data_strength": {
             "gene": "FUT2",
             "title": "The 'Secretor'",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Secreting blood antigens into the gut creates a thriving ecosystem for the microbiome.",
                 "how": "You are a 'Secretor.' You feed your gut bacteria every minute of the day. This supports a diverse, robust microbiome and ensures highly efficient absorption of Vitamin B12. Your gut barrier is naturally thicker and more resilient against chronic issues.",
@@ -5070,7 +5070,7 @@
         "data_strength": {
             "gene": "IL6",
             "title": "The 'Wolverine' Recovery",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Balanced IL-6 signaling allows for rapid tissue repair without systemic stress.",
                 "how": "Your inflammation response is surgical. You get a sharp spike in IL-6 to trigger muscle repair, followed by an immediate drop to baseline. You can handle training volumes that would break a normal person. You recover faster and age slower.",
@@ -5102,7 +5102,7 @@
         "data_strength": {
             "gene": "IL6",
             "title": "The 'Wolverine' Recovery",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Balanced IL-6 signaling allows for rapid tissue repair without systemic stress.",
                 "how": "Your inflammation response is surgical. You get a sharp spike in IL-6 to trigger muscle repair, followed by an immediate drop to baseline. You can handle training volumes that would break a normal person. You recover faster and age slower.",
@@ -5134,7 +5134,7 @@
         "data_strength": {
             "gene": "IL6",
             "title": "The 'Wolverine' Recovery",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Balanced IL-6 signaling allows for rapid tissue repair without systemic stress.",
                 "how": "Your inflammation response is surgical. You get a sharp spike in IL-6 to trigger muscle repair, followed by an immediate drop to baseline. You can handle training volumes that would break a normal person. You recover faster and age slower.",
@@ -5166,7 +5166,7 @@
         "data_strength": {
             "gene": "CRP",
             "title": "The 'Cool' System",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Low CRP levels indicate a calm, unreactive immune system.",
                 "how": "Your baseline inflammation is naturally very low. Your body does not attack itself or its own blood vessels. This is a primary marker for extreme longevity, as 'Inflammaging' is the main driver of biological decay.",
@@ -5198,7 +5198,7 @@
         "data_strength": {
             "gene": "KL",
             "title": "The 'Life Extension' Gene",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Klotho is often called the 'Anti-Aging Hormone.' It inhibits the insulin/IGF-1 signaling pathway moderately, mimicking the life-extending effects of calorie restriction.",
                 "how": "You have the high-expression genotype. Your body naturally produces abundant Klotho protein.  This keeps your arteries flexible, your cognition sharp, and provides a systemic buffer against the degradation of aging. It is a genetic lottery win for longevity.",
@@ -5230,7 +5230,7 @@
         "data_strength": {
             "gene": "SOD2",
             "title": "The 'Armored' Reactor",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "SOD2 acts as the first line of defense against mitochondrial oxidative stress.",
                 "how": "You have the high-efficiency variant (Ala/Ala). Your mitochondria are heavily shielded. You can run your metabolism at 'Red Line' intensities (HIIT, Sprints) with minimal oxidative damage. This preserves mitochondrial density and function well into old age.",
@@ -5262,7 +5262,7 @@
         "data_strength": {
             "gene": "GPX1",
             "title": "The 'Master' Neutralizer",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "GPX1 is the workhorse of the cellular antioxidant system.",
                 "how": "Your enzyme works at peak efficiency. You rapidly convert hydrogen peroxide into water, neutralizing threats before they damage DNA. This gives you a high tolerance for physiological stress and supports robust lung function.",
@@ -5294,7 +5294,7 @@
         "data_strength": {
             "gene": "SLC6A4",
             "title": "The 'Resilient' Anchor",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Efficient serotonin transport regulates mood stability and stress response.",
                 "how": "You carry the 'Long' (L) allele. You produce abundant transporters. Your brain recycles serotonin efficiently, creating a stable chemical environment. You are naturally buffered against depression and tend to maintain a 'sunny' disposition even during hard times.",
@@ -5326,7 +5326,7 @@
         "data_strength": {
             "gene": "OPRM1",
             "title": "The 'Iron' Threshold",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "High opioid receptor sensitivity allows for potent natural pain relief.",
                 "how": "Your receptors bind endorphins tightly. You have a naturally high pain threshold. You get a massive 'Runner's High' from exercise and generally require less medication to manage discomfort.",
@@ -5358,7 +5358,7 @@
         "data_strength": {
             "gene": "COL1A1",
             "title": "The 'Steel' Tendon",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Dense collagen cross-linking provides structural stiffness and power transfer.",
                 "how": "Your collagen architecture is pristine. Your tendons function like stiff springs, transferring force from muscle to bone with zero energy leak. You are resistant to injury and naturally fast because your 'springs' are tight.",
@@ -5390,7 +5390,7 @@
         "data_strength": {
             "gene": "MMP3",
             "title": "The 'Adaptive' Structure",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Balanced MMP3 activity ensures rapid adaptation of connective tissue to training loads.",
                 "how": "Your remodeling enzymes are active. When you lift weights, your tendons and ligaments adapt rapidly to the new stress. You recover flexibility quickly and are less prone to chronic tendon issues.",
@@ -5422,7 +5422,7 @@
         "data_strength": {
             "gene": "DIO2",
             "title": "The 'High Energy' Thyroid",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Efficient Deiodinase activity ensures cells are flooded with active metabolic hormones.",
                 "how": "Your enzyme works perfectly. You rapidly convert T4 to active T3, keeping your metabolic fire burning hot. You likely have good energy levels, clear thinking, and an easier time managing body composition.",
@@ -5454,7 +5454,7 @@
         "data_strength": {
             "gene": "CYP1B1",
             "title": "Clean Hormone Detox",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Balanced hydroxylation pathways protect tissues from hormonal damage.",
                 "how": "Your enzyme favors the 'clean' detox pathway (2-hydroxy). You clear estrogens safely without generating toxic byproducts. This protects your reproductive tissues and breast health long-term.",
@@ -5486,7 +5486,7 @@
         "data_strength": {
             "gene": "SHBG",
             "title": "The 'Bioavailable' Hormone",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Optimal SHBG levels ensure hormones are transported but available.",
                 "how": "You have naturally lower SHBG binding. A higher percentage of your testosterone is 'Free' and biologically active. You get more muscle-building and mood-enhancing bang for your buck from the hormones you produce.",
@@ -5518,7 +5518,7 @@
         "data_strength": {
             "gene": "LEPR",
             "title": "The 'Equilibrium' Master",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "High Leptin sensitivity ensures the brain matches appetite to energy stores perfectly.",
                 "how": "Your receptor hears the signal loud and clear. When body fat rises, your appetite drops and metabolic rate increases to burn it off. You have a strong biological 'set point' that defends against weight gain.",
@@ -5550,7 +5550,7 @@
         "data_strength": {
             "gene": "BHMT",
             "title": "The 'Stress' Valve",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "A robust BHMT pathway acts as a pressure release valve for the methylation cycle.",
                 "how": "Your enzyme works efficiently. Even if your diet is low in folate, your body can scavenge choline and betaine to keep the methylation cycle turning. You are resilient to nutrient fluctuations.",
@@ -5582,7 +5582,7 @@
         "data_strength": {
             "gene": "BCO1",
             "title": "The 'Omnivore' Advantage",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Efficient BCO1 activity unlocks the entire plant kingdom as a Vitamin A source.",
                 "how": "You can turn a carrot into Retinol on demand. This gives you tremendous dietary flexibility and protects you from toxicity, as your body only converts what it needs.",
@@ -5614,7 +5614,7 @@
         "data_strength": {
             "gene": "SLC23A1",
             "title": "The 'Vitamin C' Sponge",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Efficient reabsorption allows the body to maintain high Vitamin C reserves.",
                 "how": "Your kidneys cherish Vitamin C. You reabsorb it aggressively, maintaining high tissue saturation with normal dietary intake. Your collagen production and antioxidant reserves are naturally supported.",
@@ -5646,7 +5646,7 @@
         "data_strength": {
             "gene": "PER3",
             "title": "The 'Early Bird' Drive",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "The 'Long' variant creates strong sleep pressure, aligning with the solar cycle.",
                 "how": "You are a natural Morning Lark. Your sleep pressure builds reliably. You fall asleep fast and wake up alert. This alignment with the solar day promotes optimal hormonal health.",
@@ -5678,7 +5678,7 @@
         "data_strength": {
             "gene": "SLC6A3",
             "title": "The 'Sticky' Dopamine",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Lower transporter density allows dopamine molecules to linger in the synapse for a longer duration, enhancing the neural signal strength.",
                 "how": "Your transporter density is genetically lower (9R allele). Dopamine stays active in the gap between neurons for much longer than average. This gives you natural focus, persistence, and a 'sticky' attention span. You do not need constant external stimulation to stay engaged with a task; your brain naturally holds onto interest.",
@@ -5691,11 +5691,11 @@
         }
     },"rs6214": {
         "title": "Growth Signal (IGF1)",
-        "badge_type": "SUPERPOWER",
+        "badge_type": "Strength",
         "data_strength": {
             "gene": "IGF1",
             "title": "The Anabolic Gas Pedal",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "IGF-1 is the primary hormone responsible for childhood growth and adult muscle repair. It acts as the 'Gas Pedal' for cellular multiplication and protein synthesis.",
                 "how": "You carry the CC genotype, which is linked to higher circulating levels of IGF-1. Your body is biologically primed to remain in an anabolic state. When you stress your muscles, the signal to grow is louder and more persistent than average. This allows for faster recovery from high-volume training and a higher ceiling for total muscle mass.",
@@ -5709,11 +5709,11 @@
     },
     "rs2229765": {
         "title": "Receptor Clarity (IGF1R)",
-        "badge_type": "SUPERPOWER",
+        "badge_type": "Strength",
         "data_strength": {
             "gene": "IGF1R",
             "title": "The Clear Receiver",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "If IGF-1 is the 'Signal,' the IGF1 Receptor is the 'Radio' that hears it. High receptor sensitivity ensures the message doesn't get lost.",
                 "how": "Your AA genotype represents high receptor sensitivity. Not only do you have a loud growth signal (from your IGF1 CC result), but your muscle cells are genetically tuned to 'hear' that signal clearly. This synergy creates an exceptionally efficient pathway for Muscle Protein Synthesis (MPS). You are likely a 'High Responder' to resistance training.",
@@ -5727,11 +5727,11 @@
     },
     "rs6263": {
         "title": "Androgen Drive (AR)",
-        "badge_type": "SUPERPOWER",
+        "badge_type": "Strength",
         "data_strength": {
             "gene": "AR",
             "title": "The Testosterone Amplifier",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "The Androgen Receptor determines how much 'work' your testosterone actually does in the muscle cell. It is the bridge between hormones and physical strength.",
                 "how": "Your TT genotype is associated with higher AR sensitivity. This means that even with normal testosterone levels, your muscles extract more 'benefit' from the hormone. This translates to higher muscle density, lower body fat percentages, and increased explosive power. You have the genetic profile often seen in natural athletes who maintain 'dry' lean mass easily.",
@@ -5763,11 +5763,11 @@
     },
     "rs7799039": {
         "title": "Leptin Signaling (LEP)",
-        "badge_type": "SUPERPOWER",
+        "badge_type": "Strength",
         "data_strength": {
             "gene": "LEP",
             "title": "The Fullness Shield",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Leptin is the 'Stop Eating' hormone. It is produced by your fat cells and travels to the brain to signal that you have enough energy stored.",
                 "how": "You carry the GG genotype, associated with robust leptin production and high sensitivity. Unlike carriers of the 'A' allele who often feel a constant 'background hunger,' your brain receives a clear, loud signal when your energy needs are met. This makes it significantly easier for you to maintain a lean physique and resist the 'hedonic' urge to overeat processed foods.",
@@ -5781,11 +5781,11 @@
     },
     "rs2234693": {
         "title": "Estrogen Protection (ESR1)",
-        "badge_type": "SUPERPOWER",
+        "badge_type": "Strength",
         "data_strength": {
             "gene": "ESR1",
             "title": "The Tendon Buffer",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Estrogen isn't just a female hormone; in the male body, it is a critical regulator of tendon elasticity and bone mineral density through the Estrogen Receptor Alpha (ESR1).",
                 "how": "You have the TT genotype, which represents the most efficient version of this receptor. In a high-power athlete (like your ACE GG profile), this acts as a 'Biological Buffer.' While your COL5A1 gene makes your tendons stiff, your ESR1 ensures they stay properly hydrated and resilient. It provides the 'oil' that prevents your stiff 'springs' from becoming brittle and snapping under heavy loads.",
@@ -5906,7 +5906,7 @@
         "data_strength": {
             "gene": "GAD1",
             "title": "The 'Zen' Converter",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Efficient GAD1 activity ensures a perfectly balanced ratio of excitation to inhibition in the brain's neural circuits.",
                 "how": "Your enzyme converts Glutamate to GABA with ease. When stress hits, your brain naturally produces the relaxing neurotransmitter to calm you down within minutes. You have a high baseline for tranquility and are naturally resistant to anxiety disorders and panic attacks.",
@@ -5938,7 +5938,7 @@
         "data_strength": {
             "gene": "PPARD",
             "title": "The 'Endurance' Machine",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "High PPAR-Delta activity turns muscle fibers into fat-burning machines, sparing glycogen for high-intensity efforts.",
                 "how": "You have the 'Endurance' genotype (C allele). Your muscles naturally prefer oxidizing fatty acids for fuel. This spares muscle glycogen and provides endless energy for long-duration activities. You are naturally leaner because your resting metabolism targets fat stores for maintenance energy.",
@@ -5970,7 +5970,7 @@
         "data_strength": {
             "gene": "ADRB2",
             "title": "The 'Reactive' Fat Cell",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Sensitive adrenergic receptors allow for the rapid liberation of stored energy during periods of stress or activity.",
                 "how": "Your fat cells are highly sensitive to adrenaline. The moment you start moving or get cold, they dump fatty acids into the bloodstream for fuel. You drop body fat easily when active and rarely struggle with 'stubborn' pockets of adipose tissue. You stay lean effortlessly.",
@@ -6002,7 +6002,7 @@
         "data_strength": {
             "gene": "ADRB2",
             "title": "The 'Reactive' Fat Cell",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Sensitive adrenergic receptors allow for the rapid liberation of stored energy during periods of stress or activity.",
                 "how": "Your fat cells are highly sensitive to adrenaline. The moment you start moving or get cold, they dump fatty acids into the bloodstream for fuel. You drop body fat easily when active and rarely struggle with 'stubborn' pockets of adipose tissue. You stay lean effortlessly.",
@@ -6034,7 +6034,7 @@
         "data_strength": {
             "gene": "ADRB2",
             "title": "The 'Reactive' Fat Cell",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Sensitive adrenergic receptors allow for the rapid liberation of stored energy during periods of stress or activity.",
                 "how": "Your fat cells are highly sensitive to adrenaline. The moment you start moving or get cold, they dump fatty acids into the bloodstream for fuel. You drop body fat easily when active and rarely struggle with 'stubborn' pockets of adipose tissue. You stay lean effortlessly.",
@@ -6066,7 +6066,7 @@
         "data_strength": {
             "gene": "FGF21",
             "title": "The 'Savory' Palate",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "High FGF21 signaling actively suppresses the desire for sweet tastes, acting as a natural brake on sugar consumption.",
                 "how": "Your liver creates a strong feedback loop. You likely find desserts 'too sweet' or unappealing after just a few bites. You naturally prefer savory, protein-rich, or fatty foods. This protects you effortlessly from the modern sugar-laden food environment and metabolic disease.",
@@ -6098,7 +6098,7 @@
         "data_strength": {
             "gene": "CAT",
             "title": "The 'Clean' Cell",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "High Catalase activity acts as a high-speed disposal system for dangerous metabolic waste products.",
                 "how": "Your enzyme works rapidly. You neutralize hydrogen peroxide instantly . This protects your cells from oxidative bleaching and preserves DNA integrity. You likely retain hair pigment longer and show fewer signs of cellular aging than your peers.",
@@ -6130,7 +6130,7 @@
         "data_strength": {
             "gene": "PON1",
             "title": "The 'Shielded' Lipid",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "PON1 acts as a bodyguard for your arteries and a disposal unit for environmental toxins.",
                 "how": "Your enzyme is highly active. It aggressively scours the blood for oxidized lipids and neutralizes them. You also have a 'cast iron' resistance to environmental pesticides. This is a significant longevity factor for cardiovascular health.",
@@ -6162,7 +6162,7 @@
         "data_strength": {
             "gene": "FKBP5",
             "title": "The 'Resilient' Feedback",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Optimal FKBP5 levels allow the hypothalamic-pituitary-adrenal (HPA) axis to reset instantly.",
                 "how": "Your feedback loop is tight. When cortisol rises, your brain detects it immediately and shuts down the production signal. You experience stress acutely, but you recover baseline calmness within minutes. This biological resilience protects your brain (hippocampus) from the neurotoxic effects of chronic stress.",
@@ -6194,7 +6194,7 @@
         "data_strength": {
             "gene": "HTR2A",
             "title": "The 'Stable' Receptor",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Balanced receptor density ensures stable mood and logical processing of emotional data.",
                 "how": "Your receptor sensitivity is standard. You process serotonin signals without amplification. This grants you a natural 'emotional shield.' You can experience setbacks or negative feedback without spiraling into rumination. Your default state is closer to equilibrium.",
@@ -6226,7 +6226,7 @@
         "data_strength": {
             "gene": "NR3C1",
             "title": "The 'Sensitive' Responder",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "High receptor sensitivity allows for efficient stress signaling with minimal hormone production.",
                 "how": "Your receptors are highly tuned. A tiny amount of cortisol is enough to activate the necessary physiological response. This keeps your total daily cortisol load low, protecting your muscle tissue from catabolism and your skin from aging.",
@@ -6258,7 +6258,7 @@
         "data_strength": {
             "gene": "ESR1",
             "title": "The 'Bone' Guardian",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Highly sensitive estrogen receptors provide robust protection for the skeleton and cardiovascular system.",
                 "how": "Your receptors amplify the estrogen signal efficiently. This is a massive advantage for bone mineral density and collagen production. You likely have youthful skin elasticity and a lower risk of fractures as you age due to this hormonal optimization.",
@@ -6290,7 +6290,7 @@
         "data_strength": {
             "gene": "ESR1",
             "title": "The 'Bone' Guardian",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Highly sensitive estrogen receptors provide robust protection for the skeleton and cardiovascular system.",
                 "how": "Your receptors amplify the estrogen signal efficiently. This is a massive advantage for bone mineral density and collagen production. You likely have youthful skin elasticity and a lower risk of fractures as you age due to this hormonal optimization.",
@@ -6322,7 +6322,7 @@
         "data_strength": {
             "gene": "IL1B",
             "title": "The 'Targeted' Response",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "A controlled IL-1B response ensures infection fighting without collateral damage.",
                 "how": "Your cytokine response is proportionate. You mount a defense when needed, but you don't stay inflamed. This protects your organs from the wear-and-tear of chronic immune activation, a key marker of longevity.",
@@ -6354,7 +6354,7 @@
         "data_strength": {
             "gene": "IL10",
             "title": "The 'Peacekeeper'",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Robust IL-10 levels allow for rapid resolution of inflammation.",
                 "how": "You are a 'High Secretor.' Your body floods the system with cooling IL-10 immediately after a threat is neutralized. You recover from injuries and workouts with exceptional speed because your tissues don't stay inflamed a second longer than necessary.",
@@ -6386,7 +6386,7 @@
         "data_strength": {
             "gene": "AMPD1",
             "title": "The 'Infinite' Battery",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Efficient AMPD1 activity prevents the buildup of metabolic waste products in muscle tissue.",
                 "how": "Your enzyme works perfectly. You recycle ATP byproducts instantly, preventing the 'acid burn' of fatigue from setting in. You can maintain high-power output for longer durations and recover between sets with incredible speed.",
@@ -6418,7 +6418,7 @@
         "data_strength": {
             "gene": "KIBRA",
             "title": "The 'Photographic' Edge",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "The KIBRA C-allele is strongly linked to superior episodic memory performance.",
                 "how": "You carry the 'Memory' allele. Your hippocampus encodes new information with higher fidelity. You likely remember names, faces, and events with less effort than your peers. This gives you a significant advantage in learning-heavy environments.",
@@ -6450,7 +6450,7 @@
         "data_strength": {
             "gene": "MC1R",
             "title": "The 'Sun' Shield",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "MC1R stimulates the production of Eumelanin, the dark pigment that protects DNA from UV radiation.",
                 "how": "Your receptor is highly active. Upon sun exposure, you rapidly produce protective melanin (tan). This natural shield absorbs UV radiation before it can damage your DNA, significantly lowering your risk of melanoma and photo-aging.",
@@ -6482,7 +6482,7 @@
         "data_strength": {
             "gene": "CYP2E1",
             "title": "The 'Balanced' Detox",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Balanced CYP2E1 activity clears toxins without generating excess oxidative stress.",
                 "how": "Your enzyme works at a moderate pace. It detoxifies alcohol and solvents effectively but doesn't go overboard creating free radicals. This protects your liver structure and prevents the 'fatty liver' progression seen in high-activity types.",
@@ -6514,7 +6514,7 @@
         "data_strength": {
             "gene": "APOA2",
             "title": "The 'Fat' Tolerant",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Genetic resilience to saturated fatty acids allows for greater dietary flexibility without metabolic derangement.",
                 "how": "You carry the T-allele. Your metabolism handles saturated fats efficiently. You do not experience the same spike in inflammation or ghrelin (hunger) that sensitive types do after a fatty meal. You can thrive on high-fat or Keto-style diets without negatively impacting your BMI or insulin sensitivity.",
@@ -6546,7 +6546,7 @@
         "data_strength": {
             "gene": "FABP2",
             "title": "The 'Lean' Gut",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Standard fat absorption efficiency prevents caloric overload from dietary fats.",
                 "how": "Your transporters function at a normal baseline. You do not strip every single calorie of fat from your food. A portion of dietary fat passes through unabsorbed, giving you a slight metabolic advantage in maintaining leanness compared to high-absorbers.",
@@ -6578,7 +6578,7 @@
         "data_strength": {
             "gene": "HNMT",
             "title": "The 'Clear' Head",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Efficient HNMT activity prevents histamine from acting as an excitotoxin in the brain.",
                 "how": "Your enzyme rapidly methylates histamine, neutralizing it before it can disrupt neurotransmitters. You are resistant to histamine-induced headaches and do not get the 'wired' feeling from aged foods or wine that plagues others.",
@@ -6610,7 +6610,7 @@
         "data_strength": {
             "gene": "DRD1",
             "title": "The 'Architect' Mind",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Optimal D1 receptor functioning supports high-level cognitive architecture and planning.",
                 "how": "Your prefrontal cortex is well-populated with D1 receptors. You have strong 'Executive Control.' You can easily hold complex plans in your head, organize multi-step projects, and resist immediate impulses to favor long-term goals.",
@@ -6642,7 +6642,7 @@
         "data_strength": {
             "gene": "DRD1",
             "title": "The 'Architect' Mind",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Optimal D1 receptor functioning supports high-level cognitive architecture and planning.",
                 "how": "Your prefrontal cortex is well-populated with D1 receptors. You have strong 'Executive Control.' You can easily hold complex plans in your head, organize multi-step projects, and resist immediate impulses to favor long-term goals.",
@@ -6674,7 +6674,7 @@
         "data_strength": {
             "gene": "NPSR1",
             "title": "The 'Short' Sleeper",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Specific NPSR1 variants allow for restorative sleep in shorter windows (The 'Thatcher' Gene).",
                 "how": "You carry the rare 'Short Sleeper' trait. Your sleep is genetically more efficient. You can feel fully rested on 5-6 hours, whereas the average person needs 8. This effectively gives you 10-14 extra hours of productive life every week.",
@@ -6706,7 +6706,7 @@
         "data_strength": {
             "gene": "CNR1",
             "title": "The 'Chill' Factor",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "A robust endocannabinoid system provides a natural shield against stress and anxiety.",
                 "how": "Your CB1 receptors are abundant. You naturally produce and utilize anandamide. This gives you a 'Teflon' mind\u2014stress slides right off. You easily enter flow states and rarely suffer from chronic anxiety or digestive stress issues.",
@@ -6738,7 +6738,7 @@
         "data_strength": {
             "gene": "ALPL",
             "title": "The 'Neuro-Builder'",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Efficient ALPL activity ensures neurons have abundant B6 for neurotransmitter synthesis.",
                 "how": "Your transport system is robust. Your cells readily absorb Vitamin B6. This supports the rapid synthesis of all major neurotransmitters (Serotonin, Dopamine, GABA). You likely have good dream recall (a sign of B6 status) and stable mood.",
@@ -6770,7 +6770,7 @@
         "data_strength": {
             "gene": "SOD3",
             "title": "The 'Stainless' Vessel",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "High SOD3 activity prevents the oxidation of Nitric Oxide, keeping blood vessels relaxed and youthful.",
                 "how": "Your SOD3 enzyme binds tightly to your artery walls, creating a protective antioxidant coating. This prevents plaque formation and maintains excellent blood flow. Your lungs are also highly protected against pollutants and smoke.",
@@ -6802,7 +6802,7 @@
         "data_strength": {
             "gene": "GCH1",
             "title": "The 'Natural' Analgesic",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "High BH4 levels act as a natural painkiller and mood booster.",
                 "how": "You carry the 'Pain Protective' haplotype. Your body produces abundant BH4. This lowers your perception of nerve pain significantly (you are less likely to develop chronic back pain) and supports robust dopamine production for motivation.",
@@ -6834,7 +6834,7 @@
         "data_strength": {
             "gene": "ELN",
             "title": "The 'Timeless' Skin",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Superior elastin structure maintains tissue flexibility and youthful appearance.",
                 "how": "Your elastin fibers are resilient and abundant. Your skin resists gravity and repetitive motion lines (crow's feet) for much longer than average. Your arteries remain flexible and compliant, placing less strain on your heart.",
@@ -6866,7 +6866,7 @@
         "data_strength": {
             "gene": "CYP2R1",
             "title": "The 'Efficient' Converter",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Rapid 25-hydroxylation ensures that dietary Vitamin D is immediately available to the body.",
                 "how": "Your liver enzyme is highly efficient. You rapidly convert ingested Vitamin D into the blood-stable form. You get 'more bang for your buck' from supplements and food sources, maintaining optimal levels with less effort.",
@@ -6898,7 +6898,7 @@
         "data_strength": {
             "gene": "IL6R",
             "title": "The 'Persistent' Signal",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "The Interleukin-6 Receptor (IL6R) determines how strongly your cells 'hear' the inflammation signal from IL-6.",
                 "how": "Your variant increases the amount of soluble IL6R. This amplifies the inflammatory signal. Even a small amount of IL-6 creates a loud response in your body. This is strongly linked to higher CRP levels and a higher risk of coronary artery disease driven by inflammation.",
@@ -6930,7 +6930,7 @@
         "data_strength": {
             "gene": "EDN1",
             "title": "The 'Relaxed' Vessel",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Lower levels of Endothelin-1 allow blood vessels to remain dilated and compliant.",
                 "how": "Your production of this constricting chemical is low. Your arteries naturally stay relaxed and open. This lowers your blood pressure and reduces the workload on your heart. You likely have good circulation and nutrient delivery to tissues.",
@@ -6962,7 +6962,7 @@
         "data_strength": {
             "gene": "FNDC5",
             "title": "The 'Shredded' Responder",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "High Irisin levels mimic the effects of constant exercise, browning fat tissue and improving insulin sensitivity.",
                 "how": "You are a High Responder. Your muscles pump out Irisin efficiently when you move. This hormone travels to your fat stores and tells them to burn energy as heat. You get 'double credit' for your workouts in terms of metabolic impact.",
@@ -6994,7 +6994,7 @@
         "data_strength": {
             "gene": "TRPM6",
             "title": "The 'Mineral' Sponge",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Efficient TRPM6 activity ensures maximal magnesium retention for metabolic health.",
                 "how": "Your transporter is highly active. You extract magnesium efficiently from plant sources and hold onto it in the kidneys. This supports over 300 enzymatic reactions, including ATP production and DNA repair. You are naturally protected against cramps and sleep disturbances.",
@@ -7026,7 +7026,7 @@
         "data_strength": {
             "gene": "SLC19A1",
             "title": "The 'Cellular' Methylator",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "High transport efficiency ensures that intracellular folate levels match dietary intake.",
                 "how": "Your transport gates are wide open. Folate moves effortlessly from your bloodstream into your tissues. This supports robust DNA synthesis, red blood cell formation, and neurotransmitter production without requiring massive supplementation.",
@@ -7058,7 +7058,7 @@
         "data_strength": {
             "gene": "VKORC1",
             "title": "The 'Arterial' Shield",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Efficient Vitamin K recycling protects the vascular system from calcification.",
                 "how": "Your enzyme recycles Vitamin K endlessly. You maintain high levels of active Matrix GLA Protein, which acts as a shield, preventing calcium from sticking to your blood vessel walls. Your arteries remain flexible and youthful.",
@@ -7090,7 +7090,7 @@
         "data_strength": {
             "gene": "PLIN1",
             "title": "The 'Access' Phenotype",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Responsive Perilipin allows for rapid mobilization of stored energy.",
                 "how": "Your fat cells are ready to share. The Perilipin coating breaks down instantly upon hormonal signaling (exercise/fasting). You lose body fat in a linear, predictable fashion when in a deficit because your cells don't fight the process.",
@@ -7122,7 +7122,7 @@
         "data_strength": {
             "gene": "CD36",
             "title": "The 'Fuel' Transporter",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Efficient CD36 expression allows muscle cells to utilize fatty acids for endurance fuel.",
                 "how": "You are a 'Fat Burner.' Your muscles readily take up fatty acids from the bloodstream during exercise. You excel at steady-state endurance activities because you can rely on fat stores, sparing your limited glycogen for the final sprint.",
@@ -7154,7 +7154,7 @@
         "data_strength": {
             "gene": "SLC2A2",
             "title": "The 'Moderator'",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "High sensitivity to glucose prevents over-consumption.",
                 "how": "Your sugar sensor is highly accurate. A small amount of sweet food registers immediately in the brain, triggering satiety. You likely find highly processed sweets 'too sugary' and naturally stop eating them before over-indulging.",
@@ -7186,7 +7186,7 @@
         "data_strength": {
             "gene": "SCN9A",
             "title": "The 'Iron' Nerve",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Reduced sodium channel activity acts as a natural analgesic (painkiller).",
                 "how": "Your pain transmission is dampened. You have a naturally high pain threshold. You can push through physical trauma, extreme cold, or intense exercise without being inhibited by the pain signal. This is a massive advantage in combat sports or endurance athletics.",
@@ -7218,7 +7218,7 @@
         "data_strength": {
             "gene": "MTNR1B",
             "title": "The 'Stable' Fast",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Balanced interaction between melatonin and insulin allows for metabolic flexibility at night.",
                 "how": "Your melatonin signaling does not overly suppress insulin. You maintain stable blood glucose levels overnight without major spikes or crashes. Your fasting glucose levels in the morning tend to be naturally lower and healthier.",
@@ -7250,7 +7250,7 @@
         "data_strength": {
             "gene": "ADA",
             "title": "The 'Deep' Sleeper",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Slower clearance allows Adenosine to build up to high levels, triggering profound Deep Sleep.",
                 "how": "Your enzyme clears Adenosine slowly. By bedtime, you have a massive 'Sleep Pressure' built up. You fall into a coma-like Deep Sleep (SWS) rapidly. This is where physical repair and growth hormone release happen. You recover physically from stress much faster than average.",
@@ -7282,7 +7282,7 @@
         "data_strength": {
             "gene": "AHR",
             "title": "The 'Resilient' Detox",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Balanced AHR activation allows for targeted detoxification without chronic inflammation.",
                 "how": "Your receptor is calibrated correctly. It detects toxins and clears them but doesn't freak out. You can handle standard environmental exposures without triggering a systemic immune response or autoimmune flare-up.",
@@ -7314,7 +7314,7 @@
         "data_strength": {
             "gene": "AGTR1",
             "title": "The 'Flexible' Vessel",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Lower receptor sensitivity keeps blood vessels dilated and blood pressure stable.",
                 "how": "Your blood vessels remain relaxed even in the presence of sodium. You have a natural buffer against hypertension. Your heart doesn't have to work as hard to pump blood, which preserves cardiovascular health long-term.",
@@ -7346,7 +7346,7 @@
         "data_strength": {
             "gene": "CYP2A6",
             "title": "The 'Casual' User",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Slow metabolism keeps nicotine levels stable for hours.",
                 "how": "You are a 'Slow Metabolizer.' Nicotine lingers in your system. You don't feel the need to chain-smoke because the effect lasts. You are less likely to become heavily addicted and find it easier to quit because withdrawal is gradual.",
@@ -7378,7 +7378,7 @@
         "data_strength": {
             "gene": "HDC",
             "title": "The 'Calm' Immune",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Regulated HDC activity prevents the immune system from over-reacting to minor threats.",
                 "how": "Your histamine production is tightly controlled. You don't flood the system unnecessarily. You rarely suffer from random allergies, hay fever, or food sensitivities. Your immune system saves its ammo for real threats.",
@@ -7410,7 +7410,7 @@
         "data_strength": {
             "gene": "BRCA1",
             "title": "The 'Iron' Genome",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Efficient BRCA1 activity ensures DNA breaks are repaired error-free via Homologous Recombination.",
                 "how": "Your repair machinery acts with surgical precision. When DNA strands break, BRCA1 coordinates a perfect fix instantly. This keeps your genetic code stable and mutation-free, providing a massive baseline protection against cellular aging and disease.",
@@ -7438,7 +7438,7 @@
         "data_strength": {
             "gene": "FOXO1",
             "title": "The 'Longevity' Switch",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Active FOXO1 signaling mimics the life-extending effects of calorie restriction.",
                 "how": "Your FOXO1 activity remains robust even when insulin fluctuates. Your cells prioritize maintenance and DNA repair over mindless growth. This phenotype is strongly enriched in centenarians because it slows down the accumulation of biological errors.",
@@ -7466,7 +7466,7 @@
         "data_strength": {
             "gene": "CETP",
             "title": "The 'Centenarian' Lipid",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Reduced CETP activity is one of the few genetic traits consistently linked to living past 100.",
                 "how": "Your enzyme works slowly. This leaves cholesterol in your HDL particles, making them large and fluffy. These large HDL particles are incredibly effective at cleaning arteries. You naturally maintain high HDL and low heart disease risk.",
@@ -7494,7 +7494,7 @@
         "data_strength": {
             "gene": "DHCR7",
             "title": "The 'Solar' Factory",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Efficient conversion allows for rapid Vitamin D synthesis from minimal UV exposure.",
                 "how": "Your enzyme is a powerhouse. 15 minutes of sun exposure generates massive amounts of Vitamin D3. You maintain high levels effortlessly, supporting immunity and bone health year-round with minimal effort.",
@@ -7522,7 +7522,7 @@
         "data_strength": {
             "gene": "GC",
             "title": "The 'Delivery' Master",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "High-affinity binding proteins ensure 100% of Vitamin D is utilized.",
                 "how": "Your transport system is robust. You carry Vitamin D efficiently to immune cells and bones. You likely maintain healthy cellular levels with less intake than others because you waste nothing.",
@@ -7550,7 +7550,7 @@
         "data_strength": {
             "gene": "GC",
             "title": "The 'Delivery' Master",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "High-affinity binding proteins ensure 100% of Vitamin D is utilized.",
                 "how": "Your transport system is robust. You carry Vitamin D efficiently to immune cells and bones. You likely maintain healthy cellular levels with less intake than others because you waste nothing.",
@@ -7578,7 +7578,7 @@
         "data_strength": {
             "gene": "HTR1A",
             "title": "The 'Balanced' Flow",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Optimal autoreceptor density ensures serotonin levels stay in the 'Goldilocks' zone.",
                 "how": "Your feedback loop is perfectly calibrated. You maintain robust serotonin levels without the system shutting itself down. This creates a powerful buffer against anxiety and depression.",
@@ -7606,7 +7606,7 @@
         "data_strength": {
             "gene": "SRD5A2",
             "title": "The 'Hair' Guardian",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Low 5-Alpha Reductase activity preserves circulating Testosterone and spares hair follicles.",
                 "how": "Your enzyme works slowly. You keep more of your hormone as Testosterone rather than converting it to DHT. This grants you a 'thick hair' phenotype well into old age and protects the prostate.",
@@ -7634,7 +7634,7 @@
         "data_strength": {
             "gene": "GCKR",
             "title": "The 'Metabolic' Shield",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Balanced GCKR activity ensures glucose is stored as glycogen rather than fat.",
                 "how": "Your regulatory protein works perfectly. When you eat carbs, they are stored as liver glycogen (usable energy) rather than triglycerides. You have naturally low blood fats and a healthy liver profile.",
@@ -7662,7 +7662,7 @@
         "data_strength": {
             "gene": "NQO1",
             "title": "The 'Energy' Recycler",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Robust NQO1 activity keeps the mitochondrial electron transport chain running smoothly.",
                 "how": "Your enzyme works perfectly. You keep your CoQ10 pool in the active 'antioxidant' state. This protects your cell membranes from damage and ensures high energy output during endurance activities.",
@@ -7690,7 +7690,7 @@
         "data_strength": {
             "gene": "HMOX1",
             "title": "The 'Stress' Shield",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "High basal levels of HO-1 provide a constant 'force field' against cellular damage.",
                 "how": "You have the 'Short' promoter variant. Your gene turns on instantly. You produce high levels of bilirubin (a potent antioxidant) at the slightest hint of stress. This makes your cells incredibly resilient to smoke and pollution.",
@@ -7718,7 +7718,7 @@
         "data_strength": {
             "gene": "GPX4",
             "title": "The 'Armored' Membrane",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Robust GPX4 activity keeps cell membranes fluid and intact.",
                 "how": "Your enzyme efficiently neutralizes lipid peroxides. Your cell walls remain flexible and functional even under stress. This protects you from the cellular damage typically associated with a modern, high-omega-6 diet (though you should still avoid them).",
@@ -7746,7 +7746,7 @@
         "data_strength": {
             "gene": "ABCC11",
             "title": "The 'Odorless' Phenotype",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "A non-functioning transporter prevents lipids from entering sweat, starving bacteria.",
                 "how": "You have the 'Dry' genotype (common in East Asians). Your sweat is water-only; it contains no food for bacteria. Therefore, you produce almost zero body odor even when sweating profusely. You also have dry, flaky earwax.",
@@ -7754,7 +7754,7 @@
             },
             "action": {
                 "title": "Social Edge",
-                "body": "You likely don't need deodorant. This is a genetic social superpower."
+                "body": "You likely don't need deodorant. This is a genetic social Strength."
             }
         }
     },
@@ -7778,7 +7778,7 @@
         "data_strength": {
             "gene": "TAS2R38",
             "title": "The 'Non-Taster'",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Low receptor sensitivity allows for the consumption of bitter plants without aversion.",
                 "how": "You are a 'Non-Taster' (AVI/AVI). You literally cannot taste the bitter poison-signal in vegetables. Broccoli tastes mild and sweet to you. You can easily consume massive amounts of cancer-fighting greens that others find inedible.",
@@ -7806,7 +7806,7 @@
         "data_strength": {
             "gene": "UCP1",
             "title": "The 'Furnace' Metabolism",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "High UCP1 activity turns fat directly into heat, acting as a metabolic sink for excess calories.",
                 "how": "You have abundant Brown Fat stores. When exposed to cold (or even overfeeding), your body simply burns the excess energy as heat. You stay lean easily and tolerate cold weather remarkably well because you have an internal radiator.",
@@ -7834,7 +7834,7 @@
         "data_strength": {
             "gene": "SLC22A5",
             "title": "The 'Fat' Furnace",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "High OCTN2 activity ensures muscles are flooded with the Carnitine needed for beta-oxidation.",
                 "how": "Your transport gates are wide open. Your muscles absorb Carnitine avidly from the bloodstream. This means your mitochondria always have the shuttle they need to burn fat for fuel. You have high endurance stamina and recover from physical exertion rapidly.",
@@ -7866,7 +7866,7 @@
         "data_strength": {
             "gene": "UCP3",
             "title": "The 'Hot' Muscle",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "High UCP3 activity increases the resting energy expenditure of muscle tissue.",
                 "how": "Your muscles naturally 'leak' energy as heat. This keeps your metabolic rate elevated even when you are sitting on the couch. You can consume more calories without gaining weight because your muscles act as a metabolic sink for excess fatty acids.",
@@ -7898,7 +7898,7 @@
         "data_strength": {
             "gene": "ADRA2A",
             "title": "The 'Calm' Responder",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Sensitive ADRA2A receptors allow for precise control of the 'Fight or Flight' response.",
                 "how": "Your feedback loop is tight. You release adrenaline when needed, but the moment the threat passes, your receptors clamp down and stop the release. You recover baseline physiology (heart rate, blood pressure) very quickly after a shock.",
@@ -7930,7 +7930,7 @@
         "data_strength": {
             "gene": "CHRNA5",
             "title": "The 'Focus' Phenotype",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Optimal receptor function supports sustained attention and low addictive potential.",
                 "how": "Your receptors are highly responsive to acetylcholine. You have naturally good concentration and working memory. You are far less likely to develop a dependency on nicotine because your brain doesn't need the external boost to feel normal.",
@@ -7962,7 +7962,7 @@
         "data_strength": {
             "gene": "APOA5",
             "title": "The 'Clear' Blood",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "High levels of APOA5 ensure rapid disposal of dietary fats.",
                 "how": "Your body produces abundant APOA5. You act like a vacuum cleaner for blood fats. Your triglyceride levels remain low even after fatty meals, protecting your arteries from the inflammatory damage caused by circulating lipids.",
@@ -7994,7 +7994,7 @@
         "data_strength": {
             "gene": "LIPC",
             "title": "The 'Active' Lipid",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Balanced Hepatic Lipase activity ensures proper recycling of cholesterol particles.",
                 "how": "Your enzyme works effectively to remodel HDL and LDL particles. This prevents the accumulation of 'old' cholesterol in the blood and ensures that lipids are delivered to the liver for excretion. Your cholesterol panel likely reflects true metabolic health.",
@@ -8026,7 +8026,7 @@
         "data_strength": {
             "gene": "GLO1",
             "title": "The 'Ageless' Cell",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "High GLO1 activity prevents the 'browning' or glycation of body tissues.",
                 "how": "Your enzyme is a powerhouse. You rapidly neutralize Methylglyoxal before it can damage your proteins.  This keeps your collagen elastic and your arteries flexible. You are naturally resistant to the aging effects of dietary sugar.",
@@ -8058,7 +8058,7 @@
         "data_strength": {
             "gene": "TCN2",
             "title": "The 'Vital' Cell",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Efficient TCN2 ensures that dietary B12 is immediately available for DNA synthesis and energy.",
                 "how": "Your transport system is robust. B12 moves effortlessly from blood to tissue. This supports constant energy production, red blood cell formation, and myelin (nerve insulation) repair. You likely maintain good energy levels with standard dietary intake.",
@@ -8090,7 +8090,7 @@
         "data_strength": {
             "gene": "COL5A2",
             "title": "The 'Resilient' Matrix",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Optimal collagen fibril organization creates strong, tear-resistant tissues.",
                 "how": "Your collagen matrix is tightly woven. Your tendons and ligaments are stiff and durable. This protects you from the common sprains and strains that plague others. You transfer force efficiently, making you quicker and more explosive.",
@@ -8122,7 +8122,7 @@
         "data_strength": {
             "gene": "BTBD9",
             "title": "The 'Still' Sleeper",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Optimal iron handling in the brain ensures motor inhibition during sleep.",
                 "how": "Your brain maintains high iron and dopamine levels in motor circuits. Your body stays perfectly paralyzed during REM and Deep sleep. This allows for unbroken, restorative sleep cycles. You rarely wake up with kicked-off covers.",
@@ -8154,7 +8154,7 @@
         "data_strength": {
             "gene": "NR1D1",
             "title": "The 'Solar' Metabolism",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Strong circadian alignment ensures peak metabolic output coincides with daylight hours.",
                 "how": "Your metabolism is perfectly synced with the sun. As soon as you wake up, NR1D1 fires up mitochondrial biogenesis. You burn fat efficiently during the day and switch to repair mode at night. You naturally have high energy in the morning.",
@@ -8186,7 +8186,7 @@
         "data_strength": {
             "gene": "CD14",
             "title": "The 'Tolerant' Immune",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Lower receptor sensitivity prevents unnecessary systemic inflammation from minor gut permeability.",
                 "how": "Your immune system is calm. It ignores low levels of endotoxin in the blood. You don't suffer from the 'post-meal coma' or brain fog that plagues others after a heavy meal. Your inflammatory baseline stays low.",
@@ -8218,7 +8218,7 @@
         "data_strength": {
             "gene": "IL18",
             "title": "The 'Cool' Arteries",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Low IL-18 levels protect the vascular endothelium from inflammatory erosion.",
                 "how": "Your production of this cytokine is genetically low. Even when you are stressed or sick, your body doesn't launch a scorched-earth attack on your blood vessels. This is a significant genetic advantage for cardiovascular longevity.",
@@ -8250,7 +8250,7 @@
         "data_strength": {
             "gene": "GCK",
             "title": "The 'Precision' Thermostat",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "A sensitive Glucokinase enzyme detects minute changes in blood glucose immediately.",
                 "how": "Your pancreas detects sugar the moment it hits the blood. You release a precise 'First Phase' insulin response that blunts the spike instantly. You likely have perfect fasting blood glucose and very stable energy levels after meals.",
@@ -8282,7 +8282,7 @@
         "data_strength": {
             "gene": "TAS1R2",
             "title": "The 'Fruit' Lover",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "High receptor sensitivity makes moderate sweetness feel intensely rewarding.",
                 "how": "Your tongue picks up even faint traces of sugar. A strawberry tastes like candy to you. Processed sweets likely taste 'sickeningly sweet' or chemical-like. You naturally gravitate toward whole fruits and avoid high-sugar junk without using willpower.",
@@ -8314,7 +8314,7 @@
         "data_strength": {
             "gene": "MSRA",
             "title": "The 'Phoenix' Enzyme",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "High MSRA activity continuously reverses oxidative damage to cellular proteins.",
                 "how": "Your enzyme works tirelessly to repair damage. When proteins get oxidized (rusted) by stress, MSRA restores them to their youthful state. This keeps your enzymes, receptors, and structural tissues functional for decades longer than average.",
@@ -8322,7 +8322,7 @@
             },
             "action": {
                 "title": "Longevity",
-                "body": "You have a true anti-aging superpower. Support it by avoiding excessive oxidative stress (smoking, burnt food)."
+                "body": "You have a true anti-aging Strength. Support it by avoiding excessive oxidative stress (smoking, burnt food)."
             }
         }
     },
@@ -8346,7 +8346,7 @@
         "data_strength": {
             "gene": "MMP12",
             "title": "The 'Preserved' Tissue",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Low MMP12 activity preserves the elastic structure of lungs and skin.",
                 "how": "Your enzyme is quiet. You don't degrade elastin unnecessarily. Your lungs remain flexible and efficient, and your skin retains its snap. You are naturally resistant to the tissue degradation that typically comes with age and pollution exposure.",
@@ -8378,7 +8378,7 @@
         "data_strength": {
             "gene": "SHMT1",
             "title": "The 'Stable' Builder",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Robust SHMT1 activity ensures a steady supply of thymidylate for DNA replication.",
                 "how": "Your enzyme balances the folate needs perfectly. You prioritize DNA synthesis efficiently, ensuring that when cells divide, the new copy is perfect. This protects against the genomic instability that underlies aging and cancer.",
@@ -8410,7 +8410,7 @@
         "data_strength": {
             "gene": "CFH",
             "title": "The 'Eagle' Eye",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "A robust Complement regulator protects the retina from inflammatory debris.",
                 "how": "Your CFH protein effectively calms the immune system in the eye. You clear cellular debris (drusen) without triggering a fire. Your risk of macular degeneration is extremely low, likely preserving sharp central vision well into old age.",
@@ -8442,7 +8442,7 @@
         "data_strength": {
             "gene": "FGB",
             "title": "The 'Fluid' Circulation",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Optimal fibrinogen levels balance the need for clotting with the need for smooth blood flow.",
                 "how": "Your fibrinogen production is tightly regulated. You produce enough to stop a cut from bleeding, but not enough to turn your blood into sludge. This protects your micro-circulation (the tiny capillaries in the brain and eyes) from blockage, ensuring efficient nutrient delivery and lower cardiovascular risk.",
@@ -8474,7 +8474,7 @@
         "data_strength": {
             "gene": "FGB",
             "title": "The 'Fluid' Circulation",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Optimal fibrinogen levels balance the need for clotting with the need for smooth blood flow.",
                 "how": "Your fibrinogen production is tightly regulated. You produce enough to stop a cut from bleeding, but not enough to turn your blood into sludge. This protects your micro-circulation (the tiny capillaries in the brain and eyes) from blockage, ensuring efficient nutrient delivery and lower cardiovascular risk.",
@@ -8506,7 +8506,7 @@
         "data_strength": {
             "gene": "CYP11B2",
             "title": "The 'Balanced' Electrolyte",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Regulated aldosterone synthesis allows for flexible electrolyte balance regardless of diet.",
                 "how": "Your aldosterone levels adjust perfectly to your intake. If you eat salt, you excrete the excess. If you sweat, you retain it. You don't experience the 'bloat' after salty meals, and your blood pressure remains stable across a wide range of dietary sodium intakes.",
@@ -8538,7 +8538,7 @@
         "data_strength": {
             "gene": "MGAM",
             "title": "The 'Agrarian' Gut",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "High MGAM activity allows for the rapid and complete digestion of plant starches into fuel.",
                 "how": "You are a 'Starchivore.' Your gut enzymes destroy starch structures instantly. You extract maximum energy from potatoes, rice, and grains without bloating or gas. This is the genetic signature of agricultural adaptation, allowing you to thrive on a high-carbohydrate diet.",
@@ -8570,7 +8570,7 @@
         "data_strength": {
             "gene": "PCSK1",
             "title": "The 'Regulated' Appetite",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Efficient hormone processing ensures the brain receives accurate data about energy intake.",
                 "how": "Your PCSK1 enzyme works perfectly. As soon as you eat, you rapidly produce satiety hormones. You naturally push the plate away when you have had enough. Maintaining a lean physique is significantly easier for you because you aren't fighting a biological urge to binge.",
@@ -8602,7 +8602,7 @@
         "data_strength": {
             "gene": "TFAP2B",
             "title": "The 'Controlled' Storage",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Optimal adipose signaling supports a healthy distribution of body fat and regulated appetite.",
                 "how": "Your fat tissue communicates effectively with your brain. You are resistant to 'hedonic eating' (eating for pleasure alone). You are also more likely to store fat subcutaneously (under skin) rather than viscerally (around organs), which is metabolically safer.",
@@ -8634,7 +8634,7 @@
         "data_strength": {
             "gene": "CTLA4",
             "title": "The 'Balanced' Defense",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Robust CTLA-4 expression allows for a powerful immune attack followed by a complete resolution.",
                 "how": "Your immune system has excellent stopping power. You attack viruses aggressively, but the moment the threat is gone, CTLA-4 engages and calms the T-cells. You are naturally resistant to autoimmunity and chronic inflammation because your system knows when to quit.",
@@ -8666,7 +8666,7 @@
         "data_strength": {
             "gene": "EPHX1",
             "title": "The 'Industrial' Liver",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Rapid EPHX1 activity protects cells from environmental mutagens and pollutants.",
                 "how": "Your enzyme works at hyper-speed. You neutralize inhaled toxins and dietary carcinogens almost instantly. This provides a 'teflon' coating against the chemical assault of modern life. You tolerate urban environments well.",
@@ -8698,7 +8698,7 @@
         "data_strength": {
             "gene": "IL13",
             "title": "The 'Clear' Breath",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Low baseline IL-13 levels keep airways open and skin clear.",
                 "how": "Your production of allergic cytokines is low. You can walk through a field of flowers without sneezing. Your skin barrier is robust and resistant to eczema. Your lungs remain clear even during heavy exertion.",
@@ -8730,7 +8730,7 @@
         "data_strength": {
             "gene": "ACTN2",
             "title": "The 'Iron' Endurance",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Robust ACTN2 expression creates fatigue-resistant structural integrity in slow-twitch fibers.",
                 "how": "Your Type I fibers are bulletproof. They can contract repeatedly for hours without structural failure. This is the genetic bedrock of the ultra-marathoner. You can hold posture and perform low-intensity work all day without soreness.",
@@ -8762,7 +8762,7 @@
         "data_strength": {
             "gene": "ERCC1",
             "title": "The 'Shielded' Cell",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "High ERCC1 activity ensures that environmental DNA damage is excised and replaced instantly.",
                 "how": "Your DNA repair team is elite. You identify and remove bulky DNA lesions rapidly. This confers a strong resistance to environmental carcinogens and UV radiation. Your cells maintain their youthfulness despite external stressors.",
@@ -8794,7 +8794,7 @@
         "data_strength": {
             "gene": "ADRB1",
             "title": "The 'Efficient' Pump",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Standard receptor sensitivity allows for a calm, controlled heart rate response to stress.",
                 "how": "Your heart responds proportionally to adrenaline. You don't get the 'pounding chest' feeling from minor stressors. This stability protects your cardiovascular system from the wear-and-tear of unnecessary tachycardia and allows for fine motor control under pressure.",
@@ -8826,7 +8826,7 @@
         "data_strength": {
             "gene": "VEGFA",
             "title": "The 'Vascular' Network",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "High VEGFA levels allow for rapid capillary density development in response to training.",
                 "how": "You are a 'High Secretor.' Your body builds new highways for blood instantly upon demand. This gives you incredible endurance potential. Your muscles are flooded with oxygen and nutrients compared to the average person, delaying fatigue significantly.",
@@ -8858,7 +8858,7 @@
         "data_strength": {
             "gene": "VEGFA",
             "title": "The 'Vascular' Network",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "High VEGFA levels allow for rapid capillary density development in response to training.",
                 "how": "You are a 'High Secretor.' Your body builds new highways for blood instantly upon demand. This gives you incredible endurance potential. Your muscles are flooded with oxygen and nutrients compared to the average person, delaying fatigue significantly.",
@@ -8890,7 +8890,7 @@
         "data_strength": {
             "gene": "MYH7",
             "title": "The 'Efficient' Pump",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Optimal myosin structure ensures high-efficiency cardiac output with minimal energy waste.",
                 "how": "Your heart muscle consumes oxygen efficiently. You can maintain cardiac output for hours without metabolic strain. This is the genetic foundation for marathon runners and triathletes who rely on cardiovascular efficiency.",
@@ -8922,7 +8922,7 @@
         "data_strength": {
             "gene": "COL5A1",
             "title": "The 'Steel' Tendon",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Optimal collagen fibril assembly creates stiff, resilient tendons that store elastic energy.",
                 "how": "Your tendons are built like steel cables. They are stiff and transmit force efficiently from muscle to bone. This improves running economy (springiness) and makes you highly resistant to the soft-tissue injuries that plague other athletes.",
@@ -8954,7 +8954,7 @@
         "data_strength": {
             "gene": "PLOD1",
             "title": "The 'Durable' Joint",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Robust PLOD1 activity ensures collagen fibers are tightly bound and tear-resistant.",
                 "how": "Your connective tissue is incredibly tough. Your ligaments hold your joints securely in place, even under heavy load. You are naturally resistant to sprains and dislocations because your collagen matrix acts like Kevlar.",
@@ -8986,7 +8986,7 @@
         "data_strength": {
             "gene": "CNTNAP2",
             "title": "The 'Networked' Brain",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Optimal CNTNAP2 expression supports dense, efficient neural highways between brain regions.",
                 "how": "Your brain regions communicate seamlessly. This supports high verbal intelligence, rapid language acquisition, and the ability to synthesize complex information quickly. You likely learned to read or speak earlier than your peers.",
@@ -9018,7 +9018,7 @@
         "data_strength": {
             "gene": "IL23R",
             "title": "The 'Iron' Stomach",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Reduced IL-23 signaling protects the gut mucosa from autoimmune damage.",
                 "how": "You carry the protective variant. Your immune system is tolerant of your microbiome. You rarely experience gut inflammation or food sensitivities. Your digestive tract is a calm environment that absorbs nutrients efficiently.",
@@ -9050,7 +9050,7 @@
         "data_strength": {
             "gene": "ESR2",
             "title": "The 'Cognitive' Estrogen",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "High ER-beta sensitivity protects the brain from neurodegeneration and stress.",
                 "how": "Your receptors are highly active. Estrogen acts as a potent neuroprotective shield for you. You likely maintain sharp memory and cognitive flexibility well into old age. Your mood is naturally stabilized by your hormonal rhythm.",
@@ -9082,7 +9082,7 @@
         "data_strength": {
             "gene": "HSD17B12",
             "title": "The 'Fertile' Signal",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Efficient conversion ensures robust levels of estradiol for reproductive and bone health.",
                 "how": "Your enzyme works effectively. You maintain healthy estrogen levels easily. This supports skin hydration, bone density, and mood stability. You likely have a 'youthful' hormonal profile.",
@@ -9114,7 +9114,7 @@
         "data_strength": {
             "gene": "LMNA",
             "title": "The 'Robust' Cell",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Strong nuclear scaffolding protects the genome and regulates healthy gene expression.",
                 "how": "Your Lamin proteins form a fortress around your DNA. Your cell nuclei are structurally sound and resistant to mechanical stress. This preserves genomic stability and protects against premature aging syndromes. Your cells are built to last.",
@@ -9146,7 +9146,7 @@
         "data_strength": {
             "gene": "SLC30A8",
             "title": "The 'Stable' Insulin",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "High zinc concentration in the pancreas creates potent, stable insulin crystals.",
                 "how": "Your transport is efficient. Your insulin is packaged perfectly with zinc. When released, it is highly stable and effective at lowering blood sugar. This protects your pancreas from exhaustion and burnout.",
@@ -9178,7 +9178,7 @@
         "data_strength": {
             "gene": "MTHFD1",
             "title": "The 'DNA' Builder",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Efficient folate metabolism ensures rapid DNA synthesis and repair.",
                 "how": "Your enzyme works perfectly. You churn out the building blocks of DNA (purines) on demand. This supports rapid cell division (recovery from injury) and healthy fetal development during pregnancy.",
@@ -9210,7 +9210,7 @@
         "data_strength": {
             "gene": "ANKK1",
             "title": "The 'Satisfied' Brain",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "High D2 receptor density creates a highly sensitive reward system that requires minimal stimulation.",
                 "how": "You have the A2/A2 genotype. Your brain is rich in dopamine docking stations. You derive deep satisfaction from small wins, routine tasks, and steady progress. You are naturally immune to addictive behaviors because you don't have a chemical 'void' to fill.",
@@ -9242,7 +9242,7 @@
         "data_strength": {
             "gene": "FSHR",
             "title": "The 'Fertile' Signal",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Highly sensitive FSH receptors ensure robust reproductive function and hormonal regularity.",
                 "how": "Your receptors are highly tuned. A small hormonal signal elicits a strong response. You likely have very regular cycles and high fertility. Your endocrine feedback loops operate with precision, maintaining hormonal balance effortlessly.",
@@ -9274,7 +9274,7 @@
         "data_strength": {
             "gene": "FSHR",
             "title": "The 'Fertile' Signal",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Highly sensitive FSH receptors ensure robust reproductive function and hormonal regularity.",
                 "how": "Your receptors are highly tuned. A small hormonal signal elicits a strong response. You likely have very regular cycles and high fertility. Your endocrine feedback loops operate with precision, maintaining hormonal balance effortlessly.",
@@ -9306,7 +9306,7 @@
         "data_strength": {
             "gene": "COL11A1",
             "title": "The 'Durable' Disc",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Robust Type XI Collagen synthesis creates tough, resilient cartilage pads between vertebrae.",
                 "how": "Your spinal discs are built to last. They resist compression and dehydration effectively. You can handle heavy axial loading (Squats/Deadlifts) with a much lower risk of herniation compared to the average population.",
@@ -9338,7 +9338,7 @@
         "data_strength": {
             "gene": "COL6A5",
             "title": "The 'Shielded' Skin",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "A tight collagen network creates an impermeable barrier against environmental irritants.",
                 "how": "Your skin barrier is like armor. It holds moisture in and keeps allergens out. You rarely suffer from dry skin, eczema, or contact dermatitis. Your skin maintains its 'glow' because it is naturally well-hydrated.",
@@ -9370,7 +9370,7 @@
         "data_strength": {
             "gene": "EDAR",
             "title": "The 'Cooling' System",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "The derived EDAR variant (370A) increases sweat gland density by up to 40%.",
                 "how": "You have the 'East Asian' variant. You have a super-charged cooling system with significantly more sweat glands. You dissipate heat incredibly fast. You can perform high-intensity work in hot/humid environments without your core temperature spiking.",
@@ -9402,7 +9402,7 @@
         "data_strength": {
             "gene": "TYR",
             "title": "The 'Solar' Adaptor",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Robust Tyrosinase activity allows for rapid tanning in response to UV stress.",
                 "how": "Your enzyme works effectively. Upon sun exposure, you rapidly synthesize melanin caps to shield your cell nuclei. You tolerate sun exposure well and have a lower baseline risk of skin cancer compared to lighter phenotypes.",
@@ -9434,7 +9434,7 @@
         "data_strength": {
             "gene": "TYR",
             "title": "The 'Solar' Adaptor",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Robust Tyrosinase activity allows for rapid tanning in response to UV stress.",
                 "how": "Your enzyme works effectively. Upon sun exposure, you rapidly synthesize melanin caps to shield your cell nuclei. You tolerate sun exposure well and have a lower baseline risk of skin cancer compared to lighter phenotypes.",
@@ -9466,7 +9466,7 @@
         "data_strength": {
             "gene": "OCA2",
             "title": "The 'Dark' Shield",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Optimal melanosome pH allows for the production of dense, dark eumelanin.",
                 "how": "Your pigment factories run at neutral pH, churning out protective pigment for skin and eyes. You have a built-in pair of sunglasses (dark irises) and a robust skin shield. You are highly resistant to photo-aging.",
@@ -9498,7 +9498,7 @@
         "data_strength": {
             "gene": "HERC2",
             "title": "The 'Melanin' Shield",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Active HERC2 signaling keeps the melanin factories running, providing a natural shield against radiation.",
                 "how": "Your HERC2 switch is ON. It drives robust expression of OCA2, filling your iris with dense melanin (Brown eyes). This pigment absorbs scattered light and UV radiation, giving you superior visual acuity in bright environments and a lower risk of macular degeneration.",
@@ -9530,7 +9530,7 @@
         "data_strength": {
             "gene": "OR6A2",
             "title": "The 'Herbal' Palate",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Standard receptor affinity allows for the detection of complex herbal notes without chemical distortion.",
                 "how": "Your receptors bind aldehydes normally. You perceive cilantro as fresh, citrusy, and herbal. You are able to enjoy a wider range of culinary flavors without the interference of the 'soapy' artifact that plagues others.",
@@ -9542,27 +9542,27 @@
             }
         }
     },
-    "rs13331": {
-        "title": "Pungent Perception",
+   "rs13331": {
+    "title": "Sulfur Perception (OR2M7)",
+    "badge_type": "RISK",
+    "data_risk": {
+        "gene": "OR2M7",
+        "title": "The 'Asparagus' Blindspot",
         "badge_type": "RISK",
-        "data_risk": {
-            "gene": "OR2M7",
-            "title": "The 'Strong' Nose",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "OR2M7 is another olfactory receptor linked to the perception of strong, pungent odors, often interacting with the same pathway as the cilantro-soap gene.",
-                "how": "Your variant is linked to heightened sensitivity to specific volatile organic compounds. You may be 'hyperosmic'\u2014having a sense of smell that is too acute for comfort. Strong perfumes, gasoline, or certain spices may trigger headaches or nausea because your brain receives an amplified signal.",
-                "yours": "Your Result: Hyper-Acute Smell."
-            },
-            "action": {
-                "title": "Scent Free",
-                "body": "Your home environment should be fragrance-free. Use un-scented laundry detergents to prevent chronic low-level neural irritation."
-            }
+        "mechanisms": {
+            "what": "OR2M7 is a highly specialized olfactory receptor responsible for detecting sulfur-based metabolites (like methanethiol) produced after asparagus consumption.",
+            "how": "Your GG genotype results in a 'Loss of Function' for this specific receptor. While your general sense of smell is fine, you are functionally 'anosmic' to these specific volatile compounds. Your brain lacks the hardware to perceive the pungent odor, meaning a significant metabolic byproduct of your digestion goes completely undetected by your senses.",
+            "yours": "Your Result: Specific Odor Anosmia."
         },
+        "action": {
+            "title": "Metabolic Awareness",
+            "body": "This is a benign 'sensory gap.' However, it serves as a reminder that your sensory perception doesn't always reflect your internal chemistry. Even if you can't smell the byproduct, your body is still processing the asparagus sulfur exactly the same as others."
+        }
+    },
         "data_strength": {
             "gene": "OR2M7",
             "title": "The 'Balanced' Nose",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Balanced olfactory signaling allows for the detection of danger signals (smoke/rot) without overwhelming the nervous system.",
                 "how": "Your olfactory threshold is standard. You can smell dinner cooking or a gas leak, but you aren't incapacitated by someone wearing too much cologne in an elevator. Your sensory processing filter is working correctly.",
@@ -9594,7 +9594,7 @@
         "data_strength": {
             "gene": "COL18A1",
             "title": "The 'Stable' Eye",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Robust Type XVIII Collagen ensures the eye maintains its spherical shape and regulates angiogenesis properly.",
                 "how": "Your basement membranes are tough. Your eyes resist the elongation that causes nearsightedness. You likely have better baseline visual acuity and a lower risk of neovascular eye diseases later in life.",
@@ -9626,7 +9626,7 @@
         "data_strength": {
             "gene": "FUT8",
             "title": "The 'Precision' Signal",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Proper core fucosylation ensures that receptors (like EGFR) and antibodies function with maximum efficiency.",
                 "how": "Your FUT8 enzyme tags proteins correctly. Your growth factor signaling is balanced\u2014neither too weak nor too aggressive. Your immune antibodies bind to viruses tightly but release healthy tissue. This is a marker of deep cellular communication health.",
@@ -9658,7 +9658,7 @@
         "data_strength": {
             "gene": "ZEB2",
             "title": "The 'Robust' Wire",
-            "badge_type": "SUPERPOWER",
+            "badge_type": "Strength",
             "mechanisms": {
                 "what": "Optimal ZEB2 signaling creates a robust, insulated nervous system.",
                 "how": "Your neural development is solid. You have a high threshold for pain and sensory overload. You can function effectively in chaotic, loud, or physically uncomfortable environments without your nervous system getting fried.",

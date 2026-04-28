@@ -250,7 +250,7 @@
         "variants": {
             "AA": "High Risk",
             "AT": "Intermediate",
-            "TT": "Normal"
+            "TT": "Strong Signal"
         },
         "scores": {
             "AA": 3,
@@ -4607,6 +4607,7 @@
         "impact": "High",
         "variants": {
             "GG": "Higher receptor density (Stable)",
+            
             "AG": "Moderate density",
             "AA": "Lower receptor density (Impulsivity risk)"
         },

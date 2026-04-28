@@ -102,7 +102,7 @@ class ReportEngine:
             badge = "RISK"
         elif score > 5:
             content = entry.get('data_strength')
-            badge = "SUPERPOWER"
+            badge = "STRENGTH"
         else: return None 
             
         if not content: return None
@@ -451,7 +451,7 @@ class PDFReport(FPDF):
         is_risk = (data['badge_type'] == "RISK")
         badge_color = (231, 76, 60) if is_risk else (46, 204, 113)
         # Pull localized badge text
-        badge_txt = self.labels.get('risk_badge_text', 'RISK') if is_risk else self.labels.get('superpower_badge_text', 'SUPERPOWER')
+        badge_txt = self.labels.get('risk_badge_text', 'RISK') if is_risk else self.labels.get('superpower_badge_text', 'STRENGTH')
         
         self.set_xy(140, self.get_y() - 25)
         self.set_fill_color(*badge_color)
@@ -592,6 +592,9 @@ class PDFReport(FPDF):
             draw_relative_table(p2_df, parent2_name, (52, 152, 219))
             
             
+            
+            
+            
     def add_educational_page(self):
         self.add_page()
         
@@ -628,3 +631,169 @@ class PDFReport(FPDF):
         draw_block('snps_header', 'snps_body', (52, 152, 219))       # Blue
         draw_block('gathering_header', 'gathering_body', (46, 204, 113)) # Green
         draw_block('limitations_header', 'limitations_body', (155, 89, 182)) # Purple
+        
+    def build_introduction(self, text_dict):
+        """Main entry point to build the entire 4-page introduction."""
+        self.build_page_1(text_dict)
+        self.build_page_2(text_dict)
+        self.build_page_3(text_dict)
+        self.build_page_4(text_dict)
+
+    def add_title_section(self):
+        """Helper for Page 1 Title."""
+        self.set_font('Arial', 'B', 24)
+        self.set_text_color(44, 62, 80)
+        self.cell(0, 12, clean_text("Introduction & Philosophy"), 0, 1, 'L')
+        self.set_font('Arial', 'I', 12)
+        self.set_text_color(100, 100, 100)
+        self.cell(0, 8, clean_text("Understanding your genetic blueprint"), 0, 1, 'L')
+        self.ln(6)
+
+    def draw_nice_bullet(self, text):
+        """Helper to draw bolded bullet points."""
+        self.set_x(18)
+        # Split by the markdown bold tags to bold the prefix
+        if "**" in text:
+            parts = text.split("**")
+            if len(parts) >= 3:
+                self.set_font('Arial', 'B', 10)
+                self.set_text_color(44, 62, 80)
+                # Print the bolded part (e.g., "1. Evolutionary Optimization:")
+                self.write(6, clean_text(parts[1]))
+                
+                self.set_font('Arial', '', 10)
+                self.set_text_color(30, 30, 30)
+                # Print the rest of the text
+                self.write(6, clean_text(" " + parts[2].strip()))
+                self.ln(8)
+                return
+        
+        # Fallback if no markdown bolding is found
+        self.set_font('Arial', '', 10)
+        self.multi_cell(0, 6, clean_text(f"• {text}"))
+        self.ln(2)
+
+    def draw_markdown_block(self, title, text, color_rgb):
+        """Helper to draw a colored thematic block for text sections."""
+        self.set_fill_color(*color_rgb)
+        # Calculate height needed for the rectangle
+        self.set_font('Arial', '', 10)
+        lines = math.ceil(self.get_string_width(text) / 170) + 2
+        box_height = 10 + (lines * 5.5)
+        
+        start_y = self.get_y()
+        # Draw accent bar
+        self.rect(12, start_y, 3, box_height, 'F')
+        
+        self.set_xy(18, start_y)
+        self.set_font('Arial', 'B', 12)
+        self.set_text_color(44, 62, 80)
+        
+        # Handle simple bold markdown in title
+        title_clean = title.replace("**", "")
+        self.cell(0, 8, clean_text(title_clean), 0, 1)
+        
+        self.set_x(18)
+        self.set_font('Arial', '', 10)
+        self.set_text_color(30, 30, 30)
+        self.multi_cell(175, 5.5, clean_text(text))
+        self.set_y(start_y + box_height + 2)
+
+    def _add_continuation_header(self, title):
+        """Helper to add the top header for pages 2, 3, and 4."""
+        self.set_font('Arial', 'I', 10)
+        self.set_text_color(150, 150, 150)
+        self.cell(0, 6, clean_text(title), 0, 1, 'R')
+        self.set_draw_color(220, 220, 220)
+        self.set_line_width(0.3)
+        self.line(10, self.get_y(), 200, self.get_y())
+        self.ln(8)
+
+    def build_page_1(self, text_dict):
+        self.add_page()
+        self.set_margins(16, 15, 16) 
+        self.add_title_section()
+
+        line_h = 5.5 
+        self.set_font('Arial', '', 10)
+        self.set_text_color(30, 30, 30)
+        
+        self.multi_cell(0, line_h, clean_text(text_dict.get('section_1', '')))
+        self.ln(3) 
+        
+        self.multi_cell(0, line_h, clean_text(text_dict.get('section_2a', '')))
+        self.ln(3) 
+
+        self.multi_cell(0, line_h, clean_text(text_dict.get('section_2b', '')))
+        self.ln(4) 
+
+        # The Subtle Separation Line
+        self.set_draw_color(220, 220, 220)
+        self.set_line_width(0.4)
+        self.line(self.l_margin, self.get_y(), self.w - self.r_margin, self.get_y())
+        self.ln(5) 
+
+        self.multi_cell(0, line_h, clean_text(text_dict.get('section_3', '')))
+        self.ln(3) 
+
+        bullets = [
+            text_dict.get('bullet_1', ''),
+            text_dict.get('bullet_2', ''),
+            text_dict.get('bullet_3', '')
+        ]
+        for bullet in bullets:
+            if bullet: 
+                self.draw_nice_bullet(bullet)
+
+    def build_page_2(self, text_dict):
+        self.add_page()
+        self.set_margins(16, 15, 16)
+        self._add_continuation_header("Interpreting Your Genetics (1/3)")
+
+        def combine_sections(*keys):
+            return "\n\n".join([text_dict.get(k, "") for k in keys if text_dict.get(k)])
+
+        # Block 1: Factory (Blue Theme)
+        factory_text = combine_sections('section_4', 'section_5', 'section_6')
+        if factory_text:
+            self.draw_markdown_block("The Factory Floor: GoF vs. LoF", factory_text, (52, 152, 219))
+            self.ln(6)
+
+    def build_page_3(self, text_dict):
+        self.add_page()
+        self.set_margins(16, 15, 16)
+        self._add_continuation_header("Interpreting Your Genetics (2/3)")
+
+        def combine_sections(*keys):
+            return "\n\n".join([text_dict.get(k, "") for k in keys if text_dict.get(k)])
+
+        # Block 2: Upstream & Downstream (Green Theme)
+        stream_text = combine_sections('section_7', 'section_8')
+        if stream_text:
+            self.draw_markdown_block("Upstream & Downstream Effects", stream_text, (46, 204, 113))
+            self.ln(6)
+
+        # Block 3: The 80/15/5 Balance (Purple Theme)
+        balance_text = text_dict.get('section_9', '')
+        if balance_text:
+            self.draw_markdown_block("The Genetic Balance: Strengths & Vulnerabilities", balance_text, (155, 89, 182))
+            self.ln(6)
+
+    def build_page_4(self, text_dict):
+        self.add_page()
+        self.set_margins(16, 15, 16)
+        self._add_continuation_header("Interpreting Your Genetics (3/3)")
+
+        def combine_sections(*keys):
+            return "\n\n".join([text_dict.get(k, "") for k in keys if text_dict.get(k)])
+
+        # Block 4: Risks vs. Vulnerabilities (Red/Orange Theme)
+        vulnerability_text = text_dict.get('section_10', '')
+        if vulnerability_text:
+            self.draw_markdown_block("The Vulnerability Cascade", vulnerability_text, (231, 76, 60))
+            self.ln(8)
+
+        # Final Sign-off / Embrace your blueprint (Dark Blue Theme)
+        closing_text = combine_sections('section_11', 'section_12', 'section_13')
+        if closing_text:
+            self.draw_markdown_block("Embracing Your Blueprint", closing_text, (44, 62, 80))

@@ -209,7 +209,18 @@ def main():
     pdf = PDFReport('P', 'mm', 'A4', labels=L)
     pdf.set_auto_page_break(auto=True, margin=15)
     
-    # --- PAGE 1: DASHBOARD ---
+    
+    # --- PAGE 1 : SCIENCE & METHODOLOGY ---
+    # This method handles its own pdf.add_page() internally
+    print(f"🧬 Generating {language} Introduction & Educational Foundation...")
+    
+    # Grab the new "introduction_education" dictionary from L
+    intro_data = L.get('introduction_education', {})
+    
+    # Call the new modular 4-page introduction
+    pdf.build_introduction(intro_data)
+    
+    # --- PAGE 1.5: DASHBOARD ---
     pdf.add_page()
     pdf.chapter_title(L['dash_title'])
     pdf.ln(5)
@@ -222,12 +233,10 @@ def main():
     if os.path.exists(os.path.join(OUTPUT_DIR, "polar_chart.png")):
         pdf.ln(10)
         pdf.image(os.path.join(OUTPUT_DIR, "polar_chart.png"), x=50, w=110)
-
     
-    # --- PAGE 1.5: SCIENCE & METHODOLOGY ---
-    # This method handles its own pdf.add_page() internally
-    print(f"🧬 Generating {language} Educational Foundation...")
-    pdf.add_educational_page()
+    # --- PAGE 2: KEY ACTIVE TRAITS ---
+    pdf.add_page()
+    pdf.chapter_title(L['active_title'])
     
     
     # --- PAGE 2: KEY ACTIVE TRAITS ---
@@ -274,7 +283,7 @@ def main():
         rsid = row['RSID']
         content = engine.get_content_for_rsid(rsid, row['Score'])
         
-        if content and content['badge_type'] == 'SUPERPOWER':
+        if content and content['badge_type'] == 'STRENGTH':
             evidence = engine.get_evidence_for_rsid(rsid)
             pdf.add_deep_dive_page(row['Result'], content, row['Score_Map'], row['Variant_Map'], evidence)
             processed_rsids.append(rsid)
