@@ -16,6 +16,40 @@
             "AA": 2
         }
     },
+    "rs1042838": {
+    "gene": "PGR",
+    "system": "Reproductive / Hormonal",
+    "trait": "Progesterone Receptor Efficiency",
+    "description": "Governs the body's sensitivity to progesterone, the 'pro-gestation' hormone required for uterine lining stability and the prevention of premature contractions.",
+    "impact": "High",
+    "variants": {
+        "GG": "Optimized progesterone signaling (Strong uterine receptivity)",
+        "GA": "Moderate signaling efficiency",
+        "AA": "Reduced signaling efficiency (Associated with 'Progesterone Resistance')"
+    },
+    "scores": {
+        "GG": 10,
+        "GA": 6,
+        "AA": 3
+    }
+},
+"rs2268491": {
+    "gene": "OXTR",
+    "system": "Nervous / Reproductive",
+    "trait": "Oxytocin Receptor Sensitivity",
+    "description": "Influences the density of oxytocin receptors in the brain and uterus, affecting the efficacy of uterine contractions during labor and the strength of the maternal-infant bond.",
+    "impact": "High",
+    "variants": {
+        "TT": "Optimized oxytocin signaling (Enhanced labor response & bonding)",
+        "TC": "Moderate signaling efficiency",
+        "CC": "Reduced signaling efficiency (Potential for slower labor progression)"
+    },
+    "scores": {
+        "TT": 10,
+        "TC": 6,
+        "CC": 3
+    }
+},
     "rs2236225": {
         "gene": "MTHFD1",
         "system": "Methylation",
@@ -640,6 +674,23 @@
             "TT": 8,
             "TC": 6,
             "CC": 4
+        }
+    },
+    "rs1256031": {
+        "gene": "ESR2",
+        "system": "Reproductive / Hormonal",
+        "trait": "Estrogen Receptor Beta Sensitivity",
+        "description": "Regulates the effects of estrogen in the ovaries and uterus, specifically affecting follicular development and ovarian response.",
+        "impact": "Medium",
+        "variants": {
+            "GG": "Optimized estrogen signaling (Balanced follicular response)",
+            "GA": "Moderate signaling efficiency",
+            "AA": "Reduced signaling efficiency (Potential for lower ovarian sensitivity)"
+        },
+        "scores": {
+            "GG": 8,
+            "GA": 6,
+            "AA": 4
         }
     },
     "rs7799039": {

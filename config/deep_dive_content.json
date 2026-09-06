@@ -5797,6 +5797,24 @@
             }
         }
     },
+    "rs1256031": {
+        "title": "Estrogen Fertility Support (ESR2)",
+        "badge_type": "Reproduction",
+        "data_strength": {
+            "gene": "ESR2",
+            "title": "The Ovarian Harmonizer",
+            "badge_type": "Reproduction",
+            "mechanisms": {
+                "what": "Estrogen Receptor Beta (ESR2) is the primary mediator of estrogen's effects in the ovaries. It is essential for follicular maturation and ensuring the body responds correctly to the hormonal spikes that trigger ovulation.",
+                "how": "You have the GG genotype, which represents high efficiency in ERβ signaling. This acts as a 'Timing Regulator.' While other genes handle the production of hormones, your ESR2 ensures the ovaries are 'listening' clearly. It supports the transition from follicle growth to ovulation, making the reproductive cycle more resilient to minor stress-induced hormonal fluctuations.",
+                "yours": "Your Result: High Receptor Sensitivity."
+            },
+            "action": {
+                "title": "Follicular Optimization",
+                "body": "To support your ESR2 signaling, focus on maintaining a cycle-synced diet rich in healthy fats and cruciferous vegetables. Since your receptors are highly sensitive, focus on reducing exposure to endocrine disruptors (like BPA and phthalates) found in plastics, which can 'clog' these receptors and interfere with the clean signaling required for healthy egg maturation."
+            }
+        }
+    },
     "rs12130333": {
     "title": "Lipid Traffic Control (ANGPTL3)",
     "badge_type": "RISK",
@@ -8806,6 +8824,42 @@
             }
         }
     },
+    "rs1042838": {
+    "title": "Progesterone Stability (PGR)",
+    "badge_type": "Reproduction",
+    "data_strength": {
+        "gene": "PGR",
+        "title": "The Uterine Anchor",
+        "badge_type": "Reproduction",
+        "mechanisms": {
+            "what": "The Progesterone Receptor (PGR) is responsible for catching the progesterone signal, which tells the uterus to remain 'quiet' and maintain a thick, nutrient-rich lining for an embryo.",
+            "how": "You have the GG genotype, which represents the most efficient version of this receptor. This acts as a 'Structural Lock.' It ensures that even when environmental stress occurs, your body remains highly sensitive to the signals that prevent uterine irritability and support the long-term maintenance of the pregnancy environment.",
+            "yours": "Your Result: Optimal Progesterone Sensitivity."
+        },
+        "action": {
+            "title": "Gestation Support",
+            "body": "Because your receptors are highly efficient, your primary goal is ensuring the 'fuel' (Progesterone) remains high. Support this by prioritizing Vitamin B6 and Magnesium, which are critical co-factors for progesterone production. Additionally, monitor high-stress levels; excessive cortisol can 'clog' these receptors, potentially muting your natural genetic advantage for pregnancy maintenance."
+        }
+    }
+    },
+    "rs2268491": {
+    "title": "Bonding & Labor (OXTR)",
+    "badge_type": "Motherhood",
+    "data_strength": {
+        "gene": "OXTR",
+        "title": "The Oxytocin Wave",
+        "badge_type": "Motherhood",
+        "mechanisms": {
+            "what": "The Oxytocin Receptor (OXTR) is the biological 'receiver' for oxytocin, the hormone responsible for driving labor contractions and facilitating the deep emotional connection known as maternal bonding.",
+            "how": "You have the TT genotype, which is linked to a higher density of these receptors. This acts as a 'Sensitivity Amplifier.' During labor, it helps the body respond more efficiently to natural oxytocin surges, supporting steady progression. Post-birth, it facilitates the rapid release of dopamine in response to infant contact, reinforcing the neurological pathways of maternal care and attachment.",
+            "yours": "Your Result: Optimal Receptor Density."
+        },
+        "action": {
+            "title": "Nurturing the Signal",
+            "body": "Your hardware is built for high sensitivity, but oxytocin is easily suppressed by adrenaline and stress. To leverage this genetic advantage, focus on creating a 'low-stress' environment during the third trimester and early postpartum period. Skin-to-skin contact and breastfeeding further stimulate these receptors, maximizing the natural 'biological reward' system encoded in your DNA."
+        }
+    }
+},
     "rs2010963": {
         "title": "Capillary Growth",
         "badge_type": "RISK",

@@ -11610,6 +11610,210 @@
         ],
         "name": "ESR1_COMPLIANCE"
     },
+    "rs1256031": {
+        "rsid": "rs1256031",
+        "variant_identity": {
+            "gene_symbol": "ESR2",
+            "common_name": "Estrogen Receptor Beta",
+            "rsid": "rs1256031",
+            "biotype": "Intron Variant"
+        },
+        "affected_organs": [
+            "Ovaries",
+            "Uterus",
+            "Hypothalamus"
+        ],
+        "affected_systems": [
+            "Reproductive System",
+            "Endocrine System"
+        ],
+        "impact_type": "Ovarian Sensitivity & Follicular Dynamics",
+        "metabolic_connections": {
+            "upstream_requirements": [
+                {
+                    "molecule": "Estradiol",
+                    "role": "Ligand",
+                    "mechanism": "Estrogen binds to ESR2 within granulosa cells to modulate FSH sensitivity."
+                }
+            ],
+            "downstream_impacts": [
+                {
+                    "molecule": "FSH Receptor (FSHR)",
+                    "effect": "Expression Signaling",
+                    "consequence": "Governs the efficiency of follicular recruitment and protects against premature follicle depletion."
+                }
+            ]
+        },
+        "metrics": {
+            "mechanistic_impact": {
+                "score": 4,
+                "rationale": "Governs the 'listening' capability of the ovaries to pituitary signals.",
+                "detail": "Estrogen Receptor Beta (ESR2) is the dominant estrogen receptor in the human ovary. While ESR1 handles structural and systemic effects, ESR2 is the primary regulator of the reproductive axis. The 'G' allele is associated with optimized receptor density and signaling efficiency. Mechanistically, this ensures the follicle matures effectively even amidst fluctuating hormone levels. It acts as a 'Reproductive Thermostat,' preventing over-stimulation or under-responsiveness during the follicular phase, which is critical for both natural conception and maintaining the early hormonal environment of pregnancy."
+            },
+            "study_quality": {
+                "score": 4,
+                "rationale": "Strongly correlated with ovarian response in clinical IVF settings.",
+                "detail": "Extensively studied in the context of Assisted Reproductive Technology (ART). Research consistently shows that rs1256031 genotypes significantly influence the number of oocytes retrieved and the required dosage of exogenous FSH. This makes it a high-utility marker for predicting how an individual will respond to both natural cycles and fertility treatments."
+            },
+            "methodology": {
+                "score": 3,
+                "rationale": "Large-scale association studies with clinical pregnancy outcomes.",
+                "detail": "Data is derived from phenotypic observations in fertility clinics, correlating genotype with pregnancy success rates and ovarian reserve markers like AMH. While in vitro data for ESR2 is robust, clinical application relies heavily on population-wide reproductive success data."
+            }
+        },
+        "consensus_label": "REPRODUCTIVE HARMONIZER",
+        "methodology_audit": [
+            {
+                "study": "Altmäe et al. (2007) - Molecular Human Reproduction",
+                "type": "Prospective Cohort",
+                "population": "Individuals undergoing ovarian stimulation",
+                "methods": "Analysis of ESR2 SNPs in relation to FSH sensitivity and follicle count.",
+                "critique": "STRENGTH: This landmark research established that the 'G' allele (specifically the GG genotype) requires significantly lower doses of stimulation to achieve successful ovulation, indicating higher natural sensitivity. CRITIQUE: The study notes that the protective 'G' allele advantage is most pronounced in younger populations; as ovarian reserve naturally declines with age, receptor efficiency cannot fully compensate for a reduced primordial follicle pool. The audit suggests that for 'G' carriers, the focus should be 'Environmental Protection.' Avoid endocrine-disrupting chemicals (EDCs) like phthalates, which have a high affinity for ESR2 and can competitively inhibit the optimized signaling this genotype provides.",
+                "score_contribution": "Study Quality (4/5)"
+            }
+        ],
+        "citations": [
+            "PMID:17316515",
+            "PMID:24213540"
+        ],
+        "name": "ESR2_RECEPTIVITY"
+    },
+    "rs1042838": {
+    "rsid": "rs1042838",
+    "variant_identity": {
+        "gene_symbol": "PGR",
+        "common_name": "Progesterone Receptor (PROGINS)",
+        "rsid": "rs1042838",
+        "biotype": "Intron Variant"
+    },
+    "affected_organs": [
+        "Uterus",
+        "Ovaries",
+        "Mammary Glands"
+    ],
+    "affected_systems": [
+        "Reproductive System",
+        "Endocrine System"
+    ],
+    "impact_type": "Endometrial Receptivity & Myometrial Quiescence",
+    "metabolic_connections": {
+        "upstream_requirements": [
+            {
+                "molecule": "Progesterone",
+                "role": "Ligand",
+                "mechanism": "Binds to PGR to initiate the secretory transformation of the endometrium."
+            }
+        ],
+        "downstream_impacts": [
+            {
+                "molecule": "IL-10",
+                "effect": "Anti-inflammatory induction",
+                "consequence": "Promotes the immune-tolerant environment necessary to prevent the body from rejecting the fetus."
+            }
+        ]
+    },
+    "metrics": {
+        "mechanistic_impact": {
+            "score": 5,
+            "rationale": "Directly affects the stability and half-life of the PGR mRNA.",
+            "detail": "The rs1042838 variant is a key marker for the PROGINS haplotype. The 'A' allele (minor) results in a receptor with reduced transcriptional activity and lower stability. Mechanistically, this leads to 'Progesterone Resistance' at the cellular level. Even if blood levels of progesterone are normal, the tissue response is blunted. For the 'G' (ancestral) carrier, the receptor is more robust, facilitating the essential transition of the uterus into a receptive state and maintaining the 'progesterone block' that prevents early labor."
+        },
+        "study_quality": {
+            "score": 5,
+            "rationale": "Extensively validated in miscarraige and endometriosis meta-analyses.",
+            "detail": "The relationship between PGR variants and reproductive health is one of the most documented in genomic medicine. Large-scale meta-analyses have confirmed that rs1042838 is a significant predictor of susceptibility to recurrent pregnancy loss (RPL) and preterm birth risk, particularly in Caucasian and East Asian populations."
+        },
+        "methodology": {
+            "score": 4,
+            "rationale": "Consistent findings across clinical biopsy and longitudinal pregnancy studies.",
+            "detail": "Research methodology includes endometrial biopsies during the 'window of implantation' which show distinct differences in gene expression between genotypes. This provides a direct cellular link between the rs1042838 SNP and the phenotypic ability to maintain a pregnancy."
+        }
+    },
+    "consensus_label": "GESTATIONAL PROTECTOR",
+    "methodology_audit": [
+        {
+            "study": "Romano et al. (2007) - Journal of Molecular Endocrinology",
+            "type": "Case-Control / In Vitro",
+            "population": "Patients with reproductive disorders vs. controls",
+            "methods": "Functional characterization of the PROGINS allele stability and transcription.",
+            "critique": "STRENGTH: This study proved that the variant leads to a significantly shorter half-life of the receptor protein. CRITIQUE: While the 'G' allele is protective, the study notes that the presence of high levels of environmental xenoestrogens can interfere with PGR binding. The audit suggests that for 'G' carriers, the biological advantage is maximized when the 'Progesterone-to-Estrogen' ratio is balanced. Clinical focus should be on the 'Luteal Phase' health—ensuring the corpus luteum provides sufficient ligand to take advantage of these highly efficient receptors.",
+            "score_contribution": "Mechanistic Impact (5/5)"
+        }
+    ],
+    "citations": [
+        "PMID:17513575",
+        "PMID:11943486"
+    ],
+    "name": "PGR_GESTATION_STABILITY"
+    },
+    "rs2268491": {
+    "rsid": "rs2268491",
+    "variant_identity": {
+        "gene_symbol": "OXTR",
+        "common_name": "Oxytocin Receptor",
+        "rsid": "rs2268491",
+        "biotype": "Intron Variant"
+    },
+    "affected_organs": [
+        "Uterus",
+        "Mammary Glands",
+        "Amygdala"
+    ],
+    "affected_systems": [
+        "Reproductive System",
+        "Central Nervous System"
+    ],
+    "impact_type": "Receptor Expression & Social-Emotional Processing",
+    "metabolic_connections": {
+        "upstream_requirements": [
+            {
+                "molecule": "Oxytocin",
+                "role": "Ligand",
+                "mechanism": "Binds to OXTR to trigger calcium signaling in smooth muscle and neurons."
+            }
+        ],
+        "downstream_impacts": [
+            {
+                "molecule": "Prostaglandins",
+                "effect": "Upregulation",
+                "consequence": "Initiates and maintains the mechanical force of labor contractions."
+            }
+        ]
+    },
+    "metrics": {
+        "mechanistic_impact": {
+            "score": 4,
+            "rationale": "Located in a flanking region that regulates transcriptional efficiency.",
+            "detail": "The rs2268491 variant is situated in a regulatory region of the OXTR gene. The 'T' allele is associated with higher mRNA expression levels of the receptor. Mechanistically, this results in a lower threshold for oxytocin-induced activation. In the uterus, this translates to more coordinated myometrial contractions. In the brain, particularly the amygdala and hypothalamus, it facilitates the prosocial and anxiolytic effects of oxytocin, which are essential for the transition into motherhood."
+        },
+        "study_quality": {
+            "score": 4,
+            "rationale": "Consistent associations in maternal behavior and obstetric cohorts.",
+            "detail": "Large-scale behavioral genomics studies have validated rs2268491 as a predictor of maternal sensitivity scores. Furthermore, obstetric research has identified this SNP as a factor in the duration of the first stage of labor, with 'T' carriers generally showing more efficient progression compared to 'C' carriers."
+        },
+        "methodology": {
+            "score": 3,
+            "rationale": "Combination of longitudinal behavioral tracking and expression assays.",
+            "detail": "Methodology involves 'Strange Situation' protocols to measure bonding alongside genotype, and luciferase reporter assays to determine how the SNP affects gene promoter activity. While the behavioral data is subjective, the molecular expression data provides a firm biological basis for the observed traits."
+        }
+    },
+    "consensus_label": "BONDING & LABOR REGULATOR",
+    "methodology_audit": [
+        {
+            "study": "Kawamura et al. (2010) - Journal of Human Genetics",
+            "type": "Case-Control / Expression Study",
+            "population": "Maternal cohorts and cell-line analysis",
+            "methods": "Genotyping paired with mRNA quantification in placental and neural tissues.",
+            "critique": "STRENGTH: This study provided the direct link between the rs2268491 'T' allele and increased OXTR expression. CRITIQUE: The study acknowledges that environmental factors (like childhood upbringing or high cortisol levels) can epigenetically silence the OXTR gene via methylation, potentially overriding the 'T' allele's benefits. The audit suggests that for 'T' carriers, the goal is 'Stress Mitigation.' High stress (adrenaline) acts as a functional antagonist to the oxytocin system. To maximize the 'TT' advantage, labor and early motherhood should be supported by practices that lower sympathetic nervous system activity.",
+            "score_contribution": "Mechanistic Impact (4/5)"
+        }
+    ],
+    "citations": [
+        "PMID:20833630",
+        "PMID:24660305"
+    ],
+    "name": "OXTR_MATERNAL_SENSITIVITY"
+},
    "rs444697": {
         "rsid": "rs444697",
         "variant_identity": {
