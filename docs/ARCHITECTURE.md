@@ -14,7 +14,7 @@ RSID,CHROMOSOME,POSITION,RESULT        # ~585k rows, chr 1–22 + X (no Y / MT)
 - A few RSIDs appear twice. `load_dna_file` keeps the last one.
 - Because the input is forward-strand, the complement fallback only exists to rescue `snp_traits.json` entries that were written on the reverse strand.
 
-Of the 282 traits, ~194 are present in a typical file. The rest aren't on MyHeritage's panel.
+Of the 229 traits, ~183 are present in a typical file. The rest aren't on MyHeritage's panel.
 
 ## Data flow
 

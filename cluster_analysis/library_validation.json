@@ -125,49 +125,37 @@
     ]
   },
   {
-    "rsid": "rs1010151",
-    "gene": "GLO1",
-    "trait": "Advanced Glycation End product (AGE) Risk",
-    "deep_dive_gene": "GLO1",
-    "evidence_gene": "GLO1",
-    "issues": [
-      "GLO1 is not within 250 kb; variant is at TFEC",
-      "genotype letters ['A', 'C'] are impossible for alleles G/A"
-    ],
-    "severity": "error",
-    "location": "chr7:115970339",
-    "consequence": "intron_variant",
+    "rsid": "rs10156191",
+    "gene": "AOC1 (DAO)",
+    "trait": "Histamine degradation (DAO enzyme)",
+    "deep_dive_gene": "AOC1 (DAO)",
+    "evidence_gene": "AOC1",
+    "issues": [],
+    "severity": "ok",
+    "location": "chr7:150856517",
+    "consequence": "missense_variant",
     "alleles": [
-      "G",
-      "A"
+      "C",
+      "T"
     ],
     "genes_at_site": {
-      "TFEC": 0
+      "AOC1": 0,
+      "ENSG00000289052": 0
     },
     "eur_af": {
-      "A": 0
+      "T": 0.2654
     },
     "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
+      "snp_traits": true,
+      "deep_dive": true,
+      "evidence": true
     },
-    "nearest_genes": [
-      [
-        "TFEC",
-        0
-      ],
-      [
-        "TES",
-        240154
-      ]
-    ],
     "allele_check": {
       "letters": [
-        "A",
-        "C"
+        "C",
+        "T"
       ],
-      "status": "mismatch",
+      "status": "forward",
       "missing_genotypes": []
     },
     "gwas_mapped_genes": [],
@@ -213,14 +201,10 @@
     "rsid": "rs1042522",
     "gene": "TP53",
     "trait": "p53 damage response efficiency",
-    "deep_dive_gene": "POMC",
-    "evidence_gene": "POMC",
-    "issues": [
-      "deep_dive names POMC, but the site is TP53",
-      "evidence names POMC, but the site is TP53",
-      "A/T or C/G SNP (G/A/C/T): confirm the scores are written on the forward strand, otherwise results are silently inverted"
-    ],
-    "severity": "error",
+    "deep_dive_gene": "TP53",
+    "evidence_gene": "TP53",
+    "issues": [],
+    "severity": "ok",
     "location": "chr17:7676154",
     "consequence": "missense_variant",
     "alleles": [
@@ -237,17 +221,18 @@
     },
     "gene_supported": {
       "snp_traits": true,
-      "deep_dive": false,
-      "evidence": false
+      "deep_dive": true,
+      "evidence": true
     },
     "allele_check": {
       "letters": [
         "C",
         "G"
       ],
-      "status": "ambiguous",
+      "status": "forward (verified)",
       "missing_genotypes": []
     },
+    "strand_note": "TP53 P72R: forward G = Pro72, C = Arg72 (2026-11-04)",
     "gwas_mapped_genes": [
       "TP53"
     ],
@@ -327,50 +312,6 @@
       "snp_traits": true,
       "deep_dive": true,
       "evidence": true
-    },
-    "allele_check": {
-      "letters": [
-        "A",
-        "G"
-      ],
-      "status": "forward",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [
-      "ADRB2"
-    ],
-    "gwas_top_traits": [
-      "creatine kinase measurement"
-    ]
-  },
-  {
-    "rsid": "rs1042713_dupfix",
-    "gene": "ADRB2",
-    "trait": "Adrenaline-driven fat release",
-    "deep_dive_gene": "ADRB2",
-    "evidence_gene": null,
-    "issues": [
-      "key has a suffix, so it can never match a DNA file; duplicates rs1042713 (ADRB2)"
-    ],
-    "severity": "error",
-    "location": "chr5:148826877",
-    "consequence": "missense_variant",
-    "alleles": [
-      "G",
-      "A",
-      "C"
-    ],
-    "genes_at_site": {
-      "ADRB2": 0,
-      "ENSG00000303969": 0
-    },
-    "eur_af": {
-      "A": 0.3857
-    },
-    "gene_supported": {
-      "snp_traits": true,
-      "deep_dive": true,
-      "evidence": null
     },
     "allele_check": {
       "letters": [
@@ -554,14 +495,12 @@
   },
   {
     "rsid": "rs1047303",
-    "gene": "HSD17B3",
-    "trait": "Testosterone synthesis (androstenedione → testosterone)",
-    "deep_dive_gene": "HSD17B3",
-    "evidence_gene": "HSD17B3",
-    "issues": [
-      "HSD17B3 is not within 250 kb; variant is at HSD3B1"
-    ],
-    "severity": "error",
+    "gene": "HSD3B1",
+    "trait": "Adrenal androgen conversion (HSD3B1 1245C)",
+    "deep_dive_gene": "HSD3B1",
+    "evidence_gene": "HSD3B1",
+    "issues": [],
+    "severity": "ok",
     "location": "chr1:119514623",
     "consequence": "missense_variant",
     "alleles": [
@@ -578,36 +517,14 @@
       "A": 0.66
     },
     "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
+      "snp_traits": true,
+      "deep_dive": true,
+      "evidence": true
     },
-    "nearest_genes": [
-      [
-        "HSD3B1",
-        0
-      ],
-      [
-        "HSD3B2",
-        60821
-      ],
-      [
-        "ZNF697",
-        104754
-      ],
-      [
-        "HAO2",
-        120365
-      ],
-      [
-        "PHGDH",
-        133788
-      ]
-    ],
     "allele_check": {
       "letters": [
-        "C",
-        "T"
+        "A",
+        "C"
       ],
       "status": "forward",
       "missing_genotypes": []
@@ -693,15 +610,12 @@
   },
   {
     "rsid": "rs1049434",
-    "gene": "COL12A1",
-    "trait": "Soft-tissue injury susceptibility",
-    "deep_dive_gene": "COL12A1",
-    "evidence_gene": "CKM",
-    "issues": [
-      "COL12A1 is not within 250 kb; variant is at SLC16A1, SLC16A1-AS1",
-      "A/T or C/G SNP (A/G/T): confirm the scores are written on the forward strand, otherwise results are silently inverted"
-    ],
-    "severity": "error",
+    "gene": "SLC16A1",
+    "trait": "Lactate clearance (MCT1 transporter)",
+    "deep_dive_gene": "SLC16A1",
+    "evidence_gene": "SLC16A1",
+    "issues": [],
+    "severity": "ok",
     "location": "chr1:112913924",
     "consequence": "missense_variant",
     "alleles": [
@@ -717,103 +631,19 @@
       "T": 0.5626
     },
     "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
+      "snp_traits": true,
+      "deep_dive": true,
+      "evidence": true
     },
-    "nearest_genes": [
-      [
-        "SLC16A1",
-        0
-      ],
-      [
-        "LRIG2",
-        159244
-      ],
-      [
-        "TAFA3",
-        184848
-      ],
-      [
-        "PPM1J",
-        198422
-      ],
-      [
-        "RHOC",
-        206027
-      ]
-    ],
     "allele_check": {
       "letters": [
         "A",
         "T"
       ],
-      "status": "ambiguous",
+      "status": "forward (verified)",
       "missing_genotypes": []
     },
-    "gwas_mapped_genes": [],
-    "gwas_top_traits": []
-  },
-  {
-    "rsid": "rs1049434_TIER2",
-    "gene": "CKM",
-    "trait": "Phosphocreatine recycling speed",
-    "deep_dive_gene": "CKM",
-    "evidence_gene": null,
-    "issues": [
-      "key has a suffix, so it can never match a DNA file; duplicates rs1049434 (COL12A1)",
-      "CKM is not within 250 kb; variant is at SLC16A1, SLC16A1-AS1"
-    ],
-    "severity": "error",
-    "location": "chr1:112913924",
-    "consequence": "missense_variant",
-    "alleles": [
-      "A",
-      "G",
-      "T"
-    ],
-    "genes_at_site": {
-      "SLC16A1": 0,
-      "SLC16A1-AS1": 0
-    },
-    "eur_af": {
-      "T": 0.5626
-    },
-    "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": null
-    },
-    "nearest_genes": [
-      [
-        "SLC16A1",
-        0
-      ],
-      [
-        "LRIG2",
-        159244
-      ],
-      [
-        "TAFA3",
-        184848
-      ],
-      [
-        "PPM1J",
-        198422
-      ],
-      [
-        "RHOC",
-        206027
-      ]
-    ],
-    "allele_check": {
-      "letters": [
-        "C",
-        "T"
-      ],
-      "status": "reverse",
-      "missing_genotypes": []
-    },
+    "strand_note": "SLC16A1 E490D: forward A = Asp490, T = Glu490 (2026-11-04)",
     "gwas_mapped_genes": [],
     "gwas_top_traits": []
   },
@@ -1264,14 +1094,12 @@
   },
   {
     "rsid": "rs10993994",
-    "gene": "MSRA",
-    "trait": "Optimism & Resilience",
-    "deep_dive_gene": "MSRA",
-    "evidence_gene": "MSRA",
-    "issues": [
-      "MSRA is not within 250 kb; variant is at MSMB"
-    ],
-    "severity": "error",
+    "gene": "MSMB",
+    "trait": "Prostate cancer susceptibility (MSMB)",
+    "deep_dive_gene": "MSMB",
+    "evidence_gene": "MSMB",
+    "issues": [],
+    "severity": "ok",
     "location": "chr10:46046326",
     "consequence": "5_prime_UTR_variant",
     "alleles": [
@@ -1285,38 +1113,16 @@
       "G": 0.6133
     },
     "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
+      "snp_traits": true,
+      "deep_dive": true,
+      "evidence": true
     },
-    "nearest_genes": [
-      [
-        "MSMB",
-        0
-      ],
-      [
-        "NCOA4",
-        15656
-      ],
-      [
-        "TIMM23",
-        39525
-      ],
-      [
-        "AGAP4",
-        192451
-      ],
-      [
-        "ANTXRL",
-        240019
-      ]
-    ],
     "allele_check": {
       "letters": [
-        "C",
-        "T"
+        "A",
+        "G"
       ],
-      "status": "reverse",
+      "status": "forward",
       "missing_genotypes": []
     },
     "gwas_mapped_genes": [
@@ -1332,14 +1138,12 @@
   },
   {
     "rsid": "rs1110400",
-    "gene": "SOD1",
-    "trait": "UV-induced oxidative damage resilience",
-    "deep_dive_gene": "SOD1",
+    "gene": "MC1R",
+    "trait": "Pigment switching & UV sensitivity (I155T)",
+    "deep_dive_gene": "MC1R",
     "evidence_gene": "MC1R",
-    "issues": [
-      "SOD1 is not within 250 kb; variant is at TUBB3, MC1R"
-    ],
-    "severity": "error",
+    "issues": [],
+    "severity": "ok",
     "location": "chr16:89919722",
     "consequence": "missense_variant",
     "alleles": [
@@ -1355,32 +1159,10 @@
       "C": 0.008
     },
     "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
+      "snp_traits": true,
+      "deep_dive": true,
       "evidence": true
     },
-    "nearest_genes": [
-      [
-        "MC1R",
-        0
-      ],
-      [
-        "TUBB3",
-        1670
-      ],
-      [
-        "TCF25",
-        6095
-      ],
-      [
-        "DEF8",
-        28292
-      ],
-      [
-        "SPIRE2",
-        48402
-      ]
-    ],
     "allele_check": {
       "letters": [
         "C",
@@ -1398,74 +1180,13 @@
     ]
   },
   {
-    "rsid": "rs11185098",
-    "gene": "DAO",
-    "trait": "Histamine degradation (DAO enzyme)",
-    "deep_dive_gene": "DAO",
-    "evidence_gene": "DAO",
-    "issues": [
-      "DAO is not within 250 kb; variant is at AMY1C, AMY1B, AMY1A"
-    ],
-    "severity": "error",
-    "location": "chr1:103778727",
-    "consequence": "intergenic_variant",
-    "alleles": [
-      "G",
-      "A",
-      "T"
-    ],
-    "genes_at_site": {},
-    "eur_af": {
-      "A": 0.2624
-    },
-    "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
-    },
-    "nearest_genes": [
-      [
-        "AMY1C",
-        20001
-      ],
-      [
-        "AMY1B",
-        77663
-      ],
-      [
-        "AMY1A",
-        114098
-      ],
-      [
-        "AMY2A",
-        152947
-      ],
-      [
-        "AMY2B",
-        199193
-      ]
-    ],
-    "allele_check": {
-      "letters": [
-        "A",
-        "G"
-      ],
-      "status": "forward",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [],
-    "gwas_top_traits": []
-  },
-  {
     "rsid": "rs11191548",
-    "gene": "DRD1",
-    "trait": "Dopamine receptor D1 activity",
-    "deep_dive_gene": "DRD1",
-    "evidence_gene": "DRD1",
-    "issues": [
-      "DRD1 is not within 250 kb; variant is at NT5C2, CNNM2"
-    ],
-    "severity": "error",
+    "gene": "CNNM2",
+    "trait": "Blood pressure regulation (CNNM2 locus)",
+    "deep_dive_gene": "CNNM2",
+    "evidence_gene": "CNNM2",
+    "issues": [],
+    "severity": "ok",
     "location": "chr10:103086421",
     "consequence": "3_prime_UTR_variant",
     "alleles": [
@@ -1480,101 +1201,10 @@
       "C": 0.0885
     },
     "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
+      "snp_traits": true,
+      "deep_dive": true,
+      "evidence": true
     },
-    "nearest_genes": [
-      [
-        "CNNM2",
-        0
-      ],
-      [
-        "NT5C2",
-        57
-      ],
-      [
-        "RPEL1",
-        159466
-      ],
-      [
-        "AS3MT",
-        184510
-      ],
-      [
-        "BORCS7-ASMT",
-        184522
-      ]
-    ],
-    "allele_check": {
-      "letters": [
-        "C",
-        "T"
-      ],
-      "status": "forward",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [
-      "CNNM2"
-    ],
-    "gwas_top_traits": [
-      "systolic blood pressure",
-      "smoking status measurement",
-      "essential hypertension",
-      "hypertensive disorder"
-    ]
-  },
-  {
-    "rsid": "rs11191548_TIER2",
-    "gene": "DRD1",
-    "trait": "Renal sodium handling via dopamine system",
-    "deep_dive_gene": "DRD1",
-    "evidence_gene": null,
-    "issues": [
-      "key has a suffix, so it can never match a DNA file; duplicates rs11191548 (DRD1)",
-      "DRD1 is not within 250 kb; variant is at NT5C2, CNNM2"
-    ],
-    "severity": "error",
-    "location": "chr10:103086421",
-    "consequence": "3_prime_UTR_variant",
-    "alleles": [
-      "T",
-      "C"
-    ],
-    "genes_at_site": {
-      "NT5C2": 57,
-      "CNNM2": 0
-    },
-    "eur_af": {
-      "C": 0.0885
-    },
-    "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": null
-    },
-    "nearest_genes": [
-      [
-        "CNNM2",
-        0
-      ],
-      [
-        "NT5C2",
-        57
-      ],
-      [
-        "RPEL1",
-        159466
-      ],
-      [
-        "AS3MT",
-        184510
-      ],
-      [
-        "BORCS7-ASMT",
-        184522
-      ]
-    ],
     "allele_check": {
       "letters": [
         "C",
@@ -2012,68 +1642,6 @@
     ]
   },
   {
-    "rsid": "rs1254337",
-    "gene": "GLUT9 (SLC2A9)",
-    "trait": "Uric acid transport (metabolic inflammation)",
-    "deep_dive_gene": "SLC2A9",
-    "evidence_gene": "SLC2A9",
-    "issues": [
-      "GLUT9 (SLC2A9) is not within 250 kb; variant is at C14orf39",
-      "A/T or C/G SNP (A/G/T): confirm the scores are written on the forward strand, otherwise results are silently inverted"
-    ],
-    "severity": "error",
-    "location": "chr14:60453807",
-    "consequence": "intron_variant",
-    "alleles": [
-      "A",
-      "G",
-      "T"
-    ],
-    "genes_at_site": {
-      "C14orf39": 0
-    },
-    "eur_af": {
-      "T": 0.3082
-    },
-    "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
-    },
-    "nearest_genes": [
-      [
-        "C14orf39",
-        0
-      ],
-      [
-        "SIX6",
-        55339
-      ],
-      [
-        "PPM1A",
-        154584
-      ],
-      [
-        "SIX1",
-        189614
-      ]
-    ],
-    "allele_check": {
-      "letters": [
-        "A",
-        "T"
-      ],
-      "status": "ambiguous",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [
-      "C14orf39"
-    ],
-    "gwas_top_traits": [
-      "age at menarche"
-    ]
-  },
-  {
     "rsid": "rs1256031",
     "gene": "ESR2",
     "trait": "Estrogen Receptor Beta Sensitivity",
@@ -2103,66 +1671,6 @@
       "letters": [
         "A",
         "G"
-      ],
-      "status": "forward",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [],
-    "gwas_top_traits": []
-  },
-  {
-    "rsid": "rs1256049",
-    "gene": "ESR1",
-    "trait": "Estrogen receptor signaling modulation",
-    "deep_dive_gene": "ESR1",
-    "evidence_gene": "ESR1",
-    "issues": [
-      "ESR1 is not within 250 kb; variant is at ESR2"
-    ],
-    "severity": "error",
-    "location": "chr14:64257333",
-    "consequence": "synonymous_variant",
-    "alleles": [
-      "C",
-      "T"
-    ],
-    "genes_at_site": {
-      "ESR2": 0
-    },
-    "eur_af": {
-      "T": 0.0358
-    },
-    "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
-    },
-    "nearest_genes": [
-      [
-        "ESR2",
-        0
-      ],
-      [
-        "SYNE2",
-        29191
-      ],
-      [
-        "MTHFD1",
-        130698
-      ],
-      [
-        "ZBTB25",
-        173485
-      ],
-      [
-        "AKAP5",
-        207942
-      ]
-    ],
-    "allele_check": {
-      "letters": [
-        "C",
-        "T"
       ],
       "status": "forward",
       "missing_genotypes": []
@@ -2213,67 +1721,6 @@
       "vitamin B6 measurement",
       "kynureninase measurement"
     ]
-  },
-  {
-    "rsid": "rs12594956",
-    "gene": "PPARGC1A",
-    "trait": "Mitochondrial biogenesis",
-    "deep_dive_gene": "PPARGC1A",
-    "evidence_gene": "PPARGC1A",
-    "issues": [
-      "PPARGC1A is not within 250 kb; variant is at GABPB1"
-    ],
-    "severity": "error",
-    "location": "chr15:50329637",
-    "consequence": "intron_variant",
-    "alleles": [
-      "C",
-      "A",
-      "G"
-    ],
-    "genes_at_site": {
-      "GABPB1": 0
-    },
-    "eur_af": {
-      "A": 0.6044
-    },
-    "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
-    },
-    "nearest_genes": [
-      [
-        "GABPB1",
-        0
-      ],
-      [
-        "HDC",
-        63672
-      ],
-      [
-        "SLC27A2",
-        93187
-      ],
-      [
-        "USP8",
-        93947
-      ],
-      [
-        "ATP8B4",
-        146690
-      ]
-    ],
-    "allele_check": {
-      "letters": [
-        "C",
-        "T"
-      ],
-      "status": "reverse",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [],
-    "gwas_top_traits": []
   },
   {
     "rsid": "rs1260326",
@@ -2481,51 +1928,6 @@
     ]
   },
   {
-    "rsid": "rs12942023",
-    "gene": "FUT8",
-    "trait": "Congener Processing (Whiskey/Wine Tolerance)",
-    "deep_dive_gene": "FUT8",
-    "evidence_gene": "FUT8",
-    "issues": [
-      "FUT8 is not within 250 kb; variant is at LINC01483"
-    ],
-    "severity": "error",
-    "location": "chr17:69616976",
-    "consequence": "intron_variant",
-    "alleles": [
-      "C",
-      "A",
-      "T"
-    ],
-    "genes_at_site": {
-      "LINC01483": 0
-    },
-    "eur_af": {
-      "A": 0.6471
-    },
-    "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
-    },
-    "nearest_genes": [
-      [
-        "MAP2K6",
-        63111
-      ]
-    ],
-    "allele_check": {
-      "letters": [
-        "A",
-        "G"
-      ],
-      "status": "reverse",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [],
-    "gwas_top_traits": []
-  },
-  {
     "rsid": "rs12979860",
     "gene": "IFNL3 (IL28B)",
     "trait": "Viral Clearance Capacity",
@@ -2656,78 +2058,6 @@
     ]
   },
   {
-    "rsid": "rs13278062",
-    "gene": "SIRT1",
-    "trait": "Cellular repair efficiency (SIRT1 expression)",
-    "deep_dive_gene": "SIRT1",
-    "evidence_gene": "SIRT1",
-    "issues": [
-      "SIRT1 is not within 250 kb; variant is at TNFRSF10A, TNFRSF10A-DT"
-    ],
-    "severity": "error",
-    "location": "chr8:23225458",
-    "consequence": "splice_region_variant",
-    "alleles": [
-      "G",
-      "A",
-      "C",
-      "T"
-    ],
-    "genes_at_site": {
-      "TNFRSF10A": 313,
-      "TNFRSF10A-DT": 0,
-      "ENSG00000250714": 0,
-      "ENSG00000309331": 27
-    },
-    "eur_af": {
-      "T": 0.503
-    },
-    "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
-    },
-    "nearest_genes": [
-      [
-        "TNFRSF10A",
-        313
-      ],
-      [
-        "CHMP7",
-        18172
-      ],
-      [
-        "R3HCC1",
-        44662
-      ],
-      [
-        "TNFRSF10D",
-        61428
-      ],
-      [
-        "LOXL2",
-        71439
-      ]
-    ],
-    "allele_check": {
-      "letters": [
-        "G",
-        "T"
-      ],
-      "status": "forward",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [
-      "TNFRSF10A-DT"
-    ],
-    "gwas_top_traits": [
-      "tumor necrosis factor receptor superfamily member 10A amount",
-      "amount of tumor necrosis factor receptor superfamily member 10A (human) in cerebrospinal fluid",
-      "age-related macular degeneration",
-      "protein measurement"
-    ]
-  },
-  {
     "rsid": "rs1333049",
     "gene": "CDKN2A/B",
     "trait": "Coronary Artery Disease Risk (9p21 locus)",
@@ -2789,72 +2119,6 @@
     ]
   },
   {
-    "rsid": "rs13331",
-    "gene": "OR2M7",
-    "trait": "Asparagus Urine Odor Detection",
-    "deep_dive_gene": "OR2M7",
-    "evidence_gene": "OR2M7",
-    "issues": [
-      "OR2M7 is not within 250 kb; variant is at DLG4"
-    ],
-    "severity": "error",
-    "location": "chr17:7190147",
-    "consequence": "3_prime_UTR_variant",
-    "alleles": [
-      "A",
-      "G"
-    ],
-    "genes_at_site": {
-      "DLG4": 0,
-      "ENSG00000279812": 2148
-    },
-    "eur_af": {
-      "G": 0.6511
-    },
-    "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
-    },
-    "nearest_genes": [
-      [
-        "DLG4",
-        0
-      ],
-      [
-        "ASGR1",
-        10481
-      ],
-      [
-        "ACADVL",
-        26978
-      ],
-      [
-        "DVL2",
-        35191
-      ],
-      [
-        "PHF23",
-        44882
-      ]
-    ],
-    "allele_check": {
-      "letters": [
-        "A",
-        "G"
-      ],
-      "status": "forward",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [
-      "DLG4"
-    ],
-    "gwas_top_traits": [
-      "amount of fatty acid-binding protein, intestinal in blood",
-      "heel bone mineral density"
-    ]
-  },
-  {
     "rsid": "rs1360780",
     "gene": "FKBP5",
     "trait": "Cortisol Recovery & PTSD Risk",
@@ -2886,74 +2150,6 @@
         "T"
       ],
       "status": "forward",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [],
-    "gwas_top_traits": []
-  },
-  {
-    "rsid": "rs137852",
-    "gene": "COL5A2",
-    "trait": "Tendon stiffness and ligament structure",
-    "deep_dive_gene": "COL5A2",
-    "evidence_gene": "COL5A2",
-    "issues": [
-      "COL5A2 is not within 250 kb; variant is at IL17REL",
-      "genotype letters ['C', 'T'] are impossible for alleles AAAAAAAAAAA/AAAAAAAAAA/AAAAAAAAAAAA/AAAAAAAAAAAAA/AAAAAAAAAAAAAA/AAAAAAAAAAAAAAA/AAAAAAAAAAAAAAAA/AAAAAAAAAAAAAAAAAA/AAAAAAAAAAAAAAAAAAAAAA"
-    ],
-    "severity": "error",
-    "location": "chr22:50004852",
-    "consequence": "intron_variant",
-    "alleles": [
-      "AAAAAAAAAAA",
-      "AAAAAAAAAA",
-      "AAAAAAAAAAAA",
-      "AAAAAAAAAAAAA",
-      "AAAAAAAAAAAAAA",
-      "AAAAAAAAAAAAAAA",
-      "AAAAAAAAAAAAAAAA",
-      "AAAAAAAAAAAAAAAAAA",
-      "AAAAAAAAAAAAAAAAAAAAAA"
-    ],
-    "genes_at_site": {
-      "IL17REL": 0
-    },
-    "eur_af": {
-      "AAAAAAAAAAAA": 0.341
-    },
-    "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
-    },
-    "nearest_genes": [
-      [
-        "IL17REL",
-        0
-      ],
-      [
-        "PIM3",
-        13057
-      ],
-      [
-        "TTLL8",
-        13723
-      ],
-      [
-        "MLC1",
-        54539
-      ],
-      [
-        "CRELD2",
-        77308
-      ]
-    ],
-    "allele_check": {
-      "letters": [
-        "C",
-        "T"
-      ],
-      "status": "mismatch",
       "missing_genotypes": []
     },
     "gwas_mapped_genes": [],
@@ -3124,95 +2320,6 @@
       "dopamine beta-hydroxylase measurement",
       "amount of tumor necrosis factor receptor superfamily member 11B (human) in blood",
       "ADAMTS13 measurement"
-    ]
-  },
-  {
-    "rsid": "rs16835198",
-    "gene": "FNDC5",
-    "trait": "Irisin release & mitochondrial remodeling",
-    "deep_dive_gene": "FNDC5",
-    "evidence_gene": "FNDC5",
-    "issues": [
-      "genotype letters ['A', 'G'] are impossible for alleles G/T"
-    ],
-    "severity": "error",
-    "location": "chr1:32861080",
-    "consequence": "downstream_gene_variant",
-    "alleles": [
-      "G",
-      "T"
-    ],
-    "genes_at_site": {
-      "FNDC5": 1188,
-      "S100PBP": 2201
-    },
-    "eur_af": {
-      "T": 0.3648
-    },
-    "gene_supported": {
-      "snp_traits": true,
-      "deep_dive": true,
-      "evidence": true
-    },
-    "allele_check": {
-      "letters": [
-        "A",
-        "G"
-      ],
-      "status": "mismatch",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [],
-    "gwas_top_traits": []
-  },
-  {
-    "rsid": "rs16906252",
-    "gene": "MMP12",
-    "trait": "Lung Elasticity & COPD Risk",
-    "deep_dive_gene": "MMP12",
-    "evidence_gene": "MMP12",
-    "issues": [
-      "MMP12 is not within 250 kb; variant is at MGMT"
-    ],
-    "severity": "error",
-    "location": "chr10:129467281",
-    "consequence": "splice_donor_region_variant",
-    "alleles": [
-      "C",
-      "T"
-    ],
-    "genes_at_site": {
-      "MGMT": 0,
-      "ENSG00000296036": 0
-    },
-    "eur_af": {
-      "T": 0.0616
-    },
-    "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
-    },
-    "nearest_genes": [
-      [
-        "MGMT",
-        0
-      ]
-    ],
-    "allele_check": {
-      "letters": [
-        "C",
-        "T"
-      ],
-      "status": "forward",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [
-      "MGMT"
-    ],
-    "gwas_top_traits": [
-      "amount of methylated-DNA--protein-cysteine methyltransferase (human) in blood",
-      "gene methylation measurement"
     ]
   },
   {
@@ -3426,98 +2533,6 @@
     "gwas_top_traits": []
   },
   {
-    "rsid": "rs17226398",
-    "gene": "SLC22A5",
-    "trait": "Carnitine absorption (fat oxidation)",
-    "deep_dive_gene": "SLC22A5",
-    "evidence_gene": "SLC22A5",
-    "issues": [
-      "SLC22A5 is not within 250 kb; variant is at ADGRL3",
-      "genotype letters ['C', 'T'] are impossible for alleles G/C"
-    ],
-    "severity": "error",
-    "location": "chr4:61996223",
-    "consequence": "intron_variant",
-    "alleles": [
-      "G",
-      "C"
-    ],
-    "genes_at_site": {
-      "ADGRL3": 0
-    },
-    "eur_af": {
-      "C": 0.2276
-    },
-    "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
-    },
-    "nearest_genes": [
-      [
-        "ADGRL3",
-        0
-      ]
-    ],
-    "allele_check": {
-      "letters": [
-        "C",
-        "T"
-      ],
-      "status": "mismatch",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [],
-    "gwas_top_traits": []
-  },
-  {
-    "rsid": "rs1728986",
-    "gene": "TNXB",
-    "trait": "Tenascin-X structure (joint laxity marker)",
-    "deep_dive_gene": "TNXB",
-    "evidence_gene": "TNXB",
-    "issues": [
-      "TNXB is not within 250 kb; variant is at TSPAN5",
-      "genotype letters ['C', 'T'] are impossible for alleles T/G"
-    ],
-    "severity": "error",
-    "location": "chr4:98585324",
-    "consequence": "intron_variant",
-    "alleles": [
-      "T",
-      "G"
-    ],
-    "genes_at_site": {
-      "TSPAN5": 0
-    },
-    "eur_af": {},
-    "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
-    },
-    "nearest_genes": [
-      [
-        "TSPAN5",
-        0
-      ],
-      [
-        "RAP1GDS1",
-        141458
-      ]
-    ],
-    "allele_check": {
-      "letters": [
-        "C",
-        "T"
-      ],
-      "status": "mismatch",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [],
-    "gwas_top_traits": []
-  },
-  {
     "rsid": "rs174537",
     "gene": "FADS1",
     "trait": "Omega-3 & omega-6 fatty acid conversion",
@@ -3548,11 +2563,11 @@
     },
     "nearest_genes": [
       [
-        "TMEM258",
+        "MYRF",
         0
       ],
       [
-        "MYRF",
+        "TMEM258",
         0
       ],
       [
@@ -3675,139 +2690,6 @@
       "glomerular filtration rate",
       "serum creatinine amount",
       "amount of alpha-actinin-2 in blood"
-    ]
-  },
-  {
-    "rsid": "rs17608",
-    "gene": "SERPINA1",
-    "trait": "Alpha-1 Antitrypsin Deficiency",
-    "deep_dive_gene": "SERPINA1",
-    "evidence_gene": "SERPINA1",
-    "issues": [
-      "SERPINA1 is not within 250 kb; variant is at CLC"
-    ],
-    "severity": "error",
-    "location": "chr19:39735006",
-    "consequence": "missense_variant",
-    "alleles": [
-      "G",
-      "A"
-    ],
-    "genes_at_site": {
-      "CLC": 0
-    },
-    "eur_af": {
-      "A": 0.6988
-    },
-    "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
-    },
-    "nearest_genes": [
-      [
-        "CLC",
-        0
-      ],
-      [
-        "LGALS14",
-        7446
-      ],
-      [
-        "LEUTX",
-        41589
-      ],
-      [
-        "LGALS16",
-        74359
-      ],
-      [
-        "DYRK1B",
-        90344
-      ]
-    ],
-    "allele_check": {
-      "letters": [
-        "A",
-        "G"
-      ],
-      "status": "forward",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [
-      "CLC"
-    ],
-    "gwas_top_traits": [
-      "eosinophil count"
-    ]
-  },
-  {
-    "rsid": "rs17609940",
-    "gene": "IGF1R",
-    "trait": "IGF-1 receptor sensitivity",
-    "deep_dive_gene": "IGF1R",
-    "evidence_gene": "IGF1R",
-    "issues": [
-      "IGF1R is not within 250 kb; variant is at ANKS1A",
-      "A/T or C/G SNP (G/A/C): confirm the scores are written on the forward strand, otherwise results are silently inverted"
-    ],
-    "severity": "error",
-    "location": "chr6:35067023",
-    "consequence": "intron_variant",
-    "alleles": [
-      "G",
-      "A",
-      "C"
-    ],
-    "genes_at_site": {
-      "ANKS1A": 0,
-      "ENSG00000273870": 3848,
-      "ENSG00000299947": 0
-    },
-    "eur_af": {
-      "C": 0.1889
-    },
-    "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
-    },
-    "nearest_genes": [
-      [
-        "ANKS1A",
-        0
-      ],
-      [
-        "TCP11",
-        51048
-      ],
-      [
-        "SCUBE3",
-        146836
-      ],
-      [
-        "TAF11",
-        177831
-      ],
-      [
-        "BLTP3A",
-        181673
-      ]
-    ],
-    "allele_check": {
-      "letters": [
-        "C",
-        "G"
-      ],
-      "status": "ambiguous",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [
-      "ANKS1A"
-    ],
-    "gwas_top_traits": [
-      "vaginal microbiome measurement",
-      "coronary artery disorder"
     ]
   },
   {
@@ -4053,6 +2935,51 @@
     ]
   },
   {
+    "rsid": "rs1799895",
+    "gene": "SOD3",
+    "trait": "Extracellular Antioxidant Capacity / Collagen Protection",
+    "deep_dive_gene": "SOD3",
+    "evidence_gene": "SOD3",
+    "issues": [],
+    "severity": "ok",
+    "location": "chr4:24800212",
+    "consequence": "missense_variant",
+    "alleles": [
+      "C",
+      "G"
+    ],
+    "genes_at_site": {
+      "SOD3": 0,
+      "CCDC149": 3302
+    },
+    "eur_af": {
+      "G": 0.008
+    },
+    "gene_supported": {
+      "snp_traits": true,
+      "deep_dive": true,
+      "evidence": true
+    },
+    "allele_check": {
+      "letters": [
+        "C",
+        "G"
+      ],
+      "status": "forward (verified)",
+      "missing_genotypes": []
+    },
+    "strand_note": "SOD3 R213G: forward C = Arg213, G = Gly213 (2026-11-04)",
+    "gwas_mapped_genes": [
+      "SOD3"
+    ],
+    "gwas_top_traits": [
+      "protein measurement",
+      "Extracellular superoxide dismutase [Cu-Zn] measurement",
+      "superoxide dismutase [Cu-Zn] measurement",
+      "blood protein amount"
+    ]
+  },
+  {
     "rsid": "rs1799930",
     "gene": "NAT2",
     "trait": "Acetylation Rate (Toxin/Drug Clearance)",
@@ -4173,6 +3100,50 @@
     },
     "gwas_mapped_genes": [],
     "gwas_top_traits": []
+  },
+  {
+    "rsid": "rs1799963",
+    "gene": "F2",
+    "trait": "Thrombophilia (Factor II Prothrombin)",
+    "deep_dive_gene": "F2",
+    "evidence_gene": "F2",
+    "issues": [],
+    "severity": "ok",
+    "location": "chr11:46739505",
+    "consequence": "3_prime_UTR_variant",
+    "alleles": [
+      "G",
+      "A"
+    ],
+    "genes_at_site": {
+      "F2": 0,
+      "CKAP5": 3263
+    },
+    "eur_af": {
+      "A": 0.008
+    },
+    "gene_supported": {
+      "snp_traits": true,
+      "deep_dive": true,
+      "evidence": true
+    },
+    "allele_check": {
+      "letters": [
+        "A",
+        "G"
+      ],
+      "status": "forward",
+      "missing_genotypes": []
+    },
+    "gwas_mapped_genes": [
+      "F2"
+    ],
+    "gwas_top_traits": [
+      "venous thromboembolism",
+      "prothrombin amount",
+      "thrombophilia",
+      "deep vein thrombosis"
+    ]
   },
   {
     "rsid": "rs1799971",
@@ -4332,60 +3303,6 @@
       "letters": [
         "A",
         "C"
-      ],
-      "status": "forward",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [],
-    "gwas_top_traits": []
-  },
-  {
-    "rsid": "rs1800252",
-    "gene": "COL2A1",
-    "trait": "Cartilage durability and joint surface quality",
-    "deep_dive_gene": "COL2A1",
-    "evidence_gene": "COL2A1",
-    "issues": [
-      "COL2A1 is not within 250 kb; variant is at COL1A2"
-    ],
-    "severity": "error",
-    "location": "chr7:94428336",
-    "consequence": "synonymous_variant",
-    "alleles": [
-      "T",
-      "C"
-    ],
-    "genes_at_site": {
-      "COL1A2": 0
-    },
-    "eur_af": {},
-    "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
-    },
-    "nearest_genes": [
-      [
-        "COL1A2",
-        0
-      ],
-      [
-        "CASD1",
-        80883
-      ],
-      [
-        "SGCE",
-        95868
-      ],
-      [
-        "PEG10",
-        227989
-      ]
-    ],
-    "allele_check": {
-      "letters": [
-        "C",
-        "T"
       ],
       "status": "forward",
       "missing_genotypes": []
@@ -4858,44 +3775,6 @@
     "gwas_top_traits": []
   },
   {
-    "rsid": "rs1800790_TIER2",
-    "gene": "FGB",
-    "trait": "Fibrinogen level (clotting / inflammation)",
-    "deep_dive_gene": "FGB",
-    "evidence_gene": null,
-    "issues": [
-      "key has a suffix, so it can never match a DNA file; duplicates rs1800790 (FGB)"
-    ],
-    "severity": "error",
-    "location": "chr4:154562556",
-    "consequence": "upstream_gene_variant",
-    "alleles": [
-      "G",
-      "A"
-    ],
-    "genes_at_site": {
-      "FGB": 396
-    },
-    "eur_af": {
-      "A": 0.2157
-    },
-    "gene_supported": {
-      "snp_traits": true,
-      "deep_dive": true,
-      "evidence": null
-    },
-    "allele_check": {
-      "letters": [
-        "C",
-        "T"
-      ],
-      "status": "reverse",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [],
-    "gwas_top_traits": []
-  },
-  {
     "rsid": "rs1800795",
     "gene": "IL6 (Promoter)",
     "trait": "Inflammatory reactivity (CRP levels)",
@@ -5030,7 +3909,7 @@
   {
     "rsid": "rs1801133",
     "gene": "MTHFR",
-    "trait": "Folate â†’ active methylfolate conversion",
+    "trait": "Folate → active methylfolate conversion",
     "deep_dive_gene": "MTHFR",
     "evidence_gene": "MTHFR",
     "issues": [],
@@ -5468,123 +4347,6 @@
     ]
   },
   {
-    "rsid": "rs1805065",
-    "gene": "ACTN2",
-    "trait": "Muscle fiber structural stability",
-    "deep_dive_gene": "ACTN2",
-    "evidence_gene": "ACTN2",
-    "issues": [
-      "ACTN2 is not within 250 kb; variant is at SLC6A2"
-    ],
-    "severity": "error",
-    "location": "chr16:55669586",
-    "consequence": "missense_variant",
-    "alleles": [
-      "C",
-      "T"
-    ],
-    "genes_at_site": {
-      "SLC6A2": 0
-    },
-    "eur_af": {
-      "T": 0.0129
-    },
-    "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
-    },
-    "nearest_genes": [
-      [
-        "SLC6A2",
-        0
-      ],
-      [
-        "LPCAT2",
-        82920
-      ],
-      [
-        "CAPNS2",
-        101899
-      ],
-      [
-        "CES1",
-        133259
-      ],
-      [
-        "MMP2",
-        161528
-      ]
-    ],
-    "allele_check": {
-      "letters": [
-        "C",
-        "T"
-      ],
-      "status": "forward",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [],
-    "gwas_top_traits": []
-  },
-  {
-    "rsid": "rs1805086",
-    "gene": "MYF5",
-    "trait": "Satellite cell activation (muscle growth)",
-    "deep_dive_gene": "MYF5",
-    "evidence_gene": "MYF5",
-    "issues": [
-      "MYF5 is not within 250 kb; variant is at MSTN, AKAP19"
-    ],
-    "severity": "error",
-    "location": "chr2:190060351",
-    "consequence": "missense_variant",
-    "alleles": [
-      "T",
-      "C"
-    ],
-    "genes_at_site": {
-      "MSTN": 0,
-      "AKAP19": 0
-    },
-    "eur_af": {
-      "C": 0.0288
-    },
-    "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
-    },
-    "nearest_genes": [
-      [
-        "AKAP19",
-        0
-      ],
-      [
-        "MSTN",
-        0
-      ],
-      [
-        "HIBCH",
-        129384
-      ],
-      [
-        "PMS1",
-        181966
-      ]
-    ],
-    "allele_check": {
-      "letters": [
-        "C",
-        "T"
-      ],
-      "status": "forward",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [],
-    "gwas_top_traits": []
-  },
-  {
     "rsid": "rs1805087",
     "gene": "MTR",
     "trait": "Homocysteine → methionine conversion",
@@ -5820,68 +4582,6 @@
     "gwas_top_traits": []
   },
   {
-    "rsid": "rs2052129",
-    "gene": "HDC",
-    "trait": "Histamine production rate",
-    "deep_dive_gene": "HDC",
-    "evidence_gene": "HDC",
-    "issues": [
-      "HDC is not within 250 kb; variant is at AOC1"
-    ],
-    "severity": "error",
-    "location": "chr7:150851884",
-    "consequence": "intron_variant",
-    "alleles": [
-      "G",
-      "A",
-      "T"
-    ],
-    "genes_at_site": {
-      "AOC1": 0,
-      "ENSG00000289052": 0
-    },
-    "eur_af": {
-      "T": 0.2495
-    },
-    "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
-    },
-    "nearest_genes": [
-      [
-        "AOC1",
-        0
-      ],
-      [
-        "TMEM176B",
-        28007
-      ],
-      [
-        "TMEM176A",
-        46762
-      ],
-      [
-        "KCNH2",
-        92180
-      ],
-      [
-        "GIMAP5",
-        101851
-      ]
-    ],
-    "allele_check": {
-      "letters": [
-        "G",
-        "T"
-      ],
-      "status": "forward",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [],
-    "gwas_top_traits": []
-  },
-  {
     "rsid": "rs20541",
     "gene": "IL13",
     "trait": "Allergy & Asthma Susceptibility",
@@ -6002,76 +4702,6 @@
     "gwas_top_traits": []
   },
   {
-    "rsid": "rs2070974",
-    "gene": "TYR",
-    "trait": "Melanin synthesis efficiency",
-    "deep_dive_gene": "TYR",
-    "evidence_gene": "TYR",
-    "issues": [
-      "rsID not found in Ensembl (retired, or never existed)"
-    ],
-    "severity": "error"
-  },
-  {
-    "rsid": "rs2071403",
-    "gene": "THRB",
-    "trait": "Thyroid receptor responsiveness",
-    "deep_dive_gene": "THRB",
-    "evidence_gene": "THRB",
-    "issues": [
-      "THRB is not within 250 kb; variant is at TPO"
-    ],
-    "severity": "error",
-    "location": "chr2:1413472",
-    "consequence": "5_prime_UTR_variant",
-    "alleles": [
-      "A",
-      "C",
-      "G",
-      "T"
-    ],
-    "genes_at_site": {
-      "TPO": 0,
-      "ENSG00000231482": 0
-    },
-    "eur_af": {
-      "G": 0.5358
-    },
-    "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
-    },
-    "nearest_genes": [
-      [
-        "TPO",
-        0
-      ],
-      [
-        "SNTG2",
-        45859
-      ],
-      [
-        "PXDN",
-        217372
-      ]
-    ],
-    "allele_check": {
-      "letters": [
-        "A",
-        "G"
-      ],
-      "status": "forward",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [
-      "TPO"
-    ],
-    "gwas_top_traits": [
-      "blood immunoglobulin amount"
-    ]
-  },
-  {
     "rsid": "rs2071749",
     "gene": "HMOX1",
     "trait": "Heme breakdown / oxidative stress resistance",
@@ -6098,67 +4728,6 @@
       "deep_dive": true,
       "evidence": true
     },
-    "allele_check": {
-      "letters": [
-        "A",
-        "G"
-      ],
-      "status": "forward",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [],
-    "gwas_top_traits": []
-  },
-  {
-    "rsid": "rs2073711",
-    "gene": "COL11A1",
-    "trait": "Collagen cross-link strength",
-    "deep_dive_gene": "COL11A1",
-    "evidence_gene": "COL11A1",
-    "issues": [
-      "COL11A1 is not within 250 kb; variant is at CILP"
-    ],
-    "severity": "error",
-    "location": "chr15:65201874",
-    "consequence": "missense_variant",
-    "alleles": [
-      "A",
-      "G"
-    ],
-    "genes_at_site": {
-      "CILP": 0,
-      "ENSG00000299580": 0
-    },
-    "eur_af": {
-      "G": 0.6471
-    },
-    "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
-    },
-    "nearest_genes": [
-      [
-        "CILP",
-        0
-      ],
-      [
-        "CLPX",
-        16231
-      ],
-      [
-        "PARP16",
-        29524
-      ],
-      [
-        "PDCD7",
-        68038
-      ],
-      [
-        "UBAP1L",
-        86674
-      ]
-    ],
     "allele_check": {
       "letters": [
         "A",
@@ -6426,84 +4995,13 @@
     "gwas_top_traits": []
   },
   {
-    "rsid": "rs2239681",
-    "gene": "NDUFB6",
-    "trait": "Electron transport chain efficiency",
-    "deep_dive_gene": "NDUFB6",
-    "evidence_gene": "NDUFB6",
-    "issues": [
-      "NDUFB6 is not within 250 kb; variant is at IGF2-AS, IGF2"
-    ],
-    "severity": "error",
-    "location": "chr11:2146751",
-    "consequence": "non_coding_transcript_exon_variant",
-    "alleles": [
-      "G",
-      "A",
-      "T"
-    ],
-    "genes_at_site": {
-      "IGF2-AS": 0,
-      "IGF2": 0,
-      "ENSG00000284779": 0
-    },
-    "eur_af": {
-      "A": 0.2982
-    },
-    "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
-    },
-    "nearest_genes": [
-      [
-        "IGF2",
-        0
-      ],
-      [
-        "INS-IGF2",
-        0
-      ],
-      [
-        "INS",
-        13028
-      ],
-      [
-        "TH",
-        17178
-      ],
-      [
-        "ASCL2",
-        121747
-      ]
-    ],
-    "allele_check": {
-      "letters": [
-        "C",
-        "T"
-      ],
-      "status": "reverse",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [
-      "IGF2",
-      "IGF2-AS",
-      "INS-IGF2"
-    ],
-    "gwas_top_traits": [
-      "hemoglobin measurement"
-    ]
-  },
-  {
     "rsid": "rs2241880",
-    "gene": "NOD2",
-    "trait": "Inflammatory response to gut bacteria",
-    "deep_dive_gene": "NOD2",
-    "evidence_gene": "NOD2",
-    "issues": [
-      "NOD2 is not within 250 kb; variant is at ATG16L1, SCARNA5"
-    ],
-    "severity": "error",
+    "gene": "ATG16L1",
+    "trait": "Autophagy & gut bacteria clearance",
+    "deep_dive_gene": "ATG16L1",
+    "evidence_gene": "ATG16L1",
+    "issues": [],
+    "severity": "ok",
     "location": "chr2:233274722",
     "consequence": "missense_variant",
     "alleles": [
@@ -6518,32 +5016,10 @@
       "G": 0.5368
     },
     "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
+      "snp_traits": true,
+      "deep_dive": true,
+      "evidence": true
     },
-    "nearest_genes": [
-      [
-        "ATG16L1",
-        0
-      ],
-      [
-        "SAG",
-        33094
-      ],
-      [
-        "INPP5D",
-        66819
-      ],
-      [
-        "DGKD",
-        79753
-      ],
-      [
-        "USP40",
-        200804
-      ]
-    ],
     "allele_check": {
       "letters": [
         "A",
@@ -6637,178 +5113,6 @@
     "gwas_top_traits": []
   },
   {
-    "rsid": "rs2271683",
-    "gene": "ELN",
-    "trait": "Elastin fiber elasticity",
-    "deep_dive_gene": "ELN",
-    "evidence_gene": "ELN",
-    "issues": [
-      "ELN is not within 250 kb; variant is at COL3A1"
-    ],
-    "severity": "error",
-    "location": "chr2:189009011",
-    "consequence": "missense_variant",
-    "alleles": [
-      "A",
-      "G"
-    ],
-    "genes_at_site": {
-      "COL3A1": 0,
-      "ENSG00000295704": 0
-    },
-    "eur_af": {
-      "G": 0.002
-    },
-    "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
-    },
-    "nearest_genes": [
-      [
-        "COL3A1",
-        0
-      ],
-      [
-        "COL5A2",
-        21732
-      ]
-    ],
-    "allele_check": {
-      "letters": [
-        "A",
-        "G"
-      ],
-      "status": "forward",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [],
-    "gwas_top_traits": []
-  },
-  {
-    "rsid": "rs2285477",
-    "gene": "COX7A1",
-    "trait": "Complex IV oxidative phosphorylation output",
-    "deep_dive_gene": "COX7A1",
-    "evidence_gene": "COX7A1",
-    "issues": [
-      "COX7A1 is not within 250 kb; variant is at MYHAS, MYH3"
-    ],
-    "severity": "error",
-    "location": "chr17:10638198",
-    "consequence": "missense_variant",
-    "alleles": [
-      "C",
-      "T"
-    ],
-    "genes_at_site": {
-      "MYHAS": 0,
-      "MYH3": 0
-    },
-    "eur_af": {
-      "T": 0.8161
-    },
-    "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
-    },
-    "nearest_genes": [
-      [
-        "MYH3",
-        0
-      ],
-      [
-        "SCO1",
-        34276
-      ],
-      [
-        "ADPRM",
-        59049
-      ],
-      [
-        "TMEM220",
-        60817
-      ],
-      [
-        "MYH2",
-        88498
-      ]
-    ],
-    "allele_check": {
-      "letters": [
-        "C",
-        "T"
-      ],
-      "status": "forward",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [],
-    "gwas_top_traits": []
-  },
-  {
-    "rsid": "rs2289360",
-    "gene": "COL6A5",
-    "trait": "Collagen VI microfibril strength",
-    "deep_dive_gene": "COL6A5",
-    "evidence_gene": "COL6A5",
-    "issues": [
-      "COL6A5 is not within 250 kb; variant is at EMILIN1"
-    ],
-    "severity": "error",
-    "location": "chr2:27079297",
-    "consequence": "intron_variant",
-    "alleles": [
-      "T",
-      "A",
-      "C",
-      "G"
-    ],
-    "genes_at_site": {
-      "EMILIN1": 0
-    },
-    "eur_af": {
-      "C": 0.6203
-    },
-    "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
-    },
-    "nearest_genes": [
-      [
-        "EMILIN1",
-        0
-      ],
-      [
-        "OST4",
-        5467
-      ],
-      [
-        "KHK",
-        7426
-      ],
-      [
-        "AGBL5",
-        8675
-      ],
-      [
-        "CGREF1",
-        19556
-      ]
-    ],
-    "allele_check": {
-      "letters": [
-        "C",
-        "T"
-      ],
-      "status": "forward",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [],
-    "gwas_top_traits": []
-  },
-  {
     "rsid": "rs2293275",
     "gene": "LHCGR",
     "trait": "LH receptor sensitivity",
@@ -6848,15 +5152,12 @@
   },
   {
     "rsid": "rs2304672",
-    "gene": "NR1D1",
-    "trait": "Sleep timing & metabolic rhythm",
-    "deep_dive_gene": "NR1D1",
-    "evidence_gene": "NR1D1",
-    "issues": [
-      "NR1D1 is not within 250 kb; variant is at PER2",
-      "genotype letters ['C', 'T'] are impossible for alleles G/C"
-    ],
-    "severity": "error",
+    "gene": "PER2",
+    "trait": "Chronotype (PER2 C111G)",
+    "deep_dive_gene": "PER2",
+    "evidence_gene": "PER2",
+    "issues": [],
+    "severity": "ok",
     "location": "chr2:238277948",
     "consequence": "5_prime_UTR_variant",
     "alleles": [
@@ -6870,40 +5171,19 @@
       "C": 0.0944
     },
     "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
+      "snp_traits": true,
+      "deep_dive": true,
+      "evidence": true
     },
-    "nearest_genes": [
-      [
-        "PER2",
-        0
-      ],
-      [
-        "HES6",
-        37268
-      ],
-      [
-        "TRAF3IP1",
-        42493
-      ],
-      [
-        "ILKAP",
-        74187
-      ],
-      [
-        "ERFE",
-        109048
-      ]
-    ],
     "allele_check": {
       "letters": [
         "C",
-        "T"
+        "G"
       ],
-      "status": "mismatch",
+      "status": "forward (verified)",
       "missing_genotypes": []
     },
+    "strand_note": "PER2 C111G: gene on minus strand, forward C = 111G (2026-11-04)",
     "gwas_mapped_genes": [],
     "gwas_top_traits": []
   },
@@ -7145,73 +5425,6 @@
     ]
   },
   {
-    "rsid": "rs2535633",
-    "gene": "ELOVL2",
-    "trait": "Epigenetic aging rate",
-    "deep_dive_gene": "ELOVL2",
-    "evidence_gene": "ELOVL2",
-    "issues": [
-      "ELOVL2 is not within 250 kb; variant is at ITIH4, ITIH4-AS1",
-      "A/T or C/G SNP (C/G): confirm the scores are written on the forward strand, otherwise results are silently inverted"
-    ],
-    "severity": "error",
-    "location": "chr3:52825614",
-    "consequence": "intron_variant",
-    "alleles": [
-      "C",
-      "G"
-    ],
-    "genes_at_site": {
-      "ITIH4": 0,
-      "ENSG00000243696": 4246,
-      "ITIH4-AS1": 300
-    },
-    "eur_af": {
-      "G": 0.4046
-    },
-    "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
-    },
-    "nearest_genes": [
-      [
-        "ITIH4",
-        0
-      ],
-      [
-        "MUSTN1",
-        7499
-      ],
-      [
-        "STIMATE-MUSTN1",
-        7507
-      ],
-      [
-        "STIMATE",
-        10605
-      ],
-      [
-        "ITIH3",
-        15733
-      ]
-    ],
-    "allele_check": {
-      "letters": [
-        "C",
-        "G"
-      ],
-      "status": "ambiguous",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [
-      "ITIH4"
-    ],
-    "gwas_top_traits": [
-      "body mass index"
-    ]
-  },
-  {
     "rsid": "rs25487",
     "gene": "XRCC1",
     "trait": "Base excision repair efficiency",
@@ -7292,6 +5505,55 @@
     ]
   },
   {
+    "rsid": "rs2631367",
+    "gene": "SLC22A5",
+    "trait": "Carnitine absorption (fat oxidation)",
+    "deep_dive_gene": "SLC22A5",
+    "evidence_gene": "SLC22A5",
+    "issues": [],
+    "severity": "ok",
+    "location": "chr5:132369766",
+    "consequence": "5_prime_UTR_variant",
+    "alleles": [
+      "C",
+      "A",
+      "G",
+      "T"
+    ],
+    "genes_at_site": {
+      "SLC22A5": 0,
+      "MIR3936HG": 0,
+      "MIR3936": 4167
+    },
+    "eur_af": {
+      "G": 0.5567
+    },
+    "gene_supported": {
+      "snp_traits": true,
+      "deep_dive": true,
+      "evidence": true
+    },
+    "allele_check": {
+      "letters": [
+        "C",
+        "G"
+      ],
+      "status": "forward (verified)",
+      "missing_genotypes": []
+    },
+    "strand_note": "SLC22A5 -207G>C: gene on plus strand, forward C = -207C (2026-11-04)",
+    "gwas_mapped_genes": [
+      "MIR3936HG",
+      "SLC22A5"
+    ],
+    "gwas_top_traits": [
+      "platelet volume",
+      "leukocyte quantity",
+      "amount of short/branched chain specific acyl-CoA dehydrogenase, mitochondrial in blood",
+      "monocyte count"
+    ]
+  },
+  {
     "rsid": "rs2740574",
     "gene": "CYP3A4",
     "trait": "Drug metabolism rate",
@@ -7330,55 +5592,13 @@
     "gwas_top_traits": []
   },
   {
-    "rsid": "rs2740574_dupfix",
-    "gene": "CYP3A4",
-    "trait": "Secondary CYP3A4 metabolic rate",
-    "deep_dive_gene": "CYP3A4",
-    "evidence_gene": null,
-    "issues": [
-      "key has a suffix, so it can never match a DNA file; duplicates rs2740574 (CYP3A4)"
-    ],
-    "severity": "error",
-    "location": "chr7:99784473",
-    "consequence": "upstream_gene_variant",
-    "alleles": [
-      "C",
-      "A",
-      "G",
-      "T"
-    ],
-    "genes_at_site": {
-      "CYP3A4": 146
-    },
-    "eur_af": {
-      "T": 0.9722
-    },
-    "gene_supported": {
-      "snp_traits": true,
-      "deep_dive": true,
-      "evidence": null
-    },
-    "allele_check": {
-      "letters": [
-        "A",
-        "G"
-      ],
-      "status": "forward",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [],
-    "gwas_top_traits": []
-  },
-  {
     "rsid": "rs2802292",
     "gene": "FOXO3",
     "trait": "Cellular stress resistance & Longevity",
     "deep_dive_gene": "FOXO3",
     "evidence_gene": "FOXO3",
-    "issues": [
-      "genotype letters ['C', 'T'] are impossible for alleles G/T"
-    ],
-    "severity": "error",
+    "issues": [],
+    "severity": "ok",
     "location": "chr6:108587315",
     "consequence": "intron_variant",
     "alleles": [
@@ -7399,66 +5619,8 @@
     },
     "allele_check": {
       "letters": [
-        "C",
+        "G",
         "T"
-      ],
-      "status": "mismatch",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [
-      "FOXO3"
-    ],
-    "gwas_top_traits": [
-      "platelet component distribution width"
-    ]
-  },
-  {
-    "rsid": "rs2802295",
-    "gene": "FOXO1",
-    "trait": "Oxidative stress resilience & glucose aging",
-    "deep_dive_gene": "FOXO1",
-    "evidence_gene": "FOXO1",
-    "issues": [
-      "FOXO1 is not within 250 kb; variant is at FOXO3"
-    ],
-    "severity": "error",
-    "location": "chr6:108605293",
-    "consequence": "intron_variant",
-    "alleles": [
-      "A",
-      "G",
-      "T"
-    ],
-    "genes_at_site": {
-      "FOXO3": 0,
-      "ENSG00000294744": 0
-    },
-    "eur_af": {
-      "G": 0.5666
-    },
-    "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
-    },
-    "nearest_genes": [
-      [
-        "FOXO3",
-        0
-      ],
-      [
-        "AFG1L",
-        78497
-      ],
-      [
-        "ARMC2",
-        236644
-      ]
-    ],
-    "allele_check": {
-      "letters": [
-        "A",
-        "G"
       ],
       "status": "forward",
       "missing_genotypes": []
@@ -7467,9 +5629,7 @@
       "FOXO3"
     ],
     "gwas_top_traits": [
-      "body mass index",
-      "cerebral cortex area attribute",
-      "brain attribute"
+      "platelet component distribution width"
     ]
   },
   {
@@ -7562,69 +5722,6 @@
       "ankylosing spondylitis",
       "Crohn disease"
     ]
-  },
-  {
-    "rsid": "rs3123554",
-    "gene": "SHBG",
-    "trait": "SHBG binding affinity",
-    "deep_dive_gene": "SHBG",
-    "evidence_gene": "SHBG",
-    "issues": [
-      "SHBG is not within 250 kb; variant is at CNR2, FUCA1"
-    ],
-    "severity": "error",
-    "location": "chr1:23869911",
-    "consequence": "upstream_gene_variant",
-    "alleles": [
-      "A",
-      "C",
-      "G",
-      "T"
-    ],
-    "genes_at_site": {
-      "CNR2": 604,
-      "FUCA1": 1550
-    },
-    "eur_af": {
-      "G": 0.5875
-    },
-    "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
-    },
-    "nearest_genes": [
-      [
-        "CNR2",
-        604
-      ],
-      [
-        "FUCA1",
-        1550
-      ],
-      [
-        "HMGCL",
-        31291
-      ],
-      [
-        "GALE",
-        69107
-      ],
-      [
-        "LYPLA2",
-        74366
-      ]
-    ],
-    "allele_check": {
-      "letters": [
-        "A",
-        "G"
-      ],
-      "status": "forward",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [],
-    "gwas_top_traits": []
   },
   {
     "rsid": "rs324420",
@@ -7756,53 +5853,6 @@
     ]
   },
   {
-    "rsid": "rs328_TIER2",
-    "gene": "LPL",
-    "trait": "LPL enzyme efficiency (fat clearance)",
-    "deep_dive_gene": "LPL",
-    "evidence_gene": null,
-    "issues": [
-      "key has a suffix, so it can never match a DNA file; duplicates rs328 (LPL)",
-      "A/T or C/G SNP (C/A/G): confirm the scores are written on the forward strand, otherwise results are silently inverted"
-    ],
-    "severity": "error",
-    "location": "chr8:19962213",
-    "consequence": "stop_gained",
-    "alleles": [
-      "C",
-      "A",
-      "G"
-    ],
-    "genes_at_site": {
-      "LPL": 0
-    },
-    "eur_af": {
-      "G": 0.1302
-    },
-    "gene_supported": {
-      "snp_traits": true,
-      "deep_dive": true,
-      "evidence": null
-    },
-    "allele_check": {
-      "letters": [
-        "C",
-        "G"
-      ],
-      "status": "ambiguous",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [
-      "LPL"
-    ],
-    "gwas_top_traits": [
-      "triglycerides in chylomicrons and extremely large VLDL measurement",
-      "phospholipids in chylomicrons and extremely large VLDL measurement",
-      "concentration of chylomicrons and extremely large VLDL particles measurement",
-      "total lipids in chylomicrons and extremely large VLDL measurement"
-    ]
-  },
-  {
     "rsid": "rs33972313",
     "gene": "SLC23A1",
     "trait": "Vitamin C absorption efficiency",
@@ -7846,68 +5896,6 @@
       "threonate measurement",
       "glycerate measurement"
     ]
-  },
-  {
-    "rsid": "rs350843",
-    "gene": "FOXO3",
-    "trait": "Stress resistance & longevity",
-    "deep_dive_gene": "FOXO3",
-    "evidence_gene": "FOXO3",
-    "issues": [
-      "FOXO3 is not within 250 kb; variant is at CREB3L3, SIRT6",
-      "genotype letters ['C', 'G'] are impossible for alleles A/C"
-    ],
-    "severity": "error",
-    "location": "chr19:4177334",
-    "consequence": "intron_variant",
-    "alleles": [
-      "A",
-      "C"
-    ],
-    "genes_at_site": {
-      "CREB3L3": 4277,
-      "SIRT6": 0
-    },
-    "eur_af": {
-      "C": 0.8718
-    },
-    "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
-    },
-    "nearest_genes": [
-      [
-        "SIRT6",
-        0
-      ],
-      [
-        "CREB3L3",
-        4277
-      ],
-      [
-        "ANKRD24",
-        5296
-      ],
-      [
-        "EBI3",
-        51933
-      ],
-      [
-        "MAP2K2",
-        53096
-      ]
-    ],
-    "allele_check": {
-      "letters": [
-        "C",
-        "G"
-      ],
-      "status": "mismatch",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [],
-    "gwas_top_traits": []
   },
   {
     "rsid": "rs35652124",
@@ -8116,119 +6104,6 @@
     ]
   },
   {
-    "rsid": "rs3737965",
-    "gene": "COL18A1",
-    "trait": "Collagen XVIII integrity",
-    "deep_dive_gene": "COL18A1",
-    "evidence_gene": "COL18A1",
-    "issues": [
-      "COL18A1 is not within 250 kb; variant is at CLCN6, MTHFR"
-    ],
-    "severity": "error",
-    "location": "chr1:11806394",
-    "consequence": "5_prime_UTR_variant",
-    "alleles": [
-      "G",
-      "A"
-    ],
-    "genes_at_site": {
-      "CLCN6": 0,
-      "MTHFR": 0
-    },
-    "eur_af": {
-      "A": 0.0338
-    },
-    "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
-    },
-    "nearest_genes": [
-      [
-        "CLCN6",
-        0
-      ],
-      [
-        "MTHFR",
-        0
-      ],
-      [
-        "C1orf167",
-        16809
-      ],
-      [
-        "NPPA",
-        39307
-      ],
-      [
-        "NPPB",
-        51060
-      ]
-    ],
-    "allele_check": {
-      "letters": [
-        "C",
-        "T"
-      ],
-      "status": "reverse",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [],
-    "gwas_top_traits": []
-  },
-  {
-    "rsid": "rs3741942",
-    "gene": "NDUFS2",
-    "trait": "ETC efficiency & ROS leakage",
-    "deep_dive_gene": "NDUFS2",
-    "evidence_gene": "NDUFS2",
-    "issues": [
-      "NDUFS2 is not within 250 kb; variant is at TSPAN9"
-    ],
-    "severity": "error",
-    "location": "chr12:3283033",
-    "consequence": "missense_variant",
-    "alleles": [
-      "C",
-      "T"
-    ],
-    "genes_at_site": {
-      "TSPAN9": 0
-    },
-    "eur_af": {
-      "T": 0
-    },
-    "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
-    },
-    "nearest_genes": [
-      [
-        "TSPAN9",
-        0
-      ],
-      [
-        "PRMT8",
-        98316
-      ],
-      [
-        "TEAD4",
-        242357
-      ]
-    ],
-    "allele_check": {
-      "letters": [
-        "C",
-        "T"
-      ],
-      "status": "forward",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [],
-    "gwas_top_traits": []
-  },
-  {
     "rsid": "rs3749034",
     "gene": "GAD1",
     "trait": "GABA production (Anxiety)",
@@ -8274,126 +6149,6 @@
       "attention deficit-hyperactivity disorder",
       "autism spectrum disorder"
     ]
-  },
-  {
-    "rsid": "rs3758391",
-    "gene": "SIRT3",
-    "trait": "Mitochondrial stress resistance",
-    "deep_dive_gene": "SIRT3",
-    "evidence_gene": "SIRT3",
-    "issues": [
-      "SIRT3 is not within 250 kb; variant is at SIRT1"
-    ],
-    "severity": "error",
-    "location": "chr10:67883584",
-    "consequence": "upstream_gene_variant",
-    "alleles": [
-      "T",
-      "A",
-      "C",
-      "G"
-    ],
-    "genes_at_site": {
-      "SIRT1": 1063
-    },
-    "eur_af": {
-      "C": 0.667
-    },
-    "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
-    },
-    "nearest_genes": [
-      [
-        "SIRT1",
-        1063
-      ],
-      [
-        "DNAJC12",
-        33389
-      ],
-      [
-        "HERC4",
-        38315
-      ],
-      [
-        "CTNNA3",
-        119947
-      ],
-      [
-        "MYPN",
-        204313
-      ]
-    ],
-    "allele_check": {
-      "letters": [
-        "C",
-        "T"
-      ],
-      "status": "forward",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [],
-    "gwas_top_traits": []
-  },
-  {
-    "rsid": "rs3774175",
-    "gene": "SOD3",
-    "trait": "Extracellular Antioxidant Capacity / Collagen Protection",
-    "deep_dive_gene": "SOD3",
-    "evidence_gene": "SOD3",
-    "issues": [
-      "SOD3 is not within 250 kb; variant is at ATP2B2"
-    ],
-    "severity": "error",
-    "location": "chr3:10358582",
-    "consequence": "intron_variant",
-    "alleles": [
-      "A",
-      "G"
-    ],
-    "genes_at_site": {
-      "ATP2B2": 0
-    },
-    "eur_af": {},
-    "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
-    },
-    "nearest_genes": [
-      [
-        "ATP2B2",
-        0
-      ],
-      [
-        "SEC13",
-        37375
-      ],
-      [
-        "GHRL",
-        65623
-      ],
-      [
-        "TATDN2",
-        77364
-      ],
-      [
-        "IRAK2",
-        114826
-      ]
-    ],
-    "allele_check": {
-      "letters": [
-        "C",
-        "T"
-      ],
-      "status": "reverse",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [],
-    "gwas_top_traits": []
   },
   {
     "rsid": "rs3813034",
@@ -8519,6 +6274,53 @@
     ]
   },
   {
+    "rsid": "rs3892097",
+    "gene": "CYP2D6",
+    "trait": "CYP2D6 metabolic speed",
+    "deep_dive_gene": "CYP2D6",
+    "evidence_gene": "CYP2D6",
+    "issues": [],
+    "severity": "ok",
+    "location": "chr22:42128945",
+    "consequence": "splice_acceptor_variant",
+    "alleles": [
+      "C",
+      "A",
+      "G",
+      "T"
+    ],
+    "genes_at_site": {
+      "CYP2D6": 0,
+      "NDUFA6-DT": 0,
+      "ENSG00000227370": 3598
+    },
+    "eur_af": {
+      "T": 0.1859
+    },
+    "gene_supported": {
+      "snp_traits": true,
+      "deep_dive": true,
+      "evidence": true
+    },
+    "allele_check": {
+      "letters": [
+        "C",
+        "T"
+      ],
+      "status": "forward",
+      "missing_genotypes": []
+    },
+    "gwas_mapped_genes": [
+      "CYP2D6",
+      "NDUFA6-DT"
+    ],
+    "gwas_top_traits": [
+      "solanidine measurement",
+      "urinary metabolite measurement",
+      "metabolite measurement"
+    ]
+  },
+  {
     "rsid": "rs3923809",
     "gene": "BTBD9",
     "trait": "Restless Legs Syndrome (RLS)",
@@ -8595,73 +6397,6 @@
     },
     "gwas_mapped_genes": [],
     "gwas_top_traits": []
-  },
-  {
-    "rsid": "rs4074995",
-    "gene": "MYH7",
-    "trait": "Type I fiber development",
-    "deep_dive_gene": "MYH7",
-    "evidence_gene": "MYH7",
-    "issues": [
-      "MYH7 is not within 250 kb; variant is at RGS14"
-    ],
-    "severity": "error",
-    "location": "chr5:177370342",
-    "consequence": "intron_variant",
-    "alleles": [
-      "G",
-      "A"
-    ],
-    "genes_at_site": {
-      "RGS14": 0
-    },
-    "eur_af": {
-      "A": 0.2903
-    },
-    "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
-    },
-    "nearest_genes": [
-      [
-        "RGS14",
-        0
-      ],
-      [
-        "SLC34A1",
-        8893
-      ],
-      [
-        "LMAN2",
-        18502
-      ],
-      [
-        "PFN3",
-        29767
-      ],
-      [
-        "F12",
-        31791
-      ]
-    ],
-    "allele_check": {
-      "letters": [
-        "A",
-        "G"
-      ],
-      "status": "forward",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [
-      "RGS14"
-    ],
-    "gwas_top_traits": [
-      "nephrolithiasis",
-      "hemoglobin measurement",
-      "high density lipoprotein cholesterol measurement",
-      "blood parathyroid hormone amount"
-    ]
   },
   {
     "rsid": "rs41423247",
@@ -8994,82 +6729,13 @@
     ]
   },
   {
-    "rsid": "rs444697",
-    "gene": "ASMT",
-    "trait": "Melatonin Synthesis Efficiency",
-    "deep_dive_gene": "ASMT",
-    "evidence_gene": "CDKN2B-AS1",
-    "issues": [
-      "ASMT is not within 250 kb; variant is at ITPR3, BAK1, UQCC2"
-    ],
-    "severity": "error",
-    "location": "chr6:33607232",
-    "consequence": "intron_variant",
-    "alleles": [
-      "G",
-      "A"
-    ],
-    "genes_at_site": {
-      "ENSG00000309063": 0,
-      "ENSG00000309080": 2341
-    },
-    "eur_af": {
-      "A": 0.2386
-    },
-    "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
-    },
-    "nearest_genes": [
-      [
-        "ITPR3",
-        13099
-      ],
-      [
-        "BAK1",
-        26927
-      ],
-      [
-        "UQCC2",
-        83403
-      ],
-      [
-        "IP6K3",
-        114082
-      ],
-      [
-        "ZBTB9",
-        149688
-      ]
-    ],
-    "allele_check": {
-      "letters": [
-        "A",
-        "G"
-      ],
-      "status": "forward",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [
-      "ITPR3",
-      "LINC00336"
-    ],
-    "gwas_top_traits": [
-      "psoriasis"
-    ]
-  },
-  {
     "rsid": "rs45446698",
-    "gene": "CYP3A5",
-    "trait": "Steroid hormone and drug metabolism speed",
-    "deep_dive_gene": "CYP3A5",
-    "evidence_gene": "CYP3A5",
-    "issues": [
-      "CYP3A5 is 55 kb away, not at the site (regulatory/LD association; check the mechanism text)",
-      "genotype letters ['C', 'T'] are impossible for alleles T/G"
-    ],
-    "severity": "error",
+    "gene": "CYP3A7",
+    "trait": "DHEA-S clearance (CYP3A7*1C)",
+    "deep_dive_gene": "CYP3A7",
+    "evidence_gene": "CYP3A7",
+    "issues": [],
+    "severity": "ok",
     "location": "chr7:99735325",
     "consequence": "intron_variant",
     "alleles": [
@@ -9084,38 +6750,16 @@
       "G": 0.0437
     },
     "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
+      "snp_traits": true,
+      "deep_dive": true,
+      "evidence": true
     },
-    "nearest_genes": [
-      [
-        "ZSCAN25",
-        0
-      ],
-      [
-        "CYP3A7",
-        129
-      ],
-      [
-        "CYP3A7-CYP3A51P",
-        223
-      ],
-      [
-        "CYP3A4",
-        21629
-      ],
-      [
-        "CYP3A5",
-        55282
-      ]
-    ],
     "allele_check": {
       "letters": [
-        "C",
+        "G",
         "T"
       ],
-      "status": "mismatch",
+      "status": "forward",
       "missing_genotypes": []
     },
     "gwas_mapped_genes": [
@@ -9212,14 +6856,14 @@
   },
   {
     "rsid": "rs4654748",
-    "gene": "LMNA",
-    "trait": "Nuclear membrane stability",
-    "deep_dive_gene": "LMNA",
-    "evidence_gene": "LMNA",
+    "gene": "ALPL",
+    "trait": "Vitamin B6 (PLP) blood levels",
+    "deep_dive_gene": "ALPL",
+    "evidence_gene": "ALPL",
     "issues": [
-      "LMNA is not within 250 kb; variant is at NBPF3, PFN1P10"
+      "ALPL is 49 kb away, not at the site (regulatory/LD association; check the mechanism text)"
     ],
-    "severity": "error",
+    "severity": "warn",
     "location": "chr1:21459575",
     "consequence": "intron_variant",
     "alleles": [
@@ -9322,62 +6966,6 @@
       "COMT/RHOC protein amount ratio in blood",
       "COMT/ITGB1BP2 protein amount ratio in blood",
       "COMT/HNRNPK protein amount ratio in blood"
-    ]
-  },
-  {
-    "rsid": "rs479744",
-    "gene": "PLOD1",
-    "trait": "Collagen cross-linking and stability",
-    "deep_dive_gene": "PLOD1",
-    "evidence_gene": "PLOD1",
-    "issues": [
-      "PLOD1 is not within 250 kb; variant is at FOXO3, ARMC2, AFG1L"
-    ],
-    "severity": "error",
-    "location": "chr6:108698829",
-    "consequence": "intergenic_variant",
-    "alleles": [
-      "G",
-      "T"
-    ],
-    "genes_at_site": {},
-    "eur_af": {
-      "T": 0.2416
-    },
-    "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
-    },
-    "nearest_genes": [
-      [
-        "FOXO3",
-        14055
-      ],
-      [
-        "ARMC2",
-        143108
-      ],
-      [
-        "AFG1L",
-        172033
-      ]
-    ],
-    "allele_check": {
-      "letters": [
-        "G",
-        "T"
-      ],
-      "status": "forward",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [
-      "FOXO3",
-      "LINC00222"
-    ],
-    "gwas_top_traits": [
-      "brain volume",
-      "reaction time measurement"
     ]
   },
   {
@@ -9645,67 +7233,6 @@
     "gwas_top_traits": []
   },
   {
-    "rsid": "rs521674",
-    "gene": "ADRA2B",
-    "trait": "Emotional Memory (Flashbulb Memories)",
-    "deep_dive_gene": "ADRA2B",
-    "evidence_gene": "ADRA2B",
-    "issues": [
-      "ADRA2B is not within 250 kb; variant is at ADRA2A",
-      "genotype letters ['A', 'G'] are impossible for alleles T/A"
-    ],
-    "severity": "error",
-    "location": "chr10:111075832",
-    "consequence": "upstream_gene_variant",
-    "alleles": [
-      "T",
-      "A"
-    ],
-    "genes_at_site": {
-      "ADRA2A": 1197
-    },
-    "eur_af": {
-      "A": 0.7386
-    },
-    "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
-    },
-    "nearest_genes": [
-      [
-        "ADRA2A",
-        1197
-      ],
-      [
-        "SHOC2",
-        58518
-      ],
-      [
-        "BBIP1",
-        156461
-      ],
-      [
-        "PDCD4",
-        175819
-      ],
-      [
-        "RBM20",
-        236361
-      ]
-    ],
-    "allele_check": {
-      "letters": [
-        "A",
-        "G"
-      ],
-      "status": "mismatch",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [],
-    "gwas_top_traits": []
-  },
-  {
     "rsid": "rs5219",
     "gene": "KCNJ11",
     "trait": "Insulin release sensitivity",
@@ -9754,15 +7281,12 @@
   },
   {
     "rsid": "rs523349",
-    "gene": "SRD5A1",
-    "trait": "DHT conversion (5-alpha reductase type 1)",
-    "deep_dive_gene": "SRD5A1",
-    "evidence_gene": "SRD5A1",
-    "issues": [
-      "SRD5A1 is not within 250 kb; variant is at SRD5A2",
-      "A/T or C/G SNP (G/A/C/T): confirm the scores are written on the forward strand, otherwise results are silently inverted"
-    ],
-    "severity": "error",
+    "gene": "SRD5A2",
+    "trait": "DHT conversion (5-alpha reductase type 2, V89L)",
+    "deep_dive_gene": "SRD5A2",
+    "evidence_gene": "SRD5A2",
+    "issues": [],
+    "severity": "ok",
     "location": "chr2:31580636",
     "consequence": "missense_variant",
     "alleles": [
@@ -9778,28 +7302,19 @@
       "C": 0.7207
     },
     "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
+      "snp_traits": true,
+      "deep_dive": true,
+      "evidence": true
     },
-    "nearest_genes": [
-      [
-        "SRD5A2",
-        0
-      ],
-      [
-        "XDH",
-        165880
-      ]
-    ],
     "allele_check": {
       "letters": [
         "C",
         "G"
       ],
-      "status": "ambiguous",
+      "status": "forward (verified)",
       "missing_genotypes": []
     },
+    "strand_note": "SRD5A2 V89L: forward C = Val89, G = Leu89 (2026-11-04)",
     "gwas_mapped_genes": [
       "SRD5A2"
     ],
@@ -9932,69 +7447,6 @@
       "blood glucose amount",
       "HbA1c measurement"
     ]
-  },
-  {
-    "rsid": "rs5516",
-    "gene": "F5",
-    "trait": "Factor V Leiden clotting tendency",
-    "deep_dive_gene": "F5",
-    "evidence_gene": "F5",
-    "issues": [
-      "F5 is not within 250 kb; variant is at KLK1, TMEM277P"
-    ],
-    "severity": "error",
-    "location": "chr19:50820217",
-    "consequence": "missense_variant",
-    "alleles": [
-      "C",
-      "G",
-      "T"
-    ],
-    "genes_at_site": {
-      "KLK1": 0,
-      "TMEM277P": 1334,
-      "ENSG00000305714": 1803
-    },
-    "eur_af": {
-      "G": 0.672
-    },
-    "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
-    },
-    "nearest_genes": [
-      [
-        "KLK1",
-        0
-      ],
-      [
-        "KLK15",
-        5072
-      ],
-      [
-        "ACP4",
-        24998
-      ],
-      [
-        "SMIM47",
-        27075
-      ],
-      [
-        "KLK3",
-        34698
-      ]
-    ],
-    "allele_check": {
-      "letters": [
-        "A",
-        "G"
-      ],
-      "status": "reverse",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [],
-    "gwas_top_traits": []
   },
   {
     "rsid": "rs553668",
@@ -10147,17 +7599,6 @@
     "gwas_top_traits": []
   },
   {
-    "rsid": "rs57875989",
-    "gene": "PER3",
-    "trait": "Circadian rhythm type",
-    "deep_dive_gene": "PER3",
-    "evidence_gene": "PER3",
-    "issues": [
-      "rsID not found in Ensembl (retired, or never existed)"
-    ],
-    "severity": "error"
-  },
-  {
     "rsid": "rs5882",
     "gene": "CETP",
     "trait": "HDL-C levels & remodeling",
@@ -10245,68 +7686,6 @@
     ]
   },
   {
-    "rsid": "rs6020",
-    "gene": "F2",
-    "trait": "Thrombophilia (Factor II Prothrombin)",
-    "deep_dive_gene": "F2",
-    "evidence_gene": "F2",
-    "issues": [
-      "F2 is not within 250 kb; variant is at F5"
-    ],
-    "severity": "error",
-    "location": "chr1:169549874",
-    "consequence": "missense_variant",
-    "alleles": [
-      "C",
-      "A",
-      "G",
-      "T"
-    ],
-    "genes_at_site": {
-      "F5": 0
-    },
-    "eur_af": {
-      "T": 0.0239
-    },
-    "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
-    },
-    "nearest_genes": [
-      [
-        "F5",
-        0
-      ],
-      [
-        "SELP",
-        38547
-      ],
-      [
-        "SLC19A2",
-        63886
-      ],
-      [
-        "CCDC181",
-        89205
-      ],
-      [
-        "FIRRM",
-        112133
-      ]
-    ],
-    "allele_check": {
-      "letters": [
-        "C",
-        "T"
-      ],
-      "status": "forward",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [],
-    "gwas_top_traits": []
-  },
-  {
     "rsid": "rs6025",
     "gene": "F5",
     "trait": "Factor V Leiden (Primary Mutation)",
@@ -10392,69 +7771,6 @@
       "CPB1/CTRC protein amount ratio in blood",
       "chymotrypsin-C measurement"
     ]
-  },
-  {
-    "rsid": "rs605059",
-    "gene": "ESR2",
-    "trait": "Estrogen receptor beta sensitivity",
-    "deep_dive_gene": "ESR2",
-    "evidence_gene": "ESR2",
-    "issues": [
-      "ESR2 is not within 250 kb; variant is at HSD17B1, HSD17B1-AS1"
-    ],
-    "severity": "error",
-    "location": "chr17:42554888",
-    "consequence": "missense_variant",
-    "alleles": [
-      "G",
-      "A",
-      "C",
-      "T"
-    ],
-    "genes_at_site": {
-      "HSD17B1": 0,
-      "HSD17B1-AS1": 47
-    },
-    "eur_af": {
-      "A": 0.5249
-    },
-    "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
-    },
-    "nearest_genes": [
-      [
-        "HSD17B1",
-        0
-      ],
-      [
-        "COASY",
-        6579
-      ],
-      [
-        "NAGLU",
-        10439
-      ],
-      [
-        "MLX",
-        12179
-      ],
-      [
-        "PSMC3IP",
-        17422
-      ]
-    ],
-    "allele_check": {
-      "letters": [
-        "A",
-        "G"
-      ],
-      "status": "forward",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [],
-    "gwas_top_traits": []
   },
   {
     "rsid": "rs6152",
@@ -10705,63 +8021,6 @@
     ]
   },
   {
-    "rsid": "rs6263",
-    "gene": "AR (Androgen Receptor)",
-    "trait": "Androgen Receptor Density/Sensitivity",
-    "deep_dive_gene": "AR",
-    "evidence_gene": "AR",
-    "issues": [
-      "AR (Androgen Receptor) is not within 250 kb; variant is at DDC, DDC-AS1"
-    ],
-    "severity": "error",
-    "location": "chr7:50528202",
-    "consequence": "missense_variant",
-    "alleles": [
-      "T",
-      "C"
-    ],
-    "genes_at_site": {
-      "DDC": 0,
-      "DDC-AS1": 3557
-    },
-    "eur_af": {
-      "C": 0.0239
-    },
-    "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
-    },
-    "nearest_genes": [
-      [
-        "DDC",
-        0
-      ],
-      [
-        "GRB10",
-        61861
-      ],
-      [
-        "FIGNL1",
-        77796
-      ],
-      [
-        "IKZF1",
-        123101
-      ]
-    ],
-    "allele_check": {
-      "letters": [
-        "C",
-        "T"
-      ],
-      "status": "forward",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [],
-    "gwas_top_traits": []
-  },
-  {
     "rsid": "rs6265",
     "gene": "BDNF",
     "trait": "Neuroplasticity & learning",
@@ -10958,57 +8217,6 @@
     "gwas_top_traits": []
   },
   {
-    "rsid": "rs6536",
-    "gene": "TRPM6",
-    "trait": "Magnesium absorption",
-    "deep_dive_gene": "TRPM6",
-    "evidence_gene": "TRPM6",
-    "issues": [
-      "TRPM6 is not within 250 kb; variant is at EPB41L2, SMLR1"
-    ],
-    "severity": "error",
-    "location": "chr6:130839736",
-    "consequence": "3_prime_UTR_variant",
-    "alleles": [
-      "G",
-      "A",
-      "C",
-      "T"
-    ],
-    "genes_at_site": {
-      "EPB41L2": 0,
-      "SMLR1": 0
-    },
-    "eur_af": {
-      "T": 0.7068
-    },
-    "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
-    },
-    "nearest_genes": [
-      [
-        "SMLR1",
-        0
-      ],
-      [
-        "EPB41L2",
-        0
-      ]
-    ],
-    "allele_check": {
-      "letters": [
-        "C",
-        "T"
-      ],
-      "status": "forward",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [],
-    "gwas_top_traits": []
-  },
-  {
     "rsid": "rs659366",
     "gene": "UCP2",
     "trait": "Basal metabolic energy leak",
@@ -11172,53 +8380,6 @@
     ]
   },
   {
-    "rsid": "rs662799_TIER2",
-    "gene": "APOA5",
-    "trait": "Triglyceride clearance variability",
-    "deep_dive_gene": "APOA5",
-    "evidence_gene": null,
-    "issues": [
-      "key has a suffix, so it can never match a DNA file; duplicates rs662799 (APOA5)"
-    ],
-    "severity": "error",
-    "location": "chr11:116792991",
-    "consequence": "5_prime_UTR_variant",
-    "alleles": [
-      "G",
-      "A",
-      "C"
-    ],
-    "genes_at_site": {
-      "ZPR1": 4514,
-      "APOA5": 0
-    },
-    "eur_af": {
-      "A": 0.9165
-    },
-    "gene_supported": {
-      "snp_traits": true,
-      "deep_dive": true,
-      "evidence": null
-    },
-    "allele_check": {
-      "letters": [
-        "C",
-        "T"
-      ],
-      "status": "reverse",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [
-      "APOA5"
-    ],
-    "gwas_top_traits": [
-      "triglyceride measurement",
-      "high density lipoprotein cholesterol measurement",
-      "metabolic syndrome",
-      "Decreased circulating HDL-C concentration"
-    ]
-  },
-  {
     "rsid": "rs671",
     "gene": "ALDH2 (Flush)",
     "trait": "Primary Asian Flush Variant",
@@ -11293,68 +8454,6 @@
       "letters": [
         "A",
         "G"
-      ],
-      "status": "forward",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [],
-    "gwas_top_traits": []
-  },
-  {
-    "rsid": "rs676925",
-    "gene": "MMP1",
-    "trait": "Collagen degradation rate",
-    "deep_dive_gene": "MMP1",
-    "evidence_gene": "MMP1",
-    "issues": [
-      "MMP1 is not within 250 kb; variant is at CXCR5, BCL9L"
-    ],
-    "severity": "error",
-    "location": "chr11:118894979",
-    "consequence": "3_prime_UTR_variant",
-    "alleles": [
-      "C",
-      "G",
-      "T"
-    ],
-    "genes_at_site": {
-      "CXCR5": 0,
-      "BCL9L": 0
-    },
-    "eur_af": {
-      "G": 0.2475
-    },
-    "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
-    },
-    "nearest_genes": [
-      [
-        "CXCR5",
-        0
-      ],
-      [
-        "BCL9L",
-        0
-      ],
-      [
-        "UPK2",
-        30185
-      ],
-      [
-        "FOXR1",
-        76644
-      ],
-      [
-        "CENATAC",
-        103072
-      ]
-    ],
-    "allele_check": {
-      "letters": [
-        "C",
-        "T"
       ],
       "status": "forward",
       "missing_genotypes": []
@@ -11491,67 +8590,6 @@
       "amount of tenascin (human) in blood",
       "mean arterial pressure"
     ]
-  },
-  {
-    "rsid": "rs699005",
-    "gene": "COL1A1",
-    "trait": "Tendon strength, flexibility, and injury risk",
-    "deep_dive_gene": "COL1A1",
-    "evidence_gene": "COL1A1",
-    "issues": [
-      "COL1A1 is not within 250 kb; variant is at YARS1"
-    ],
-    "severity": "error",
-    "location": "chr1:32780201",
-    "consequence": "synonymous_variant",
-    "alleles": [
-      "C",
-      "G",
-      "T"
-    ],
-    "genes_at_site": {
-      "YARS1": 0
-    },
-    "eur_af": {
-      "G": 0.1074
-    },
-    "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
-    },
-    "nearest_genes": [
-      [
-        "YARS1",
-        0
-      ],
-      [
-        "NHSL3",
-        5231
-      ],
-      [
-        "S100PBP",
-        36207
-      ],
-      [
-        "RBBP4",
-        74302
-      ],
-      [
-        "SYNC",
-        76605
-      ]
-    ],
-    "allele_check": {
-      "letters": [
-        "G",
-        "T"
-      ],
-      "status": "forward",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [],
-    "gwas_top_traits": []
   },
   {
     "rsid": "rs7041",
@@ -11747,70 +8785,47 @@
     "gwas_top_traits": []
   },
   {
-    "rsid": "rs7294919",
-    "gene": "CNTNAP2",
-    "trait": "Neuromuscular coordination",
-    "deep_dive_gene": "CNTNAP2",
-    "evidence_gene": "CNTNAP2",
-    "issues": [
-      "CNTNAP2 is not within 250 kb; variant is at HRK, FBXW8, RNFT2"
-    ],
-    "severity": "error",
-    "location": "chr12:116889787",
+    "rsid": "rs734553",
+    "gene": "GLUT9 (SLC2A9)",
+    "trait": "Uric acid transport (metabolic inflammation)",
+    "deep_dive_gene": "SLC2A9",
+    "evidence_gene": "SLC2A9",
+    "issues": [],
+    "severity": "ok",
+    "location": "chr4:9921380",
     "consequence": "intron_variant",
     "alleles": [
-      "T",
+      "G",
+      "A",
       "C",
-      "G"
+      "T"
     ],
     "genes_at_site": {
-      "ENSG00000297968": 0
+      "SLC2A9": 0,
+      "ENSG00000249219": 1434
     },
     "eur_af": {
-      "C": 0.0964
+      "T": 0.7555
     },
     "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
+      "snp_traits": true,
+      "deep_dive": true,
+      "evidence": true
     },
-    "nearest_genes": [
-      [
-        "HRK",
-        8340
-      ],
-      [
-        "FBXW8",
-        21052
-      ],
-      [
-        "RNFT2",
-        36156
-      ],
-      [
-        "TESC",
-        149136
-      ],
-      [
-        "SPRING1",
-        151705
-      ]
-    ],
     "allele_check": {
       "letters": [
-        "C",
+        "G",
         "T"
       ],
       "status": "forward",
       "missing_genotypes": []
     },
     "gwas_mapped_genes": [
-      "HRK",
-      "RPL36P15"
+      "SLC2A9"
     ],
     "gwas_top_traits": [
-      "hippocampal volume",
-      "brain volume"
+      "uric acid measurement",
+      "gout"
     ]
   },
   {
@@ -12139,11 +9154,9 @@
     "gene": "LEP (Leptin)",
     "trait": "Leptin Production & Satiety Signaling",
     "deep_dive_gene": "LEP",
-    "evidence_gene": "PNPLA3",
-    "issues": [
-      "evidence names PNPLA3, but the site is LEP (Leptin)"
-    ],
-    "severity": "error",
+    "evidence_gene": "LEP",
+    "issues": [],
+    "severity": "ok",
     "location": "chr7:128238730",
     "consequence": "intron_variant",
     "alleles": [
@@ -12162,7 +9175,7 @@
     "gene_supported": {
       "snp_traits": true,
       "deep_dive": true,
-      "evidence": false
+      "evidence": true
     },
     "allele_check": {
       "letters": [
@@ -12325,137 +9338,13 @@
     "gwas_top_traits": []
   },
   {
-    "rsid": "rs8031440",
-    "gene": "ACAN",
-    "trait": "Aggrecan production (shock absorption)",
-    "deep_dive_gene": "ACAN",
-    "evidence_gene": "ACAN",
-    "issues": [
-      "ACAN is not within 250 kb; variant is at SMAD3"
-    ],
-    "severity": "error",
-    "location": "chr15:67191641",
-    "consequence": "3_prime_UTR_variant",
-    "alleles": [
-      "G",
-      "A",
-      "T"
-    ],
-    "genes_at_site": {
-      "SMAD3": 0
-    },
-    "eur_af": {
-      "A": 0.2177
-    },
-    "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
-    },
-    "nearest_genes": [
-      [
-        "SMAD3",
-        0
-      ],
-      [
-        "AAGAB",
-        8821
-      ],
-      [
-        "IQCH",
-        63135
-      ]
-    ],
-    "allele_check": {
-      "letters": [
-        "C",
-        "T"
-      ],
-      "status": "reverse",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [],
-    "gwas_top_traits": []
-  },
-  {
-    "rsid": "rs8101881",
-    "gene": "TFAM",
-    "trait": "Mitochondrial DNA replication & maintenance",
-    "deep_dive_gene": "TFAM",
-    "evidence_gene": "TFAM",
-    "issues": [
-      "TFAM is not within 250 kb; variant is at SLC7A9, CEP89"
-    ],
-    "severity": "error",
-    "location": "chr19:32873722",
-    "consequence": "upstream_gene_variant",
-    "alleles": [
-      "C",
-      "T"
-    ],
-    "genes_at_site": {
-      "SLC7A9": 3917,
-      "CEP89": 2203
-    },
-    "eur_af": {
-      "T": 0.5785
-    },
-    "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
-    },
-    "nearest_genes": [
-      [
-        "CEP89",
-        2203
-      ],
-      [
-        "SLC7A9",
-        3917
-      ],
-      [
-        "TDRD12",
-        44142
-      ],
-      [
-        "FAAP24",
-        98487
-      ],
-      [
-        "RHPN2",
-        104870
-      ]
-    ],
-    "allele_check": {
-      "letters": [
-        "C",
-        "T"
-      ],
-      "status": "forward",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [
-      "CEP89",
-      "SLC7A9"
-    ],
-    "gwas_top_traits": [
-      "homocitrulline measurement",
-      "X-24736 measurement",
-      "urinary metabolite measurement",
-      "metabolite measurement"
-    ]
-  },
-  {
     "rsid": "rs8192675",
-    "gene": "SLC2A4",
-    "trait": "GLUT4 glucose uptake in muscle cells",
-    "deep_dive_gene": "SLC2A4",
-    "evidence_gene": "SLC2A4",
-    "issues": [
-      "SLC2A4 is not within 250 kb; variant is at SLC2A2"
-    ],
-    "severity": "error",
+    "gene": "SLC2A2",
+    "trait": "GLUT2 glucose sensing (liver & pancreas)",
+    "deep_dive_gene": "SLC2A2",
+    "evidence_gene": "SLC2A2",
+    "issues": [],
+    "severity": "ok",
     "location": "chr3:171007094",
     "consequence": "intron_variant",
     "alleles": [
@@ -12470,28 +9359,10 @@
       "C": 0.2893
     },
     "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
+      "snp_traits": true,
+      "deep_dive": true,
+      "evidence": true
     },
-    "nearest_genes": [
-      [
-        "SLC2A2",
-        0
-      ],
-      [
-        "TNIK",
-        51320
-      ],
-      [
-        "EIF5A2",
-        98450
-      ],
-      [
-        "RPL22L1",
-        136619
-      ]
-    ],
     "allele_check": {
       "letters": [
         "C",
@@ -12637,69 +9508,6 @@
     ]
   },
   {
-    "rsid": "rs893703",
-    "gene": "CYP2D6",
-    "trait": "CYP2D6 metabolic speed",
-    "deep_dive_gene": "CYP2D6",
-    "evidence_gene": "CYP2D6",
-    "issues": [
-      "CYP2D6 is not within 250 kb; variant is at RBP1, COPB2-DT"
-    ],
-    "severity": "error",
-    "location": "chr3:139531807",
-    "consequence": "intron_variant",
-    "alleles": [
-      "A",
-      "C",
-      "G",
-      "T"
-    ],
-    "genes_at_site": {
-      "RBP1": 0,
-      "COPB2-DT": 0
-    },
-    "eur_af": {
-      "G": 0.1282
-    },
-    "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
-    },
-    "nearest_genes": [
-      [
-        "RBP1",
-        0
-      ],
-      [
-        "NMNAT3",
-        26889
-      ],
-      [
-        "RBP2",
-        51040
-      ],
-      [
-        "COPB2",
-        142071
-      ],
-      [
-        "MRPS22",
-        171310
-      ]
-    ],
-    "allele_check": {
-      "letters": [
-        "C",
-        "T"
-      ],
-      "status": "forward",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [],
-    "gwas_top_traits": []
-  },
-  {
     "rsid": "rs894160",
     "gene": "PLIN1",
     "trait": "Weight Loss Resistance (Perilipin)",
@@ -12777,116 +9585,6 @@
       "X-11470 measurement",
       "11beta-hydroxyandrosterone glucuronide measurement"
     ]
-  },
-  {
-    "rsid": "rs9282859",
-    "gene": "HSD17B12",
-    "trait": "Estradiol levels & associated risk",
-    "deep_dive_gene": "HSD17B12",
-    "evidence_gene": "HSD17B12",
-    "issues": [
-      "HSD17B12 is not within 250 kb; variant is at STK11"
-    ],
-    "severity": "error",
-    "location": "chr19:1221294",
-    "consequence": "stop_gained",
-    "alleles": [
-      "C",
-      "A",
-      "G",
-      "T"
-    ],
-    "genes_at_site": {
-      "STK11": 0
-    },
-    "eur_af": {
-      "T": 0
-    },
-    "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
-    },
-    "nearest_genes": [
-      [
-        "STK11",
-        0
-      ],
-      [
-        "CBARP",
-        6988
-      ],
-      [
-        "ATP5F1D",
-        20440
-      ],
-      [
-        "MIDN",
-        27022
-      ],
-      [
-        "CIRBP",
-        38090
-      ]
-    ],
-    "allele_check": {
-      "letters": [
-        "C",
-        "T"
-      ],
-      "status": "forward",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [],
-    "gwas_top_traits": []
-  },
-  {
-    "rsid": "rs934078",
-    "gene": "DIO2",
-    "trait": "T4 → T3 conversion efficiency (secondary site)",
-    "deep_dive_gene": "DIO2",
-    "evidence_gene": "DIO2",
-    "issues": [
-      "DIO2 is not within 250 kb; variant is at TBX3, TBX5"
-    ],
-    "severity": "error",
-    "location": "chr12:114622198",
-    "consequence": "intron_variant",
-    "alleles": [
-      "G",
-      "A"
-    ],
-    "genes_at_site": {
-      "ENSG00000258254": 0
-    },
-    "eur_af": {
-      "A": 0.0855
-    },
-    "gene_supported": {
-      "snp_traits": false,
-      "deep_dive": false,
-      "evidence": false
-    },
-    "nearest_genes": [
-      [
-        "TBX3",
-        48057
-      ],
-      [
-        "TBX5",
-        213095
-      ]
-    ],
-    "allele_check": {
-      "letters": [
-        "C",
-        "T"
-      ],
-      "status": "reverse",
-      "missing_genotypes": []
-    },
-    "gwas_mapped_genes": [],
-    "gwas_top_traits": []
   },
   {
     "rsid": "rs9340799",

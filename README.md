@@ -1,6 +1,6 @@
 # DNA-Analyzer
 
-An in-house tool that turns a consumer raw-DNA export (MyHeritage / 23andMe-style CSV) into a multi-page, illustrated PDF report. The report covers ~280 curated SNPs across ten health domains, with actionable health advice for each result. It can be produced in English or Swedish, and it can optionally compare the subject with one or two relatives.
+An in-house tool that turns a consumer raw-DNA export (MyHeritage / 23andMe-style CSV) into a multi-page, illustrated PDF report. The report covers ~230 curated SNPs (each validated against Ensembl and the GWAS Catalog) across ten health domains, with actionable health advice for each result. It can be produced in English or Swedish, and it can optionally compare the subject with one or two relatives.
 
 A core design goal is that each SNP result fits on **one PDF page**: its genotype spectrum, mechanism, insight, evidence and confidence panel.
 

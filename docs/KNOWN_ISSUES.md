@@ -9,7 +9,19 @@ Snapshot from a review on 2026-11-04. P0 means fix first. Items that have been f
 
 ## P0: content says the wrong thing
 
-**Library validation (2026-11-04):** `python -m cluster_analysis.validate_library` checked all 282 entries against Ensembl and the GWAS Catalog. It found **73 errors**: 61 entries filed under the wrong gene, 10 with impossible genotype letters, 7 suffixed keys that never match a DNA file, and 2 unknown rsIDs. It also found 37 warnings, including 30 strand-ambiguous A/T and C/G SNPs. In the HP report, 13 of 91 deep dives rest on an erroring entry. See `cluster_analysis/library_validation.md`.
+**Library validation (2026-11-04):** `python -m cluster_analysis.validate_library` checked all 282 entries against Ensembl and the GWAS Catalog and found 73 errors. They were corrected the same day with `injectors-authenticators/corrections_2026_11/apply.py`:
+
+- 13 entries were rewritten for the gene actually at the site: ATG16L1, SLC2A2, MC1R, MCT1, PER2, CYP3A7*1C, ALPL, CNNM2, MSMB, HSD3B1, SRD5A2, plus the TP53 deep dive and the LEP evidence.
+- 6 entries were moved to the correct standard SNP: F2, SLC2A9, SLC22A5, CYP2D6*4, AOC1/DAO, SOD3.
+- The FOXO3 allele letters were fixed.
+- 53 entries were removed, with each reason recorded in `config/backup/library_corrections_2026-11-04.json`.
+
+Two entries were scored on the wrong strand: **TP53 rs1042522**, and **ATG16L1 rs2241880**, whose scores were inverted.
+
+The library now has **229 traits, 0 errors and 38 warnings**. Remaining work:
+
+- **23 A/T or C/G SNPs** still need their strand checked. TP53 proved these can be silently inverted. Use Ensembl's per-allele amino acids, then add each one to `STRAND_VERIFIED` in `validate_library.py`.
+- Some evidence texts in rewritten entries came out 20–30 % shorter than the originals. This is mostly the methodology fields and the LEP evidence.
 
 - **Evidence/deep-dive entries describe a different gene than the trait.** `python injectors-authenticators/validate.py` lists them. Aliases such as BCMO1/BCO1, TNF-alpha/TNF and HLA-DQ8/HLA-DQB1 can be ignored. The real conflicts are:
 
@@ -32,7 +44,7 @@ Snapshot from a review on 2026-11-04. P0 means fix first. Items that have been f
    Rework it per allele: work out which parent could have supplied each allele, and flag Mendelian inconsistencies (useful for spotting sample mix-ups and strand errors). With a single relative, only "consistent / inconsistent" can be stated.
 2. **One SNP per gene.** `drop_duplicates(subset=['Gene'])` hides additional SNPs, for example MTHFR rs1801131 when rs1801133 is present. Decide whether that is intended, or group by gene and show both.
 3. **Palindromic SNPs (A/T, C/G)**: about 31 traits can't be strand-resolved by complementing. MyHeritage reports the forward strand, so pinning those traits to the forward strand would be safe.
-4. **Silent misses.** RSIDs missing from the panel are dropped without a trace. Report the count ("X of 282 not tested").
+4. **Silent misses.** RSIDs missing from the panel are dropped without a trace. Report the count ("X of 229 not tested").
 
 ## P1: one-page layout, remaining
 
@@ -51,7 +63,7 @@ Snapshot from a review on 2026-11-04. P0 means fix first. Items that have been f
 
 - Most narrative and evidence text was written or translated by an LLM. The audit (`script.py`) flagged **120 RSIDs** in `rewrite_needed.json`. Many of those failures are structural (a missing `risks` list), but some are factual: `rs429358` (APOE) was flagged as logically inverted relative to its scores.
 - `impact` has 4 non-standard values ("Beneficial", "Altered DHT levels", …). They now sort as Medium.
-- 17 deep dives belong to RSIDs that don't exist in `snp_traits.json`, so they are dead content. 8 traits have no evidence entry.
+- 17 deep dives belong to RSIDs that don't exist in `snp_traits.json`, so they are dead content. 1 trait has no evidence entry.
 
 ## P2: engineering hygiene
 

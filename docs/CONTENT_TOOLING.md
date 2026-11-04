@@ -21,6 +21,7 @@ Run these from the repo root (`python injectors-authenticators/x.py`). The ones 
 | Script | Purpose | Writes? |
 |---|---|---|
 | `validate.py` | Gap analysis that compares trait coverage in `snp_traits` with `deep_dive_content` | no |
+| `corrections_2026_11/apply.py` | Applies the 2026-11 validation fixes: rewrites, rsID retargets, removals. Content is in `content_en.py` / `content_sv.py`. Safe to re-run. | **yes**, backs up to `config/backup/` |
 | `audit_length.py` | Prints the narrative length of each deep dive | no |
 | `data_analysis.py` | Organ/molecule/gene connection stats from `evidence_db` | no |
 | `DNA_compare.py` | Health check of one hardcoded input CSV against the traits | no |

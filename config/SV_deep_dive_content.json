@@ -1623,38 +1623,35 @@
         }
     },
     "rs523349": {
-        "risk_genotypes": [
-            "CC",
-            "GC"
-        ],
+        "risk_genotypes": [],
         "strength_genotypes": [
             "GG"
         ],
-        "data_risk": {
-            "gene": "SRD5A1",
-            "title": "Den 'DHT-förstärkande' genen",
-            "badge_type": "RISK",
+        "data_strength": {
+            "gene": "SRD5A2",
+            "title": "Den Milda DHT-Omvandlaren",
+            "badge_type": "STRENGTH",
             "mechanisms": {
-                "what": "5-Alfa-reduktas omvandlar testosteron till DHT (dihydrotestosteron)—en superpotent form av testosteron som driver kroppshårväxt och akne, men orsakar håravfall på huvudet.",
-                "how": "Din variant ökar aktiviteten hos detta enzym. Du omvandlar testosteron till DHT för aggressivt. Detta leder ofta till 'androgena' biverkningar som akne eller tunt hår, även om ditt totala testosteron inte är ovanligt högt.",
-                "ancestral": "Måttlig omvandling (GG).",
-                "yours": "Ditt resultat: Hög omvandling (DHT-dominans)."
+                "what": "5-alfa-reduktas typ 2 omvandlar testosteron till DHT, det potenta androgen som driver tunnare hårbotten, akne och prostatatillväxt.",
+                "how": "Du bär två kopior av Leu89-formen av SRD5A2, som arbetar ungefär en tredjedel mindre effektivt än den vanliga Val89-formen. Mindre testosteron blir DHT i hud, hårbotten och prostata, så androgeneffekterna i dessa vävnader blir ofta mildare.",
+                "ancestral": "Typisk omvandlare (CC).",
+                "yours": "Ditt Resultat: Mild omvandlare (Leu/Leu)."
             },
             "risks": [
-                "Utseende: Risk för manligt/kvinnligt håravfall.",
-                "Hud: Känslighet för cystisk akne.",
-                "Prostata: Kopplat till risk för prostataförstoring."
+                "Hår: Möjligen lägre benägenhet för androgent håravfall.",
+                "Prostata: Lägre DHT-påverkan på prostatavävnaden.",
+                "Notera: Effekterna är måttliga och studierna inte helt samstämmiga."
             ],
             "action": {
-                "title": "Blockera omvandlingen",
-                "body": "Du behöver inte sänka testosteronet; du behöver stoppa omvandlingen till DHT. Sågpalmetto, pumpafröolja och reishisvamp är naturliga 5-AR-hämmare som saktar ner detta enzym utan läkemedel.",
+                "title": "Håll Balansen",
+                "body": "Dina vävnader får mindre DHT för samma testosteron. Stöd ett sunt testosteron med sömn, styrketräning och tillräckligt protein, och undvik att kombinera 5-alfa-reduktashämmare som sågpalmetto om inte en läkare rekommenderar det.",
                 "foods": [
-                    "Pumpafrön",
-                    "Sågpalmetto",
-                    "Grönt te (EGCG)"
+                    "Sömn 7-9 h",
+                    "Styrketräning",
+                    "Tillräckligt protein"
                 ]
             },
-            "confidence": 4
+            "confidence": 3
         }
     },
     "rs1800012": {
@@ -1786,41 +1783,6 @@
                 "title": "Motståndskraft",
                 "body": "Du är den omvända 'kanariefågeln i gruvan' – du överlever medan andra blir sjuka. Kom bara ihåg: snabb metabolism innebär att vissa mediciner kan sluta verka snabbare än förväntat."
             }
-        }
-    },
-    "rs893703": {
-        "risk_genotypes": [
-            "AA",
-            "AG"
-        ],
-        "strength_genotypes": [
-            "GG"
-        ],
-        "data_risk": {
-            "gene": "CYP2D6",
-            "title": "Genen 'Läkemedelsförvandlaren'",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "CYP2D6 metaboliserar 25% av alla läkemedel, inklusive antidepressiva (SSRI), betablockerare och smärtstillande medel (Kodein).",
-                "how": "Du är en 'långsam metaboliserare'. Din kropp har svårt att bryta ner dessa läkemedel. För vissa läkemedel (som SSRI) kan nivåerna byggas upp till giftiga nivåer. För 'prodrugs' (som Kodein) aktiveras de aldrig till smärtlindring, så de fungerar inte alls.",
-                "ancestral": "Snabb metaboliserare (GG).",
-                "yours": "Ditt resultat: Långsam metaboliserare (läkemedelsförsämring/toxicitet)."
-            },
-            "risks": [
-                "Läkemedel: Kodein/Tramadol kan sakna effekt (misslyckad smärtlindring).",
-                "Läkemedel: SSRI/Antipsykotika kan ge allvarliga biverkningar vid normala doser.",
-                "Hjärna: Involverad i dopaminsyntesen i hjärnan."
-            ],
-            "action": {
-                "title": "Genetisk Farmakologi",
-                "body": "Detta är avgörande medicinsk information. Informera din läkare om att du är en CYP2D6 långsam metaboliserare. Du kan behöva alternativa läkemedel som kringgår denna väg. Undvik kodeinbaserade smärtstillande medel då de kommer att vara ineffektiva.",
-                "foods": [
-                    "Informera läkare",
-                    "Undvik Kodein",
-                    "Övervaka SSRI-dosering"
-                ]
-            },
-            "confidence": 5
         }
     },
     "rs1800255": {
@@ -1958,41 +1920,6 @@
             "confidence": 4
         }
     },
-    "rs11185098": {
-        "risk_genotypes": [
-            "TT",
-            "GT"
-        ],
-        "strength_genotypes": [
-            "GG"
-        ],
-        "data_risk": {
-            "gene": "DAO",
-            "title": "Histamin-hinken",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "DAO är det primära enzymet i tarmen som bryter ner histamin som finns i mat (lagrad ost, vin, rester). Det tömmer din 'histamin-hink'.",
-                "how": "Din variant minskar produktionen av detta enzym. Din hink är liten och fylls snabbt. Att äta histaminrik mat leder till överflödssymtom: migrän, nästäppa, nässelutslag eller ångest kort efter måltider.",
-                "ancestral": "Snabb tömning (GG).",
-                "yours": "Ditt resultat: Långsam tömning (Histaminintolerans)."
-            },
-            "risks": [
-                "Matsmältning: Uppblåsthet eller diarré efter måltid.",
-                "Neuro: Migrän och hjärndimma utlöst av mat.",
-                "Hud: Oförklarlig klåda eller rodnad."
-            ],
-            "action": {
-                "title": "Töm hinken",
-                "body": "Du har histaminintolerans. Du måste begränsa histaminrik mat (spenat, avokado, fermenterad mat, rester). Vitamin C och B6 är nödvändiga kofaktorer för att DAO-enzymet ska fungera. Du kan också ta DAO-enzymer till måltider.",
-                "foods": [
-                    "Låg histamin-diet",
-                    "Vitamin C",
-                    "DAO-enzymer"
-                ]
-            },
-            "confidence": 4
-        }
-    },
     "rs1801516": {
         "title": "DNA-skaderespons",
         "badge_type": "RISK",
@@ -2027,69 +1954,33 @@
     },
     "rs1049434": {
         "risk_genotypes": [
-            "TT",
-            "GT"
+            "AA"
         ],
         "strength_genotypes": [
-            "GG"
+            "TT"
         ],
         "data_risk": {
-            "gene": "COL12A1",
-            "title": "Senlimmets 'Klistriga' Styrka",
+            "gene": "SLC16A1",
+            "title": "Laktatkön",
             "badge_type": "RISK",
             "mechanisms": {
-                "what": "Typ XII Kollagen organiserar senornas och ligamentens struktur. Det håller fibrerna linjerade så att de kan sträckas utan att brista.",
-                "how": "Din variant förändrar strukturen på detta kollagen. Dina senor har lägre draghållfasthet och strukturell integritet. Du är betydligt mer benägen för mjukdelsskador som främre korsbandsskador, problem med rotatorcuffen och fotledsstukningar.",
-                "ancestral": "Starkt Klistrigt (GG).",
-                "yours": "Ditt Resultat: Svagt Klistrigt (Skadebenägen)."
+                "what": "MCT1 är en transportör som drar in laktat i muskelfibrer och hjärtat, där det förbränns som bränsle i stället för att ansamlas vid hård ansträngning.",
+                "how": "Din genotyp kodar för Asp490-varianten av MCT1, som i labbstudier transporterar laktat långsammare. Vid intensiva intervaller rensas laktat långsammare från blodet, så 'mjölksyrekänslan' kommer tidigare och återhämtningen mellan ansträngningarna tar längre tid.",
+                "ancestral": "Effektiv skyttel (TT).",
+                "yours": "Ditt Resultat: Långsam skyttel (AA)."
             },
             "risks": [
-                "Skada: Hög risk för ruptur av ligament/senor.",
-                "Leder: Kronisk instabilitet eller 'lösa' leder.",
-                "Hud: Möjliga kopplingar till för tidigt slapp hud."
+                "Prestation: Tidigare trötthet vid upprepade högintensiva insatser.",
+                "Återhämtning: Långsammare laktatrensning mellan intervaller.",
+                "Träning: Svarar ofta bättre på längre vila."
             ],
             "action": {
-                "title": "Pre-Hab Protokoll",
-                "body": "Du kan inte träna igenom ledsmärta. Du måste prioritera 'Pre-Hab'-övningar som stärker musklerna runt leden för att avlasta senan. Kollagentillskott (15g) intaget 45 minuter före träning tvingar in näringsämnen i senan.",
+                "title": "Träna Skytteln",
+                "body": "MCT1-nivåerna ökar med träning, så du kan delvis kompensera. Lägg in lugna zon 2-pass för att bygga mitokondriekapacitet, använd aktiv vila mellan hårda intervaller och ta längre pauser i upprepade sprintar i stället för att pressa dig igenom.",
                 "foods": [
-                    "Kollagenpeptider",
-                    "Glycin",
-                    "Isometrisk Träning"
-                ]
-            },
-            "confidence": 4
-        }
-    },
-    "rs8101881": {
-        "risk_genotypes": [
-            "TT",
-            "CT"
-        ],
-        "strength_genotypes": [
-            "CC"
-        ],
-        "data_risk": {
-            "gene": "TFAM",
-            "title": "Den 'mitokondriella arkitekten'",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "TFAM stabiliserar mitokondriellt DNA (mtDNA) och paketerar det säkert. Det skyddar ritningen för dina energikraftverk.",
-                "how": "Din variant leder till lägre nivåer av TFAM. Ditt mitokondriella DNA lämnas oskyddat och instabilt. Det muterar snabbare och producerar mindre energi över tid, vilket bidrar till tidig trötthet och metabolisk åldring.",
-                "ancestral": "Stabil arkitekt (CC).",
-                "yours": "Ditt resultat: Instabil (Energiläckage)."
-            },
-            "risks": [
-                "Energi: Kronisk trötthet eller dålig uthållighet.",
-                "Hjärna: Neurodegeneration kopplad till mitokondriell dysfunktion.",
-                "Åldrande: Accelererad skörhet."
-            ],
-            "action": {
-                "title": "Ketonbränsle",
-                "body": "Dina mitokondrier kämpar med stabilitet. Ketoner (fetter) brinner 'renare' än socker och producerar färre fria radikaler som skulle skada ditt oskyddade DNA. En cyklisk ketogen diet eller exogena ketoner kan bevara din energifunktion.",
-                "foods": [
-                    "MCT-olja",
-                    "Cyklisk ketogen diet",
-                    "Resveratrol"
+                    "Zon 2-kondition",
+                    "Aktiv vila",
+                    "Rödbetor (nitrat)"
                 ]
             },
             "confidence": 3
@@ -2289,108 +2180,38 @@
             }
         }
     },
-    "rs2239681": {
-        "risk_genotypes": [
-            "GG",
-            "AG"
-        ],
-        "strength_genotypes": [
-            "AA"
-        ],
-        "data_risk": {
-            "gene": "NDUFB6",
-            "title": "Länken i 'Elektronkedjan'",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "NDUFB6 är en del av komplex I i dina mitokondrier – det allra första steget för att omvandla mat till energi.",
-                "how": "Din variant skapar en flaskhals i steg 1 av energiproduktionen. Detta minskar insulinkänsligheten och den totala ATP-produktionen (energi). Det är starkt kopplat till typ 2-diabetes eftersom muskelceller inte kan förbränna glukos tillräckligt snabbt.",
-                "ancestral": "Effektivt flöde (AA).",
-                "yours": "Ditt resultat: Flaskhals (Risk för insulinresistens)."
-            },
-            "risks": [
-                "Metabolisk: Insulinresistens i muskelvävnad.",
-                "Energi: Minskad träningskapacitet.",
-                "Åldrande: Mitokondriell dysfunktion är en drivkraft bakom åldrande."
-            ],
-            "action": {
-                "title": "Bypassera komplex I",
-                "body": "Eftersom steg 1 (komplex I) är långsamt, försök att mata steg 2. CoQ10 och succinat hjälper till att kringgå denna flaskhals. Träning är avgörande eftersom det tvingar kroppen att bygga FLER mitokondrier för att kompensera för ineffektiviteten hos varje enskild.",
-                "foods": [
-                    "CoQ10 (Ubiquinol)",
-                    "Styrketräning",
-                    "Alfa-liponsyra"
-                ]
-            },
-            "confidence": 3
-        }
-    },
     "rs8192675": {
         "risk_genotypes": [
-            "CC",
-            "CT"
+            "CC"
         ],
         "strength_genotypes": [
             "TT"
         ],
         "data_risk": {
-            "gene": "SLC2A4",
-            "title": "Dörren för muskelglukos",
+            "gene": "SLC2A2",
+            "title": "Den 'Tysta' Glukossensorn",
             "badge_type": "RISK",
             "mechanisms": {
-                "what": "GLUT4 är dörren som släpper in socker (glukos) i dina muskelceller för att förbrännas som bränsle.",
-                "how": "Din variant (associerad med promotorn) producerar färre dörrar. Dina muskler är 'döva' för sockret som cirkulerar i ditt blod. Istället för att ge energi till ditt träningspass, stannar sockret kvar i blodet (höjer insulinet) eller lagras som fett.",
-                "ancestral": "Många dörrar (TT).",
-                "yours": "Ditt resultat: Få dörrar (Dålig glykogenåterhämtning)."
+                "what": "GLUT2 släpper in glukos i lever- och bukspottkörtelceller så att de kan känna av blodsockret.",
+                "how": "Din CC-genotyp sänker uttrycket av GLUT2 i levern. Levern 'hör' stigande blodsocker lite senare och fortsätter släppa ut glukos längre efter måltider. Fasteglukos och HbA1c tenderar att krypa något uppåt med åren.",
+                "ancestral": "Typisk sensor (TT).",
+                "yours": "Ditt Resultat: Tyst sensor (CC)."
             },
             "risks": [
-                "Kondition: Dålig glykogenåterhämtning efter träning.",
-                "Metabolisk: Muskelresistens mot insulin.",
-                "Vikt: Kolhydrater lagras som fett snarare än muskelbränsle."
+                "Glukos: Något högre fasteglukos och HbA1c.",
+                "Lever: Långsammare växling från glukosutsöndring till lagring efter måltid.",
+                "Läkemedel: Oftast bättre HbA1c-svar på metformin."
             ],
             "action": {
-                "title": "Förtjäna dina kolhydrater",
-                "body": "Du kan inte äta kolhydrater när du är inaktiv. Du måste 'öppna dörrarna' manuellt. Muskelsammandragning (lyfta vikter) tvingar GLUT4 till ytan oberoende av insulin. Ät dina kolhydrater *endast* efter ett träningspass.",
+                "title": "Sprid Kolhydraterna",
+                "body": "Sprid kolhydraterna över dagen och kombinera dem med protein och fibrer så att levern får en mjuk signal. Kontrollera fasteglukos årligen. Om blodsockermedicin någon gång behövs brukar metformin fungera bra för denna genotyp.",
                 "foods": [
-                    "Kolhydrater efter träning",
-                    "Kanel (efterliknar insulin)",
-                    "Promenad efter måltider"
+                    "Protein först",
+                    "Baljväxter & fullkorn",
+                    "Promenad efter maten"
                 ]
             },
             "confidence": 4
-        }
-    },
-    "rs2285477": {
-        "risk_genotypes": [
-            "TT",
-            "CT"
-        ],
-        "strength_genotypes": [
-            "CC"
-        ],
-        "data_risk": {
-            "gene": "COX7A1",
-            "title": "Syrebrännaren",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "COX7A1 är det sista steget (Komplex IV) i den mitokondriella kedjan, där syre faktiskt används för att skapa energi.",
-                "how": "Din variant minskar effektiviteten i denna slutliga förbränning. Du är mindre effektiv på oxidativ fosforylering (aerob energi). Detta kan yttra sig som att du når 'väggen' under konditionsträning tidigare än väntat.",
-                "ancestral": "Hög Effektivitet (CC).",
-                "yours": "Ditt Resultat: Minskad Effektivitet (Aerob Tröghet)."
-            },
-            "risks": [
-                "Kondition: Lägre VO2 Max-potential.",
-                "Metabolisk: Minskad kaloriförbränning i vila."
-            ],
-            "action": {
-                "title": "Träna Kedjan",
-                "body": "Du kan övervinna detta med volym. Lågintensiv steady-state (Zon 2) konditionsträning ökar *densiteten* av mitokondriella enzymer. Rött ljus-terapi (fotobiomodulering) riktar sig specifikt mot Komplex IV (detta gen) för att öka dess aktivitet.",
-                "foods": [
-                    "Rött ljus-terapi",
-                    "Zon 2 Konditionsträning",
-                    "Koppar (Kofaktor)"
-                ]
-            },
-            "confidence": 3
         }
     },
     "rs7946": {
@@ -2560,63 +2381,6 @@
             "confidence": 5
         }
     },
-    "rs350843": {
-        "risk_genotypes": [
-            "TT"
-        ],
-        "strength_genotypes": [
-            "GG",
-            "GT"
-        ],
-        "data_risk": {
-            "gene": "FOXO3",
-            "title": "Genen för 'Århundraden'",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "FOXO3 är en mästerlig övervakare av cellulär hälsa. Den avgör om en cell ska reparera sig själv eller dö (apoptos). Hög aktivitet är starkt kopplad till att leva förbi 100 år.",
-                "how": "Du bär den vanliga varianten, associerad med genomsnittlig livslängd. Du har inte den 'förstärkta' aktiviteten som ses hos århundraden. Dina celler är mindre aggressiva när det gäller att reparera skador från inflammation eller stress.",
-                "ancestral": "Livslängdsförstärkning (GG).",
-                "yours": "Ditt resultat: Standard (Ingen förstärkning)."
-            },
-            "risks": [
-                "Åldrande: Standardhastighet för cellulärt åldrande.",
-                "Inflammation: Mindre skydd mot kronisk inflammatorisk skada."
-            ],
-            "action": {
-                "title": "Efterlikna förstärkningen",
-                "body": "Eftersom du inte har den genetiska förstärkningen måste du trigga FOXO3 manuellt. Den aktiveras av 'Hormetisk Stress'—gynnsamma stressfaktorer. Värme (bastu) och fasta är de två mest kraftfulla sätten att manuellt aktivera denna gen.",
-                "foods": [
-                    "Bastuanvändning",
-                    "Periodisk fasta",
-                    "Gurkmeja"
-                ]
-            },
-            "confidence": 4
-        },
-        "data_strength": {
-            "gene": "FOXO3",
-            "title": "Genen för 'Århundraden'",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "FOXO3 reglerar cellulär reparation och livslängd.",
-                "how": "Du bär den sällsynta 'Livslängds'-varianten (G-allel). Denna genotyp finns i mycket högre frekvenser hos personer som lever till 100+ år. Dina celler har en överlägsen förmåga att reparera DNA-skador och motstå oxidativ stress.",
-                "ancestral": "Standard (TT).",
-                "yours": "Ditt resultat: Livslängdsförstärkning (Motståndskraft)."
-            },
-            "risks": [
-                "Inga: Detta är en rent gynnsam skyddsfaktor."
-            ],
-            "action": {
-                "title": "Bevara fördelen",
-                "body": "Du har en vinnande lott. Slösa inte bort den med en dålig livsstil. Din kropp svarar exceptionellt bra på hälsosamma stimuli. Bibehåll låga insulinnivåer för att hålla FOXO3 aktivt (högt insulin stänger av det).",
-                "foods": [
-                    "Låg sockerhaltig kost",
-                    "Bibehåll hälsosam vikt"
-                ]
-            },
-            "confidence": 4
-        }
-    },
     "rs234706": {
         "risk_genotypes": [
             "AA",
@@ -2722,38 +2486,6 @@
             "confidence": 4
         }
     },
-    "rs2535633": {
-        "title": "Biologisk Ålder & Membranhälsa",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "ELOVL2",
-            "title": "Den Accelererade Klockan",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "ELOVL2 är den hastighetsbegränsande enzymet i syntesen av mycket långkedjiga fleromättade fettsyror (PUFA). Dessa fetter är de strukturella 'byggstenarna' i dina cellmembran och näthinnan.",
-                "how": "Din variant fungerar med reducerad effektivitet. Detta skapar en flaskhals i omvandlingen av kostfetter till den flexibla DHA och EPA som dina celler behöver. Forskning kopplar denna specifika genotyp till snabbare 'Epigenetisk Åldrande' – vilket innebär att dina celler kan åldras biologiskt snabbare än dina kronologiska år på grund av membranstelhet.",
-                "yours": "Ditt Resultat: Minskad Synteseffektivitet."
-            },
-            "action": {
-                "title": "Förbigå Flaskhalsen",
-                "body": "Eftersom din kropp kämpar med att tillverka dessa kritiska fetter, måste du helt kringgå fabriken. Högdos DHA/EPA-tillskott (fiskolja eller algolja) tillhandahåller slutprodukten direkt, vilket håller dina cellmembran flytande och ungdomliga trots den genetiska belastningen."
-            }
-        },
-        "data_strength": {
-            "gene": "ELOVL2",
-            "title": "Den Ålderslösa Fenotypen",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "ELOVL2 är huvudregulatorn för fettsyraförlängning, avgörande för att bibehålla fluiditeten och integriteten hos varje cellmembran i din kropp.",
-                "how": "Du besitter 'Elit'-effektivitetsvarianten. Dina enzymer omvandlar snabbt kostprekursorer till långkedjiga fettsyror (DHA). Detta håller dina cellmembran otroligt flytande och permeabla, vilket är en primär markör för ungdom. Din 'Epigenetiska Klocka' tickar långsammare än genomsnittspopulationen eftersom din cellulära hårdvara ständigt förnyar sig med högkvalitativa material.",
-                "yours": "Ditt Resultat: Elit Synteseffektivitet."
-            },
-            "action": {
-                "title": "Hud- & Synarkitektur",
-                "body": "Din effektiva fettsyrametabolism är ett kosmetiskt supervapen. Den stöder exceptionell hudelasticitet och näthälsa. För att maximera detta, säkerställ ett jämnt intag av Omega-3 – din kropp kommer att använda dem med nära perfekt effektivitet för att bevara din ungdom."
-            }
-        }
-    },
     "rs3731249": {
         "title": "Tumörsuppression",
         "badge_type": "RISK",
@@ -2784,40 +2516,6 @@
                 "title": "Cellulär integritet",
                 "body": "Din kropp är utmärkt på kvalitetskontroll. Stöd detta system genom att minimera oxidativ stress (gifter, bränd mat) så att ditt övervakningssystem inte överväldigas."
             }
-        }
-    },
-    "rs17609940": {
-        "risk_genotypes": [
-            "CC"
-        ],
-        "strength_genotypes": [
-            "CT",
-            "TT"
-        ],
-        "data_risk": {
-            "gene": "IGF1R",
-            "title": "Regleringen av 'Tillväxt vs. Åldrande'",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "IGF-1 är ett tillväxthormon. Det bygger muskler men påskyndar också åldrandet. Genen IGF1R styr din känslighet för detta hormon.",
-                "how": "Din variant (standard) bibehåller hög känslighet. Även om detta hjälper dig att bygga muskler i ungdomen, håller det 'tillväxt'-pedalen nedtryckt i hög ålder, vilket är kopplat till snabbare åldrande. Hundraåringar har ofta den variant som *sänker* känsligheten.",
-                "ancestral": "Minskad Känslighet (Livslängd).",
-                "yours": "Ditt Resultat: Hög Känslighet (Tillväxtläge)."
-            },
-            "risks": [
-                "Åldrande: Avvägning mellan muskeltillväxt och livslängd.",
-                "Metabolisk: Konstant tillväxtsignalering förhindrar reparationsläge."
-            ],
-            "action": {
-                "title": "Cykla Protein",
-                "body": "Du behöver inte högt protein 24/7. För att efterlikna livslängdsgenotypen, använd 'Proteincykel'. Ha dagar med lägre proteinintag för att stänga av tillväxtsignalen (mTOR) och slå på reparationssignalen (Autofagi).",
-                "foods": [
-                    "Proteincykel",
-                    "Fasting Mimicking Diet",
-                    "Växtbaserade Dagar"
-                ]
-            },
-            "confidence": 3
         }
     },
     "rs679620": {
@@ -2885,108 +2583,6 @@
                 ]
             },
             "confidence": 5
-        }
-    },
-    "rs8031440": {
-        "risk_genotypes": [
-            "TT",
-            "CT"
-        ],
-        "strength_genotypes": [
-            "CC"
-        ],
-        "data_risk": {
-            "gene": "ACAN",
-            "title": "Stötdämparen",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "ACAN skapar Aggrecan, ett protein som binder vatten inuti dina broskskivor. Det håller dina leder 'svampiga' och återfuktade.",
-                "how": "Din variant producerar en 'torr svamp'. Ditt brosk håller mindre vatten, vilket gör det sprött och mindre motståndskraftigt mot kompression. Detta leder till ryggsmärta och stela leder.",
-                "ancestral": "Återfuktad Svamp (CC).",
-                "yours": "Ditt Resultat: Torr Svamp (Stelhet)."
-            },
-            "risks": [
-                "Rygg: Diskbråck och kronisk ländryggssmärta.",
-                "Tillväxt: Associerat med tillväxtvärk i ungdomen.",
-                "Flexibilitet: Naturlig stelhet."
-            ],
-            "action": {
-                "title": "Återfukta Disken",
-                "body": "Återfuktning är inte bara vatten; det är salt och mineraler. Du måste vara aggressivt återfuktad för att hålla trycket uppe i dina diskar. Hyaluronsyratillskott kan hjälpa till att dra in vatten i ledvävnaden.",
-                "foods": [
-                    "Hyaluronsyra",
-                    "Elektrolyter",
-                    "Inversionstabell (Dekomprimering)"
-                ]
-            },
-            "confidence": 3
-        }
-    },
-    "rs1728986": {
-        "risk_genotypes": [
-            "CC",
-            "CT"
-        ],
-        "strength_genotypes": [
-            "TT"
-        ],
-        "data_risk": {
-            "gene": "TNXB",
-            "title": "Ledstabilisatorn",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "TNXB producerar Tenascin-X, ett 'klister' som organiserar kollagenfibrer. Det förhindrar att dina leder blir *för* flexibla.",
-                "how": "Din variant leder till ledlaxitet (hypermobilitet). Dina leder är 'lösa'. Även om du kan vara flexibel (utmärkt för yoga), är dina instabila leder helt beroende av muskler för stabilitet, vilket leder till frekventa luxationer eller kronisk smärta.",
-                "ancestral": "Stabila leder (TT).",
-                "yours": "Ditt resultat: Lösa leder (Hypermobilitet)."
-            },
-            "risks": [
-                "Skada: Subluxationer eller luxationer i axel/knä.",
-                "Hud: Stretchig, sammetslen hud som lätt får blåmärken.",
-                "Matsmältning: Tarmproblem relaterade till bindvävslaxitet."
-            ],
-            "action": {
-                "title": "Bygg muskelskydd",
-                "body": "Du kan inte tänka dig till stabilitet genom att stretcha. Du behöver 'muskelskydd'. Styrketräning är inte ett val för dig; det är det enda som håller din skelettstruktur på plats. Undvik överdriven stretching (Yin Yoga) som ytterligare destabiliserar dig.",
-                "foods": [
-                    "Styrketräning",
-                    "C-vitamin",
-                    "Undvik överdriven stretching"
-                ]
-            },
-            "confidence": 4
-        }
-    },
-    "rs934078": {
-        "title": "Sköldkörtelkonvertering",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "DIO2",
-            "title": "Den 'Slöa' Sköldkörteln",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "DIO2 är enzymet som ansvarar för att omvandla inaktivt sköldkörtelhormon (T4) till den aktiva formen (T3) inuti hjärn- och muskelceller.",
-                "how": "Du fungerar som en 'Dålig Konverterare'. Även om dina blodprover visar normala T4-nivåer, kan dina celler lida brist på T3. Detta yttrar sig som 'hjärndimma', svårigheter att gå ner i vikt och trötthet trots normala blodtester.",
-                "yours": "Ditt Resultat: Dålig T4 till T3-konvertering."
-            },
-            "action": {
-                "title": "Selen & Zink",
-                "body": "Maximera kofaktorerna som behövs för konvertering. Om symtomen kvarstår, kanske standard T4-medicinering (Synthroid) inte fungerar bra för dig; du kan svara bättre på kombinationsterapi (T4+T3)."
-            }
-        },
-        "data_strength": {
-            "gene": "DIO2",
-            "title": "Den 'Högenergi'-Sköldkörteln",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "Effektiv dejodinasaktivitet säkerställer att cellerna flödas med aktiva metaboliska hormoner.",
-                "how": "Ditt enzym fungerar perfekt. Du omvandlar snabbt T4 till aktiv T3, vilket håller din metaboliska eld brinnande. Du har sannolikt goda energinivåer, klart tänkande och lättare att hantera kroppssammansättningen.",
-                "yours": "Ditt Resultat: Effektiv Konvertering."
-            },
-            "action": {
-                "title": "Metabol Bas",
-                "body": "Din metaboliska baslinjehastighet stöds av stark hormonell konvertering. Mata den med tillräckligt med kalorier; svält inte detta system."
-            }
         }
     },
     "rs324420": {
@@ -3083,126 +2679,34 @@
             "confidence": 4
         }
     },
-    "rs13278062": {
-        "title": "Cellulär Reparation & Livslängd",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "SIRT1",
-            "title": "Den Sovande Väktaren",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "SIRT1 är känt som 'livslängdsgenen'. Den skannar ditt DNA efter brott och metabolisk skada, koordinerar reparationer och tystar gener som orsakar åldrande.",
-                "how": "Din SIRT1-expression är naturligt lägre. Tänk på det som ett reparationsteam som är underbemannat. Biologisk skada (från sol, socker, stress) ackumuleras snabbare eftersom städteamet inte hinner med röran. Detta gör dig mottaglig för accelererat metaboliskt åldrande.",
-                "yours": "Ditt Resultat: Låg Basnivå-expression."
-            },
-            "action": {
-                "title": "Manuell Aktivering (Hormesis)",
-                "body": "Du måste väcka teamet. SIRT1 aktiveras av 'upplevd knapphet'. Periodisk fasta (16+ timmar) och köldexponering (isbad) är icke-förhandlingsbara för dig. Dessa stressfaktorer lurar din kropp att gå in i överlevnadsläge, vilket tvingar SIRT1 att uppregleras och reparera systemet."
-            }
-        },
-        "data_strength": {
-            "gene": "SIRT1",
-            "title": "Den Tidlösa Fenotypen",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "SIRT1 är befälhavaren för ditt cellulära försvar, reglerar DNA-reparation, inflammation och apoptos (cell död).",
-                "how": "Du har en genetisk uppreglering av denna signalväg. Dina reparationsteam arbetar övertid, dygnet runt. Din kropp upptäcker och fixar DNA-brott med otrolig effektivitet, vilket håller din 'biologiska ålder' yngre än din kronologiska ålder. Du är naturligt resistent mot det metaboliska slitage som det moderna livet medför.",
-                "yours": "Ditt Resultat: Hög Basnivå-expression."
-            },
-            "action": {
-                "title": "Ränteeffekt",
-                "body": "Du har en vinnande lott; spendera den inte allt. Om du kombinerar denna genetiska fördel med fasta och ett rent levnadssätt, har du potential för exceptionell livslängd. Undvik att 'spendera' din fördel på rökning eller överdrivet socker."
-            }
-        }
-    },
-    "rs12594956": {
-        "risk_genotypes": [
-            "AA",
-            "AG"
-        ],
-        "strength_genotypes": [
-            "GG"
-        ],
-        "data_risk": {
-            "gene": "PPARGC1A",
-            "title": "Den 'mitokondriella byggaren'",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "PGC-1alfa är huvudregulatorn för mitokondriell biogenes – den talar om för din kropp att bygga *nya* mitokondrier (energikraftverk) när du tränar.",
-                "how": "Din variant (Gly482Ser) gör detta protein mindre aktivt. Du kämpar med att bygga nya mitokondrier som svar på aerob träning. Du kan uppleva uthållighetsträning som svårare och se långsammare träningsvinster än dina jämnåriga.",
-                "ancestral": "Effektiv byggare (GG).",
-                "yours": "Ditt resultat: Långsam byggare (uthållighetsfördröjning)."
-            },
-            "risks": [
-                "Metabol: Lägre baslinje metabolism.",
-                "Kondition: Ökad risk för typ 2-diabetes på grund av lägre muskelupptag av glukos.",
-                "Hjärna: PGC-1alfa skyddar även nervceller; lägre nivåer kopplas till neurodegeneration."
-            ],
-            "action": {
-                "title": "Kyla & Fasta",
-                "body": "Enbart träning kanske inte är en tillräckligt stark signal för dig. Du behöver starkare utlösare. Kälteexponering (isbad) och fastande konditionsträning är två av de mest potenta sätten att tvinga fram PGC-1alfa-aktivering trots den genetiska resistensen.",
-                "foods": [
-                    "Kalla bad",
-                    "Fasted Cardio",
-                    "PQQ-tillskott"
-                ]
-            },
-            "confidence": 4
-        },
-        "data_strength": {
-            "gene": "PPARGC1A",
-            "title": "Den 'mitokondriella byggaren'",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "PGC-1alfa driver skapandet av nya mitokondrier.",
-                "how": "Du bär på 'hög svarare'-varianten. Din kropp bygger snabbt nya energikraftverk som svar på träning. Du anpassar dig snabbt till uthållighetsträning och har en naturligt högre kapacitet för fettförbränning.",
-                "ancestral": "Riskvariant: Långsam byggare.",
-                "yours": "Ditt resultat: Snabb byggare (atletpotential)."
-            },
-            "risks": [
-                "Energi: Högt dagligt kaloribehov för att driva den metabola maskineriet.",
-                "Åldrande: Generellt skyddande mot metaboliskt åldrande."
-            ],
-            "action": {
-                "title": "Zon 2-träning",
-                "body": "Din kropp älskar aerob träning. Prioritera 'Zon 2'-konditionsträning (konversationstakt) för att maximera din naturliga fördel i mitokondrietäthet.",
-                "foods": [
-                    "Zon 2 Cardio",
-                    "Komplexa kolhydrater"
-                ]
-            },
-            "confidence": 4
-        }
-    },
     "rs2241880": {
         "risk_genotypes": [
-            "AA",
-            "AG"
-        ],
-        "strength_genotypes": [
             "GG"
         ],
+        "strength_genotypes": [
+            "AA"
+        ],
         "data_risk": {
-            "gene": "NOD2",
-            "title": "Tarmens Väktare",
+            "gene": "ATG16L1",
+            "title": "Städpatrullen",
             "badge_type": "RISK",
             "mechanisms": {
-                "what": "NOD2 är en sensor inuti tarmceller som upptäcker bakterier. Den fungerar som 'Säkerhetsvakten' för tarmväggen och utlöser ett försvar om inkräktare kommer för nära.",
-                "how": "Din variant är en 'blind' säkerhetsvakt. Den misslyckas med att känna igen vissa bakterier korrekt. Detta gör att bakterier kan tränga igenom tarmväggen utan strid, vilket utlöser kronisk, djup inflammation (kopplad till Crohns sjukdom).",
-                "ancestral": "Vaksam Vakt (GG).",
-                "yours": "Ditt Resultat: Blind Vakt (Bakteriell Invasion)."
+                "what": "ATG16L1 styr autofagi, cellens återvinningspatrull. I tarmceller kapslar den in inträngande bakterier och bryter ner dem, och hjälper Panethceller att frisätta antimikrobiella granula.",
+                "how": "Du bär två kopior av T300A-varianten. Den gör ATG16L1-proteinet lättare att klyva av kaspas-3 vid stress, så återvinningspatrullen faller isär precis när den behövs. Bakterier överlever längre i tarmväggen och när en kronisk inflammation.",
+                "ancestral": "Stabil patrull (AA).",
+                "yours": "Ditt Resultat: Skör patrull (Ala/Ala)."
             },
             "risks": [
-                "Tarm: Betydligt högre risk för Crohns sjukdom och inflammation i ileum.",
-                "Immunförsvar: Dålig hantering av obalanser i bakteriefloran (SIBO)."
+                "Tarm: Högre risk för Crohns sjukdom, särskilt i ileum.",
+                "Immunförsvar: Långsammare rensning av bakterier inne i celler och mer stress i Panethceller."
             ],
             "action": {
-                "title": "Svält Inkräktarna",
-                "body": "Eftersom din vägg är oförsvarad kan du inte tillåta bakteriell överväxt. Begränsa socker och raffinerade kolhydrater som föder dåliga bakterier. Specific Carbohydrate Diet (SCD) eller Low-FODMAP-dieten är ofta nödvändig för att minska den bakteriella belastningen ditt system måste hantera.",
+                "title": "Stöd Städningen",
+                "body": "Autofagin förstärks av pauserna mellan måltider, så undvik ständigt småätande och håll en nattlig fasta på 12-14 timmar. Ge tarmfloran fibrer och fermenterad mat, och ta långvariga magbesvär på allvar tidigt: hos bärare är inflammation lättare att starta än att stoppa.",
                 "foods": [
-                    "SCD / Low-FODMAP Diet",
-                    "Benbuljong",
-                    "Strikt sockerrbegränsning"
+                    "Nattfasta 12-14 h",
+                    "Fermenterad mat",
+                    "Varierade växtfibrer"
                 ]
             },
             "confidence": 5
@@ -3237,106 +2741,6 @@
             "action": {
                 "title": "Aerob Kapacitet",
                 "body": "Du är byggd för långdistans. Ditt kardiorespiratoriska system är mycket effektivt och svarar snabbt på Zon 2-träning."
-            }
-        }
-    },
-    "rs3758391": {
-        "risk_genotypes": [
-            "CC",
-            "CT"
-        ],
-        "strength_genotypes": [
-            "TT"
-        ],
-        "data_risk": {
-            "gene": "SIRT3",
-            "title": "Den 'mitokondriella väktaren'",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "SIRT3 är den huvudsakliga 'sirtuin' som finns inuti dina mitokondrier. Den håller dina energifabriker unga genom att inaktivera reaktiva syreföreningar.",
-                "how": "Din variant minskar SIRT3-aktiviteten. Dina mitokondrier 'rostar' snabbare. Detta kopplas till 'Metabolisk inflexibilitet' – oförmågan att effektivt växla mellan att förbränna kolhydrater och fetter, vilket leder till tidigare metabolisk åldrande.",
-                "ancestral": "Hög aktivitet (TT).",
-                "yours": "Ditt resultat: Låg aktivitet (Metabolisk åldrande)."
-            },
-            "risks": [
-                "Metabolisk: Högre risk för metaboliskt syndrom.",
-                "Energi: Minskning av mitokondriell funktion med åldern."
-            ],
-            "action": {
-                "title": "Snabb att aktivera",
-                "body": "SIRT3 aktiveras av frånvaro av mat. Periodisk fasta (16:8) är det mest kraftfulla verktyget för att slå på denna gen. Högfettkost (Keto) stimulerar också SIRT3-aktivitet mer än kolhydratrik kost.",
-                "foods": [
-                    "Periodisk fasta",
-                    "Olivolja",
-                    "NAD+-boosters"
-                ]
-            },
-            "confidence": 3
-        }
-    },
-    "rs676925": {
-        "risk_genotypes": [
-            "AA",
-            "AG"
-        ],
-        "strength_genotypes": [
-            "GG"
-        ],
-        "data_risk": {
-            "gene": "MMP1",
-            "title": "Kollagenätaren",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "MMP1 är ett enzym som bryter ner skadat kollagen i huden.",
-                "how": "Din variant (2G-allelen) är 'Hyperaktiv'. Den bryter ner kollagen för aggressivt, särskilt efter solexponering. Du bryter ner hudens strukturella matris snabbare än du kan bygga upp den igen, vilket leder till för tidiga rynkor och slapphet.",
-                "ancestral": "Balanserad omsättning (GG).",
-                "yours": "Ditt resultat: Överaktiv (accelererat åldrande)."
-            },
-            "risks": [
-                "Hud: För tidiga rynkor och fotoåldrande.",
-                " Leder: Nedbrytning av ledvävnad."
-            ],
-            "action": {
-                "title": "Solskydd",
-                "body": "Solljus är utlösaren som talar om för MMP1 att börja bryta ner. Du måste använda zinkbaserat solskyddsmedel och bära hatt. Retinol (vitamin A) hjälper till att sakta ner MMP-uttrycket och tvingar huden att bygga upp kollagen snabbare.",
-                "foods": [
-                    "Retinol/Tretinoin",
-                    "Zinksolskydd",
-                    "Kollagenpulver"
-                ]
-            },
-            "confidence": 4
-        }
-    },
-    "rs1805086": {
-        "title": "Myogen reglering",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "MYF5",
-            "title": "Effektivitetsmuskeln",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "MYF5 är en transkriptionsfaktor som fungerar som 'startknappen' för muskelstamceller (satellitceller) att smälta samman med befintliga fibrer och skapa tillväxt.",
-                "how": "Din 'startknapp' är trög. Du rekryterar färre satellitceller som svar på mekanisk spänning. Din kropp motstår naturligt att lägga till metaboliskt dyr muskelvävnad och föredrar ett smalt, kalorismart tillstånd. Du är den klassiska 'svårbyggaren' som kämpar för att lägga på sig massa.",
-                "yours": "Ditt resultat: Låg rekrytering av satellitceller."
-            },
-            "action": {
-                "title": "Metabol ackumulering",
-                "body": "Mekanisk spänning räcker inte. Du behöver 'metabol stress' – höga repetitioner, korta vilopauser och 'pumpen' – för att kemiskt tvinga dina satellitceller att aktiveras. Ät med ett överskott på 500+ kalorier, annars kommer du inte att växa."
-            }
-        },
-        "data_strength": {
-            "gene": "MYF5",
-            "title": "Den 'anabola' svararen",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "MYF5 reglerar spridningen av muskelstamceller, vilket är den biologiska förutsättningen för hypertrofi (tillväxt).",
-                "how": "Du är en 'hög svarare'. Även måttlig styrketräning utlöser en kaskad av satellitcellsaktivering. Din kropp är angelägen om att reparera mikroskador genom att lägga ner nytt kontraktilt vävnad. Du lägger på dig densitet och storlek betydligt snabbare än genomsnittspopulationen givet samma stimulans.",
-                "yours": "Ditt resultat: Hög rekrytering av satellitceller."
-            },
-            "action": {
-                "title": "Progressiv överbelastning",
-                "body": "Din genetik kommer att hantera tillväxten; din uppgift är att ge signalen. Fokusera på tunga basövningar (knäböj, bänkpress, marklyft) och mata maskinen med högt proteinintag (1g per pund kroppsvikt)."
             }
         }
     },
@@ -3406,104 +2810,6 @@
             }
         }
     },
-    "rs1254337": {
-        "title": "Urattransport",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "SLC2A9",
-            "title": "Transportören som 'samlar på sig'",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "SLC2A9 kodar för GLUT9-transportören, den primära portvakten i njuren som bestämmer om urinsyra ska utsöndras via urinen eller återföras till blodet.",
-                "how": "Din transportör är hyperaktiv. Den återabsorberar aggressivt urinsyra tillbaka till blodbanan. Detta håller dina serumhalter kroniskt nära mättnadspunkten. Du är en 'icke-utsöndrare'. Även små mängder fruktos eller puriner kan höja dina nivåer tillräckligt för att orsaka bildning av giktkristaller.",
-                "yours": "Ditt resultat: Hög återabsorptionshastighet."
-            },
-            "action": {
-                "title": "Alkalisera & Späd ut",
-                "body": "Hydrering är fysik: mer vatten ger lägre mättnad. Du måste också strikt begränsa fruktos (socker), eftersom fruktosmetabolism genererar urinsyra som en biprodukt. Körsbärsextrakt är mycket effektivt för din genotyp."
-            }
-        },
-        "data_strength": {
-            "gene": "SLC2A9",
-            "title": "Fenotypen 'spolar ut'",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "SLC2A9 upprätthåller balansen av urinsyra, som fungerar som en antioxidant på normala nivåer men som ett toxin vid höga nivåer.",
-                "how": "Din variant skapar en 'slapp' grind. Dina njurar dumpar urinsyra i urinen med exceptionell effektivitet. Du upprätthåller naturligt låga serumuratnivåer, vilket gör dig nästan immun mot kostinducerad gikt och skyddar dina blodkärl från uratinducerad hypertoni.",
-                "yours": "Ditt resultat: Snabb utsöndring."
-            },
-            "action": {
-                "title": "Kostfrihet",
-                "body": "Medan andra måste frukta rött kött och skaldjur, är dina njurar tillräckligt effektiva för att klara purinbelastningen. Du har en massiv biologisk buffert mot inflammation."
-            }
-        }
-    },
-    "rs6020": {
-        "title": "Koagulationsfaktorer",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "F2",
-            "title": "Det 'Tjocka' Blodet",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "Protrombin (Faktor II) är prekursorproteinet som klyvs till Trombin, enzymet som omvandlar flytande blod till en fast gel (koagel).",
-                "how": "Du bär på G20210A-mutationen. Detta är en 'gain-of-function'-mutation i mRNA, vilket gör att din lever överproducerar Protrombin. Du har 30% mer koagulationsfaktor i blodet än normalt. Detta gör ditt blod till 'slam', redo att koagulera vid minsta provokation (som att sitta på ett flygplan).",
-                "yours": "Ditt Resultat: Protrombinöverproduktion."
-            },
-            "action": {
-                "title": "Cirkulationsprotokoll",
-                "body": "Stas är döden. Sitt aldrig stilla i mer än 2 timmar utan att röra på dig. Du måste hålla dig hyperhydrerad för att minska blodets viskositet. Undvik Östrogen (p-piller/HRT) då det ytterligare förtjockar blodet."
-            }
-        },
-        "data_strength": {
-            "gene": "F2",
-            "title": "Det 'Optimala' Flödet",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "Koagulationskaskaden är en känslig balans mellan blödning och koagulering.",
-                "how": "Dina Protrombinomivåer är perfekt reglerade. Du har exakt rätt mängd koagulationsfaktor för att omedelbart täta ett sår, men inte tillräckligt för att utlösa slumpmässiga koagler under resor eller stress. Din vaskulära riskprofil är optimal på baslinjenivå.",
-                "yours": "Ditt Resultat: Optimal Hemodynamik."
-            },
-            "action": {
-                "title": "Vaskulär Hälsa",
-                "body": "Du har ett naturligt skydd mot de koagulationsrisker som är förknippade med åldrande. Bibehåll detta genom att vara aktiv och hydrerad."
-            }
-        }
-    },
-    "rs17608": {
-        "risk_genotypes": [
-            "TT",
-            "CT"
-        ],
-        "strength_genotypes": [
-            "CC"
-        ],
-        "data_risk": {
-            "gene": "SERPINA1",
-            "title": "Lungskyddaren",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "SERPINA1 producerar Alpha-1-antitrypsin, ett protein som täcker lungorna och skyddar dem från inflammation och rök-/partikelskador.",
-                "how": "Din variant (S- eller Z-allelen) producerar ett defekt protein som fastnar i levern och inte når lungorna. Dina lungor lämnas oskyddade. Rök eller föroreningar orsakar snabb, permanent skada (emfysem) mycket snabbare än hos andra.",
-                "ancestral": "Skyddad (CC).",
-                "yours": "Ditt resultat: Oskyddad (Lungfragilitet)."
-            },
-            "risks": [
-                "Lungor: Hög risk för KOL/emfysem vid exponering för rök.",
-                "Lever: Det instängda proteinet kan belasta levern."
-            ],
-            "action": {
-                "title": "Noll Tolerans för Rök",
-                "body": "Du har ingen biologisk buffert mot rök. Cigarett-, e-cigarett- eller passiv rökning är exceptionellt farligt för dig. Du måste använda HEPA-luftfilter hemma för att minska partikelbelastningen som dina oskyddade lungor måste hantera.",
-                "foods": [
-                    "HEPA-filter",
-                    "Noll Rök",
-                    "NAC (Lungstöd)"
-                ]
-            },
-            "confidence": 5
-        }
-    },
     "rs1799990": {
         "risk_genotypes": [
             "AA",
@@ -3540,102 +2846,67 @@
     },
     "rs1047303": {
         "risk_genotypes": [
-            "CC",
-            "CT"
-        ],
-        "strength_genotypes": [
-            "TT"
-        ],
-        "data_risk": {
-            "gene": "HSD17B3",
-            "title": "Testosteron-avslutaren",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "HSD17B3 omvandlar androstenedion till aktivt testosteron. Det är det sista steget i testosteronproduktionen.",
-                "how": "Din variant minskar enzymets effektivitet. Du kan ha gott om prekursorhormoner, men du kämpar med att slutföra jobbet och skapa den aktiva testosteronmolekylen. Detta kan yttra sig som lägre vitalitet eller svårigheter att bygga muskler.",
-                "ancestral": "Effektiv (TT).",
-                "yours": "Ditt resultat: Ineffektiv (Låg T-produktion)."
-            },
-            "risks": [
-                "Hormonell: Lägre testosteronnivåer.",
-                "Metabolisk: Minskad insulinkänslighet på grund av lågt T."
-            ],
-            "action": {
-                "title": "Zink & Styrketräning",
-                "body": "Detta enzym är starkt zinkberoende. Se till att zinknivåerna är optimala. Tung styrketräning (lyfta vikter) skickar en 'efterfrågesignal' som tvingar kroppen att uppreglera detta enzym för att möta behovet av testosteron.",
-                "foods": [
-                    "Zink (Ostron/Nötkött)",
-                    "Tung Styrketräning",
-                    "Sömn"
-                ]
-            },
-            "confidence": 3
-        }
-    },
-    "rs45446698": {
-        "risk_genotypes": [
             "CC"
         ],
         "strength_genotypes": [
-            "TT",
-            "TC"
+            "AA"
         ],
         "data_risk": {
-            "gene": "CYP3A5",
-            "title": "Kortisolrensaren",
+            "gene": "HSD3B1",
+            "title": "Androgenernas Bakdörr",
             "badge_type": "RISK",
             "mechanisms": {
-                "what": "CYP3A5 hjälper till att rensa kortisol (stresshormon) från kroppen.",
-                "how": "Du är en 'icke-uttryckare' (vanligt i många populationer). Du producerar inte detta enzym. Du förlitar dig helt på CYP3A4 för att rensa stress. Detta innebär att kortisol dröjer sig kvar i ditt system längre efter en stressande händelse. Du förblir 'uppvarvad' långt efter att hotet är borta.",
-                "ancestral": "Uttryckare (TT).",
-                "yours": "Ditt resultat: Icke-uttryckare (Kvarvarande stress)."
+                "what": "HSD3B1 omvandlar DHEA från binjurarna till androstendion, steget som förser testosteron och DHT utanför testiklarna.",
+                "how": "Din CC-genotyp kodar för 1245C-enzymet (Thr367), som motstår nedbrytning och ansamlas i vävnaden. Mer DHEA från binjurarna omvandlas lokalt till potenta androgener, vilket spelar störst roll i prostatan och när testosteron trycks ned medicinskt.",
+                "ancestral": "Typisk omsättning (AA).",
+                "yours": "Ditt Resultat: Stabilt enzym (1245C/C)."
             },
             "risks": [
-                "Stress: Högt baslinjekortisol.",
-                "Sömn: Känsla av 'trött men uppvarvad' på natten.",
-                "Salt: Högre saltkänslighet på grund av kortisol."
+                "Prostata: Snabbare progression av hormonbehandlad prostatacancer har rapporterats.",
+                "Hormoner: Högre lokal androgenproduktion från binjureförstadier."
             ],
             "action": {
-                "title": "Aktiv Avslappning",
-                "body": "Du kan inte bara 'vänta' på att lugna ner dig; kemiskt sett fortsätter signalen. Du måste aktivt stänga av den. Andningsövningar (Box Breathing) och tillskott av fosfatidylserin hjälper till att sänka kortisolnivåerna manuellt.",
+                "title": "Känn Din Profil",
+                "body": "Män bör dela detta resultat med läkare om prostatabehandling någonsin blir aktuell, eftersom det förutsäger hur väl androgenblockad fungerar. I vardagen: håll vikt, alkohol och inflammation låga, vilket alla påverkar androgenbalansen.",
                 "foods": [
-                    "Fosfatidylserin",
-                    "Helig basilika",
-                    "Andningsövningar"
+                    "Korsblommiga grönsaker",
+                    "Grönt te",
+                    "Begränsa alkohol"
                 ]
             },
             "confidence": 4
         }
     },
-    "rs1800252": {
+    "rs45446698": {
         "risk_genotypes": [
-            "CC",
-            "CT"
+            "GT",
+            "GG"
         ],
         "strength_genotypes": [
             "TT"
         ],
         "data_risk": {
-            "gene": "COL2A1",
-            "title": "Byggstenen för Rygg och Led",
+            "gene": "CYP3A7",
+            "title": "DHEA-Avtappningen",
             "badge_type": "RISK",
             "mechanisms": {
-                "what": "COL2A1 producerar Kollagen typ II, den specifika typen som finns i brosk och ryggkotor.",
-                "how": "Din variant skapar strukturell svaghet i detta kollagen. Dina ryggkotor och knäbrosk är mindre robusta. Du är mer benägen för diskbråck i ländryggen ('prolaps') och för tidigt slitage i knäna.",
-                "ancestral": "Starkt Brosk (TT).",
-                "yours": "Ditt Resultat: Svagt Brosk (Risk för Diskproblem)."
+                "what": "CYP3A7 bryter ner DHEA-S, din viktigaste hormonreserv från binjurarna.",
+                "how": "Normalt stängs CYP3A7 av efter födseln. Din *1C-variant byter in en promotor av vuxentyp, så enzymet förblir aktivt i levern. Det hydroxylerar DHEA-S, så ditt DHEA-S och närliggande androgenförstadier i blodet ligger klart lägre.",
+                "ancestral": "Avstängd efter födseln (TT).",
+                "yours": "Ditt Resultat: Aktiv i vuxen ålder (*1C)."
             },
             "risks": [
-                "Rygg: Ländryggssjukdom och ischias.",
-                "Leder: Tidigt slitage i knäna."
+                "Hormoner: Lägre DHEA-S och mindre androgenreserv från binjurarna.",
+                "Energi: Möjligen lägre ork och libido när andra faktorer samverkar.",
+                "Läkemedel: Kan bryta ner vissa CYP3A-läkemedel snabbare."
             ],
             "action": {
-                "title": "Rygg-Hygien",
-                "body": "Din ryggrad är ömtålig. Du måste praktisera strikt 'Rygg-Hygien'. Undvik att böja ryggraden under belastning (felaktig marklyftsform). Dekompression (hängning/inversion) hjälper till att återfukta diskarna. Kollagen typ II (från kycklingbröstben) riktar sig specifikt mot denna vävnad.",
+                "title": "Testa, Gissa Inte",
+                "body": "Ta ett blodprov för DHEA-S innan du drar slutsatser; din utgångsnivå är låg. Prioritera sömn, styrketräning och stresshantering, och diskutera eventuella DHEA-tillskott med läkare i stället för att självmedicinera.",
                 "foods": [
-                    "Kollagen Typ II",
-                    "Dekomprimering",
-                    "Kärnmuskelstabilitet"
+                    "Sömn 7-9 h",
+                    "Styrketräning",
+                    "Stresshantering"
                 ]
             },
             "confidence": 4
@@ -3776,72 +3047,37 @@
     },
     "rs1110400": {
         "risk_genotypes": [
+            "CT",
+            "CC"
+        ],
+        "strength_genotypes": [
             "TT"
         ],
-        "strength_genotypes": [
-            "CC",
-            "CT"
-        ],
         "data_risk": {
-            "gene": "SOD1",
-            "title": "Cellens Rostskydd",
+            "gene": "MC1R",
+            "title": "Den Svaga Pigmentbrytaren",
             "badge_type": "RISK",
             "mechanisms": {
-                "what": "SOD1 är det primära antioxidantenzymet i cytosolen (cellens huvudsakliga vätska). Det neutraliserar superoxid, en farlig fri radikal.",
-                "how": "Din variant minskar enzymets stabilitet. Det bryts ned snabbare, vilket gör dina celler sårbara för oxidativ rost. Denna ackumulering av skada är en generell drivkraft för åldrande och neurodegeneration.",
-                "ancestral": "Stabilt enzym (CC).",
-                "yours": "Ditt resultat: Instabilt (Oxidativ stress)."
+                "what": "MC1R är strömbrytaren på pigmentcellerna. När solen träffar huden säger den åt dem att bilda mörkt eumelanin, pigmentet som skyddar DNA mot UV.",
+                "how": "Du bär I155T-varianten, en av de starka 'rött hår'-varianterna. Din brytare svarar svagt, så pigmentcellerna bildar mer rött feomelanin, som skyddar dåligt och självt kan bilda fria radikaler i UV-ljus.",
+                "ancestral": "Stark brytare (TT).",
+                "yours": "Ditt Resultat: Svag brytare (I155T-bärare)."
             },
             "risks": [
-                "Hjärna: Oxidativ skada på nervceller.",
-                "Öga: Högre risk för grå starr.",
-                "Allmänt: Accelererat biologiskt åldrande."
+                "Hud: Bränner sig lätt och blir sällan brun.",
+                "Hud: Högre livstidsrisk för melanom och annan hudcancer.",
+                "Åldrande: Snabbare UV-driven hudåldring."
             ],
             "action": {
-                "title": "Koppar- & Zinkbalans",
-                "body": "SOD1 är ett koppar/zink-beroende enzym. Om du har brist på endera, misslyckas enzymet. Se till att du får tillräckligt med zink (immunförsvar) balanserat med koppar (inälvsmat/choklad) för att hålla detta rostskydd igång.",
+                "title": "Skuggan Är Ditt Melanin",
+                "body": "Din hud kan inte bygga upp en stark solbränna, så skyddet måste komma utifrån. Använd SPF 30-50 dagligen på exponerad hud, sök skugga mitt på dagen och låt kontrollera dina födelsemärken regelbundet. Antioxidantrik mat hjälper men ersätter inte solskydd.",
                 "foods": [
-                    "Ostron (Zink)",
-                    "Mörk choklad (Koppar)",
-                    "Melon (SOD-liknande föreningar)"
+                    "Tomater (lykopen)",
+                    "Grönt te",
+                    "Bladgrönsaker"
                 ]
             },
-            "confidence": 4
-        }
-    },
-    "rs3741942": {
-        "risk_genotypes": [
-            "AA",
-            "AG"
-        ],
-        "strength_genotypes": [
-            "GG"
-        ],
-        "data_risk": {
-            "gene": "NDUFS2",
-            "title": "Energi-kedjans Ankare",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "NDUFS2 är en kärnsubenhet i Mitokondriella komplex I. Det är ankaret som tillåter elektroner att flöda in i energikedjan.",
-                "how": "Din variant skapar ett 'löst' ankare. Elektroner läcker ut ur kedjan innan de kan skapa energi. Dessa läckta elektroner blir ROS (fria radikaler), vilket orsakar trötthet och skada samtidigt.",
-                "ancestral": "Stabilt Ankare (GG).",
-                "yours": "Ditt Resultat: Läckande Ankare (Trötthet/ROS)."
-            },
-            "risks": [
-                "Energi: Nedsatt träningskapcitet och trötthet.",
-                "Metabolisk: Minskad fettförbränningskapacitet.",
-                "Syn: Vävnader med högt energibehov (näthinnan) drabbas först."
-            ],
-            "action": {
-                "title": "Täpp till Läckan",
-                "body": "Eftersom ditt komplex I läcker kan du kringgå det. Succinat (ett tillskott) matar komplex II direkt och hoppar över det trasiga steget. Röd Ljusterapi hjälper också till att stimulera komplex IV, vilket drar elektroner genom kedjan snabbare för att förhindra läckor.",
-                "foods": [
-                    "Röd Ljusterapi",
-                    "Äppelsyra",
-                    "CoQ10"
-                ]
-            },
-            "confidence": 3
+            "confidence": 5
         }
     },
     "rs2486758": {
@@ -3946,75 +3182,6 @@
                 ]
             },
             "confidence": 5
-        }
-    },
-    "rs2071403": {
-        "risk_genotypes": [
-            "GG",
-            "GA"
-        ],
-        "strength_genotypes": [
-            "AA"
-        ],
-        "data_risk": {
-            "gene": "THRB",
-            "title": "Sköldkörtelreceptorn",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "THRB är receptorn som fångar upp sköldkörtelhormonet T3 och sätter igång din ämnesomsättning.",
-                "how": "Din variant har nedsatt känslighet. Du kan ha gott om sköldkörtelhormon i blodet, men dina celler 'hör' det inte. Du kan ha alla symtom på hypotyreos (trötthet, viktuppgång) trots att du har 'perfekta' blodprovsresultat.",
-                "ancestral": "Känslig Receptor (AA).",
-                "yours": "Ditt Resultat: Okänslig Receptor (Hypo-symtom)."
-            },
-            "risks": [
-                "Metabolism: Motståndskraftig viktnedgång.",
-                "Energi: Kronisk trötthet.",
-                "Hjärta: Kolesterolnivåer kan vara högre på grund av låg sköldkörtelavkänning i levern."
-            ],
-            "action": {
-                "title": "Zink för Känslighet",
-                "body": "Zink krävs för att sköldkörtelreceptorn ska binda till DNA. Högdos Zink (30mg) kan ibland förbättra receptorernas känslighet. Du behöver också vara aggressiv med att ta bort receptorblockerare som Klor och Fluor (vattenfilter).",
-                "foods": [
-                    "Ostron (Zink)",
-                    "Filtrerat Vatten",
-                    "Vitamin A"
-                ]
-            },
-            "confidence": 4
-        }
-    },
-    "rs1049434_TIER2": {
-        "risk_genotypes": [
-            "AA"
-        ],
-        "strength_genotypes": [
-            "GG",
-            "GA"
-        ],
-        "data_risk": {
-            "gene": "CKM",
-            "title": "Energiåtervinnaren",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "Kreatinkinas (CKM) återvinner ATP-energi under explosiva rörelser (sprint, lyft). Det är ditt 10-sekunders energibatteri.",
-                "how": "Din variant minskar effektiviteten av denna återvinning. Ditt 'batteri' laddas ur snabbare under högintensiva utbrott. Du blir snabbt trött under tunga lyft eller sprinter och tar längre tid att återhämta dig mellan set.",
-                "ancestral": "Snabb Återvinning (GG).",
-                "yours": "Ditt Resultat: Långsam Återvinning (Krafttrötthet)."
-            },
-            "risks": [
-                "Kondition: Sämre prestation inom CrossFit eller HIIT.",
-                "Muskler: Högre nivåer av muskelnedbrytningsmarkörer efter träning."
-            ],
-            "action": {
-                "title": "Ladda Batteriet",
-                "body": "Eftersom återvinningsmaskinen är långsam måste du göra batteriet större. Kreatinmonohydrat (5g dagligen) är ett måste för dig. Det mättar muskeln med rå bränsle och döljer enzymets ineffektivitet.",
-                "foods": [
-                    "Kreatinmonohydrat",
-                    "Rött Kött",
-                    "Längre Viloperioder"
-                ]
-            },
-            "confidence": 4
         }
     },
     "rs2228570": {
@@ -4215,40 +3382,6 @@
             }
         }
     },
-    "rs5516": {
-        "risk_genotypes": [
-            "AA",
-            "AG"
-        ],
-        "strength_genotypes": [
-            "GG"
-        ],
-        "data_risk": {
-            "gene": "F5",
-            "title": "Koagulationsfaktorn",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "Detta är den sekundära riskvarianten för Faktor V (H1299R), skild från den berömda Leidenmutationen men som verkar på samma väg.",
-                "how": "Även om den är mildare än Leiden, ökar denna variant fortfarande benägenheten att bilda blodproppar (trombofili). Ditt blod är 'klibbigare' än genomsnittet. Om den kombineras med andra risker för blodproppsbildning (rökning, långvarigt sittande) ökar chansen för en propp markant.",
-                "ancestral": "Normalt flöde (GG).",
-                "yours": "Ditt resultat: Klibbigt blod (mild risk för blodproppar)."
-            },
-            "risks": [
-                "Hjärta/kärl: Venös trombos.",
-                "Graviditet: Ökad risk för komplikationer på grund av blodproppar i moderkakan."
-            ],
-            "action": {
-                "title": "Vätskedisciplin",
-                "body": "Uttorkning är din fiende eftersom det förtjockar blodet. Du måste vara disciplinerad med ditt vätskeintag under flygresor eller långa bilresor. Fiskolja hjälper till att naturligt minska blodplättarnas klibbighet.",
-                "foods": [
-                    "Omega-3",
-                    "Vätskeintag",
-                    "Rörelse varannan timme"
-                ]
-            },
-            "confidence": 4
-        }
-    },
     "rs1800498": {
         "title": "Belöningssystem",
         "badge_type": "RISK",
@@ -4310,38 +3443,6 @@
             "action": {
                 "title": "Djupgående Arbete",
                 "body": "Du har en sällsynt biologisk fördel för mästerskap. Du kan tolerera tristessen i övning bättre än 80% av befolkningen. Använd detta för att bemästra svåra färdigheter."
-            }
-        }
-    },
-    "rs2740574_dupfix": {
-        "title": "Bredspektrumavgiftning",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "CYP3A4",
-            "title": "Den 'överväldigade' levern",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "CYP3A4 är det viktigaste enzymet i kroppen och metaboliserar 50 % av alla läkemedel, hormoner och toxiner.",
-                "how": "Din enzymaktivitet är låg. Ämnen dröjer sig kvar i ditt blod. En standarddos av medicin fungerar som en 'dubbel dos' för dig. Du är mycket känslig för biverkningar och koffein kan orsaka darrningar som varar i många timmar.",
-                "yours": "Ditt resultat: Långsam metabolism."
-            },
-            "action": {
-                "title": "Mikrodosering",
-                "body": "Börja alltid med halva rekommenderade dosen för nya kosttillskott eller läkemedel (under läkares övervakning). Din kropp behöver mer tid för att eliminera kemikalier. Undvik grapefruktjuice, som saktar ner detta enzym ytterligare."
-            }
-        },
-        "data_strength": {
-            "gene": "CYP3A4",
-            "title": "Den 'järniga' skölden",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "CYP3A4 fungerar som den primära förbrännaren för främmande kemikalier som kommer in i kroppen.",
-                "how": "Din lever är en fästning. Du metaboliserar läkemedel och toxiner med exceptionell hastighet. Detta förhindrar ackumulering och toxicitet. Du kan hantera koffein, miljöexponeringar och läkemedel med minimala biverkningar.",
-                "yours": "Ditt resultat: Snabb metabolism."
-            },
-            "action": {
-                "title": "Motståndskraft",
-                "body": "Du är den omvända 'kanariefågeln i gruvan' – du överlever medan andra blir sjuka. Kom bara ihåg: snabb metabolism innebär att vissa mediciner kan sluta verka snabbare än förväntat."
             }
         }
     },
@@ -4793,38 +3894,6 @@
             }
         }
     },
-    "rs521674": {
-        "title": "Kodning av Emotionella Minnen",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "ADRA2B",
-            "title": "Det 'Levande' Minnet",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "ADRA2B-receptorn reglerar frisättningen av noradrenalin i amygdala, hjärnans känslocenter.",
-                "how": "Du bär på deletionsvarianten. Dina receptorer är överaktiva under emotionella händelser. Du kodar 'blixtminnen' – särskilt negativa – med extrem klarhet. Du minns mer sannolikt en kritik från för 10 år sedan med levande detaljer än en komplimang från igår. Detta skapar en biologisk sårbarhet för PTSD och grubblerier.",
-                "yours": "Ditt Resultat: Hög Emotionell Retention."
-            },
-            "action": {
-                "title": "Aktiv Omramning",
-                "body": "Du kan inte bara 'glömma'. Du måste skriva om minnet. Tekniker som EMDR eller aktivt dagboksskrivande är avgörande för att bearbeta negativa händelser så att de inte blir permanenta trauman."
-            }
-        },
-        "data_strength": {
-            "gene": "ADRA2B",
-            "title": "Det 'Motståndskraftiga' Sinnet",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "Normal noradrenalin-signalering tillåter hjärnan att prioritera information utan att fästa överdriven emotionell vikt.",
-                "how": "Du bär inte på deletionen. Din amygdala 'överstämplar' inte negativa minnen med adrenalin. Du kan uppleva en stressande händelse, bearbeta den och gå vidare utan att den dröjer sig kvar som en traumatisk flashback. Du har en naturlig 'Teflon'-kvalitet gällande emotionell stress.",
-                "yours": "Ditt Resultat: Normal Retention."
-            },
-            "action": {
-                "title": "Emotionell Stabilitet",
-                "body": "Du är en stabiliserande kraft för andra. Din förmåga att släppa det förflutna gör att du kan fokusera tydligt på framtiden."
-            }
-        }
-    },
     "rs762551": {
         "title": "Koffeinstoffskifte",
         "badge_type": "RISK",
@@ -4931,38 +4000,6 @@
             "mechanisms": {
                 "what": "Lipoproteinlipas (LPL) är enzymet som sitter på blodkärlsväggarna och som rensar bort fett (triglycerider) från blodbanan efter en måltid.",
                 "how": "Ditt enzym är trögt. När du äter en fet måltid stannar fettet kvar i blodet i timmar längre än normalt. Denna 'postprandiella lipemi' skadar artärerna och ökar risken för hjärtsjukdom, även om ditt fastande kolesterol ser bra ut.",
-                "yours": "Ditt resultat: Långsam fettclearance."
-            },
-            "action": {
-                "title": "Fettfördelning",
-                "body": "Ät inte 'fettbomber'. Du behöver sprida ditt fettintag över dagen. Periodisk fasta är kraftfullt här eftersom det ger ditt långsamma LPL-enzym tid att komma ikapp och rensa blodet."
-            }
-        },
-        "data_strength": {
-            "gene": "LPL",
-            "title": "Fettförbrännaren",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "Snabb LPL-aktivitet säkerställer att blodlipider omedelbart tas bort och används för energi.",
-                "how": "Ditt LPL-enzym är aggressivt. Du tar omedelbart bort triglycerider från blodet, vilket håller dina artärer rena och klara. Du kanaliserar kostfett direkt till vävnader för förbränning (energi) istället för att låta det dröja sig kvar i cirkulationen.",
-                "yours": "Ditt resultat: Snabb fettclearance."
-            },
-            "action": {
-                "title": "Bränslepreferens",
-                "body": "Du är väl lämpad att hantera kostfett. Din kropp ser fett som en högoktanig bränslekälla snarare än en lagringsrisk."
-            }
-        }
-    },
-    "rs328_TIER2": {
-        "title": "Triglyceridclearance",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "LPL",
-            "title": "Slammet 'efter måltiden'",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "Lipoproteinlipas (LPL) är enzymet som sitter på blodkärlsväggarna och som rensar bort fett (triglycerider) från blodbanan efter en måltid.",
-                "how": "Ditt enzym är trögt. När du äter en fet måltid stannar fettet kvar i blodet i flera timmar längre än normalt. Denna 'postprandiella lipemi' skadar artärerna och ökar risken för hjärtsjukdom, även om ditt fastande kolesterol ser bra ut.",
                 "yours": "Ditt resultat: Långsam fettclearance."
             },
             "action": {
@@ -5273,38 +4310,6 @@
             }
         }
     },
-    "rs699005": {
-        "title": "Kollagenstruktur",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "COL1A1",
-            "title": "Risk för Mjukdelsskada",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "COL1A1 producerar Typ I Kollagen, den primära strukturella komponenten i senor, ligament och ben.",
-                "how": "Din variant förändrar tvärbindningsstrukturen hos kollagenfibriller. Dina senor är något mer 'spröda' eller oorganiserade. Detta ökar signifikant risken för korsbandsskador, hälseneruptur och andra mjukdelsskador under explosiva rörelser.",
-                "yours": "Ditt Resultat: Minskad Kollagenintegritet."
-            },
-            "action": {
-                "title": "Pre-Hab",
-                "body": "Du kan inte hoppa över uppvärmningen. Du behöver fokusera på excentrisk styrketräning (långsam sänkning) för att omorganisera kollagenfibrerna. Vitamin C och kollagenpeptider före träning är essentiellt."
-            }
-        },
-        "data_strength": {
-            "gene": "COL1A1",
-            "title": "Senan av 'Stål'",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "Tät kollagen-tvärbindning ger strukturell styvhet och kraftöverföring.",
-                "how": "Din kollagenarkitektur är oklanderlig. Dina senor fungerar som styva fjädrar och överför kraft från muskler till ben utan energiförlust. Du är skadebeständig och naturligt snabb eftersom dina 'fjädrar' är spända.",
-                "yours": "Ditt Resultat: Hög Draghållfasthet."
-            },
-            "action": {
-                "title": "Effektuttag",
-                "body": "Ditt bindväv är byggt för maximal belastning. Du klarar plyometri och tunga lyft med lägre rupturrisk."
-            }
-        }
-    },
     "rs559870": {
         "title": "Vävnadsremodellering",
         "badge_type": "RISK",
@@ -5366,38 +4371,6 @@
             "action": {
                 "title": "Metabol Bas",
                 "body": "Din basala metaboliska takt stöds av stark hormonell konvertering. Mata den med tillräckligt med kalorier; svält inte detta system."
-            }
-        }
-    },
-    "rs3123554": {
-        "title": "Testosteronbindning",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "SHBG",
-            "title": "Det 'låsta' hormonet",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "Sex Hormone-Binding Globulin (SHBG) fungerar som en taxi för testosteron. Medan hormonet är i taxin kan det inte användas av vävnader.",
-                "how": "Du är genetiskt predisponerad för höga SHBG-nivåer. Du kan ha högt 'totalt' testosteron på ett labbtester, men ditt 'fria' (användbara) testosteron är lågt eftersom det är helt uppbundet. Detta kan efterlikna symtom på lågt testosteron trots normal produktion.",
-                "yours": "Ditt resultat: Hög bindning (lågt fritt T)."
-            },
-            "action": {
-                "title": "Frigör T",
-                "body": "Bor och magnesium är kända för att hjälpa till att sänka SHBG, vilket frigör mer testosteron för användning. Insulin sänker också SHBG, så mycket lågkolhydratdieter kan faktiskt förvärra detta för dig."
-            }
-        },
-        "data_strength": {
-            "gene": "SHBG",
-            "title": "Det 'bio-tillgängliga' hormonet",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "Optimala SHBG-nivåer säkerställer att hormoner transporteras men är tillgängliga.",
-                "how": "Du har naturligt lägre SHBG-bindning. En högre andel av ditt testosteron är 'fritt' och biologiskt aktivt. Du får mer muskelbyggande och humörhöjande effekt av de hormoner du producerar.",
-                "yours": "Ditt resultat: Högt fritt hormon."
-            },
-            "action": {
-                "title": "Anabol potential",
-                "body": "Din fysiologi är förberedd för att utnyttja anabola hormoner. Träning utlöser ett starkt svar eftersom den hormonella bränsletillförseln är lättillgänglig."
             }
         }
     },
@@ -5529,38 +4502,6 @@
             }
         }
     },
-    "rs57875989": {
-        "title": "Sömnbehov",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "PER3",
-            "title": "Följden av 'Nattuggla'",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "PER3 reglerar homeostasen för sömn-vakenhet – trycket att sova som byggs upp under dagen.",
-                "how": "Du har den 'korta' varianten (associerad med kvällstyper). Ditt sömnbehov byggs upp långsamt. Du känner dig inte trött förrän mycket sent. Detta leder till 'social jetlag' där du tvingas vakna innan din kropp är redo.",
-                "yours": "Ditt resultat: Fördröjd sömnfärd."
-            },
-            "action": {
-                "title": "Ljusankring",
-                "body": "Du måste använda morgonsol för att manuellt ställa din klocka. Undvik blått ljus efter 21.00, annars är du vaken till 02.00."
-            }
-        },
-        "data_strength": {
-            "gene": "PER3",
-            "title": "Drivkraften hos 'Lärkan'",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "Den 'långa' varianten skapar ett starkt sömnbehov, i linje med dygnsrytmen.",
-                "how": "Du är en naturlig morgonmänniska. Ditt sömnbehov byggs upp pålitligt. Du somnar snabbt och vaknar alert. Denna anpassning till solens dygn främjar optimal hormonhälsa.",
-                "yours": "Ditt resultat: Avancerad sömnfärd."
-            },
-            "action": {
-                "title": "Morgonproduktion",
-                "body": "Schemalägg ditt mest krävande arbete till morgonen. Din hjärna är biologiskt förberedd för prestation före lunch."
-            }
-        }
-    },
     "rs40184": {
         "title": "Dopamintransport (DAT1)",
         "badge_type": "RISK",
@@ -5626,42 +4567,6 @@
             "action": {
                 "title": "Strukturell Integritet",
                 "body": "Din hårdvara är byggd för tillväxt. Men eftersom din muskelvävnad växer så effektivt kan den lätt springa ifrån dina senor (särskilt med din COL5A1-stelhet). Du måste använda kontrollerade excentriska rörelser för att säkerställa att dina strukturella 'ankare' stärks tillsammans med dina snabbt anpassande muskelfibrer."
-            }
-        }
-    },
-    "rs6263": {
-        "title": "Androgen Drive (AR)",
-        "badge_type": "SUPERPOWER",
-        "data_strength": {
-            "gene": "AR",
-            "title": "Testosteronförstärkaren",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "Androgenreceptorn avgör hur mycket 'arbete' ditt testosteron faktiskt utför i muskelcellen. Den är bron mellan hormoner och fysisk styrka.",
-                "how": "Din TT-genotyp är associerad med högre AR-känslighet. Detta innebär att även med normala testosteronnivåer, extraherar dina muskler mer 'nytta' från hormonet. Detta översätts till högre muskelmassa, lägre kroppsfettprocent och ökad explosiv kraft. Du har den genetiska profil som ofta ses hos naturliga idrottare som lätt bibehåller 'torr' muskelmassa.",
-                "yours": "Ditt resultat: Hög androgenkänslighet."
-            },
-            "action": {
-                "title": "Explosiv programmering",
-                "body": "Dina muskler svarar bäst på högintensiva, explosiva rörelser (sprintar, tunga tre-rep-set). Undvik överdriven uthållighetsträning med jämn intensitet, vilket tillfälligt kan reglera ner AR-uttrycket. Stöd detta system med zink och magnesium för att säkerställa att baslinje-testosteronet förblir optimalt för dessa känsliga receptorer."
-            }
-        }
-    },
-    "rs444697": {
-        "title": "Melatoninproduktion (ASMT)",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "ASMT",
-            "title": "Flaskhalsen för Sömnen",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "ASMT är den sista 'arbetaren' på monteringslinjen som omvandlar serotonin till melatonin. Det är grindvakten för din sömn-vakna-cykel.",
-                "how": "Din AG-genotyp indikerar reducerad enzymaktivitet. Även om du kan producera melatonin, är processen långsammare och mindre effektiv än 'AA'-baslinjen. Detta resulterar ofta i 'Cirkadisk Fördröjning' – där din hjärna tar längre tid på sig att övergå till djupt sömnläge efter att solen gått ner. Om du utsätts för blått ljus sent på kvällen, kan din redan tröga ASMT-arbetare inte hänga med, vilket leder till ytlig sömn och dålig återhämtning på morgonen.",
-                "yours": "Ditt Resultat: Minskad Synteseffektivitet."
-            },
-            "action": {
-                "title": "Solnedgångsprotokollet",
-                "body": "Du måste manuellt hjälpa ditt ASMT-enzym. Använd blåljusblockerande glasögon 2 timmar före sänggåendet och överväg en mikrodos melatonin (0,3 mg) för att kringgå denna genetiska flaskhals. Eftersom din syntes är långsam är tidigt morgonljus avgörande för att 'återställa' klockan så att monteringslinjen startar i tid följande natt."
             }
         }
     },
@@ -5756,21 +4661,29 @@
         }
     },
     "rs1042522": {
-        "title": "Mättnadsbroms (POMC)",
-        "badge_type": "RISK",
+        "risk_genotypes": [
+            "GG"
+        ],
+        "strength_genotypes": [
+            "CC"
+        ],
         "data_risk": {
-            "gene": "POMC",
-            "title": "Den Tysta Mättnadssignalen",
+            "gene": "TP53",
+            "title": "Den Tveksamma Genomväktaren",
             "badge_type": "RISK",
             "mechanisms": {
-                "what": "POMC-genen ansvarar för produktionen av Pro-opiomelanokortin, som bearbetas till alfa-MSH – den primära signalen för att 'sluta äta' i hypotalamus.",
-                "how": "Din genotyp (CG) leder till en subtil men signifikant minskning av produktionen av dessa mättnadspetider. I den neuroendokrina klustret manifesteras detta som ett fördröjt 'mättnads'-svar. När din hjärna registrerar att du har ätit tillräckligt, har du sannolikt konsumerat 15-20% mer kalorier än din metaboliska baslinje kräver. Detta är inte en brist på viljestyrka; det är en mekanisk fördröjning i den kemiska signalen som avslutar en måltid.",
-                "yours": "Ditt Resultat: Minskad alfa-MSH-produktion."
+                "what": "p53 är 'genomets väktare'. När DNA skadas avgör den om en cell ska pausa för att reparera sig eller tas bort genom programmerad celldöd (apoptos).",
+                "how": "Du bär två kopior av Pro72-formen av p53. Jämfört med Arg72 är den sämre på att skicka skadade celler till apoptos och lutar åt att pausa cellcykeln och försöka reparera. Det hjälper till att hålla vävnader intakta, och vissa långtidsstudier kopplar till och med Pro/Pro till längre överlevnad. Baksidan är att en cell med svårt skadat DNA lite oftare slinker igenom i stället för att tas bort, vilket kopplats till något högre risk för vissa cancerformer.",
+                "ancestral": "Arg72 (CC).",
+                "yours": "Ditt Resultat: Pro72 (GG)."
             },
+            "risks": [],
             "action": {
-                "title": "Manuell Mättnadsinduktion",
-                "body": "Eftersom din kemiska 'mättnadssignal' är långsam, måste du använda mekaniska signaler för att kompensera. Drick 500 ml vatten 15 minuter före måltider för att aktivera magsäckens sträckreceptorer (som använder en annan väg). Använd 'Tidsluckor': ät hälften av din måltid, vänta 10 minuter och bestäm sedan om du verkligen är hungrig. Detta gör att dina lägre nivåer av alfa-MSH slutligen kan nå receptorerna i din hjärna."
-            }
+                "title": "Minska Skadebördan",
+                "body": "Din väktare föredrar reparation framför borttagning, så den bästa strategin är att skapa mindre skador att bedöma. Undvik rökning och begränsa alkohol, skydda huden mot UV, ät grillat och processat kött bara ibland, och ät rikligt med grönsaker, bär och baljväxter. Följ rekommenderade cancerscreeningar, eftersom tidig upptäckt kompenserar för en mindre aggressiv städpatrull.",
+                "foods": []
+            },
+            "confidence": 3
         }
     },
     "rs7498665": {
@@ -5916,38 +4829,6 @@
             "action": {
                 "title": "Snabb kroppssammansättning",
                 "body": "Du kan ändra din fysik snabbare än de flesta. Korta perioder av kaloriunderskott ger snabbt synliga resultat eftersom din kropp är villig att ge upp sina depåer."
-            }
-        }
-    },
-    "rs1042713_dupfix": {
-        "title": "Adrenalin-inducerad fettmobilisering",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "ADRB2",
-            "title": "Det 'segla' fettet",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "Beta-2-adrenerga receptorn fungerar som 'antennen' på dina fettceller. Den tar emot signaler från adrenalin (katekolaminer) för att frisätta fettsyror i blodomloppet.",
-                "how": "Din receptor är nedreglerad (Glu27-allel). När du tränar 'hör' dina fettceller inte signalen att frisätta bränsle. Detta gör fettmobilisering svår, särskilt i envisa områden som höfter eller buk. Du kan ha svårt att gå ner i kroppsfett även när du har ett kaloriunderskott.",
-                "yours": "Ditt resultat: Minskad mobilisering."
-            },
-            "action": {
-                "title": "Högintensiv utlösare",
-                "body": "Standardkonditionsträning är för tyst för dina receptorer. Du måste skrika åt dem. Du behöver den massiva adrenalinstegringen från HIIT (High Intensity Interval Training) eller tung baslyftning för att tvinga dessa receptorer att öppna portarna."
-            }
-        },
-        "data_strength": {
-            "gene": "ADRB2",
-            "title": "Den 'reaktiva' fettcellen",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "Känsliga adrenerga receptorer möjliggör snabb frigöring av lagrad energi under perioder av stress eller aktivitet.",
-                "how": "Dina fettceller är mycket känsliga för adrenalin. I samma ögonblick som du börjar röra dig eller blir kall, släpper de fettsyror i blodomloppet som bränsle. Du tappar kroppsfett lätt när du är aktiv och kämpar sällan med 'segla' fickor av fettvävnad. Du förblir smal utan ansträngning.",
-                "yours": "Ditt resultat: Hög mobilisering."
-            },
-            "action": {
-                "title": "Snabb kroppssammansättning",
-                "body": "Du kan ändra din fysik snabbare än de flesta. Korta perioder av kaloriunderskott ger snabbt synliga resultat eftersom din kropp är villig att ge upp sina lager."
             }
         }
     },
@@ -6271,38 +5152,6 @@
             }
         }
     },
-    "rs1256049": {
-        "title": "Estrogenreceptor Alfa",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "ESR1",
-            "title": "Östrogen-effekten",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "ESR1 medierar östrogenets effekter i vävnader som ben, bröst och hjärna. Den bestämmer hur 'högt' östrogensignalen är.",
-                "how": "Du bär på varianten associerad med minskad receptoreffektivitet. Även med normala östrogennivåer i blodet kan dina ben och hjärna inte ta emot den fulla skyddande signalen. Detta ökar risken för tidig osteoporos och kognitiv nedgång efter klimakteriet (eller hos män med låg konvertering).",
-                "yours": "Ditt resultat: Minskad känslighet."
-            },
-            "action": {
-                "title": "Belastning av skelettet",
-                "body": "Du kan inte enbart förlita dig på hormoner för att bibehålla bentätheten. Du behöver mekanisk belastning. Tung styrketräning är obligatorisk för att manuellt signalera benuppbyggnad och kringgå den svaga hormonella signalen."
-            }
-        },
-        "data_strength": {
-            "gene": "ESR1",
-            "title": "Skelettets beskyddare",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "Mycket känsliga östrogenreceptorer ger ett robust skydd för skelettet och det kardiovaskulära systemet.",
-                "how": "Dina receptorer förstärker östrogensignalen effektivt. Detta är en enorm fördel för bentäthet och kollagenproduktion. Du har sannolikt ungdomlig hudelasticitet och en lägre risk för frakturer med åldern tack vare denna hormonella optimering.",
-                "yours": "Ditt resultat: Hög känslighet."
-            },
-            "action": {
-                "title": "Ungdomligt Fenotyp",
-                "body": "Din biologi är förberedd för att bibehålla kollagen och benmassa. Stöd detta med adekvat proteinintag."
-            }
-        }
-    },
     "rs3024493": {
         "title": "Antiinflammatoriskt cytokin",
         "badge_type": "RISK",
@@ -6560,67 +5409,27 @@
         }
     },
     "rs11191548": {
-        "title": "Dopaminreceptor D1",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "DRD1",
-            "title": "Exekutiv dysfunktion",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "D1-receptorn i prefrontala cortex är kritisk för 'exekutiva funktioner' – planering, arbetsminne och impulskontroll.",
-                "how": "Din genotyp är associerad med lägre receptortäthet eller bindningseffektivitet. Detta yttrar sig som svårigheter med 'aktivering' – att komma igång med stora uppgifter. Du kan ha svårt med arbetsminnet (att hålla siffror i huvudet) och en tendens att prokrastinera tills pressen blir extrem.",
-                "yours": "Ditt resultat: Lägre D1-effektivitet."
-            },
-            "action": {
-                "title": "Externa strukturer",
-                "body": "Förlita dig inte på viljestyrka. Använd 'kognitiv avlastning' – skriv ner allt. Bryt ner uppgifter i mikrosteg. Intensiv träning ökar D1-tätheten över tid."
-            }
-        },
+        "risk_genotypes": [],
+        "strength_genotypes": [
+            "CC"
+        ],
         "data_strength": {
-            "gene": "DRD1",
-            "title": "Arkitekt-sinnet",
-            "badge_type": "SUPERPOWER",
+            "gene": "CNNM2",
+            "title": "Lågtrycks-Locuset",
+            "badge_type": "STRENGTH",
             "mechanisms": {
-                "what": "Optimal funktion hos D1-receptorn stöder kognitiv arkitektur och planering på hög nivå.",
-                "how": "Din prefrontala cortex är välförsedd med D1-receptorer. Du har stark 'exekutiv kontroll'. Du kan enkelt hålla komplexa planer i huvudet, organisera projekt med flera steg och motstå omedelbara impulser för att gynna långsiktiga mål.",
-                "yours": "Ditt resultat: Hög exekutiv funktion."
+                "what": "CNNM2 hjälper njurarna att hantera magnesium, ett mineral som håller blodkärlen avslappnade.",
+                "how": "Du bär två kopior av den ovanligare C-allelen vid CNNM2/NT5C2-locuset. I stora studier är varje kopia kopplad till cirka 1 mmHg lägre systoliskt tryck och lägre risk för högt blodtryck; magnesiumhantering är en föreslagen väg.",
+                "ancestral": "Typiskt locus (TT).",
+                "yours": "Ditt Resultat: Lågtrycksvariant (CC)."
             },
+            "risks": [],
             "action": {
-                "title": "Strategiskt ledarskap",
-                "body": "Din hjärna är byggd för strategi. Du utmärker dig i roller som kräver långsiktig vision och komplex projektledning."
-            }
-        }
-    },
-    "rs11191548_TIER2": {
-        "title": "Dopaminreceptor D1",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "DRD1",
-            "title": "Exekutiv dysfunktion",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "D1-receptorn i prefrontala cortex är kritisk för 'exekutiva funktioner' – planering, arbetsminne och impulskontroll.",
-                "how": "Din genotyp är associerad med lägre receptortäthet eller bindningseffektivitet. Detta yttrar sig som svårigheter med 'aktivering' – att komma igång med stora uppgifter. Du kan ha svårt med arbetsminnet (att hålla siffror i huvudet) och en tendens att prokrastinera tills pressen blir extrem.",
-                "yours": "Ditt resultat: Lägre D1-effektivitet."
+                "title": "Förvalta Fördelen",
+                "body": "Håll saltet måttligt, var aktiv och mät blodtrycket årligen; genetiken flyttar bara en liten del.",
+                "foods": []
             },
-            "action": {
-                "title": "Externa strukturer",
-                "body": "Förlita dig inte på viljestyrka. Använd 'kognitiv avlastning' – skriv ner allt. Bryt ner uppgifter i mikrosteg. Intensiv träning ökar D1-tätheten över tid."
-            }
-        },
-        "data_strength": {
-            "gene": "DRD1",
-            "title": "Arkitekt-sinnet",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "Optimal D1-receptorfunkton stöder kognitiv arkitektur och planering på hög nivå.",
-                "how": "Din prefrontala cortex är välförsedd med D1-receptorer. Du har stark 'exekutiv kontroll'. Du kan enkelt hålla komplexa planer i huvudet, organisera projekt med flera steg och motstå omedelbara impulser för att gynna långsiktiga mål.",
-                "yours": "Ditt resultat: Hög exekutiv funktion."
-            },
-            "action": {
-                "title": "Strategiskt ledarskap",
-                "body": "Din hjärna är byggd för strategi. Du utmärker dig i roller som kräver långsiktig vision och komplex projektledning."
-            }
+            "confidence": 4
         }
     },
     "rs324981": {
@@ -6719,38 +5528,6 @@
             }
         }
     },
-    "rs3774175": {
-        "title": "Extracellulär Antioxidant",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "SOD3",
-            "title": "Vaskulär Rost",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "Superoxiddismutas 3 (SOD3) skyddar utrymmet *utanför* cellerna, särskilt blodkärlsväggarna och lungvävnaden från oxidativ skada.",
-                "how": "Din variant minskar bindningen av SOD3 till blodkärlsväggarna. Dina artärer lämnas oskyddade. Oxidativ stress kan lättare angripa det endoteliala lagret, vilket minskar nivåerna av kväveoxid och leder till stelare artärer och högre blodtryck över tid.",
-                "yours": "Ditt Resultat: Minskade kärlskydd."
-            },
-            "action": {
-                "title": "Kärlstöd",
-                "body": "Du behöver manuellt skydda ditt endotel. C-vitamin och åldrat vitlöksextrakt har visat sig stödja kärlhälsa vid låg SOD3."
-            }
-        },
-        "data_strength": {
-            "gene": "SOD3",
-            "title": "Det 'Rostfria' Kärlet",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "Hög SOD3-aktivitet förhindrar oxidation av kväveoxid, vilket håller blodkärlen avslappnade och ungdomliga.",
-                "how": "Ditt SOD3-enzym binder starkt till dina artärväggar och skapar en skyddande antioxidantbeläggning. Detta förhindrar plackbildning och bibehåller utmärkt blodflöde. Dina lungor är också högt skyddade mot föroreningar och rök.",
-                "yours": "Ditt Resultat: Högt kärlskydd."
-            },
-            "action": {
-                "title": "Uthållighetslongevity",
-                "body": "Ditt vaskulära system motstår åldrande. Aerob träning kommer ytterligare att förstärka denna naturliga fördel."
-            }
-        }
-    },
     "rs8007267": {
         "title": "Smärta & Dopamin (BH4)",
         "badge_type": "RISK",
@@ -6780,38 +5557,6 @@
             "action": {
                 "title": "Smärtåterhämtning",
                 "body": "Du återhämtar dig från nervskador snabbare och med mindre obehag än andra. Din grundläggande sinnesstämning stöds också kemiskt."
-            }
-        }
-    },
-    "rs2271683": {
-        "title": "Hudens elasticitet (Elastin)",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "ELN",
-            "title": "Risken för 'rynkor'",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "ELN-genen producerar elastin, proteinet som gör att hud och blodkärl kan återgå till sin form efter uttänjning.",
-                "how": "Din variant är associerad med minskad elastinintegritet. Din hud förlorar sin 'spänst' tidigare i livet, vilket leder till för tidiga fina linjer och slapphet. Internt kan dina artärer bli stelare tidigare, vilket ökar risken för högt blodtryck med åldern.",
-                "yours": "Ditt resultat: Minskad elastinintegritet."
-            },
-            "action": {
-                "title": "Kollagen & Hydrering",
-                "body": "Du kan inte stoppa åldrandet, men du kan sakta ner det. Tillskott av hyaluronsyra och kollagen hjälper till att stödja hudens matrix. Solskydd är avgörande, eftersom UV-strålning förstör elastin omedelbart."
-            }
-        },
-        "data_strength": {
-            "gene": "ELN",
-            "title": "Den 'tidlösa' huden",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "Överlägsen elastin-struktur bibehåller vävnadens flexibilitet och ungdomliga utseende.",
-                "how": "Dina elastinfibrer är motståndskraftiga och rikliga. Din hud motstår gravitationen och linjer från repetitiva rörelser (kråksparkar) mycket längre än genomsnittet. Dina artärer förblir flexibla och följsamma, vilket minskar belastningen på ditt hjärta.",
-                "yours": "Ditt resultat: Hög elastinintegritet."
-            },
-            "action": {
-                "title": "Ungdomlig lyster",
-                "body": "Du har genetiken för att 'åldras väl'. Bibehåll den genom återfuktning och att undvika rökning."
             }
         }
     },
@@ -6908,70 +5653,6 @@
             "action": {
                 "title": "Kärlhälsa",
                 "body": "Dina avslappnade artärer är en välsignelse för långsiktig hjärthälsa. Bibehåll detta med aerob träning."
-            }
-        }
-    },
-    "rs16835198": {
-        "title": "Irisin (Träningshormon)",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "FNDC5",
-            "title": "Den 'låga' svararen",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "FNDC5 producerar Irisin, 'träningshormonet' som frisätts av muskler och omvandlar vitt fett till beige fett (fetförbränning).",
-                "how": "Din produktion av Irisin är genetiskt lägre. Du får mindre metabolisk nytta av samma mängd träning jämfört med andra. Du får inte samma 'efterförbränningseffekt' där fettet fortsätter att smälta bort efter att träningspasset är slut.",
-                "yours": "Ditt resultat: Lågt Irisin-svar."
-            },
-            "action": {
-                "title": "Kyla & Intensitet",
-                "body": "Du behöver arbeta hårdare för att trigga fettets 'brynande'. Att kombinera träning med exponering för kyla är det bästa sättet att hacka detta system och tvinga fram Irisinfrisättning."
-            }
-        },
-        "data_strength": {
-            "gene": "FNDC5",
-            "title": "Den 'Vältränade' svararen",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "Höga nivåer av Irisin efterliknar effekterna av konstant träning, bryner fettvävnad och förbättrar insulinkänsligheten.",
-                "how": "Du är en 'High Responder'. Dina muskler pumpar ut Irisin effektivt när du rör dig. Detta hormon transporteras till dina fettreserver och talar om för dem att förbränna energi som värme. Du får 'dubbel kredit' för dina träningspass när det gäller metabolisk påverkan.",
-                "yours": "Ditt resultat: Högt Irisin-svar."
-            },
-            "action": {
-                "title": "Fettminskning",
-                "body": "Träning är otroligt effektivt för dig. Du kan snabbt förändra din kroppssammansättning med konsekvent rörelse."
-            }
-        }
-    },
-    "rs6536": {
-        "title": "Magnesiumabsorption",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "TRPM6",
-            "title": "Det 'magnesiumläckande' genfelet",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "TRPM6 fungerar som den aktiva transportporten i tjocktarmen och njurarna, ansvarig för att absorbera magnesium från maten och förhindra dess förlust i urinen.",
-                "how": "Din transportör är genetiskt ineffektiv. Du absorberar mindre magnesium från kosten och dina njurar utsöndrar det alltför lätt. Detta skapar en systemisk brist även om du äter grönsaker. Symtom inkluderar muskelkramper, dålig sömnkvalitet och ökad ångest på grund av ett överaktivt nervsystem.",
-                "yours": "Ditt resultat: Låg absorptionsförmåga."
-            },
-            "action": {
-                "title": "Transdermalt & Kelaterat",
-                "body": "Oral absorption är din flaskhals. Använd Magnesiumglycinat (lättare att absorbera) eller kringgå tarmen helt med Magnesiumoljesprayer (transdermalt) för att mätta vävnaderna direkt."
-            }
-        },
-        "data_strength": {
-            "gene": "TRPM6",
-            "title": "Den 'mineralabsorberande' supergenen",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "Effektiv TRPM6-aktivitet säkerställer maximal magnesiumretention för metabolisk hälsa.",
-                "how": "Din transportör är mycket aktiv. Du utvinner magnesium effektivt från växtkällor och behåller det i njurarna. Detta stöder över 300 enzymatiska reaktioner, inklusive ATP-produktion och DNA-reparation. Du är naturligt skyddad mot kramper och sömnstörningar.",
-                "yours": "Ditt resultat: Hög absorptionsförmåga."
-            },
-            "action": {
-                "title": "Metabolisk grund",
-                "body": "Din magnesiumstatus är naturligt robust. Detta ger en stark grund för hjärtrytmstabilitet och muskelåterhämtning."
             }
         }
     },
@@ -7327,38 +6008,6 @@
             }
         }
     },
-    "rs2052129": {
-        "title": "Histaminproduktion",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "HDC",
-            "title": "Den 'allergiska' drivkraften",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "Histamindekarboxylas (HDC) är enzymet som producerar histamin i kroppen från aminosyran histidin.",
-                "how": "Din variant leder till oreglerad produktion. Du har i princip en 'läckande kran' av histamin. Du är kroniskt benägen för allergier, nässelutslag och tarminflammation eftersom din baslinjehistaminbehållare alltid är halvfull. Säsongsbundet pollen drabbar dig hårdare än någon annan.",
-                "yours": "Ditt resultat: Hög histaminproduktion."
-            },
-            "action": {
-                "title": "Histaminfattig kost",
-                "body": "Eftersom du överproducerar det, måste du konsumera mindre av det. Undvik lagrade ostar, charkuterier och vin. Quercetin är en naturlig mastcellsstabilisator som hjälper till att stänga av kranen."
-            }
-        },
-        "data_strength": {
-            "gene": "HDC",
-            "title": "Det 'lugna' immunförsvaret",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "Reglerad HDC-aktivitet förhindrar immunsystemet från att överreagera på mindre hot.",
-                "how": "Din histaminproduktion är strikt kontrollerad. Du översvämmar inte systemet i onödan. Du lider sällan av slumpmässiga allergier, hösnuva eller födoämnesintoleranser. Ditt immunsystem sparar sina resurser för verkliga hot.",
-                "yours": "Ditt resultat: Normal histaminproduktion."
-            },
-            "action": {
-                "title": "Immunologisk stabilitet",
-                "body": "Ditt immunsystem är precist. Du kan tolerera en mängd olika livsmedel och miljöer utan reaktion."
-            }
-        }
-    },
     "rs16942": {
         "title": "DNA-reparationseffektivitet",
         "badge_type": "RISK",
@@ -7384,34 +6033,6 @@
                 "what": "Effektiv BRCA1-aktivitet säkerställer att DNA-brott repareras felfritt via homolog rekombination.",
                 "how": "Din reparationsmaskin fungerar med kirurgisk precision. När DNA-strängar bryts, koordinerar BRCA1 en perfekt reparation omedelbart. Detta håller din genetiska kod stabil och mutationsfri, vilket ger ett massivt grundskydd mot cellulärt åldrande och sjukdom.",
                 "yours": "Ditt resultat: Hög reparationseffektivitet."
-            }
-        }
-    },
-    "rs2802295": {
-        "title": "Autofagi-omkopplare",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "FOXO1",
-            "title": "Biasen mot 'Tillväxt'",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "FOXO1 är huvudomkopplaren som bestämmer om celler växer (replikerar) eller reparerar sig (städar upp). Den påverkas starkt av insulin.",
-                "how": "Din variant gör FOXO1 överkänslig för insulin. Även små insulinökningar stänger ner den. Detta innebär att du tillbringar mindre tid i 'Reparationsläge' (Autofagi) och mer tid i 'Tillväxtläge', vilket påskyndar åldrande och ackumulering av cellulärt skräp.",
-                "yours": "Ditt Resultat: Minskad autofagi-signalering."
-            },
-            "action": {
-                "title": "Faste-efterlikning",
-                "body": "Du behöver lägre insulin än de flesta för att utlösa reparation. Periodisk fasta (16-18 timmar) krävs för att sänka insulinet tillräckligt för att låta FOXO1 komma in i cellkärnan och börja städa."
-            }
-        },
-        "data_strength": {
-            "gene": "FOXO1",
-            "title": "Omkopplaren för 'Livslängd'",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "Aktiv FOXO1-signalering efterliknar de livsförlängande effekterna av kalorirestriktion.",
-                "how": "Din FOXO1-aktivitet förblir robust även när insulinet fluktuerar. Dina celler prioriterar underhåll och DNA-reparation framför tanklös tillväxt. Detta fenomen är starkt berikat hos hundraåringar eftersom det saktar ner ackumuleringen av biologiska fel.",
-                "yours": "Ditt Resultat: Hög autofagi-signalering."
             }
         }
     },
@@ -7815,38 +6436,6 @@
             }
         }
     },
-    "rs17226398": {
-        "title": "Karnitin transport",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "SLC22A5",
-            "title": "Cellen med 'låg energi'",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "SLC22A5 kodar för OCTN2-transportören, som ansvarar för att dra in L-karnitin i muskel- och hjärtceller. Karnitin är skytteln som bär fett in i mitokondrierna för att förbrännas som energi.",
-                "how": "Din transportör är ineffektiv. Du kämpar med att få karnitin *inuti* cellerna där det behövs. Även om du äter rött kött, kan dina muskler vara funktionellt bristfälliga på karnitin. Detta leder till dålig fettoxidation, lägre uthållighet och ett beroende av glukos som bränsle.",
-                "yours": "Ditt resultat: Minskad karnitinupptag."
-            },
-            "action": {
-                "title": "Acetyl-L-Karnitin",
-                "body": "Du behöver mätta transportörerna. Tillskott med Acetyl-L-Karnitin (ALCAR) i högre doser (2g+) kan hjälpa till att tvinga diffusion in i vävnaderna för att återställa fettförbränningskapaciteten och mental klarhet."
-            }
-        },
-        "data_strength": {
-            "gene": "SLC22A5",
-            "title": "Fett-ugnen",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "Hög OCTN2-aktivitet säkerställer att musklerna flödas med det karnitin som behövs för beta-oxidation.",
-                "how": "Dina transportgrindar är vidöppna. Dina muskler absorberar karnitin ivrigt från blodomloppet. Det betyder att dina mitokondrier alltid har den skyttel de behöver för att förbränna fett som bränsle. Du har hög uthållighetskapacitet och återhämtar dig snabbt från fysisk ansträngning.",
-                "yours": "Ditt resultat: Högt karnitinupptag."
-            },
-            "action": {
-                "title": "Uthållighetsbränsle",
-                "body": "Dina celler är redo att förbränna fett. Långvarig konditionsträning är metaboliskt lätt för dig."
-            }
-        }
-    },
     "rs1800849": {
         "title": "Muskeltermogenes",
         "badge_type": "RISK",
@@ -7943,38 +6532,6 @@
             }
         }
     },
-    "rs662799_TIER2": {
-        "title": "Triglycerid-clearance",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "APOA5",
-            "title": "Den 'triglyceridhöjande' spiken",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "Apolipoprotein A5 är den mest potenta genetiska regulatorn av triglyceridnivåer. Det aktiverar LPL för att bryta ner fett i blodet.",
-                "how": "Du bär på en variant som sänker APOA5-nivåerna. Din kropp är långsam på att rensa ut fett från blodbanan. Detta resulterar i kroniskt förhöjda triglycerider, vilket är en oberoende riskfaktor för hjärtsjukdom även om ditt LDL är normalt. Kolhydratrika måltider höjer dina triglycerider markant.",
-                "yours": "Ditt resultat: Låg APOA5-aktivitet."
-            },
-            "action": {
-                "title": "Omega-3-terapi",
-                "body": "Du är en 'Hyper-responder' på fiskolja. Höga doser Omega-3 (3-4g) kan drastiskt sänka triglyceriderna hos din specifika genotyp, ofta bättre än medicinering."
-            }
-        },
-        "data_strength": {
-            "gene": "APOA5",
-            "title": "Det 'klara' blodet",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "Höga nivåer av APOA5 säkerställer snabb borttagning av kostfetter.",
-                "how": "Din kropp producerar rikligt med APOA5. Du fungerar som en dammsugare för blodfetter. Dina triglyceridnivåer förblir låga även efter feta måltider, vilket skyddar dina artärer från den inflammatoriska skada som orsakas av cirkulerande lipider.",
-                "yours": "Ditt resultat: Hög APOA5-aktivitet."
-            },
-            "action": {
-                "title": "Metabolisk motståndskraft",
-                "body": "Din lipidmetabolism är robust. Du har betydande kostflexibilitet gällande fetter."
-            }
-        }
-    },
     "rs1800588": {
         "title": "Leverlipas",
         "badge_type": "RISK",
@@ -8007,38 +6564,6 @@
             }
         }
     },
-    "rs1010151": {
-        "title": "Anti-Glykationsförsvar",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "GLO1",
-            "title": "Sockerskadan",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "Glyoxalase-1 (GLO1) avgiftar Metylglyoxal, en giftig biprodukt från sockermetabolismen. Om det inte elimineras binder Metylglyoxal till proteiner och bildar AGEs (Advanced Glycation End-products).",
-                "how": "Din enzymaktivitet är lägre. Du är mindre effektiv på att eliminera denna sockertoxin. Det innebär att dina vävnader 'karamelliseras' (åldras) snabbare när du äter socker. Detta kopplas till snabbare hudåldrande, stela artärer och nervskador.",
-                "yours": "Ditt resultat: Minskad avgiftning."
-            },
-            "action": {
-                "title": "Benfotiamin",
-                "body": "Du behöver förstärkning. Benfotiamin (fettlösligt B1) och Vitamin B6 hjälper till att förhindra bildandet av AGEs. Att begränsa socker är viktigare för dig än för någon annan för att förhindra för tidiga rynkor och stelning av organ."
-            }
-        },
-        "data_strength": {
-            "gene": "GLO1",
-            "title": "Den 'Ålderslösa' Cellen",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "Hög GLO1-aktivitet förhindrar 'bruning' eller glykering av kroppens vävnader.",
-                "how": "Ditt enzym är en kraftkälla. Du neutraliserar snabbt Metylglyoxal innan det kan skada dina proteiner. Detta håller ditt kollagen elastiskt och dina artärer flexibla. Du är naturligt motståndskraftig mot åldrande effekter av kostsocker.",
-                "yours": "Ditt resultat: Hög avgiftning."
-            },
-            "action": {
-                "title": "Hudens ungdom",
-                "body": "Ditt kollagen förblir ungdomligt eftersom det inte bryts ner av sockermolekyler. Du ser troligen yngre ut än din ålder."
-            }
-        }
-    },
     "rs1801198": {
         "title": "B12 Celltransport",
         "badge_type": "RISK",
@@ -8068,38 +6593,6 @@
             "action": {
                 "title": "Energistabilitet",
                 "body": "Din cellulära energiproduktion är pålitlig. Du behöver inga megadoser för att känna av fördelarna."
-            }
-        }
-    },
-    "rs137852": {
-        "title": "Bindvävsstruktur",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "COL5A2",
-            "title": "Den 'Flexibla' Risken",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "Typ V Kollagen arbetar tillsammans med Typ I Kollagen för att bestämma diametern och styrkan hos fibriller i senor och hud.",
-                "how": "Din variant är associerad med en lösare bindvävsstruktur. Även om detta kan ge dig stor flexibilitet (yoga/dans), gör det dina leder mindre stabila. Du löper högre risk för luxationer och mjukdelsskador eftersom dina ligament sträcks för lätt.",
-                "yours": "Ditt Resultat: Minskad vävnadsstelhet."
-            },
-            "action": {
-                "title": "Stabilitetsträning",
-                "body": "Du behöver inte stretcha; du behöver stelna. Fokusera på isometriska hållningar och stabilitetsövningar för att kompensera för dina lösa ligament. Vitamin C och Glycin är essentiella för kollagenreparation."
-            }
-        },
-        "data_strength": {
-            "gene": "COL5A2",
-            "title": "Den 'Motståndskraftiga' Matrisen",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "Optimal organisation av kollagenfibriller skapar starka, rivtåliga vävnader.",
-                "how": "Din kollagenmatris är tätt vävd. Dina senor och ligament är stela och hållbara. Detta skyddar dig från vanliga stukningar och överansträngningar som drabbar andra. Du överför kraft effektivt, vilket gör dig snabbare och mer explosiv.",
-                "yours": "Ditt Resultat: Hög vävnadsintegritet."
-            },
-            "action": {
-                "title": "Effektuttag",
-                "body": "Dina stela senor är som spända fjädrar. Du är byggd för aktiviteter som kräver elastisk återhämtning, som löpning eller hopp."
             }
         }
     },
@@ -8136,35 +6629,28 @@
         }
     },
     "rs2304672": {
-        "title": "Cirkadisk metabolism",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "NR1D1",
-            "title": "Den 'svaga' klockan",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "NR1D1 (Rev-Erb alfa) är en kärnreceptorn som kopplar din inre kroppsklocka till din metabolism/mitokondrier.",
-                "how": "Din variant kopplar bort metabolismen från solen. Dina mitokondrier ökar inte effektivt på morgonen. Du känner dig groggy i timmar, och din metaboliska takt förblir långsam till senare under dagen. Detta ökar risken för viktuppgång om du äter en stor frukost innan din kropp är 'vaken'.",
-                "yours": "Ditt resultat: Cirkadisk felinriktning."
-            },
-            "action": {
-                "title": "Morgonljus",
-                "body": "Du måste manuellt starta detta gen. Starkt solljus i ögonen inom 10 minuter efter uppvaknandet fungerar som 'på'-knappen för din mitokondriella klocka."
-            }
-        },
+        "risk_genotypes": [],
+        "strength_genotypes": [
+            "CC",
+            "CG"
+        ],
         "data_strength": {
-            "gene": "NR1D1",
-            "title": "Den 'solära' metabolismen",
-            "badge_type": "SUPERPOWER",
+            "gene": "PER2",
+            "title": "Morgonpigg Klocka",
+            "badge_type": "STRENGTH",
             "mechanisms": {
-                "what": "Stark cirkadisk anpassning säkerställer att den maximala metaboliska produktionen sammanfaller med dagsljuset.",
-                "how": "Din metabolism är perfekt synkroniserad med solen. Så fort du vaknar, startar NR1D1 mitokondriell biogenes. Du bränner fett effektivt under dagen och växlar till reparationsläge på natten. Du har naturligt hög energi på morgonen.",
-                "yours": "Ditt resultat: Cirkadisk anpassning."
+                "what": "PER2 är ett av kugghjulen i din inre klocka som styr när du känner dig sömnig och pigg.",
+                "how": "Du bär C111G-varianten i PER2 ('C'-allelen i din DNA-fil). Den är vanligare hos morgonmänniskor: klockan går något tidigt, så kvällarna varvar ner tidigare och morgnarna känns lättare än för de flesta.",
+                "ancestral": "Typisk klocka (GG).",
+                "yours": "Ditt Resultat: Tidig klocka (C111G-bärare)."
             },
+            "risks": [],
             "action": {
-                "title": "Ät under dagsljus",
-                "body": "Ät dina största måltider när solen är uppe. Din kropp är förberedd för att bearbeta kalorier under dagsljus."
-            }
+                "title": "Använd Morgonen",
+                "body": "Lägg krävande arbete och träning tidigt, sök dagsljus på morgonen och håll en jämn läggtid.",
+                "foods": []
+            },
+            "confidence": 3
         }
     },
     "rs2569190": {
@@ -8296,67 +6782,29 @@
         }
     },
     "rs10993994": {
-        "title": "Proteinskador",
-        "badge_type": "RISK",
+        "risk_genotypes": [
+            "AA"
+        ],
+        "strength_genotypes": [
+            "GG"
+        ],
         "data_risk": {
-            "gene": "MSRA",
-            "title": "Proteinet som åldras",
+            "gene": "MSMB",
+            "title": "Prostatans Väktare",
             "badge_type": "RISK",
             "mechanisms": {
-                "what": "Metioninsulfoxidreduktas A (MSRA) är ett enzym som reparerar oxidativt skadade proteiner. Det omvandlar 'trasiga' proteiner tillbaka till funktionella.",
-                "how": "Din enzymaktivitet är nedsatt. Du är långsammare på att åtgärda proteinskador. Detta leder till ackumulering av 'skräpproteiner' i cellerna (som amyloid i hjärnan eller tvärbindningar i huden). Detta är en grundläggande drivkraft bakom åldrandeprocessen.",
-                "yours": "Ditt resultat: Nedsatt proteinskaderening."
+                "what": "MSMB bildar beta-mikroseminoprotein (PSP94), ett av de vanligaste proteinerna i prostatavätskan, som tros bromsa onormal celltillväxt i prostatan.",
+                "how": "Din AA-genotyp bär riskallelen i MSMB-promotorn, som sänker produktionen av PSP94. Med mindre av denna lokala broms har män med denna genotyp ungefär 1,2-1,5 gånger högre risk för prostatacancer. För kvinnor har den ingen känd effekt.",
+                "ancestral": "Typisk väktare (GG).",
+                "yours": "Ditt Resultat: Tystare väktare (AA)."
             },
+            "risks": [],
             "action": {
-                "title": "Autofagi",
-                "body": "Om du inte kan reparera proteinerna måste du återvinna dem. Fasta (autofagi) rensar ut de skadade proteiner som ditt MSRA-enzym missade. Bastubad hjälper också till att veckla proteiner korrekt."
-            }
-        },
-        "data_strength": {
-            "gene": "MSRA",
-            "title": "Enzymet 'Fenix'",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "Hög MSRA-aktivitet reverserar kontinuerligt oxidativ skada på cellulära proteiner.",
-                "how": "Ditt enzym arbetar outtröttligt för att reparera skador. När proteiner oxideras (rostar) av stress, återställer MSRA dem till sitt ungdomliga tillstånd. Detta håller dina enzymer, receptorer och strukturella vävnader funktionella i decennier längre än genomsnittet.",
-                "yours": "Ditt resultat: Hög proteinskaderening."
+                "title": "Screena Klokt",
+                "body": "Män: diskutera PSA-provtagning från 50 års ålder (tidigare vid ärftlighet) och nämn denna genotyp, eftersom den också höjer PSA något. Håll vikt, motion och grönsaksintag på en sund nivå.",
+                "foods": []
             },
-            "action": {
-                "title": "Livslängd",
-                "body": "Du har en sann anti-åldrande superkraft. Stöd den genom att undvika överdriven oxidativ stress (rökning, bränd mat)."
-            }
-        }
-    },
-    "rs16906252": {
-        "title": "Elastinnedbrytning",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "MMP12",
-            "title": "Elastinätaren",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "Matrix Metalloproteinase 12 (MMP12) är ett enzym som bryter ner elastin. Det används normalt för att omforma vävnad, men för mycket är destruktivt.",
-                "how": "Din variant är hyperaktiv. Du bryter ner elastin för aggressivt. Detta är särskilt skadligt för lungorna (risk för KOL om du röker) och huden (för tidigt slapphet/rynkor). Dina vävnader förlorar sin 'spänst' snabbare.",
-                "yours": "Ditt Resultat: Accelererad Nedbrytning."
-            },
-            "action": {
-                "title": "Rökundvikande",
-                "body": "Rök är den främsta utlösaren för MMP12. Du får absolut inte röka eller vistas i närheten av passiv rök; det kommer snabbt att förstöra din lungelasticitet. C-vitamin hjälper till att bygga upp det som MMP12 förstör."
-            }
-        },
-        "data_strength": {
-            "gene": "MMP12",
-            "title": "Bevarad Vävnad",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "Låg MMP12-aktivitet bevarar elastinstrukturen i lungor och hud.",
-                "how": "Ditt enzym är tyst. Du bryter inte ner elastin i onödan. Dina lungor förblir flexibla och effektiva, och din hud behåller sin spänst. Du är naturligt motståndskraftig mot den vävnadsnedbrytning som normalt följer med ålder och exponering för föroreningar.",
-                "yours": "Ditt Resultat: Bevarat Elastin."
-            },
-            "action": {
-                "title": "Vävnadsintegritet",
-                "body": "Din strukturella ungdomlighet är en tillgång. Skydda den med återfuktning."
-            }
+            "confidence": 4
         }
     },
     "rs1979277": {
@@ -8424,38 +6872,6 @@
         }
     },
     "rs1800790": {
-        "title": "Fibrinogen (Koagulering)",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "FGB",
-            "title": "Det 'Tjocka' Plasmat",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "Beta-fibrinogen (FGB) är ett protein som produceras av levern och som hjälper blodet att koagulera. Det är föregångaren till fibrin, det 'nät' som fångar blodplättar för att stoppa blödning.",
-                "how": "Du bär A-allelen (G455A). Din kropp håller baslinjenivåerna av fibrinogen kroniskt höga. Detta gör ditt blod något mer visköst (tjockt) och benäget för koagulation. Högt fibrinogen är en oberoende riskfaktor för stroke och djup ventrombos, särskilt under långa flygningar eller perioder av uttorkning.",
-                "yours": "Ditt Resultat: Förhöjt Fibrinogen."
-            },
-            "action": {
-                "title": "Vätskeintag & Nattokinas",
-                "body": "Du måste hålla dig hydrerad för att hålla blodets viskositet låg. Nattokinas (ett enzym från fermenterad soja) fungerar som ett naturligt fibrinolytiskt medel, som hjälper till att tunna ut blodet genom att säkert bryta ner överskott av fibrinogen."
-            }
-        },
-        "data_strength": {
-            "gene": "FGB",
-            "title": "Det 'Flödande' Blodflödet",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "Optimala nivåer av fibrinogen balanserar behovet av koagulering med behovet av ett smidigt blodflöde.",
-                "how": "Din fibrinogenproduktion är strikt reglerad. Du producerar tillräckligt för att stoppa en skärsårsblödning, men inte tillräckligt för att förvandla ditt blod till slam. Detta skyddar din mikrocirkulation (de små kapillärerna i hjärnan och ögonen) från blockeringar, vilket säkerställer effektiv näringstillförsel och lägre kardiovaskulär risk.",
-                "yours": "Ditt Resultat: Normalt Fibrinogen."
-            },
-            "action": {
-                "title": "Kardiovaskulär Hälsa",
-                "body": "Ditt blod flödar effektivt. Bibehåll denna fördel genom aktivitet; stagnation är den enda fienden."
-            }
-        }
-    },
-    "rs1800790_TIER2": {
         "title": "Fibrinogen (Koagulering)",
         "badge_type": "RISK",
         "data_risk": {
@@ -8711,38 +7127,6 @@
             }
         }
     },
-    "rs1805065": {
-        "title": "Långsamma muskelfibrers struktur",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "ACTN2",
-            "title": "Svagheten i 'uthållighet'",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "Alfa-aktinin-2 är den strukturella förankringen för typ I (långsamma) muskelfibrer, de som används för hållning och uthållighet.",
-                "how": "Din variant är associerad med lägre stabilitet i Z-skivan i långsamma fibrer. Även om du kan ha explosiv kraft (ACTN3), blir dina uthållighetsmuskler lätt trötta eller drabbas av mikroskador. Du kan uppleva att långdistanslöpning orsakar oproportionerlig muskelömhet.",
-                "yours": "Ditt resultat: Minskad stabilitet i Z-skivan."
-            },
-            "action": {
-                "title": "Zon 2-träning",
-                "body": "Du måste bygga upp uthållighet långsamt. Aggressiva ökningar av löpmängden leder till skador. Fokusera på lågintensiv konditionsträning (cykling/simning) för att skona muskelstrukturen samtidigt som du bygger mitokondrier."
-            }
-        },
-        "data_strength": {
-            "gene": "ACTN2",
-            "title": "Den 'järn'-uthålliga",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "Robust ACTN2-uttryck skapar uthållighetsresistent strukturell integritet i långsamma fibrer.",
-                "how": "Dina typ I-fibrer är skottsäkra. De kan kontrahera upprepade gånger i timmar utan strukturell kollaps. Detta är den genetiska grunden för ultralöpare. Du kan bibehålla hållningen och utföra lågintensivt arbete hela dagen utan ömhet.",
-                "yours": "Ditt resultat: Hög stabilitet i Z-skivan."
-            },
-            "action": {
-                "title": "Ultra-uthållighet",
-                "body": "Du är byggd för att gå långt. Dina muskler motstår den nedbrytning som stoppar andra vid 20:e milen."
-            }
-        }
-    },
     "rs11615": {
         "title": "DNA Excision Repair",
         "badge_type": "RISK",
@@ -8871,38 +7255,6 @@
             }
         }
     },
-    "rs4074995": {
-        "title": "Effektivitet i hjärtmuskeln",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "MYH7",
-            "title": "Hjärtat med 'kraft'",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "MYH7 kodar för Beta-Myosin Heavy Chain, det primära kontraktila proteinet i hjärtats kammare.",
-                "how": "Vissa varianter i denna gen kan förändra effektiviteten hos hjärtmuskelkontraktionen. Din specifika genotyp är kopplad till en högre energikostnad per hjärtslag. Ditt hjärta arbetar lite hårdare för att pumpa samma mängd blod, vilket kan vara en belastning under extrem uthållighetsträning.",
-                "yours": "Ditt resultat: Förändrad kontraktilitet."
-            },
-            "action": {
-                "title": "Fokus på återhämtning",
-                "body": "Ditt hjärta förbrukar mer ATP. Du måste säkerställa robust mitokondriellt stöd med CoQ10 och Ribos för att hålla hjärtmotorn igång under intensiv ansträngning."
-            }
-        },
-        "data_strength": {
-            "gene": "MYH7",
-            "title": "Den 'effektiva' pumpen",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "Optimal myosin-struktur säkerställer hög effektivitet i hjärtats minutvolym med minimal energiförlust.",
-                "how": "Din hjärtmuskel förbrukar syre effektivt. Du kan upprätthålla hjärtats minutvolym i timmar utan metabolisk belastning. Detta är den genetiska grunden för maratonlöpare och triathleter som förlitar sig på kardiovaskulär effektivitet.",
-                "yours": "Ditt resultat: Hög effektivitet."
-            },
-            "action": {
-                "title": "Långdistans",
-                "body": "Ditt hjärta är byggt för distans. Du löper mindre risk att drabbas av hjärtutmattning under långvarig träning."
-            }
-        }
-    },
     "rs12722": {
         "title": "Stelhet i senor",
         "badge_type": "RISK",
@@ -8932,70 +7284,6 @@
             "action": {
                 "title": "Elastisk kraft",
                 "body": "Du är byggd för hopp och sprint. Dina senor återvinner energi effektivt för varje steg."
-            }
-        }
-    },
-    "rs479744": {
-        "title": "Kollagenkorsbindning",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "PLOD1",
-            "title": "Den 'lösa' leden",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "PLOD1 är enzymet som ansvarar för lysylhydroxylering – ett kemiskt steg som gör att kollagenfibrer kan korsbindas och bli starka.",
-                "how": "Ditt enzym är mindre aktivt. Dina kollagenkorsbindningar är svagare. Detta efterliknar en mild form av Ehlers-Danlos syndrom. Du har sannolikt hypermobila leder, sammetslen hud och en tendens att lätt få blåmärken. Du är benägen för ledluxationer.",
-                "yours": "Ditt resultat: Minskad korsbindning."
-            },
-            "action": {
-                "title": "Ledstabilitet",
-                "body": "Du behöver inte yoga; du behöver styrka. Fokusera på att bygga muskelmassa runt dina leder för att fungera som en sekundär stabilisator eftersom dina ligament är lösa. C-vitamin är kritiskt för detta enzym."
-            }
-        },
-        "data_strength": {
-            "gene": "PLOD1",
-            "title": "Den 'hållbara' leden",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "Robust PLOD1-aktivitet säkerställer att kollagenfibrer är tätt bundna och rivtåliga.",
-                "how": "Din bindväv är otroligt seg. Dina ligament håller dina leder säkert på plats, även under tung belastning. Du är naturligt motståndskraftig mot stukningar och luxationer eftersom din kollagenmatris fungerar som Kevlar.",
-                "yours": "Ditt resultat: Stark korsbindning."
-            },
-            "action": {
-                "title": "Tung lyftning",
-                "body": "Dina leder klarar tunga belastningar. Du har den strukturella integritet som krävs för tyngdlyftning eller rugby."
-            }
-        }
-    },
-    "rs7294919": {
-        "title": "Neural Connectivity",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "CNTNAP2",
-            "title": "Utmaningen 'Fokus'",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "CNTNAP2 organiserar kopplingarna mellan neuroner under hjärnans utveckling, särskilt i frontallobs-kretsar som är ansvariga för språk och fokus.",
-                "how": "Du bär på en variant som är kopplad till förändrad konnektivitet. Detta associeras ofta med 'spritt' tänkande, svårigheter med verbal bearbetning under stress och en icke-linjär inlärningsstil. Du kan ha svårt att filtrera bort bakgrundsljud när du försöker koncentrera dig.",
-                "yours": "Ditt Resultat: Förändrad Konnektivitet."
-            },
-            "action": {
-                "title": "Enkeluppgiftsfokus",
-                "body": "Din hjärna överhettas av multitasking. Du behöver radikalt monotasking. Brusreducerande hörlurar och en rörig miljö är nödvändiga för att hjälpa din hjärna att upprätthålla kopplingen."
-            }
-        },
-        "data_strength": {
-            "gene": "CNTNAP2",
-            "title": "Den 'Nätverkskopplade' Hjärnan",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "Optimal CNTNAP2-expression stöder täta, effektiva neurala motorvägar mellan hjärnregioner.",
-                "how": "Dina hjärnregioner kommunicerar sömlöst. Detta stöder hög verbal intelligens, snabb språkinlärning och förmågan att snabbt syntetisera komplex information. Du lärde dig troligen att läsa eller tala tidigare än dina jämnåriga.",
-                "yours": "Ditt Resultat: Effektiv Konnektivitet."
-            },
-            "action": {
-                "title": "Kommunikation",
-                "body": "Du har en gåva för artikulation. Använd detta i skrivande, talande eller undervisande roller."
             }
         }
     },
@@ -9031,100 +7319,48 @@
             }
         }
     },
-    "rs605059": {
-        "title": "Östrogenreceptor Beta",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "ESR2",
-            "title": "Det 'ångestfyllda' östrogenet",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "Östrogenreceptor Beta (ER-beta) är receptorn som verkar 'lugnande' och finns i hjärnan och tarmen. Den motverkar de tillväxtfrämjande effekterna av ER-alfa.",
-                "how": "Din receptorexpression är lägre. Du går miste om östrogenets ångestdämpande och antidepressiva effekter. Detta kan leda till högre grundläggande ångest och problem med tarmmotiliteten (IBS) relaterade till menstruationscykeln eller hormonella fluktuationer.",
-                "yours": "Ditt resultat: Minskad känslighet."
-            },
-            "action": {
-                "title": "Fytoöstrogener",
-                "body": "Linfrön och fermenterad soja innehåller föreningar som specifikt riktar sig mot ER-beta. Att lägga till dessa i din kost kan hjälpa till att manuellt aktivera denna lugnande signalväg."
-            }
-        },
-        "data_strength": {
-            "gene": "ESR2",
-            "title": "Det 'kognitiva' östrogenet",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "Hög ER-beta-känslighet skyddar hjärnan från neurodegeneration och stress.",
-                "how": "Dina receptorer är mycket aktiva. Östrogen fungerar som en potent neuroprotektiv sköld för dig. Du bibehåller sannolikt skarpt minne och kognitiv flexibilitet långt in i hög ålder. Ditt humör stabiliseras naturligt av din hormonella rytm.",
-                "yours": "Ditt resultat: Hög känslighet."
-            },
-            "action": {
-                "title": "Hjärnhälsa",
-                "body": "Din hjärna trivs med hormonell balans. Hälsosamma fetter och tillräcklig sömn stöder denna skyddsmekanism."
-            }
-        }
-    },
-    "rs9282859": {
-        "title": "Östriogensyntes",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "HSD17B12",
-            "title": "Den 'Låga' Östrogentypen",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "Detta enzym omvandlar svagt östrogen (östron, E1) till potent östradiol (E2). Det bestämmer din totala östrogennivå.",
-                "how": "Din enzymaktivitet är reducerad. Du producerar mindre potent östradiol. Även om detta minskar cancerrisken, kan det leda till lägre bentäthet, torrare hud och lägre libido. Du kan uppleva klimakteriebesvär tidigare eller svårare.",
-                "yours": "Ditt resultat: Minskad omvandling."
-            },
-            "action": {
-                "title": "Hormonstöd",
-                "body": "Du behöver stödja den naturliga produktionen. Maca-rot och adekvat intag av kostfett är viktiga föregångare. Styrketräning hjälper till att stimulera hormonproduktionen naturligt."
-            }
-        },
-        "data_strength": {
-            "gene": "HSD17B12",
-            "title": "Den 'Fertila' Signaleringen",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "Effektiv omvandling säkerställer robusta nivåer av östradiol för reproduktiv hälsa och benhälsa.",
-                "how": "Ditt enzym fungerar effektivt. Du upprätthåller lätt hälsosamma östrogennivåer. Detta stöder hudens återfuktning, bentäthet och humörstabilitet. Du har sannolikt en 'ungdomlig' hormonprofil.",
-                "yours": "Ditt resultat: Effektiv omvandling."
-            },
-            "action": {
-                "title": "Vitalitet",
-                "body": "Dina hormoner arbetar för dig. Bibehåll en hälsosam vikt för att hålla detta system i balans."
-            }
-        }
-    },
     "rs4654748": {
-        "title": "Nukleär Struktur (Åldrande)",
-        "badge_type": "RISK",
+        "risk_genotypes": [
+            "CC"
+        ],
+        "strength_genotypes": [
+            "TT"
+        ],
         "data_risk": {
-            "gene": "LMNA",
-            "title": "Den 'Sköra' Cellen",
+            "gene": "ALPL",
+            "title": "B6-Läckan",
             "badge_type": "RISK",
             "mechanisms": {
-                "what": "Lamin A/C-proteiner bildar stommen som håller ihop cellkärnan. De skyddar ditt DNA från fysisk stress.",
-                "how": "Din variant skapar en något svagare kärnmembran. Dina celler är mer sårbara för mekanisk stress. Detta kopplas till accelererad cellulär senescens (åldrande) och metabola problem som insulinresistens / lipodystrofi (dålig fettlagring).",
-                "yours": "Ditt Resultat: Minskad Nukleär Integritet."
+                "what": "Aktivt vitamin B6 (PLP) driver över 100 enzymer, bland annat de som bildar serotonin, dopamin och GABA och rensar homocystein.",
+                "how": "Din CC-genotyp sitter intill ALPL, enzymet som tar bort PLP:s fosfatgrupp så att det kan lämna cellerna och brytas ner. Varje C-allel sänker vitamin B6 i blodet med cirka 1,5 ng/mL, så du startar lägre än de flesta med samma kost.",
+                "ancestral": "B6-reserv (TT).",
+                "yours": "Ditt Resultat: B6-läcka (CC)."
             },
+            "risks": [],
             "action": {
-                "title": "Metabol Vård",
-                "body": "Du måste vara försiktig med din metabolism. Undvik extrema dieter eller massiva blodsockertoppar, eftersom dina celler strukturellt sett har sämre förmåga att hantera stress. Konsekvens är nyckeln."
-            }
+                "title": "Fyll På Förrådet",
+                "body": "Ät B6-rik mat dagligen och kontrollera B6 vid trötthet, nedstämdhet eller högt homocystein. Om du tar tillskott, välj måttliga doser P5P; mycket höga B6-doser kan ge nervbesvär.",
+                "foods": []
+            },
+            "confidence": 4
         },
         "data_strength": {
-            "gene": "LMNA",
-            "title": "Den 'Robusta' Cellen",
-            "badge_type": "SUPERPOWER",
+            "gene": "ALPL",
+            "title": "B6-Reserven",
+            "badge_type": "STRENGTH",
             "mechanisms": {
-                "what": "Stark nukleär stomme skyddar genomet och reglerar hälsosam genuttryck.",
-                "how": "Dina Lamin-proteiner bildar en fästning runt ditt DNA. Dina cellkärnor är strukturellt sunda och motståndskraftiga mot mekanisk stress. Detta bevarar genomisk stabilitet och skyddar mot för tidiga åldrandessyndrom. Dina celler är byggda för att hålla.",
-                "yours": "Ditt Resultat: Hög Nukleär Integritet."
+                "what": "Aktivt vitamin B6 (PLP) är en kofaktor för signalsubstanser och aminosyraomsättning.",
+                "how": "Din TT-genotyp är kopplad till högre vitamin B6 i blodet. Mindre PLP går förlorat vid nedbrytning nära ALPL, så dina B6-beroende enzymer, från serotonin- och GABA-syntes till homocysteinrensning, har gott om kofaktor.",
+                "ancestral": "B6-reserv (TT).",
+                "yours": "Ditt Resultat: B6-reserv (TT)."
             },
+            "risks": [],
             "action": {
-                "title": "Bas för Livslängd",
-                "body": "Du har den strukturella hårdvaran för ett långt liv. Förstöra den inte med skadliga vanor."
-            }
+                "title": "Håll Det Jämnt",
+                "body": "En varierad kost räcker; högdos-tillskott av B6 behövs sällan.",
+                "foods": []
+            },
+            "confidence": 4
         }
     },
     "rs13266634": {
@@ -9287,70 +7523,6 @@
             }
         }
     },
-    "rs2073711": {
-        "title": "Diskens integritet i ryggraden",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "COL11A1",
-            "title": "Risken för ryggraden",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "Typ XI kollagen är en mindre men kritisk komponent i brosket, specifikt i mellankotskivorna i ryggraden.",
-                "how": "Din variant påverkar den strukturella integriteten hos detta kollagen. Dina diskar i ryggraden är något mer benägna att degenerera och bråckbildas under belastning. Du är genetiskt mottaglig för 'ländryggsdiskbråck' och ländryggssmärta om du lyfter med dålig form.",
-                "yours": "Ditt resultat: Minskad disk-integritet."
-            },
-            "action": {
-                "title": "Kärnstabilitet",
-                "body": "Du kan inte förlita dig på dina ligament för att hålla din ryggrad. Du behöver en idiotsäker bålmuskulatur. 'McGill Big 3'-övningarna är ett absolut måste för dig för att skapa ett muskulärt korsett runt din ryggrad."
-            }
-        },
-        "data_strength": {
-            "gene": "COL11A1",
-            "title": "Den 'hållbara' disken",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "Robust syntes av typ XI kollagen skapar tåliga, motståndskraftiga broskkuddar mellan kotorna.",
-                "how": "Dina diskar i ryggraden är byggda för att hålla. De motstår kompression och uttorkning effektivt. Du kan hantera tung axiell belastning (knäböj/marklyft) med mycket lägre risk för bråckbildning jämfört med genomsnittspopulationen.",
-                "yours": "Ditt resultat: Stark disk-integritet."
-            },
-            "action": {
-                "title": "Belastning",
-                "body": "Din ryggrad är robust. Du kan säkert ägna dig åt styrkelyft eller sporter med hög belastning, förutsatt att du bibehåller god form."
-            }
-        }
-    },
-    "rs2289360": {
-        "title": "Hudbarriärfunktion",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "COL6A5",
-            "title": "Den 'känsliga' huden",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "Typ VI Kollagen förankrar hudlagren tillsammans och reglerar hudbarriärens permeabilitet.",
-                "how": "Din variant är associerad med en svagare hudbarriär. Denna predisposition är starkt kopplad till eksem (atopisk dermatit). Din hud förlorar lätt fukt och släpper in allergener, vilket leder till kronisk torrhet och inflammatoriska utslag.",
-                "yours": "Ditt resultat: Svag hudbarriär."
-            },
-            "action": {
-                "title": "Fuktförsegling",
-                "body": "Du behöver manuellt förstärka barriären. Ceramider och urea-baserade krämer hjälper till att täta gliporna. Undvik starka tvålar (SLS) som strippar den lilla barriär du har."
-            }
-        },
-        "data_strength": {
-            "gene": "COL6A5",
-            "title": "Den 'skyddade' huden",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "Ett tätt kollagenätverk skapar en ogenomtränglig barriär mot miljöirritanter.",
-                "how": "Din hudbarriär är som rustning. Den håller fukten inne och allergener ute. Du lider sällan av torr hud, eksem eller kontaktdermatit. Din hud behåller sin 'glöd' eftersom den naturligt är välhydrerad.",
-                "yours": "Ditt resultat: Stark hudbarriär."
-            },
-            "action": {
-                "title": "Hudens motståndskraft",
-                "body": "Din hud tolererar miljöer väl. Du behöver inte komplexa rutiner; bara enkel återfuktning fungerar för dig."
-            }
-        }
-    },
     "rs3827760": {
         "title": "Värmetolerans (svettning)",
         "badge_type": "RISK",
@@ -9380,38 +7552,6 @@
             "action": {
                 "title": "Värmeprestanda",
                 "body": "Du har en konkurrensfördel i värmen. Håll dig hydrerad, eftersom du förlorar vatten snabbare än andra på grund av din höga svettfrekvens."
-            }
-        }
-    },
-    "rs2070974": {
-        "title": "Melaninproduktion",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "TYR",
-            "title": "Risken för 'Solen'",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "Tyrosinas är den hastighetsbegränsande enzymet för produktion av melanin, pigmentet som skyddar DNA från UV-strålning.",
-                "how": "Din enzymaktivitet är reducerad. Du producerar mindre skyddande melanin. Även om du blir lite solbränd, är ditt DNA-skydd svagt. Denna variant är starkt kopplad till en ökad risk för malignt melanom och basalcellscancer. Dina hudceller tar mer skada per minut av sol exponering.",
-                "yours": "Ditt Resultat: Minskad Melaninproduktion."
-            },
-            "action": {
-                "title": "UV-skydd",
-                "body": "Solskyddsmedel är inte ett valfritt tillval. Du behöver också internt solskydd: Astaxantin och Lykopen (tillagade tomater) ackumuleras i huden och erbjuder ett sekundärt skydd mot UV-skador."
-            }
-        },
-        "data_strength": {
-            "gene": "TYR",
-            "title": "Den 'Solära' Adaptorn",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "Robust tyrosinasaktivitet möjliggör snabb solbränna som svar på UV-stress.",
-                "how": "Ditt enzym fungerar effektivt. Vid sol exponering syntetiserar du snabbt melaninkapslar för att skydda dina cellkärnor. Du tolererar solexponering väl och har en lägre baslinjerisk för hudcancer jämfört med ljusare fenotyper.",
-                "yours": "Ditt Resultat: Effektiv Melaninproduktion."
-            },
-            "action": {
-                "title": "Soltolerans",
-                "body": "Du är byggd för utomhusbruk. Måttlig solexponering är hälsosamt för dig och upprätthåller dina D-vitaminnivåer."
             }
         }
     },
@@ -9543,102 +7683,6 @@
             }
         }
     },
-    "rs13331": {
-        "title": "Skarp Perception",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "OR2M7",
-            "title": "Den 'Starka' Näsan",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "OR2M7 är en annan luktreceptor kopplad till perceptionen av starka, stickande lukter, som ofta interagerar med samma signalväg som genen för koriander-tvål.",
-                "how": "Din variant är kopplad till en ökad känslighet för specifika flyktiga organiska föreningar. Du kan vara 'hyperosmik' – ha ett luktsinne som är alltför skarpt för att vara bekvämt. Starka parfymer, bensin eller vissa kryddor kan utlösa huvudvärk eller illamående eftersom din hjärna tar emot en förstärkt signal.",
-                "yours": "Ditt Resultat: Hyperakut Luktsinne."
-            },
-            "action": {
-                "title": "Doftfritt",
-                "body": "Din hemmiljö bör vara doftfri. Använd oparfymerade tvättmedel för att förhindra kronisk låggradig neural irritation."
-            }
-        },
-        "data_strength": {
-            "gene": "OR2M7",
-            "title": "Den 'Balanserade' Näsan",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "Balanserad luktsignalering möjliggör upptäckt av farosignaler (rök/ruttet) utan att överväldiga nervsystemet.",
-                "how": "Din lukttröskel är standard. Du kan känna lukten av matlagning eller en gasläcka, men du blir inte oförmögen av någon som bär för mycket cologne i en hiss. Din sensoriska bearbetningsfilter fungerar korrekt.",
-                "yours": "Ditt Resultat: Normal Känslighet."
-            },
-            "action": {
-                "title": "Anpassningsförmåga",
-                "body": "Du kan fungera bra i varierande miljöer utan att distraheras av bakgrundslukter."
-            }
-        }
-    },
-    "rs3737965": {
-        "title": "Vaskulär Struktur",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "COL18A1",
-            "title": "Integriteten hos 'Ögat'",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "Kollagen typ XVIII är unikt eftersom det innehåller 'Endostatin', en potent hämmare av ny blodkärlstillväxt. Det är kritiskt för att bibehålla ögats struktur.",
-                "how": "Din variant är associerad med minskad strukturell integritet i basalmembranen i ögat. Detta är en riskfaktor för myopi (närsynthet) och potentiellt problem med överväxt av retinala kärl. Dina ögon kan fysiskt förlängas snabbare under barndomen, vilket suddar ut avståndssynen.",
-                "yours": "Ditt Resultat: Minskad Membranstabilitet."
-            },
-            "action": {
-                "title": "Visuell Hygien",
-                "body": "Du måste följa '20-20-20'-regeln. Var 20:e minut, titta på något 20 fot bort. Din ögonstruktur är formbar och behöver pauser från ansträngningen vid närarbete på skärmar."
-            }
-        },
-        "data_strength": {
-            "gene": "COL18A1",
-            "title": "Det 'Stabila' Ögat",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "Robust kollagen typ XVIII säkerställer att ögat bibehåller sin sfäriska form och reglerar angiogenes korrekt.",
-                "how": "Dina basalmembran är tåliga. Dina ögon motstår den förlängning som orsakar närsynthet. Du har sannolikt bättre grundläggande synskärpa och en lägre risk för neovaskulära ögonsjukdomar senare i livet.",
-                "yours": "Ditt Resultat: Hög Strukturell Stabilitet."
-            },
-            "action": {
-                "title": "20/20 Potential",
-                "body": "Dina ögon är strukturellt sunda. Skydda dem från UV-ljus för att bibehålla denna fördel."
-            }
-        }
-    },
-    "rs12942023": {
-        "title": "Proteinglykosylering",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "FUT8",
-            "title": "Signalsignalen",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "Fukosyltransferas 8 lägger till en specifik sockermolekyl (fukos) till proteiner, en process som kallas 'kärnfukosylering'. Detta fungerar som en adresslapp som talar om för tillväxtfaktorreceptorer och immunglobuliner hur de ska fungera.",
-                "how": "Din enzymaktivitet är förändrad. Detta påverkar hur dina immunceller (IgG-antikroppar) binder till sina mål. Det kan leda till ett 'hyperreaktivt' immunläge eller förändrad känslighet för tillväxtfaktorer som TGF-beta. Detta kopplas ofta till högre mottaglighet för autoimmuna skov eller vävnadsfibros.",
-                "yours": "Ditt resultat: Förändrad proteintaggning."
-            },
-            "action": {
-                "title": "Inflammationskontroll",
-                "body": "Eftersom dina proteintaggningar är annorlunda, är ditt immunsystem mer benäget för förvirring. En antiinflammatorisk kost (Autoimmune Protocol - AIP) kan hjälpa till att minska bruset i systemet."
-            }
-        },
-        "data_strength": {
-            "gene": "FUT8",
-            "title": "Precisionen",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "Korrekt kärnfukosylering säkerställer att receptorer (som EGFR) och antikroppar fungerar med maximal effektivitet.",
-                "how": "Ditt FUT8-enzym taggar proteiner korrekt. Din tillväxtfaktorsignalering är balanserad – varken för svag eller för aggressiv. Dina immunglobuliner binder tätt till virus men släpper friska vävnader. Detta är en markör för djup cellulär kommunikationshälsa.",
-                "yours": "Ditt resultat: Optimal proteintaggning."
-            },
-            "action": {
-                "title": "Cellulär hälsa",
-                "body": "Dina celler kommunicerar tydligt med varandra. Bibehåll detta med en kost med lågt sockerinnehåll, eftersom överskott av socker kan störa glykosyleringsprocesser."
-            }
-        }
-    },
     "rs10427255": {
         "title": "Neural Development",
         "badge_type": "RISK",
@@ -9668,6 +7712,204 @@
             "action": {
                 "title": "Kapacitet för Uthållighet",
                 "body": "Du är byggd för att uthärda. Du kan hantera fysisk och sensorisk stress som skulle utmatta en mer känslig person."
+            }
+        }
+    },
+    "rs1799963": {
+        "title": "Koagulationsfaktorer",
+        "badge_type": "RISK",
+        "data_risk": {
+            "gene": "F2",
+            "title": "Det 'Tjocka' Blodet",
+            "badge_type": "RISK",
+            "mechanisms": {
+                "what": "Protrombin (Faktor II) är prekursorproteinet som klyvs till Trombin, enzymet som omvandlar flytande blod till en fast gel (koagel).",
+                "how": "Du bär på G20210A-mutationen. Detta är en 'gain-of-function'-mutation i mRNA, vilket gör att din lever överproducerar Protrombin. Du har 30% mer koagulationsfaktor i blodet än normalt. Detta gör ditt blod till 'slam', redo att koagulera vid minsta provokation (som att sitta på ett flygplan).",
+                "yours": "Ditt Resultat: Protrombinöverproduktion."
+            },
+            "action": {
+                "title": "Cirkulationsprotokoll",
+                "body": "Stas är döden. Sitt aldrig stilla i mer än 2 timmar utan att röra på dig. Du måste hålla dig hyperhydrerad för att minska blodets viskositet. Undvik Östrogen (p-piller/HRT) då det ytterligare förtjockar blodet."
+            }
+        },
+        "data_strength": {
+            "gene": "F2",
+            "title": "Det 'Optimala' Flödet",
+            "badge_type": "SUPERPOWER",
+            "mechanisms": {
+                "what": "Koagulationskaskaden är en känslig balans mellan blödning och koagulering.",
+                "how": "Dina Protrombinomivåer är perfekt reglerade. Du har exakt rätt mängd koagulationsfaktor för att omedelbart täta ett sår, men inte tillräckligt för att utlösa slumpmässiga koagler under resor eller stress. Din vaskulära riskprofil är optimal på baslinjenivå.",
+                "yours": "Ditt Resultat: Optimal Hemodynamik."
+            },
+            "action": {
+                "title": "Vaskulär Hälsa",
+                "body": "Du har ett naturligt skydd mot de koagulationsrisker som är förknippade med åldrande. Bibehåll detta genom att vara aktiv och hydrerad."
+            }
+        }
+    },
+    "rs734553": {
+        "title": "Urattransport",
+        "badge_type": "RISK",
+        "data_risk": {
+            "gene": "SLC2A9",
+            "title": "Transportören som 'samlar på sig'",
+            "badge_type": "RISK",
+            "mechanisms": {
+                "what": "SLC2A9 kodar för GLUT9-transportören, den primära portvakten i njuren som bestämmer om urinsyra ska utsöndras via urinen eller återföras till blodet.",
+                "how": "Din transportör är hyperaktiv. Den återabsorberar aggressivt urinsyra tillbaka till blodbanan. Detta håller dina serumhalter kroniskt nära mättnadspunkten. Du är en 'icke-utsöndrare'. Även små mängder fruktos eller puriner kan höja dina nivåer tillräckligt för att orsaka bildning av giktkristaller.",
+                "yours": "Ditt resultat: Hög återabsorptionshastighet."
+            },
+            "action": {
+                "title": "Alkalisera & Späd ut",
+                "body": "Hydrering är fysik: mer vatten ger lägre mättnad. Du måste också strikt begränsa fruktos (socker), eftersom fruktosmetabolism genererar urinsyra som en biprodukt. Körsbärsextrakt är mycket effektivt för din genotyp."
+            }
+        },
+        "data_strength": {
+            "gene": "SLC2A9",
+            "title": "Fenotypen 'spolar ut'",
+            "badge_type": "SUPERPOWER",
+            "mechanisms": {
+                "what": "SLC2A9 upprätthåller balansen av urinsyra, som fungerar som en antioxidant på normala nivåer men som ett toxin vid höga nivåer.",
+                "how": "Din variant skapar en 'slapp' grind. Dina njurar dumpar urinsyra i urinen med exceptionell effektivitet. Du upprätthåller naturligt låga serumuratnivåer, vilket gör dig nästan immun mot kostinducerad gikt och skyddar dina blodkärl från uratinducerad hypertoni.",
+                "yours": "Ditt resultat: Snabb utsöndring."
+            },
+            "action": {
+                "title": "Kostfrihet",
+                "body": "Medan andra måste frukta rött kött och skaldjur, är dina njurar tillräckligt effektiva för att klara purinbelastningen. Du har en massiv biologisk buffert mot inflammation."
+            }
+        }
+    },
+    "rs2631367": {
+        "title": "Karnitin transport",
+        "badge_type": "RISK",
+        "data_risk": {
+            "gene": "SLC22A5",
+            "title": "Cellen med 'låg energi'",
+            "badge_type": "RISK",
+            "mechanisms": {
+                "what": "SLC22A5 kodar för OCTN2-transportören, som ansvarar för att dra in L-karnitin i muskel- och hjärtceller. Karnitin är skytteln som bär fett in i mitokondrierna för att förbrännas som energi.",
+                "how": "Din transportör är ineffektiv. Du kämpar med att få karnitin *inuti* cellerna där det behövs. Även om du äter rött kött, kan dina muskler vara funktionellt bristfälliga på karnitin. Detta leder till dålig fettoxidation, lägre uthållighet och ett beroende av glukos som bränsle.",
+                "yours": "Ditt resultat: Minskad karnitinupptag."
+            },
+            "action": {
+                "title": "Acetyl-L-Karnitin",
+                "body": "Du behöver mätta transportörerna. Tillskott med Acetyl-L-Karnitin (ALCAR) i högre doser (2g+) kan hjälpa till att tvinga diffusion in i vävnaderna för att återställa fettförbränningskapaciteten och mental klarhet."
+            }
+        },
+        "data_strength": {
+            "gene": "SLC22A5",
+            "title": "Fett-ugnen",
+            "badge_type": "SUPERPOWER",
+            "mechanisms": {
+                "what": "Hög OCTN2-aktivitet säkerställer att musklerna flödas med det karnitin som behövs för beta-oxidation.",
+                "how": "Dina transportgrindar är vidöppna. Dina muskler absorberar karnitin ivrigt från blodomloppet. Det betyder att dina mitokondrier alltid har den skyttel de behöver för att förbränna fett som bränsle. Du har hög uthållighetskapacitet och återhämtar dig snabbt från fysisk ansträngning.",
+                "yours": "Ditt resultat: Högt karnitinupptag."
+            },
+            "action": {
+                "title": "Uthållighetsbränsle",
+                "body": "Dina celler är redo att förbränna fett. Långvarig konditionsträning är metaboliskt lätt för dig."
+            }
+        }
+    },
+    "rs3892097": {
+        "risk_genotypes": [
+            "TT",
+            "CT"
+        ],
+        "strength_genotypes": [
+            "CC"
+        ],
+        "data_risk": {
+            "gene": "CYP2D6",
+            "title": "Genen 'Läkemedelsförvandlaren'",
+            "badge_type": "RISK",
+            "mechanisms": {
+                "what": "CYP2D6 metaboliserar 25% av alla läkemedel, inklusive antidepressiva (SSRI), betablockerare och smärtstillande medel (Kodein).",
+                "how": "Du är en 'långsam metaboliserare'. Din kropp har svårt att bryta ner dessa läkemedel. För vissa läkemedel (som SSRI) kan nivåerna byggas upp till giftiga nivåer. För 'prodrugs' (som Kodein) aktiveras de aldrig till smärtlindring, så de fungerar inte alls.",
+                "ancestral": "Snabb metaboliserare (CC).",
+                "yours": "Ditt resultat: Långsam metaboliserare (läkemedelsförsämring/toxicitet)."
+            },
+            "risks": [
+                "Läkemedel: Kodein/Tramadol kan sakna effekt (misslyckad smärtlindring).",
+                "Läkemedel: SSRI/Antipsykotika kan ge allvarliga biverkningar vid normala doser.",
+                "Hjärna: Involverad i dopaminsyntesen i hjärnan."
+            ],
+            "action": {
+                "title": "Genetisk Farmakologi",
+                "body": "Detta är avgörande medicinsk information. Informera din läkare om att du är en CYP2D6 långsam metaboliserare. Du kan behöva alternativa läkemedel som kringgår denna väg. Undvik kodeinbaserade smärtstillande medel då de kommer att vara ineffektiva.",
+                "foods": [
+                    "Informera läkare",
+                    "Undvik Kodein",
+                    "Övervaka SSRI-dosering"
+                ]
+            },
+            "confidence": 5
+        }
+    },
+    "rs10156191": {
+        "risk_genotypes": [
+            "TT",
+            "CT"
+        ],
+        "strength_genotypes": [
+            "CC"
+        ],
+        "data_risk": {
+            "gene": "AOC1 (DAO)",
+            "title": "Histamin-hinken",
+            "badge_type": "RISK",
+            "mechanisms": {
+                "what": "DAO är det primära enzymet i tarmen som bryter ner histamin som finns i mat (lagrad ost, vin, rester). Det tömmer din 'histamin-hink'.",
+                "how": "Din variant minskar produktionen av detta enzym. Din hink är liten och fylls snabbt. Att äta histaminrik mat leder till överflödssymtom: migrän, nästäppa, nässelutslag eller ångest kort efter måltider.",
+                "ancestral": "Snabb tömning (CC).",
+                "yours": "Ditt resultat: Långsam tömning (Histaminintolerans)."
+            },
+            "risks": [
+                "Matsmältning: Uppblåsthet eller diarré efter måltid.",
+                "Neuro: Migrän och hjärndimma utlöst av mat.",
+                "Hud: Oförklarlig klåda eller rodnad."
+            ],
+            "action": {
+                "title": "Töm hinken",
+                "body": "Du har histaminintolerans. Du måste begränsa histaminrik mat (spenat, avokado, fermenterad mat, rester). Vitamin C och B6 är nödvändiga kofaktorer för att DAO-enzymet ska fungera. Du kan också ta DAO-enzymer till måltider.",
+                "foods": [
+                    "Låg histamin-diet",
+                    "Vitamin C",
+                    "DAO-enzymer"
+                ]
+            },
+            "confidence": 4
+        }
+    },
+    "rs1799895": {
+        "title": "Extracellulär Antioxidant",
+        "badge_type": "RISK",
+        "data_risk": {
+            "gene": "SOD3",
+            "title": "Vaskulär Rost",
+            "badge_type": "RISK",
+            "mechanisms": {
+                "what": "Superoxiddismutas 3 (SOD3) skyddar utrymmet *utanför* cellerna, särskilt blodkärlsväggarna och lungvävnaden från oxidativ skada.",
+                "how": "Din variant minskar bindningen av SOD3 till blodkärlsväggarna. Dina artärer lämnas oskyddade. Oxidativ stress kan lättare angripa det endoteliala lagret, vilket minskar nivåerna av kväveoxid och leder till stelare artärer och högre blodtryck över tid.",
+                "yours": "Ditt Resultat: Minskade kärlskydd."
+            },
+            "action": {
+                "title": "Kärlstöd",
+                "body": "Du behöver manuellt skydda ditt endotel. C-vitamin och åldrat vitlöksextrakt har visat sig stödja kärlhälsa vid låg SOD3."
+            }
+        },
+        "data_strength": {
+            "gene": "SOD3",
+            "title": "Det 'Rostfria' Kärlet",
+            "badge_type": "SUPERPOWER",
+            "mechanisms": {
+                "what": "Hög SOD3-aktivitet förhindrar oxidation av kväveoxid, vilket håller blodkärlen avslappnade och ungdomliga.",
+                "how": "Ditt SOD3-enzym binder starkt till dina artärväggar och skapar en skyddande antioxidantbeläggning. Detta förhindrar plackbildning och bibehåller utmärkt blodflöde. Dina lungor är också högt skyddade mot föroreningar och rök.",
+                "yours": "Ditt Resultat: Högt kärlskydd."
+            },
+            "action": {
+                "title": "Uthållighetslongevity",
+                "body": "Ditt vaskulära system motstår åldrande. Aerob träning kommer ytterligare att förstärka denna naturliga fördel."
             }
         }
     }

@@ -4,11 +4,11 @@ All files are UTF-8 JSON keyed by rsID unless noted otherwise. The counts are fr
 
 | File | Entries | Used by | Role |
 |---|---|---|---|
-| `snp_traits.json` | 282 | analyzer (runtime) | **Ground truth**: genotype → score / interpretation |
-| `deep_dive_content.json` | 299 | report (EN) | Narrative for strength and risk deep-dive pages |
-| `SV_deep_dive_content.json` | 296 | report (SV) | Swedish translation of the above |
-| `evidence_db.json` | 277 | report (EN) | Research/evidence panel and confidence metrics |
-| `SV_evidence_db.json` | 274 | report (SV) | Swedish translation of the above |
+| `snp_traits.json` | 229 | analyzer (runtime) | **Ground truth**: genotype → score / interpretation |
+| `deep_dive_content.json` | 246 | report (EN) | Narrative for strength and risk deep-dive pages |
+| `SV_deep_dive_content.json` | 243 | report (SV) | Swedish translation of the above |
+| `evidence_db.json` | 231 | report (EN) | Research/evidence panel and confidence metrics |
+| `SV_evidence_db.json` | 228 | report (SV) | Swedish translation of the above |
 | `ui_labels.json` | 2 langs | report | All PDF chrome strings and the intro text |
 | `proxies.json` | 2 | proxy_handler (disabled) | Proxy SNP → target SNP genotype translation |
 | `muscle_logic_gates_db.json` | 6 stations | cluster_checker.py | Experimental multi-SNP rule sets |
@@ -82,7 +82,7 @@ The report renders `mechanisms.what`, `mechanisms.how`, `action.title` and `acti
 ```
 
 The report uses `metrics.*.score` (the confidence panel), `mechanistic_impact.detail`, `study_quality.detail` and `methodology.detail`. The organ and connection data feed only the experimental tooling.
-8 traits have no evidence entry.
+1 trait has no evidence entry.
 
 ## `ui_labels.json`
 

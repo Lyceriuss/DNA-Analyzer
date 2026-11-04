@@ -26,6 +26,17 @@ OUT_BASE = os.path.join(os.path.dirname(__file__), "library_validation")
 COMPLEMENT = {"A": "T", "T": "A", "C": "G", "G": "C"}
 NEAR_WINDOW = 250_000
 
+# A/T and C/G SNPs whose forward-strand orientation was checked by hand against
+# Ensembl's per-allele amino acid (or promoter position) and the gene's strand.
+STRAND_VERIFIED = {
+    "rs1042522": "TP53 P72R: forward G = Pro72, C = Arg72 (2026-11-04)",
+    "rs1049434": "SLC16A1 E490D: forward A = Asp490, T = Glu490 (2026-11-04)",
+    "rs1799895": "SOD3 R213G: forward C = Arg213, G = Gly213 (2026-11-04)",
+    "rs2304672": "PER2 C111G: gene on minus strand, forward C = 111G (2026-11-04)",
+    "rs2631367": "SLC22A5 -207G>C: gene on plus strand, forward C = -207C (2026-11-04)",
+    "rs523349": "SRD5A2 V89L: forward C = Val89, G = Leu89 (2026-11-04)",
+}
+
 
 def _load(path):
     with open(path, "r", encoding="utf-8") as f:
@@ -148,6 +159,9 @@ def validate():
         if allele["status"] == "mismatch":
             row["issues"].append(f"genotype letters {allele['letters']} are impossible for alleles {'/'.join(v['alleles'])}")
             row["severity"] = "error"
+        elif allele["status"] == "ambiguous" and rsid in STRAND_VERIFIED:
+            allele["status"] = "forward (verified)"
+            row["strand_note"] = STRAND_VERIFIED[rsid]
         elif allele["status"] == "ambiguous":
             row["issues"].append(f"A/T or C/G SNP ({'/'.join(v['alleles'])}): confirm the scores are written on the "
                                  "forward strand, otherwise results are silently inverted")
