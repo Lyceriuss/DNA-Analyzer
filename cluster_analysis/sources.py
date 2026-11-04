@@ -46,8 +46,9 @@ def _request(method, url, retries=4, ok_404=False, **kwargs):
             r.raise_for_status()
             return r.json()
         except requests.RequestException as e:
-            if attempt == retries - 1:
-                raise
+            status = getattr(getattr(e, "response", None), "status_code", None)
+            if attempt == retries - 1 or (status and 400 <= status < 500 and status != 429):
+                raise  # out of retries, or a bad request that will not succeed on retry
             print(f"   [!] {url.split('?')[0]} failed ({e.__class__.__name__}), retrying...")
             time.sleep(3 * (attempt + 1))
 

@@ -57,6 +57,38 @@ def bundle():
     }
 
 
+def lifecycle_rows(lifecycles):
+    """Flattens lifecycle.py output into (steps, genes) row lists for dashboards.
+    Contains genotypes when the lifecycles were built with a DNA file."""
+    def chip(g):
+        p = g.get("person") or {}
+        return {"gene": g["gene"], "lib": g["in_library"], "gt": p.get("genotype"), "fn": p.get("function"),
+                "score": p.get("score")}
+    steps, genes = [], []
+    for lc in lifecycles:
+        for ri, role in enumerate(lc.get("roles") or [], 1):
+            focal = (role.get("steps") and next((s for s in role["steps"] if s["section"] == "focal"), None))
+            fp = next((g.get("person") for g in (focal or {}).get("genes", []) if g["gene"] == lc["gene"]), None) or {}
+            genes.append({
+                "gene": lc["gene"], "role": ri, "pathway": (role.get("pathway") or {}).get("name", "Unmapped"),
+                "top_pathway": (role.get("pathway") or {}).get("top", ""), "n_steps": len(role["steps"]),
+                "start": role["start"], "end": role["end"], "genotype": fp.get("genotype"), "function": fp.get("function"),
+                "score": fp.get("score"), "interpretation": fp.get("interpretation"),
+                "cofactors": ", ".join(lc.get("cofactors") or []), "vitamins": ", ".join(lc.get("cofactor_vitamins") or []),
+                "regulation": lc.get("regulation") or "",
+                "regulators": "; ".join(f"{r['gene']} {r['effect']}" for r in (lc.get("regulators") or [])[:6]),
+                "other_pathways": lc.get("other_pathways", 0)})
+            for i, s in enumerate(role["steps"]):
+                steps.append({
+                    "gene": lc["gene"], "role": ri, "order": i, "section": s["section"], "reaction": s["reaction"],
+                    "reaction_id": s["reaction_id"], "inputs": ", ".join(s["inputs"]), "outputs": ", ".join(s["outputs"]),
+                    "transport": s["transport"],
+                    "move": (" / ".join(s["compartment_in"]) + " → " + " / ".join(s["compartment_out"])) if s["transport"] else "",
+                    "enzymes": json.dumps([chip(g) for g in s["genes"]]),
+                    "alternatives": " | ".join(f"{a['reaction']} ({', '.join(a['genes']) or 'no enzyme'})" for a in s["alternatives"])})
+    return steps, genes
+
+
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("out")

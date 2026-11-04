@@ -26,7 +26,7 @@ REACTOME = "https://reactome.org/ContentService"
 CURRENCY = {
     "15378", "15377", "57540", "57945", "58349", "57783", "30616", "456216", "456215", "43474", "33019",
     "16526", "15379", "57287", "57692", "58307", "28938", "29101", "29103", "29108", "18420", "29033",
-    "29034", "456215", "15996", "37565", "58189", "17544", "16474", "16908", "18009", "15846",
+    "29034", "17996", "456215", "15996", "37565", "58189", "17544", "16474", "16908", "18009", "15846",
 }
 HUB_LIMIT = 40  # a metabolite in more reactions than this is a hub: keep only library genes through it
 
@@ -156,17 +156,30 @@ def enzymes_for_chebi(chebi):
 
 
 def genes_for_accessions(accs):
-    accs = sorted(set(accs))
-    out = {}
-    for i in range(0, len(accs), 80):
-        chunk = accs[i:i + 80]
-        def fetch(chunk=chunk):
-            q = " OR ".join(f"accession:{a}" for a in chunk)
-            r = sources._request("GET", "https://rest.uniprot.org/uniprotkb/search",
-                                 params={"query": q, "fields": "accession,gene_primary", "format": "json", "size": 100})
-            return {x["primaryAccession"]: (x.get("genes") or [{}])[0].get("geneName", {}).get("value", x["primaryAccession"])
-                    for x in r.get("results", [])}
-        out.update(sources._cached("acc_gene", ",".join(chunk), fetch))
+    """UniProt accession -> gene symbol, cached per accession. Uses the dedicated accessions
+    endpoint; long OR queries on /search return 500 errors."""
+    accs = sorted({a.split("-")[0] for a in accs if a})  # drop isoform suffixes (P12345-2)
+    out, missing = {}, []
+    valid = re.compile(r"^([OPQ][0-9][A-Z0-9]{3}[0-9]|[A-NR-Z][0-9]([A-Z][A-Z0-9]{2}[0-9]){1,2})$")
+    for a in [a for a in accs if not valid.match(a)]:
+        out[a] = a  # not a UniProt accession: keep the id as its own label
+    accs = [a for a in accs if valid.match(a)]
+    for a in accs:
+        path = os.path.join(sources.CACHE_DIR, f"acc1_{a}.json")
+        if os.path.exists(path):
+            out[a] = json.load(open(path, encoding="utf-8"))
+        else:
+            missing.append(a)
+    for i in range(0, len(missing), 50):
+        chunk = missing[i:i + 50]
+        r = sources._request("GET", "https://rest.uniprot.org/uniprotkb/accessions",
+                             params={"accessions": ",".join(chunk), "fields": "accession,gene_primary", "format": "json"})
+        found = {x["primaryAccession"]: (x.get("genes") or [{}])[0].get("geneName", {}).get("value", x["primaryAccession"])
+                 for x in (r or {}).get("results", [])}
+        for a in chunk:
+            out[a] = found.get(a, a)
+            os.makedirs(sources.CACHE_DIR, exist_ok=True)
+            json.dump(out[a], open(os.path.join(sources.CACHE_DIR, f"acc1_{a}.json"), "w", encoding="utf-8"))
     return out
 
 
@@ -213,7 +226,7 @@ def summarize(entries):
 
 def trace(gene, status=None, depth=1):
     traits = json.load(open(TRAITS_PATH, encoding="utf-8"))
-    library_genes = {g for gs in json.load(open("cluster_analysis/modules.json", encoding="utf-8"))["rsids"].values() for g in gs}
+    library_genes = {g for r in json.load(open("cluster_analysis/modules.json", encoding="utf-8"))["rsids"].values() for g in r["genes"]}
     entry = uniprot_entry(gene)
     if not entry:
         raise SystemExit(f"No reviewed human UniProt entry for {gene}")
