@@ -940,18 +940,18 @@
     "rs429358": {
         "gene": "APOE",
         "system": "Lipids / Brain",
-        "trait": "APOE isoform (part 1)",
-        "description": "One of two key SNPs defining APOE2/3/4 isoforms impacting lipids and brain aging.",
+        "trait": "APOE ε4 status (rs429358)",
+        "description": "rs429358 C marks the APOE ε4 allele (Arg112), the strongest common genetic risk factor for late-onset Alzheimer's disease; it also raises LDL cholesterol.",
         "impact": "High",
         "variants": {
-            "CC": "Homozygous for the C allele, associated with APOE2.",
-            "CT": "Heterozygous for C and T alleles.",
-            "TT": "Homozygous for the T allele, associated with APOE3/4."
+            "TT": "No ε4 allele (ε2 or ε3)",
+            "CT": "One ε4 allele",
+            "CC": "Two ε4 alleles"
         },
         "scores": {
-            "CC": 8,
-            "CT": 5,
-            "TT": 3
+            "TT": 7,
+            "CT": 4,
+            "CC": 2
         }
     },
     "rs699": {
@@ -4036,6 +4036,108 @@
             "CC": 7,
             "CG": 4,
             "GG": 3
+        }
+    },
+    "rs7412": {
+        "gene": "APOE",
+        "system": "Lipids / Brain",
+        "trait": "APOE ε2 status (rs7412)",
+        "description": "rs7412 T marks the APOE ε2 allele, which lowers LDL cholesterol and Alzheimer's risk. ε4 needs rs429358, which MyHeritage does not test.",
+        "impact": "High",
+        "variants": {
+            "CC": "No ε2 allele (ε3 or ε4)",
+            "CT": "One ε2 allele: lower LDL, lower Alzheimer's risk",
+            "TT": "ε2/ε2: very low LDL, small risk of a remnant-cholesterol disorder"
+        },
+        "scores": {
+            "CC": 5,
+            "CT": 7,
+            "TT": 6
+        }
+    },
+    "rs1801131": {
+        "gene": "MTHFR",
+        "system": "Methylation",
+        "trait": "MTHFR A1298C (Glu429Ala)",
+        "description": "A1298C mildly lowers MTHFR activity; it matters most together with C677T (rs1801133).",
+        "impact": "Medium",
+        "variants": {
+            "GG": "Reduced activity (1298 C/C)",
+            "GT": "Mildly reduced activity",
+            "TT": "Typical activity (1298 A/A)"
+        },
+        "scores": {
+            "GG": 4,
+            "GT": 5,
+            "TT": 6
+        }
+    },
+    "rs2228570": {
+        "gene": "VDR",
+        "system": "Vitamin D / Immune",
+        "trait": "Vitamin D receptor FokI (receptor length)",
+        "description": "FokI changes the VDR start codon: the f allele makes a 3-amino-acid longer, less active receptor.",
+        "impact": "Medium",
+        "variants": {
+            "GG": "F/F: shorter, more active receptor",
+            "AG": "F/f: intermediate",
+            "AA": "f/f: longer, less active receptor"
+        },
+        "scores": {
+            "GG": 6,
+            "AG": 5,
+            "AA": 4
+        }
+    },
+    "rs11568820": {
+        "gene": "VDR",
+        "system": "Vitamin D / Gut",
+        "trait": "Vitamin D receptor Cdx2 (gut expression)",
+        "description": "The Cdx2 promoter variant changes how much vitamin D receptor the intestine makes; T (Cdx2 A) makes more.",
+        "impact": "Low",
+        "variants": {
+            "CC": "Typical intestinal VDR expression",
+            "CT": "Somewhat higher VDR expression",
+            "TT": "Higher intestinal VDR expression"
+        },
+        "scores": {
+            "CC": 5,
+            "CT": 6,
+            "TT": 7
+        }
+    },
+    "rs12255372": {
+        "gene": "TCF7L2",
+        "system": "Glucose / Insulin",
+        "trait": "Insulin secretion (TCF7L2, second marker)",
+        "description": "The T allele lowers first-phase insulin secretion and raises type 2 diabetes risk (independent of rs7903146 only in part).",
+        "impact": "High",
+        "variants": {
+            "GG": "Typical insulin secretion",
+            "GT": "Somewhat reduced first-phase insulin",
+            "TT": "Reduced first-phase insulin; higher type 2 diabetes risk"
+        },
+        "scores": {
+            "GG": 6,
+            "GT": 5,
+            "TT": 3
+        }
+    },
+    "rs3025039": {
+        "gene": "VEGFA",
+        "system": "Cardiovascular / Muscle",
+        "trait": "VEGF secretion (+936 C>T)",
+        "description": "The T allele lowers circulating VEGF, the signal that grows new capillaries.",
+        "impact": "Medium",
+        "variants": {
+            "CC": "Typical VEGF secretion",
+            "CT": "Lower VEGF secretion",
+            "TT": "Lowest VEGF secretion"
+        },
+        "scores": {
+            "CC": 6,
+            "CT": 5,
+            "TT": 4
         }
     }
 }

@@ -153,7 +153,14 @@
                 "title": "Metabolic Flexibility",
                 "body": "You have a natural advantage in brain health. To maximize it, focus on 'Brain Fuels' like Ketones or MCTs, which your efficient transporters can utilize effectively."
             }
-        }
+        },
+        "risk_genotypes": [
+            "CC",
+            "CT"
+        ],
+        "strength_genotypes": [
+            "TT"
+        ]
     },
     "rs1006737": {
         "title": "Neuronal Excitability",
@@ -809,38 +816,6 @@
             "confidence": 5
         }
     },
-    "rs731236": {
-        "title": "Vitamin D Receptor",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "VDR",
-            "title": "The 'Silenced' Receptor",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "The Vitamin D Receptor (VDR) is not just a passive dock; it is a nuclear transcription factor. It must bind to Vitamin D, enter the nucleus, and unlock DNA to turn on 900+ genes involved in immunity and bone repair.",
-                "how": "Your receptor (likely Taq1 or Bsm1 variant) has a shape change that reduces its binding efficiency. Even with normal Vitamin D levels in your blood, the 'key' turns the lock very slowly. This results in weak gene expression, leaving your immune system sluggish and your bones less able to mineralize.",
-                "yours": "Your Result: Low Transcriptional Efficiency."
-            },
-            "action": {
-                "title": "Force the Lock",
-                "body": "Standard dosing is not enough. You need to flood the system. You likely need blood levels of 60-80 ng/mL (higher than the standard 30) to achieve the same genetic activation as a normal person. Take Vitamin D3 with K2 and a fatty meal (Avocado) to maximize absorption."
-            }
-        },
-        "data_strength": {
-            "gene": "VDR",
-            "title": "The 'Amplified' Signal",
-            "badge_type": "Strength",
-            "mechanisms": {
-                "what": "VDR forms a complex with RXR (Retinoid X Receptor) to activate the 'Genome Defense' program.",
-                "how": "Your receptor is hypersensitive. It creates a robust signal cascade even with moderate sun exposure. You aggressively produce cathelicidins (natural antibiotics) and absorb calcium efficiently. This gives you a 'Teflon' immune system that repels respiratory viruses and maintains bone density with ease.",
-                "yours": "Your Result: High Transcriptional Sensitivity."
-            },
-            "action": {
-                "title": "Immune Shield",
-                "body": "Your robust VDR signaling provides a powerful baseline defense. Moderate sun exposure is likely all you need to maintain a super-charged immune response."
-            }
-        }
-    },
     "rs1801394": {
         "risk_genotypes": [
             "GG",
@@ -1199,8 +1174,7 @@
     },
     "rs1801131": {
         "risk_genotypes": [
-            "GG",
-            "GT"
+            "GG"
         ],
         "strength_genotypes": [
             "TT"
@@ -2379,38 +2353,6 @@
             "confidence": 5
         }
     },
-    "rs2854464": {
-        "title": "Muscle Fiber Composition",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "ACTN3",
-            "title": "The Ultra-Endurance Phenotype",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "Alpha-actinin-3 is a structural protein found exclusively in Type II (Fast-Twitch) muscle fibers, responsible for generating explosive force ",
-                "how": "You are 'Alpha-Actinin-3 Deficient' (XX genotype). Your body produces zero functional ACTN3 protein. Nature has completely swapped your explosive capability for extreme metabolic efficiency. While you are at a disadvantage for sprints and powerlifting, your muscles are highly resistant to fatigue and oxidative damage, making you biologically engineered for ultra-endurance.",
-                "yours": "Your Result: Slow-Twitch Dominant (XX)."
-            },
-            "action": {
-                "title": "Metabolic Training",
-                "body": "Low-rep, explosive training is metabolically inefficient for you. You respond best to high-volume, time-under-tension protocols that fatigue your efficient fibers."
-            }
-        },
-        "data_strength": {
-            "gene": "ACTN3",
-            "title": "The Sprinter Phenotype",
-            "badge_type": "Strength",
-            "mechanisms": {
-                "what": "ACTN3 anchors the actin filaments in the muscle sarcomere, allowing for violent, high-velocity contractions without damage.",
-                "how": "You have the 'Power' genotype (RR). Your muscle fibers are saturated with alpha-actinin-3. This allows your muscles to contract at maximum velocity and recover instantly from eccentric damage. This is the genetic prerequisite for elite sprinting and Olympic weightlifting. You are built to generate force.",
-                "yours": "Your Result: Fast-Twitch Dominant (RR)."
-            },
-            "action": {
-                "title": "Explosive Output",
-                "body": "Your physiology degrades with slow steady-state cardio. You need sprints, jumps, and heavy loads to maintain hormonal and structural health."
-            }
-        }
-    },
     "rs5751876": {
         "risk_genotypes": [
             "TT",
@@ -2810,40 +2752,6 @@
             }
         }
     },
-    "rs1799990": {
-        "risk_genotypes": [
-            "AA",
-            "AG"
-        ],
-        "strength_genotypes": [
-            "GG"
-        ],
-        "data_risk": {
-            "gene": "PRNP",
-            "title": "The 'Long-Term Memory' Gene",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "PRNP creates prion proteins that support long-term memory maintenance and synaptic plasticity.",
-                "how": "Your variant (M129V) is associated with reduced cognitive stability in older age. It affects how the brain folds proteins, making you slightly more susceptible to protein-folding errors (like those seen in cognitive decline).",
-                "ancestral": "Stable Folding (GG).",
-                "yours": "Your Result: Unstable Folding (Cognitive Risk)."
-            },
-            "risks": [
-                "Brain: Cognitive decline in later years.",
-                "Sleep: Susceptibility to sleep fragmentation."
-            ],
-            "action": {
-                "title": "Autophagy for the Brain",
-                "body": "You need to clear out misfolded proteins regularly. Sleep is when this cleaning (Glymphatic System) happens. You cannot sacrifice sleep. Time-Restricted Feeding (12+ hours) also triggers autophagy to clean up cellular debris.",
-                "foods": [
-                    "Strict 8h Sleep",
-                    "Fasting",
-                    "Lion's Mane"
-                ]
-            },
-            "confidence": 3
-        }
-    },
     "rs1047303": {
         "risk_genotypes": [
             "CC"
@@ -3193,7 +3101,7 @@
             "badge_type": "RISK",
             "mechanisms": {
                 "what": "The Vitamin D Receptor (VDR) is not just a passive dock; it is a nuclear transcription factor. It must bind to Vitamin D, enter the nucleus, and unlock DNA to turn on 900+ genes involved in immunity and bone repair.",
-                "how": "Your receptor (likely Taq1 or Bsm1 variant) has a shape change that reduces its binding efficiency. Even with normal Vitamin D levels in your blood, the 'key' turns the lock very slowly. This results in weak gene expression, leaving your immune system sluggish and your bones less able to mineralize.",
+                "how": "Your FokI variant makes a slightly longer receptor that binds its partners less efficiently. Even with normal Vitamin D levels in your blood, the 'key' turns the lock very slowly. This results in weak gene expression, leaving your immune system sluggish and your bones less able to mineralize.",
                 "yours": "Your Result: Low Transcriptional Efficiency."
             },
             "action": {
@@ -3214,7 +3122,13 @@
                 "title": "Immune Shield",
                 "body": "Your robust VDR signaling provides a powerful baseline defense. Moderate sun exposure is likely all you need to maintain a super-charged immune response."
             }
-        }
+        },
+        "risk_genotypes": [
+            "AA"
+        ],
+        "strength_genotypes": [
+            "GG"
+        ]
     },
     "rs1333049": {
         "risk_genotypes": [
@@ -3280,7 +3194,14 @@
                 "title": "Carb Loading",
                 "body": "You are metabolically flexible. You can utilize carbohydrates for high-intensity athletic recovery far more effectively than the average person. Post-workout carbs will be driven directly into muscle tissue rather than lingering in the blood."
             }
-        }
+        },
+        "risk_genotypes": [
+            "TT",
+            "GT"
+        ],
+        "strength_genotypes": [
+            "GG"
+        ]
     },
     "rs2802292": {
         "risk_genotypes": [
@@ -3543,67 +3464,34 @@
         }
     },
     "rs7412": {
-        "title": "Lipid Metabolism & Cognitive Health",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "APOE",
-            "title": "The 'Inflammatory' Transporter",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "Apolipoprotein E (APOE) is the primary cholesterol transporter in the brain and nervous system. It creates the 'boats' that ferry lipids to neurons for repair and clears amyloid-beta debris.",
-                "how": "You carry the E4 allele, which alters the structure of the transporter. Your 'boats' are fragile and prone to breaking down, dumping cholesterol and inflammation into the brain tissue. This creates a 'pro-inflammatory' environment that struggles to clear plaques, significantly raising the risk of neurodegeneration if saturated fat intake is high.",
-                "yours": "Your Result: Reduced Clearance Efficiency (E4)."
-            },
-            "action": {
-                "title": "Lipid Restriction Strategy",
-                "body": "Your brain cannot handle Saturated Fats (Butter, Coconut Oil, Fatty Beef). They act as rocket fuel for inflammation. You must switch to Monounsaturated Fats (Olive Oil, Avocado) and high-dose DHA (Fish Oil) to manually support neuronal repair."
-            }
-        },
+        "risk_genotypes": [],
+        "strength_genotypes": [
+            "CT",
+            "TT"
+        ],
         "data_strength": {
             "gene": "APOE",
-            "title": "The 'Longevity' Transporter",
-            "badge_type": "Strength",
+            "title": "The 'Clean-Up' Transporter",
+            "badge_type": "STRENGTH",
             "mechanisms": {
-                "what": "APOE is the master regulator of lipid transport and brain plaque clearance.",
-                "how": "You carry the neutral (E3) or protective (E2) variant. Your lipid transporters are robust and efficient. They rapidly clear amyloid debris and recycle cholesterol without triggering inflammation. This provides a potent biological buffer against cognitive decline and allows for greater dietary flexibility with fats.",
-                "yours": "Your Result: High Clearance Efficiency."
+                "what": "APOE carries cholesterol and fats between cells, including in the brain.",
+                "how": "You carry the ε2 version of APOE (the T allele at rs7412). It hands LDL particles to the liver for clearance more readily, so your LDL cholesterol runs lower, and ε2 is the APOE version most consistently linked to lower Alzheimer's risk.",
+                "ancestral": "Typical APOE (CC).",
+                "yours": "Your Result: ε2 carrier."
             },
+            "risks": [
+                "Lipids: Remnant particles can build up with poor diet (rare type III hyperlipoproteinemia in ε2/ε2)."
+            ],
             "action": {
-                "title": "Metabolic Flexibility",
-                "body": "You have a natural advantage in brain health. To maximize it, focus on 'Brain Fuels' like Ketones or MCTs, which your efficient transporters can utilize effectively."
-            }
-        }
-    },
-    "rs17616434": {
-        "title": "Acetaldehyde Detoxification",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "ALDH2",
-            "title": "The 'Broken' Filter",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "ALDH2 is the liver enzyme responsible for converting Acetaldehyde (a toxic carcinogen) into Acetate (harmless vinegar).",
-                "how": "Your enzyme is structurally defective. It works at <10% efficiency. When you drink alcohol or breathe city smog, Acetaldehyde accumulates instantly in your blood. The 'flush' you feel is actually a toxic immunological reaction. This causes DNA damage at a rate 10x higher than normal.",
-                "yours": "Your Result: Severe Enzymatic Deficiency."
+                "title": "Keep Triglycerides in Check",
+                "body": "ε2 lowers LDL but can let triglyceride-rich remnants linger, especially with high sugar, alcohol or weight gain. Check a full lipid panel and keep refined carbs moderate.",
+                "foods": [
+                    "Oily Fish",
+                    "Fiber",
+                    "Limit Refined Carbs"
+                ]
             },
-            "action": {
-                "title": "Cysteine Support",
-                "body": "If you cannot avoid exposure, you must supplement with NAC (N-Acetyl Cysteine). It provides the precursor for Glutathione, which acts as a 'backup' detox pathway since your primary ALDH2 pathway is broken."
-            }
-        },
-        "data_strength": {
-            "gene": "ALDH2",
-            "title": "The 'Industrial' Liver",
-            "badge_type": "Strength",
-            "mechanisms": {
-                "what": "ALDH2 is the rapid-response unit for neutralizing environmental aldehydes.",
-                "how": "Your enzyme works at hyper-speed. You convert toxins into harmless energy almost instantly. This protects your DNA from the mutation risks associated with alcohol, smoke, and exhaust fumes. You have a 'cast-iron' tolerance for environmental stressors.",
-                "yours": "Your Result: High Enzymatic Efficiency."
-            },
-            "action": {
-                "title": "Toxin Resistance",
-                "body": "You are biologically equipped for modern urban living, but remember that rapid detox doesn't make alcohol healthy—it just makes it less immediately damaging."
-            }
+            "confidence": 4
         }
     },
     "rs6265": {
@@ -3702,38 +3590,6 @@
             }
         }
     },
-    "rs8111989": {
-        "title": "Vitamin D Receptor",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "VDR",
-            "title": "The 'Silenced' Receptor",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "The Vitamin D Receptor (VDR) is not just a passive dock; it is a nuclear transcription factor. It must bind to Vitamin D, enter the nucleus, and unlock DNA to turn on 900+ genes involved in immunity and bone repair.",
-                "how": "Your receptor (likely Taq1 or Bsm1 variant) has a shape change that reduces its binding efficiency. Even with normal Vitamin D levels in your blood, the 'key' turns the lock very slowly. This results in weak gene expression, leaving your immune system sluggish and your bones less able to mineralize.",
-                "yours": "Your Result: Low Transcriptional Efficiency."
-            },
-            "action": {
-                "title": "Force the Lock",
-                "body": "Standard dosing is not enough. You need to flood the system. You likely need blood levels of 60-80 ng/mL (higher than the standard 30) to achieve the same genetic activation as a normal person. Take Vitamin D3 with K2 and a fatty meal (Avocado) to maximize absorption."
-            }
-        },
-        "data_strength": {
-            "gene": "VDR",
-            "title": "The 'Amplified' Signal",
-            "badge_type": "Strength",
-            "mechanisms": {
-                "what": "VDR forms a complex with RXR (Retinoid X Receptor) to activate the 'Genome Defense' program.",
-                "how": "Your receptor is hypersensitive. It creates a robust signal cascade even with moderate sun exposure. You aggressively produce cathelicidins (natural antibiotics) and absorb calcium efficiently. This gives you a 'Teflon' immune system that repels respiratory viruses and maintains bone density with ease.",
-                "yours": "Your Result: High Transcriptional Sensitivity."
-            },
-            "action": {
-                "title": "Immune Shield",
-                "body": "Your robust VDR signaling provides a powerful baseline defense. Moderate sun exposure is likely all you need to maintain a super-charged immune response."
-            }
-        }
-    },
     "rs11568820": {
         "title": "Vitamin D Receptor",
         "badge_type": "RISK",
@@ -3743,7 +3599,7 @@
             "badge_type": "RISK",
             "mechanisms": {
                 "what": "The Vitamin D Receptor (VDR) is not just a passive dock; it is a nuclear transcription factor. It must bind to Vitamin D, enter the nucleus, and unlock DNA to turn on 900+ genes involved in immunity and bone repair.",
-                "how": "Your receptor (likely Taq1 or Bsm1 variant) has a shape change that reduces its binding efficiency. Even with normal Vitamin D levels in your blood, the 'key' turns the lock very slowly. This results in weak gene expression, leaving your immune system sluggish and your bones less able to mineralize.",
+                "how": "Your Cdx2 promoter variant makes less receptor in the gut lining. Even with normal Vitamin D levels in your blood, the 'key' turns the lock very slowly. This results in weak gene expression, leaving your immune system sluggish and your bones less able to mineralize.",
                 "yours": "Your Result: Low Transcriptional Efficiency."
             },
             "action": {
@@ -3757,46 +3613,20 @@
             "badge_type": "Strength",
             "mechanisms": {
                 "what": "VDR forms a complex with RXR (Retinoid X Receptor) to activate the 'Genome Defense' program.",
-                "how": "Your receptor is hypersensitive. It creates a robust signal cascade even with moderate sun exposure. You aggressively produce cathelicidins (natural antibiotics) and absorb calcium efficiently. This gives you a 'Teflon' immune system that repels respiratory viruses and maintains bone density with ease.",
+                "how": "Your Cdx2 variant makes more receptor in the gut lining. It creates a robust signal cascade even with moderate sun exposure. You aggressively produce cathelicidins (natural antibiotics) and absorb calcium efficiently. This gives you a 'Teflon' immune system that repels respiratory viruses and maintains bone density with ease.",
                 "yours": "Your Result: High Transcriptional Sensitivity."
             },
             "action": {
                 "title": "Immune Shield",
                 "body": "Your robust VDR signaling provides a powerful baseline defense. Moderate sun exposure is likely all you need to maintain a super-charged immune response."
             }
-        }
-    },
-    "rs6269": {
-        "title": "Dopamine Clearance",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "COMT",
-            "title": "The 'Worrier' (High Focus)",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "Catechol-O-Methyltransferase (COMT) is the enzyme responsible for degrading dopamine, epinephrine, and norepinephrine in the prefrontal cortex.",
-                "how": "You have the Met/Met genotype (Low Activity). Your enzyme works at 25% speed. Dopamine lingers in your brain for a long time. This grants you superior attention span, working memory, and cognitive depth, but it means stress chemicals also linger. You cannot 'shake off' anxiety or irritation easily; you tend to ruminate.",
-                "yours": "Your Result: Slow Clearance (The Worrier)."
-            },
-            "action": {
-                "title": "Magnesium Support",
-                "body": "Magnesium is a mandatory cofactor for COMT. You burn through it rapidly under stress. Supplementing Magnesium Glycinate helps your enzyme clear the backlog of stress chemicals."
-            }
         },
-        "data_strength": {
-            "gene": "COMT",
-            "title": "The 'Warrior' (Stress Tolerance)",
-            "badge_type": "Strength",
-            "mechanisms": {
-                "what": "Rapid clearance of catecholamines allows the brain to reset instantly after a stressful event.",
-                "how": "You have the Val/Val genotype (High Activity). Your enzyme incinerates dopamine and adrenaline. In high-pressure situations (combat, trading, emergency medicine), your mind stays clear while others panic. However, your baseline dopamine drops quickly, so you may struggle with motivation in low-stress, boring environments.",
-                "yours": "Your Result: Fast Clearance (The Warrior)."
-            },
-            "action": {
-                "title": "Seek Friction",
-                "body": "You need 'Good Stress' (deadlines, competition, HIIT) to feel cognitively engaged. A quiet life feels like torture to your physiology."
-            }
-        }
+        "risk_genotypes": [
+            "CC"
+        ],
+        "strength_genotypes": [
+            "TT"
+        ]
     },
     "rs1815739": {
         "title": "Muscle Fiber Composition",
@@ -4055,70 +3885,6 @@
         }
     },
     "rs1800795": {
-        "title": "Inflammation Recovery",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "IL6",
-            "title": "The 'Hyper-Inflamer'",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "Interleukin-6 (IL-6) is a cytokine that triggers the acute phase response to exercise or injury.",
-                "how": "You naturally over-produce IL-6. A hard workout doesn't just make you sore; it makes you feel 'flu-like' and fatigued for days. You are prone to systemic inflammation and risk overtraining easily because your body treats exercise like a major infection.",
-                "yours": "Your Result: High Inflammatory Response."
-            },
-            "action": {
-                "title": "Recovery Priority",
-                "body": "You cannot train hard every day. You need active recovery (walking) to flush cytokines. You are the prime candidate for cold plunges to manually dampen this inflammatory signal."
-            }
-        },
-        "data_strength": {
-            "gene": "IL6",
-            "title": "The 'Wolverine' Recovery",
-            "badge_type": "Strength",
-            "mechanisms": {
-                "what": "Balanced IL-6 signaling allows for rapid tissue repair without systemic stress.",
-                "how": "Your inflammation response is surgical. You get a sharp spike in IL-6 to trigger muscle repair, followed by an immediate drop to baseline. You can handle training volumes that would break a normal person. You recover faster and age slower.",
-                "yours": "Your Result: Rapid Repair Signaling."
-            },
-            "action": {
-                "title": "Volume Tolerance",
-                "body": "Your limiting factor is rarely physical recovery. You can push your body hard and trust it to rebuild overnight."
-            }
-        }
-    },
-    "rs1800797": {
-        "title": "Inflammation Recovery",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "IL6",
-            "title": "The 'Hyper-Inflamer'",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "Interleukin-6 (IL-6) is a cytokine that triggers the acute phase response to exercise or injury.",
-                "how": "You naturally over-produce IL-6. A hard workout doesn't just make you sore; it makes you feel 'flu-like' and fatigued for days. You are prone to systemic inflammation and risk overtraining easily because your body treats exercise like a major infection.",
-                "yours": "Your Result: High Inflammatory Response."
-            },
-            "action": {
-                "title": "Recovery Priority",
-                "body": "You cannot train hard every day. You need active recovery (walking) to flush cytokines. You are the prime candidate for cold plunges to manually dampen this inflammatory signal."
-            }
-        },
-        "data_strength": {
-            "gene": "IL6",
-            "title": "The 'Wolverine' Recovery",
-            "badge_type": "Strength",
-            "mechanisms": {
-                "what": "Balanced IL-6 signaling allows for rapid tissue repair without systemic stress.",
-                "how": "Your inflammation response is surgical. You get a sharp spike in IL-6 to trigger muscle repair, followed by an immediate drop to baseline. You can handle training volumes that would break a normal person. You recover faster and age slower.",
-                "yours": "Your Result: Rapid Repair Signaling."
-            },
-            "action": {
-                "title": "Volume Tolerance",
-                "body": "Your limiting factor is rarely physical recovery. You can push your body hard and trust it to rebuild overnight."
-            }
-        }
-    },
-    "rs1800796": {
         "title": "Inflammation Recovery",
         "badge_type": "RISK",
         "data_risk": {
@@ -5103,38 +4869,6 @@
             "action": {
                 "title": "Youthful Phenotype",
                 "body": "Your biology is primed to retain collagen and bone mass. Support this with adequate protein intake."
-            }
-        }
-    },
-    "rs1143627": {
-        "title": "Inflammatory Cytokine",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "IL1B",
-            "title": "The 'Master' Inflamer",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "Interleukin-1 Beta is a 'Master Cytokine' that initiates the systemic inflammatory cascade, recruiting other immune cells to the fight.",
-                "how": "You are a 'High Secretor.' Your body releases massive amounts of IL-1B in response to minor triggers (stress, sugar, poor sleep). This creates a chronic, low-grade fire in your system, linked to fatigue, joint pain, and faster biological aging.",
-                "yours": "Your Result: High Secretion."
-            },
-            "action": {
-                "title": "Dampen the Signal",
-                "body": "You need broad-spectrum anti-inflammatories. Curcumin and Resveratrol are specifically effective against IL-1B. However, the most important factor is avoiding 'Inflammaging' triggers like refined sugar."
-            }
-        },
-        "data_strength": {
-            "gene": "IL1B",
-            "title": "The 'Targeted' Response",
-            "badge_type": "Strength",
-            "mechanisms": {
-                "what": "A controlled IL-1B response ensures infection fighting without collateral damage.",
-                "how": "Your cytokine response is proportionate. You mount a defense when needed, but you don't stay inflamed. This protects your organs from the wear-and-tear of chronic immune activation, a key marker of longevity.",
-                "yours": "Your Result: Normal Secretion."
-            },
-            "action": {
-                "title": "Recovery",
-                "body": "Your immune system resets quickly. This allows you to recover from illness or hard training without lingering fatigue."
             }
         }
     },
@@ -7243,7 +6977,14 @@
                 "title": "Endurance Capacity",
                 "body": "You respond massively to aerobic training. Your body wants to build a super-highway of oxygen delivery."
             }
-        }
+        },
+        "risk_genotypes": [
+            "TT",
+            "CT"
+        ],
+        "strength_genotypes": [
+            "CC"
+        ]
     },
     "rs12722": {
         "title": "Tendon Stiffness",

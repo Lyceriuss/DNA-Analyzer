@@ -1,6 +1,6 @@
 # Library validation
 
-229 rsIDs checked against Ensembl (GRCh38) and the GWAS Catalog: **0 errors**, 38 warnings, 191 ok.
+235 rsIDs checked against Ensembl (GRCh38) and the GWAS Catalog: **0 errors**, 38 warnings, 197 ok.
 
 Regenerate with `python -m cluster_analysis.validate_library`.
 
@@ -53,7 +53,7 @@ Strand-ambiguous SNPs, missing genotypes, or variants that sit near (not in) the
 
 | Orientation of library genotypes | rsIDs |
 |---|---|
-| forward | 195 |
+| forward | 201 |
 | ambiguous | 23 |
 | forward (verified) | 6 |
 | reverse | 5 |

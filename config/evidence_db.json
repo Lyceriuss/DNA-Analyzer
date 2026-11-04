@@ -18527,5 +18527,72 @@
             "PMID:16141870"
         ],
         "name": "SOD3_ANTIOX"
+    },
+    "rs7412": {
+        "rsid": "rs7412",
+        "variant_identity": {
+            "gene_symbol": "APOE",
+            "common_name": "The ε2 Marker",
+            "rsid": "rs7412",
+            "biotype": "Missense Variant (Arg158Cys)"
+        },
+        "affected_organs": [
+            "Liver",
+            "Brain"
+        ],
+        "affected_systems": [
+            "Lipid Metabolism",
+            "Nervous System"
+        ],
+        "impact_type": "LDL Receptor Binding",
+        "metabolic_connections": {
+            "upstream_requirements": [
+                {
+                    "molecule": "LDL / VLDL remnants",
+                    "role": "Cargo",
+                    "mechanism": "APOE on the particle surface is the key that lets the liver take up remnants."
+                }
+            ],
+            "downstream_impacts": [
+                {
+                    "molecule": "LDL cholesterol",
+                    "effect": "Level",
+                    "consequence": "ε2 binds the LDL receptor weakly, which up-regulates the receptor and lowers LDL."
+                }
+            ]
+        },
+        "metrics": {
+            "mechanistic_impact": {
+                "score": 5,
+                "rationale": "Changes receptor binding of a central lipid carrier.",
+                "detail": "APOE has three common forms, ε2, ε3 and ε4, set by two SNPs. rs7412 changes arginine 158 to cysteine; its T allele defines ε2. The ε2 protein binds the LDL receptor far more weakly than ε3, so liver cells raise their LDL receptor count and clear LDL faster: each T allele lowers LDL cholesterol substantially. Remnant particles that rely on APOE for clearance can, however, accumulate, which is why ε2/ε2 people with extra metabolic stress can develop type III hyperlipoproteinemia. In the brain, ε2 is associated with lower amyloid build-up and the lowest Alzheimer's risk of the three forms."
+            },
+            "study_quality": {
+                "score": 5,
+                "rationale": "Among the strongest signals in lipid genetics.",
+                "detail": "LDL association reaches p = 6e-223 in UK Biobank-scale studies, with matching triglyceride signals; the ε2 link to lower Alzheimer's risk is replicated across large case-control consortia."
+            },
+            "methodology": {
+                "score": 5,
+                "rationale": "GWAS, receptor-binding assays and cohorts.",
+                "detail": "Genome-wide association, LDL-receptor binding assays and long-term cohorts."
+            }
+        },
+        "consensus_label": "LIPID TRANSPORT",
+        "methodology_audit": [
+            {
+                "study": "Jacobs et al. (2024) - genome-wide association of lipid levels",
+                "type": "Genome-wide association",
+                "population": "UK Biobank",
+                "methods": "Genome-wide association of LDL cholesterol.",
+                "critique": "STRENGTH: Enormous sample and an unambiguous effect allele (T lowers LDL). CRITIQUE: The full APOE type needs rs429358 too, which MyHeritage files lack, so ε3 and ε4 cannot be told apart from this SNP alone.",
+                "score_contribution": "Study Quality (5/5)"
+            }
+        ],
+        "citations": [
+            "PMID:39414775",
+            "PMID:39024449"
+        ],
+        "name": "APOE_E2"
     }
 }

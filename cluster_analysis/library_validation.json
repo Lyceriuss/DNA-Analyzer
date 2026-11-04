@@ -1349,6 +1349,43 @@
     ]
   },
   {
+    "rsid": "rs11568820",
+    "gene": "VDR",
+    "trait": "Vitamin D receptor Cdx2 (gut expression)",
+    "deep_dive_gene": "VDR",
+    "evidence_gene": null,
+    "issues": [],
+    "severity": "ok",
+    "location": "chr12:47908762",
+    "consequence": "intron_variant",
+    "alleles": [
+      "C",
+      "T"
+    ],
+    "genes_at_site": {
+      "VDR": 0,
+      "ENSG00000278385": 1897
+    },
+    "eur_af": {
+      "T": 0.2276
+    },
+    "gene_supported": {
+      "snp_traits": true,
+      "deep_dive": true,
+      "evidence": null
+    },
+    "allele_check": {
+      "letters": [
+        "C",
+        "T"
+      ],
+      "status": "forward",
+      "missing_genotypes": []
+    },
+    "gwas_mapped_genes": [],
+    "gwas_top_traits": []
+  },
+  {
     "rsid": "rs11615",
     "gene": "ERCC1",
     "trait": "Cisplatin sensitivity / nucleotide repair",
@@ -1595,6 +1632,44 @@
       "skin disorder",
       "skin cancer"
     ]
+  },
+  {
+    "rsid": "rs12255372",
+    "gene": "TCF7L2",
+    "trait": "Insulin secretion (TCF7L2, second marker)",
+    "deep_dive_gene": "TCF7L2",
+    "evidence_gene": null,
+    "issues": [],
+    "severity": "ok",
+    "location": "chr10:113049143",
+    "consequence": "intron_variant",
+    "alleles": [
+      "G",
+      "A",
+      "T"
+    ],
+    "genes_at_site": {
+      "TCF7L2": 0,
+      "SNORA87": 3567
+    },
+    "eur_af": {
+      "T": 0.2922
+    },
+    "gene_supported": {
+      "snp_traits": true,
+      "deep_dive": true,
+      "evidence": null
+    },
+    "allele_check": {
+      "letters": [
+        "G",
+        "T"
+      ],
+      "status": "forward",
+      "missing_genotypes": []
+    },
+    "gwas_mapped_genes": [],
+    "gwas_top_traits": []
   },
   {
     "rsid": "rs1229984",
@@ -2563,11 +2638,11 @@
     },
     "nearest_genes": [
       [
-        "MYRF",
+        "TMEM258",
         0
       ],
       [
-        "TMEM258",
+        "MYRF",
         0
       ],
       [
@@ -3907,6 +3982,47 @@
     ]
   },
   {
+    "rsid": "rs1801131",
+    "gene": "MTHFR",
+    "trait": "MTHFR A1298C (Glu429Ala)",
+    "deep_dive_gene": "MTHFR",
+    "evidence_gene": "MTHFR",
+    "issues": [],
+    "severity": "ok",
+    "location": "chr1:11794419",
+    "consequence": "missense_variant",
+    "alleles": [
+      "T",
+      "G"
+    ],
+    "genes_at_site": {
+      "C1orf167": 4834,
+      "MTHFR": 0
+    },
+    "eur_af": {
+      "G": 0.3131
+    },
+    "gene_supported": {
+      "snp_traits": true,
+      "deep_dive": true,
+      "evidence": true
+    },
+    "allele_check": {
+      "letters": [
+        "G",
+        "T"
+      ],
+      "status": "forward",
+      "missing_genotypes": []
+    },
+    "gwas_mapped_genes": [
+      "MTHFR"
+    ],
+    "gwas_top_traits": [
+      "BMI-adjusted hip circumference"
+    ]
+  },
+  {
     "rsid": "rs1801133",
     "gene": "MTHFR",
     "trait": "Folate → active methylfolate conversion",
@@ -4781,6 +4897,50 @@
       "interleukin 6 receptor subunit alpha measurement",
       "blood protein amount",
       "amount of interleukin-6 receptor subunit alpha in blood serum"
+    ]
+  },
+  {
+    "rsid": "rs2228570",
+    "gene": "VDR",
+    "trait": "Vitamin D receptor FokI (receptor length)",
+    "deep_dive_gene": "VDR",
+    "evidence_gene": null,
+    "issues": [],
+    "severity": "ok",
+    "location": "chr12:47879112",
+    "consequence": "start_lost",
+    "alleles": [
+      "A",
+      "C",
+      "G",
+      "T"
+    ],
+    "genes_at_site": {
+      "VDR": 0,
+      "ENSG00000205537": 3537
+    },
+    "eur_af": {
+      "G": 0.6223
+    },
+    "gene_supported": {
+      "snp_traits": true,
+      "deep_dive": true,
+      "evidence": null
+    },
+    "allele_check": {
+      "letters": [
+        "A",
+        "G"
+      ],
+      "status": "forward",
+      "missing_genotypes": []
+    },
+    "gwas_mapped_genes": [
+      "VDR"
+    ],
+    "gwas_top_traits": [
+      "eosinophil percentage of leukocytes",
+      "eosinophil count"
     ]
   },
   {
@@ -5724,6 +5884,42 @@
     ]
   },
   {
+    "rsid": "rs3025039",
+    "gene": "VEGFA",
+    "trait": "VEGF secretion (+936 C>T)",
+    "deep_dive_gene": "VEGFA",
+    "evidence_gene": null,
+    "issues": [],
+    "severity": "ok",
+    "location": "chr6:43784799",
+    "consequence": "3_prime_UTR_variant",
+    "alleles": [
+      "C",
+      "T"
+    ],
+    "genes_at_site": {
+      "VEGFA": 0
+    },
+    "eur_af": {
+      "T": 0.1213
+    },
+    "gene_supported": {
+      "snp_traits": true,
+      "deep_dive": true,
+      "evidence": null
+    },
+    "allele_check": {
+      "letters": [
+        "C",
+        "T"
+      ],
+      "status": "forward",
+      "missing_genotypes": []
+    },
+    "gwas_mapped_genes": [],
+    "gwas_top_traits": []
+  },
+  {
     "rsid": "rs324420",
     "gene": "FAAH",
     "trait": "Anandamide breakdown (Pain/Anxiety)",
@@ -6600,7 +6796,7 @@
   {
     "rsid": "rs429358",
     "gene": "APOE",
-    "trait": "APOE isoform (part 1)",
+    "trait": "APOE ε4 status (rs429358)",
     "deep_dive_gene": "APOE",
     "evidence_gene": "APOE",
     "issues": [],
@@ -8913,6 +9109,50 @@
       "liver disorder",
       "metabolic dysfunction-associated steatotic liver disease",
       "aspartate aminotransferase measurement"
+    ]
+  },
+  {
+    "rsid": "rs7412",
+    "gene": "APOE",
+    "trait": "APOE ε2 status (rs7412)",
+    "deep_dive_gene": "APOE",
+    "evidence_gene": "APOE",
+    "issues": [],
+    "severity": "ok",
+    "location": "chr19:44908822",
+    "consequence": "missense_variant",
+    "alleles": [
+      "C",
+      "T"
+    ],
+    "genes_at_site": {
+      "APOE": 0,
+      "APOC1": 4311
+    },
+    "eur_af": {
+      "T": 0.0626
+    },
+    "gene_supported": {
+      "snp_traits": true,
+      "deep_dive": true,
+      "evidence": true
+    },
+    "allele_check": {
+      "letters": [
+        "C",
+        "T"
+      ],
+      "status": "forward",
+      "missing_genotypes": []
+    },
+    "gwas_mapped_genes": [
+      "APOE"
+    ],
+    "gwas_top_traits": [
+      "platelet-activating factor acetylhydrolase measurement",
+      "amount of low-density lipoprotein receptor (human) in blood",
+      "triglyceride measurement",
+      "total cholesterol measurement"
     ]
   },
   {

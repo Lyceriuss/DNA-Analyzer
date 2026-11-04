@@ -66,7 +66,7 @@ def clean_text(text):
     replacements = {
         "→": "->", "’": "'", "‘": "'", "“": '"', "”": '"', 
         "–": "-", "—": "-", "…": "...", "•": "-", "►": ">>",
-        "✨": "+" 
+        "✨": "+", "ε": "e", "α": "alpha", "β": "beta",  # Greek is outside Latin-1 (APOE e2/e3/e4)
     }
     for old, new in replacements.items():
         text = text.replace(old, new)

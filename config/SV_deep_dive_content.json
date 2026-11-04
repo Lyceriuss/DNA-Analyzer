@@ -153,7 +153,14 @@
                 "title": "Metabol Flexibilitet",
                 "body": "Du har en naturlig fördel i hjärnhälsa. För att maximera den, fokusera på 'Hjärnbränslen' som Ketoner eller MCT, vilka dina effektiva transportörer kan utnyttja effektivt."
             }
-        }
+        },
+        "risk_genotypes": [
+            "CC",
+            "CT"
+        ],
+        "strength_genotypes": [
+            "TT"
+        ]
     },
     "rs1006737": {
         "title": "Neuronell Retbarhet",
@@ -774,38 +781,6 @@
             "confidence": 3
         }
     },
-    "rs731236": {
-        "title": "Vitamin D Receptor",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "VDR",
-            "title": "Den 'tystade' receptorn",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "Vitamin D-receptorn (VDR) är inte bara en passiv dockningsplats; den är en nukleär transkriptionsfaktor. Den måste binda till D-vitamin, gå in i cellkärnan och låsa upp DNA för att aktivera över 900 gener som är involverade i immunitet och benreparation.",
-                "how": "Din receptor (troligen en Taq1- eller Bsm1-variant) har en formförändring som minskar dess bindningseffektivitet. Även med normala D-vitaminnivåer i blodet vrider 'nyckeln' låset mycket långsamt. Detta resulterar i svag genuttryck, vilket lämnar ditt immunsystem trögt och dina ben mindre kapabla att mineralisera.",
-                "yours": "Ditt resultat: Låg transkriptionell effektivitet."
-            },
-            "action": {
-                "title": "Tvinga låset",
-                "body": "Standarddosering räcker inte. Du måste översvämma systemet. Du behöver troligen blodnivåer på 60-80 ng/mL (högre än standard 30) för att uppnå samma genetiska aktivering som en normal person. Ta D3-vitamin med K2 och en fet måltid (avokado) för att maximera absorptionen."
-            }
-        },
-        "data_strength": {
-            "gene": "VDR",
-            "title": "Den 'förstärkta' signalen",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "VDR bildar en komplex med RXR (Retinoid X Receptor) för att aktivera 'Genomförsvar'-programmet.",
-                "how": "Din receptor är överkänslig. Den skapar en robust signalkaskad även vid måttlig solexponering. Du producerar aggressivt katelicidiner (naturliga antibiotika) och absorberar kalcium effektivt. Detta ger dig ett 'Teflon'-immunsystem som stöter bort luftvägs-virus och enkelt bibehåller bentätheten.",
-                "yours": "Ditt resultat: Hög transkriptionell känslighet."
-            },
-            "action": {
-                "title": "Immunförsvar",
-                "body": "Din robusta VDR-signalering ger ett kraftfullt grundläggande försvar. Måttlig solexponering är troligen allt du behöver för att upprätthålla ett super-laddat immunförsvar."
-            }
-        }
-    },
     "rs1801394": {
         "risk_genotypes": [
             "GG",
@@ -1164,8 +1139,7 @@
     },
     "rs1801131": {
         "risk_genotypes": [
-            "GG",
-            "GT"
+            "GG"
         ],
         "strength_genotypes": [
             "TT"
@@ -2314,38 +2288,6 @@
             "confidence": 5
         }
     },
-    "rs2854464": {
-        "title": "Muskelfibertyp",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "ACTN3",
-            "title": "Ultrauthållighetsphenotypen",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "Alfa-aktinin-3 är ett strukturellt protein som enbart finns i Typ II (snabba) muskelfibrer, ansvarigt för att generera explosiv kraft.",
-                "how": "Du är 'Alfa-Aktinin-3 Bristfällig' (XX-genotyp). Din kropp producerar noll funktionellt ACTN3-protein. Naturen har helt bytt ut din explosiva kapacitet mot extrem metabolisk effektivitet. Medan du har en nackdel i sprinter och styrkelyft, är dina muskler mycket motståndskraftiga mot trötthet och oxidativ skada, vilket gör dig biologiskt konstruerad för ultralångdistans.",
-                "yours": "Ditt resultat: Långsamma fibrer dominerar (XX)."
-            },
-            "action": {
-                "title": "Metabolisk träning",
-                "body": "Låg-rep, explosiv träning är metaboliskt ineffektivt för dig. Du svarar bäst på protokoll med hög volym och tid under spänning som tröttar ut dina effektiva fibrer."
-            }
-        },
-        "data_strength": {
-            "gene": "ACTN3",
-            "title": "Sprinter-phenotypen",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "ACTN3 förankrar aktinfilamenten i muskelns sarkomer, vilket möjliggör våldsamma, hög-hastighetskontraktioner utan skada.",
-                "how": "Du har 'Power'-genotypen (RR). Dina muskelfibrer är mättade med alfa-aktinin-3. Detta gör att dina muskler kan kontrahera med maximal hastighet och omedelbart återhämta sig från excentrisk skada. Detta är den genetiska förutsättningen för elitsprint och olympisk tyngdlyftning. Du är byggd för att generera kraft.",
-                "yours": "Ditt resultat: Snabba fibrer dominerar (RR)."
-            },
-            "action": {
-                "title": "Explosiv output",
-                "body": "Din fysiologi försämras med långsam, jämn konditionsträning. Du behöver sprinter, hopp och tunga belastningar för att upprätthålla hormonell och strukturell hälsa."
-            }
-        }
-    },
     "rs5751876": {
         "risk_genotypes": [
             "TT",
@@ -2810,40 +2752,6 @@
             }
         }
     },
-    "rs1799990": {
-        "risk_genotypes": [
-            "AA",
-            "AG"
-        ],
-        "strength_genotypes": [
-            "GG"
-        ],
-        "data_risk": {
-            "gene": "PRNP",
-            "title": "Genen för 'Långtidsminne'",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "PRNP skapar prionproteiner som stöder underhåll av långtidsminne och synaptisk plasticitet.",
-                "how": "Din variant (M129V) är associerad med minskad kognitiv stabilitet i äldre ålder. Den påverkar hur hjärnan viker proteiner, vilket gör dig något mer mottaglig för proteinveckningsfel (som de som ses vid kognitiv nedgång).",
-                "ancestral": "Stabil veckning (GG).",
-                "yours": "Ditt resultat: Instabil veckning (Kognitiv risk)."
-            },
-            "risks": [
-                "Hjärna: Kognitiv nedgång i senare år.",
-                "Sömn: Mottaglighet för sömnfragmentering."
-            ],
-            "action": {
-                "title": "Autofagi för Hjärnan",
-                "body": "Du behöver regelbundet rensa ut felveckade proteiner. Sömn är när denna rengöring (Glymphatiska systemet) sker. Du kan inte offra sömn. Tidsbegränsad utfodring (12+ timmar) utlöser också autofagi för att rensa bort cellulärt skräp.",
-                "foods": [
-                    "Strikt 8h Sömn",
-                    "Fasta",
-                    "Lejonman"
-                ]
-            },
-            "confidence": 3
-        }
-    },
     "rs1047303": {
         "risk_genotypes": [
             "CC"
@@ -3193,7 +3101,7 @@
             "badge_type": "RISK",
             "mechanisms": {
                 "what": "Vitamin D-receptorn (VDR) är inte bara en passiv dockningsplats; den är en nukleär transkriptionsfaktor. Den måste binda till D-vitamin, gå in i cellkärnan och låsa upp DNA för att aktivera över 900 gener som är involverade i immunitet och benreparation.",
-                "how": "Din receptor (troligen en Taq1- eller Bsm1-variant) har en formförändring som minskar dess bindningseffektivitet. Även med normala D-vitaminnivåer i blodet vrider 'nyckeln' låset mycket långsamt. Detta resulterar i svag genuttryck, vilket lämnar ditt immunsystem trögt och dina ben mindre kapabla att mineralisera.",
+                "how": "Din FokI-variant ger en något längre receptor som binder sina partner mindre effektivt. Även med normala D-vitaminnivåer i blodet vrider 'nyckeln' låset mycket långsamt. Detta resulterar i svag genuttryck, vilket lämnar ditt immunsystem trögt och dina ben mindre kapabla att mineralisera.",
                 "yours": "Ditt resultat: Låg transkriptionell effektivitet."
             },
             "action": {
@@ -3214,7 +3122,13 @@
                 "title": "Immunförsvar",
                 "body": "Din robusta VDR-signalering ger ett kraftfullt grundläggande försvar. Måttlig solexponering är troligen allt du behöver för att upprätthålla ett super-laddat immunförsvar."
             }
-        }
+        },
+        "risk_genotypes": [
+            "AA"
+        ],
+        "strength_genotypes": [
+            "GG"
+        ]
     },
     "rs1333049": {
         "risk_genotypes": [
@@ -3280,7 +3194,14 @@
                 "title": "Kolhydratladdning",
                 "body": "Du är metaboliskt flexibel. Du kan utnyttja kolhydrater för återhämtning efter högintensiv träning mycket mer effektivt än genomsnittspersonen. Kolhydrater efter träning kommer att drivas direkt in i muskelvävnaden istället för att dröja kvar i blodet."
             }
-        }
+        },
+        "risk_genotypes": [
+            "TT",
+            "GT"
+        ],
+        "strength_genotypes": [
+            "GG"
+        ]
     },
     "rs2802292": {
         "risk_genotypes": [
@@ -3543,67 +3464,34 @@
         }
     },
     "rs7412": {
-        "title": "Lipidmetabolism & Kognitiv Hälsa",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "APOE",
-            "title": "Den 'Inflammatoriska' Transportören",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "Apolipoprotein E (APOE) är den primära kolesteroltransportören i hjärnan och nervsystemet. Den skapar 'båtarna' som fraktar lipider till neuroner för reparation och rensar bort amyloid-beta-rester.",
-                "how": "Du bär E4-allelen, vilket förändrar transportörens struktur. Dina 'båtar' är sköra och benägna att brytas ned, vilket dumpar kolesterol och inflammation i hjärnvävnaden. Detta skapar en 'pro-inflammatorisk' miljö som kämpar för att rensa plack, vilket signifikant ökar risken för neurodegeneration om intaget av mättat fett är högt.",
-                "yours": "Ditt Resultat: Minskad Reningseffektivitet (E4)."
-            },
-            "action": {
-                "title": "Strategi för Lipidrestriktion",
-                "body": "Din hjärna klarar inte av Mättade Fetter (Smör, Kokosolja, Fet Nötkött). De fungerar som raketbränsle för inflammation. Du måste byta till Enkelomättade Fetter (Olivolja, Avokado) och högdos DHA (Fiskolja) för att manuellt stödja neuronal reparation."
-            }
-        },
+        "risk_genotypes": [],
+        "strength_genotypes": [
+            "CT",
+            "TT"
+        ],
         "data_strength": {
             "gene": "APOE",
-            "title": "Den 'Livslängds' Transportören",
-            "badge_type": "SUPERPOWER",
+            "title": "Den Städande Transportören",
+            "badge_type": "STRENGTH",
             "mechanisms": {
-                "what": "APOE är huvudregulatorn för lipidtransport och rening av plack i hjärnan.",
-                "how": "Du bär den neutrala (E3) eller skyddande (E2) varianten. Dina lipidtransportörer är robusta och effektiva. De rensar snabbt bort amyloidrester och återvinner kolesterol utan att utlösa inflammation. Detta ger en potent biologisk buffert mot kognitiv nedgång och möjliggör större kostflexibilitet med fetter.",
-                "yours": "Ditt Resultat: Hög Reningseffektivitet."
+                "what": "APOE bär kolesterol och fetter mellan celler, även i hjärnan.",
+                "how": "Du bär ε2-versionen av APOE (T-allelen vid rs7412). Den lämnar lättare över LDL-partiklar till levern för rensning, så ditt LDL-kolesterol ligger lägre, och ε2 är den APOE-version som tydligast kopplats till lägre risk för Alzheimers sjukdom.",
+                "ancestral": "Typisk APOE (CC).",
+                "yours": "Ditt Resultat: ε2-bärare."
             },
+            "risks": [
+                "Blodfetter: Restpartiklar kan ansamlas vid dålig kost (sällsynt typ III-hyperlipoproteinemi vid ε2/ε2)."
+            ],
             "action": {
-                "title": "Metabol Flexibilitet",
-                "body": "Du har en naturlig fördel i hjärnhälsa. För att maximera den, fokusera på 'Hjärnbränslen' som Ketoner eller MCT, vilka dina effektiva transportörer kan utnyttja effektivt."
-            }
-        }
-    },
-    "rs17616434": {
-        "title": "Acetaldehydavgiftning",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "ALDH2",
-            "title": "Det 'Trasiga' Filtret",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "ALDH2 är leverenzymet som ansvarar för att omvandla Acetaldehyd (ett giftigt cancerframkallande ämne) till Acetat (ofarlig vinäger).",
-                "how": "Ditt enzym är strukturellt defekt. Det fungerar med <10% effektivitet. När du dricker alkohol eller andas in stadssmog ackumuleras Acetaldehyd omedelbart i ditt blod. Den 'flush' du känner är faktiskt en toxisk immunologisk reaktion. Detta orsakar DNA-skador med en hastighet 10 gånger högre än normalt.",
-                "yours": "Ditt Resultat: Allvarlig Enzymatisk Brist."
+                "title": "Håll Triglyceriderna i Schack",
+                "body": "ε2 sänker LDL men kan låta triglyceridrika restpartiklar dröja kvar, särskilt vid mycket socker, alkohol eller viktuppgång. Ta en full blodfettsprofil och håll raffinerade kolhydrater måttliga.",
+                "foods": [
+                    "Fet fisk",
+                    "Fibrer",
+                    "Begränsa raffinerade kolhydrater"
+                ]
             },
-            "action": {
-                "title": "Cysteinstöd",
-                "body": "Om du inte kan undvika exponering måste du komplettera med NAC (N-Acetyl Cysteine). Det tillhandahåller prekursorn för Glutation, som fungerar som en 'backup'-avgiftningsväg eftersom din primära ALDH2-väg är trasig."
-            }
-        },
-        "data_strength": {
-            "gene": "ALDH2",
-            "title": "Levern som 'Industrianläggning'",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "ALDH2 är snabbreaktionsenheten för att neutralisera miljöaldehyder.",
-                "how": "Ditt enzym arbetar i hyperhastighet. Du omvandlar gifter till ofarlig energi nästan omedelbart. Detta skyddar ditt DNA från mutagena risker associerade med alkohol, rök och avgaser. Du har en 'järnhård' tolerans för miljöstressorer.",
-                "yours": "Ditt Resultat: Hög Enzymatisk Effektivitet."
-            },
-            "action": {
-                "title": "Toxintolerans",
-                "body": "Du är biologiskt utrustad för modernt stadsliv, men kom ihåg att snabb avgiftning inte gör alkohol hälsosamt – det gör det bara mindre omedelbart skadligt."
-            }
+            "confidence": 4
         }
     },
     "rs6265": {
@@ -3702,38 +3590,6 @@
             }
         }
     },
-    "rs8111989": {
-        "title": "Vitamin D Receptor",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "VDR",
-            "title": "Den 'tystade' receptorn",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "Vitamin D-receptorn (VDR) är inte bara en passiv dockningsplats; den är en nukleär transkriptionsfaktor. Den måste binda till D-vitamin, gå in i cellkärnan och låsa upp DNA för att aktivera över 900 gener som är involverade i immunitet och benreparation.",
-                "how": "Din receptor (troligen en Taq1- eller Bsm1-variant) har en formförändring som minskar dess bindningseffektivitet. Även med normala D-vitaminnivåer i blodet vrider 'nyckeln' låset mycket långsamt. Detta resulterar i svag genuttryck, vilket lämnar ditt immunsystem trögt och dina ben mindre kapabla att mineralisera.",
-                "yours": "Ditt resultat: Låg transkriptionell effektivitet."
-            },
-            "action": {
-                "title": "Tvinga låset",
-                "body": "Standarddosering räcker inte. Du måste översvämma systemet. Du behöver troligen blodnivåer på 60-80 ng/mL (högre än standard 30) för att uppnå samma genetiska aktivering som en normal person. Ta D3-vitamin med K2 och en fet måltid (avokado) för att maximera absorptionen."
-            }
-        },
-        "data_strength": {
-            "gene": "VDR",
-            "title": "Den 'förstärkta' signalen",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "VDR bildar en komplex med RXR (Retinoid X Receptor) för att aktivera 'Genomförsvar'-programmet.",
-                "how": "Din receptor är överkänslig. Den skapar en robust signalkaskad även vid måttlig solexponering. Du producerar aggressivt katelicidiner (naturliga antibiotika) och absorberar kalcium effektivt. Detta ger dig ett 'Teflon'-immunsystem som stöter bort luftvägsvirus och enkelt bibehåller bentätheten.",
-                "yours": "Ditt resultat: Hög transkriptionell känslighet."
-            },
-            "action": {
-                "title": "Immunförsvar",
-                "body": "Din robusta VDR-signalering ger ett kraftfullt grundläggande försvar. Måttlig solexponering är troligen allt du behöver för att upprätthålla ett super-laddat immunförsvar."
-            }
-        }
-    },
     "rs11568820": {
         "title": "Vitamin D Receptor",
         "badge_type": "RISK",
@@ -3743,7 +3599,7 @@
             "badge_type": "RISK",
             "mechanisms": {
                 "what": "Vitamin D-receptorn (VDR) är inte bara en passiv dockningsplats; den är en nukleär transkriptionsfaktor. Den måste binda till D-vitamin, gå in i cellkärnan och låsa upp DNA för att aktivera över 900 gener som är involverade i immunitet och benreparation.",
-                "how": "Din receptor (troligen en Taq1- eller Bsm1-variant) har en formförändring som minskar dess bindningseffektivitet. Även med normala D-vitaminnivåer i blodet vrider 'nyckeln' låset mycket långsamt. Detta resulterar i svag genuttryck, vilket lämnar ditt immunsystem trögt och dina ben mindre kapabla att mineralisera.",
+                "how": "Din Cdx2-promotorvariant gör att tarmslemhinnan bildar mindre receptor. Även med normala D-vitaminnivåer i blodet vrider 'nyckeln' låset mycket långsamt. Detta resulterar i svag genuttryck, vilket lämnar ditt immunsystem trögt och dina ben mindre kapabla att mineralisera.",
                 "yours": "Ditt resultat: Låg transkriptionell effektivitet."
             },
             "action": {
@@ -3757,46 +3613,20 @@
             "badge_type": "SUPERPOWER",
             "mechanisms": {
                 "what": "VDR bildar en komplex med RXR (Retinoid X Receptor) för att aktivera 'Genomförsvar'-programmet.",
-                "how": "Din receptor är överkänslig. Den skapar en robust signalkaskad även vid måttlig solexponering. Du producerar aggressivt katelicidiner (naturliga antibiotika) och absorberar kalcium effektivt. Detta ger dig ett 'Teflon'-immunsystem som stöter bort luftvägs-virus och enkelt bibehåller bentätheten.",
+                "how": "Din Cdx2-variant gör att tarmslemhinnan bildar mer receptor. Den skapar en robust signalkaskad även vid måttlig solexponering. Du producerar aggressivt katelicidiner (naturliga antibiotika) och absorberar kalcium effektivt. Detta ger dig ett 'Teflon'-immunsystem som stöter bort luftvägs-virus och enkelt bibehåller bentätheten.",
                 "yours": "Ditt resultat: Hög transkriptionell känslighet."
             },
             "action": {
                 "title": "Immunskydd",
                 "body": "Din robusta VDR-signalering ger ett kraftfullt grundläggande försvar. Måttlig solexponering är troligen allt du behöver för att upprätthålla ett super-laddat immunförsvar."
             }
-        }
-    },
-    "rs6269": {
-        "title": "Dopamin-clearance",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "COMT",
-            "title": "Oroaren ('Hög Fokus')",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "Katekol-O-Metyltransferas (COMT) är enzymet som ansvarar för nedbrytningen av dopamin, epinefrin och norepinefrin i prefrontala cortex.",
-                "how": "Du har Met/Met-genotypen (Låg aktivitet). Ditt enzym arbetar med 25 % hastighet. Dopamin dröjer sig kvar i hjärnan under lång tid. Detta ger dig överlägsen uppmärksamhetsförmåga, arbetsminne och kognitivt djup, men det innebär att stresskemikalier också dröjer sig kvar. Du kan inte 'skaka av dig' ångest eller irritation lätt; du tenderar att grubbla.",
-                "yours": "Ditt Resultat: Långsam clearance (Oroaren)."
-            },
-            "action": {
-                "title": "Magnesiumstöd",
-                "body": "Magnesium är en obligatorisk kofaktor för COMT. Du förbrukar det snabbt under stress. Tillskott av Magnesiumglycinat hjälper ditt enzym att rensa upp överflödet av stresskemikalier."
-            }
         },
-        "data_strength": {
-            "gene": "COMT",
-            "title": "Krigaren (Stress-tolerans)",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "Snabb clearance av katekolaminer gör att hjärnan kan återställas omedelbart efter en stressande händelse.",
-                "how": "Du har Val/Val-genotypen (Hög aktivitet). Ditt enzym förbränner dopamin och adrenalin. I högtryckssituationer (strid, handel, akutsjukvård) förblir ditt sinne klart medan andra får panik. Din baslinje av dopamin sjunker dock snabbt, så du kan kämpa med motivationen i lågstressade, tråkiga miljöer.",
-                "yours": "Ditt Resultat: Snabb clearance (Krigaren)."
-            },
-            "action": {
-                "title": "Sök friktion",
-                "body": "Du behöver 'bra stress' (deadlines, tävling, HIIT) för att känna dig kognitivt engagerad. Ett lugnt liv känns som tortyr för din fysiologi."
-            }
-        }
+        "risk_genotypes": [
+            "CC"
+        ],
+        "strength_genotypes": [
+            "TT"
+        ]
     },
     "rs1815739": {
         "title": "Muskelfibertyp",
@@ -4055,70 +3885,6 @@
         }
     },
     "rs1800795": {
-        "title": "Återhämtning från Inflammation",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "IL6",
-            "title": "Den 'Hyper-Inflammerande'",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "Interleukin-6 (IL-6) är en cytokin som utlöser akut fas-svaret vid träning eller skada.",
-                "how": "Du producerar naturligt för mycket IL-6. Ett hårt träningspass gör dig inte bara öm; det ger dig influensaliknande symtom och trötthet i dagar. Du är benägen för systemisk inflammation och riskerar överträning lätt eftersom din kropp behandlar träning som en allvarlig infektion.",
-                "yours": "Ditt Resultat: Hög Inflammatorisk Respons."
-            },
-            "action": {
-                "title": "Prioritera Återhämtning",
-                "body": "Du kan inte träna hårt varje dag. Du behöver aktiv återhämtning (promenader) för att spola bort cytokiner. Du är den främsta kandidaten för kallbad för att manuellt dämpa denna inflammatoriska signal."
-            }
-        },
-        "data_strength": {
-            "gene": "IL6",
-            "title": "Den 'Wolverine'-liknande Återhämtningen",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "Balanserad IL-6-signalering möjliggör snabb vävnadsreparation utan systemisk stress.",
-                "how": "Din inflammatoriska respons är kirurgisk. Du får en skarp ökning av IL-6 för att utlösa muskelreparation, följt av en omedelbar sänkning till baslinjen. Du kan hantera träningsvolymer som skulle bryta en normal person. Du återhämtar dig snabbare och åldras långsammare.",
-                "yours": "Ditt Resultat: Snabb Reparationssignalering."
-            },
-            "action": {
-                "title": "Volymtolerans",
-                "body": "Din begränsande faktor är sällan fysisk återhämtning. Du kan pressa din kropp hårt och lita på att den bygger upp sig över natten."
-            }
-        }
-    },
-    "rs1800797": {
-        "title": "Återhämtning från Inflammation",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "IL6",
-            "title": "Den 'Hyper-Inflammerande'",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "Interleukin-6 (IL-6) är en cytokin som utlöser den akuta fasresponsen vid träning eller skada.",
-                "how": "Du producerar naturligt för mycket IL-6. Ett hårt träningspass gör dig inte bara öm; det ger dig influensaliknande symtom och trötthet i dagar. Du är benägen för systemisk inflammation och riskerar överträning lätt eftersom din kropp behandlar träning som en allvarlig infektion.",
-                "yours": "Ditt Resultat: Hög Inflammatorisk Respons."
-            },
-            "action": {
-                "title": "Prioritera Återhämtning",
-                "body": "Du kan inte träna hårt varje dag. Du behöver aktiv återhämtning (promenader) för att spola bort cytokiner. Du är den främsta kandidaten för kallbad för att manuellt dämpa denna inflammatoriska signal."
-            }
-        },
-        "data_strength": {
-            "gene": "IL6",
-            "title": "Den 'Wolverine'-liknande Återhämtningen",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "Balanserad IL-6-signalering möjliggör snabb vävnadsreparation utan systemisk stress.",
-                "how": "Din inflammatoriska respons är kirurgisk. Du får en skarp ökning av IL-6 för att utlösa muskelreparation, följt av en omedelbar sänkning till baslinjen. Du kan hantera träningsvolymer som skulle bryta en normal person. Du återhämtar dig snabbare och åldras långsammare.",
-                "yours": "Ditt Resultat: Snabb Reparationssignalering."
-            },
-            "action": {
-                "title": "Volymtolerans",
-                "body": "Din begränsande faktor är sällan fysisk återhämtning. Du kan pressa din kropp hårt och lita på att den bygger upp sig över natten."
-            }
-        }
-    },
-    "rs1800796": {
         "title": "Återhämtning från Inflammation",
         "badge_type": "RISK",
         "data_risk": {
@@ -6168,38 +5934,6 @@
             }
         }
     },
-    "rs1143627": {
-        "title": "Inflammatoriskt Cytokin",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "IL1B",
-            "title": "Den 'Mästerliga' Inflammationsstartaren",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "Interleukin-1 Beta är ett 'Mästarcytokin' som initierar den systemiska inflammationskaskaden och rekryterar andra immunceller till striden.",
-                "how": "Du är en 'hög utsöndrare'. Din kropp frisätter enorma mängder IL-1B som svar på mindre utlösare (stress, socker, dålig sömn). Detta skapar en kronisk, låggradig brand i ditt system, kopplad till trötthet, ledvärk och snabbare biologisk åldring.",
-                "yours": "Ditt Resultat: Hög utsöndring."
-            },
-            "action": {
-                "title": "Dämpa Signaleringen",
-                "body": "Du behöver bredspektriga antiinflammatoriska medel. Kurkumin och resveratrol är specifikt effektiva mot IL-1B. Den viktigaste faktorn är dock att undvika 'inflammaging'-utlösare som raffinerat socker."
-            }
-        },
-        "data_strength": {
-            "gene": "IL1B",
-            "title": "Det 'Målinriktade' Svaret",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "Ett kontrollerat IL-1B-svar säkerställer infektionsbekämpning utan kollateralskada.",
-                "how": "Ditt cytokinsvar är proportionerligt. Du mobiliserar ett försvar när det behövs, men du förblir inte inflammerad. Detta skyddar dina organ från slitage orsakad av kronisk immunaktivering, en nyckelmarkör för livslängd.",
-                "yours": "Ditt Resultat: Normal utsöndring."
-            },
-            "action": {
-                "title": "Återhämtning",
-                "body": "Ditt immunsystem återställs snabbt. Detta gör att du kan återhämta dig från sjukdom eller hård träning utan kvarvarande trötthet."
-            }
-        }
-    },
     "rs1800566": {
         "title": "Återvinning av CoQ10",
         "badge_type": "RISK",
@@ -7189,7 +6923,14 @@
                 "title": "Uthållighetskapacitet",
                 "body": "Du svarar massivt på aerob träning. Din kropp vill bygga en supermotorväg för syretillförsel."
             }
-        }
+        },
+        "risk_genotypes": [
+            "TT",
+            "CT"
+        ],
+        "strength_genotypes": [
+            "CC"
+        ]
     },
     "rs12722": {
         "title": "Stelhet i senor",

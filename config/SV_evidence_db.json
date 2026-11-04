@@ -18323,5 +18323,72 @@
             "PMID:16141870"
         ],
         "name": "SOD3_ANTIOX"
+    },
+    "rs7412": {
+        "rsid": "rs7412",
+        "variant_identity": {
+            "gene_symbol": "APOE",
+            "common_name": "ε2-Markören",
+            "rsid": "rs7412",
+            "biotype": "Missense-variant (Arg158Cys)"
+        },
+        "affected_organs": [
+            "Lever",
+            "Hjärna"
+        ],
+        "affected_systems": [
+            "Lipidmetabolism",
+            "Nervsystemet"
+        ],
+        "impact_type": "Bindning till LDL-receptorn",
+        "metabolic_connections": {
+            "upstream_requirements": [
+                {
+                    "molecule": "LDL- / VLDL-restpartiklar",
+                    "role": "Last",
+                    "mechanism": "APOE på partikelns yta är nyckeln som låter levern ta upp restpartiklar."
+                }
+            ],
+            "downstream_impacts": [
+                {
+                    "molecule": "LDL-kolesterol",
+                    "effect": "Nivå",
+                    "consequence": "ε2 binder LDL-receptorn svagt, vilket ökar antalet receptorer och sänker LDL."
+                }
+            ]
+        },
+        "metrics": {
+            "mechanistic_impact": {
+                "score": 5,
+                "rationale": "Ändrar receptorbindningen hos en central lipidbärare.",
+                "detail": "APOE finns i tre vanliga former, ε2, ε3 och ε4, som bestäms av två SNP:er. rs7412 byter arginin 158 mot cystein; dess T-allel definierar ε2. ε2-proteinet binder LDL-receptorn mycket svagare än ε3, så levercellerna ökar antalet LDL-receptorer och rensar LDL snabbare: varje T-allel sänker LDL-kolesterolet tydligt. Restpartiklar som är beroende av APOE för att rensas kan dock ansamlas, vilket är varför personer med ε2/ε2 och extra metabol stress kan utveckla typ III-hyperlipoproteinemi. I hjärnan är ε2 kopplad till mindre amyloidinlagring och den lägsta Alzheimerrisken av de tre formerna."
+            },
+            "study_quality": {
+                "score": 5,
+                "rationale": "Bland de starkaste signalerna inom lipidgenetik.",
+                "detail": "Kopplingen till LDL når p = 6e-223 i studier i UK Biobank-storlek, med samstämmiga triglyceridsignaler; kopplingen mellan ε2 och lägre Alzheimerrisk är replikerad i stora fall-kontrollkonsortier."
+            },
+            "methodology": {
+                "score": 5,
+                "rationale": "GWAS, receptorbindningsförsök och kohorter.",
+                "detail": "Genomvid associationsstudie, försök med LDL-receptorbindning och långa kohorter."
+            }
+        },
+        "consensus_label": "LIPIDTRANSPORT",
+        "methodology_audit": [
+            {
+                "study": "Jacobs et al. (2024) - genomvid associationsstudie av blodfetter",
+                "type": "Genomvid associationsstudie",
+                "population": "UK Biobank",
+                "methods": "Genomvid association för LDL-kolesterol.",
+                "critique": "STYRKA: Enormt urval och en entydig effektallel (T sänker LDL). KRITIK: Den fullständiga APOE-typen kräver även rs429358, som saknas i MyHeritage-filer, så ε3 och ε4 kan inte skiljas åt med enbart denna SNP.",
+                "score_contribution": "Studiekvalitet (5/5)"
+            }
+        ],
+        "citations": [
+            "PMID:39414775",
+            "PMID:39024449"
+        ],
+        "name": "APOE_E2"
     }
 }
