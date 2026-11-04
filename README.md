@@ -44,14 +44,11 @@ On Windows, set `PYTHONIOENCODING=utf-8` if the console crashes when it prints e
 main.py                   Interactive entry point; builds the whole PDF
 src/                      Analysis pipeline and PDF rendering (see docs/ARCHITECTURE.md)
 config/                   The knowledge base: traits, narratives, evidence, UI labels (see docs/DATA_MODEL.md)
-config/backup/            Hand-made snapshots of older config versions
+config/backup/            Backup of entries changed by the 2026-11 library corrections
 assets/                   Images used by reference-PDF tooling
-injectors-authenticators/ One-off maintenance, validation and injection scripts
-agent_flow.py             LLM translation pipeline (Gemini): EN → SV evidence DB
-agent_flow_deepdive.py    LLM generation of new evidence entries
-script.py                 LLM fact-check audit of deep-dive narratives → rewrite_needed.json
-evidence_db_injector.py   Validates and merges new evidence entries
-CSV_SNP_compare.py        Finds genotypes in input CSVs that the traits DB can't match
+cluster_analysis/         Research-API clients, functional modules, library validation
+injectors-authenticators/ Content tooling: LLM translation/generation/audit, injectors, validators
+tests/                    Unit tests (python -m unittest discover tests)
 ```
 
 The tooling scripts are described in [docs/CONTENT_TOOLING.md](docs/CONTENT_TOOLING.md).
@@ -60,7 +57,7 @@ The tooling scripts are described in [docs/CONTENT_TOOLING.md](docs/CONTENT_TOOL
 
 - Python 3.10+
 - Runtime: `pandas`, `numpy`, `plotly`, `kaleido` (static PNG export), `fpdf` (PyFPDF 1.7.x)
-- Tooling only: `google-genai`, `python-dotenv`, `requests`, and a `GOOGLE_API_KEY` in `.env`. These packages are **not** in `requirements.txt` yet.
+- Tooling only: `google-genai`, `python-dotenv`, `requests`, `networkx`, and a `GOOGLE_API_KEY` in `.env` for the LLM scripts.
 
 ## Further reading
 

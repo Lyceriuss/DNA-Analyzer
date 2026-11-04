@@ -3830,38 +3830,6 @@
             }
         }
     },
-    "rs1815739_extra": {
-        "title": "Muscle Fiber Composition",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "ACTN3",
-            "title": "The Ultra-Endurance Phenotype",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "Alpha-actinin-3 is a structural protein found exclusively in Type II (Fast-Twitch) muscle fibers, responsible for generating explosive force ",
-                "how": "You are 'Alpha-Actinin-3 Deficient' (XX genotype). Your body produces zero functional ACTN3 protein. Nature has completely swapped your explosive capability for extreme metabolic efficiency. While you are at a disadvantage for sprints and powerlifting, your muscles are highly resistant to fatigue and oxidative damage, making you biologically engineered for ultra-endurance.",
-                "yours": "Your Result: Slow-Twitch Dominant (XX)."
-            },
-            "action": {
-                "title": "Metabolic Training",
-                "body": "Low-rep, explosive training is metabolically inefficient for you. You respond best to high-volume, time-under-tension protocols that fatigue your efficient fibers."
-            }
-        },
-        "data_strength": {
-            "gene": "ACTN3",
-            "title": "The Sprinter Phenotype",
-            "badge_type": "Strength",
-            "mechanisms": {
-                "what": "ACTN3 anchors the actin filaments in the muscle sarcomere, allowing for violent, high-velocity contractions without damage.",
-                "how": "You have the 'Power' genotype (RR). Your muscle fibers are saturated with alpha-actinin-3. This allows your muscles to contract at maximum velocity and recover instantly from eccentric damage. This is the genetic prerequisite for elite sprinting and Olympic weightlifting. You are built to generate force.",
-                "yours": "Your Result: Fast-Twitch Dominant (RR)."
-            },
-            "action": {
-                "title": "Explosive Output",
-                "body": "Your physiology degrades with slow steady-state cardio. You need sprints, jumps, and heavy loads to maintain hormonal and structural health."
-            }
-        }
-    },
     "rs4343": {
         "title": "Vascular Tone & Stamina",
         "badge_type": "RISK",
@@ -4243,38 +4211,6 @@
             "action": {
                 "title": "Maximize Potential",
                 "body": "You have the hardware for a long life. Don't ruin it with lifestyle errors. Focus on maintaining muscle mass, as muscle is a primary secretion site for Klotho during exercise."
-            }
-        }
-    },
-    "rs4880_dupfix": {
-        "title": "Mitochondrial Antioxidant",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "SOD2",
-            "title": "The 'Unshielded' Mitochondria",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "Superoxide Dismutase 2 (SOD2) is the primary antioxidant working *inside* the mitochondria (the cellular power plants). It neutralizes the superoxide radical, a toxic byproduct of energy creation.",
-                "how": "Your variant (Val/Val) alters the transport of SOD2 into the mitochondria. Your power plants are running without enough coolant. When you exercise intensely, the oxidative 'exhaust' damages the mitochondria itself, leading to fatigue and slower recovery times.",
-                "yours": "Your Result: Low Mitochondrial Protection."
-            },
-            "action": {
-                "title": "Antioxidant Timing",
-                "body": "Do not take antioxidants immediately after exercise (it blunts adaptation), but ensure high intake of colorful vegetables (polyphenols) throughout the day to protect your cellular engines."
-            }
-        },
-        "data_strength": {
-            "gene": "SOD2",
-            "title": "The 'Armored' Reactor",
-            "badge_type": "Strength",
-            "mechanisms": {
-                "what": "SOD2 acts as the first line of defense against mitochondrial oxidative stress.",
-                "how": "You have the high-efficiency variant (Ala/Ala). Your mitochondria are heavily shielded. You can run your metabolism at 'Red Line' intensities (HIIT, Sprints) with minimal oxidative damage. This preserves mitochondrial density and function well into old age.",
-                "yours": "Your Result: High Mitochondrial Protection."
-            },
-            "action": {
-                "title": "Intensity Tolerance",
-                "body": "Your cellular engines are durable. You can handle higher frequency high-intensity training than your peers without burning out."
             }
         }
     },

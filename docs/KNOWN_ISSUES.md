@@ -43,7 +43,7 @@ The library now has **229 traits, 0 errors and 38 warnings**. Remaining work:
    - child `AA`, mom `AA`, dad `AG` → "Match: Mom", even though one A must have come from dad.
    Rework it per allele: work out which parent could have supplied each allele, and flag Mendelian inconsistencies (useful for spotting sample mix-ups and strand errors). With a single relative, only "consistent / inconsistent" can be stated.
 2. **One SNP per gene.** `drop_duplicates(subset=['Gene'])` hides additional SNPs, for example MTHFR rs1801131 when rs1801133 is present. Decide whether that is intended, or group by gene and show both.
-3. **Palindromic SNPs (A/T, C/G)**: about 31 traits can't be strand-resolved by complementing. MyHeritage reports the forward strand, so pinning those traits to the forward strand would be safe.
+3. **Palindromic SNPs (A/T, C/G)**: 23 traits can't be strand-resolved by complementing and are not yet verified (see `STRAND_VERIFIED` in `cluster_analysis/validate_library.py`).
 4. **Silent misses.** RSIDs missing from the panel are dropped without a trace. Report the count ("X of 229 not tested").
 
 ## P1: one-page layout, remaining
@@ -61,18 +61,17 @@ The library now has **229 traits, 0 errors and 38 warnings**. Remaining work:
 
 ## P1: content quality
 
-- Most narrative and evidence text was written or translated by an LLM. The audit (`script.py`) flagged **120 RSIDs** in `rewrite_needed.json`. Many of those failures are structural (a missing `risks` list), but some are factual: `rs429358` (APOE) was flagged as logically inverted relative to its scores.
+- Most narrative and evidence text was written or translated by an LLM. The audit (`audit_deep_dives.py`) flagged **120 RSIDs** in `rewrite_needed.json`. Many of those failures are structural (a missing `risks` list), but some are factual: `rs429358` (APOE) was flagged as logically inverted relative to its scores.
 - `impact` has 4 non-standard values ("Beneficial", "Altered DHT levels", …). They now sort as Medium.
-- 17 deep dives belong to RSIDs that don't exist in `snp_traits.json`, so they are dead content. 1 trait has no evidence entry.
+- **15 orphan deep dives** have narratives but no `snp_traits.json` entry, so they never render: rs1143627, rs11568820, rs12255372, rs17616434, rs1799990, rs1800796, rs1800797, rs1801131 (MTHFR A1298C), rs2228570, rs2854464, rs3025039, rs6269, rs731236 (VDR TaqI), rs7412 (APOE, needed with rs429358 for e2/e3/e4), rs8111989. Add trait entries (and validate them) to activate them. 1 trait has no evidence entry.
 
 ## P2: engineering hygiene
 
 - Test coverage is still thin (`tests/` covers only the normalizer and genotype personalisation). Add `domain_mapper` and `inheritance` next.
 - Nothing in `requirements.txt` is pinned. `fpdf` is the unmaintained 1.7 line. `fpdf2` adds Unicode TTF fonts, which would remove the Latin-1 `clean_text` downgrade.
-- Dead code: `add_educational_page`, `get_text_height`, and `proxy_handler` (disabled).
+- `proxy_handler` is disabled (the call in `analyzer.py` is commented out).
 - `domain_mapper` uses substring keywords, and the first match wins ("cell", "dna" and "eye" are broad). A `domain` field in `snp_traits.json` would be explicit.
-- Tooling scripts run on import, hardcode paths, and overwrite config files in place without backups. Wrap them in `if __name__ == "__main__":`, add CLI args, and write to a temp file before an atomic rename.
-- Committed clutter: `bash.exe.stackdump`, `audit_*.log` and `config/backup/` (git already keeps history). Add them to `.gitignore`.
+- Tooling scripts hardcode paths and overwrite config files in place without backups. Add CLI args and write to a temp file before an atomic rename.
 - Bare `except:` clauses hide errors in `report_engine.py`.
 - Emoji `print`s crash on a cp1252 Windows console unless `PYTHONIOENCODING=utf-8` is set.
 - The interactive-only CLI makes batch runs and testing hard. Add `argparse` (`--input`, `--mom`, `--dad`, `--lang`) and keep the menu as the fallback.

@@ -11,3 +11,6 @@ data/output/*
 !data/output/.gitkeep
 # Cluster analysis API cache
 cluster_analysis/cache/
+
+# Tool logs (audit_deep_dives.py)
+*.log

@@ -1,25 +1,25 @@
 # Content tooling
 
-These scripts build and maintain the knowledge base in `config/`. None of them are used when a report is generated. Most of them are one-off scripts: they hardcode paths, they run when imported, and several **overwrite config files in place**. Commit or back up `config/` before running any of them.
+These scripts build and maintain the knowledge base in `config/`. None of them are used when a report is generated. Most of them are one-off scripts: they hardcode paths, and several **overwrite config files in place**. Commit `config/` before running any of them.
 
-All scripts expect to be run from the repo root (`python <script>.py`). The LLM scripts need `pip install google-genai python-dotenv` and `GOOGLE_API_KEY` in `.env`.
+All scripts live in `injectors-authenticators/` and must be run from the repo root (`python injectors-authenticators/x.py`). The ones that import `src.*` need `PYTHONPATH=.`. The LLM scripts need `pip install google-genai python-dotenv` and `GOOGLE_API_KEY` in `.env`.
 
-## LLM pipelines (repo root)
+## LLM pipelines
 
 | Script | Model | Reads → Writes | What it does |
 |---|---|---|---|
-| `agent_flow.py` | gemini-2.5-flash-lite | `config/evidence_db2.json` → `config/SV_evidence_db2.json` | Translates evidence entries to Swedish in batches of 15 and logs cost and tokens. It treats an entry as "done" when the JSON contains `å/ä/ö`, so re-running it retries entries that were never translated. **Runs on import.** The input path is a working copy (`*2.json`) that is not in the repo. |
-| `agent_flow_deepdive.py` | gemini-2.5-flash | `TARGET_RSIDS` → `repopulated_entries.json` | Generates new evidence entries for a hardcoded RSID list. Guardrails: organ vocabulary and minimum text lengths. The system prompt's guardrail section is currently empty. |
-| `script.py` | gemini-2.5-flash | `snp_traits.json` + `deep_dive_content.json` → `config/rewrite_needed.json`, `audit_results.log` | Fact-checks every deep dive's `how` narrative against the trait scores. The FAIL list becomes `rewrite_needed.json` (currently 120 RSIDs). |
-| `evidence_db_injector.py` | — | `NEW_ENTRIES` → `config/evidence_db.json` | Validates new entries (organs, text lengths) and merges them. The `NEW_ENTRIES` import is commented out, so the script currently fails with a `NameError`. |
-| `CSV_SNP_compare.py` | — | `data/input/*.csv` + `snp_traits.json` | Lists input genotypes that no trait key accepts, which helps find strand or ordering gaps in `snp_traits.json`. |
+| `translate_evidence.py` | gemini-2.5-flash-lite | `config/evidence_db2.json` → `config/SV_evidence_db2.json` | Translates evidence entries to Swedish in batches of 15 and logs cost and tokens. It treats an entry as "done" when the JSON contains `å/ä/ö`, so re-running it retries entries that were never translated. The input path is a working copy (`*2.json`) that is not in the repo. |
+| `generate_evidence.py` | gemini-2.5-flash | `TARGET_RSIDS` → `repopulated_entries.json` | Generates new evidence entries for a hardcoded RSID list. Guardrails: organ vocabulary and minimum text lengths. The system prompt's guardrail section is currently empty. |
+| `audit_deep_dives.py` | gemini-2.5-flash | `snp_traits.json` + `deep_dive_content.json` → `config/rewrite_needed.json`, `audit_results.log` | Fact-checks every deep dive's `how` narrative against the trait scores. The FAIL list becomes `rewrite_needed.json`. |
 
-## `injectors-authenticators/`
+LLM-generated content must pass `python -m cluster_analysis.validate_library` before it is used: the 2026-11 validation found 73 errors in LLM-written entries.
 
-Run these from the repo root (`python injectors-authenticators/x.py`). The ones that import `src.*` need `PYTHONPATH=.`.
+## Other scripts
 
 | Script | Purpose | Writes? |
 |---|---|---|
+| `evidence_db_injector.py` | Validates new evidence entries (organs, text lengths) and merges them. The `NEW_ENTRIES` import is commented out, so it currently fails with a `NameError`. | **yes** |
+| `csv_snp_compare.py` | Lists input genotypes that no trait key accepts (strand or ordering gaps) | no |
 | `validate.py` | Gap analysis that compares trait coverage in `snp_traits` with `deep_dive_content` | no |
 | `corrections_2026_11/apply.py` | Applies the 2026-11 validation fixes: rewrites, rsID retargets, removals. Content is in `content_en.py` / `content_sv.py`. Safe to re-run. | **yes**, backs up to `config/backup/` |
 | `audit_length.py` | Prints the narrative length of each deep dive | no |
@@ -40,7 +40,8 @@ Run these from the repo root (`python injectors-authenticators/x.py`). The ones 
 1. Add or adjust the genotype→score mapping in `snp_traits.json`. Use sorted keys.
 2. Write `data_risk` / `data_strength` in `deep_dive_content.json`, by hand or with `deep_dive_injector.py`.
 3. Generate or curate the evidence entry, then merge it with `evidence_db_injector.py`.
-4. Run `script.py` to fact-check the narrative and review `rewrite_needed.json`.
-5. Translate with `agent_flow.py`. Point `INPUT_FILE`/`OUTPUT_FILE` at the real files, or copy them to `*2.json` first.
-6. Run `validate.py` and `CSV_SNP_compare.py` to check coverage and matching.
-7. Generate a report in both languages and read through it.
+4. Run `python -m cluster_analysis.validate_library`: gene at the site, possible alleles, strand. Fix every error.
+5. Run `audit_deep_dives.py` to fact-check the narrative and review `rewrite_needed.json`.
+6. Translate with `translate_evidence.py`. Point `INPUT_FILE`/`OUTPUT_FILE` at the real files, or copy them to `*2.json` first.
+7. Run `validate.py` and `csv_snp_compare.py` to check coverage and matching.
+8. Generate a report in both languages and read through it.

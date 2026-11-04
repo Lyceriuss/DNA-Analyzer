@@ -84,5 +84,5 @@ Each input is a 1–5 score taken from `evidence_db.json → metrics`. When no e
 ## Matching caveats (important)
 
 - Genotype keys in `snp_traits.json` are **not** normalised. The normaliser sorts the *user's* genotype (`GA` → `AG`) but compares it with the JSON keys exactly as written. A trait that only lists `"GA"` therefore never matches a heterozygote. See KNOWN_ISSUES.
-- Strand flipping can't tell the strands apart for palindromic SNPs (A/T, C/G). About 31 traits are affected.
+- Strand flipping can't tell the strands apart for palindromic SNPs (A/T, C/G). 23 traits are not yet hand-verified.
 - No-calls (`--`) and indels drop out silently. They are not reported as "not tested".

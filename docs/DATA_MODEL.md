@@ -12,7 +12,7 @@ All files are UTF-8 JSON keyed by rsID unless noted otherwise. The counts are fr
 | `ui_labels.json` | 2 langs | report | All PDF chrome strings and the intro text |
 | `proxies.json` | 2 | proxy_handler (disabled) | Proxy SNP → target SNP genotype translation |
 | `muscle_logic_gates_db.json` | 6 stations | cluster_checker.py | Experimental multi-SNP rule sets |
-| `rewrite_needed.json` | 120 (list) | written by `script.py` | RSIDs whose narrative failed the LLM audit |
+| `rewrite_needed.json` | 120 (list) | written by `audit_deep_dives.py` | RSIDs whose narrative failed the LLM audit |
 | `backup/` | — | — | Manual dated snapshots |
 
 ## `snp_traits.json`

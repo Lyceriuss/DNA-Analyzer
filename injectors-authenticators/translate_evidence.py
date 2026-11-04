@@ -197,6 +197,5 @@ def run_batch(batch_size=1):
             print(f"    [!] Critical Error on {rsid}: {e}")
             break
 
-# --- TEST RUN ---
-# Try 1, then 2, then 4 as you mentioned
-run_batch(batch_size=15)
+if __name__ == "__main__":
+    run_batch(batch_size=15)

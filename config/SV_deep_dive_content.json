@@ -3830,38 +3830,6 @@
             }
         }
     },
-    "rs1815739_extra": {
-        "title": "Muskelfibertyp",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "ACTN3",
-            "title": "Ultrauthållighetsphenotypen",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "Alfa-aktinin-3 är ett strukturellt protein som enbart finns i Typ II (snabba) muskelfibrer, ansvarigt för att generera explosiv kraft.",
-                "how": "Du är 'Alfa-Aktinin-3 Bristfällig' (XX-genotyp). Din kropp producerar noll funktionellt ACTN3-protein. Naturen har helt bytt ut din explosiva kapacitet mot extrem metabolisk effektivitet. Medan du har en nackdel i sprinter och styrkelyft, är dina muskler mycket motståndskraftiga mot trötthet och oxidativ skada, vilket gör dig biologiskt konstruerad för ultralångdistans.",
-                "yours": "Ditt resultat: Långsamma fibrer dominerar (XX)."
-            },
-            "action": {
-                "title": "Metabolisk Träning",
-                "body": "Låg-rep, explosiv träning är metaboliskt ineffektivt för dig. Du svarar bäst på protokoll med hög volym och tid under spänning som tröttar ut dina effektiva fibrer."
-            }
-        },
-        "data_strength": {
-            "gene": "ACTN3",
-            "title": "Sprinterfenotypen",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "ACTN3 förankrar aktinfilamenten i muskelns sarkomer, vilket möjliggör våldsamma, hög-hastighetskontraktioner utan skada.",
-                "how": "Du har 'Power'-genotypen (RR). Dina muskelfibrer är mättade med alfa-aktinin-3. Detta gör att dina muskler kan kontrahera med maximal hastighet och omedelbart återhämta sig från excentrisk skada. Detta är den genetiska förutsättningen för elit-sprint och olympisk tyngdlyftning. Du är byggd för att generera kraft.",
-                "yours": "Ditt resultat: Snabba fibrer dominerar (RR)."
-            },
-            "action": {
-                "title": "Explosiv Output",
-                "body": "Din fysiologi försämras med långsam, jämn konditionsträning. Du behöver sprinter, hopp och tunga belastningar för att upprätthålla hormonell och strukturell hälsa."
-            }
-        }
-    },
     "rs4343": {
         "title": "Kärltonus & Uthållighet",
         "badge_type": "RISK",
@@ -4211,38 +4179,6 @@
             "action": {
                 "title": "Livslängdsfördel",
                 "body": "Du har ett försprång när det gäller åldrande. Håll din kost ren, så kommer dina artärer sannolikt att förbli fria långt in i hög ålder."
-            }
-        }
-    },
-    "rs4880_dupfix": {
-        "title": "Mitokondriell Antioxidant",
-        "badge_type": "RISK",
-        "data_risk": {
-            "gene": "SOD2",
-            "title": "De 'Oskyddade' Mitokondrierna",
-            "badge_type": "RISK",
-            "mechanisms": {
-                "what": "Superoxiddismutas 2 (SOD2) är den primära antioxidanten som arbetar *inuti* mitokondrierna (cellernas kraftverk). Den neutraliserar superoxidradikalen, en giftig biprodukt av energiproduktion.",
-                "how": "Din variant (Val/Val) förändrar transporten av SOD2 in i mitokondrierna. Dina kraftverk körs utan tillräckligt med kylvätska. När du tränar intensivt skadar den oxidativa 'avgasen' själva mitokondrierna, vilket leder till trötthet och långsammare återhämtningstider.",
-                "yours": "Ditt Resultat: Lågt Mitokondriellt Skydd."
-            },
-            "action": {
-                "title": "Antioxidant Timing",
-                "body": "Ta inte antioxidanter omedelbart efter träning (det dämpar anpassningen), men säkerställ ett högt intag av färgglada grönsaker (polyfenoler) under hela dagen för att skydda dina cellulära motorer."
-            }
-        },
-        "data_strength": {
-            "gene": "SOD2",
-            "title": "Den 'Rustade' Reaktorn",
-            "badge_type": "SUPERPOWER",
-            "mechanisms": {
-                "what": "SOD2 fungerar som den första försvarslinjen mot mitokondriell oxidativ stress.",
-                "how": "Du har den högeffektiva varianten (Ala/Ala). Dina mitokondrier är kraftigt skyddade. Du kan köra din metabolism på 'Röda Linjen'-intensiteter (HIIT, Sprints) med minimal oxidativ skada. Detta bevarar mitokondriell densitet och funktion väl in i hög ålder.",
-                "yours": "Ditt Resultat: Högt Mitokondriellt Skydd."
-            },
-            "action": {
-                "title": "Intensitetstolerans",
-                "body": "Dina cellulära motorer är hållbara. Du kan hantera högfrekvent högintensiv träning oftare än dina jämnåriga utan att bränna ut dig."
             }
         }
     },
