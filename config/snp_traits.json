@@ -2,7 +2,7 @@
     "rs1801133": {
         "gene": "MTHFR",
         "system": "Methylation",
-        "trait": "Folate \u00e2\u2020\u2019 active methylfolate conversion",
+        "trait": "Folate → active methylfolate conversion",
         "description": "MTHFR converts folate to active methylfolate, essential for DNA synthesis, repair, and methylation processes.",
         "impact": "High",
         "variants": {
@@ -17,39 +17,39 @@
         }
     },
     "rs1042838": {
-    "gene": "PGR",
-    "system": "Reproductive / Hormonal",
-    "trait": "Progesterone Receptor Efficiency",
-    "description": "Governs the body's sensitivity to progesterone, the 'pro-gestation' hormone required for uterine lining stability and the prevention of premature contractions.",
-    "impact": "High",
-    "variants": {
-        "GG": "Optimized progesterone signaling (Strong uterine receptivity)",
-        "GA": "Moderate signaling efficiency",
-        "AA": "Reduced signaling efficiency (Associated with 'Progesterone Resistance')"
+        "gene": "PGR",
+        "system": "Reproductive / Hormonal",
+        "trait": "Progesterone Receptor Efficiency",
+        "description": "Governs the body's sensitivity to progesterone, the 'pro-gestation' hormone required for uterine lining stability and the prevention of premature contractions.",
+        "impact": "High",
+        "variants": {
+            "GG": "Optimized progesterone signaling (Strong uterine receptivity)",
+            "GA": "Moderate signaling efficiency",
+            "AA": "Reduced signaling efficiency (Associated with 'Progesterone Resistance')"
+        },
+        "scores": {
+            "GG": 10,
+            "GA": 6,
+            "AA": 3
+        }
     },
-    "scores": {
-        "GG": 10,
-        "GA": 6,
-        "AA": 3
-    }
-},
-"rs2268491": {
-    "gene": "OXTR",
-    "system": "Nervous / Reproductive",
-    "trait": "Oxytocin Receptor Sensitivity",
-    "description": "Influences the density of oxytocin receptors in the brain and uterus, affecting the efficacy of uterine contractions during labor and the strength of the maternal-infant bond.",
-    "impact": "High",
-    "variants": {
-        "TT": "Optimized oxytocin signaling (Enhanced labor response & bonding)",
-        "TC": "Moderate signaling efficiency",
-        "CC": "Reduced signaling efficiency (Potential for slower labor progression)"
+    "rs2268491": {
+        "gene": "OXTR",
+        "system": "Nervous / Reproductive",
+        "trait": "Oxytocin Receptor Sensitivity",
+        "description": "Influences the density of oxytocin receptors in the brain and uterus, affecting the efficacy of uterine contractions during labor and the strength of the maternal-infant bond.",
+        "impact": "High",
+        "variants": {
+            "TT": "Optimized oxytocin signaling (Enhanced labor response & bonding)",
+            "TC": "Moderate signaling efficiency",
+            "CC": "Reduced signaling efficiency (Potential for slower labor progression)"
+        },
+        "scores": {
+            "TT": 10,
+            "TC": 6,
+            "CC": 3
+        }
     },
-    "scores": {
-        "TT": 10,
-        "TC": 6,
-        "CC": 3
-    }
-},
     "rs2236225": {
         "gene": "MTHFD1",
         "system": "Methylation",
@@ -70,7 +70,7 @@
     "rs1805087": {
         "gene": "MTR",
         "system": "Methylation",
-        "trait": "Homocysteine \u2192 methionine conversion",
+        "trait": "Homocysteine → methionine conversion",
         "description": "MTR uses B12 to remethylate homocysteine, affecting methylation and cardiovascular health.",
         "impact": "High",
         "variants": {
@@ -524,7 +524,7 @@
     "rs11645428": {
         "gene": "BCMO1",
         "system": "Vitamins",
-        "trait": "Vitamin A conversion (beta-carotene \u2192 retinol)",
+        "trait": "Vitamin A conversion (beta-carotene → retinol)",
         "description": "BCMO1 converts plant carotenoids to active vitamin A.",
         "impact": "Medium",
         "variants": {
@@ -1011,7 +1011,7 @@
         "gene": "AGT",
         "system": "Cardiovascular",
         "trait": "Baseline blood pressure regulation",
-        "description": "AGT influences renin\u2013angiotensin activity and salt sensitivity.",
+        "description": "AGT influences renin–angiotensin activity and salt sensitivity.",
         "impact": "High",
         "variants": {
             "AA": "Lower baseline blood pressure",
@@ -1063,7 +1063,7 @@
     "rs2235544": {
         "gene": "DIO1",
         "system": "Thyroid / Metabolism",
-        "trait": "T4 \u2192 T3 conversion efficiency",
+        "trait": "T4 → T3 conversion efficiency",
         "description": "DIO1 converts T4 into active T3, affecting metabolic rate and energy.",
         "impact": "High",
         "variants": {
@@ -1102,7 +1102,7 @@
         "gene": "PPARGC1A",
         "system": "Muscle / Mitochondria",
         "trait": "Mitochondrial biogenesis",
-        "description": "PGC-1\u03b1 controls mitochondrial creation and endurance adaptation.",
+        "description": "PGC-1α controls mitochondrial creation and endurance adaptation.",
         "impact": "High",
         "variants": {
             "CC": "Optimal mitochondrial biogenesis",
@@ -1436,7 +1436,7 @@
     "rs1979277": {
         "gene": "SHMT1",
         "system": "Methylation / Folate",
-        "trait": "Serine \u2194 glycine / folate channeling",
+        "trait": "Serine ↔ glycine / folate channeling",
         "description": "SHMT1 helps partition folate between DNA synthesis and methylation reactions.",
         "impact": "Medium",
         "variants": {
@@ -1559,7 +1559,7 @@
     "rs16944": {
         "gene": "IL1B (Promoter)",
         "system": "Inflammation / Stress",
-        "trait": "IL-1\u03b2 inflammation intensity",
+        "trait": "IL-1β inflammation intensity",
         "description": "IL1B regulates acute inflammation. Strong alleles increase injury sensitivity.",
         "impact": "High",
         "variants": {
@@ -1854,7 +1854,7 @@
     "rs1229984": {
         "gene": "ADH1B",
         "system": "Gut / Alcohol",
-        "trait": "Alcohol \u2192 acetaldehyde conversion speed",
+        "trait": "Alcohol → acetaldehyde conversion speed",
         "description": "ADH1B converts ethanol to acetaldehyde; fast variants cause intense flushing.",
         "impact": "High",
         "variants": {
@@ -1892,7 +1892,7 @@
     "rs10065172": {
         "gene": "IRGM",
         "system": "Gut / Immunity",
-        "trait": "Autophagy & Crohn\u2019s disease susceptibility",
+        "trait": "Autophagy & Crohn’s disease susceptibility",
         "description": "IRGM regulates autophagy in intestinal cells; variants affect IBD risk.",
         "impact": "High",
         "variants": {
@@ -1912,7 +1912,7 @@
         "gene": "NOD2",
         "system": "Gut / Immune",
         "trait": "Inflammatory response to gut bacteria",
-        "description": "NOD2 recognizes bacterial fragments; major IBD/Crohn\u2019s gene.",
+        "description": "NOD2 recognizes bacterial fragments; major IBD/Crohn’s gene.",
         "impact": "High",
         "variants": {
             "GG": "Normal NOD2 signaling",
@@ -1960,7 +1960,7 @@
         }
     },
     "rs8192678": {
-        "gene": "PPARGC1A (PGC-1\u03b1)",
+        "gene": "PPARGC1A (PGC-1α)",
         "system": "Endurance / Mitochondria",
         "trait": "Mitochondrial biogenesis rate",
         "description": "Master regulator of mitochondrial creation. Strong predictor of endurance and anti-fatigue.",
@@ -2070,7 +2070,7 @@
     "rs2070744": {
         "gene": "NOS3",
         "system": "Cardio / Mitochondria",
-        "trait": "Nitric oxide \u2192 mitochondrial efficiency",
+        "trait": "Nitric oxide → mitochondrial efficiency",
         "description": "eNOS-derived nitric oxide regulates mitochondrial biogenesis and ATP effectiveness.",
         "impact": "High",
         "variants": {
@@ -2088,10 +2088,10 @@
         "gene": "COL12A1",
         "system": "Muscle / Tendons",
         "trait": "Soft-tissue injury susceptibility",
-        "description": "COL12A1 influences muscular\u2013tendon integration and strain resilience.",
+        "description": "COL12A1 influences muscular–tendon integration and strain resilience.",
         "impact": "High",
         "variants": {
-            "AA": "Strong tendon\u2013muscle integration",
+            "AA": "Strong tendon–muscle integration",
             "AT": "Moderate integration",
             "TT": "Higher strain injury risk"
         },
@@ -2227,7 +2227,7 @@
     "rs1047303": {
         "gene": "HSD17B3",
         "system": "Sex Hormones",
-        "trait": "Testosterone synthesis (androstenedione \u2192 testosterone)",
+        "trait": "Testosterone synthesis (androstenedione → testosterone)",
         "description": "HSD17B3 is key for producing testosterone in testes/ovaries.",
         "impact": "High",
         "variants": {
@@ -2632,7 +2632,7 @@
     "rs934078": {
         "gene": "DIO2",
         "system": "Thyroid / Metabolism",
-        "trait": "T4 \u2192 T3 conversion efficiency (secondary site)",
+        "trait": "T4 → T3 conversion efficiency (secondary site)",
         "description": "Influences local tissue activation of thyroid hormone and metabolic speed.",
         "impact": "High",
         "variants": {
@@ -2773,7 +2773,7 @@
         "gene": "IGF1R",
         "system": "Longevity / Growth",
         "trait": "IGF-1 receptor sensitivity",
-        "description": "IGF1R variants influence the growth\u2013longevity tradeoff. Lower activity is typically longevity-favored.",
+        "description": "IGF1R variants influence the growth–longevity tradeoff. Lower activity is typically longevity-favored.",
         "impact": "High",
         "variants": {
             "GG": "Low IGF1R (slower aging)",
@@ -3216,7 +3216,7 @@
         "gene": "PPARA",
         "system": "Muscle / Endurance",
         "trait": "Fat metabolism in endurance",
-        "description": "PPAR\u03b1 determines fat vs glucose preference during long efforts.",
+        "description": "PPARα determines fat vs glucose preference during long efforts.",
         "impact": "High",
         "variants": {
             "CC": "Reduced fat oxidation, may favor glucose for power.",
@@ -3937,7 +3937,7 @@
     "rs1611115": {
         "gene": "DBH",
         "system": "Brain / Stress",
-        "trait": "Dopamine \u2192 Adrenaline Conversion",
+        "trait": "Dopamine → Adrenaline Conversion",
         "description": "DBH converts Dopamine to Norepinephrine. Variants affect dopamine/norepinephrine balance, influencing drive and stress response.",
         "impact": "High",
         "variants": {
@@ -4658,7 +4658,6 @@
         "impact": "High",
         "variants": {
             "GG": "Higher receptor density (Stable)",
-            
             "AG": "Moderate density",
             "AA": "Lower receptor density (Impulsivity risk)"
         },

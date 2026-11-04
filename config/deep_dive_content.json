@@ -78,7 +78,7 @@
             "badge_type": "RISK",
             "mechanisms": {
                 "what": "MTHFR is the engine that converts folate (Vitamin B9) into its active form (Methylfolate). This fuel drives detox, neurotransmitter production (mood), and DNA repair.",
-                "how": "Your variant causes the enzyme to lose its shape at higher temperatures, reducing its efficiency by up to 70%. It's like trying to drive a car with a clogged fuel injector\u2014you can't produce enough 'fuel' (methyl groups) for all your body's systems.",
+                "how": "Your variant causes the enzyme to lose its shape at higher temperatures, reducing its efficiency by up to 70%. It's like trying to drive a car with a clogged fuel injector—you can't produce enough 'fuel' (methyl groups) for all your body's systems.",
                 "ancestral": "Standard: 100% Efficiency.",
                 "yours": "Your Result: 30-60% Efficiency (Reduced)."
             },
@@ -645,7 +645,7 @@
             },
             "action": {
                 "title": "Toxin Resistance",
-                "body": "You are biologically equipped for modern urban living, but remember that rapid detox doesn't make alcohol healthy\u2014it just makes it less immediately damaging."
+                "body": "You are biologically equipped for modern urban living, but remember that rapid detox doesn't make alcohol healthy—it just makes it less immediately damaging."
             }
         }
     },
@@ -662,7 +662,7 @@
             "title": "The 'Fat Storage' Sensor",
             "badge_type": "RISK",
             "mechanisms": {
-                "what": "PPARG is a master switch that tells your body how to handle dietary fats\u2014whether to burn them or store them.",
+                "what": "PPARG is a master switch that tells your body how to handle dietary fats—whether to burn them or store them.",
                 "how": "Your variant is the 'Thrifty' version. It is highly sensitive to insulin and prefers to store dietary fat rapidly to protect you from starvation. In the modern world, this leads to easy weight gain from saturated fats.",
                 "ancestral": "Flexible Metabolism (CG/GG).",
                 "yours": "Your Result: Fat Storing (Insulin Sensitive)."
@@ -946,7 +946,7 @@
             },
             "action": {
                 "title": "Stress Management",
-                "body": "You are an 'Orchid'\u2014highly sensitive to environment. You need stable routines and proactive stress management (Meditation, Yoga) more than the average person."
+                "body": "You are an 'Orchid'—highly sensitive to environment. You need stable routines and proactive stress management (Meditation, Yoga) more than the average person."
             }
         },
         "data_strength": {
@@ -1058,7 +1058,7 @@
             ],
             "action": {
                 "title": "Calm the System",
-                "body": "You cannot boost this immune system; you must balance it. Vitamin D is the primary regulator that teaches T-Cells tolerance. Gluten often mimics body tissues (molecular mimicry), confusing the system further\u2014strict avoidance is recommended.",
+                "body": "You cannot boost this immune system; you must balance it. Vitamin D is the primary regulator that teaches T-Cells tolerance. Gluten often mimics body tissues (molecular mimicry), confusing the system further—strict avoidance is recommended.",
                 "foods": [
                     "High Vitamin D",
                     "Strict Gluten Free",
@@ -1081,7 +1081,7 @@
             "title": "The 'Viral Bouncer'",
             "badge_type": "RISK",
             "mechanisms": {
-                "what": "IFNL3 produces interferons\u2014proteins that act as the 'Bouncers' of the cell, stopping viruses from entering or replicating.",
+                "what": "IFNL3 produces interferons—proteins that act as the 'Bouncers' of the cell, stopping viruses from entering or replicating.",
                 "how": "Your variant produces a weaker bouncer. Your body is slower to mount an initial defense against viral invaders (like Hepatitis or Flu), allowing them to establish a foothold before the alarm rings.",
                 "ancestral": "Strong Bouncer (CC).",
                 "yours": "Your Result: Weak Bouncer (Viral Susceptibility)."
@@ -1178,7 +1178,7 @@
             "badge_type": "Strength",
             "mechanisms": {
                 "what": "MAOA breaks down stress chemicals and mood neurotransmitters.",
-                "how": "You carry the 'High Activity' variant. Your enzyme clears chemicals rapidly. This makes you chemically resilient to trauma and stress\u2014you 'bounce back' quickly because you don't let stress chemicals linger.",
+                "how": "You carry the 'High Activity' variant. Your enzyme clears chemicals rapidly. This makes you chemically resilient to trauma and stress—you 'bounce back' quickly because you don't let stress chemicals linger.",
                 "ancestral": "Low Activity (Warrior).",
                 "yours": "Your Result: High Activity (Resilient)."
             },
@@ -1347,7 +1347,7 @@
             "title": "The 'Rust Scraper'",
             "badge_type": "RISK",
             "mechanisms": {
-                "what": "OGG1 is a DNA repair enzyme. Its specific job is to cut out 'oxidized guanine'\u2014essentially scraping rust off your DNA code caused by free radicals.",
+                "what": "OGG1 is a DNA repair enzyme. Its specific job is to cut out 'oxidized guanine'—essentially scraping rust off your DNA code caused by free radicals.",
                 "how": "Your variant (Ser326Cys) functions poorly under oxidative stress. When your body gets inflamed, this repair crew goes on strike. DNA damage accumulates faster, particularly in the lungs and thyroid.",
                 "ancestral": "Efficient Repair (CC).",
                 "yours": "Your Result: Impaired Repair (Damage Accumulation)."
@@ -1603,7 +1603,7 @@
             "title": "The 'Mitochondrial Builder'",
             "badge_type": "RISK",
             "mechanisms": {
-                "what": "PGC-1alpha is the master regulator of mitochondrial biogenesis\u2014it tells your body to build *new* mitochondria (energy plants) when you exercise.",
+                "what": "PGC-1alpha is the master regulator of mitochondrial biogenesis—it tells your body to build *new* mitochondria (energy plants) when you exercise.",
                 "how": "Your variant (Gly482Ser) makes this protein less active. You struggle to build new mitochondria in response to aerobic exercise. You may find endurance training harder and see fitness gains slower than peers.",
                 "ancestral": "Efficient Builder (GG).",
                 "yours": "Your Result: Slow Builder (Endurance Lag)."
@@ -1760,7 +1760,7 @@
             "title": "The 'DHT Amplifier'",
             "badge_type": "RISK",
             "mechanisms": {
-                "what": "5-Alpha Reductase converts Testosterone into DHT (Dihydrotestosterone)\u2014a super-potent form of testosterone that drives body hair growth and acne, but causes head hair loss.",
+                "what": "5-Alpha Reductase converts Testosterone into DHT (Dihydrotestosterone)—a super-potent form of testosterone that drives body hair growth and acne, but causes head hair loss.",
                 "how": "Your variant increases the activity of this enzyme. You convert Testosterone to DHT too aggressively. This often leads to 'androgenic' side effects like acne or thinning hair, even if your total testosterone isn't unusually high.",
                 "ancestral": "Moderate Conversion (GG).",
                 "yours": "Your Result: High Conversion (DHT Dominance)."
@@ -1909,7 +1909,7 @@
             },
             "action": {
                 "title": "Resilience",
-                "body": "You are the 'Canary in the Coal Mine' in reverse\u2014you survive while others get sick. Just remember: fast metabolism means some meds might wear off faster than expected."
+                "body": "You are the 'Canary in the Coal Mine' in reverse—you survive while others get sick. Just remember: fast metabolism means some meds might wear off faster than expected."
             }
         }
     },
@@ -2038,7 +2038,7 @@
             ],
             "action": {
                 "title": "Scalp Defense",
-                "body": "You cannot change the receptor, so you must lower the signal (DHT) specifically at the scalp. Ketoconazole shampoo and topical caffeine help block DHT locally without affecting your systemic hormones. Start early\u2014once the follicle dies, it cannot be revived.",
+                "body": "You cannot change the receptor, so you must lower the signal (DHT) specifically at the scalp. Ketoconazole shampoo and topical caffeine help block DHT locally without affecting your systemic hormones. Start early—once the follicle dies, it cannot be revived.",
                 "foods": [
                     "Ketoconazole Shampoo",
                     "Topical Caffeine",
@@ -2150,7 +2150,6 @@
             "confidence": 4
         }
     },
-
     "rs1801516": {
         "title": "DNA Damage Response",
         "badge_type": "RISK",
@@ -2295,7 +2294,7 @@
             "title": "The 'Blind' Sentry",
             "badge_type": "RISK",
             "mechanisms": {
-                "what": "IRGM coordinates 'Xenophagy'\u2014a specialized form of autophagy where cells identify invasive bacteria, wrap them in a membrane, and dissolve them with acid.",
+                "what": "IRGM coordinates 'Xenophagy'—a specialized form of autophagy where cells identify invasive bacteria, wrap them in a membrane, and dissolve them with acid.",
                 "how": "Your targeting system is faulty. Your gut lining cells struggle to recognize intracellular pathogens (like bad E. Coli). This allows bacteria to survive and replicate *inside* your gut wall, triggering chronic, low-grade inflammation that can eventually lead to Crohn's Disease or IBS.",
                 "yours": "Your Result: Impaired Pathogen Clearance."
             },
@@ -2409,7 +2408,7 @@
             ],
             "action": {
                 "title": "Shield the DNA",
-                "body": "If the mechanic is slow, don't break the car. Minimize exposure to mutagens (burnt food, smoke, pesticides). Folate and B12 are critical 'spare parts' for this specific repair process\u2014ensure your levels are optimized.",
+                "body": "If the mechanic is slow, don't break the car. Minimize exposure to mutagens (burnt food, smoke, pesticides). Folate and B12 are critical 'spare parts' for this specific repair process—ensure your levels are optimized.",
                 "foods": [
                     "Leafy Greens (Folate)",
                     "Blueberries",
@@ -2460,7 +2459,7 @@
             "title": "The 'Electron Chain' Link",
             "badge_type": "RISK",
             "mechanisms": {
-                "what": "NDUFB6 is part of Complex I in your mitochondria\u2014the very first step of turning food into energy.",
+                "what": "NDUFB6 is part of Complex I in your mitochondria—the very first step of turning food into energy.",
                 "how": "Your variant creates a bottleneck at Step 1 of energy production. This reduces insulin sensitivity and overall ATP (energy) output. It is strongly linked to Type 2 Diabetes because muscle cells can't burn glucose fast enough.",
                 "ancestral": "Efficient Flow (AA).",
                 "yours": "Your Result: Bottleneck (Insulin Resistance Risk)."
@@ -2742,7 +2741,7 @@
             ],
             "action": {
                 "title": "Mimic the Boost",
-                "body": "Since you don't have the genetic boost, you must trigger FOXO3 manually. It is activated by 'Hormetic Stress'\u2014beneficial stressors. Heat (Sauna) and Fasting are the two most powerful ways to turn this gene on manually.",
+                "body": "Since you don't have the genetic boost, you must trigger FOXO3 manually. It is activated by 'Hormetic Stress'—beneficial stressors. Heat (Sauna) and Fasting are the two most powerful ways to turn this gene on manually.",
                 "foods": [
                     "Sauna Usage",
                     "Intermittent Fasting",
@@ -2835,7 +2834,7 @@
             ],
             "action": {
                 "title": "Boost Adiponectin",
-                "body": "You need to manually raise this hormone. Omega-3 Fish Oil and Curcumin are proven to raise Adiponectin levels. Fiber is also critical\u2014it reduces the insulin spike that further suppresses this hormone.",
+                "body": "You need to manually raise this hormone. Omega-3 Fish Oil and Curcumin are proven to raise Adiponectin levels. Fiber is also critical—it reduces the insulin spike that further suppresses this hormone.",
                 "foods": [
                     "Omega-3s",
                     "Curcumin",
@@ -2858,7 +2857,7 @@
             "title": "The 'Deep Repair' Mechanic",
             "badge_type": "RISK",
             "mechanisms": {
-                "what": "ERCC2 performs Nucleotide Excision Repair (NER)\u2014it fixes bulky DNA damage caused by UV light and environmental toxins (like smoke).",
+                "what": "ERCC2 performs Nucleotide Excision Repair (NER)—it fixes bulky DNA damage caused by UV light and environmental toxins (like smoke).",
                 "how": "Your variant (Lys751Gln) reduces the mechanic's ability to fix DNA damage. Your cells accumulate mutations from sun exposure and pollution faster than average.",
                 "ancestral": "Efficient Repair (GG).",
                 "yours": "Your Result: Slow Repair (UV Sensitivity)."
@@ -2894,7 +2893,7 @@
             "badge_type": "RISK",
             "mechanisms": {
                 "what": "SIRT3 is the main 'sirtuin' located inside your mitochondria. It keeps your energy factories young by deactivating reactive oxygen species.",
-                "how": "Your variant reduces SIRT3 activity. Your mitochondria 'rust' faster. This is linked to 'Metabolic Inflexibility'\u2014the inability to switch between burning carbs and fats efficiently, leading to earlier metabolic aging.",
+                "how": "Your variant reduces SIRT3 activity. Your mitochondria 'rust' faster. This is linked to 'Metabolic Inflexibility'—the inability to switch between burning carbs and fats efficiently, leading to earlier metabolic aging.",
                 "ancestral": "High Activity (TT).",
                 "yours": "Your Result: Low Activity (Metabolic Aging)."
             },
@@ -2923,7 +2922,7 @@
             "badge_type": "RISK",
             "mechanisms": {
                 "what": "ELOVL2 is the rate-limiting enzyme in the synthesis of very long-chain polyunsaturated fatty acids (PUFAs). These fats are the structural 'bricks' of your cell membranes and the retina.",
-                "how": "Your variant operates with reduced efficiency. This creates a bottleneck in converting dietary fats into the flexible DHA and EPA your cells need. Research links this specific genotype to faster 'Epigenetic Aging'\u2014meaning your cells may biologically age faster than your chronological years due to membrane rigidity.",
+                "how": "Your variant operates with reduced efficiency. This creates a bottleneck in converting dietary fats into the flexible DHA and EPA your cells need. Research links this specific genotype to faster 'Epigenetic Aging'—meaning your cells may biologically age faster than your chronological years due to membrane rigidity.",
                 "yours": "Your Result: Reduced Synthesis Efficiency."
             },
             "action": {
@@ -2942,7 +2941,7 @@
             },
             "action": {
                 "title": "Skin & Vision Architecture",
-                "body": "Your efficient fatty acid metabolism is a cosmetic super-weapon. It supports exceptional skin elasticity and retinal health. To maximize this, ensure a steady intake of Omega-3s\u2014your body will utilize them with near-perfect efficiency to preserve your youth."
+                "body": "Your efficient fatty acid metabolism is a cosmetic super-weapon. It supports exceptional skin elasticity and retinal health. To maximize this, ensure a steady intake of Omega-3s—your body will utilize them with near-perfect efficiency to preserve your youth."
             }
         }
     },
@@ -3206,7 +3205,7 @@
             ],
             "action": {
                 "title": "Boost the Bliss",
-                "body": "You need to slow down the FAAH enzyme. CBD (Cannabidiol) is a potent FAAH inhibitor\u2014it stops the breakdown, allowing your natural bliss molecule to rise. Dark Chocolate and Exercise also boost Anandamide levels.",
+                "body": "You need to slow down the FAAH enzyme. CBD (Cannabidiol) is a potent FAAH inhibitor—it stops the breakdown, allowing your natural bliss molecule to rise. Dark Chocolate and Exercise also boost Anandamide levels.",
                 "foods": [
                     "CBD Oil",
                     "Dark Chocolate",
@@ -3323,7 +3322,7 @@
             },
             "action": {
                 "title": "Metabolic Accumulation",
-                "body": "Mechanical tension isn't enough. You need 'Metabolic Stress'\u2014high reps, short rest, and 'the pump'\u2014to chemically force your satellite cells to activate. Eat in a 500+ calorie surplus or you will not grow."
+                "body": "Mechanical tension isn't enough. You need 'Metabolic Stress'—high reps, short rest, and 'the pump'—to chemically force your satellite cells to activate. Eat in a 500+ calorie surplus or you will not grow."
             }
         },
         "data_strength": {
@@ -4272,7 +4271,7 @@
             "title": "The 'Zen' Architect",
             "badge_type": "Strength",
             "mechanisms": {
-                "what": "DRD2 determines the 'Reward Prediction Error'\u2014how good something feels compared to what you expected.",
+                "what": "DRD2 determines the 'Reward Prediction Error'—how good something feels compared to what you expected.",
                 "how": "You have a high density of D2 receptors. You are easily satisfied. Your brain efficiently processes small wins, allowing you to sustain motivation on long, boring projects without needing constant external validation. You are naturally immune to the 'doom scrolling' loop.",
                 "yours": "Your Result: High Receptor Efficiency."
             },
@@ -4304,7 +4303,7 @@
             "title": "The 'Zen' Architect",
             "badge_type": "Strength",
             "mechanisms": {
-                "what": "DRD2 determines the 'Reward Prediction Error'\u2014how good something feels compared to what you expected.",
+                "what": "DRD2 determines the 'Reward Prediction Error'—how good something feels compared to what you expected.",
                 "how": "You have a high density of D2 receptors. You are easily satisfied. Your brain efficiently processes small wins, allowing you to sustain motivation on long, boring projects without needing constant external validation. You are naturally immune to the 'doom scrolling' loop.",
                 "yours": "Your Result: High Receptor Efficiency."
             },
@@ -4342,7 +4341,7 @@
             },
             "action": {
                 "title": "Resilience",
-                "body": "You are the 'Canary in the Coal Mine' in reverse\u2014you survive while others get sick. Just remember: fast metabolism means some meds might wear off faster than expected."
+                "body": "You are the 'Canary in the Coal Mine' in reverse—you survive while others get sick. Just remember: fast metabolism means some meds might wear off faster than expected."
             }
         }
     },
@@ -4502,7 +4501,7 @@
             },
             "action": {
                 "title": "Toxin Resistance",
-                "body": "You are biologically equipped for modern urban living, but remember that rapid detox doesn't make alcohol healthy\u2014it just makes it less immediately damaging."
+                "body": "You are biologically equipped for modern urban living, but remember that rapid detox doesn't make alcohol healthy—it just makes it less immediately damaging."
             }
         }
     },
@@ -4803,7 +4802,7 @@
             "badge_type": "RISK",
             "mechanisms": {
                 "what": "The ADRA2B receptor regulates the release of norepinephrine in the amygdala, the brain's emotional center.",
-                "how": "You carry the Deletion variant. Your receptors are hyper-active during emotional events. You encode 'flashbulb memories'\u2014especially negative ones\u2014with extreme clarity. You are more likely to vividly remember a criticism from 10 years ago than a compliment from yesterday. This creates a biological vulnerability to PTSD and rumination.",
+                "how": "You carry the Deletion variant. Your receptors are hyper-active during emotional events. You encode 'flashbulb memories'—especially negative ones—with extreme clarity. You are more likely to vividly remember a criticism from 10 years ago than a compliment from yesterday. This creates a biological vulnerability to PTSD and rumination.",
                 "yours": "Your Result: High Emotional Retention."
             },
             "action": {
@@ -5288,7 +5287,7 @@
             },
             "action": {
                 "title": "Stress Management",
-                "body": "You are an 'Orchid'\u2014highly sensitive to environment. You need stable routines and proactive stress management (Meditation, Yoga) more than the average person."
+                "body": "You are an 'Orchid'—highly sensitive to environment. You need stable routines and proactive stress management (Meditation, Yoga) more than the average person."
             }
         },
         "data_strength": {
@@ -5634,7 +5633,7 @@
             "title": "The 'Night Owl' Lag",
             "badge_type": "RISK",
             "mechanisms": {
-                "what": "PER3 regulates the sleep-wake homeostat\u2014the pressure to sleep that builds up during the day.",
+                "what": "PER3 regulates the sleep-wake homeostat—the pressure to sleep that builds up during the day.",
                 "how": "You have the 'Short' variant (associated with Evening types). Your sleep pressure builds slowly. You don't feel tired until very late. This leads to 'Social Jetlag' where you are forced to wake up before your body is ready.",
                 "yours": "Your Result: Delayed Sleep Phase."
             },
@@ -5689,7 +5688,8 @@
                 "body": "You have the biological hardware for 'Deep Work.' However, you must protect your attention from 'cheap' dopamine like social media, as your brain can easily get hyper-focused on the wrong things. Direct this laser focus toward complex problem-solving."
             }
         }
-    },"rs6214": {
+    },
+    "rs6214": {
         "title": "Growth Signal (IGF1)",
         "badge_type": "Strength",
         "data_strength": {
@@ -5816,94 +5816,95 @@
         }
     },
     "rs12130333": {
-    "title": "Lipid Traffic Control (ANGPTL3)",
-    "badge_type": "RISK",
-    "data_risk": {
-      "gene": "ANGPTL3",
-      "title": "The Metabolic Dam",
-      "badge_type": "RISK",
-      "mechanisms": {
-        "what": "ANGPTL3 acts as a powerful brake on your body's ability to clear fat from the bloodstream. It inhibits Lipoprotein Lipase (LPL), the 'worker' enzyme that breaks down triglycerides.",
-        "how": "Your genotype (CC) results in higher levels of this 'brake.' Consequently, fats linger in your circulation for a longer duration and are more likely to be shunted toward ectopic storage (like the liver) rather than being utilized for energy or stored safely. This creates a profile where triglyceride levels remain stubbornly high even with moderate fat intake.",
-        "yours": "Your Result: High ANGPTL3 Activity."
-      },
-      "action": {
-        "title": "Unlocking the Brake",
-        "body": "Your primary strategy must be the reduction of VLDL production. Fructose is your biggest biological enemy, as it triggers the liver to pump out triglycerides that ANGPTL3 will then trap in your blood. Increasing Omega-3 fatty acids (EPA/DHA) is essential, as they naturally lower ANGPTL3 expression, essentially 'releasing the brake' on your fat metabolism."
-      }
-    }
-  },"rs1054135": {
-    "title": "Lipid Logistics (FABP4)",
-    "badge_type": "RISK",
-    "data_risk": {
-      "gene": "FABP4",
-      "title": "The Broken Suitcase",
-      "badge_type": "RISK",
-      "mechanisms": {
-        "what": "FABP4 (Fatty Acid Binding Protein 4) acts as a specialized 'biological suitcase' or chaperone. Its job is to bind to free fatty acids inside your fat cells and safely transport them to where they need to go—either to be burned for energy or stored as stable fat.",
-        "how": "Your genotype (CC) results in a 'Lower Expression' of these transport proteins. This means you have fewer 'suitcases' available to move fat. When fatty acids are released into your cells but have no chaperone to carry them, they become 'homeless' and reactive. These free-floating fats trigger inflammatory receptors (like TLR4) and cause endoplasmic reticulum stress. This prevents your fat cells from functioning as safe storage units, leading to 'fat spillover' into your bloodstream and organs.",
-        "yours": "Your Result: Low Chaperone Efficiency."
-      },
-      "action": {
-        "title": "Stabilize the Cargo",
-        "body": "Because your lipid transport is genetically 'fragile,' you must avoid rapid spikes in fatty acid release. This means avoiding extreme, aggressive calorie deficits which flood the system with more fat than your FABP4 can handle. Focus on anti-inflammatory 'chaperone support' through high-dose Omega-3 (EPA), which helps stabilize the fat cell membrane. Additionally, reducing refined sugar is mandatory; high insulin levels combined with your FABP4 bottleneck create a high-pressure environment for liver fat accumulation."
-      }
-    }
-  },
-  "rs4402960": {
-    "title": "Beta-Cell Resilience (IGF2BP2)",
-    "badge_type": "RISK",
-    "data_risk": {
-      "gene": "IGF2BP2",
-      "title": "The Fragile Pancreas",
-      "badge_type": "RISK",
-      "mechanisms": {
-        "what": "IGF2BP2 is a critical architect of the pancreatic beta-cells, which are the factories responsible for producing and secreting insulin in response to rising blood sugar.",
-        "how": "Your genotype (GG) is associated with reduced beta-cell mass and a lower 'First-Phase' insulin response. When you eat carbohydrates, your pancreas doesn't fire as quickly as it should. This leads to a delayed blood sugar spike followed by an 'overshoot' of insulin later on. Over time, your pancreatic factories can become 'burned out' because they have to work harder to compensate for their lower initial capacity.",
-        "yours": "Your Result: Reduced Beta-Cell Compensation."
-      },
-      "action": {
-        "title": "Glucose Smoothing",
-        "body": "You cannot afford 'glucose spikes.' Focus on the order of eating: fiber first, then protein, then complex carbs. This slows the arrival of sugar into the blood, giving your slower-responding beta-cells time to keep up. Strength training is vital for you; by building muscle, you create a 'sink' for glucose that doesn't require as much insulin to manage."
-      }
-    }
-  },
-  "rs1042522": {
-    "title": "Satiety Brake (POMC)",
-    "badge_type": "RISK",
-    "data_risk": {
-      "gene": "POMC",
-      "title": "The Silent Fullness Signal",
-      "badge_type": "RISK",
-      "mechanisms": {
-        "what": "The POMC gene is responsible for producing Pro-opiomelanocortin, which is processed into alpha-MSH—the primary 'stop eating' signal in the hypothalamus.",
-        "how": "Your genotype (CG) leads to a subtle but significant reduction in the production of these satiety peptides. In the Neuroendocrine cluster, this manifests as a delayed 'fullness' response. By the time your brain registers that you have had enough to eat, you have likely consumed 15-20% more calories than your metabolic baseline requires. This isn't a lack of willpower; it is a mechanical delay in the chemical signal that terminates a meal.",
-        "yours": "Your Result: Reduced alpha-MSH production."
-      },
-      "action": {
-        "title": "Manual Satiety Induction",
-        "body": "Because your chemical 'fullness' signal is slow, you must use mechanical signals to compensate. Drink 500ml of water 15 minutes before meals to trigger stomach stretch receptors (which use a different pathway). Use 'Time-Gaps': eat half your meal, wait 10 minutes, and then decide if you are truly hungry. This allows your lower levels of alpha-MSH to finally reach the receptors in your brain."
-      }
-    }
-  },
-  "rs7498665": {
-    "title": "Leptin Sensitivity (SH2B1)",
-    "badge_type": "RISK",
-    "data_risk": {
-      "gene": "SH2B1",
-      "title": "The Signal Mismatch",
-      "badge_type": "RISK",
-      "mechanisms": {
-        "what": "SH2B1 is a crucial 'adapter protein' that acts like a signal booster for the leptin receptor. Leptin is the hormone released by fat cells to tell your brain you have plenty of energy stored.",
-        "how": "With your genotype (AG), the booster is less efficient. Even if your leptin levels are high, the signal doesn't 'ring the bell' loudly enough in your brain. This creates a state of Leptin Resistance. Your brain perceives that you are in a state of energy scarcity (starvation) despite having adequate fat stores, leading to a suppressed metabolic rate and an increased drive to seek high-calorie, energy-dense foods.",
-        "yours": "Your Result: Blunted Leptin Signaling."
-      },
-      "action": {
-        "title": "Resensitization Protocol",
-        "body": "To 'clean' your leptin receptors, you must focus on reducing systemic inflammation. High levels of C-Reactive Protein (CRP) physically block leptin from crossing the blood-brain barrier. Avoid highly processed seed oils and prioritize 8 hours of sleep; sleep deprivation is the fastest way to further blunt SH2B1 activity, making your hunger virtually uncontrollable the following day."
-      }
-    }
-  },
+        "title": "Lipid Traffic Control (ANGPTL3)",
+        "badge_type": "RISK",
+        "data_risk": {
+            "gene": "ANGPTL3",
+            "title": "The Metabolic Dam",
+            "badge_type": "RISK",
+            "mechanisms": {
+                "what": "ANGPTL3 acts as a powerful brake on your body's ability to clear fat from the bloodstream. It inhibits Lipoprotein Lipase (LPL), the 'worker' enzyme that breaks down triglycerides.",
+                "how": "Your genotype (CC) results in higher levels of this 'brake.' Consequently, fats linger in your circulation for a longer duration and are more likely to be shunted toward ectopic storage (like the liver) rather than being utilized for energy or stored safely. This creates a profile where triglyceride levels remain stubbornly high even with moderate fat intake.",
+                "yours": "Your Result: High ANGPTL3 Activity."
+            },
+            "action": {
+                "title": "Unlocking the Brake",
+                "body": "Your primary strategy must be the reduction of VLDL production. Fructose is your biggest biological enemy, as it triggers the liver to pump out triglycerides that ANGPTL3 will then trap in your blood. Increasing Omega-3 fatty acids (EPA/DHA) is essential, as they naturally lower ANGPTL3 expression, essentially 'releasing the brake' on your fat metabolism."
+            }
+        }
+    },
+    "rs1054135": {
+        "title": "Lipid Logistics (FABP4)",
+        "badge_type": "RISK",
+        "data_risk": {
+            "gene": "FABP4",
+            "title": "The Broken Suitcase",
+            "badge_type": "RISK",
+            "mechanisms": {
+                "what": "FABP4 (Fatty Acid Binding Protein 4) acts as a specialized 'biological suitcase' or chaperone. Its job is to bind to free fatty acids inside your fat cells and safely transport them to where they need to go—either to be burned for energy or stored as stable fat.",
+                "how": "Your genotype (CC) results in a 'Lower Expression' of these transport proteins. This means you have fewer 'suitcases' available to move fat. When fatty acids are released into your cells but have no chaperone to carry them, they become 'homeless' and reactive. These free-floating fats trigger inflammatory receptors (like TLR4) and cause endoplasmic reticulum stress. This prevents your fat cells from functioning as safe storage units, leading to 'fat spillover' into your bloodstream and organs.",
+                "yours": "Your Result: Low Chaperone Efficiency."
+            },
+            "action": {
+                "title": "Stabilize the Cargo",
+                "body": "Because your lipid transport is genetically 'fragile,' you must avoid rapid spikes in fatty acid release. This means avoiding extreme, aggressive calorie deficits which flood the system with more fat than your FABP4 can handle. Focus on anti-inflammatory 'chaperone support' through high-dose Omega-3 (EPA), which helps stabilize the fat cell membrane. Additionally, reducing refined sugar is mandatory; high insulin levels combined with your FABP4 bottleneck create a high-pressure environment for liver fat accumulation."
+            }
+        }
+    },
+    "rs4402960": {
+        "title": "Beta-Cell Resilience (IGF2BP2)",
+        "badge_type": "RISK",
+        "data_risk": {
+            "gene": "IGF2BP2",
+            "title": "The Fragile Pancreas",
+            "badge_type": "RISK",
+            "mechanisms": {
+                "what": "IGF2BP2 is a critical architect of the pancreatic beta-cells, which are the factories responsible for producing and secreting insulin in response to rising blood sugar.",
+                "how": "Your genotype (GG) is associated with reduced beta-cell mass and a lower 'First-Phase' insulin response. When you eat carbohydrates, your pancreas doesn't fire as quickly as it should. This leads to a delayed blood sugar spike followed by an 'overshoot' of insulin later on. Over time, your pancreatic factories can become 'burned out' because they have to work harder to compensate for their lower initial capacity.",
+                "yours": "Your Result: Reduced Beta-Cell Compensation."
+            },
+            "action": {
+                "title": "Glucose Smoothing",
+                "body": "You cannot afford 'glucose spikes.' Focus on the order of eating: fiber first, then protein, then complex carbs. This slows the arrival of sugar into the blood, giving your slower-responding beta-cells time to keep up. Strength training is vital for you; by building muscle, you create a 'sink' for glucose that doesn't require as much insulin to manage."
+            }
+        }
+    },
+    "rs1042522": {
+        "title": "Satiety Brake (POMC)",
+        "badge_type": "RISK",
+        "data_risk": {
+            "gene": "POMC",
+            "title": "The Silent Fullness Signal",
+            "badge_type": "RISK",
+            "mechanisms": {
+                "what": "The POMC gene is responsible for producing Pro-opiomelanocortin, which is processed into alpha-MSH—the primary 'stop eating' signal in the hypothalamus.",
+                "how": "Your genotype (CG) leads to a subtle but significant reduction in the production of these satiety peptides. In the Neuroendocrine cluster, this manifests as a delayed 'fullness' response. By the time your brain registers that you have had enough to eat, you have likely consumed 15-20% more calories than your metabolic baseline requires. This isn't a lack of willpower; it is a mechanical delay in the chemical signal that terminates a meal.",
+                "yours": "Your Result: Reduced alpha-MSH production."
+            },
+            "action": {
+                "title": "Manual Satiety Induction",
+                "body": "Because your chemical 'fullness' signal is slow, you must use mechanical signals to compensate. Drink 500ml of water 15 minutes before meals to trigger stomach stretch receptors (which use a different pathway). Use 'Time-Gaps': eat half your meal, wait 10 minutes, and then decide if you are truly hungry. This allows your lower levels of alpha-MSH to finally reach the receptors in your brain."
+            }
+        }
+    },
+    "rs7498665": {
+        "title": "Leptin Sensitivity (SH2B1)",
+        "badge_type": "RISK",
+        "data_risk": {
+            "gene": "SH2B1",
+            "title": "The Signal Mismatch",
+            "badge_type": "RISK",
+            "mechanisms": {
+                "what": "SH2B1 is a crucial 'adapter protein' that acts like a signal booster for the leptin receptor. Leptin is the hormone released by fat cells to tell your brain you have plenty of energy stored.",
+                "how": "With your genotype (AG), the booster is less efficient. Even if your leptin levels are high, the signal doesn't 'ring the bell' loudly enough in your brain. This creates a state of Leptin Resistance. Your brain perceives that you are in a state of energy scarcity (starvation) despite having adequate fat stores, leading to a suppressed metabolic rate and an increased drive to seek high-calorie, energy-dense foods.",
+                "yours": "Your Result: Blunted Leptin Signaling."
+            },
+            "action": {
+                "title": "Resensitization Protocol",
+                "body": "To 'clean' your leptin receptors, you must focus on reducing systemic inflammation. High levels of C-Reactive Protein (CRP) physically block leptin from crossing the blood-brain barrier. Avoid highly processed seed oils and prioritize 8 hours of sleep; sleep deprivation is the fastest way to further blunt SH2B1 activity, making your hunger virtually uncontrollable the following day."
+            }
+        }
+    },
     "rs3749034": {
         "title": "GABA Production",
         "badge_type": "RISK",
@@ -6092,7 +6093,7 @@
             },
             "action": {
                 "title": "Dietary Ease",
-                "body": "You don't need willpower to avoid sugar; you just need to listen to your natural preferences. Trust your palate\u2014it is guiding you toward nutrient density."
+                "body": "You don't need willpower to avoid sugar; you just need to listen to your natural preferences. Trust your palate—it is guiding you toward nutrient density."
             }
         }
     },
@@ -6616,13 +6617,13 @@
             "title": "Executive Dysfunction",
             "badge_type": "RISK",
             "mechanisms": {
-                "what": "The D1 receptor in the prefrontal cortex is critical for 'Executive Function'\u2014planning, working memory, and impulse control.",
-                "how": "Your genotype is associated with lower receptor density or binding efficiency. This manifests as difficulty with 'activation'\u2014getting started on big tasks. You may struggle with working memory (holding numbers in your head) and have a tendency to procrastinate until the pressure is extreme.",
+                "what": "The D1 receptor in the prefrontal cortex is critical for 'Executive Function'—planning, working memory, and impulse control.",
+                "how": "Your genotype is associated with lower receptor density or binding efficiency. This manifests as difficulty with 'activation'—getting started on big tasks. You may struggle with working memory (holding numbers in your head) and have a tendency to procrastinate until the pressure is extreme.",
                 "yours": "Your Result: Lower D1 Efficiency."
             },
             "action": {
                 "title": "External Structures",
-                "body": "Don't rely on willpower. Use 'Cognitive Offloading'\u2014write everything down. Break tasks into micro-steps. Intense exercise increases D1 density over time."
+                "body": "Don't rely on willpower. Use 'Cognitive Offloading'—write everything down. Break tasks into micro-steps. Intense exercise increases D1 density over time."
             }
         },
         "data_strength": {
@@ -6648,13 +6649,13 @@
             "title": "Executive Dysfunction",
             "badge_type": "RISK",
             "mechanisms": {
-                "what": "The D1 receptor in the prefrontal cortex is critical for 'Executive Function'\u2014planning, working memory, and impulse control.",
-                "how": "Your genotype is associated with lower receptor density or binding efficiency. This manifests as difficulty with 'activation'\u2014getting started on big tasks. You may struggle with working memory (holding numbers in your head) and have a tendency to procrastinate until the pressure is extreme.",
+                "what": "The D1 receptor in the prefrontal cortex is critical for 'Executive Function'—planning, working memory, and impulse control.",
+                "how": "Your genotype is associated with lower receptor density or binding efficiency. This manifests as difficulty with 'activation'—getting started on big tasks. You may struggle with working memory (holding numbers in your head) and have a tendency to procrastinate until the pressure is extreme.",
                 "yours": "Your Result: Lower D1 Efficiency."
             },
             "action": {
                 "title": "External Structures",
-                "body": "Don't rely on willpower. Use 'Cognitive Offloading'\u2014write everything down. Break tasks into micro-steps. Intense exercise increases D1 density over time."
+                "body": "Don't rely on willpower. Use 'Cognitive Offloading'—write everything down. Break tasks into micro-steps. Intense exercise increases D1 density over time."
             }
         },
         "data_strength": {
@@ -6727,7 +6728,7 @@
             "badge_type": "Strength",
             "mechanisms": {
                 "what": "A robust endocannabinoid system provides a natural shield against stress and anxiety.",
-                "how": "Your CB1 receptors are abundant. You naturally produce and utilize anandamide. This gives you a 'Teflon' mind\u2014stress slides right off. You easily enter flow states and rarely suffer from chronic anxiety or digestive stress issues.",
+                "how": "Your CB1 receptors are abundant. You naturally produce and utilize anandamide. This gives you a 'Teflon' mind—stress slides right off. You easily enter flow states and rarely suffer from chronic anxiety or digestive stress issues.",
                 "yours": "Your Result: High Stress Buffering."
             },
             "action": {
@@ -7033,7 +7034,7 @@
             "badge_type": "RISK",
             "mechanisms": {
                 "what": "SLC19A1 acts as the doorway that allows Folate (Vitamin B9) to pass from the blood into the cells where it is needed for methylation.",
-                "how": "Your doorway is narrow (G allele). Even if you have plenty of Folate in your blood (serum folate), it struggles to get *inside* the cell (RBC folate). This can lead to functional deficiency symptoms\u2014like poor DNA repair and high homocysteine\u2014despite normal blood test results.",
+                "how": "Your doorway is narrow (G allele). Even if you have plenty of Folate in your blood (serum folate), it struggles to get *inside* the cell (RBC folate). This can lead to functional deficiency symptoms—like poor DNA repair and high homocysteine—despite normal blood test results.",
                 "yours": "Your Result: Reduced Folate Transport."
             },
             "action": {
@@ -7193,7 +7194,7 @@
             "badge_type": "RISK",
             "mechanisms": {
                 "what": "SCN9A encodes the sodium channels in nerve fibers that transmit pain signals to the brain. It acts as the volume knob for pain.",
-                "how": "Your 'Volume Knob' is turned up. Your sodium channels open more easily. You perceive pain more intensely than others\u2014a needle prick or a minor injury feels significant to you. This correlates with a lower tolerance for physical discomfort and a higher risk of chronic pain conditions.",
+                "how": "Your 'Volume Knob' is turned up. Your sodium channels open more easily. You perceive pain more intensely than others—a needle prick or a minor injury feels significant to you. This correlates with a lower tolerance for physical discomfort and a higher risk of chronic pain conditions.",
                 "yours": "Your Result: High Pain Sensitivity."
             },
             "action": {
@@ -8192,7 +8193,7 @@
             "title": "The 'Leaky Gut' Radar",
             "badge_type": "RISK",
             "mechanisms": {
-                "what": "CD14 is the receptor on immune cells that detects LPS (endotoxins)\u2014the bacteria poop that leaks into blood from a bad gut.",
+                "what": "CD14 is the receptor on immune cells that detects LPS (endotoxins)—the bacteria poop that leaks into blood from a bad gut.",
                 "how": "Your receptor is hyper-sensitive (T allele). Even microscopic amounts of gut leakage trigger a massive, full-body inflammatory response. If you eat gluten or bad oils, you don't just get a stomach ache; you get brain fog, joint pain, and fatigue instantly.",
                 "yours": "Your Result: High Endotoxin Reaction."
             },
@@ -8385,7 +8386,7 @@
             "badge_type": "RISK",
             "mechanisms": {
                 "what": "SHMT1 directs folate towards DNA synthesis (building new cells) vs. methylation (gene regulation).",
-                "how": "Your variant (C1420T) reduces enzymatic efficiency. Under low folate conditions, your body sacrifices DNA stability to keep methylation running. This leads to uracil misincorporation into DNA\u2014essentially 'typos' in your genetic code that can lead to breaks and mutations.",
+                "how": "Your variant (C1420T) reduces enzymatic efficiency. Under low folate conditions, your body sacrifices DNA stability to keep methylation running. This leads to uracil misincorporation into DNA—essentially 'typos' in your genetic code that can lead to breaks and mutations.",
                 "yours": "Your Result: DNA Instability Risk."
             },
             "action": {
@@ -8416,7 +8417,7 @@
             "title": "The 'Vision' Risk",
             "badge_type": "RISK",
             "mechanisms": {
-                "what": "Complement Factor H (CFH) regulates the immune system's 'Complement' pathway, preventing it from attacking your own tissues\u2014specifically the retina.",
+                "what": "Complement Factor H (CFH) regulates the immune system's 'Complement' pathway, preventing it from attacking your own tissues—specifically the retina.",
                 "how": "You carry the Y402H variant. Your regulator is defective. Your immune system creates chronic inflammation in the macula (eye). This is the single biggest genetic risk factor for Age-Related Macular Degeneration (AMD).",
                 "yours": "Your Result: High Macular Inflammation."
             },
@@ -8609,7 +8610,7 @@
             "badge_type": "RISK",
             "mechanisms": {
                 "what": "Transcription Factor AP-2 Beta regulates the expression of hormones in adipose (fat) tissue, influencing both fat storage and appetite control.",
-                "how": "You carry the risk variant. This is often called the 'Buffet Gene.' It is linked to disinhibited eating\u2014the tendency to overeat in the presence of tasty food even when not hungry. It also encourages the storage of visceral fat (belly fat) rather than subcutaneous fat.",
+                "how": "You carry the risk variant. This is often called the 'Buffet Gene.' It is linked to disinhibited eating—the tendency to overeat in the presence of tasty food even when not hungry. It also encourages the storage of visceral fat (belly fat) rather than subcutaneous fat.",
                 "yours": "Your Result: Disinhibited Eating."
             },
             "action": {
@@ -8672,7 +8673,7 @@
             "title": "The 'Chemical' Sensitivity",
             "badge_type": "RISK",
             "mechanisms": {
-                "what": "Microsomal Epoxide Hydrolase (EPHX1) breaks down epoxides\u2014highly toxic chemicals found in car exhaust, cigarette smoke, and charred meat.",
+                "what": "Microsomal Epoxide Hydrolase (EPHX1) breaks down epoxides—highly toxic chemicals found in car exhaust, cigarette smoke, and charred meat.",
                 "how": "Your enzyme activity is 'Slow.' Epoxides linger in your blood, causing DNA damage and oxidative stress. You are chemically sensitive. You might get headaches from fumes or perfumes that don't bother others. This is a risk factor for respiratory issues if exposed to pollution.",
                 "yours": "Your Result: Slow Detoxification."
             },
@@ -8705,7 +8706,7 @@
             "badge_type": "RISK",
             "mechanisms": {
                 "what": "Interleukin-13 (IL-13) is a cytokine that drives the allergic response, mucus production, and airway constriction.",
-                "how": "Your variant over-produces IL-13. You are prone to Th2 dominance\u2014meaning your immune system defaults to 'Allergy Mode.' You likely suffer from seasonal hay fever, eczema, or exercise-induced asthma. Your body reacts to pollen as if it were a deadly parasite.",
+                "how": "Your variant over-produces IL-13. You are prone to Th2 dominance—meaning your immune system defaults to 'Allergy Mode.' You likely suffer from seasonal hay fever, eczema, or exercise-induced asthma. Your body reacts to pollen as if it were a deadly parasite.",
                 "yours": "Your Result: High IL-13 Secretion."
             },
             "action": {
@@ -8768,7 +8769,7 @@
             "title": "The 'Toxic' Vulnerability",
             "badge_type": "RISK",
             "mechanisms": {
-                "what": "ERCC1 is a DNA repair enzyme that specifically snips out 'bulky' adducts\u2014damage caused by heavy metals, smoke, and UV light.",
+                "what": "ERCC1 is a DNA repair enzyme that specifically snips out 'bulky' adducts—damage caused by heavy metals, smoke, and UV light.",
                 "how": "Your enzyme efficiency is reduced. You are slower to repair the specific type of DNA damage caused by pollution and toxins. This means city smog or cigarette smoke is exponentially more damaging to your DNA than it is to the average person.",
                 "yours": "Your Result: Slow Excision Repair."
             },
@@ -8825,41 +8826,41 @@
         }
     },
     "rs1042838": {
-    "title": "Progesterone Stability (PGR)",
-    "badge_type": "Reproduction",
-    "data_strength": {
-        "gene": "PGR",
-        "title": "The Uterine Anchor",
+        "title": "Progesterone Stability (PGR)",
         "badge_type": "Reproduction",
-        "mechanisms": {
-            "what": "The Progesterone Receptor (PGR) is responsible for catching the progesterone signal, which tells the uterus to remain 'quiet' and maintain a thick, nutrient-rich lining for an embryo.",
-            "how": "You have the GG genotype, which represents the most efficient version of this receptor. This acts as a 'Structural Lock.' It ensures that even when environmental stress occurs, your body remains highly sensitive to the signals that prevent uterine irritability and support the long-term maintenance of the pregnancy environment.",
-            "yours": "Your Result: Optimal Progesterone Sensitivity."
-        },
-        "action": {
-            "title": "Gestation Support",
-            "body": "Because your receptors are highly efficient, your primary goal is ensuring the 'fuel' (Progesterone) remains high. Support this by prioritizing Vitamin B6 and Magnesium, which are critical co-factors for progesterone production. Additionally, monitor high-stress levels; excessive cortisol can 'clog' these receptors, potentially muting your natural genetic advantage for pregnancy maintenance."
+        "data_strength": {
+            "gene": "PGR",
+            "title": "The Uterine Anchor",
+            "badge_type": "Reproduction",
+            "mechanisms": {
+                "what": "The Progesterone Receptor (PGR) is responsible for catching the progesterone signal, which tells the uterus to remain 'quiet' and maintain a thick, nutrient-rich lining for an embryo.",
+                "how": "You have the GG genotype, which represents the most efficient version of this receptor. This acts as a 'Structural Lock.' It ensures that even when environmental stress occurs, your body remains highly sensitive to the signals that prevent uterine irritability and support the long-term maintenance of the pregnancy environment.",
+                "yours": "Your Result: Optimal Progesterone Sensitivity."
+            },
+            "action": {
+                "title": "Gestation Support",
+                "body": "Because your receptors are highly efficient, your primary goal is ensuring the 'fuel' (Progesterone) remains high. Support this by prioritizing Vitamin B6 and Magnesium, which are critical co-factors for progesterone production. Additionally, monitor high-stress levels; excessive cortisol can 'clog' these receptors, potentially muting your natural genetic advantage for pregnancy maintenance."
+            }
         }
-    }
     },
     "rs2268491": {
-    "title": "Bonding & Labor (OXTR)",
-    "badge_type": "Motherhood",
-    "data_strength": {
-        "gene": "OXTR",
-        "title": "The Oxytocin Wave",
+        "title": "Bonding & Labor (OXTR)",
         "badge_type": "Motherhood",
-        "mechanisms": {
-            "what": "The Oxytocin Receptor (OXTR) is the biological 'receiver' for oxytocin, the hormone responsible for driving labor contractions and facilitating the deep emotional connection known as maternal bonding.",
-            "how": "You have the TT genotype, which is linked to a higher density of these receptors. This acts as a 'Sensitivity Amplifier.' During labor, it helps the body respond more efficiently to natural oxytocin surges, supporting steady progression. Post-birth, it facilitates the rapid release of dopamine in response to infant contact, reinforcing the neurological pathways of maternal care and attachment.",
-            "yours": "Your Result: Optimal Receptor Density."
-        },
-        "action": {
-            "title": "Nurturing the Signal",
-            "body": "Your hardware is built for high sensitivity, but oxytocin is easily suppressed by adrenaline and stress. To leverage this genetic advantage, focus on creating a 'low-stress' environment during the third trimester and early postpartum period. Skin-to-skin contact and breastfeeding further stimulate these receptors, maximizing the natural 'biological reward' system encoded in your DNA."
+        "data_strength": {
+            "gene": "OXTR",
+            "title": "The Oxytocin Wave",
+            "badge_type": "Motherhood",
+            "mechanisms": {
+                "what": "The Oxytocin Receptor (OXTR) is the biological 'receiver' for oxytocin, the hormone responsible for driving labor contractions and facilitating the deep emotional connection known as maternal bonding.",
+                "how": "You have the TT genotype, which is linked to a higher density of these receptors. This acts as a 'Sensitivity Amplifier.' During labor, it helps the body respond more efficiently to natural oxytocin surges, supporting steady progression. Post-birth, it facilitates the rapid release of dopamine in response to infant contact, reinforcing the neurological pathways of maternal care and attachment.",
+                "yours": "Your Result: Optimal Receptor Density."
+            },
+            "action": {
+                "title": "Nurturing the Signal",
+                "body": "Your hardware is built for high sensitivity, but oxytocin is easily suppressed by adrenaline and stress. To leverage this genetic advantage, focus on creating a 'low-stress' environment during the third trimester and early postpartum period. Skin-to-skin contact and breastfeeding further stimulate these receptors, maximizing the natural 'biological reward' system encoded in your DNA."
+            }
         }
-    }
-},
+    },
     "rs2010963": {
         "title": "Capillary Growth",
         "badge_type": "RISK",
@@ -8996,7 +8997,7 @@
             "title": "The 'Loose' Joint",
             "badge_type": "RISK",
             "mechanisms": {
-                "what": "PLOD1 is the enzyme responsible for lysyl hydroxylation\u2014a chemical step that allows collagen fibers to cross-link and become strong.",
+                "what": "PLOD1 is the enzyme responsible for lysyl hydroxylation—a chemical step that allows collagen fibers to cross-link and become strong.",
                 "how": "Your enzyme is less active. Your collagen cross-links are weaker. This mimics a mild form of Ehlers-Danlos Syndrome. You likely have hyper-mobile joints, velvety skin, and a tendency to bruise easily. You are prone to joint dislocations.",
                 "yours": "Your Result: Reduced Cross-Linking."
             },
@@ -9253,7 +9254,7 @@
             "badge_type": "RISK",
             "mechanisms": {
                 "what": "The ANKK1 gene (often linked to the DRD2 Taq1A allele) regulates the density of Dopamine D2 receptors in the brain's reward center.",
-                "how": "You carry the A1 allele. You have significantly fewer dopamine receptors. This is known as 'Reward Deficiency Syndrome.' Everyday pleasures don't register strongly for you. You are biologically driven to seek high-intensity stimulation\u2014sugar, risk, or substances\u2014just to feel 'normal.'",
+                "how": "You carry the A1 allele. You have significantly fewer dopamine receptors. This is known as 'Reward Deficiency Syndrome.' Everyday pleasures don't register strongly for you. You are biologically driven to seek high-intensity stimulation—sugar, risk, or substances—just to feel 'normal.'",
                 "yours": "Your Result: Reduced Receptor Density."
             },
             "action": {
@@ -9572,7 +9573,7 @@
             "title": "The 'soap' Taster",
             "badge_type": "RISK",
             "mechanisms": {
-                "what": "Olfactory Receptor 6A2 is a chemosensor in the nose specifically tuned to detect aldehydes\u2014organic compounds found in soap, bugs, and cilantro (Coriandrum sativum).",
+                "what": "Olfactory Receptor 6A2 is a chemosensor in the nose specifically tuned to detect aldehydes—organic compounds found in soap, bugs, and cilantro (Coriandrum sativum).",
                 "how": "Your receptor has a structural mutation that hyper-binds to (E)-2-decenal, the specific aldehyde in cilantro. Instead of tasting 'fresh' or 'herbal,' your brain interprets the signal as 'soap' or 'dirt.' This is not picky eating; it is a genetic chemosensory divergent perception.",
                 "yours": "Your Result: Hyper-Sensitive to Aldehydes."
             },
@@ -9596,23 +9597,23 @@
             }
         }
     },
-   "rs13331": {
-    "title": "Sulfur Perception (OR2M7)",
-    "badge_type": "RISK",
-    "data_risk": {
-        "gene": "OR2M7",
-        "title": "The 'Asparagus' Blindspot",
+    "rs13331": {
+        "title": "Sulfur Perception (OR2M7)",
         "badge_type": "RISK",
-        "mechanisms": {
-            "what": "OR2M7 is a highly specialized olfactory receptor responsible for detecting sulfur-based metabolites (like methanethiol) produced after asparagus consumption.",
-            "how": "Your GG genotype results in a 'Loss of Function' for this specific receptor. While your general sense of smell is fine, you are functionally 'anosmic' to these specific volatile compounds. Your brain lacks the hardware to perceive the pungent odor, meaning a significant metabolic byproduct of your digestion goes completely undetected by your senses.",
-            "yours": "Your Result: Specific Odor Anosmia."
+        "data_risk": {
+            "gene": "OR2M7",
+            "title": "The 'Asparagus' Blindspot",
+            "badge_type": "RISK",
+            "mechanisms": {
+                "what": "OR2M7 is a highly specialized olfactory receptor responsible for detecting sulfur-based metabolites (like methanethiol) produced after asparagus consumption.",
+                "how": "Your GG genotype results in a 'Loss of Function' for this specific receptor. While your general sense of smell is fine, you are functionally 'anosmic' to these specific volatile compounds. Your brain lacks the hardware to perceive the pungent odor, meaning a significant metabolic byproduct of your digestion goes completely undetected by your senses.",
+                "yours": "Your Result: Specific Odor Anosmia."
+            },
+            "action": {
+                "title": "Metabolic Awareness",
+                "body": "This is a benign 'sensory gap.' However, it serves as a reminder that your sensory perception doesn't always reflect your internal chemistry. Even if you can't smell the byproduct, your body is still processing the asparagus sulfur exactly the same as others."
+            }
         },
-        "action": {
-            "title": "Metabolic Awareness",
-            "body": "This is a benign 'sensory gap.' However, it serves as a reminder that your sensory perception doesn't always reflect your internal chemistry. Even if you can't smell the byproduct, your body is still processing the asparagus sulfur exactly the same as others."
-        }
-    },
         "data_strength": {
             "gene": "OR2M7",
             "title": "The 'Balanced' Nose",
@@ -9683,7 +9684,7 @@
             "badge_type": "Strength",
             "mechanisms": {
                 "what": "Proper core fucosylation ensures that receptors (like EGFR) and antibodies function with maximum efficiency.",
-                "how": "Your FUT8 enzyme tags proteins correctly. Your growth factor signaling is balanced\u2014neither too weak nor too aggressive. Your immune antibodies bind to viruses tightly but release healthy tissue. This is a marker of deep cellular communication health.",
+                "how": "Your FUT8 enzyme tags proteins correctly. Your growth factor signaling is balanced—neither too weak nor too aggressive. Your immune antibodies bind to viruses tightly but release healthy tissue. This is a marker of deep cellular communication health.",
                 "yours": "Your Result: Optimal Protein Tagging."
             },
             "action": {
