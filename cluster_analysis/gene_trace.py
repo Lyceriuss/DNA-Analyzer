@@ -48,9 +48,17 @@ COFACTOR_VITAMIN = [
 VITAMIN_BIOMARKER = {"Vitamin B6": "Vitamin B6", "Vitamin B12": "Vitamin B12", "Iron": "Ferritin"}
 
 LOF_WORDS = r"reduced|lower|\blow\b|decreas|slow|impair|poor|weak|loss|deficien|inactiv|\bless\b|sluggish|blunted"
-GOF_WORDS = r"increas|higher|\bhigh\b|fast|enhanc|elevat|rapid|\bmore\b|strong|gain|hyper|efficient|optimal"
-ACTIVITY_WORDS = (r"activit|function|metaboli|level|transport|activation|production|breakdown|clearance|detox|"
-                  r"recycl|acetylat|conversion|removal|expression|synthesis|uptake|absorption|signal")
+GOF_WORDS = r"increas|higher|\bhigh\b|fast|enhanc|elevat|rapid|\bmore\b|gain|hyper|stronger"
+ACTIVITY_WORDS = (r"\bactivit|function|receptor|metaboli|level|transport|activation|production|breakdown|clearance|detox|"
+                  r"recycl|acetylat|conversion|removal|expression|synthesis|uptake|absorption|signal|secretion|"
+                  r"regulation|repair|response|efficien|binding|coupling")
+# Wording that describes a disease risk or a trait, not how much the gene works
+RISK_WORDS = r"risk|tendency|susceptib|sensitiv|\bbp\b|blood pressure|allerg|anxiety|preference|reflex|taster|eyes"
+# Wording for ordinary function
+# Wording for ordinary function: "normal" and "typical" always; the softer words only outside risk or trait wording
+NORMAL_WORDS = r"\bnormal|typical|\bstandard|baseline"
+SOFT_NORMAL_WORDS = (r"balanced|intermediate|moderate|average|mixed|efficient|optimal|optimi[sz]ed|robust|\bgood\b|"
+                     r"\bstrong\b|stable")
 COMPLEMENT = str.maketrans("ACGT", "TGCA")
 TRUNCATING = {"stop_gained", "frameshift_variant", "splice_acceptor_variant", "splice_donor_variant", "start_lost"}
 
@@ -196,21 +204,28 @@ def omnipath(gene):
 # --- Person overlay -------------------------------------------------------------------------
 
 def direction(text):
-    """+1 (more / faster), -1 (less / slower) or 0, read from library text. Clauses that name an activity decide first,
-    so "Reduced GPX4 activity; higher oxidative stress risk" reads as less."""
+    """+1 (more / faster), -1 (less / slower) or 0, read from library text. The first clause that names an activity
+    decides, so "Reduced GPX4 activity; higher oxidative stress risk" reads as less; without one, the first clause that
+    is not about a risk or trait. Within a clause, less wins ("more reduced efficiency")."""
     clauses = [c for c in re.split(r"[;,.()]", (text or "").lower()) if c.strip()]
-    for pool in ([c for c in clauses if re.search(ACTIVITY_WORDS, c)], clauses):
-        score = sum(bool(re.search(GOF_WORDS, c)) - bool(re.search(LOF_WORDS, c)) for c in pool)
-        if score:
-            return 1 if score > 0 else -1
+    def clause(c):
+        return -1 if re.search(LOF_WORDS, c) else 1 if re.search(GOF_WORDS, c) else 0
+    for pool in ([c for c in clauses if re.search(ACTIVITY_WORDS, c)], [c for c in clauses if not re.search(RISK_WORDS, c)]):
+        for c in pool:
+            if clause(c):
+                return clause(c)
     return 0
 
 
 def function_call(rsid, genotype, variants, vep):
     """
-    GoF / LoF of a genotype compared with the common European allele at the SNP, not with the healthiest one.
-    The direction of the less common allele comes from the library's text for its homozygote against the common
-    homozygote. Returns {function: normal | GoF | LoF | altered | unknown, dose, common, minor, minor_af}.
+    What the library says about a person's own genotype, as normal | GoF | LoF | altered | unknown:
+      1. wording about activity or function decides (reduced, slower → LoF; increased, enhanced → GoF);
+      2. normal, typical, balanced, intermediate, efficient or optimal wording → normal (typical function);
+      3. otherwise, a less common allele that truncates the protein (ACTN3 R577X) → LoF;
+      4. otherwise, carrying the less common allele → altered (risk or trait wording with no function direction).
+    The common European allele (VEP frequencies) still sets dose: how many copies of the less common allele are carried.
+    Returns {function, dose, common, minor, minor_af}.
     """
     v = vep.get(rsid)
     out = {"function": "unknown", "dose": None, "common": None, "minor": None, "minor_af": None}
@@ -227,18 +242,19 @@ def function_call(rsid, genotype, variants, vep):
     carried = [a for a in gt if a != common]
     minor = carried[0] if carried else max((a for a in alleles if a != common), key=lambda a: af.get(a, 0), default=None)
     out.update(common=common, minor=minor, dose=len(carried), minor_af=af.get(minor))
-    if not carried:
-        out["function"] = "normal"
-        return out
+
     texts = {"".join(sorted(orient(k))): t for k, t in variants.items()}
-    hom_minor, hom_common = texts.get(minor * 2), texts.get(common * 2)
-    d = direction(hom_minor) - direction(hom_common) if hom_minor or hom_common else 0
-    if not d:
-        d = direction(texts.get("".join(sorted(gt))))
-    # Silent library text: a less common allele that truncates the protein (ACTN3 R577X) is a loss of function
-    if not d and v.get("consequence") in TRUNCATING and minor != alleles[0]:
-        d = -1
-    out["function"] = "GoF" if d > 0 else "LoF" if d < 0 else "altered"
+    own = texts.get("".join(sorted(gt))) or ""
+    d = direction(own)
+    if d:
+        out["function"] = "GoF" if d > 0 else "LoF"
+    elif re.search(NORMAL_WORDS, own, re.I) or not carried or any(
+            re.search(SOFT_NORMAL_WORDS, c, re.I) and not re.search(RISK_WORDS, c, re.I) for c in re.split(r"[;,.()]", own)):
+        out["function"] = "normal"
+    elif v.get("consequence") in TRUNCATING and minor != alleles[0]:
+        out["function"] = "LoF"
+    else:
+        out["function"] = "altered"
     return out
 
 

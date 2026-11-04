@@ -101,18 +101,16 @@ Themes can be sex-specific and name their own person. `fertility_female` uses HJ
 
 ## Gene function calls (GoF / LoF)
 
-`gene_trace.function_call` compares a genotype with the **most common European allele** at the SNP (Ensembl VEP frequencies), not with the reference genome or the healthiest genotype. The reference genome carries the rare allele at some SNPs, such as CYP3A4 rs2740574.
+`gene_trace.function_call` reports what the library says about the person's own genotype:
 
-| Call | Meaning |
+| Call | When the library text for the genotype… |
 |---|---|
-| `normal` | Two copies of the common allele: the SNP leaves the enzyme in its usual form |
-| `LoF` / `GoF` | One or two copies (`dose`) of the less common allele, which the library reads as less / more activity |
-| `altered` | Carries the less common allele, but the library text gives no direction |
-| `unknown` | The genotype doesn't match the SNP's alleles on either strand |
+| `LoF` / `GoF` | …names an activity or function going down (reduced, slower, lower clearance) or up (increased, enhanced, higher transport). The first clause that names an activity decides, and within a clause "reduced" wins. |
+| `normal` (typical function) | …says normal or typical, or says balanced, intermediate, moderate, efficient or optimal outside risk or trait wording. Two copies of the common allele also count as normal unless the text says otherwise. |
+| `LoF` (truncating) | …is silent, and the less common allele truncates the protein (ACTN3 R577X). |
+| `altered` | …speaks only of a risk or trait (higher BP, allergy, taster, eye colour), with no function direction. |
 
-When the library text gives no direction and the less common allele truncates the protein (stop gained, frameshift, splice site), the call is LoF. ACTN3 R577X is an example.
-
-The direction comes from the library text for the less common homozygote against the common homozygote. Clauses that name an activity decide first, so "Reduced GPX4 activity; higher oxidative stress risk" reads as less. Where both alleles are near 50% (COMT, MTRR), "common" is close to arbitrary, and the explorer says so.
+"Efficient", "optimal" and "strong" mean typical function, not a gain. The common European allele (Ensembl VEP frequencies) still sets `dose`, the copies of the less common allele, so a heterozygote the library calls "Balanced" is typical function with one copy. Before this rule the call compared alleles with each other. That marked such heterozygotes LoF ×1 and flipped calls where the common allele is the weaker one (BCHE, MTRR, BRCA1, TCF7L2).
 
 ```bash
 # Lifecycle and gene-function datasets for the explorer, with fresh calls but no new API walks
