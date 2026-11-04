@@ -76,6 +76,26 @@ A theme (cancer, fertility, muscle growth) gathers every library gene with evide
 
 Broad mechanisms (growth signals, cell death, oxidative stress, inflammation, energy) also need a direct link to the theme: its name in the UniProt text, the gene summary, GWAS traits or the library entry. Otherwise every antioxidant or receptor gene would count as a cancer gene. Connections are STRING interactions (confidence ≥ 0.4) between theme genes, and pathways are Reactome pathways shared by two or more of them. Add a theme by adding an entry to `THEMES`. `export_dashboard --lifecycles ... --dna ...` also writes `theme_meta`, `theme_genes`, `theme_links` and `theme_pathways` with the person's calls.
 
+## API-built theme graphs (pilot: fertility)
+
+```bash
+python -m cluster_analysis.theme_graph fertility --dna data/input/MyHeritage_raw_dna_data_HP.csv
+```
+
+These themes don't depend on the library: the categories come from the APIs and the DNA file is matched afterwards.
+
+- **Genes:** Gene Ontology mechanism genes (QuickGO, under the mechanism's GO terms), plus Open Targets genes for the theme's diseases and traits. Open Targets genes need an overall or human-genetic score ≥ 0.5, or ≥ 0.8 genetic for level and timing traits such as testosterone, SHBG and age at menarche. Human-experiment and curated GO annotations always count. Annotations inferred from orthologs count when the gene also has a fertility association, or for behaviour, which is mostly studied in mouse. Each mechanism records its strongest evidence class.
+- **Mechanisms (fertility):** desire and sexual behaviour (GO reproductive behavior), sex hormone production, reproductive axis signalling, gonads, gametes, the ovarian cycle, fertilization, and pregnancy. GO itself files reproductive behaviour under reproductive process, so desire and fertility connect through the ontology.
+- **Links:** STRING interactions. Shared Reactome pathways come offline from `Ensembl2Reactome.txt`, with theme-specific pathways listed first.
+- **Cross-reference (offline):** every SNP of the file within 5 kb of a theme gene is checked against:
+  - ClinVar. Pathogenic variants are counted and listed if carried; other entries are kept only when the condition is on-theme.
+  - The GWAS Catalog, for the theme's traits and their ontology descendants, keeping the strongest association per trait with its direction and effect size.
+  - The library.
+
+  Only theme names, disease IDs and gene symbols go to the APIs.
+
+`theme_graph_<theme>.json` is public data. `data/output/cluster_analysis/theme_<name>_<theme>.json` holds the person's cross-reference and stays out of git. `export_dashboard` uses an API theme in place of the library theme with the same id. It draws the notable genes: those with a library call, a ClinVar entry, a carried finding in a mechanism gene, or an Open Targets score ≥ 0.8.
+
 ## Gene function calls (GoF / LoF)
 
 `gene_trace.function_call` compares a genotype with the **most common European allele** at the SNP (Ensembl VEP frequencies), not with the reference genome or the healthiest genotype. The reference genome carries the rare allele at some SNPs, such as CYP3A4 rs2740574.

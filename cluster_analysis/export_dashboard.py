@@ -8,8 +8,10 @@ for dashboards and the future interactive interface. Contains no personal data.
 --person embeds an overlay result (use only synthetic or consented data in anything you share).
 """
 import argparse
+import glob
 import json
 import os
+import re
 from collections import defaultdict
 
 from cluster_analysis.biomarkers import BIOMARKERS_PATH
@@ -206,6 +208,49 @@ def theme_rows(themes, status, with_lifecycle=()):
     return meta, genes, links, pathways
 
 
+def api_theme_rows(graph, xref, status, with_lifecycle=(), order=0):
+    """theme_graph.py output plus a person's cross-reference → the same four theme datasets. Every gene is listed;
+    notable ones (a library call, a finding where the person carries the allele, or an Open Targets score ≥ 0.8)
+    are the ones the explorer draws."""
+    tid = graph["theme"]
+    xg = (xref or {}).get("genes", {})
+    facets = graph["mechanisms"] + [{"id": "disease", "name": "Disease link, mechanism not yet known",
+                                     "about": "Open Targets ties these genes to a fertility condition, but Gene Ontology has no reproductive "
+                                              "mechanism for them yet."}]
+    with_findings = sum(1 for g in xg.values() if g["findings"])
+    stats = {"n_genes": len(graph["genes"]), "n_mechanism": sum(1 for g in graph["genes"].values() if g["mechanisms"]),
+             "n_snps": (xref or {}).get("n_snps_in_theme_genes"), "n_genes_with_findings": with_findings,
+             "pathogenic_measured": (xref or {}).get("pathogenic", {}).get("measured"),
+             "pathogenic_carried": (xref or {}).get("pathogenic", {}).get("carried", []), "rule": graph["rule"]}
+    meta = [{"theme": tid, "theme_name": graph["name"], "about": graph["about"], "theme_order": order, "facet": f["id"],
+             "facet_name": f["name"], "facet_about": f.get("about"), "core": True, "facet_order": i, "source": "api",
+             "stats": json.dumps(stats)} for i, f in enumerate(facets)]
+    genes, notable = [], set()
+    for sym, g in graph["genes"].items():
+        p = status.get(sym) or {}
+        findings = xg.get(sym, {}).get("findings", [])
+        carried = sum(1 for f in findings for it in f["items"] if it["source"] in ("GWAS", "ClinVar") and it.get("copies"))
+        clinvar = any(it["source"] == "ClinVar" for f in findings for it in f["items"])
+        # Genes with a reproductive mechanism are drawn when HP carries a finding; disease-only genes (many of them
+        # hormone-level GWAS loci) only with a library call, a ClinVar entry or a very strong disease link
+        is_notable = bool(p.get("genotype")) or g["best_score"] >= 0.8 or clinvar or (carried > 0 and bool(g["mechanisms"]))
+        if is_notable:
+            notable.add(sym)
+        top = sorted(g["diseases"].items(), key=lambda kv: -kv[1]["score"])[:5]
+        genes.append({"theme": tid, "gene": sym, "primary": g["primary"] or "disease",
+                      "facets": json.dumps(list(g["mechanisms"]) or ["disease"]),
+                      "evidence": json.dumps({"mechanisms": g["mechanisms"], "diseases": dict(top), "joined_by": g["joined_by"],
+                                              "findings": findings, "n_snps": xg.get(sym, {}).get("n_snps", 0)}),
+                      "rsid": p.get("rsid"), "genotype": p.get("genotype"), "function": p.get("function") if p.get("genotype") else None,
+                      "dose": p.get("dose"), "minor": p.get("minor"), "interpretation": p.get("interpretation"), "score": p.get("score"),
+                      "has_lifecycle": sym in with_lifecycle, "source": "api", "notable": is_notable, "carried": carried,
+                      "best_score": g["best_score"]})
+    links = [{"theme": tid, **l} for l in graph["links"] if l["a"] in notable and l["b"] in notable]
+    pathways = [{"theme": tid, "pathway": x["pathway"], "genes": json.dumps([gn for gn in x["genes"] if gn in notable]),
+                 "n": len(x["genes"]), "on_theme": x["on_theme"]} for x in graph["pathways"]]
+    return meta, genes, links, [x for x in pathways if json.loads(x["genes"])]
+
+
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("out")
@@ -225,8 +270,18 @@ if __name__ == "__main__":
             print(f"✅ Wrote {name}.json ({len(rows)} rows)")
         if os.path.exists(THEMES_PATH):
             lifecycle_genes = {r["gene"] for r in tables[1]}
-            for name, rows in zip(("theme_meta", "theme_genes", "theme_links", "theme_pathways"),
-                                  theme_rows(json.load(open(THEMES_PATH, encoding="utf-8")), status, lifecycle_genes)):
+            tables = list(theme_rows(json.load(open(THEMES_PATH, encoding="utf-8")), status, lifecycle_genes))
+            # API-built themes replace the library-built theme of the same name
+            person = re.sub(r"^MyHeritage_raw_dna_data_|\.csv$", "", os.path.basename(args.dna or ""))
+            for path in sorted(glob.glob(os.path.join(os.path.dirname(__file__), "theme_graph_*.json"))):
+                graph = json.load(open(path, encoding="utf-8"))
+                xpath = os.path.join("data/output/cluster_analysis", f"theme_{person}_{graph['theme']}.json")
+                xref = json.load(open(xpath, encoding="utf-8")) if os.path.exists(xpath) else None
+                order = next((r["theme_order"] for r in tables[0] if r["theme"] == graph["theme"]), len(tables[0]))
+                tables = [[r for r in t if r["theme"] != graph["theme"]] for t in tables]
+                for t, extra in zip(tables, api_theme_rows(graph, xref, status, lifecycle_genes, order)):
+                    t.extend(extra)
+            for name, rows in zip(("theme_meta", "theme_genes", "theme_links", "theme_pathways"), tables):
                 with open(os.path.join(out_dir, name + ".json"), "w", encoding="utf-8") as f:
                     json.dump(rows, f, ensure_ascii=False, separators=(",", ":"))
                 print(f"✅ Wrote {name}.json ({len(rows)} rows)")
