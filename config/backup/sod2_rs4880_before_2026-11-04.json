@@ -1,0 +1,20 @@
+{
+  "rs4880": {
+    "gene": "SOD2",
+    "system": "Antioxidant / Mitochondria",
+    "trait": "Mitochondrial antioxidant defense",
+    "description": "SOD2 neutralizes superoxide radicals in mitochondria.",
+    "impact": "High",
+    "variants": {
+      "AA": "Higher SOD2 activity",
+      "AG": "Typical activity",
+      "GG": "Lower SOD2 activity"
+    },
+    "scores": {
+      "AA": 9,
+      "AG": 6,
+      "GG": 3
+    }
+  },
+  "reason": "Genotype mapping inverted: forward G encodes Ala16 (VEP), and Ala-MnSOD is imported efficiently with ~40% higher activity (Sutton 2003 PMID 12618592; Sutton 2005 PMID 15864132)."
+}

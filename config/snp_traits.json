@@ -424,14 +424,14 @@
         "description": "SOD2 neutralizes superoxide radicals in mitochondria.",
         "impact": "High",
         "variants": {
-            "AA": "Higher SOD2 activity",
-            "AG": "Typical activity",
-            "GG": "Lower SOD2 activity"
+            "AA": "Lower SOD2 activity (Val/Val: slower import into mitochondria)",
+            "AG": "Typical activity (Ala/Val)",
+            "GG": "Higher SOD2 activity (Ala/Ala: efficient import into mitochondria)"
         },
         "scores": {
-            "AA": 9,
+            "AA": 3,
             "AG": 6,
-            "GG": 3
+            "GG": 9
         }
     },
     "rs1050450": {
