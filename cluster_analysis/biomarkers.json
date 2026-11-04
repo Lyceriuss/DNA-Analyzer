@@ -1,0 +1,5968 @@
+{
+  "meta": {
+    "source": "GWAS Catalog v2 + Ensembl GRCh38 alleles",
+    "p_threshold": 5e-08,
+    "note": "Effect alleles are on the forward strand. 'ambiguous' A/T or C/G SNPs are excluded from person tilts."
+  },
+  "biomarkers": [
+    {
+      "biomarker": "BMI",
+      "panel": "Body",
+      "n_snps": 20,
+      "modules": {
+        "M02": 11,
+        "M01": 4,
+        "M03": 1,
+        "M06": 1,
+        "M05": 1,
+        "M04": 1,
+        "M07": 1
+      },
+      "snps": [
+        {
+          "rsid": "rs6265",
+          "genes": [
+            "BDNF"
+          ],
+          "modules": [
+            "M01"
+          ],
+          "panel": "Body",
+          "effect_allele": "T",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.1968,
+          "p_value": 8e-135,
+          "beta": "0.0407 unit decrease",
+          "or": null,
+          "efo_trait": "body mass index",
+          "pubmed_id": "40436827",
+          "first_author": "Jee YH"
+        },
+        {
+          "rsid": "rs987237",
+          "genes": [
+            "TFAP2B"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Body",
+          "effect_allele": "G",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.1809,
+          "p_value": 2.9999999999999997e-109,
+          "beta": "0.0377 unit increase",
+          "or": null,
+          "efo_trait": "body mass index",
+          "pubmed_id": "36581621",
+          "first_author": "Huang J"
+        },
+        {
+          "rsid": "rs10830963",
+          "genes": [
+            "MTNR1B"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Body",
+          "effect_allele": "C",
+          "direction": "-",
+          "strand": "ambiguous",
+          "eaf_eur": 0.7117,
+          "p_value": 4e-105,
+          "beta": "0.0014 unit decrease",
+          "or": null,
+          "efo_trait": "body mass index",
+          "pubmed_id": "22581228",
+          "first_author": "Manning AK"
+        },
+        {
+          "rsid": "rs7498665",
+          "genes": [
+            "SH2B1"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Body",
+          "effect_allele": "A",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.671,
+          "p_value": 1e-66,
+          "beta": "0.0285 unit decrease",
+          "or": null,
+          "efo_trait": "body mass index",
+          "pubmed_id": "30239722",
+          "first_author": "Pulit SL"
+        },
+        {
+          "rsid": "rs7903146",
+          "genes": [
+            "TCF7L2"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Body",
+          "effect_allele": "C",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.6829000000000001,
+          "p_value": 2e-60,
+          "beta": "0.05615 unit increase",
+          "or": null,
+          "efo_trait": "body mass index",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs4988235",
+          "genes": [
+            "LCT"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Body",
+          "effect_allele": "G",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.492,
+          "p_value": 2e-59,
+          "beta": "0.05158 unit decrease",
+          "or": null,
+          "efo_trait": "body mass index",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs9939609",
+          "genes": [
+            "FTO"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Body",
+          "effect_allele": "A",
+          "direction": "+",
+          "strand": "ambiguous",
+          "eaf_eur": 0.4135,
+          "p_value": 4e-51,
+          "beta": "0.33 kg/m2 increase",
+          "or": null,
+          "efo_trait": "body mass index",
+          "pubmed_id": "19079261",
+          "first_author": "Willer CJ"
+        },
+        {
+          "rsid": "rs1229984",
+          "genes": [
+            "ADH1B"
+          ],
+          "modules": [
+            "M01"
+          ],
+          "panel": "Body",
+          "effect_allele": "T",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.028800000000000048,
+          "p_value": 2e-28,
+          "beta": "0.08743 unit decrease",
+          "or": null,
+          "efo_trait": "body mass index",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs9923231",
+          "genes": [
+            "VKORC1"
+          ],
+          "modules": [
+            "M03"
+          ],
+          "panel": "Body",
+          "effect_allele": "T",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.3877,
+          "p_value": 5e-28,
+          "beta": "0.0272287 unit decrease",
+          "or": null,
+          "efo_trait": "body mass index",
+          "pubmed_id": "38538606",
+          "first_author": "Harris BHL"
+        },
+        {
+          "rsid": "rs1801282",
+          "genes": [
+            "PPARG"
+          ],
+          "modules": [
+            "M06"
+          ],
+          "panel": "Body",
+          "effect_allele": "G",
+          "direction": "+",
+          "strand": "ambiguous",
+          "eaf_eur": 0.1203,
+          "p_value": 5e-26,
+          "beta": "0.0215 unit increase",
+          "or": null,
+          "efo_trait": "body mass index",
+          "pubmed_id": "36581621",
+          "first_author": "Huang J"
+        },
+        {
+          "rsid": "rs429358",
+          "genes": [
+            "APOE"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Body",
+          "effect_allele": "T",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.8449,
+          "p_value": 1e-25,
+          "beta": "0.04135 unit increase",
+          "or": null,
+          "efo_trait": "body mass index",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs8192675",
+          "genes": [
+            "SLC2A2"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Body",
+          "effect_allele": "C",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.2893,
+          "p_value": 2e-22,
+          "beta": "0.0156 unit increase",
+          "or": null,
+          "efo_trait": "body mass index",
+          "pubmed_id": "36581621",
+          "first_author": "Huang J"
+        },
+        {
+          "rsid": "rs1260326",
+          "genes": [
+            "GCKR"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Body",
+          "effect_allele": "T",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.4105,
+          "p_value": 1e-18,
+          "beta": "0.02552 unit decrease",
+          "or": null,
+          "efo_trait": "body mass index",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs17782313",
+          "genes": [
+            "MC4R"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Body",
+          "effect_allele": "C",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.2396,
+          "p_value": 5e-18,
+          "beta": "0.2 kg/m2 increase",
+          "or": null,
+          "efo_trait": "body mass index",
+          "pubmed_id": "19079261",
+          "first_author": "Willer CJ"
+        },
+        {
+          "rsid": "rs4680",
+          "genes": [
+            "COMT"
+          ],
+          "modules": [
+            "M01"
+          ],
+          "panel": "Body",
+          "effect_allele": "G",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.5,
+          "p_value": 1e-11,
+          "beta": "0.0089 unit decrease",
+          "or": null,
+          "efo_trait": "body mass index",
+          "pubmed_id": "36581621",
+          "first_author": "Huang J"
+        },
+        {
+          "rsid": "rs671",
+          "genes": [
+            "ALDH2"
+          ],
+          "modules": [
+            "M01"
+          ],
+          "panel": "Body",
+          "effect_allele": "G",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 1.0,
+          "p_value": 3e-11,
+          "beta": "0.0378 unit increase",
+          "or": null,
+          "efo_trait": "body mass index",
+          "pubmed_id": "24861553",
+          "first_author": "Wen W"
+        },
+        {
+          "rsid": "rs6232",
+          "genes": [
+            "PCSK1"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Body",
+          "effect_allele": "T",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.9672,
+          "p_value": 4.9999999999999995e-11,
+          "beta": "0.02596 unit decrease",
+          "or": null,
+          "efo_trait": "body mass index",
+          "pubmed_id": "36376304",
+          "first_author": "Koskeridis F"
+        },
+        {
+          "rsid": "rs12203592",
+          "genes": [
+            "IRF4"
+          ],
+          "modules": [
+            "M04"
+          ],
+          "panel": "Body",
+          "effect_allele": "C",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.8837,
+          "p_value": 2e-10,
+          "beta": "0.0159452 unit decrease",
+          "or": null,
+          "efo_trait": "body mass index",
+          "pubmed_id": "37280435",
+          "first_author": "Hawkes G"
+        },
+        {
+          "rsid": "rs5219",
+          "genes": [
+            "KCNJ11"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Body",
+          "effect_allele": "C",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.6471,
+          "p_value": 4e-10,
+          "beta": "0.0115 unit increase",
+          "or": null,
+          "efo_trait": "body mass index",
+          "pubmed_id": "29273807",
+          "first_author": "Turcot V"
+        },
+        {
+          "rsid": "rs2486758",
+          "genes": [
+            "CYP17A1"
+          ],
+          "modules": [
+            "M07"
+          ],
+          "panel": "Body",
+          "effect_allele": "C",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.2256,
+          "p_value": 6.000000000000001e-09,
+          "beta": "0.0105 unit decrease",
+          "or": null,
+          "efo_trait": "body mass index",
+          "pubmed_id": "36581621",
+          "first_author": "Huang J"
+        }
+      ]
+    },
+    {
+      "biomarker": "Triglycerides",
+      "panel": "Lipids",
+      "n_snps": 20,
+      "modules": {
+        "M05": 8,
+        "M06": 4,
+        "M02": 3,
+        "M01": 1,
+        "M03": 1,
+        "M12": 1,
+        "M09": 1,
+        "M11": 1
+      },
+      "snps": [
+        {
+          "rsid": "rs1800588",
+          "genes": [
+            "LIPC"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "T",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.2087,
+          "p_value": 0.0,
+          "beta": "0.2338 unit increase",
+          "or": null,
+          "efo_trait": "triglyceride measurement",
+          "pubmed_id": "38448586",
+          "first_author": "Karjalainen MK"
+        },
+        {
+          "rsid": "rs328",
+          "genes": [
+            "LPL"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "G",
+          "direction": "+",
+          "strand": "ambiguous",
+          "eaf_eur": 0.1302,
+          "p_value": 0.0,
+          "beta": "0.18 mmol/L increase",
+          "or": null,
+          "efo_trait": "triglyceride measurement",
+          "pubmed_id": "41044249",
+          "first_author": "Zoodsma M"
+        },
+        {
+          "rsid": "rs662799",
+          "genes": [
+            "APOA5"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "A",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.9165,
+          "p_value": 0.0,
+          "beta": "0.291669 unit decrease",
+          "or": null,
+          "efo_trait": "triglyceride measurement",
+          "pubmed_id": "34887591",
+          "first_author": "Graham SE"
+        },
+        {
+          "rsid": "rs12130333",
+          "genes": [
+            "ANGPTL3"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "T",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.1849,
+          "p_value": 3e-119,
+          "beta": "0.0673 unit decrease",
+          "or": null,
+          "efo_trait": "triglyceride measurement",
+          "pubmed_id": "33462484",
+          "first_author": "Sinnott-Armstrong N"
+        },
+        {
+          "rsid": "rs174537",
+          "genes": [
+            "FADS1"
+          ],
+          "modules": [
+            "M06"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "T",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.3489,
+          "p_value": 2e-86,
+          "beta": "0.0617 mg dl-1 increase",
+          "or": null,
+          "efo_trait": "triglyceride measurement",
+          "pubmed_id": "30275531",
+          "first_author": "Klarin D"
+        },
+        {
+          "rsid": "rs1260326",
+          "genes": [
+            "GCKR"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "T",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.4105,
+          "p_value": 2e-81,
+          "beta": "0.1274 unit increase",
+          "or": null,
+          "efo_trait": "triglyceride measurement",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs693",
+          "genes": [
+            "APOB"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "G",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.5577,
+          "p_value": 6e-70,
+          "beta": "0.0712049 unit decrease",
+          "or": null,
+          "efo_trait": "triglyceride measurement",
+          "pubmed_id": "35213538",
+          "first_author": "Richardson TG"
+        },
+        {
+          "rsid": "rs671",
+          "genes": [
+            "ALDH2"
+          ],
+          "modules": [
+            "M01"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "A",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0,
+          "p_value": 1e-65,
+          "beta": "0.0958044 unit decrease",
+          "or": null,
+          "efo_trait": "triglyceride measurement",
+          "pubmed_id": "40436827",
+          "first_author": "Jee YH"
+        },
+        {
+          "rsid": "rs4149056",
+          "genes": [
+            "SLCO1B1"
+          ],
+          "modules": [
+            "M03"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "T",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.839,
+          "p_value": 3.0000000000000003e-63,
+          "beta": "0.06428 unit decrease",
+          "or": null,
+          "efo_trait": "triglyceride measurement",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs174547",
+          "genes": [
+            "FADS2"
+          ],
+          "modules": [
+            "M06"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "C",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.3469,
+          "p_value": 4e-63,
+          "beta": "0.246249 unit decrease",
+          "or": null,
+          "efo_trait": "triglyceride measurement",
+          "pubmed_id": "34503513",
+          "first_author": "Harshfield EL"
+        },
+        {
+          "rsid": "rs738409",
+          "genes": [
+            "PNPLA3"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "C",
+          "direction": "-",
+          "strand": "ambiguous",
+          "eaf_eur": 0.7744,
+          "p_value": 2e-45,
+          "beta": "0.2437 unit decrease",
+          "or": null,
+          "efo_trait": "triglyceride measurement",
+          "pubmed_id": "42069741",
+          "first_author": "Landstra EN"
+        },
+        {
+          "rsid": "rs838133",
+          "genes": [
+            "FGF21"
+          ],
+          "modules": [
+            "M06"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "A",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.4254,
+          "p_value": 2e-33,
+          "beta": "0.0248079 unit increase",
+          "or": null,
+          "efo_trait": "triglyceride measurement",
+          "pubmed_id": "32203549",
+          "first_author": "Richardson TG"
+        },
+        {
+          "rsid": "rs1801282",
+          "genes": [
+            "PPARG"
+          ],
+          "modules": [
+            "M06"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "G",
+          "direction": "-",
+          "strand": "ambiguous",
+          "eaf_eur": 0.1203,
+          "p_value": 5e-26,
+          "beta": "0.0270379 unit decrease",
+          "or": null,
+          "efo_trait": "triglyceride measurement",
+          "pubmed_id": "34887591",
+          "first_author": "Graham SE"
+        },
+        {
+          "rsid": "rs2943641",
+          "genes": [
+            "IRS1"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "T",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.3738,
+          "p_value": 1e-23,
+          "beta": "0.04 unit decrease",
+          "or": null,
+          "efo_trait": "triglyceride measurement",
+          "pubmed_id": "29507422",
+          "first_author": "Hoffmann TJ"
+        },
+        {
+          "rsid": "rs1799963",
+          "genes": [
+            "F2"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "G",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.992,
+          "p_value": 3.0000000000000002e-18,
+          "beta": "0.1181 unit increase",
+          "or": null,
+          "efo_trait": "triglyceride measurement",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs1801253",
+          "genes": [
+            "ADRB1"
+          ],
+          "modules": [
+            "M12"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "C",
+          "direction": "-",
+          "strand": "ambiguous",
+          "eaf_eur": 0.6849,
+          "p_value": 2e-17,
+          "beta": "0.02 mmol/L decrease",
+          "or": null,
+          "efo_trait": "triglyceride measurement",
+          "pubmed_id": "41044249",
+          "first_author": "Zoodsma M"
+        },
+        {
+          "rsid": "rs5082",
+          "genes": [
+            "APOA2"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "G",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.38670000000000004,
+          "p_value": 3e-17,
+          "beta": "0.0350453 unit increase",
+          "or": null,
+          "efo_trait": "triglyceride measurement",
+          "pubmed_id": "35213538",
+          "first_author": "Richardson TG"
+        },
+        {
+          "rsid": "rs13266634",
+          "genes": [
+            "SLC30A8"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "T",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.2833,
+          "p_value": 2e-15,
+          "beta": "0.013 unit decrease",
+          "or": null,
+          "efo_trait": "triglyceride measurement",
+          "pubmed_id": "40436827",
+          "first_author": "Jee YH"
+        },
+        {
+          "rsid": "rs7946",
+          "genes": [
+            "PEMT"
+          ],
+          "modules": [
+            "M09"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "T",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.7038,
+          "p_value": 6.000000000000001e-13,
+          "beta": "0.015115585 unit decrease",
+          "or": null,
+          "efo_trait": "triglyceride measurement",
+          "pubmed_id": "29083408",
+          "first_author": "Liu DJ"
+        },
+        {
+          "rsid": "rs1042522",
+          "genes": [
+            "TP53"
+          ],
+          "modules": [
+            "M11"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "C",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.7147,
+          "p_value": 4e-10,
+          "beta": "0.0171 unit decrease",
+          "or": null,
+          "efo_trait": "triglyceride measurement",
+          "pubmed_id": "33462484",
+          "first_author": "Sinnott-Armstrong N"
+        }
+      ]
+    },
+    {
+      "biomarker": "LDL cholesterol",
+      "panel": "Lipids",
+      "n_snps": 18,
+      "modules": {
+        "M05": 7,
+        "M04": 3,
+        "M02": 3,
+        "M01": 2,
+        "M06": 1,
+        "M03": 1,
+        "M11": 1
+      },
+      "snps": [
+        {
+          "rsid": "rs1205",
+          "genes": [
+            "CRP"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "T",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.3101,
+          "p_value": 2e-205,
+          "beta": "0.04513 unit decrease",
+          "or": null,
+          "efo_trait": "low density lipoprotein cholesterol measurement",
+          "pubmed_id": "36376304",
+          "first_author": "Koskeridis F"
+        },
+        {
+          "rsid": "rs693",
+          "genes": [
+            "APOB"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "A",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.4423,
+          "p_value": 2e-191,
+          "beta": "0.06 mmol/L increase",
+          "or": null,
+          "efo_trait": "low density lipoprotein cholesterol measurement",
+          "pubmed_id": "41044249",
+          "first_author": "Zoodsma M"
+        },
+        {
+          "rsid": "rs174547",
+          "genes": [
+            "FADS2"
+          ],
+          "modules": [
+            "M06"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "C",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.3469,
+          "p_value": 2e-143,
+          "beta": "0.0429432 unit decrease",
+          "or": null,
+          "efo_trait": "low density lipoprotein cholesterol measurement",
+          "pubmed_id": "34887591",
+          "first_author": "Graham SE"
+        },
+        {
+          "rsid": "rs1800562",
+          "genes": [
+            "HFE"
+          ],
+          "modules": [
+            "M04"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "A",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.0427,
+          "p_value": 1e-71,
+          "beta": "0.0571711 unit decrease",
+          "or": null,
+          "efo_trait": "low density lipoprotein cholesterol measurement",
+          "pubmed_id": "34887591",
+          "first_author": "Graham SE"
+        },
+        {
+          "rsid": "rs12130333",
+          "genes": [
+            "ANGPTL3"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "T",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.1849,
+          "p_value": 2e-65,
+          "beta": "0.0496 unit decrease",
+          "or": null,
+          "efo_trait": "low density lipoprotein cholesterol measurement",
+          "pubmed_id": "33462484",
+          "first_author": "Sinnott-Armstrong N"
+        },
+        {
+          "rsid": "rs2228145",
+          "genes": [
+            "IL6R"
+          ],
+          "modules": [
+            "M04"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "A",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.6402,
+          "p_value": 1e-35,
+          "beta": "0.017566 unit increase",
+          "or": null,
+          "efo_trait": "low density lipoprotein cholesterol measurement",
+          "pubmed_id": "36376304",
+          "first_author": "Koskeridis F"
+        },
+        {
+          "rsid": "rs1800588",
+          "genes": [
+            "LIPC"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "C",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.7913,
+          "p_value": 1e-34,
+          "beta": "0.0617255 unit increase",
+          "or": null,
+          "efo_trait": "low density lipoprotein cholesterol measurement",
+          "pubmed_id": "35213538",
+          "first_author": "Richardson TG"
+        },
+        {
+          "rsid": "rs662799",
+          "genes": [
+            "APOA5"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "A",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.9165,
+          "p_value": 2e-32,
+          "beta": "0.0865 unit increase",
+          "or": null,
+          "efo_trait": "low density lipoprotein cholesterol measurement",
+          "pubmed_id": "38448586",
+          "first_author": "Karjalainen MK"
+        },
+        {
+          "rsid": "rs7903146",
+          "genes": [
+            "TCF7L2"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "C",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.6829000000000001,
+          "p_value": 3e-26,
+          "beta": "0.02795 unit increase",
+          "or": null,
+          "efo_trait": "low density lipoprotein cholesterol measurement",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs1260326",
+          "genes": [
+            "GCKR"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "T",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.4105,
+          "p_value": 5.999999999999999e-24,
+          "beta": "0.02547 unit increase",
+          "or": null,
+          "efo_trait": "low density lipoprotein cholesterol measurement",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs4149056",
+          "genes": [
+            "SLCO1B1"
+          ],
+          "modules": [
+            "M03"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "T",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.839,
+          "p_value": 1e-13,
+          "beta": "0.0405 unit decrease",
+          "or": null,
+          "efo_trait": "low density lipoprotein cholesterol measurement",
+          "pubmed_id": "38448586",
+          "first_author": "Karjalainen MK"
+        },
+        {
+          "rsid": "rs4988235",
+          "genes": [
+            "LCT"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "G",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.492,
+          "p_value": 2e-13,
+          "beta": "0.0203 unit increase",
+          "or": null,
+          "efo_trait": "low density lipoprotein cholesterol measurement",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs602662",
+          "genes": [
+            "FUT2"
+          ],
+          "modules": [
+            "M04"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "G",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.5318,
+          "p_value": 3.0000000000000003e-13,
+          "beta": "0.0299137 unit decrease",
+          "or": null,
+          "efo_trait": "low density lipoprotein cholesterol measurement",
+          "pubmed_id": "35213538",
+          "first_author": "Richardson TG"
+        },
+        {
+          "rsid": "rs1229984",
+          "genes": [
+            "ADH1B"
+          ],
+          "modules": [
+            "M01"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "C",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.9712,
+          "p_value": 3e-12,
+          "beta": "0.04795992 unit increase",
+          "or": null,
+          "efo_trait": "low density lipoprotein cholesterol measurement",
+          "pubmed_id": "39789286",
+          "first_author": "Loya H"
+        },
+        {
+          "rsid": "rs5882",
+          "genes": [
+            "CETP"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "A",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.669,
+          "p_value": 4e-11,
+          "beta": "0.0168 unit increase",
+          "or": null,
+          "efo_trait": "low density lipoprotein cholesterol measurement",
+          "pubmed_id": "33462484",
+          "first_author": "Sinnott-Armstrong N"
+        },
+        {
+          "rsid": "rs671",
+          "genes": [
+            "ALDH2"
+          ],
+          "modules": [
+            "M01"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "A",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0,
+          "p_value": 4e-11,
+          "beta": "1.7 unit increase",
+          "or": null,
+          "efo_trait": "low density lipoprotein cholesterol measurement",
+          "pubmed_id": "35884923",
+          "first_author": "Lee SB"
+        },
+        {
+          "rsid": "rs5082",
+          "genes": [
+            "APOA2"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "G",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.38670000000000004,
+          "p_value": 6e-11,
+          "beta": "0.0278705 unit decrease",
+          "or": null,
+          "efo_trait": "low density lipoprotein cholesterol measurement",
+          "pubmed_id": "35213538",
+          "first_author": "Richardson TG"
+        },
+        {
+          "rsid": "rs1042522",
+          "genes": [
+            "TP53"
+          ],
+          "modules": [
+            "M11"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "C",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.7147,
+          "p_value": 1e-10,
+          "beta": "0.0176 unit decrease",
+          "or": null,
+          "efo_trait": "low density lipoprotein cholesterol measurement",
+          "pubmed_id": "33462484",
+          "first_author": "Sinnott-Armstrong N"
+        }
+      ]
+    },
+    {
+      "biomarker": "HDL cholesterol",
+      "panel": "Lipids",
+      "n_snps": 15,
+      "modules": {
+        "M05": 8,
+        "M06": 2,
+        "M02": 2,
+        "M01": 1,
+        "M03": 1,
+        "M09": 1
+      },
+      "snps": [
+        {
+          "rsid": "rs1800588",
+          "genes": [
+            "LIPC"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "T",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.2087,
+          "p_value": 0.0,
+          "beta": "0.2338 unit increase",
+          "or": null,
+          "efo_trait": "high density lipoprotein cholesterol measurement",
+          "pubmed_id": "38448586",
+          "first_author": "Karjalainen MK"
+        },
+        {
+          "rsid": "rs5882",
+          "genes": [
+            "CETP"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "A",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.669,
+          "p_value": 0.0,
+          "beta": "0.1125 unit decrease",
+          "or": null,
+          "efo_trait": "high density lipoprotein cholesterol measurement",
+          "pubmed_id": "33462484",
+          "first_author": "Sinnott-Armstrong N"
+        },
+        {
+          "rsid": "rs429358",
+          "genes": [
+            "APOE"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "T",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.8449,
+          "p_value": 1e-323,
+          "beta": "0.1592 unit increase",
+          "or": null,
+          "efo_trait": "high density lipoprotein cholesterol measurement",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs671",
+          "genes": [
+            "ALDH2"
+          ],
+          "modules": [
+            "M01"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "A",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0,
+          "p_value": 1e-207,
+          "beta": "0.0853 unit decrease",
+          "or": null,
+          "efo_trait": "high density lipoprotein cholesterol measurement",
+          "pubmed_id": "40436827",
+          "first_author": "Jee YH"
+        },
+        {
+          "rsid": "rs328",
+          "genes": [
+            "LPL"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "G",
+          "direction": "+",
+          "strand": "ambiguous",
+          "eaf_eur": 0.1302,
+          "p_value": 2.9999999999999998e-120,
+          "beta": "0.0593946 unit increase",
+          "or": null,
+          "efo_trait": "high density lipoprotein cholesterol measurement",
+          "pubmed_id": "39091897",
+          "first_author": "Farashi S"
+        },
+        {
+          "rsid": "rs662799",
+          "genes": [
+            "APOA5"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "G",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.08350000000000002,
+          "p_value": 2e-85,
+          "beta": "2.516 unit decrease",
+          "or": null,
+          "efo_trait": "high density lipoprotein cholesterol measurement",
+          "pubmed_id": "26582766",
+          "first_author": "Lu X"
+        },
+        {
+          "rsid": "rs174547",
+          "genes": [
+            "FADS2"
+          ],
+          "modules": [
+            "M06"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "T",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.6531,
+          "p_value": 6e-37,
+          "beta": "0.0529 unit decrease",
+          "or": null,
+          "efo_trait": "high density lipoprotein cholesterol measurement",
+          "pubmed_id": "38448586",
+          "first_author": "Karjalainen MK"
+        },
+        {
+          "rsid": "rs5082",
+          "genes": [
+            "APOA2"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "G",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.38670000000000004,
+          "p_value": 1e-33,
+          "beta": "0.0487631 unit increase",
+          "or": null,
+          "efo_trait": "high density lipoprotein cholesterol measurement",
+          "pubmed_id": "35213538",
+          "first_author": "Richardson TG"
+        },
+        {
+          "rsid": "rs693",
+          "genes": [
+            "APOB"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "A",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.4423,
+          "p_value": 2e-33,
+          "beta": "0.0486 unit decrease",
+          "or": null,
+          "efo_trait": "high density lipoprotein cholesterol measurement",
+          "pubmed_id": "38448586",
+          "first_author": "Karjalainen MK"
+        },
+        {
+          "rsid": "rs2943641",
+          "genes": [
+            "IRS1"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "T",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.3738,
+          "p_value": 3e-26,
+          "beta": "0.039 unit increase",
+          "or": null,
+          "efo_trait": "high density lipoprotein cholesterol measurement",
+          "pubmed_id": "29507422",
+          "first_author": "Hoffmann TJ"
+        },
+        {
+          "rsid": "rs174537",
+          "genes": [
+            "FADS1"
+          ],
+          "modules": [
+            "M06"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "T",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.3489,
+          "p_value": 2e-22,
+          "beta": "0.0305 mg dl-1 decrease",
+          "or": null,
+          "efo_trait": "high density lipoprotein cholesterol measurement",
+          "pubmed_id": "30275531",
+          "first_author": "Klarin D"
+        },
+        {
+          "rsid": "rs738409",
+          "genes": [
+            "PNPLA3"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "C",
+          "direction": "+",
+          "strand": "ambiguous",
+          "eaf_eur": 0.7744,
+          "p_value": 8.999999999999999e-20,
+          "beta": "0.03326 unit increase",
+          "or": null,
+          "efo_trait": "high density lipoprotein cholesterol measurement",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs4149056",
+          "genes": [
+            "SLCO1B1"
+          ],
+          "modules": [
+            "M03"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "T",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.839,
+          "p_value": 4e-12,
+          "beta": "0.038 unit increase",
+          "or": null,
+          "efo_trait": "high density lipoprotein cholesterol measurement",
+          "pubmed_id": "38448586",
+          "first_author": "Karjalainen MK"
+        },
+        {
+          "rsid": "rs3733890",
+          "genes": [
+            "BHMT"
+          ],
+          "modules": [
+            "M09"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "G",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.6769000000000001,
+          "p_value": 4e-11,
+          "beta": "0.0138142 unit increase",
+          "or": null,
+          "efo_trait": "high density lipoprotein cholesterol measurement",
+          "pubmed_id": "32203549",
+          "first_author": "Richardson TG"
+        },
+        {
+          "rsid": "rs4988235",
+          "genes": [
+            "LCT"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "G",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.492,
+          "p_value": 1e-09,
+          "beta": "0.0269591 unit decrease",
+          "or": null,
+          "efo_trait": "high density lipoprotein cholesterol measurement",
+          "pubmed_id": "35213538",
+          "first_author": "Richardson TG"
+        }
+      ]
+    },
+    {
+      "biomarker": "Systolic BP",
+      "panel": "Blood pressure",
+      "n_snps": 14,
+      "modules": {
+        "M12": 3,
+        "M02": 3,
+        "M01": 2,
+        "M09": 2,
+        "M04": 1,
+        "M07": 1,
+        "M08": 1,
+        "M06": 1
+      },
+      "snps": [
+        {
+          "rsid": "rs671",
+          "genes": [
+            "ALDH2"
+          ],
+          "modules": [
+            "M01"
+          ],
+          "panel": "Blood pressure",
+          "effect_allele": "A",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0,
+          "p_value": 9e-99,
+          "beta": "0.0526 unit decrease",
+          "or": null,
+          "efo_trait": "systolic blood pressure",
+          "pubmed_id": "40436827",
+          "first_author": "Jee YH"
+        },
+        {
+          "rsid": "rs699",
+          "genes": [
+            "AGT"
+          ],
+          "modules": [
+            "M12"
+          ],
+          "panel": "Blood pressure",
+          "effect_allele": "G",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.4115,
+          "p_value": 8e-41,
+          "beta": "0.327 unit increase",
+          "or": null,
+          "efo_trait": "systolic blood pressure",
+          "pubmed_id": "38689001",
+          "first_author": "Keaton JM"
+        },
+        {
+          "rsid": "rs1799945",
+          "genes": [
+            "HFE"
+          ],
+          "modules": [
+            "M04"
+          ],
+          "panel": "Blood pressure",
+          "effect_allele": "G",
+          "direction": "+",
+          "strand": "ambiguous",
+          "eaf_eur": 0.172,
+          "p_value": 1e-39,
+          "beta": "0.4449 unit increase",
+          "or": null,
+          "efo_trait": "systolic blood pressure",
+          "pubmed_id": "38689001",
+          "first_author": "Keaton JM"
+        },
+        {
+          "rsid": "rs11191548",
+          "genes": [
+            "CNNM2"
+          ],
+          "modules": [
+            "M09"
+          ],
+          "panel": "Blood pressure",
+          "effect_allele": "T",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.9115,
+          "p_value": 7.000000000000001e-26,
+          "beta": "1.095 mmHg increase",
+          "or": null,
+          "efo_trait": "systolic blood pressure",
+          "pubmed_id": "21909115",
+          "first_author": "Ehret GB"
+        },
+        {
+          "rsid": "rs1229984",
+          "genes": [
+            "ADH1B"
+          ],
+          "modules": [
+            "M01"
+          ],
+          "panel": "Blood pressure",
+          "effect_allele": "T",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.028800000000000048,
+          "p_value": 2e-22,
+          "beta": "0.06454 unit decrease",
+          "or": null,
+          "efo_trait": "systolic blood pressure",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs1801133",
+          "genes": [
+            "MTHFR"
+          ],
+          "modules": [
+            "M09"
+          ],
+          "panel": "Blood pressure",
+          "effect_allele": "A",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.3648,
+          "p_value": 5.000000000000001e-15,
+          "beta": "0.014128549 unit increase",
+          "or": null,
+          "efo_trait": "systolic blood pressure",
+          "pubmed_id": "39537608",
+          "first_author": "Koskeridis F"
+        },
+        {
+          "rsid": "rs7754840",
+          "genes": [
+            "CDKAL1"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Blood pressure",
+          "effect_allele": "C",
+          "direction": "+",
+          "strand": "ambiguous",
+          "eaf_eur": 0.3181,
+          "p_value": 5.000000000000001e-15,
+          "beta": "0.1804006 mmHg increase",
+          "or": null,
+          "efo_trait": "systolic blood pressure",
+          "pubmed_id": "33230300",
+          "first_author": "Surendran P"
+        },
+        {
+          "rsid": "rs1799998",
+          "genes": [
+            "CYP11B2"
+          ],
+          "modules": [
+            "M07"
+          ],
+          "panel": "Blood pressure",
+          "effect_allele": "A",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.5139,
+          "p_value": 1e-13,
+          "beta": "0.01978 unit increase",
+          "or": null,
+          "efo_trait": "systolic blood pressure",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs1801253",
+          "genes": [
+            "ADRB1"
+          ],
+          "modules": [
+            "M12"
+          ],
+          "panel": "Blood pressure",
+          "effect_allele": "G",
+          "direction": "+",
+          "strand": "ambiguous",
+          "eaf_eur": 0.31510000000000005,
+          "p_value": 4e-13,
+          "beta": "0.2724 mmHg increase",
+          "or": null,
+          "efo_trait": "systolic blood pressure",
+          "pubmed_id": "30578418",
+          "first_author": "Giri A"
+        },
+        {
+          "rsid": "rs5219",
+          "genes": [
+            "KCNJ11"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Blood pressure",
+          "effect_allele": "T",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.3529,
+          "p_value": 5e-12,
+          "beta": "0.32 unit increase",
+          "or": null,
+          "efo_trait": "systolic blood pressure",
+          "pubmed_id": "27618448",
+          "first_author": "Liu C"
+        },
+        {
+          "rsid": "rs7903146",
+          "genes": [
+            "TCF7L2"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Blood pressure",
+          "effect_allele": "C",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.6829000000000001,
+          "p_value": 4e-11,
+          "beta": "0.0179 unit decrease",
+          "or": null,
+          "efo_trait": "systolic blood pressure",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs1800795",
+          "genes": [
+            "IL6"
+          ],
+          "modules": [
+            "M08"
+          ],
+          "panel": "Blood pressure",
+          "effect_allele": "G",
+          "direction": "-",
+          "strand": "ambiguous",
+          "eaf_eur": 0.5845,
+          "p_value": 4.9999999999999995e-11,
+          "beta": "0.191 unit decrease",
+          "or": null,
+          "efo_trait": "systolic blood pressure",
+          "pubmed_id": "38689001",
+          "first_author": "Keaton JM"
+        },
+        {
+          "rsid": "rs1801282",
+          "genes": [
+            "PPARG"
+          ],
+          "modules": [
+            "M06"
+          ],
+          "panel": "Blood pressure",
+          "effect_allele": "C",
+          "direction": "+",
+          "strand": "ambiguous",
+          "eaf_eur": 0.8797,
+          "p_value": 5e-09,
+          "beta": "0.19654442 mmHg increase",
+          "or": null,
+          "efo_trait": "systolic blood pressure",
+          "pubmed_id": "33230300",
+          "first_author": "Surendran P"
+        },
+        {
+          "rsid": "rs5370",
+          "genes": [
+            "EDN1"
+          ],
+          "modules": [
+            "M12"
+          ],
+          "panel": "Blood pressure",
+          "effect_allele": "T",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.2127,
+          "p_value": 8e-09,
+          "beta": "0.14867547 mmHg increase",
+          "or": null,
+          "efo_trait": "systolic blood pressure",
+          "pubmed_id": "33230300",
+          "first_author": "Surendran P"
+        }
+      ]
+    },
+    {
+      "biomarker": "Total cholesterol",
+      "panel": "Lipids",
+      "n_snps": 13,
+      "modules": {
+        "M05": 9,
+        "M02": 2,
+        "M04": 2
+      },
+      "snps": [
+        {
+          "rsid": "rs429358",
+          "genes": [
+            "APOE"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "T",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.8449,
+          "p_value": 1e-323,
+          "beta": "0.1427 unit decrease",
+          "or": null,
+          "efo_trait": "total cholesterol measurement",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs1800588",
+          "genes": [
+            "LIPC"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "T",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.2087,
+          "p_value": 6e-256,
+          "beta": "0.1593 unit increase",
+          "or": null,
+          "efo_trait": "total cholesterol measurement",
+          "pubmed_id": "38448586",
+          "first_author": "Karjalainen MK"
+        },
+        {
+          "rsid": "rs1260326",
+          "genes": [
+            "GCKR"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "T",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.4105,
+          "p_value": 8e-250,
+          "beta": "0.0863 unit increase",
+          "or": null,
+          "efo_trait": "total cholesterol measurement",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs328",
+          "genes": [
+            "LPL"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "G",
+          "direction": "+",
+          "strand": "ambiguous",
+          "eaf_eur": 0.1302,
+          "p_value": 2.9999999999999997e-185,
+          "beta": "0.397669 unit increase",
+          "or": null,
+          "efo_trait": "total cholesterol measurement",
+          "pubmed_id": "39091897",
+          "first_author": "Farashi S"
+        },
+        {
+          "rsid": "rs693",
+          "genes": [
+            "APOB"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "G",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.5577,
+          "p_value": 7e-132,
+          "beta": "0.100724 unit decrease",
+          "or": null,
+          "efo_trait": "total cholesterol measurement",
+          "pubmed_id": "35213538",
+          "first_author": "Richardson TG"
+        },
+        {
+          "rsid": "rs12130333",
+          "genes": [
+            "ANGPTL3"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "T",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.1849,
+          "p_value": 4e-107,
+          "beta": "0.0637 unit decrease",
+          "or": null,
+          "efo_trait": "total cholesterol measurement",
+          "pubmed_id": "33462484",
+          "first_author": "Sinnott-Armstrong N"
+        },
+        {
+          "rsid": "rs662799",
+          "genes": [
+            "APOA5"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "G",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.08350000000000002,
+          "p_value": 1e-55,
+          "beta": "0.061969 unit increase",
+          "or": null,
+          "efo_trait": "total cholesterol measurement",
+          "pubmed_id": "40436827",
+          "first_author": "Jee YH"
+        },
+        {
+          "rsid": "rs738409",
+          "genes": [
+            "PNPLA3"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "C",
+          "direction": "+",
+          "strand": "ambiguous",
+          "eaf_eur": 0.7744,
+          "p_value": 3e-32,
+          "beta": "0.03538 unit increase",
+          "or": null,
+          "efo_trait": "total cholesterol measurement",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs5082",
+          "genes": [
+            "APOA2"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "G",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.38670000000000004,
+          "p_value": 8e-26,
+          "beta": "0.0404103 unit increase",
+          "or": null,
+          "efo_trait": "total cholesterol measurement",
+          "pubmed_id": "35213538",
+          "first_author": "Richardson TG"
+        },
+        {
+          "rsid": "rs1800562",
+          "genes": [
+            "HFE"
+          ],
+          "modules": [
+            "M04"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "G",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.9573,
+          "p_value": 8.999999999999999e-20,
+          "beta": "0.088 unit increase",
+          "or": null,
+          "efo_trait": "total cholesterol measurement",
+          "pubmed_id": "29507422",
+          "first_author": "Hoffmann TJ"
+        },
+        {
+          "rsid": "rs7903146",
+          "genes": [
+            "TCF7L2"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "C",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.6829000000000001,
+          "p_value": 4e-17,
+          "beta": "0.02203 unit increase",
+          "or": null,
+          "efo_trait": "total cholesterol measurement",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs5882",
+          "genes": [
+            "CETP"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "A",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.669,
+          "p_value": 2e-15,
+          "beta": "0.0202 unit decrease",
+          "or": null,
+          "efo_trait": "total cholesterol measurement",
+          "pubmed_id": "33462484",
+          "first_author": "Sinnott-Armstrong N"
+        },
+        {
+          "rsid": "rs602662",
+          "genes": [
+            "FUT2"
+          ],
+          "modules": [
+            "M04"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "G",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.5318,
+          "p_value": 3.0000000000000003e-13,
+          "beta": "0.0299659 unit decrease",
+          "or": null,
+          "efo_trait": "total cholesterol measurement",
+          "pubmed_id": "35213538",
+          "first_author": "Richardson TG"
+        }
+      ]
+    },
+    {
+      "biomarker": "HbA1c",
+      "panel": "Glucose",
+      "n_snps": 12,
+      "modules": {
+        "M02": 8,
+        "M04": 2,
+        "M05": 1,
+        "M11": 1
+      },
+      "snps": [
+        {
+          "rsid": "rs1800562",
+          "genes": [
+            "HFE"
+          ],
+          "modules": [
+            "M04"
+          ],
+          "panel": "Glucose",
+          "effect_allele": "A",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.0427,
+          "p_value": 1e-240,
+          "beta": "0.1106975 unit decrease",
+          "or": null,
+          "efo_trait": "HbA1c measurement",
+          "pubmed_id": "39789286",
+          "first_author": "Loya H"
+        },
+        {
+          "rsid": "rs10830963",
+          "genes": [
+            "MTNR1B"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Glucose",
+          "effect_allele": "G",
+          "direction": "+",
+          "strand": "ambiguous",
+          "eaf_eur": 0.2883,
+          "p_value": 2.9999999999999996e-177,
+          "beta": "0.056988616 unit increase",
+          "or": null,
+          "efo_trait": "HbA1c measurement",
+          "pubmed_id": "39789286",
+          "first_author": "Loya H"
+        },
+        {
+          "rsid": "rs13266634",
+          "genes": [
+            "SLC30A8"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Glucose",
+          "effect_allele": "T",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.2833,
+          "p_value": 6e-133,
+          "beta": "0.047997303 unit decrease",
+          "or": null,
+          "efo_trait": "HbA1c measurement",
+          "pubmed_id": "39789286",
+          "first_author": "Loya H"
+        },
+        {
+          "rsid": "rs7903146",
+          "genes": [
+            "TCF7L2"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Glucose",
+          "effect_allele": "C",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.6829000000000001,
+          "p_value": 5e-115,
+          "beta": "0.1205 unit decrease",
+          "or": null,
+          "efo_trait": "HbA1c measurement",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs1799945",
+          "genes": [
+            "HFE"
+          ],
+          "modules": [
+            "M04"
+          ],
+          "panel": "Glucose",
+          "effect_allele": "C",
+          "direction": "+",
+          "strand": "ambiguous",
+          "eaf_eur": 0.8280000000000001,
+          "p_value": 7e-60,
+          "beta": "0.06491 unit increase",
+          "or": null,
+          "efo_trait": "HbA1c measurement",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs5219",
+          "genes": [
+            "KCNJ11"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Glucose",
+          "effect_allele": "T",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.3529,
+          "p_value": 8e-53,
+          "beta": "0.04481 unit increase",
+          "or": null,
+          "efo_trait": "HbA1c measurement",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs429358",
+          "genes": [
+            "APOE"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Glucose",
+          "effect_allele": "T",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.8449,
+          "p_value": 1e-51,
+          "beta": "0.06229 unit increase",
+          "or": null,
+          "efo_trait": "HbA1c measurement",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs1260326",
+          "genes": [
+            "GCKR"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Glucose",
+          "effect_allele": "T",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.4105,
+          "p_value": 7e-50,
+          "beta": "0.04307 unit decrease",
+          "or": null,
+          "efo_trait": "HbA1c measurement",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs1042522",
+          "genes": [
+            "TP53"
+          ],
+          "modules": [
+            "M11"
+          ],
+          "panel": "Glucose",
+          "effect_allele": "C",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.7147,
+          "p_value": 3.0000000000000002e-18,
+          "beta": "0.0243 unit decrease",
+          "or": null,
+          "efo_trait": "HbA1c measurement",
+          "pubmed_id": "33462484",
+          "first_author": "Sinnott-Armstrong N"
+        },
+        {
+          "rsid": "rs8192675",
+          "genes": [
+            "SLC2A2"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Glucose",
+          "effect_allele": "C",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.2893,
+          "p_value": 7e-14,
+          "beta": "0.17 unit increase",
+          "or": null,
+          "efo_trait": "HbA1c measurement",
+          "pubmed_id": "27500523",
+          "first_author": "Zhou K"
+        },
+        {
+          "rsid": "rs5400",
+          "genes": [
+            "SLC2A2"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Glucose",
+          "effect_allele": "A",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.1352,
+          "p_value": 2e-13,
+          "beta": "0.013 unit decrease",
+          "or": null,
+          "efo_trait": "HbA1c measurement",
+          "pubmed_id": "39280063",
+          "first_author": "Willems SM"
+        },
+        {
+          "rsid": "rs3731249",
+          "genes": [
+            "CDKN2A"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Glucose",
+          "effect_allele": "T",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.0249,
+          "p_value": 2e-11,
+          "beta": "0.0511 unit decrease",
+          "or": null,
+          "efo_trait": "HbA1c measurement",
+          "pubmed_id": "33462484",
+          "first_author": "Sinnott-Armstrong N"
+        }
+      ]
+    },
+    {
+      "biomarker": "Hemoglobin",
+      "panel": "Blood & iron",
+      "n_snps": 12,
+      "modules": {
+        "M04": 3,
+        "M02": 3,
+        "M05": 3,
+        "M03": 1,
+        "M01": 1
+      },
+      "snps": [
+        {
+          "rsid": "rs1800562",
+          "genes": [
+            "HFE"
+          ],
+          "modules": [
+            "M04"
+          ],
+          "panel": "Blood & iron",
+          "effect_allele": "A",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.0427,
+          "p_value": 0.0,
+          "beta": "0.1428 unit increase",
+          "or": null,
+          "efo_trait": "hemoglobin measurement",
+          "pubmed_id": "34594039",
+          "first_author": "Sakaue S"
+        },
+        {
+          "rsid": "rs1799945",
+          "genes": [
+            "HFE"
+          ],
+          "modules": [
+            "M04"
+          ],
+          "panel": "Blood & iron",
+          "effect_allele": "G",
+          "direction": "+",
+          "strand": "ambiguous",
+          "eaf_eur": 0.172,
+          "p_value": 2e-224,
+          "beta": "0.099 unit increase",
+          "or": null,
+          "efo_trait": "hemoglobin measurement",
+          "pubmed_id": "32327693",
+          "first_author": "Oskarsson GR"
+        },
+        {
+          "rsid": "rs7903146",
+          "genes": [
+            "TCF7L2"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Blood & iron",
+          "effect_allele": "C",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.6829000000000001,
+          "p_value": 1e-33,
+          "beta": "0.03128 unit increase",
+          "or": null,
+          "efo_trait": "hemoglobin measurement",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs738409",
+          "genes": [
+            "PNPLA3"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Blood & iron",
+          "effect_allele": "C",
+          "direction": "-",
+          "strand": "ambiguous",
+          "eaf_eur": 0.7744,
+          "p_value": 2e-19,
+          "beta": "0.02674 unit decrease",
+          "or": null,
+          "efo_trait": "hemoglobin measurement",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs1260326",
+          "genes": [
+            "GCKR"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Blood & iron",
+          "effect_allele": "T",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.4105,
+          "p_value": 1e-17,
+          "beta": "0.02151 unit decrease",
+          "or": null,
+          "efo_trait": "hemoglobin measurement",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs5219",
+          "genes": [
+            "KCNJ11"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Blood & iron",
+          "effect_allele": "T",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.3529,
+          "p_value": 1e-12,
+          "beta": "0.01832 unit decrease",
+          "or": null,
+          "efo_trait": "hemoglobin measurement",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs1800588",
+          "genes": [
+            "LIPC"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Blood & iron",
+          "effect_allele": "T",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.2087,
+          "p_value": 4.9999999999999995e-11,
+          "beta": "0.0264 unit decrease",
+          "or": null,
+          "efo_trait": "hemoglobin measurement",
+          "pubmed_id": "35964923",
+          "first_author": "Timoteo VJ"
+        },
+        {
+          "rsid": "rs1050450",
+          "genes": [
+            "GPX1"
+          ],
+          "modules": [],
+          "panel": "Blood & iron",
+          "effect_allele": "A",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.336,
+          "p_value": 6e-11,
+          "beta": "0.015 unit decrease",
+          "or": null,
+          "efo_trait": "hemoglobin measurement",
+          "pubmed_id": "32327693",
+          "first_author": "Oskarsson GR"
+        },
+        {
+          "rsid": "rs2231142",
+          "genes": [
+            "ABCG2"
+          ],
+          "modules": [
+            "M03"
+          ],
+          "panel": "Blood & iron",
+          "effect_allele": "T",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.0944,
+          "p_value": 3e-10,
+          "beta": "0.0095 unit decrease",
+          "or": null,
+          "efo_trait": "hemoglobin measurement",
+          "pubmed_id": "40436827",
+          "first_author": "Jee YH"
+        },
+        {
+          "rsid": "rs671",
+          "genes": [
+            "ALDH2"
+          ],
+          "modules": [
+            "M01"
+          ],
+          "panel": "Blood & iron",
+          "effect_allele": "A",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0,
+          "p_value": 7.000000000000001e-10,
+          "beta": "0.083 unit decrease",
+          "or": null,
+          "efo_trait": "hemoglobin measurement",
+          "pubmed_id": "20139978",
+          "first_author": "Kamatani Y"
+        },
+        {
+          "rsid": "rs662799",
+          "genes": [
+            "APOA5"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Blood & iron",
+          "effect_allele": "G",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.08350000000000002,
+          "p_value": 1e-09,
+          "beta": "0.0168712 unit increase",
+          "or": null,
+          "efo_trait": "hemoglobin measurement",
+          "pubmed_id": "40436827",
+          "first_author": "Jee YH"
+        },
+        {
+          "rsid": "rs601338",
+          "genes": [
+            "FUT2"
+          ],
+          "modules": [
+            "M04"
+          ],
+          "panel": "Blood & iron",
+          "effect_allele": "G",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.5586,
+          "p_value": 3.0000000000000004e-09,
+          "beta": "0.013 unit increase",
+          "or": null,
+          "efo_trait": "hemoglobin measurement",
+          "pubmed_id": "32327693",
+          "first_author": "Oskarsson GR"
+        }
+      ]
+    },
+    {
+      "biomarker": "Diastolic BP",
+      "panel": "Blood pressure",
+      "n_snps": 11,
+      "modules": {
+        "M04": 3,
+        "M01": 2,
+        "M12": 2,
+        "M09": 2,
+        "M02": 2
+      },
+      "snps": [
+        {
+          "rsid": "rs671",
+          "genes": [
+            "ALDH2"
+          ],
+          "modules": [
+            "M01"
+          ],
+          "panel": "Blood pressure",
+          "effect_allele": "A",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0,
+          "p_value": 6.0000000000000005e-117,
+          "beta": "0.0592 unit decrease",
+          "or": null,
+          "efo_trait": "diastolic blood pressure",
+          "pubmed_id": "40436827",
+          "first_author": "Jee YH"
+        },
+        {
+          "rsid": "rs1799945",
+          "genes": [
+            "HFE"
+          ],
+          "modules": [
+            "M04"
+          ],
+          "panel": "Blood pressure",
+          "effect_allele": "G",
+          "direction": "+",
+          "strand": "ambiguous",
+          "eaf_eur": 0.172,
+          "p_value": 1e-62,
+          "beta": "0.3516 unit increase",
+          "or": null,
+          "efo_trait": "diastolic blood pressure",
+          "pubmed_id": "38689001",
+          "first_author": "Keaton JM"
+        },
+        {
+          "rsid": "rs699",
+          "genes": [
+            "AGT"
+          ],
+          "modules": [
+            "M12"
+          ],
+          "panel": "Blood pressure",
+          "effect_allele": "G",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.4115,
+          "p_value": 7e-46,
+          "beta": "0.2164 unit increase",
+          "or": null,
+          "efo_trait": "diastolic blood pressure",
+          "pubmed_id": "38689001",
+          "first_author": "Keaton JM"
+        },
+        {
+          "rsid": "rs1800562",
+          "genes": [
+            "HFE"
+          ],
+          "modules": [
+            "M04"
+          ],
+          "panel": "Blood pressure",
+          "effect_allele": "A",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.0427,
+          "p_value": 4e-31,
+          "beta": "0.3407 unit increase",
+          "or": null,
+          "efo_trait": "diastolic blood pressure",
+          "pubmed_id": "38689001",
+          "first_author": "Keaton JM"
+        },
+        {
+          "rsid": "rs1801133",
+          "genes": [
+            "MTHFR"
+          ],
+          "modules": [
+            "M09"
+          ],
+          "panel": "Blood pressure",
+          "effect_allele": "A",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.3648,
+          "p_value": 7e-24,
+          "beta": "0.018055383 unit increase",
+          "or": null,
+          "efo_trait": "diastolic blood pressure",
+          "pubmed_id": "39537608",
+          "first_author": "Koskeridis F"
+        },
+        {
+          "rsid": "rs1801253",
+          "genes": [
+            "ADRB1"
+          ],
+          "modules": [
+            "M12"
+          ],
+          "panel": "Blood pressure",
+          "effect_allele": "G",
+          "direction": "-",
+          "strand": "ambiguous",
+          "eaf_eur": 0.31510000000000005,
+          "p_value": 3e-22,
+          "beta": "0.02804 unit decrease",
+          "or": null,
+          "efo_trait": "diastolic blood pressure",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs7903146",
+          "genes": [
+            "TCF7L2"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Blood pressure",
+          "effect_allele": "C",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.6829000000000001,
+          "p_value": 2e-18,
+          "beta": "0.02425 unit increase",
+          "or": null,
+          "efo_trait": "diastolic blood pressure",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs601338",
+          "genes": [
+            "FUT2"
+          ],
+          "modules": [
+            "M04"
+          ],
+          "panel": "Blood pressure",
+          "effect_allele": "A",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.4414,
+          "p_value": 2e-13,
+          "beta": "0.012490783 unit increase",
+          "or": null,
+          "efo_trait": "diastolic blood pressure",
+          "pubmed_id": "39537608",
+          "first_author": "Koskeridis F"
+        },
+        {
+          "rsid": "rs1229984",
+          "genes": [
+            "ADH1B"
+          ],
+          "modules": [
+            "M01"
+          ],
+          "panel": "Blood pressure",
+          "effect_allele": "T",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.028800000000000048,
+          "p_value": 1e-12,
+          "beta": "0.04817 unit decrease",
+          "or": null,
+          "efo_trait": "diastolic blood pressure",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs11191548",
+          "genes": [
+            "CNNM2"
+          ],
+          "modules": [
+            "M09"
+          ],
+          "panel": "Blood pressure",
+          "effect_allele": "T",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.9115,
+          "p_value": 7e-12,
+          "beta": "0.58 mm Hg increase",
+          "or": null,
+          "efo_trait": "diastolic blood pressure",
+          "pubmed_id": "21572416",
+          "first_author": "Kato N"
+        },
+        {
+          "rsid": "rs7754840",
+          "genes": [
+            "CDKAL1"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Blood pressure",
+          "effect_allele": "C",
+          "direction": "+",
+          "strand": "ambiguous",
+          "eaf_eur": 0.3181,
+          "p_value": 1e-08,
+          "beta": "0.09923076 mmHg increase",
+          "or": null,
+          "efo_trait": "diastolic blood pressure",
+          "pubmed_id": "33230300",
+          "first_author": "Surendran P"
+        }
+      ]
+    },
+    {
+      "biomarker": "Fasting glucose",
+      "panel": "Glucose",
+      "n_snps": 11,
+      "modules": {
+        "M02": 8,
+        "M01": 2,
+        "M05": 1
+      },
+      "snps": [
+        {
+          "rsid": "rs10830963",
+          "genes": [
+            "MTNR1B"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Glucose",
+          "effect_allele": "C",
+          "direction": "+",
+          "strand": "ambiguous",
+          "eaf_eur": 0.7117,
+          "p_value": 1e-321,
+          "beta": "0.0772 unit increase",
+          "or": null,
+          "efo_trait": "glucose measurement",
+          "pubmed_id": "34059833",
+          "first_author": "Chen J"
+        },
+        {
+          "rsid": "rs13266634",
+          "genes": [
+            "SLC30A8"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Glucose",
+          "effect_allele": "T",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.2833,
+          "p_value": 1e-287,
+          "beta": "0.0575 unit decrease",
+          "or": null,
+          "efo_trait": "blood glucose amount",
+          "pubmed_id": "40436827",
+          "first_author": "Jee YH"
+        },
+        {
+          "rsid": "rs7903146",
+          "genes": [
+            "TCF7L2"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Glucose",
+          "effect_allele": "C",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.6829000000000001,
+          "p_value": 3.0000000000000003e-128,
+          "beta": "0.06238 unit decrease",
+          "or": null,
+          "efo_trait": "glucose measurement",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs671",
+          "genes": [
+            "ALDH2"
+          ],
+          "modules": [
+            "M01"
+          ],
+          "panel": "Glucose",
+          "effect_allele": "A",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0,
+          "p_value": 1e-91,
+          "beta": "0.117074 unit decrease",
+          "or": null,
+          "efo_trait": "blood glucose amount",
+          "pubmed_id": "40436827",
+          "first_author": "Jee YH"
+        },
+        {
+          "rsid": "rs1260326",
+          "genes": [
+            "GCKR"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Glucose",
+          "effect_allele": "T",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.4105,
+          "p_value": 2e-82,
+          "beta": "0.05027 unit decrease",
+          "or": null,
+          "efo_trait": "glucose measurement",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs429358",
+          "genes": [
+            "APOE"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Glucose",
+          "effect_allele": "T",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.8449,
+          "p_value": 4e-35,
+          "beta": "0.04582 unit increase",
+          "or": null,
+          "efo_trait": "glucose measurement",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs5219",
+          "genes": [
+            "KCNJ11"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Glucose",
+          "effect_allele": "T",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.3529,
+          "p_value": 1e-21,
+          "beta": "0.03006 unit increase",
+          "or": null,
+          "efo_trait": "glucose measurement",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs1229984",
+          "genes": [
+            "ADH1B"
+          ],
+          "modules": [
+            "M01"
+          ],
+          "panel": "Glucose",
+          "effect_allele": "T",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.028800000000000048,
+          "p_value": 2e-19,
+          "beta": "0.06422 unit decrease",
+          "or": null,
+          "efo_trait": "glucose measurement",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs5400",
+          "genes": [
+            "SLC2A2"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Glucose",
+          "effect_allele": "A",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.1352,
+          "p_value": 2e-17,
+          "beta": "0.022 unit decrease",
+          "or": null,
+          "efo_trait": "blood glucose amount",
+          "pubmed_id": "39280063",
+          "first_author": "Willems SM"
+        },
+        {
+          "rsid": "rs8192675",
+          "genes": [
+            "SLC2A2"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Glucose",
+          "effect_allele": "C",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.2893,
+          "p_value": 8e-11,
+          "beta": "0.087149106 mmol/L decrease",
+          "or": null,
+          "efo_trait": "blood glucose amount",
+          "pubmed_id": "28270201",
+          "first_author": "Nagy R"
+        },
+        {
+          "rsid": "rs7754840",
+          "genes": [
+            "CDKAL1"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Glucose",
+          "effect_allele": "C",
+          "direction": "+",
+          "strand": "ambiguous",
+          "eaf_eur": 0.3181,
+          "p_value": 6.000000000000001e-09,
+          "beta": "0.01488 unit increase",
+          "or": null,
+          "efo_trait": "blood glucose amount",
+          "pubmed_id": "31902109",
+          "first_author": "Li D"
+        }
+      ]
+    },
+    {
+      "biomarker": "eGFR",
+      "panel": "Kidney",
+      "n_snps": 11,
+      "modules": {
+        "M02": 3,
+        "M01": 2,
+        "M08": 2,
+        "M06": 1,
+        "M05": 1,
+        "M04": 1,
+        "M09": 1
+      },
+      "snps": [
+        {
+          "rsid": "rs1260326",
+          "genes": [
+            "GCKR"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Kidney",
+          "effect_allele": "T",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.4105,
+          "p_value": 2e-37,
+          "beta": "0.03532 unit increase",
+          "or": null,
+          "efo_trait": "glomerular filtration rate",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs838133",
+          "genes": [
+            "FGF21"
+          ],
+          "modules": [
+            "M06"
+          ],
+          "panel": "Kidney",
+          "effect_allele": "G",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.5746,
+          "p_value": 1e-25,
+          "beta": "0.0219709 unit increase",
+          "or": null,
+          "efo_trait": "glomerular filtration rate",
+          "pubmed_id": "39256582",
+          "first_author": "Loeb GB"
+        },
+        {
+          "rsid": "rs1229984",
+          "genes": [
+            "ADH1B"
+          ],
+          "modules": [
+            "M01"
+          ],
+          "panel": "Kidney",
+          "effect_allele": "T",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.028800000000000048,
+          "p_value": 1e-24,
+          "beta": "0.06961 unit decrease",
+          "or": null,
+          "efo_trait": "glomerular filtration rate",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs671",
+          "genes": [
+            "ALDH2"
+          ],
+          "modules": [
+            "M01"
+          ],
+          "panel": "Kidney",
+          "effect_allele": "A",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0,
+          "p_value": 1e-19,
+          "beta": "0.8373 unit decrease",
+          "or": null,
+          "efo_trait": "glomerular filtration rate",
+          "pubmed_id": "37919891",
+          "first_author": "Lee DJ"
+        },
+        {
+          "rsid": "rs17602729",
+          "genes": [
+            "AMPD1"
+          ],
+          "modules": [
+            "M08"
+          ],
+          "panel": "Kidney",
+          "effect_allele": "G",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.8767,
+          "p_value": 2e-16,
+          "beta": "0.00294 unit decrease",
+          "or": null,
+          "efo_trait": "glomerular filtration rate",
+          "pubmed_id": "34272381",
+          "first_author": "Stanzick KJ"
+        },
+        {
+          "rsid": "rs429358",
+          "genes": [
+            "APOE"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Kidney",
+          "effect_allele": "T",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.8449,
+          "p_value": 9e-16,
+          "beta": "0.02805 unit decrease",
+          "or": null,
+          "efo_trait": "glomerular filtration rate",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs7903146",
+          "genes": [
+            "TCF7L2"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Kidney",
+          "effect_allele": "C",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.6829000000000001,
+          "p_value": 3.0000000000000003e-13,
+          "beta": "0.0198 unit increase",
+          "or": null,
+          "efo_trait": "glomerular filtration rate",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs33972313",
+          "genes": [
+            "SLC23A1"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Kidney",
+          "effect_allele": "T",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.0348,
+          "p_value": 3.0000000000000004e-09,
+          "beta": "0.0382 unit decrease",
+          "or": null,
+          "efo_trait": "glomerular filtration rate",
+          "pubmed_id": "33462484",
+          "first_author": "Sinnott-Armstrong N"
+        },
+        {
+          "rsid": "rs1815739",
+          "genes": [
+            "ACTN3"
+          ],
+          "modules": [
+            "M08"
+          ],
+          "panel": "Kidney",
+          "effect_allele": "C",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.5656,
+          "p_value": 4e-09,
+          "beta": "5.893 z score decrease",
+          "or": null,
+          "efo_trait": "glomerular filtration rate",
+          "pubmed_id": "35710981",
+          "first_author": "Liu H"
+        },
+        {
+          "rsid": "rs2476601",
+          "genes": [
+            "PTPN22"
+          ],
+          "modules": [
+            "M04"
+          ],
+          "panel": "Kidney",
+          "effect_allele": "G",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.9056,
+          "p_value": 9.000000000000001e-09,
+          "beta": "0.0192738 unit increase",
+          "or": null,
+          "efo_trait": "glomerular filtration rate",
+          "pubmed_id": "39256582",
+          "first_author": "Loeb GB"
+        },
+        {
+          "rsid": "rs1801133",
+          "genes": [
+            "MTHFR"
+          ],
+          "modules": [
+            "M09"
+          ],
+          "panel": "Kidney",
+          "effect_allele": "A",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.3648,
+          "p_value": 3.0000000000000004e-08,
+          "beta": "5.572 z score decrease",
+          "or": null,
+          "efo_trait": "glomerular filtration rate",
+          "pubmed_id": "35710981",
+          "first_author": "Liu H"
+        }
+      ]
+    },
+    {
+      "biomarker": "Creatinine",
+      "panel": "Kidney",
+      "n_snps": 9,
+      "modules": {
+        "M02": 2,
+        "M03": 2,
+        "M01": 1,
+        "M05": 1,
+        "M10": 1,
+        "M08": 1,
+        "M04": 1
+      },
+      "snps": [
+        {
+          "rsid": "rs1260326",
+          "genes": [
+            "GCKR"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Kidney",
+          "effect_allele": "T",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.4105,
+          "p_value": 2e-51,
+          "beta": "0.03757 unit decrease",
+          "or": null,
+          "efo_trait": "serum creatinine amount",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs1229984",
+          "genes": [
+            "ADH1B"
+          ],
+          "modules": [
+            "M01"
+          ],
+          "panel": "Kidney",
+          "effect_allele": "T",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.028800000000000048,
+          "p_value": 2e-31,
+          "beta": "0.08002 unit increase",
+          "or": null,
+          "efo_trait": "serum creatinine amount",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs429358",
+          "genes": [
+            "APOE"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Kidney",
+          "effect_allele": "T",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.8449,
+          "p_value": 2e-20,
+          "beta": "0.03275 unit increase",
+          "or": null,
+          "efo_trait": "serum creatinine amount",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs1799895",
+          "genes": [
+            "SOD3"
+          ],
+          "modules": [
+            "M10"
+          ],
+          "panel": "Kidney",
+          "effect_allele": "C",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.992,
+          "p_value": 7e-20,
+          "beta": "0.0873 unit decrease",
+          "or": null,
+          "efo_trait": "serum creatinine amount",
+          "pubmed_id": "40436827",
+          "first_author": "Jee YH"
+        },
+        {
+          "rsid": "rs2231142",
+          "genes": [
+            "ABCG2"
+          ],
+          "modules": [
+            "M03"
+          ],
+          "panel": "Kidney",
+          "effect_allele": "G",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.9056,
+          "p_value": 1e-15,
+          "beta": "0.03093 unit decrease",
+          "or": null,
+          "efo_trait": "serum creatinine amount",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs17602729",
+          "genes": [
+            "AMPD1"
+          ],
+          "modules": [
+            "M08"
+          ],
+          "panel": "Kidney",
+          "effect_allele": "A",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.1233,
+          "p_value": 3.0000000000000002e-15,
+          "beta": "0.0244 unit decrease",
+          "or": null,
+          "efo_trait": "serum creatinine amount",
+          "pubmed_id": "40436827",
+          "first_author": "Jee YH"
+        },
+        {
+          "rsid": "rs1800562",
+          "genes": [
+            "HFE"
+          ],
+          "modules": [
+            "M04"
+          ],
+          "panel": "Kidney",
+          "effect_allele": "A",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.0427,
+          "p_value": 3e-14,
+          "beta": "0.461523 unit decrease",
+          "or": null,
+          "efo_trait": "serum creatinine amount",
+          "pubmed_id": "38836225",
+          "first_author": "He P"
+        },
+        {
+          "rsid": "rs33972313",
+          "genes": [
+            "SLC23A1"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Kidney",
+          "effect_allele": "T",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.0348,
+          "p_value": 1e-09,
+          "beta": "0.039 unit increase",
+          "or": null,
+          "efo_trait": "serum creatinine amount",
+          "pubmed_id": "33462484",
+          "first_author": "Sinnott-Armstrong N"
+        },
+        {
+          "rsid": "rs4149056",
+          "genes": [
+            "SLCO1B1"
+          ],
+          "modules": [
+            "M03"
+          ],
+          "panel": "Kidney",
+          "effect_allele": "T",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.839,
+          "p_value": 3.0000000000000004e-08,
+          "beta": "0.0098 unit increase",
+          "or": null,
+          "efo_trait": "serum creatinine amount",
+          "pubmed_id": "40436827",
+          "first_author": "Jee YH"
+        }
+      ]
+    },
+    {
+      "biomarker": "ALT",
+      "panel": "Liver",
+      "n_snps": 8,
+      "modules": {
+        "M05": 2,
+        "M06": 2,
+        "M02": 2,
+        "M01": 1,
+        "M04": 1
+      },
+      "snps": [
+        {
+          "rsid": "rs738409",
+          "genes": [
+            "PNPLA3"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Liver",
+          "effect_allele": "C",
+          "direction": "-",
+          "strand": "ambiguous",
+          "eaf_eur": 0.7744,
+          "p_value": 1e-323,
+          "beta": "0.11 unit decrease",
+          "or": null,
+          "efo_trait": "serum alanine aminotransferase amount",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs671",
+          "genes": [
+            "ALDH2"
+          ],
+          "modules": [
+            "M01"
+          ],
+          "panel": "Liver",
+          "effect_allele": "A",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0,
+          "p_value": 8.0000000000000005e-112,
+          "beta": "0.119599 unit decrease",
+          "or": null,
+          "efo_trait": "serum alanine aminotransferase amount",
+          "pubmed_id": "40436827",
+          "first_author": "Jee YH"
+        },
+        {
+          "rsid": "rs429358",
+          "genes": [
+            "APOE"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Liver",
+          "effect_allele": "T",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.8449,
+          "p_value": 7e-68,
+          "beta": "0.06032 unit increase",
+          "or": null,
+          "efo_trait": "serum alanine aminotransferase amount",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs174537",
+          "genes": [
+            "FADS1"
+          ],
+          "modules": [
+            "M06"
+          ],
+          "panel": "Liver",
+          "effect_allele": "G",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.6511,
+          "p_value": 8e-36,
+          "beta": "0.03164 unit increase",
+          "or": null,
+          "efo_trait": "serum alanine aminotransferase amount",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs4988235",
+          "genes": [
+            "LCT"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Liver",
+          "effect_allele": "G",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.492,
+          "p_value": 8e-22,
+          "beta": "0.0273 unit decrease",
+          "or": null,
+          "efo_trait": "serum alanine aminotransferase amount",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs601338",
+          "genes": [
+            "FUT2"
+          ],
+          "modules": [
+            "M04"
+          ],
+          "panel": "Liver",
+          "effect_allele": "G",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.5586,
+          "p_value": 4e-12,
+          "beta": "0.01621 unit increase",
+          "or": null,
+          "efo_trait": "serum alanine aminotransferase amount",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs1801282",
+          "genes": [
+            "PPARG"
+          ],
+          "modules": [
+            "M06"
+          ],
+          "panel": "Liver",
+          "effect_allele": "C",
+          "direction": "+",
+          "strand": "ambiguous",
+          "eaf_eur": 0.8797,
+          "p_value": 1e-11,
+          "beta": "0.02684 unit increase",
+          "or": null,
+          "efo_trait": "serum alanine aminotransferase amount",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs7498665",
+          "genes": [
+            "SH2B1"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Liver",
+          "effect_allele": "G",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.329,
+          "p_value": 4e-08,
+          "beta": "0.0022 unit increase",
+          "or": null,
+          "efo_trait": "serum alanine aminotransferase amount",
+          "pubmed_id": "38632349",
+          "first_author": "Ghouse J"
+        }
+      ]
+    },
+    {
+      "biomarker": "AST",
+      "panel": "Liver",
+      "n_snps": 8,
+      "modules": {
+        "M05": 2,
+        "M01": 2,
+        "M02": 2,
+        "M11": 2
+      },
+      "snps": [
+        {
+          "rsid": "rs738409",
+          "genes": [
+            "PNPLA3"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Liver",
+          "effect_allele": "C",
+          "direction": "-",
+          "strand": "ambiguous",
+          "eaf_eur": 0.7744,
+          "p_value": 1e-323,
+          "beta": "0.1238 unit decrease",
+          "or": null,
+          "efo_trait": "aspartate aminotransferase measurement",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs671",
+          "genes": [
+            "ALDH2"
+          ],
+          "modules": [
+            "M01"
+          ],
+          "panel": "Liver",
+          "effect_allele": "A",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0,
+          "p_value": 2e-171,
+          "beta": "0.156777 unit decrease",
+          "or": null,
+          "efo_trait": "aspartate aminotransferase measurement",
+          "pubmed_id": "40436827",
+          "first_author": "Jee YH"
+        },
+        {
+          "rsid": "rs1260326",
+          "genes": [
+            "GCKR"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Liver",
+          "effect_allele": "T",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.4105,
+          "p_value": 5e-51,
+          "beta": "0.0417 unit increase",
+          "or": null,
+          "efo_trait": "aspartate aminotransferase measurement",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs7903146",
+          "genes": [
+            "TCF7L2"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Liver",
+          "effect_allele": "C",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.6829000000000001,
+          "p_value": 5e-32,
+          "beta": "0.0336 unit increase",
+          "or": null,
+          "efo_trait": "aspartate aminotransferase measurement",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs1229984",
+          "genes": [
+            "ADH1B"
+          ],
+          "modules": [
+            "M01"
+          ],
+          "panel": "Liver",
+          "effect_allele": "T",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.028800000000000048,
+          "p_value": 3e-16,
+          "beta": "0.05374 unit decrease",
+          "or": null,
+          "efo_trait": "aspartate aminotransferase measurement",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs16942",
+          "genes": [
+            "BRCA1"
+          ],
+          "modules": [
+            "M11"
+          ],
+          "panel": "Liver",
+          "effect_allele": "C",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.3549,
+          "p_value": 1e-12,
+          "beta": "0.0181 unit increase",
+          "or": null,
+          "efo_trait": "aspartate aminotransferase measurement",
+          "pubmed_id": "33462484",
+          "first_author": "Sinnott-Armstrong N"
+        },
+        {
+          "rsid": "rs662",
+          "genes": [
+            "PON1"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Liver",
+          "effect_allele": "C",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.2903,
+          "p_value": 4e-12,
+          "beta": "0.199023 unit increase",
+          "or": null,
+          "efo_trait": "aspartate aminotransferase, cytoplasmic measurement",
+          "pubmed_id": "36168886",
+          "first_author": "Thareja G"
+        },
+        {
+          "rsid": "rs1801516",
+          "genes": [
+            "ATM"
+          ],
+          "modules": [
+            "M11"
+          ],
+          "panel": "Liver",
+          "effect_allele": "A",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.162,
+          "p_value": 6.000000000000001e-09,
+          "beta": "0.0197 unit increase",
+          "or": null,
+          "efo_trait": "aspartate aminotransferase measurement",
+          "pubmed_id": "40436827",
+          "first_author": "Jee YH"
+        }
+      ]
+    },
+    {
+      "biomarker": "CRP",
+      "panel": "Inflammation",
+      "n_snps": 8,
+      "modules": {
+        "M04": 2,
+        "M03": 2,
+        "M05": 1,
+        "M01": 1,
+        "M08": 1,
+        "M06": 1
+      },
+      "snps": [
+        {
+          "rsid": "rs429358",
+          "genes": [
+            "APOE"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Inflammation",
+          "effect_allele": "C",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.1551,
+          "p_value": 1e-39,
+          "beta": "0.187 unit decrease",
+          "or": null,
+          "efo_trait": "c-reactive protein measurement",
+          "pubmed_id": "39414775",
+          "first_author": "Jacobs BM"
+        },
+        {
+          "rsid": "rs601338",
+          "genes": [
+            "FUT2"
+          ],
+          "modules": [
+            "M04"
+          ],
+          "panel": "Inflammation",
+          "effect_allele": "A",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.4414,
+          "p_value": 1e-29,
+          "beta": "0.022677 unit increase",
+          "or": null,
+          "efo_trait": "c-reactive protein measurement",
+          "pubmed_id": "36376304",
+          "first_author": "Koskeridis F"
+        },
+        {
+          "rsid": "rs6265",
+          "genes": [
+            "BDNF"
+          ],
+          "modules": [
+            "M01"
+          ],
+          "panel": "Inflammation",
+          "effect_allele": "C",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.8032,
+          "p_value": 8e-19,
+          "beta": "0.0227799 unit increase",
+          "or": null,
+          "efo_trait": "c-reactive protein measurement",
+          "pubmed_id": "31900758",
+          "first_author": "Han X"
+        },
+        {
+          "rsid": "rs2228145",
+          "genes": [
+            "IL6R"
+          ],
+          "modules": [
+            "M04"
+          ],
+          "panel": "Inflammation",
+          "effect_allele": "A",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.6402,
+          "p_value": 2e-15,
+          "beta": "0.108 unit increase",
+          "or": null,
+          "efo_trait": "c-reactive protein measurement",
+          "pubmed_id": "34648354",
+          "first_author": "Pietzner M"
+        },
+        {
+          "rsid": "rs1801272",
+          "genes": [
+            "CYP2A6"
+          ],
+          "modules": [
+            "M03"
+          ],
+          "panel": "Inflammation",
+          "effect_allele": "A",
+          "direction": "+",
+          "strand": "ambiguous",
+          "eaf_eur": 0.9662,
+          "p_value": 3e-14,
+          "beta": "0.0526 unit increase",
+          "or": null,
+          "efo_trait": "c-reactive protein measurement",
+          "pubmed_id": "35459240",
+          "first_author": "Said S"
+        },
+        {
+          "rsid": "rs45446698",
+          "genes": [
+            "CYP3A7"
+          ],
+          "modules": [
+            "M03"
+          ],
+          "panel": "Inflammation",
+          "effect_allele": "G",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.0437,
+          "p_value": 1e-12,
+          "beta": "0.0425 unit decrease",
+          "or": null,
+          "efo_trait": "c-reactive protein measurement",
+          "pubmed_id": "33462484",
+          "first_author": "Sinnott-Armstrong N"
+        },
+        {
+          "rsid": "rs1256335",
+          "genes": [
+            "ALPL"
+          ],
+          "modules": [
+            "M08"
+          ],
+          "panel": "Inflammation",
+          "effect_allele": "A",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.7803,
+          "p_value": 3e-10,
+          "beta": "0.015243 unit increase",
+          "or": null,
+          "efo_trait": "c-reactive protein measurement",
+          "pubmed_id": "36376304",
+          "first_author": "Koskeridis F"
+        },
+        {
+          "rsid": "rs174547",
+          "genes": [
+            "FADS2"
+          ],
+          "modules": [
+            "M06"
+          ],
+          "panel": "Inflammation",
+          "effect_allele": "T",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.6531,
+          "p_value": 3.0000000000000004e-08,
+          "beta": "0.011778 unit increase",
+          "or": null,
+          "efo_trait": "c-reactive protein measurement",
+          "pubmed_id": "36376304",
+          "first_author": "Koskeridis F"
+        }
+      ]
+    },
+    {
+      "biomarker": "Urea",
+      "panel": "Kidney",
+      "n_snps": 8,
+      "modules": {
+        "M02": 4,
+        "M01": 2,
+        "M06": 1,
+        "M05": 1
+      },
+      "snps": [
+        {
+          "rsid": "rs838133",
+          "genes": [
+            "FGF21"
+          ],
+          "modules": [
+            "M06"
+          ],
+          "panel": "Kidney",
+          "effect_allele": "G",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.5746,
+          "p_value": 2e-66,
+          "beta": "0.0409 unit increase",
+          "or": null,
+          "efo_trait": "blood urea nitrogen amount",
+          "pubmed_id": "34594039",
+          "first_author": "Sakaue S"
+        },
+        {
+          "rsid": "rs1229984",
+          "genes": [
+            "ADH1B"
+          ],
+          "modules": [
+            "M01"
+          ],
+          "panel": "Kidney",
+          "effect_allele": "T",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.028800000000000048,
+          "p_value": 1e-50,
+          "beta": "0.09922 unit increase",
+          "or": null,
+          "efo_trait": "blood urea nitrogen amount",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs429358",
+          "genes": [
+            "APOE"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Kidney",
+          "effect_allele": "T",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.8449,
+          "p_value": 9e-28,
+          "beta": "0.03765 unit increase",
+          "or": null,
+          "efo_trait": "blood urea nitrogen amount",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs1260326",
+          "genes": [
+            "GCKR"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Kidney",
+          "effect_allele": "T",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.4105,
+          "p_value": 2e-25,
+          "beta": "0.02443 unit increase",
+          "or": null,
+          "efo_trait": "blood urea nitrogen amount",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs7903146",
+          "genes": [
+            "TCF7L2"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Kidney",
+          "effect_allele": "C",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.6829000000000001,
+          "p_value": 2.9999999999999996e-24,
+          "beta": "0.02521 unit decrease",
+          "or": null,
+          "efo_trait": "blood urea nitrogen amount",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs4988235",
+          "genes": [
+            "LCT"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Kidney",
+          "effect_allele": "G",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.492,
+          "p_value": 7e-24,
+          "beta": "0.02587 unit decrease",
+          "or": null,
+          "efo_trait": "blood urea nitrogen amount",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs987237",
+          "genes": [
+            "TFAP2B"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Kidney",
+          "effect_allele": "A",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.8190999999999999,
+          "p_value": 2e-21,
+          "beta": "0.0278 unit decrease",
+          "or": null,
+          "efo_trait": "blood urea nitrogen amount",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs671",
+          "genes": [
+            "ALDH2"
+          ],
+          "modules": [
+            "M01"
+          ],
+          "panel": "Kidney",
+          "effect_allele": "A",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0,
+          "p_value": 2e-19,
+          "beta": "0.0187 unit increase",
+          "or": null,
+          "efo_trait": "blood urea nitrogen amount",
+          "pubmed_id": "37919891",
+          "first_author": "Lee DJ"
+        }
+      ]
+    },
+    {
+      "biomarker": "Vitamin D",
+      "panel": "Vitamins",
+      "n_snps": 7,
+      "modules": {
+        "M05": 3,
+        "M03": 2,
+        "M07": 1,
+        "M01": 1
+      },
+      "snps": [
+        {
+          "rsid": "rs4588",
+          "genes": [
+            "GC"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Vitamins",
+          "effect_allele": "T",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.2475,
+          "p_value": 2e-263,
+          "beta": "0.25 nmol/L decrease",
+          "or": null,
+          "efo_trait": "amount of vitamin D",
+          "pubmed_id": "28757204",
+          "first_author": "Manousaki D"
+        },
+        {
+          "rsid": "rs12785878",
+          "genes": [
+            "DHCR7"
+          ],
+          "modules": [
+            "M07"
+          ],
+          "panel": "Vitamins",
+          "effect_allele": "T",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.7008,
+          "p_value": 4e-62,
+          "beta": "0.036 unit increase",
+          "or": null,
+          "efo_trait": "amount of vitamin D",
+          "pubmed_id": "29343764",
+          "first_author": "Jiang X"
+        },
+        {
+          "rsid": "rs10741657",
+          "genes": [
+            "CYP2R1"
+          ],
+          "modules": [
+            "M03"
+          ],
+          "panel": "Vitamins",
+          "effect_allele": "A",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.38070000000000004,
+          "p_value": 2e-46,
+          "beta": "0.031 unit increase",
+          "or": null,
+          "efo_trait": "amount of vitamin D",
+          "pubmed_id": "29343764",
+          "first_author": "Jiang X"
+        },
+        {
+          "rsid": "rs1800588",
+          "genes": [
+            "LIPC"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Vitamins",
+          "effect_allele": "C",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.7913,
+          "p_value": 2e-43,
+          "beta": "0.033 unit decrease",
+          "or": null,
+          "efo_trait": "amount of vitamin D",
+          "pubmed_id": "32242144",
+          "first_author": "Revez JA"
+        },
+        {
+          "rsid": "rs4149056",
+          "genes": [
+            "SLCO1B1"
+          ],
+          "modules": [
+            "M03"
+          ],
+          "panel": "Vitamins",
+          "effect_allele": "T",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.839,
+          "p_value": 2e-14,
+          "beta": "0.021 unit increase",
+          "or": null,
+          "efo_trait": "amount of vitamin D",
+          "pubmed_id": "37963177",
+          "first_author": "Wang X"
+        },
+        {
+          "rsid": "rs1229984",
+          "genes": [
+            "ADH1B"
+          ],
+          "modules": [
+            "M01"
+          ],
+          "panel": "Vitamins",
+          "effect_allele": "T",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.028800000000000048,
+          "p_value": 5e-10,
+          "beta": "0.039 unit increase",
+          "or": null,
+          "efo_trait": "amount of vitamin D",
+          "pubmed_id": "32242144",
+          "first_author": "Revez JA"
+        },
+        {
+          "rsid": "rs693",
+          "genes": [
+            "APOB"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Vitamins",
+          "effect_allele": "G",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.5577,
+          "p_value": 7.000000000000001e-10,
+          "beta": "0.0121 unit increase",
+          "or": null,
+          "efo_trait": "amount of vitamin D",
+          "pubmed_id": "37513634",
+          "first_author": "Hendi NN"
+        }
+      ]
+    },
+    {
+      "biomarker": "ApoB",
+      "panel": "Lipids",
+      "n_snps": 6,
+      "modules": {
+        "M05": 4,
+        "M04": 1,
+        "M11": 1
+      },
+      "snps": [
+        {
+          "rsid": "rs693",
+          "genes": [
+            "APOB"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "A",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.4423,
+          "p_value": 2.9999999999999998e-174,
+          "beta": "0.06 g/l increase",
+          "or": null,
+          "efo_trait": "apolipoprotein B measurement",
+          "pubmed_id": "41044249",
+          "first_author": "Zoodsma M"
+        },
+        {
+          "rsid": "rs1800588",
+          "genes": [
+            "LIPC"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "T",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.2087,
+          "p_value": 7e-46,
+          "beta": "0.0663 unit increase",
+          "or": null,
+          "efo_trait": "apolipoprotein B measurement",
+          "pubmed_id": "38448586",
+          "first_author": "Karjalainen MK"
+        },
+        {
+          "rsid": "rs12130333",
+          "genes": [
+            "ANGPTL3"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "T",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.1849,
+          "p_value": 5e-41,
+          "beta": "0.039 unit decrease",
+          "or": null,
+          "efo_trait": "apolipoprotein B measurement",
+          "pubmed_id": "33462484",
+          "first_author": "Sinnott-Armstrong N"
+        },
+        {
+          "rsid": "rs5882",
+          "genes": [
+            "CETP"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "A",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.669,
+          "p_value": 8.999999999999999e-20,
+          "beta": "0.0232 unit increase",
+          "or": null,
+          "efo_trait": "apolipoprotein B measurement",
+          "pubmed_id": "33462484",
+          "first_author": "Sinnott-Armstrong N"
+        },
+        {
+          "rsid": "rs602662",
+          "genes": [
+            "FUT2"
+          ],
+          "modules": [
+            "M04"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "G",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.5318,
+          "p_value": 6.000000000000001e-13,
+          "beta": "0.0297244 unit decrease",
+          "or": null,
+          "efo_trait": "apolipoprotein B measurement",
+          "pubmed_id": "35213538",
+          "first_author": "Richardson TG"
+        },
+        {
+          "rsid": "rs1042522",
+          "genes": [
+            "TP53"
+          ],
+          "modules": [
+            "M11"
+          ],
+          "panel": "Lipids",
+          "effect_allele": "C",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.7147,
+          "p_value": 9e-11,
+          "beta": "0.0177 unit decrease",
+          "or": null,
+          "efo_trait": "apolipoprotein B measurement",
+          "pubmed_id": "33462484",
+          "first_author": "Sinnott-Armstrong N"
+        }
+      ]
+    },
+    {
+      "biomarker": "Bilirubin",
+      "panel": "Liver",
+      "n_snps": 6,
+      "modules": {
+        "M04": 2,
+        "M05": 2,
+        "M03": 1,
+        "M09": 1
+      },
+      "snps": [
+        {
+          "rsid": "rs1800562",
+          "genes": [
+            "HFE"
+          ],
+          "modules": [
+            "M04"
+          ],
+          "panel": "Liver",
+          "effect_allele": "A",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.0427,
+          "p_value": 1e-87,
+          "beta": "0.05943212 unit increase",
+          "or": null,
+          "efo_trait": "bilirubin measurement",
+          "pubmed_id": "39789286",
+          "first_author": "Loya H"
+        },
+        {
+          "rsid": "rs4149056",
+          "genes": [
+            "SLCO1B1"
+          ],
+          "modules": [
+            "M03"
+          ],
+          "panel": "Liver",
+          "effect_allele": "C",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.161,
+          "p_value": 2.9999999999999997e-44,
+          "beta": "0.19 unit increase",
+          "or": null,
+          "efo_trait": "bilirubin measurement",
+          "pubmed_id": "39414775",
+          "first_author": "Jacobs BM"
+        },
+        {
+          "rsid": "rs662799",
+          "genes": [
+            "APOA5"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Liver",
+          "effect_allele": "G",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.08350000000000002,
+          "p_value": 2e-18,
+          "beta": "0.0344698 unit increase",
+          "or": null,
+          "efo_trait": "bilirubin measurement",
+          "pubmed_id": "40436827",
+          "first_author": "Jee YH"
+        },
+        {
+          "rsid": "rs2228145",
+          "genes": [
+            "IL6R"
+          ],
+          "modules": [
+            "M04"
+          ],
+          "panel": "Liver",
+          "effect_allele": "A",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.6402,
+          "p_value": 6e-16,
+          "beta": "0.0145 unit decrease",
+          "or": null,
+          "efo_trait": "bilirubin measurement",
+          "pubmed_id": "40436827",
+          "first_author": "Jee YH"
+        },
+        {
+          "rsid": "rs1801133",
+          "genes": [
+            "MTHFR"
+          ],
+          "modules": [
+            "M09"
+          ],
+          "panel": "Liver",
+          "effect_allele": "A",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.3648,
+          "p_value": 1e-12,
+          "beta": "0.0133 unit increase",
+          "or": null,
+          "efo_trait": "bilirubin measurement",
+          "pubmed_id": "40436827",
+          "first_author": "Jee YH"
+        },
+        {
+          "rsid": "rs12130333",
+          "genes": [
+            "ANGPTL3"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Liver",
+          "effect_allele": "T",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.1849,
+          "p_value": 4e-09,
+          "beta": "0.0171 unit decrease",
+          "or": null,
+          "efo_trait": "bilirubin measurement",
+          "pubmed_id": "33462484",
+          "first_author": "Sinnott-Armstrong N"
+        }
+      ]
+    },
+    {
+      "biomarker": "Uric acid",
+      "panel": "Kidney",
+      "n_snps": 6,
+      "modules": {
+        "M03": 4,
+        "M01": 2
+      },
+      "snps": [
+        {
+          "rsid": "rs2231142",
+          "genes": [
+            "ABCG2"
+          ],
+          "modules": [
+            "M03"
+          ],
+          "panel": "Kidney",
+          "effect_allele": "T",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.0944,
+          "p_value": 0.0,
+          "beta": "0.2358 unit increase",
+          "or": null,
+          "efo_trait": "urate measurement",
+          "pubmed_id": "38658550",
+          "first_author": "Cho C"
+        },
+        {
+          "rsid": "rs734553",
+          "genes": [
+            "SLC2A9"
+          ],
+          "modules": [
+            "M03"
+          ],
+          "panel": "Kidney",
+          "effect_allele": "T",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.7555,
+          "p_value": 9.999999999999999e-193,
+          "beta": "0.4 mg/dl increase",
+          "or": null,
+          "efo_trait": "uric acid measurement",
+          "pubmed_id": "19503597",
+          "first_author": "Kolz M"
+        },
+        {
+          "rsid": "rs671",
+          "genes": [
+            "ALDH2"
+          ],
+          "modules": [
+            "M01"
+          ],
+          "panel": "Kidney",
+          "effect_allele": "A",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0,
+          "p_value": 7e-69,
+          "beta": "0.0718 unit decrease",
+          "or": null,
+          "efo_trait": "uric acid measurement",
+          "pubmed_id": "34594039",
+          "first_author": "Sakaue S"
+        },
+        {
+          "rsid": "rs1229984",
+          "genes": [
+            "ADH1B"
+          ],
+          "modules": [
+            "M01"
+          ],
+          "panel": "Kidney",
+          "effect_allele": "T",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.028800000000000048,
+          "p_value": 6e-19,
+          "beta": "0.0693 unit increase",
+          "or": null,
+          "efo_trait": "urate measurement",
+          "pubmed_id": "39406924",
+          "first_author": "Major TJ"
+        },
+        {
+          "rsid": "rs4149056",
+          "genes": [
+            "SLCO1B1"
+          ],
+          "modules": [
+            "M03"
+          ],
+          "panel": "Kidney",
+          "effect_allele": "T",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.839,
+          "p_value": 5e-13,
+          "beta": "0.0231 unit increase",
+          "or": null,
+          "efo_trait": "urate measurement",
+          "pubmed_id": "38658550",
+          "first_author": "Cho C"
+        },
+        {
+          "rsid": "rs45446698",
+          "genes": [
+            "CYP3A7"
+          ],
+          "modules": [
+            "M03"
+          ],
+          "panel": "Kidney",
+          "effect_allele": "G",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.0437,
+          "p_value": 1e-10,
+          "beta": "0.0383 unit decrease",
+          "or": null,
+          "efo_trait": "urate measurement",
+          "pubmed_id": "33462484",
+          "first_author": "Sinnott-Armstrong N"
+        }
+      ]
+    },
+    {
+      "biomarker": "Albumin",
+      "panel": "Liver",
+      "n_snps": 5,
+      "modules": {
+        "M02": 2,
+        "M06": 1,
+        "M01": 1,
+        "M03": 1
+      },
+      "snps": [
+        {
+          "rsid": "rs1260326",
+          "genes": [
+            "GCKR"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Liver",
+          "effect_allele": "T",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.4105,
+          "p_value": 1e-119,
+          "beta": "0.05873 unit increase",
+          "or": null,
+          "efo_trait": "serum albumin amount",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs1801282",
+          "genes": [
+            "PPARG"
+          ],
+          "modules": [
+            "M06"
+          ],
+          "panel": "Liver",
+          "effect_allele": "C",
+          "direction": "+",
+          "strand": "ambiguous",
+          "eaf_eur": 0.8797,
+          "p_value": 9e-55,
+          "beta": "0.048 unit increase",
+          "or": null,
+          "efo_trait": "serum albumin amount",
+          "pubmed_id": "40436827",
+          "first_author": "Jee YH"
+        },
+        {
+          "rsid": "rs1229984",
+          "genes": [
+            "ADH1B"
+          ],
+          "modules": [
+            "M01"
+          ],
+          "panel": "Liver",
+          "effect_allele": "C",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.9712,
+          "p_value": 2e-15,
+          "beta": "0.05 g/l decrease",
+          "or": null,
+          "efo_trait": "serum albumin amount",
+          "pubmed_id": "41044249",
+          "first_author": "Zoodsma M"
+        },
+        {
+          "rsid": "rs7903146",
+          "genes": [
+            "TCF7L2"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Liver",
+          "effect_allele": "C",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.6829000000000001,
+          "p_value": 2e-15,
+          "beta": "0.02154 unit decrease",
+          "or": null,
+          "efo_trait": "serum albumin amount",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs4149056",
+          "genes": [
+            "SLCO1B1"
+          ],
+          "modules": [
+            "M03"
+          ],
+          "panel": "Liver",
+          "effect_allele": "T",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.839,
+          "p_value": 3e-11,
+          "beta": "0.02266 unit increase",
+          "or": null,
+          "efo_trait": "serum albumin amount",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        }
+      ]
+    },
+    {
+      "biomarker": "GGT",
+      "panel": "Liver",
+      "n_snps": 5,
+      "modules": {
+        "M01": 2,
+        "M04": 1,
+        "M06": 1,
+        "M05": 1
+      },
+      "snps": [
+        {
+          "rsid": "rs671",
+          "genes": [
+            "ALDH2"
+          ],
+          "modules": [
+            "M01"
+          ],
+          "panel": "Liver",
+          "effect_allele": "A",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0,
+          "p_value": 0.0,
+          "beta": "0.1745 unit decrease",
+          "or": null,
+          "efo_trait": "serum gamma-glutamyl transferase measurement",
+          "pubmed_id": "34594039",
+          "first_author": "Sakaue S"
+        },
+        {
+          "rsid": "rs601338",
+          "genes": [
+            "FUT2"
+          ],
+          "modules": [
+            "M04"
+          ],
+          "panel": "Liver",
+          "effect_allele": "A",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.4414,
+          "p_value": 5e-122,
+          "beta": "0.041645605 unit increase",
+          "or": null,
+          "efo_trait": "serum gamma-glutamyl transferase measurement",
+          "pubmed_id": "39789286",
+          "first_author": "Loya H"
+        },
+        {
+          "rsid": "rs1801282",
+          "genes": [
+            "PPARG"
+          ],
+          "modules": [
+            "M06"
+          ],
+          "panel": "Liver",
+          "effect_allele": "C",
+          "direction": "+",
+          "strand": "ambiguous",
+          "eaf_eur": 0.8797,
+          "p_value": 7e-37,
+          "beta": "0.0365 unit increase",
+          "or": null,
+          "efo_trait": "serum gamma-glutamyl transferase measurement",
+          "pubmed_id": "40436827",
+          "first_author": "Jee YH"
+        },
+        {
+          "rsid": "rs1229984",
+          "genes": [
+            "ADH1B"
+          ],
+          "modules": [
+            "M01"
+          ],
+          "panel": "Liver",
+          "effect_allele": "T",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.028800000000000048,
+          "p_value": 3e-16,
+          "beta": "0.0132 unit decrease",
+          "or": null,
+          "efo_trait": "serum gamma-glutamyl transferase measurement",
+          "pubmed_id": "38632349",
+          "first_author": "Ghouse J"
+        },
+        {
+          "rsid": "rs429358",
+          "genes": [
+            "APOE"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Liver",
+          "effect_allele": "C",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.1551,
+          "p_value": 3.0000000000000003e-13,
+          "beta": "0.141136 unit increase",
+          "or": null,
+          "efo_trait": "amount of gamma-glutamylcyclotransferase (human) in cerebrospinal fluid",
+          "pubmed_id": "42054495",
+          "first_author": "Western D"
+        }
+      ]
+    },
+    {
+      "biomarker": "Platelets",
+      "panel": "Blood & iron",
+      "n_snps": 5,
+      "modules": {
+        "M05": 2,
+        "M04": 2,
+        "M02": 1
+      },
+      "snps": [
+        {
+          "rsid": "rs738409",
+          "genes": [
+            "PNPLA3"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Blood & iron",
+          "effect_allele": "C",
+          "direction": "+",
+          "strand": "ambiguous",
+          "eaf_eur": 0.7744,
+          "p_value": 4e-221,
+          "beta": "0.1065 unit increase",
+          "or": null,
+          "efo_trait": "platelet count",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs1260326",
+          "genes": [
+            "GCKR"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Blood & iron",
+          "effect_allele": "T",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.4105,
+          "p_value": 1e-64,
+          "beta": "0.04834 unit increase",
+          "or": null,
+          "efo_trait": "platelet count",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs1799945",
+          "genes": [
+            "HFE"
+          ],
+          "modules": [
+            "M04"
+          ],
+          "panel": "Blood & iron",
+          "effect_allele": "G",
+          "direction": "-",
+          "strand": "ambiguous",
+          "eaf_eur": 0.172,
+          "p_value": 5e-12,
+          "beta": "0.03507084 unit decrease",
+          "or": null,
+          "efo_trait": "platelet count",
+          "pubmed_id": "27863252",
+          "first_author": "Astle WJ"
+        },
+        {
+          "rsid": "rs1800562",
+          "genes": [
+            "HFE"
+          ],
+          "modules": [
+            "M04"
+          ],
+          "panel": "Blood & iron",
+          "effect_allele": "A",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.0427,
+          "p_value": 3.0000000000000004e-09,
+          "beta": "0.026697533 unit decrease",
+          "or": null,
+          "efo_trait": "platelet count",
+          "pubmed_id": "32888494",
+          "first_author": "Vuckovic D"
+        },
+        {
+          "rsid": "rs4588",
+          "genes": [
+            "GC"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Blood & iron",
+          "effect_allele": "T",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.2475,
+          "p_value": 4e-09,
+          "beta": "0.014614819 unit decrease",
+          "or": null,
+          "efo_trait": "platelet count",
+          "pubmed_id": "32888494",
+          "first_author": "Vuckovic D"
+        }
+      ]
+    },
+    {
+      "biomarker": "SHBG",
+      "panel": "Hormones",
+      "n_snps": 5,
+      "modules": {
+        "M06": 2,
+        "M11": 1,
+        "M02": 1,
+        "M03": 1
+      },
+      "snps": [
+        {
+          "rsid": "rs1042522",
+          "genes": [
+            "TP53"
+          ],
+          "modules": [
+            "M11"
+          ],
+          "panel": "Hormones",
+          "effect_allele": "C",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.7147,
+          "p_value": 0.0,
+          "beta": "0.1868 unit increase",
+          "or": null,
+          "efo_trait": "sex hormone-binding globulin measurement",
+          "pubmed_id": "33462484",
+          "first_author": "Sinnott-Armstrong N"
+        },
+        {
+          "rsid": "rs1801282",
+          "genes": [
+            "PPARG"
+          ],
+          "modules": [
+            "M06"
+          ],
+          "panel": "Hormones",
+          "effect_allele": "G",
+          "direction": "+",
+          "strand": "ambiguous",
+          "eaf_eur": 0.1203,
+          "p_value": 2.9999999999999997e-67,
+          "beta": "0.021621 unit increase",
+          "or": null,
+          "efo_trait": "sex hormone-binding globulin measurement",
+          "pubmed_id": "32042192",
+          "first_author": "Ruth KS"
+        },
+        {
+          "rsid": "rs2943641",
+          "genes": [
+            "IRS1"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Hormones",
+          "effect_allele": "T",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.3738,
+          "p_value": 1e-65,
+          "beta": "0.0143553 unit increase",
+          "or": null,
+          "efo_trait": "sex hormone-binding globulin measurement",
+          "pubmed_id": "32042192",
+          "first_author": "Ruth KS"
+        },
+        {
+          "rsid": "rs174537",
+          "genes": [
+            "FADS1"
+          ],
+          "modules": [
+            "M06"
+          ],
+          "panel": "Hormones",
+          "effect_allele": "G",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.6511,
+          "p_value": 2e-21,
+          "beta": "0.0139815 unit increase",
+          "or": null,
+          "efo_trait": "sex hormone-binding globulin measurement",
+          "pubmed_id": "32042192",
+          "first_author": "Ruth KS"
+        },
+        {
+          "rsid": "rs4149056",
+          "genes": [
+            "SLCO1B1"
+          ],
+          "modules": [
+            "M03"
+          ],
+          "panel": "Hormones",
+          "effect_allele": "C",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.161,
+          "p_value": 3e-19,
+          "beta": "0.056712348 unit decrease",
+          "or": null,
+          "efo_trait": "sex hormone-binding globulin measurement",
+          "pubmed_id": "39789286",
+          "first_author": "Loya H"
+        }
+      ]
+    },
+    {
+      "biomarker": "Ferritin",
+      "panel": "Blood & iron",
+      "n_snps": 4,
+      "modules": {
+        "M04": 3,
+        "M05": 1
+      },
+      "snps": [
+        {
+          "rsid": "rs1800562",
+          "genes": [
+            "HFE"
+          ],
+          "modules": [
+            "M04"
+          ],
+          "panel": "Blood & iron",
+          "effect_allele": "A",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.0427,
+          "p_value": 2e-84,
+          "beta": "0.13 SD increase",
+          "or": null,
+          "efo_trait": "ferritin measurement",
+          "pubmed_id": "33536631",
+          "first_author": "Bell S"
+        },
+        {
+          "rsid": "rs6025",
+          "genes": [
+            "F5"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Blood & iron",
+          "effect_allele": "T",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.0119,
+          "p_value": 7e-37,
+          "beta": "0.15 SD increase",
+          "or": null,
+          "efo_trait": "ferritin measurement",
+          "pubmed_id": "33536631",
+          "first_author": "Bell S"
+        },
+        {
+          "rsid": "rs601338",
+          "genes": [
+            "FUT2"
+          ],
+          "modules": [
+            "M04"
+          ],
+          "panel": "Blood & iron",
+          "effect_allele": "G",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.5586,
+          "p_value": 6.999999999999999e-16,
+          "beta": "0.028 SD increase",
+          "or": null,
+          "efo_trait": "ferritin measurement",
+          "pubmed_id": "33536631",
+          "first_author": "Bell S"
+        },
+        {
+          "rsid": "rs1799945",
+          "genes": [
+            "HFE"
+          ],
+          "modules": [
+            "M04"
+          ],
+          "panel": "Blood & iron",
+          "effect_allele": "C",
+          "direction": "-",
+          "strand": "ambiguous",
+          "eaf_eur": 0.8280000000000001,
+          "p_value": 1e-09,
+          "beta": "0.043 unit decrease",
+          "or": null,
+          "efo_trait": "ferritin measurement",
+          "pubmed_id": "28334935",
+          "first_author": "Raffield LM"
+        }
+      ]
+    },
+    {
+      "biomarker": "Serum iron",
+      "panel": "Blood & iron",
+      "n_snps": 4,
+      "modules": {
+        "M04": 3,
+        "M05": 1
+      },
+      "snps": [
+        {
+          "rsid": "rs1800562",
+          "genes": [
+            "HFE"
+          ],
+          "modules": [
+            "M04"
+          ],
+          "panel": "Blood & iron",
+          "effect_allele": "A",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.0427,
+          "p_value": 4e-276,
+          "beta": "0.27 SD increase",
+          "or": null,
+          "efo_trait": "serum iron amount",
+          "pubmed_id": "33536631",
+          "first_author": "Bell S"
+        },
+        {
+          "rsid": "rs1799945",
+          "genes": [
+            "HFE"
+          ],
+          "modules": [
+            "M04"
+          ],
+          "panel": "Blood & iron",
+          "effect_allele": "C",
+          "direction": "-",
+          "strand": "ambiguous",
+          "eaf_eur": 0.8280000000000001,
+          "p_value": 4e-26,
+          "beta": "0.365 unit decrease",
+          "or": null,
+          "efo_trait": "serum iron amount",
+          "pubmed_id": "28334935",
+          "first_author": "Raffield LM"
+        },
+        {
+          "rsid": "rs738409",
+          "genes": [
+            "PNPLA3"
+          ],
+          "modules": [
+            "M05"
+          ],
+          "panel": "Blood & iron",
+          "effect_allele": "C",
+          "direction": "-",
+          "strand": "ambiguous",
+          "eaf_eur": 0.7744,
+          "p_value": 3e-14,
+          "beta": "0.04546 unit decrease",
+          "or": null,
+          "efo_trait": "serum iron amount",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs2228145",
+          "genes": [
+            "IL6R"
+          ],
+          "modules": [
+            "M04"
+          ],
+          "panel": "Blood & iron",
+          "effect_allele": "C",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.3598,
+          "p_value": 8e-11,
+          "beta": "0.026 SD increase",
+          "or": null,
+          "efo_trait": "serum iron amount",
+          "pubmed_id": "33536631",
+          "first_author": "Bell S"
+        }
+      ]
+    },
+    {
+      "biomarker": "Alkaline phosphatase",
+      "panel": "Liver",
+      "n_snps": 3,
+      "modules": {
+        "M08": 1,
+        "M01": 1,
+        "M04": 1
+      },
+      "snps": [
+        {
+          "rsid": "rs4654748",
+          "genes": [
+            "ALPL"
+          ],
+          "modules": [
+            "M08"
+          ],
+          "panel": "Liver",
+          "effect_allele": "T",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.4742,
+          "p_value": 2e-118,
+          "beta": "0.1 unit decrease",
+          "or": null,
+          "efo_trait": "alkaline phosphatase measurement",
+          "pubmed_id": "31666285",
+          "first_author": "Olafsson S"
+        },
+        {
+          "rsid": "rs1229984",
+          "genes": [
+            "ADH1B"
+          ],
+          "modules": [
+            "M01"
+          ],
+          "panel": "Liver",
+          "effect_allele": "C",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.9712,
+          "p_value": 8e-36,
+          "beta": "0.074083336 unit increase",
+          "or": null,
+          "efo_trait": "alkaline phosphatase measurement",
+          "pubmed_id": "39789286",
+          "first_author": "Loya H"
+        },
+        {
+          "rsid": "rs2476601",
+          "genes": [
+            "PTPN22"
+          ],
+          "modules": [
+            "M04"
+          ],
+          "panel": "Liver",
+          "effect_allele": "G",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.9056,
+          "p_value": 2e-14,
+          "beta": "0.0305 unit increase",
+          "or": null,
+          "efo_trait": "alkaline phosphatase measurement",
+          "pubmed_id": "33462484",
+          "first_author": "Sinnott-Armstrong N"
+        }
+      ]
+    },
+    {
+      "biomarker": "Testosterone",
+      "panel": "Hormones",
+      "n_snps": 3,
+      "modules": {
+        "M03": 2,
+        "M11": 1
+      },
+      "snps": [
+        {
+          "rsid": "rs45446698",
+          "genes": [
+            "CYP3A7"
+          ],
+          "modules": [
+            "M03"
+          ],
+          "panel": "Hormones",
+          "effect_allele": "T",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.9563,
+          "p_value": 0.0,
+          "beta": "0.371002 unit increase",
+          "or": null,
+          "efo_trait": "testosterone measurement",
+          "pubmed_id": "32042192",
+          "first_author": "Ruth KS"
+        },
+        {
+          "rsid": "rs1042522",
+          "genes": [
+            "TP53"
+          ],
+          "modules": [
+            "M11"
+          ],
+          "panel": "Hormones",
+          "effect_allele": "C",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.7147,
+          "p_value": 1e-117,
+          "beta": "0.0661 unit increase",
+          "or": null,
+          "efo_trait": "testosterone measurement",
+          "pubmed_id": "33462484",
+          "first_author": "Sinnott-Armstrong N"
+        },
+        {
+          "rsid": "rs4149056",
+          "genes": [
+            "SLCO1B1"
+          ],
+          "modules": [
+            "M03"
+          ],
+          "panel": "Hormones",
+          "effect_allele": "C",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.161,
+          "p_value": 1e-43,
+          "beta": "0.0488 unit decrease",
+          "or": null,
+          "efo_trait": "testosterone measurement",
+          "pubmed_id": "40229599",
+          "first_author": "Venkatesh SS"
+        }
+      ]
+    },
+    {
+      "biomarker": "Waist-hip ratio",
+      "panel": "Body",
+      "n_snps": 3,
+      "modules": {
+        "M02": 2,
+        "M01": 1
+      },
+      "snps": [
+        {
+          "rsid": "rs7498665",
+          "genes": [
+            "SH2B1"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Body",
+          "effect_allele": "A",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.671,
+          "p_value": 1e-22,
+          "beta": "0.0168 unit decrease",
+          "or": null,
+          "efo_trait": "waist-hip ratio",
+          "pubmed_id": "30239722",
+          "first_author": "Pulit SL"
+        },
+        {
+          "rsid": "rs987237",
+          "genes": [
+            "TFAP2B"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Body",
+          "effect_allele": "A",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.8190999999999999,
+          "p_value": 1e-19,
+          "beta": "0.02 unit decrease",
+          "or": null,
+          "efo_trait": "waist-hip ratio",
+          "pubmed_id": "30239722",
+          "first_author": "Pulit SL"
+        },
+        {
+          "rsid": "rs6265",
+          "genes": [
+            "BDNF"
+          ],
+          "modules": [
+            "M01"
+          ],
+          "panel": "Body",
+          "effect_allele": "T",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.1968,
+          "p_value": 4e-17,
+          "beta": "0.0183 unit decrease",
+          "or": null,
+          "efo_trait": "waist-hip ratio",
+          "pubmed_id": "30239722",
+          "first_author": "Pulit SL"
+        }
+      ]
+    },
+    {
+      "biomarker": "Free T4",
+      "panel": "Thyroid",
+      "n_snps": 2,
+      "modules": {
+        "M06": 2
+      },
+      "snps": [
+        {
+          "rsid": "rs2235544",
+          "genes": [
+            "DIO1"
+          ],
+          "modules": [
+            "M06"
+          ],
+          "panel": "Thyroid",
+          "effect_allele": "A",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.5249,
+          "p_value": 5.999999999999999e-197,
+          "beta": "0.096 unit increase",
+          "or": null,
+          "efo_trait": "amount of thyroxine",
+          "pubmed_id": "41238958",
+          "first_author": "Rand SA"
+        },
+        {
+          "rsid": "rs225014",
+          "genes": [
+            "DIO2"
+          ],
+          "modules": [
+            "M06"
+          ],
+          "panel": "Thyroid",
+          "effect_allele": "T",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.6551,
+          "p_value": 5.0000000000000005e-17,
+          "beta": "0.047 unit increase",
+          "or": null,
+          "efo_trait": "amount of thyroxine",
+          "pubmed_id": "30367059",
+          "first_author": "Teumer A"
+        }
+      ]
+    },
+    {
+      "biomarker": "Homocysteine",
+      "panel": "Vitamins",
+      "n_snps": 2,
+      "modules": {
+        "M09": 1,
+        "M06": 1
+      },
+      "snps": [
+        {
+          "rsid": "rs1801133",
+          "genes": [
+            "MTHFR"
+          ],
+          "modules": [
+            "M09"
+          ],
+          "panel": "Vitamins",
+          "effect_allele": "A",
+          "direction": "+",
+          "strand": "flipped",
+          "eaf_eur": 0.3648,
+          "p_value": 1e-120,
+          "beta": "0.45 μmol/l increase",
+          "or": null,
+          "efo_trait": "homocysteine measurement",
+          "pubmed_id": "34707639",
+          "first_author": "Liu T"
+        },
+        {
+          "rsid": "rs838133",
+          "genes": [
+            "FGF21"
+          ],
+          "modules": [
+            "M06"
+          ],
+          "panel": "Vitamins",
+          "effect_allele": "A",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.4254,
+          "p_value": 7.000000000000001e-09,
+          "beta": "0.0422 unit increase",
+          "or": null,
+          "efo_trait": "homocysteine measurement",
+          "pubmed_id": "23824729",
+          "first_author": "van Meurs JB"
+        }
+      ]
+    },
+    {
+      "biomarker": "Insulin",
+      "panel": "Glucose",
+      "n_snps": 2,
+      "modules": {
+        "M02": 2
+      },
+      "snps": [
+        {
+          "rsid": "rs7903146",
+          "genes": [
+            "TCF7L2"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Glucose",
+          "effect_allele": "C",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.6829000000000001,
+          "p_value": 8e-65,
+          "beta": "0.2088 unit decrease",
+          "or": null,
+          "efo_trait": "insulin measurement",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs10830963",
+          "genes": [
+            "MTNR1B"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Glucose",
+          "effect_allele": "G",
+          "direction": "-",
+          "strand": "ambiguous",
+          "eaf_eur": 0.2883,
+          "p_value": 3.0000000000000004e-08,
+          "beta": "0.089 unit decrease",
+          "or": null,
+          "efo_trait": "insulin measurement",
+          "pubmed_id": "24699409",
+          "first_author": "Prokopenko I"
+        }
+      ]
+    },
+    {
+      "biomarker": "TSH",
+      "panel": "Thyroid",
+      "n_snps": 2,
+      "modules": {
+        "M04": 1,
+        "M02": 1
+      },
+      "snps": [
+        {
+          "rsid": "rs2476601",
+          "genes": [
+            "PTPN22"
+          ],
+          "modules": [
+            "M04"
+          ],
+          "panel": "Thyroid",
+          "effect_allele": "G",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.9056,
+          "p_value": 1e-15,
+          "beta": "0.028 unit decrease",
+          "or": null,
+          "efo_trait": "amount of Thyroid stimulating hormone",
+          "pubmed_id": "41238958",
+          "first_author": "Rand SA"
+        },
+        {
+          "rsid": "rs4402960",
+          "genes": [
+            "IGF2BP2"
+          ],
+          "modules": [
+            "M02"
+          ],
+          "panel": "Thyroid",
+          "effect_allele": "T",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.3042,
+          "p_value": 3.0000000000000004e-09,
+          "beta": "0.0507 unit decrease",
+          "or": null,
+          "efo_trait": "amount of Thyroid stimulating hormone",
+          "pubmed_id": "39266554",
+          "first_author": "Wei Y"
+        }
+      ]
+    },
+    {
+      "biomarker": "Vitamin B12",
+      "panel": "Vitamins",
+      "n_snps": 2,
+      "modules": {
+        "M04": 2
+      },
+      "snps": [
+        {
+          "rsid": "rs601338",
+          "genes": [
+            "FUT2"
+          ],
+          "modules": [
+            "M04"
+          ],
+          "panel": "Vitamins",
+          "effect_allele": "G",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.5586,
+          "p_value": 4.999999999999999e-34,
+          "beta": "0.158 unit increase",
+          "or": null,
+          "efo_trait": "vitamin B12 deficiency",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        },
+        {
+          "rsid": "rs602662",
+          "genes": [
+            "FUT2"
+          ],
+          "modules": [
+            "M04"
+          ],
+          "panel": "Vitamins",
+          "effect_allele": "A",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.4682,
+          "p_value": 2.9999999999999997e-20,
+          "beta": "49.77 pg/ml increase",
+          "or": null,
+          "efo_trait": "vitamin B12 measurement",
+          "pubmed_id": "19303062",
+          "first_author": "Tanaka T"
+        }
+      ]
+    },
+    {
+      "biomarker": "Estradiol",
+      "panel": "Hormones",
+      "n_snps": 1,
+      "modules": {
+        "M03": 1
+      },
+      "snps": [
+        {
+          "rsid": "rs45446698",
+          "genes": [
+            "CYP3A7"
+          ],
+          "modules": [
+            "M03"
+          ],
+          "panel": "Hormones",
+          "effect_allele": "T",
+          "direction": "+",
+          "strand": "ok",
+          "eaf_eur": 0.9563,
+          "p_value": 8e-14,
+          "beta": "0.0156669 unit increase",
+          "or": null,
+          "efo_trait": "estradiol measurement",
+          "pubmed_id": "32042192",
+          "first_author": "Ruth KS"
+        }
+      ]
+    },
+    {
+      "biomarker": "Folate",
+      "panel": "Vitamins",
+      "n_snps": 1,
+      "modules": {
+        "M09": 1
+      },
+      "snps": [
+        {
+          "rsid": "rs1801133",
+          "genes": [
+            "MTHFR"
+          ],
+          "modules": [
+            "M09"
+          ],
+          "panel": "Vitamins",
+          "effect_allele": "A",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.3648,
+          "p_value": 8e-38,
+          "beta": "0.172 unit decrease",
+          "or": null,
+          "efo_trait": "amount of folic acid",
+          "pubmed_id": "39414775",
+          "first_author": "Jacobs BM"
+        }
+      ]
+    },
+    {
+      "biomarker": "Transferrin saturation",
+      "panel": "Blood & iron",
+      "n_snps": 1,
+      "modules": {
+        "M04": 1
+      },
+      "snps": [
+        {
+          "rsid": "rs1800562",
+          "genes": [
+            "HFE"
+          ],
+          "modules": [
+            "M04"
+          ],
+          "panel": "Blood & iron",
+          "effect_allele": "G",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.9573,
+          "p_value": 4e-307,
+          "beta": "0.4635 unit decrease",
+          "or": null,
+          "efo_trait": "transferrin saturation measurement",
+          "pubmed_id": "39024449",
+          "first_author": "Verma A"
+        }
+      ]
+    },
+    {
+      "biomarker": "Vitamin B6",
+      "panel": "Vitamins",
+      "n_snps": 1,
+      "modules": {
+        "M08": 1
+      },
+      "snps": [
+        {
+          "rsid": "rs4654748",
+          "genes": [
+            "ALPL"
+          ],
+          "modules": [
+            "M08"
+          ],
+          "panel": "Vitamins",
+          "effect_allele": "C",
+          "direction": "-",
+          "strand": "ok",
+          "eaf_eur": 0.5258,
+          "p_value": 8e-18,
+          "beta": "1.45 ng/ml decrease",
+          "or": null,
+          "efo_trait": "vitamin B6 measurement",
+          "pubmed_id": "19303062",
+          "first_author": "Tanaka T"
+        }
+      ]
+    }
+  ]
+}

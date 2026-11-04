@@ -1,0 +1,16 @@
+{
+  "_comment": "Curated display names, keyed by the enrichment label build_modules.py assigns. Unlisted labels fall back to the label itself.",
+  "Response to alkaloid": "Brain Chemistry & Reward",
+  "Regulation of insulin secretion": "Glucose, Insulin & Appetite",
+  "Xenobiotic metabolic process": "Detox & Drug Metabolism",
+  "Regulation of leukocyte activation": "Immune & Inflammation",
+  "Triglyceride-rich lipoprotein particle remodeling": "Lipoproteins & Clotting",
+  "Positive regulation of cold-induced thermogenesis": "Fat Burning & Thermogenesis",
+  "Hormone-mediated signaling pathway": "Sex & Steroid Hormones",
+  "Collagen degradation": "Connective Tissue & Muscle",
+  "Pathways into methionine and folate cycles": "Methylation & Folate",
+  "Response to oxidative stress": "Oxidative Stress & Longevity",
+  "DNA repair": "DNA Repair",
+  "Regulation of systemic arterial blood pressure mediated by a chemical signal": "Blood Pressure",
+  "IRS-related events triggered by IGF1R": "Growth Signalling (IGF-1)"
+}

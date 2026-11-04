@@ -8,20 +8,56 @@ Writes data/output/cluster_analysis/<name>_clusters.md and .json (git-ignored: p
 """
 import argparse
 import json
+import math
 import os
 
+from cluster_analysis.biomarkers import BIOMARKERS_PATH
 from cluster_analysis.build_modules import MODULES_PATH
 from src.analyzer import run_analysis
 from src.report_engine import STRENGTH_MIN_SCORE, RISK_MAX_SCORE
 
 TRAITS_PATH = "config/snp_traits.json"
 OUTPUT_DIR = "data/output/cluster_analysis"
+MIN_SNPS_FOR_SCORE = 3
 
 
 def classify(score):
     if score <= RISK_MAX_SCORE: return "risk"
     if score >= STRENGTH_MIN_SCORE: return "strength"
     return "neutral"
+
+
+def biomarker_tilts(user_gt, biomarkers):
+    """
+    Standardised genetic score per biomarker against European allele frequencies:
+        z = sum(sign * (dosage - 2p)) / sqrt(sum(2p(1-p)))
+    Equal weight per SNP (GWAS effect sizes use incompatible units). Strand-ambiguous SNPs are skipped.
+    """
+    tilts = []
+    for b in biomarkers:
+        contribs, var = [], 0.0
+        for s in b["snps"]:
+            gt = user_gt.get(s["rsid"])
+            if not gt or s["strand"] == "ambiguous" or s["eaf_eur"] is None:
+                continue
+            p = min(max(s["eaf_eur"], 0.01), 0.99)
+            dosage = gt.count(s["effect_allele"])
+            sign = 1 if s["direction"] == "+" else -1
+            contribs.append({"rsid": s["rsid"], "genes": s["genes"], "modules": s["modules"],
+                             "genotype": gt, "effect_allele": s["effect_allele"], "direction": s["direction"],
+                             "contribution": round(sign * (dosage - 2 * p), 3)})
+            var += 2 * p * (1 - p)
+        if not contribs:
+            continue
+        tilt = {"biomarker": b["biomarker"], "panel": b["panel"], "z": None, "percentile": None,
+                "n_snps": len(contribs), "contributions": sorted(contribs, key=lambda c: -abs(c["contribution"]))}
+        # One or two SNPs (often rare) make the z-score explode; report direction only
+        if len(contribs) >= MIN_SNPS_FOR_SCORE:
+            z = sum(c["contribution"] for c in contribs) / math.sqrt(var)
+            tilt["z"] = round(z, 2)
+            tilt["percentile"] = round(50 * (1 + math.erf(z / math.sqrt(2))))
+        tilts.append(tilt)
+    return sorted(tilts, key=lambda t: (t["z"] is None, -abs(t["z"] or 0)))
 
 
 def overlay(dna_path):
@@ -80,8 +116,12 @@ def overlay(dna_path):
                             "reaches": {labels[k]: w for k, w in info["bridges_to"].items()}})
     bridges.sort(key=lambda b: -sum(b["reaches"].values()))
 
+    with open(BIOMARKERS_PATH, "r", encoding="utf-8") as f:
+        biomarkers = json.load(f)["biomarkers"]
+    tilts = biomarker_tilts(dict(zip(df["RSID"], df["User_Genotype"])), biomarkers)
+
     return {"source_file": os.path.basename(dna_path), "modules": modules,
-            "bridges": bridges, "genes": hits, "library": lib["genes"]}
+            "bridges": bridges, "biomarker_tilts": tilts, "genes": hits, "library": lib["genes"]}
 
 
 def _first_sentence(text, limit=220):
@@ -124,17 +164,28 @@ def to_markdown(result):
         for b in result["bridges"][:8]:
             reach = ", ".join(f"{k} ({w})" for k, w in list(b["reaches"].items())[:3])
             lines.append(f"- **{b['gene']}** → {reach}")
+
+    tilts = [t for t in result["biomarker_tilts"] if t["z"] is not None and abs(t["z"]) >= 1]
+    if tilts:
+        lines += ["", "## Biomarker tilts (|z| ≥ 1)", "",
+                  "Standardised genetic score vs. European allele frequencies (0 = average, equal weight per SNP). "
+                  "Suggests which lab values are worth measuring; it does not predict them.", "",
+                  "| Biomarker | Panel | z | Percentile | SNPs | Top drivers |", "|---|---|---|---|---|---|"]
+        for t in tilts:
+            drivers = ", ".join(f"{'/'.join(c['genes'])} ({c['contribution']:+.1f})" for c in t["contributions"][:3])
+            lines.append(f"| {t['biomarker']} | {t['panel']} | {t['z']:+.2f} | {t['percentile']} | {t['n_snps']} | {drivers} |")
     return "\n".join(lines) + "\n"
 
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("dna_file")
+    ap.add_argument("--name", help="output file stem (default: input file name)")
     args = ap.parse_args()
 
     result = overlay(args.dna_file)
     os.makedirs(OUTPUT_DIR, exist_ok=True)
-    name = os.path.splitext(os.path.basename(args.dna_file))[0]
+    name = args.name or os.path.splitext(os.path.basename(args.dna_file))[0]
     md_path = os.path.join(OUTPUT_DIR, f"{name}_clusters.md")
     with open(md_path, "w", encoding="utf-8") as f:
         f.write(to_markdown(result))
