@@ -9,3 +9,5 @@ data/input/*
 data/output/*
 !data/input/.gitkeep
 !data/output/.gitkeep
+# Cluster analysis API cache
+cluster_analysis/cache/

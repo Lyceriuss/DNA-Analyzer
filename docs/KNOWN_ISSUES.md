@@ -9,6 +9,8 @@ Snapshot from a review on 2026-11-04. P0 means fix first. Items that have been f
 
 ## P0: content says the wrong thing
 
+**Library validation (2026-11-04):** `python -m cluster_analysis.validate_library` checked all 282 entries against Ensembl and the GWAS Catalog. It found **73 errors**: 61 entries filed under the wrong gene, 10 with impossible genotype letters, 7 suffixed keys that never match a DNA file, and 2 unknown rsIDs. It also found 37 warnings, including 30 strand-ambiguous A/T and C/G SNPs. In the HP report, 13 of 91 deep dives rest on an erroring entry. See `cluster_analysis/library_validation.md`.
+
 - **Evidence/deep-dive entries describe a different gene than the trait.** `python injectors-authenticators/validate.py` lists them. Aliases such as BCMO1/BCO1, TNF-alpha/TNF and HLA-DQ8/HLA-DQB1 can be ignored. The real conflicts are:
 
   | RSID | snp_traits | evidence / deep dive |
