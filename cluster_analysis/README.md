@@ -66,6 +66,27 @@ GPX1 and CDKN2B-AS1 (a non-coding RNA) aren't in STRING. ABCC11 and TRPM6 have n
 - **Buffered link**: a reduced gene interacting with a strength gene, so it may be partly compensated.
 - **Reduced bridge gene**: a reduced gene that reaches into other modules, a candidate for cross-system effects.
 
+## Gene function calls (GoF / LoF)
+
+`gene_trace.function_call` compares a genotype with the **most common European allele** at the SNP (Ensembl VEP frequencies), not with the reference genome or the healthiest genotype. The reference genome carries the rare allele at some SNPs, such as CYP3A4 rs2740574.
+
+| Call | Meaning |
+|---|---|
+| `normal` | Two copies of the common allele: the SNP leaves the enzyme in its usual form |
+| `LoF` / `GoF` | One or two copies (`dose`) of the less common allele, which the library reads as less / more activity |
+| `altered` | Carries the less common allele, but the library text gives no direction |
+| `unknown` | The genotype doesn't match the SNP's alleles on either strand |
+
+The direction comes from the library text for the less common homozygote against the common homozygote. Clauses that name an activity decide first, so "Reduced GPX4 activity; higher oxidative stress risk" reads as less. Where both alleles are near 50% (COMT, MTRR), "common" is close to arbitrary, and the explorer says so.
+
+```bash
+# Lifecycle and gene-function datasets for the explorer, with fresh calls but no new API walks
+python -m cluster_analysis.export_dashboard out/bundle.json --lifecycles data/output/cluster_analysis/lifecycles_HP.json \
+    --dna data/input/MyHeritage_raw_dna_data_HP.csv
+```
+
+`gene_function.json` adds the function evidence per gene (MaveDB scores, GTEx direction and HP's copies of the effect allele, UniProt, SIFT/PolyPhen, ClinPGx for HP's genotype). It holds personal genotypes, so keep it out of git.
+
 ## Caveats
 
 - The network is **gene-level**. A SNP can affect a different gene, or a regulatory region, rather than the protein of the gene it is filed under. The HERC2 SNP, for example, controls OCA2 pigmentation, so its links into DNA repair are not meaningful. The GWAS traits shown next to each SNP are the quickest way to spot this.

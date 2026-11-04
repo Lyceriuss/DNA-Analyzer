@@ -49,6 +49,9 @@ VITAMIN_BIOMARKER = {"Vitamin B6": "Vitamin B6", "Vitamin B12": "Vitamin B12", "
 
 LOF_WORDS = r"reduced|lower|\blow\b|decreas|slow|impair|poor|weak|loss|deficien|inactiv|\bless\b|sluggish|blunted"
 GOF_WORDS = r"increas|higher|\bhigh\b|fast|enhanc|elevat|rapid|\bmore\b|strong|gain|hyper|efficient|optimal"
+ACTIVITY_WORDS = (r"activit|function|metaboli|level|transport|activation|production|breakdown|clearance|detox|"
+                  r"recycl|acetylat|conversion|removal|expression|synthesis|uptake|absorption|signal")
+COMPLEMENT = str.maketrans("ACGT", "TGCA")
 
 
 # --- Reactome -------------------------------------------------------------------------------
@@ -191,13 +194,48 @@ def omnipath(gene):
 
 # --- Person overlay -------------------------------------------------------------------------
 
-def function_call(text):
-    """GoF / LoF / normal inferred from the library's interpretation text (marked as inferred)."""
-    t = (text or "").lower()
-    lof, gof = re.search(LOF_WORDS, t), re.search(GOF_WORDS, t)
-    if lof and not gof: return "LoF"
-    if gof and not lof: return "GoF"
-    return "normal"
+def direction(text):
+    """+1 (more / faster), -1 (less / slower) or 0, read from library text. Clauses that name an activity decide first,
+    so "Reduced GPX4 activity; higher oxidative stress risk" reads as less."""
+    clauses = [c for c in re.split(r"[;,.()]", (text or "").lower()) if c.strip()]
+    for pool in ([c for c in clauses if re.search(ACTIVITY_WORDS, c)], clauses):
+        score = sum(bool(re.search(GOF_WORDS, c)) - bool(re.search(LOF_WORDS, c)) for c in pool)
+        if score:
+            return 1 if score > 0 else -1
+    return 0
+
+
+def function_call(rsid, genotype, variants, vep):
+    """
+    GoF / LoF of a genotype compared with the common European allele at the SNP, not with the healthiest one.
+    The direction of the less common allele comes from the library's text for its homozygote against the common
+    homozygote. Returns {function: normal | GoF | LoF | altered | unknown, dose, common, minor, minor_af}.
+    """
+    v = vep.get(rsid)
+    out = {"function": "unknown", "dose": None, "common": None, "minor": None, "minor_af": None}
+    if not v or not genotype:
+        return out
+    alleles = v["alleles"]
+    orient = lambda gt: gt if set(gt) <= set(alleles) else gt.translate(COMPLEMENT)
+    gt = orient(genotype)
+    if not set(gt) <= set(alleles):
+        return out
+    af = dict(v.get("eur_af") or {})
+    af.setdefault(alleles[0], max(0.0, 1 - sum(f for a, f in af.items() if a != alleles[0])))
+    common = max(alleles, key=lambda a: af.get(a, 0))
+    carried = [a for a in gt if a != common]
+    minor = carried[0] if carried else max((a for a in alleles if a != common), key=lambda a: af.get(a, 0), default=None)
+    out.update(common=common, minor=minor, dose=len(carried), minor_af=af.get(minor))
+    if not carried:
+        out["function"] = "normal"
+        return out
+    texts = {"".join(sorted(orient(k))): t for k, t in variants.items()}
+    hom_minor, hom_common = texts.get(minor * 2), texts.get(common * 2)
+    d = direction(hom_minor) - direction(hom_common) if hom_minor or hom_common else 0
+    if not d:
+        d = direction(texts.get("".join(sorted(gt))))
+    out["function"] = "GoF" if d > 0 else "LoF" if d < 0 else "altered"
+    return out
 
 
 def person_status(dna_path):
@@ -205,11 +243,14 @@ def person_status(dna_path):
     from src.report_engine import RISK_MAX_SCORE, STRENGTH_MIN_SCORE
     df = run_analysis(dna_path, TRAITS_PATH)
     lib = json.load(open("cluster_analysis/modules.json", encoding="utf-8"))
+    traits = json.load(open(TRAITS_PATH, encoding="utf-8"))
+    vep = sources.ensembl_vep(sorted(df["RSID"]))
     status = defaultdict(list)
     for _, r in df.iterrows():
         for g in lib["rsids"].get(r["RSID"], {}).get("genes", []):
             status[g].append({"rsid": r["RSID"], "genotype": r["Result"], "score": float(r["Score"]),
-                              "interpretation": r["Interpretation"], "function": function_call(r["Interpretation"]),
+                              "interpretation": r["Interpretation"],
+                              **function_call(r["RSID"], r["Result"], traits[r["RSID"]]["variants"], vep),
                               "health": "risk" if r["Score"] <= RISK_MAX_SCORE else "strength" if r["Score"] >= STRENGTH_MIN_SCORE else "neutral"})
     return status
 
