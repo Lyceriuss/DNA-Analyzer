@@ -277,7 +277,8 @@
     "GO:0042711",
     "GO:0019098"
    ],
-   "organ": "brain"
+   "organ": "brain",
+   "explain": "Desire and bonding run on brain signalling: oxytocin and its receptor (OXTR) for bonding and maternal care, dopamine and serotonin for motivation and mood, and sex hormones acting on the hypothalamus. Variants here shift how strongly these signals land, not whether the system works."
   },
   {
    "id": "axis",
@@ -288,7 +289,8 @@
     "GO:0034698",
     "GO:0043401"
    ],
-   "organ": "pituitary"
+   "organ": "pituitary",
+   "explain": "The hypothalamus releases GnRH in pulses, and the pituitary answers with LH and FSH, which make the ovaries grow follicles, ovulate and make hormones. Estrogen and progesterone feed back to tune the pulses. Weaker receptors (FSHR, LHCGR) or hormone subunits (FSHB) change how hard the ovaries are driven, and the timing of puberty and menopause."
   },
   {
    "id": "hormones",
@@ -299,7 +301,8 @@
     "GO:0006701",
     "GO:0120178"
    ],
-   "organ": "ovaries"
+   "organ": "ovaries",
+   "explain": "Theca cells turn cholesterol into androgens (StAR, CYP11A1, CYP17A1), and granulosa cells convert them to estradiol with aromatase (CYP19A1). After ovulation the corpus luteum makes progesterone to prepare the lining. Changes here shift hormone levels across the cycle."
   },
   {
    "id": "ovary",
@@ -308,7 +311,8 @@
    "go": [
     "GO:0008585"
    ],
-   "organ": "ovaries"
+   "organ": "ovaries",
+   "explain": "Genes that build the ovary and keep its supporting cells female (FOXL2, NR5A1, WNT4). Broken copies cause early ovarian failure; common variants have small effects on egg reserve and menopause timing."
   },
   {
    "id": "eggs",
@@ -318,7 +322,8 @@
     "GO:0048477",
     "GO:0001541"
    ],
-   "organ": "ovaries"
+   "organ": "ovaries",
+   "explain": "Eggs are made before birth and stored in follicles. Each cycle a group grows and usually one matures. Genes here set the size of the egg reserve (AMH signalling, GDF9, BMP15), the quality of meiosis and how fast follicles are used up, which shapes the fertile window and menopause age."
   },
   {
    "id": "cycle",
@@ -329,7 +334,8 @@
     "GO:0030728",
     "GO:0001553"
    ],
-   "organ": "ovaries"
+   "organ": "ovaries",
+   "explain": "The LH surge triggers ovulation, the emptied follicle becomes the corpus luteum, and its progesterone holds the lining. Genes here shape cycle regularity, ovulation and the luteal phase; several PCOS genes sit here."
   },
   {
    "id": "tubes",
@@ -339,7 +345,8 @@
     "GO:0060066",
     "GO:0009566"
    ],
-   "organ": "tubes"
+   "organ": "tubes",
+   "explain": "The fallopian tube catches the egg, moves it with cilia and muscle, and is where sperm meets egg. Genes here cover tube development, sperm–egg binding and early embryo transport."
   },
   {
    "id": "uterus",
@@ -348,7 +355,8 @@
    "go": [
     "GO:0060065"
    ],
-   "organ": "uterus"
+   "organ": "uterus",
+   "explain": "Genes that build the uterus (HOXA10, HOXA11, WNT signalling). Variants here link to uterine shape, fibroids and the muscle that carries and delivers a pregnancy."
   },
   {
    "id": "implantation",
@@ -358,7 +366,8 @@
     "GO:0007566",
     "GO:0046697"
    ],
-   "organ": "endometrium"
+   "organ": "endometrium",
+   "explain": "Under progesterone the lining transforms (decidualization) and opens a short window in which the embryo can attach. Genes here (PGR, HOXA10, LIF signalling) affect implantation and recurrent miscarriage."
   },
   {
    "id": "pregnancy",
@@ -368,9 +377,11 @@
     "GO:0007565",
     "GO:0001890"
    ],
-   "organ": "endometrium"
+   "organ": "endometrium",
+   "explain": "The placenta grows from the embryo into the lining, remodels the mother's arteries and manages blood flow, hormones and immune tolerance. Genes here link to preeclampsia, fetal growth and pregnancy loss."
   }
  ],
+ "disease_explain": "Open Targets ties these genes to one of the theme's conditions, mostly through GWAS, but Gene Ontology has no reproductive mechanism for them yet. Treat them as signals to follow up rather than explained pathways.",
  "organs": [
   {
    "id": "brain",

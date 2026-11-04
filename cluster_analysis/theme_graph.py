@@ -101,47 +101,113 @@ THEMES = {
              "about": "The placenta and carrying a pregnancy."},
         ],
     },
-    "fertility": {
-        "name": "Fertility",
-        "about": "Desire, the hormones that drive it and the reproductive axis, gonads and gametes, the cycle, fertilization and "
-                 "pregnancy. Built from Open Targets disease genetics and Gene Ontology, not from the library.",
+    "fertility_male": {
+        "name": "Male fertility",
+        "sex": "XY",
+        "person": "data/input/MyHeritage_raw_dna_data_HP.csv",
+        "about": "The XY reproductive system: desire, the hypothalamus–pituitary signals, the testes and the testosterone and sperm "
+                 "they make, sperm maturation and transport, the prostate and seminal vesicles, and erection. Built from Open "
+                 "Targets disease genetics and Gene Ontology, not from the library.",
         "diseases": {
-            "MONDO_0021124": "female infertility", "MONDO_0005372": "male infertility", "MONDO_0005387": "primary ovarian failure",
+            "MONDO_0005372": "male infertility", "MONDO_0004983": "spermatogenic failure", "MONDO_0001913": "oligospermia",
+            "HP_0012207": "reduced sperm motility", "MONDO_0009047": "cryptorchidism",
             "MONDO_0018555": "hypogonadotropic hypogonadism", "MONDO_0002146": "hypogonadism",
-            "MONDO_0005362": "erectile dysfunction", "MONDO_0008487": "polycystic ovary syndrome", "MONDO_0005133": "endometriosis",
-            "MONDO_0005081": "preeclampsia", "EFO_0004703": "age at menarche", "EFO_0004704": "age at menopause",
-            "EFO_0004908": "testosterone level", "EFO_0004696": "SHBG level", "EFO_0004697": "estradiol level",
+            "MONDO_0005362": "erectile dysfunction", "EFO_0004908": "testosterone level", "EFO_0004696": "SHBG level",
         },
-        # Reactome pathways that are about the theme itself, listed before the generic signalling ones
-        "pathway_terms": r"Meiosis|Meiotic|Fertilization|Sperm|Acrosome|Androgen|Estrogen|Pregnenolone|steroid|Glycoprotein hormones|"
-                         r"Hormone ligand-binding|ESR-mediated|Ovarian|Gonad|Gonadotropin|Prolactin|Oxytocin|Kisspeptin|Peptide hormone",
-        # ClinVar conditions that count as on-theme for risk, association and drug-response entries
-        "clinvar_terms": r"infertil|hypogonad|gonad|ovar|sperm|azoosperm|testost|estrogen|estradiol|androgen|pregnan|menstru|"
-                         r"puberty|kallmann|aromatase|letrozole|anastrozole|FSH|luteiniz|SHBG|endometrio|pre-?eclampsia|"
-                         r"miscarriage|abortion|sex development|disorder of sex",
-        # Level and timing traits: large GWAS give many weak locus-to-gene links, so these need a stronger genetic score
-        "measurements": ["age at menarche", "age at menopause", "testosterone level", "SHBG level", "estradiol level"],
-        # Order matters: a gene's main mechanism is the first one it has
+        "measurements": ["testosterone level", "SHBG level"],
+        "pathway_terms": r"Meiosis|Meiotic|Fertilization|Sperm|Acrosome|Androgen|Testosterone|Pregnenolone|steroid|Glycoprotein hormones|"
+                         r"Hormone ligand-binding|Gonadotropin|Prolactin|Oxytocin|Kisspeptin|Peptide hormone|Cilium|Axoneme",
+        "clinvar_terms": r"infertil|hypogonad|testi[sc]|sperm|azoosperm|oligosperm|testost|androgen|cryptorchid|puberty|kallmann|"
+                         r"FSH|luteiniz|SHBG|erectile|sex development|disorder of sex|ciliary dyskinesia",
+        "organs": [
+            {"id": "brain", "name": "Brain", "about": "Desire and sexual behaviour."},
+            {"id": "pituitary", "name": "Hypothalamus and pituitary", "about": "GnRH from the hypothalamus releases LH and FSH from the pituitary, which run the testes."},
+            {"id": "testes", "name": "Testes", "about": "Leydig cells make testosterone; Sertoli cells nurse sperm through about 74 days of production."},
+            {"id": "epididymis", "name": "Epididymis and vas deferens", "about": "Sperm mature and learn to swim in the epididymis, then travel up the vas deferens."},
+            {"id": "prostate", "name": "Prostate and seminal vesicles", "about": "Make most of the seminal fluid that carries and protects sperm."},
+            {"id": "penis", "name": "Penis", "about": "Erection and ejaculation."},
+        ],
+        "disease_organs": {
+            "spermatogenic failure": "testes", "oligospermia": "testes", "cryptorchidism": "testes", "hypogonadism": "testes",
+            "testosterone level": "testes", "reduced sperm motility": "epididymis", "hypogonadotropic hypogonadism": "pituitary",
+            "erectile dysfunction": "penis",
+        },
         "mechanisms": [
-            {"id": "drive", "name": "Desire and sexual behaviour", "go": ["GO:0019098"], "orthologs": True,
-             "about": "Reproductive behaviour: mating, sexual and maternal behaviour."},
-            {"id": "hormones", "name": "Sex hormone production", "go": ["GO:0120178", "GO:0006702", "GO:0006703"],
-             "about": "Making testosterone, estradiol, progesterone and their precursors."},
-            {"id": "axis", "name": "Reproductive axis signalling", "go": ["GO:0032274", "GO:0034698", "GO:0043401", "GO:0032276"],
+            {"id": "drive", "name": "Desire and sexual behaviour", "go": ["GO:0060179", "GO:0019098"], "orthologs": True, "organ": "brain",
+             "about": "Male mating behaviour and other reproductive behaviour."},
+            {"id": "axis", "name": "Hypothalamus–pituitary signals", "go": ["GO:0032274", "GO:0034698", "GO:0043401"], "organ": "pituitary",
              "about": "GnRH, LH and FSH release and response, and steroid hormone receptor signalling."},
-            {"id": "gonads", "name": "Gonad and sex development", "go": ["GO:0008406", "GO:0007530"],
-             "about": "Building testes and ovaries and determining sex."},
-            {"id": "gametes", "name": "Sperm and egg production", "go": ["GO:0007276"],
-             "about": "Spermatogenesis, oogenesis and meiosis."},
-            {"id": "cycle", "name": "Ovarian cycle and ovulation", "go": ["GO:0042698", "GO:0001541"],
-             "about": "Follicle development, ovulation and the menstrual cycle."},
-            {"id": "fertilization", "name": "Fertilization", "go": ["GO:0009566"],
-             "about": "Sperm meeting egg: capacitation, the acrosome reaction and binding."},
-            {"id": "pregnancy", "name": "Implantation and pregnancy", "go": ["GO:0007565", "GO:0001890"],
-             "about": "Implantation, decidualization, the placenta and birth."},
+            {"id": "hormones", "name": "Testosterone production", "go": ["GO:0006702", "GO:0120178"], "organ": "testes",
+             "about": "Making testosterone, DHT and their precursors."},
+            {"id": "testis", "name": "Testis development", "go": ["GO:0008584", "GO:0030238", "GO:0033327", "GO:0060009"], "organ": "testes",
+             "about": "Building the testis, male sex determination, and Leydig and Sertoli cells."},
+            {"id": "sperm", "name": "Sperm production", "go": ["GO:0007283"], "organ": "testes",
+             "about": "Spermatogenesis: from stem cell through meiosis to a finished sperm."},
+            {"id": "motility", "name": "Sperm maturation and motility", "go": ["GO:0097722", "GO:0030317", "GO:1905867"], "organ": "epididymis",
+             "about": "The epididymis, and the tail and energy that let sperm swim."},
+            {"id": "fertilization", "name": "Capacitation and fertilization", "go": ["GO:0048240", "GO:0007340", "GO:0009566"],
+             "organ": "epididymis", "about": "Capacitation, the acrosome reaction, and binding the egg."},
+            {"id": "glands", "name": "Prostate and seminal vesicles", "go": ["GO:0030850", "GO:0061682"], "orthologs": True, "organ": "prostate",
+             "about": "Building the glands that make seminal fluid."},
+            {"id": "erection", "name": "Erection", "go": ["GO:0043084", "GO:0060406"], "orthologs": True, "organ": "penis",
+             "about": "Nitric oxide and smooth-muscle signalling for erection."},
         ],
     },
 }
+
+# What each mechanism means and how a change in it plays out; shown in the explorer's in-depth view
+EXPLAIN = {
+    "fertility_female": {
+        "drive": "Desire and bonding run on brain signalling: oxytocin and its receptor (OXTR) for bonding and maternal care, dopamine and "
+                 "serotonin for motivation and mood, and sex hormones acting on the hypothalamus. Variants here shift how strongly these "
+                 "signals land, not whether the system works.",
+        "axis": "The hypothalamus releases GnRH in pulses, and the pituitary answers with LH and FSH, which make the ovaries grow follicles, "
+                "ovulate and make hormones. Estrogen and progesterone feed back to tune the pulses. Weaker receptors (FSHR, LHCGR) or hormone "
+                "subunits (FSHB) change how hard the ovaries are driven, and the timing of puberty and menopause.",
+        "hormones": "Theca cells turn cholesterol into androgens (StAR, CYP11A1, CYP17A1), and granulosa cells convert them to estradiol with "
+                    "aromatase (CYP19A1). After ovulation the corpus luteum makes progesterone to prepare the lining. Changes here shift "
+                    "hormone levels across the cycle.",
+        "ovary": "Genes that build the ovary and keep its supporting cells female (FOXL2, NR5A1, WNT4). Broken copies cause early ovarian "
+                 "failure; common variants have small effects on egg reserve and menopause timing.",
+        "eggs": "Eggs are made before birth and stored in follicles. Each cycle a group grows and usually one matures. Genes here set the "
+                "size of the egg reserve (AMH signalling, GDF9, BMP15), the quality of meiosis and how fast follicles are used up, which "
+                "shapes the fertile window and menopause age.",
+        "cycle": "The LH surge triggers ovulation, the emptied follicle becomes the corpus luteum, and its progesterone holds the lining. "
+                 "Genes here shape cycle regularity, ovulation and the luteal phase; several PCOS genes sit here.",
+        "tubes": "The fallopian tube catches the egg, moves it with cilia and muscle, and is where sperm meets egg. Genes here cover tube "
+                 "development, sperm–egg binding and early embryo transport.",
+        "uterus": "Genes that build the uterus (HOXA10, HOXA11, WNT signalling). Variants here link to uterine shape, fibroids and the muscle "
+                  "that carries and delivers a pregnancy.",
+        "implantation": "Under progesterone the lining transforms (decidualization) and opens a short window in which the embryo can "
+                        "attach. Genes here (PGR, HOXA10, LIF signalling) affect implantation and recurrent miscarriage.",
+        "pregnancy": "The placenta grows from the embryo into the lining, remodels the mother's arteries and manages blood flow, hormones "
+                     "and immune tolerance. Genes here link to preeclampsia, fetal growth and pregnancy loss.",
+    },
+    "fertility_male": {
+        "drive": "Desire runs on testosterone acting in the brain, dopamine reward signalling and oxytocin. GO's male mating behaviour genes "
+                 "come mostly from mouse studies. Variants here shift intensity, not whether drive is there.",
+        "axis": "GnRH pulses from the hypothalamus release LH and FSH. LH makes Leydig cells produce testosterone; FSH, together with "
+                "testosterone, drives Sertoli cells to support sperm production. Testosterone and inhibin feed back. Changes here link to "
+                "hypogonadism and lower sperm counts; the FSHB −211 variant lowers FSH, for example.",
+        "hormones": "Leydig cells turn cholesterol into testosterone (StAR, CYP11A1, CYP17A1, HSD17B3). SRD5A2 converts some into the "
+                    "stronger DHT, and aromatase turns some into estradiol. SHBG in the blood decides how much is free. Variants here move "
+                    "testosterone levels.",
+        "testis": "Genes that make the testis and keep it male (SRY, SOX9, NR5A1), and that build the Leydig and Sertoli cells. Strong "
+                  "defects cause differences of sex development and undescended testes.",
+        "sperm": "Making a sperm takes about 74 days: stem cells divide, go through meiosis and remodel into sperm, nursed by Sertoli cells. "
+                 "Hundreds of genes take part, so most male-infertility genes sit here; variants link to low or absent sperm counts.",
+        "motility": "Sperm swim with a tail (flagellum) powered by mitochondria, and gain that ability while they mature in the epididymis. "
+                    "Genes here cover the tail, its energy supply and maturation; defects cause poor motility.",
+        "fertilization": "In the female tract sperm capacitate, then the acrosome reaction releases enzymes that cut through the egg's coat "
+                         "before the sperm binds and fuses. Genes here cover those steps.",
+        "glands": "The prostate and seminal vesicles make most of the seminal fluid and its enzymes, which protect sperm and liquefy the "
+                  "ejaculate. Genes here cover the glands' development.",
+        "erection": "Erection needs nitric oxide from nerves and the vessel lining (NOS3), cGMP signalling in the smooth muscle (broken down "
+                    "by PDE5), and good blood flow. Genes here link to erectile dysfunction, which shares risk with blood vessel health.",
+    },
+}
+DISEASE_EXPLAIN = ("Open Targets ties these genes to one of the theme's conditions, mostly through GWAS, but Gene Ontology has no "
+                   "reproductive mechanism for them yet. Treat them as signals to follow up rather than explained pathways.")
 
 
 # --- Open Targets ------------------------------------------------------------------------------------
@@ -267,7 +333,9 @@ def build(theme_id):
     return {"theme": theme_id, "name": theme["name"], "about": theme["about"],
             "rule": "Gene Ontology mechanism genes, plus Open Targets genes scoring ≥ 0.5 (≥ 0.8 genetic for level and timing traits)",
             "diseases": theme["diseases"], "disease_ids": disease_ids,
-            "mechanisms": [{k: m.get(k) for k in ("id", "name", "about", "go", "organ")} for m in theme["mechanisms"]],
+            "mechanisms": [{**{k: m.get(k) for k in ("id", "name", "about", "go", "organ")},
+                            "explain": EXPLAIN.get(theme_id, {}).get(m["id"])} for m in theme["mechanisms"]],
+            "disease_explain": DISEASE_EXPLAIN,
             "organs": theme.get("organs", []), "disease_organs": theme.get("disease_organs", {}), "sex": theme.get("sex"),
             "person": theme.get("person"),
             "genes": dict(sorted(genes.items())), "links": links, "pathways": pathways}

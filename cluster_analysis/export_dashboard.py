@@ -225,7 +225,9 @@ def api_theme_rows(graph, xref, status, with_lifecycle=(), order=0, person=None)
              "person": person, "sex": graph.get("sex"), "organs": graph.get("organs", []),
              "disease_organs": graph.get("disease_organs", {})}
     meta = [{"theme": tid, "theme_name": graph["name"], "about": graph["about"], "theme_order": order, "facet": f["id"],
-             "facet_name": f["name"], "facet_about": f.get("about"), "organ": f.get("organ"), "core": True, "facet_order": i, "source": "api",
+             "facet_name": f["name"], "facet_about": f.get("about"), "organ": f.get("organ"),
+             "facet_explain": f.get("explain") or (graph.get("disease_explain") if f["id"] == "disease" else None),
+             "core": True, "facet_order": i, "source": "api",
              "stats": json.dumps(stats)} for i, f in enumerate(facets)]
     genes, notable = [], set()
     for sym, g in graph["genes"].items():
@@ -277,6 +279,7 @@ if __name__ == "__main__":
             # API-built themes replace the library-built theme of the same name
             # Each API theme uses its own person when it names one (female fertility: HJ), otherwise --dna
             statuses = {args.dna: status}
+            orders = {r["theme"]: r["theme_order"] for r in tables[0]}
             for path in sorted(glob.glob(os.path.join(os.path.dirname(__file__), "theme_graph_*.json"))):
                 graph = json.load(open(path, encoding="utf-8"))
                 dna = graph.get("person") or args.dna
@@ -285,9 +288,9 @@ if __name__ == "__main__":
                 person = re.sub(r"^MyHeritage_raw_dna_data_|\.csv$", "", os.path.basename(dna or ""))
                 xpath = os.path.join("data/output/cluster_analysis", f"theme_{person}_{graph['theme']}.json")
                 xref = json.load(open(xpath, encoding="utf-8")) if os.path.exists(xpath) else None
-                orders = {r["theme"]: r["theme_order"] for r in tables[0]}
                 order = orders.get(graph["theme"], orders.get(graph["theme"].split("_")[0], len(orders)) + 0.5)
-                tables = [[r for r in t if r["theme"] != graph["theme"]] for t in tables]
+                # An API theme replaces the library theme of the same id, and fertility_female/_male replace "fertility"
+                tables = [[r for r in t if r["theme"] not in (graph["theme"], graph["theme"].split("_")[0])] for t in tables]
                 # Lifecycles are built for --dna's person only, so other people's genes do not link to them
                 own = lifecycle_genes if dna == args.dna else set()
                 for t, extra in zip(tables, api_theme_rows(graph, xref, statuses[dna], own, order, person)):

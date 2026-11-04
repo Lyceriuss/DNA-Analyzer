@@ -76,10 +76,11 @@ A theme (cancer, fertility, muscle growth) gathers every library gene with evide
 
 Broad mechanisms (growth signals, cell death, oxidative stress, inflammation, energy) also need a direct link to the theme: its name in the UniProt text, the gene summary, GWAS traits or the library entry. Otherwise every antioxidant or receptor gene would count as a cancer gene. Connections are STRING interactions (confidence ≥ 0.4) between theme genes, and pathways are Reactome pathways shared by two or more of them. Add a theme by adding an entry to `THEMES`. `export_dashboard --lifecycles ... --dna ...` also writes `theme_meta`, `theme_genes`, `theme_links` and `theme_pathways` with the person's calls.
 
-## API-built theme graphs (pilot: fertility)
+## API-built theme graphs (fertility)
 
 ```bash
-python -m cluster_analysis.theme_graph fertility --dna data/input/MyHeritage_raw_dna_data_HP.csv
+python -m cluster_analysis.theme_graph fertility_female   # HJ's file, from the theme config
+python -m cluster_analysis.theme_graph fertility_male     # HP's file
 ```
 
 These themes don't depend on the library: the categories come from the APIs and the DNA file is matched afterwards.
@@ -94,7 +95,7 @@ These themes don't depend on the library: the categories come from the APIs and 
 
   Only theme names, disease IDs and gene symbols go to the APIs.
 
-Themes can be sex-specific and name their own person. `fertility_female` uses HJ's file (XX) and places every gene on an organ through its mechanisms (`organ`) and strongly linked conditions (`disease_organs`): brain, hypothalamus–pituitary, ovaries, fallopian tubes, uterus, and endometrium/placenta. The explorer draws these as a body map, and selecting an organ narrows the page to its genes. `fertility` (HP) is the male-side theme for now.
+Themes can be sex-specific and name their own person. `fertility_female` uses HJ's file (XX) and places every gene on an organ through its mechanisms (`organ`) and strongly linked conditions (`disease_organs`): brain, hypothalamus–pituitary, ovaries, fallopian tubes, uterus, and endometrium/placenta. The explorer draws these as a body map, and selecting an organ narrows the page to its genes. `fertility_male` uses HP's file (XY) with brain, hypothalamus–pituitary, testes, epididymis and vas deferens, prostate and seminal vesicles, and penis. Together the two fertility themes replace the mixed library theme. Each mechanism has a written explanation (`EXPLAIN`) for the explorer's in-depth view. Erection, accessory-gland and behaviour biology is mostly known from mouse, so those mechanisms accept ortholog-based GO evidence.
 
 `theme_graph_<theme>.json` is public data. `data/output/cluster_analysis/theme_<name>_<theme>.json` holds the person's cross-reference and stays out of git. `export_dashboard` uses an API theme in place of the library theme with the same id. It draws the notable genes: those with a library call, a ClinVar entry, a carried finding in a mechanism gene, or an Open Targets score ≥ 0.8.
 
