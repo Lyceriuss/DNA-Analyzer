@@ -51,7 +51,7 @@ The relatives' files go through `run_analysis()` the same way. `src/inheritance.
 | `src/normalizer.py` | `resolve_genotype(user_gt, variants)`: sorts the user genotype alphabetically and tries a direct key match, then a complement-strand match. |
 | `src/analyzer.py` | Joins the DNA with `snp_traits.json` and sorts by Domain → Impact rank → distance from baseline. |
 | `src/domain_mapper.py` | Keyword rules that map the free-text `system` field to one of 10 domains (or "Other"). **Order matters**: the first rule that matches wins. |
-| `src/proxy_handler.py` | Fills a missing target SNP from a proxy SNP using `config/proxies.json`. **Currently disabled** (the call is commented out in `analyzer.py`). |
+| `src/proxy_handler.py` | Fills a library SNP the file lacks from a co-inherited SNP it has (`config/proxies.json`). Returns the estimates so the report can print a note under "Your Result". |
 | `src/inheritance.py` | Compares the child's genotype with each relative's (exact string match) and labels each SNP's source. |
 | `src/visualizer.py` | Plotly polar chart (domain balance) and donut chart (heritage), exported to PNG via kaleido. |
 | `src/report_engine.py` | `ReportEngine` handles language-aware content lookup. `PDFReport` holds every page layout. `clean_text()` downgrades text to Latin-1 for the core PDF fonts. |

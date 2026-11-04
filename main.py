@@ -286,7 +286,7 @@ def main():
         
         if content and content['badge_type'] == 'STRENGTH':
             evidence = engine.get_evidence_for_rsid(rsid)
-            pdf.add_deep_dive_page(row['Result'], content, row['Score_Map'], row['Variant_Map'], evidence)
+            pdf.add_deep_dive_page(row['Result'], content, row['Score_Map'], row['Variant_Map'], evidence, note=row.get('Estimated_SV' if language == 'Swedish' else 'Estimated'))
             processed_rsids.append(rsid)
             
     # Strength Summary Fallback
@@ -313,7 +313,7 @@ def main():
         
         if content and content['badge_type'] == 'RISK':
             evidence = engine.get_evidence_for_rsid(rsid)
-            pdf.add_deep_dive_page(row['Result'], content, row['Score_Map'], row['Variant_Map'], evidence)
+            pdf.add_deep_dive_page(row['Result'], content, row['Score_Map'], row['Variant_Map'], evidence, note=row.get('Estimated_SV' if language == 'Swedish' else 'Estimated'))
             processed_rsids.append(rsid)
 
     # Risk Summary Fallback

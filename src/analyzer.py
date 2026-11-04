@@ -9,10 +9,11 @@ from src.proxy_handler import apply_proxies
 def run_analysis(dna_filepath, traits_filepath):
     # 1. Load DNA
     dna_data = load_dna_file(dna_filepath)
-    if not dna_data: return pd.DataFrame() 
-    
-   # dna_data = apply_proxies(dna_data)
-    
+    if not dna_data: return pd.DataFrame()
+
+    # Library SNPs missing from the file, estimated from co-inherited SNPs (config/proxies.json)
+    dna_data, estimated = apply_proxies(dna_data)
+
     # 2. Load Traits
     try:
         with open(traits_filepath, 'r', encoding='utf-8') as f:
@@ -40,7 +41,12 @@ def run_analysis(dna_filepath, traits_filepath):
             score = scores.get(matched_gt, 5)
             impact = info.get('impact', 'Medium')
             interpretation = variants.get(matched_gt, "Unknown")
-            
+            est = estimated.get(rsid)
+            if est and est["uncertain"]:
+                score, interpretation = 5, est["note"]  # markers disagree: report it, do not score it
+            elif est:
+                interpretation = f"{interpretation} (estimated)"
+
             results.append({
                 "RSID": rsid,
                 "Gene": info.get('gene', 'Unknown'),
@@ -54,6 +60,9 @@ def run_analysis(dna_filepath, traits_filepath):
                 "Interpretation": interpretation,
                 # "carrier" / "rare_variant" entries are reported on their own page, not scored
                 "Category": info.get("category", "trait"),
+                # Set when the genotype was estimated from a co-inherited SNP rather than measured
+                "Estimated": est["note"] if est else "",
+                "Estimated_SV": est["note_sv"] if est else "",
                 # --- NEW: Preserve Context for the Report ---
                 "Score_Map": scores,      # { "CC": 9, "CT": 5, "TT": 2 }
                 "Variant_Map": variants   # { "CC": "Good", "TT": "Bad" }

@@ -1,23 +1,53 @@
 {
-    "rs1815739": {
-        "target_gene": "ACTN3",
+    "_comment": "Proxies estimate a library SNP that is missing from a DNA file from a co-inherited SNP that is present. Maps are forward-strand genotypes (sorted). Allele pairing and accuracy come from 1000 Genomes phase 3 individual genotypes (Ensembl, 503 Europeans), checked 2026-11-04.",
+    "rs429358": {
+        "target_gene": "APOE",
+        "label": "APOE e4",
         "proxies": {
-            "rs16832327": {
-                "GG": "CC",
-                "GC": "CT",
-                "CG": "TC",
-                "CC": "TT"
+            "rs769449": {
+                "map": {
+                    "GG": "TT",
+                    "AG": "CT",
+                    "AA": "CC"
+                },
+                "r2_ceu": 0.8,
+                "concordance_eur": 0.936
             }
+        },
+        "uncertain_if": {
+            "when_result": "TT",
+            "proxy": "rs4420638",
+            "allele": "G",
+            "share_with_variant_eur": 0.42,
+            "note": "The two APOE markers disagree. About 42% of Europeans with this pattern carry one ε4 copy.",
+            "note_sv": "De två APOE-markörerna går isär. Ungefär 42 % av européer med detta mönster bär en ε4-kopia."
+        },
+        "confidence_note": {
+            "TT": "No ε4 estimated: right for about 99.7% of Europeans when both markers agree.",
+            "CT": "One ε4 copy estimated: the marker allele is a reliable sign of ε4 in Europeans.",
+            "CC": "Two ε4 copies estimated: the marker allele is a reliable sign of ε4 in Europeans."
+        },
+        "source": "rs429358 is not on MyHeritage panels. rs769449 A and rs4420638 G both raise Alzheimer's risk in the GWAS Catalog, confirming they travel with e4.",
+        "confidence_note_sv": {
+            "TT": "Ingen ε4 uppskattad: stämmer för ungefär 99,7 % av européer när båda markörerna är överens.",
+            "CT": "En ε4-kopia uppskattad: markörallelen är ett tillförlitligt tecken på ε4 hos européer.",
+            "CC": "Två ε4-kopior uppskattade: markörallelen är ett tillförlitligt tecken på ε4 hos européer."
         }
     },
-    "rs4646994": {
-    "target_gene": "ACE",
-    "proxies": {
-        "rs4341": {
-            "GG": "DD",  
-            "GC": "ID",
-            "CC": "II"  
-        }
-    }
+    "rs1815739": {
+        "target_gene": "ACTN3",
+        "label": "ACTN3 R577X",
+        "proxies": {
+            "rs540874": {
+                "map": {
+                    "GG": "CC",
+                    "AG": "CT",
+                    "AA": "TT"
+                },
+                "r2_ceu": 0.98,
+                "concordance_eur": 0.992
+            }
+        },
+        "source": "rs1815739 is not on MyHeritage panels; rs540874 matches its genotype in 99.2% of Europeans."
     }
 }

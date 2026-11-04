@@ -10,7 +10,7 @@ All files are UTF-8 JSON keyed by rsID unless noted otherwise. The counts are fr
 | `evidence_db.json` | 231 | report (EN) | Research/evidence panel and confidence metrics |
 | `SV_evidence_db.json` | 228 | report (SV) | Swedish translation of the above |
 | `ui_labels.json` | 2 langs | report | All PDF chrome strings and the intro text |
-| `proxies.json` | 2 | proxy_handler (disabled) | Proxy SNP → target SNP genotype translation |
+| `proxies.json` | 2 | proxy_handler | Proxy SNP → target SNP genotype translation |
 | `muscle_logic_gates_db.json` | 6 stations | cluster_checker.py | Experimental multi-SNP rule sets |
 | `rewrite_needed.json` | 120 (list) | written by `audit_deep_dives.py` | RSIDs whose narrative failed the LLM audit |
 | `backup/` | — | — | Manual dated snapshots |
@@ -117,9 +117,23 @@ The report uses `metrics.*.score` (the confidence panel), `mechanistic_impact.de
 
 ## `proxies.json`
 
+Estimates a library SNP that MyHeritage does not measure from a co-inherited SNP it does measure. A target the file already contains is never overwritten.
+
 ```json
-"rs1815739": { "target_gene": "ACTN3", "proxies": { "rs16832327": { "GG": "CC", "GC": "CT", ... } } }
+"rs429358": {
+  "target_gene": "APOE", "label": "APOE e4",
+  "proxies": { "rs769449": { "map": { "GG": "TT", "AG": "CT", "AA": "CC" }, "r2_ceu": 0.8, "concordance_eur": 0.936 } },
+  "uncertain_if": { "when_result": "TT", "proxy": "rs4420638", "allele": "G", "note": "...", "note_sv": "..." },
+  "confidence_note": { "TT": "...", "CT": "...", "CC": "..." },
+  "confidence_note_sv": { ... }
+}
 ```
+
+- `map` keys are sorted forward-strand proxy genotypes. A proxy genotype not in the map (no-call, unexpected allele) is skipped, never guessed.
+- Pairings and `concordance_eur` come from 1000 Genomes phase 3 individual genotypes (503 Europeans).
+- `uncertain_if` lets a second marker overrule a reassuring result. An uncertain row gets score 5 and its note as the interpretation, so it is reported but not scored.
+- Other estimated rows keep their score, get " (estimated)" on the interpretation, and print the note (with "via <proxy>") under "Your Result" on the deep dive.
+- Current entries: APOE e4 (rs429358 via rs769449, checked against rs4420638) and ACTN3 R577X (rs1815739 via rs540874, 99.2%).
 
 ## `muscle_logic_gates_db.json`
 

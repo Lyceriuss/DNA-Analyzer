@@ -545,7 +545,7 @@ class PDFReport(FPDF):
             self.ln(4)
             if self.get_y() > 260: self.add_page()
 
-    def add_deep_dive_page(self, genotype, data, score_map, variant_map, evidence=None):
+    def add_deep_dive_page(self, genotype, data, score_map, variant_map, evidence=None, note=None):
         self.add_page()
         prefix = self.labels.get('deep_dive_prefix', "Deep Dive:")
         self.chapter_title(f"{prefix} {data['title']}")
@@ -561,7 +561,15 @@ class PDFReport(FPDF):
         self.set_text_color(80)
         res_lbl = self.labels.get('your_result_label', "Your Result:")
         self.cell(4, 6, clean_text(f"{res_lbl} {genotype}"), 0, 1)
-        self.ln(15)
+        if note:
+            # Estimated from a co-inherited SNP: say so where the result is shown
+            self.set_x(15)
+            self.set_font('Arial', 'I', 8)
+            self.set_text_color(160, 100, 0)
+            self.cell(0, 5, self._fit_cell(clean_text(note), 182), 0, 1)
+            self.ln(10)
+        else:
+            self.ln(15)
 
         is_risk = (data['badge_type'] == "RISK")
         badge_color = (231, 76, 60) if is_risk else (46, 204, 113)

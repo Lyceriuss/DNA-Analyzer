@@ -69,7 +69,6 @@ The library now has **229 traits, 0 errors and 38 warnings**. Remaining work:
 
 - Test coverage is still thin (`tests/` covers only the normalizer and genotype personalisation). Add `domain_mapper` and `inheritance` next.
 - Nothing in `requirements.txt` is pinned. `fpdf` is the unmaintained 1.7 line. `fpdf2` adds Unicode TTF fonts, which would remove the Latin-1 `clean_text` downgrade.
-- `proxy_handler` is disabled (the call in `analyzer.py` is commented out).
 - `domain_mapper` uses substring keywords, and the first match wins ("cell", "dna" and "eye" are broad). A `domain` field in `snp_traits.json` would be explicit.
 - Tooling scripts hardcode paths and overwrite config files in place without backups. Add CLI args and write to a temp file before an atomic rename.
 - Bare `except:` clauses hide errors in `report_engine.py`.
