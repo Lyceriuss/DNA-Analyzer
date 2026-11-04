@@ -2,7 +2,7 @@ import json
 import os
 import pandas as pd
 from src.loader import load_dna_file
-from src.normalizer import resolve_genotype
+from src.normalizer import resolve_genotype, normalize_variant_keys
 from src.domain_mapper import map_system_to_domain
 from src.proxy_handler import apply_proxies
 
@@ -29,14 +29,17 @@ def run_analysis(dna_filepath, traits_filepath):
         if rsid not in dna_data: continue
 
         user_gt = dna_data[rsid]
-        
-        # Normalize
-        matched_gt, _ = resolve_genotype(user_gt, info['variants'])
-        
+
+        # Normalize both sides: the user genotype is sorted inside resolve_genotype,
+        # so the JSON keys must be sorted too ("GA" in the DB would never match otherwise)
+        variants = normalize_variant_keys(info['variants'])
+        scores = normalize_variant_keys(info['scores'])
+        matched_gt, _ = resolve_genotype(user_gt, variants)
+
         if matched_gt:
-            score = info['scores'].get(matched_gt, 5)
+            score = scores.get(matched_gt, 5)
             impact = info.get('impact', 'Medium')
-            interpretation = info['variants'].get(matched_gt, "Unknown")
+            interpretation = variants.get(matched_gt, "Unknown")
             
             results.append({
                 "RSID": rsid,
@@ -50,8 +53,8 @@ def run_analysis(dna_filepath, traits_filepath):
                 "Score": float(score),
                 "Interpretation": interpretation,
                 # --- NEW: Preserve Context for the Report ---
-                "Score_Map": info['scores'],      # { "CC": 9, "CT": 5, "TT": 2 }
-                "Variant_Map": info['variants']   # { "CC": "Good", "TT": "Bad" }
+                "Score_Map": scores,      # { "CC": 9, "CT": 5, "TT": 2 }
+                "Variant_Map": variants   # { "CC": "Good", "TT": "Bad" }
             })
 
     # 4. Create DataFrame

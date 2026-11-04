@@ -17,6 +17,13 @@ def standardize_genotype(genotype):
         return ""
     return "".join(sorted(genotype))
 
+def normalize_variant_keys(mapping):
+    """
+    Sorts the genotype keys of a variants/scores dict so they compare
+    against standardized user genotypes: {"GA": ...} -> {"AG": ...}.
+    """
+    return {standardize_genotype(k): v for k, v in mapping.items()}
+
 def get_complement(genotype):
     """
     Returns the complementary strand version of the genotype.

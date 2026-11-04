@@ -3,3 +3,8 @@ numpy
 plotly
 fpdf
 kaleido
+
+# Content tooling only (LLM pipelines, UniProt prototype)
+google-genai
+python-dotenv
+requests

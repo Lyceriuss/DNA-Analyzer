@@ -1,5 +1,6 @@
 import json
 import os
+import re
 from fpdf import FPDF
 import math
 
@@ -7,6 +8,36 @@ import math
 DEEP_DIVE_PATH = "config/deep_dive_content.json"
 EVIDENCE_PATH = "config/evidence_db.json"
 UI_LABELS_PATH = "config/ui_labels.json" # New config for modularity
+
+# Scores are 0-10 with 5 as baseline. Only clear deviations get a deep dive / summary row,
+# otherwise a "Normal" (6) result would receive the narrative written for the strong variant.
+STRENGTH_MIN_SCORE = 7
+RISK_MAX_SCORE = 4
+
+# Deep-dive one-page fitting: (body font size, line height) tried largest first
+FIT_STEPS = [(10, 5.0), (9.5, 4.6), (9, 4.3), (8.5, 4.0), (8, 3.8)]
+PANEL_HEIGHT = 45  # confidence panel is pinned this far from the page bottom
+
+# Narratives sometimes say "Your AG genotype" although they are shown for every genotype
+# on that side of baseline. Rewrite self-references to the reader's actual genotype.
+_SELF_GENOTYPE_PATTERNS = [
+    (re.compile(r"\b([Yy]our) [ACGT]{2} genotype"), r"\g<1> {gt} genotype"),
+    (re.compile(r"\b(carry|have) the [ACGT]{2} genotype"), r"\g<1> the {gt} genotype"),
+    (re.compile(r"\b([Yy]our genotype) \([ACGT]{2}\)"), r"\g<1> ({gt})"),
+    (re.compile(r"\b([Dd]in genotyp) \([ACGT]{2}\)"), r"\g<1> ({gt})"),
+    (re.compile(r"\b(You (?:are|carry) [^.()]{1,60}?)\([ACGT]{2}\)"), r"\g<1>({gt})"),
+    (re.compile(r"\b([Dd]in) [ACGT]{2}-genotyp"), r"\g<1> {gt}-genotyp"),
+    (re.compile(r"\b(bär(?: på)?|har) [ACGT]{2}-genotypen"), r"\g<1> {gt}-genotypen"),
+    (re.compile(r"\b(Du (?:är|bär) [^.()]{1,60}?)\([ACGT]{2}\)"), r"\g<1>({gt})"),
+]
+
+def personalize_genotype(text, genotype):
+    """Replaces hardcoded 'your XX genotype' mentions with the reader's genotype."""
+    if not text or not genotype:
+        return text
+    for pattern, template in _SELF_GENOTYPE_PATTERNS:
+        text = pattern.sub(template.replace("{gt}", genotype), text)
+    return text
 
 
 LANGUAGE_CONFIG = {
@@ -97,10 +128,10 @@ class ReportEngine:
         if rsid not in self.deep_dive_data: return None
         entry = self.deep_dive_data[rsid]
         
-        if score < 5:
+        if score <= RISK_MAX_SCORE:
             content = entry.get('data_risk')
             badge = "RISK"
-        elif score > 5:
+        elif score >= STRENGTH_MIN_SCORE:
             content = entry.get('data_strength')
             badge = "STRENGTH"
         else: return None 
@@ -121,6 +152,7 @@ class PDFReport(FPDF):
         super().__init__(orientation, unit, format)
         # We catch the labels injected from main.py
         self.labels = labels if labels else {}
+        self.fit_log = []  # one entry per deep dive: which font step it needed, clipped or not
 
     def header(self):
         if self.page_no() > 1:
@@ -136,7 +168,7 @@ class PDFReport(FPDF):
         self.set_font('Arial', 'I', 8)
         self.set_text_color(150)
         # Localize "Page" if the key exists
-        page_lbl = self.labels.get('footer_page', 'Page')
+        page_lbl = self.labels.get('footer_page_label', 'Page')
         self.cell(0, 10, f'{page_lbl} {self.page_no()}', 0, 0, 'C')
 
     def chapter_title(self, title):
@@ -152,7 +184,21 @@ class PDFReport(FPDF):
         lines = math.ceil(text_w / width * 1.1) + 1 
         return lines * (font_size * 0.5)
 
+    def _fit_widths(self, col_widths):
+        """Scales column widths down to the printable width (intro pages set 16mm margins)."""
+        avail = self.w - self.l_margin - self.r_margin
+        total = sum(col_widths)
+        return [w * avail / total for w in col_widths] if total > avail else col_widths
+
+    def _fit_cell(self, txt, w):
+        """Shortens txt with '...' so it fits a cell of width w in the current font."""
+        if self.get_string_width(txt) <= w - 2: return txt
+        while len(txt) > 1 and self.get_string_width(txt + '...') > w - 2:
+            txt = txt[:-1]
+        return txt.rstrip() + '...'
+
     def draw_table(self, df, col_widths, highlight_net=False):
+        col_widths = self._fit_widths(col_widths)
         self.set_font('Arial', 'B', 8)
         self.set_fill_color(52, 152, 219)
         self.set_text_color(255)
@@ -161,9 +207,9 @@ class PDFReport(FPDF):
             self.cell(col_widths[i], 8, clean_text(col), 0, 0, 'C', 1)
         self.ln()
         self.set_font('Arial', '', 8)
-        for idx, row in df.iterrows():
+        for row_no, (_, row) in enumerate(df.iterrows()):
             self.set_fill_color(245, 245, 245)
-            fill = (idx % 2 == 1)
+            fill = (row_no % 2 == 1)
             for i, val in enumerate(row):
                 txt = clean_text(str(val))
                 self.set_text_color(0)
@@ -182,7 +228,7 @@ class PDFReport(FPDF):
                         elif float(val) < 0: self.set_text_color(231, 76, 60)
                     except: pass
 
-                if len(txt) > 60: txt = txt[:57] + "..."
+                txt = self._fit_cell(txt, col_widths[i])
                 self.cell(col_widths[i], 7, txt, 0, 0, 'C', fill)
             self.ln()
 
@@ -235,15 +281,85 @@ class PDFReport(FPDF):
                 self.set_fill_color(220, 220, 220) 
             self.rect(sx, sy, segment_w, segment_h, 'F')
 
-    def draw_body_evidence(self, evidence_data):
-        if not evidence_data: return
-        current_y = self.get_y()
-        if current_y > 225: return 
+    def _count_lines(self, text, w):
+        """Mirrors FPDF 1.7 multi_cell word wrapping for the current font."""
+        if not text: return 0
+        wmax = w - 2 * self.c_margin
+        space = self.get_string_width(' ')
+        total = 0
+        for para in text.split('\n'):
+            n, cur = 1, 0.0
+            for word in para.split(' '):
+                ww = self.get_string_width(word)
+                if cur and cur + space + ww > wmax:
+                    n += 1
+                    cur = ww
+                else:
+                    cur = cur + space + ww if cur else ww
+                while cur > wmax:  # single word wider than the cell
+                    n += 1
+                    cur -= wmax
+            total += n
+        return total
 
-        metrics = evidence_data.get('metrics', {})
-        mech = metrics.get('mechanistic_impact', {})
-        qual = metrics.get('study_quality', {})
-        
+    def _clip_to_lines(self, text, w, max_lines):
+        """Cuts text at a word boundary so it wraps to at most max_lines."""
+        if max_lines <= 0: return ""
+        if self._count_lines(text, w) <= max_lines: return text
+        words = text.split(' ')
+        lo, hi = 0, len(words)
+        while lo < hi:
+            mid = (lo + hi + 1) // 2
+            if self._count_lines(' '.join(words[:mid]) + '...', w) <= max_lines:
+                lo = mid
+            else:
+                hi = mid - 1
+        return ' '.join(words[:lo]).rstrip(',;:') + '...'
+
+    def _evidence_height(self, mech_detail, qual_detail, w, lh):
+        blocks = [t for t in (mech_detail, qual_detail) if t]
+        if not blocks: return 0
+        # header (10) + per block label/spacing (7) + gap between blocks (4)
+        return 10 + sum(7 + self._count_lines(t, w) * lh for t in blocks) + 4 * (len(blocks) - 1)
+
+    def _fit_deep_dive(self, avail, texts, w_full, w_box):
+        """
+        Picks the largest body font where mechanism + insight + research fit in `avail` mm.
+        If even the smallest step overflows, research text is clipped (then the mechanism).
+        Returns (font_size, line_height, texts, clipped).
+        """
+        def heights(t, lh):
+            mech_h = 8 + (self._count_lines(t['what'], w_full) + self._count_lines(t['how'], w_full)) * lh + 6
+            ins_h = max(25, 18 + self._count_lines(t['body'], w_box) * lh)
+            return mech_h, ins_h
+
+        for fs, lh in FIT_STEPS:
+            self.set_font('Arial', '', fs)
+            mech_h, ins_h = heights(texts, lh)
+            if mech_h + ins_h + self._evidence_height(texts['mech_detail'], texts['qual_detail'], w_box, lh) <= avail:
+                return fs, lh, texts, False
+
+        # Smallest step still overflows: clip, lowest priority first
+        texts = dict(texts)
+        room = avail - mech_h - ins_h - 10
+        if room < 7 + 2 * lh:
+            # No space for research at all; keep the mechanism readable instead
+            texts['mech_detail'] = texts['qual_detail'] = ''
+            how_room = avail - (mech_h - self._count_lines(texts['how'], w_full) * lh) - ins_h
+            texts['how'] = self._clip_to_lines(texts['how'], w_full, int(how_room / lh))
+            return fs, lh, texts, True
+
+        if texts['mech_detail']:
+            texts['mech_detail'] = self._clip_to_lines(texts['mech_detail'], w_box, int((room - 7) / lh))
+            room -= 7 + self._count_lines(texts['mech_detail'], w_box) * lh + 4
+        if texts['qual_detail']:
+            max_lines = int((room - 7) / lh)
+            texts['qual_detail'] = self._clip_to_lines(texts['qual_detail'], w_box, max_lines) if max_lines >= 2 else ''
+        return fs, lh, texts, True
+
+    def draw_body_evidence(self, mech_detail, qual_detail, fs=10, lh=5):
+        if not (mech_detail or qual_detail): return
+
         # Spacer
         self.ln(4) 
         
@@ -259,23 +375,23 @@ class PDFReport(FPDF):
         self.set_line_width(0.8)
         
         # 1. MECHANISTIC
-        if 'detail' in mech:
-            self.line(12, self.get_y(), 12, self.get_y() + 5) 
+        if mech_detail:
+            self.line(12, self.get_y(), 12, self.get_y() + 5)
             self.set_x(15)
-            self.set_font('Arial', 'B', 10) 
+            self.set_font('Arial', 'B', 10)
             self.set_text_color(44, 62, 80)
             mech_lbl = self.labels.get('mech_context_label', "MECHANISTIC CONTEXT:")
             self.cell(0, 5, clean_text(mech_lbl), 0, 1)
-            
-            self.ln(2) 
+
+            self.ln(2)
             self.set_x(15)
-            self.set_font('Arial', '', 10) 
+            self.set_font('Arial', '', fs)
             self.set_text_color(0, 0, 0)
-            self.multi_cell(180, 5, clean_text(mech['detail'])) 
-            self.ln(4) 
+            self.multi_cell(180, lh, mech_detail)
+            self.ln(4)
 
         # 2. STUDY QUALITY
-        if 'detail' in qual and self.get_y() < 220:
+        if qual_detail:
             self.line(12, self.get_y(), 12, self.get_y() + 5)
             self.set_x(15)
             self.set_font('Arial', 'B', 10)
@@ -283,11 +399,11 @@ class PDFReport(FPDF):
             qual_lbl = self.labels.get('study_quality_header_label', "STUDY QUALITY & CONSENSUS:")
             self.cell(0, 5, clean_text(qual_lbl), 0, 1)
 
-            self.ln(2) 
+            self.ln(2)
             self.set_x(15)
-            self.set_font('Arial', '', 10)
+            self.set_font('Arial', '', fs)
             self.set_text_color(0, 0, 0)
-            self.multi_cell(180, 5, clean_text(qual['detail']))
+            self.multi_cell(180, lh, qual_detail)
             
         self.set_line_width(0.2)
 
@@ -373,7 +489,13 @@ class PDFReport(FPDF):
         self.set_text_color(0, 0, 0)
         fallback = self.labels.get('audit_fallback_text', 'No detailed audit available.')
         detail_text = clean_text(meth.get('detail', fallback))
+        # Clip to the panel box; long audits used to spill onto a page of their own
+        panel_bottom = self.h - 7
+        detail_text = self._clip_to_lines(detail_text, 80, int((panel_bottom - self.get_y()) / 3.5))
+        saved_auto, saved_margin = self.auto_page_break, self.b_margin
+        self.set_auto_page_break(False)
         self.multi_cell(80, 3.5, detail_text, 0, 'L')
+        self.set_auto_page_break(saved_auto, saved_margin)
 
     def add_strength_summary_page(self, strength_df):
         self.add_page()
@@ -464,28 +586,41 @@ class PDFReport(FPDF):
             self.draw_genotype_spectrum(genotype, score_map, variant_map)
             self.ln(5)
 
+        # --- Measure first: everything below must end above the confidence panel ---
+        w_full = self.w - self.l_margin - self.r_margin
+        w_box = 180
+        mech_detail, qual_detail = self._evidence_details(evidence)
+        texts = {
+            'what': clean_text(personalize_genotype(data['mechanism'].get('what', ''), genotype)),
+            'how': clean_text(personalize_genotype(data['mechanism'].get('how', ''), genotype)),
+            'body': clean_text(personalize_genotype(data['action'].get('body', ''), genotype)),
+            'mech_detail': clean_text(mech_detail) if mech_detail else '',
+            'qual_detail': clean_text(qual_detail) if qual_detail else '',
+        }
+        avail = self.h - PANEL_HEIGHT - 3 - self.get_y()
+        fs, lh, texts, clipped = self._fit_deep_dive(avail, texts, w_full, w_box)
+        self.fit_log.append({"gene": data['gene'], "font": fs, "clipped": clipped})
+
         self.set_text_color(44, 62, 80)
         self.set_font('Arial', 'B', 12)
         mech_header = self.labels.get('biological_mechanism_header', "[ THE BIOLOGICAL MECHANISM ]")
         self.cell(0, 8, clean_text(mech_header), 0, 1)
-        self.set_font('Arial', '', 10)
+        self.set_font('Arial', '', fs)
         self.set_text_color(0, 0, 0)
-        self.multi_cell(0, 5, clean_text(data['mechanism'].get('what', '')))
+        self.multi_cell(0, lh, texts['what'])
         self.ln(1)
-        self.multi_cell(0, 5, clean_text(data['mechanism'].get('how', '')))
+        self.multi_cell(0, lh, texts['how'])
         self.ln(5)
 
         start_y = self.get_y()
         ins_prefix = self.labels.get('insight_prefix', "INSIGHT")
         title_txt = f"{ins_prefix}: {data['action'].get('title', 'Action Plan')}"
-        body_txt = data['action'].get('body', '')
-        
-        self.set_font('Arial', '', 10)
-        lines = math.ceil(self.get_string_width(body_txt) / 180) + 1
-        box_height = 10 + (lines * 5) + 5
-        if box_height < 25: box_height = 25 
+        body_txt = texts['body']
 
-        self.set_fill_color(235, 250, 235) 
+        self.set_font('Arial', '', fs)
+        box_height = max(25, 18 + self._count_lines(body_txt, w_box) * lh)
+
+        self.set_fill_color(235, 250, 235)
         self.rect(10, start_y, 190, box_height, 'F')
         
         self.set_xy(15, start_y + 5)
@@ -495,13 +630,19 @@ class PDFReport(FPDF):
         
         self.set_x(15)
         self.set_text_color(0)
-        self.set_font('Arial', '', 10)
-        self.multi_cell(180, 5, clean_text(body_txt))
-        
-        self.set_y(start_y + box_height) 
-        self.draw_body_evidence(evidence)
+        self.set_font('Arial', '', fs)
+        self.multi_cell(w_box, lh, body_txt)
+
+        self.set_y(start_y + box_height)
+        self.draw_body_evidence(texts['mech_detail'], texts['qual_detail'], fs, lh)
         self.draw_evidence_panel(evidence)
-        
+
+    def _evidence_details(self, evidence):
+        if not evidence: return '', ''
+        metrics = evidence.get('metrics', {})
+        return (metrics.get('mechanistic_impact', {}).get('detail', ''),
+                metrics.get('study_quality', {}).get('detail', ''))
+
     def _truncate(self, text, length):
         """Helper to keep table cells from overflowing the PDF margins."""
         if not isinstance(text, str): text = str(text)
@@ -536,7 +677,7 @@ class PDFReport(FPDF):
             self.set_fill_color(*relative_color)
             self.set_text_color(255)
             
-            col_widths = [20, 55, 25, 25, 65]
+            col_widths = self._fit_widths([20, 55, 25, 25, 65])
             # Pull localized heritage headers
             headers = self.labels.get('cols_heritage', ["Gene", "Trait", "Your Result", f"{relative_name} Result", "Impact Summary"])
             
@@ -547,12 +688,12 @@ class PDFReport(FPDF):
             self.set_font('Arial', '', 8)
             display_df = df_subset.head(15)
             
-            for idx, row in display_df.iterrows():
+            for row_no, (_, row) in enumerate(display_df.iterrows()):
                 if self.get_y() > 270:
                     self.add_page()
-                    
+
                 self.set_fill_color(245, 245, 245)
-                fill = (idx % 2 == 1)
+                fill = (row_no % 2 == 1)
                 self.set_text_color(0)
                 
                 c_score = row.get('Child_Score', 5)

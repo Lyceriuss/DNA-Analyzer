@@ -3,7 +3,7 @@ import glob
 import pandas as pd
 from src.analyzer import run_analysis
 from src.visualizer import create_polar_chart, create_heritage_pie_chart
-from src.report_engine import PDFReport, ReportEngine, clean_text
+from src.report_engine import PDFReport, ReportEngine, clean_text, STRENGTH_MIN_SCORE, RISK_MAX_SCORE
 from src.inheritance import analyze_inheritance  # NEW DEPENDENCY
 
 # CONFIG
@@ -168,9 +168,6 @@ def main():
     language = "Swedish" if lang_input == "2" else "English"
     
     engine = ReportEngine(language=language)
-
-    # Reference our PDF Label Map (Ensures no hardcoded English in the PDF)
-    from src.report_engine import PDF_LABELS
     L = engine.labels
 
     # 2. PROFILE GATHERING
@@ -203,8 +200,7 @@ def main():
     # Generate Visuals
     create_polar_chart(summary, os.path.join(OUTPUT_DIR, "polar_chart.png"))
 
-    # 5. INITIALIZE ENGINES
-    engine = ReportEngine(language=language)
+    # 5. INITIALIZE PDF
     # Note: We pass the labels (L) to the PDFReport for internal modularity
     pdf = PDFReport('P', 'mm', 'A4', labels=L)
     pdf.set_auto_page_break(auto=True, margin=15)
@@ -237,11 +233,6 @@ def main():
     # --- PAGE 2: KEY ACTIVE TRAITS ---
     pdf.add_page()
     pdf.chapter_title(L['active_title'])
-    
-    
-    # --- PAGE 2: KEY ACTIVE TRAITS ---
-    pdf.add_page()
-    pdf.chapter_title(L['active_title'])
     unique_df = df.drop_duplicates(subset=['Gene'], keep='first')
     
     # A. Increased Function Table
@@ -266,7 +257,11 @@ def main():
 
     # --- DEEP DIVES & SUMMARIES ---
     print(f"📘 Generating {language} Deep Dives...")
-    prioritized_traits = unique_df.sort_values(by="Impact", ascending=True)
+    # Rank Impact explicitly; a plain string sort gives High -> Low -> Medium
+    impact_rank = {"High": 0, "Medium": 1, "Low": 2}
+    prioritized_traits = unique_df.sort_values(
+        by="Impact", key=lambda s: s.map(impact_rank).fillna(1), kind="stable"
+    )
     processed_rsids = []
     
     # SECTION 3: SUPERPOWERS (Cover & Content)
@@ -290,7 +285,7 @@ def main():
             
     # Strength Summary Fallback
     leftover_strengths = unique_df[
-        (unique_df["Score"] >= 7) & 
+        (unique_df["Score"] >= STRENGTH_MIN_SCORE) &
         (~unique_df["RSID"].isin(processed_rsids))
     ].head(12)
     if not leftover_strengths.empty:
@@ -317,7 +312,7 @@ def main():
 
     # Risk Summary Fallback
     leftover_risks = unique_df[
-        (unique_df["Score"] <= 4) & 
+        (unique_df["Score"] <= RISK_MAX_SCORE) &
         (~unique_df["RSID"].isin(processed_rsids))
     ].head(12)
     if not leftover_risks.empty:
@@ -361,6 +356,13 @@ def main():
     output_path = os.path.join(OUTPUT_DIR, f"{filename}_{language}_Report.pdf")
     pdf.output(output_path)
     print(f"\n✅ Full {language} Report Generated: {output_path}")
+
+    # Deep dives that needed a smaller font or clipping: shorten their content at the source
+    shrunk = [f for f in pdf.fit_log if f["font"] < 10]
+    clipped = [f["gene"] for f in pdf.fit_log if f["clipped"]]
+    print(f"📐 Deep dives: {len(pdf.fit_log)} | shrunk: {len(shrunk)} | clipped: {len(clipped)}")
+    if clipped:
+        print(f"   Clipped (consider shortening): {', '.join(clipped)}")
 
 if __name__ == "__main__":
     main()
