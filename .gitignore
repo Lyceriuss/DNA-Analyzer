@@ -14,3 +14,6 @@ cluster_analysis/cache/
 
 # Tool logs (audit_deep_dives.py)
 *.log
+
+# Bulk reference downloads (cluster_analysis/coverage_map.py)
+data/reference/
