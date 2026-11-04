@@ -85,6 +85,14 @@ python -m cluster_analysis.export_dashboard out/bundle.json --lifecycles data/ou
     --dna data/input/MyHeritage_raw_dna_data_HP.csv
 ```
 
+Papers and quoted effect sizes come from `literature.py`, run once for the whole library:
+
+```bash
+python -m cluster_analysis.literature   # → cluster_analysis/literature.json (public data)
+```
+
+For each SNP it lists UniProt's experimental references, then the most cited Europe PMC papers whose title names the gene or variant. It also quotes abstract sentences that put a number on the variant's own activity, expression or level ("53% reduced urate transport rates compared to wild-type"). Older names such as C677T or ALDH2*2 are learned from abstracts that write them next to the rsID. Sentences with association statistics (odds, CI, risk), and sentences that name only other variants, are dropped. 20 of 229 SNPs have such a quote, since most abstracts give no number.
+
 `gene_function.json` adds the function evidence per gene (MaveDB scores, GTEx direction and HP's copies of the effect allele, UniProt, SIFT/PolyPhen, ClinPGx for HP's genotype). It holds personal genotypes, so keep it out of git.
 
 ## Caveats

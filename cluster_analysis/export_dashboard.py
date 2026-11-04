@@ -58,6 +58,7 @@ def bundle():
 
 
 EVIDENCE_PATH = os.path.join(os.path.dirname(__file__), "function_evidence.json")
+LITERATURE_PATH = os.path.join(os.path.dirname(__file__), "literature.json")
 TIER_NAMES = {1: "Measured protein function (MaveDB)", 2: "Curated functional effect (UniProt)",
               3: "Expression effect (GTEx)", 4: "Predicted damage only (SIFT/PolyPhen)", 5: "No functional evidence"}
 CLINPGX_LEVEL = {"1A": 0, "1B": 1, "2A": 2, "2B": 3, "3": 4, "4": 5}
@@ -105,6 +106,7 @@ def lifecycle_rows(lifecycles, status=None):
     does not need new API walks."""
     status = status or {}
     evidence = {e["rsid"]: e for e in json.load(open(EVIDENCE_PATH, encoding="utf-8"))}
+    literature = json.load(open(LITERATURE_PATH, encoding="utf-8")) if os.path.exists(LITERATURE_PATH) else {}
     person = lambda g: status.get(g["gene"]) or g.get("person") or {}
 
     def chip(g):
@@ -148,7 +150,9 @@ def lifecycle_rows(lifecycles, status=None):
                          "genotype": p.get("genotype"), "function": p.get("function"), "dose": p.get("dose"),
                          "common": p.get("common"), "minor": p.get("minor"), "minor_af": p.get("minor_af"),
                          "score": p.get("score"), "interpretation": p.get("interpretation"), "n_snps": p.get("n_snps"),
-                         "evidence": json.dumps(evidence_summary(ev, p.get("genotype")) if ev else {})})
+                         "evidence": json.dumps(evidence_summary(ev, p.get("genotype")) if ev else {}),
+                         "literature": json.dumps({k: v for k, v in literature.get(p.get("rsid"), {}).items()
+                                                   if k in ("papers", "quotes", "hits")})})
     return steps, genes, function
 
 
