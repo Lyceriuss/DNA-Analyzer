@@ -52,6 +52,8 @@ def run_analysis(dna_filepath, traits_filepath):
                 "User_Genotype": user_gt,
                 "Score": float(score),
                 "Interpretation": interpretation,
+                # "carrier" / "rare_variant" entries are reported on their own page, not scored
+                "Category": info.get("category", "trait"),
                 # --- NEW: Preserve Context for the Report ---
                 "Score_Map": scores,      # { "CC": 9, "CT": 5, "TT": 2 }
                 "Variant_Map": variants   # { "CC": "Good", "TT": "Bad" }

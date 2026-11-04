@@ -7589,5 +7589,204 @@
                 "body": "Ditt vaskulära system motstår åldrande. Aerob träning kommer ytterligare att förstärka denna naturliga fördel."
             }
         }
+    },
+    "rs2108622": {
+        "risk_genotypes": [
+            "TT"
+        ],
+        "strength_genotypes": [
+            "CC"
+        ],
+        "data_risk": {
+            "gene": "CYP4F2",
+            "title": "K-vitaminvakten",
+            "badge_type": "RISK",
+            "mechanisms": {
+                "what": "CYP4F2 bryter ner vitamin K1 i levern och styr hur mycket vitamin K som finns för koagulationsproteinerna.",
+                "how": "Du bär två kopior av Val433Met-varianten (T-allelen). Ditt enzym rensar vitamin K långsammare, så mer finns kvar för koagulationen. I vardagen är det ofarligt, men personer med denna genotyp behöver högre doser av blodförtunnaren warfarin.",
+                "ancestral": "Typisk nedbrytning (CC).",
+                "yours": "Ditt Resultat: Långsammare nedbrytning (TT)."
+            },
+            "risks": [
+                "Läkemedel: Högre warfarindos behövs; risk för underdosering om det inte är känt."
+            ],
+            "action": {
+                "title": "Berätta för Läkaren",
+                "body": "Om du någon gång ordineras warfarin, nämn detta resultat: doseringsriktlinjerna höjer startdosen för din genotyp. Håll intaget av vitamin K från bladgrönsaker jämnt snarare än högt en vecka och lågt nästa.",
+                "foods": [
+                    "Jämnt med bladgrönt",
+                    "Fermenterad mat (K2)",
+                    "Jämn kost"
+                ]
+            },
+            "confidence": 4
+        }
+    },
+    "rs10929302": {
+        "risk_genotypes": [
+            "AA"
+        ],
+        "strength_genotypes": [
+            "GG"
+        ],
+        "data_risk": {
+            "gene": "UGT1A1",
+            "title": "Den Långsamma Bilirubinrensaren",
+            "badge_type": "RISK",
+            "mechanisms": {
+                "what": "UGT1A1 fäster ett socker vid bilirubin, den gula nedbrytningsprodukten från röda blodkroppar, så att levern kan utsöndra det.",
+                "how": "Din AA-genotyp sänker produktionen av UGT1A1, så bilirubinet ligger högre: mönstret bakom Gilberts syndrom. Det är ofarligt och milt antioxidativt, men fasta, sjukdom eller alkohol kan ge gulaktiga ögonvitor, och cancerläkemedlet irinotekan rensas långsammare.",
+                "ancestral": "Typisk rensning (GG).",
+                "yours": "Ditt Resultat: Långsam rensning (AA)."
+            },
+            "risks": [
+                "Blodprov: Förhöjt bilirubin som kan misstas för leversjukdom.",
+                "Läkemedel: Högre risk för biverkningar av irinotekan."
+            ],
+            "action": {
+                "title": "Känn Ditt Värde",
+                "body": "Ett förhöjt bilirubin i ett blodprov är troligen genetiskt för dig; nämn det så att det inte misstas för leversjukdom. Fråga om UGT1A1-test före irinotekanbehandling, och undvik långa fastor om de gör dig trött eller gul.",
+                "foods": [
+                    "Regelbundna måltider",
+                    "Korsblommiga grönsaker",
+                    "Vätska"
+                ]
+            },
+            "confidence": 4
+        }
+    },
+    "rs147998249": {
+        "risk_genotypes": [
+            "CG",
+            "CC"
+        ],
+        "strength_genotypes": [
+            "GG"
+        ],
+        "data_risk": {
+            "gene": "GPT",
+            "title": "Leverns Tysta Larm",
+            "badge_type": "RISK",
+            "mechanisms": {
+                "what": "GPT är enzymet som mäts som ALAT i vanliga blodprov för att upptäcka leverskada.",
+                "how": "Du bär Val452Leu-varianten, som gör att ALAT mäts tydligt lägre i blodprov. Din lever fungerar normalt, men dess larmsignal är nedskruvad: ett värde som är förhöjt för dig kan se normalt ut på papperet.",
+                "ancestral": "Typiska värden (GG).",
+                "yours": "Ditt Resultat: Låga ALAT-värden."
+            },
+            "risks": [
+                "Blodprov: Leverbelastning kan missas när ALAT är den enda markören."
+            ],
+            "action": {
+                "title": "Läs ALAT Varsamt",
+                "body": "Berätta för läkaren att ditt ALAT är genetiskt lågt. Lita mer på GT, ASAT och ultraljud när levern kontrolleras, särskilt vid alkoholbruk, risk för fettlever eller läkemedel som belastar levern.",
+                "foods": [
+                    "Begränsa alkohol",
+                    "Kaffe",
+                    "Bladgrönsaker"
+                ]
+            },
+            "confidence": 4
+        }
+    },
+    "rs45551835": {
+        "risk_genotypes": [
+            "AG",
+            "AA"
+        ],
+        "strength_genotypes": [
+            "GG"
+        ],
+        "data_risk": {
+            "gene": "CUBN",
+            "title": "Det Läckande Albuminfiltret",
+            "badge_type": "RISK",
+            "mechanisms": {
+                "what": "Kubilin hjälper njurarna att återta albumin från urinen och hjälper tarmen att ta upp vitamin B12.",
+                "how": "Din variant försvagar återupptaget av albumin i njurtubuli, så lite mer albumin hamnar i urinen. Stora studier visar att detta sällan skadar njurfunktionen, men urinprov för albumin kan se förhöjda ut.",
+                "ancestral": "Typiskt återupptag (GG).",
+                "yours": "Ditt Resultat: Mer albumin i urinen."
+            },
+            "risks": [
+                "Prover: Lätt förhöjt urinalbumin utan njursjukdom."
+            ],
+            "action": {
+                "title": "Tolka Urinproven",
+                "body": "Om ett urinprov för albumin/kreatinin visar ett lätt förhöjt värde, nämn detta resultat innan njurskada antas. Kontrollera vitamin B12 då och då, eftersom kubilin också sköter upptaget av B12.",
+                "foods": [
+                    "Vätska",
+                    "B12-källor",
+                    "Måttligt med salt"
+                ]
+            },
+            "confidence": 4
+        }
+    },
+    "rs61730509": {
+        "risk_genotypes": [
+            "CT",
+            "TT"
+        ],
+        "strength_genotypes": [
+            "CC"
+        ],
+        "data_risk": {
+            "gene": "ABCB4",
+            "title": "Gallans Sköld",
+            "badge_type": "RISK",
+            "mechanisms": {
+                "what": "ABCB4 pumpar fosfolipider till gallan, vilket skyddar gallgångarna mot gallsyror och håller kolesterolet löst.",
+                "how": "Din Ala934Thr-variant är i stora studier kopplad till högre ALAT. Svagare fosfolipidutsöndring gör gallan mer aggressiv och mer benägen att bilda kolesterolstenar, särskilt vid hormonell belastning eller viktförändring.",
+                "ancestral": "Typiskt skydd (CC).",
+                "yours": "Ditt Resultat: Svagare skydd."
+            },
+            "risks": [
+                "Lever: Högre leverprover.",
+                "Gallblåsa: Ökad benägenhet för gallsten."
+            ],
+            "action": {
+                "title": "Skydda Gallgångarna",
+                "body": "Håll vikten stabil och undvik snabbdieter, som gynnar gallsten; begränsa alkohol och nämn resultatet om leverprover stiger eller gallsten uppstår. Graviditet och östrogen i tablettform kan få genen att märkas.",
+                "foods": [
+                    "Stabil vikt",
+                    "Fibrer",
+                    "Olivolja"
+                ]
+            },
+            "confidence": 3
+        }
+    },
+    "rs62483572": {
+        "risk_genotypes": [
+            "AG",
+            "AA"
+        ],
+        "strength_genotypes": [
+            "GG"
+        ],
+        "data_risk": {
+            "gene": "EPO",
+            "title": "De Röda Blodkropparnas Signal",
+            "badge_type": "RISK",
+            "mechanisms": {
+                "what": "EPO är njurhormonet som säger åt benmärgen att bilda röda blodkroppar.",
+                "how": "Din Asp70Asn-variant är i stora studier kopplad till lägre hemoglobin och hematokrit, så ditt blod har något lägre syrebärande kapacitet än genomsnittet.",
+                "ancestral": "Typisk signal (GG).",
+                "yours": "Ditt Resultat: Svagare signal."
+            },
+            "risks": [
+                "Blod: Lägre hemoglobin och hematokrit.",
+                "Prestation: Något lägre syrekapacitet."
+            ],
+            "action": {
+                "title": "Ge Blodkropparna Byggstenar",
+                "body": "Se till att järn, B12 och folat räcker, och kontrollera hemoglobin och ferritin årligen. Om du tränar uthållighet eller vistas på hög höjd, räkna med att anpassningen går något långsammare.",
+                "foods": [
+                    "Järnrik mat",
+                    "C-vitamin till maten",
+                    "B12 och folat"
+                ]
+            },
+            "confidence": 4
+        }
     }
 }

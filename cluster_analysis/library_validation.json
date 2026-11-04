@@ -1093,6 +1093,67 @@
     ]
   },
   {
+    "rsid": "rs10929302",
+    "gene": "UGT1A1",
+    "trait": "Bilirubin clearance (UGT1A1 -3156G>A)",
+    "deep_dive_gene": "UGT1A1",
+    "evidence_gene": "UGT1A1",
+    "issues": [],
+    "severity": "ok",
+    "location": "chr2:233757136",
+    "consequence": "intron_variant",
+    "alleles": [
+      "G",
+      "A"
+    ],
+    "genes_at_site": {
+      "UGT1A6": 0,
+      "UGT1A1": 3126,
+      "UGT1A10": 0,
+      "UGT1A9": 0,
+      "UGT1A4": 0,
+      "UGT1A5": 0,
+      "UGT1A7": 0,
+      "UGT1A8": 0,
+      "ENSG00000293136": 1791,
+      "ENSG00000178836": 1867,
+      "UGT1A3": 0,
+      "ENSG00000248705": 3480
+    },
+    "eur_af": {
+      "A": 0.2744
+    },
+    "gene_supported": {
+      "snp_traits": true,
+      "deep_dive": true,
+      "evidence": true
+    },
+    "allele_check": {
+      "letters": [
+        "A",
+        "G"
+      ],
+      "status": "forward",
+      "missing_genotypes": []
+    },
+    "gwas_mapped_genes": [
+      "UGT1A10",
+      "UGT1A3",
+      "UGT1A4",
+      "UGT1A5",
+      "UGT1A6",
+      "UGT1A7",
+      "UGT1A8",
+      "UGT1A9"
+    ],
+    "gwas_top_traits": [
+      "bilirubin measurement",
+      "insomnia",
+      "total cholesterol measurement",
+      "trait in response to tenofovir (anhydrous)"
+    ]
+  },
+  {
     "rsid": "rs10993994",
     "gene": "MSMB",
     "trait": "Prostate cancer susceptibility (MSMB)",
@@ -1298,6 +1359,43 @@
       "letters": [
         "A",
         "G"
+      ],
+      "status": "forward",
+      "missing_genotypes": []
+    },
+    "gwas_mapped_genes": [],
+    "gwas_top_traits": []
+  },
+  {
+    "rsid": "rs115545701",
+    "gene": "CFTR",
+    "trait": "Carrier status: CFTR p.Arg74Trp",
+    "deep_dive_gene": null,
+    "evidence_gene": null,
+    "issues": [],
+    "severity": "ok",
+    "location": "chr7:117509089",
+    "consequence": "missense_variant",
+    "alleles": [
+      "C",
+      "A",
+      "T"
+    ],
+    "genes_at_site": {
+      "CFTR": 0
+    },
+    "eur_af": {
+      "T": 0.001
+    },
+    "gene_supported": {
+      "snp_traits": true,
+      "deep_dive": null,
+      "evidence": null
+    },
+    "allele_check": {
+      "letters": [
+        "C",
+        "T"
       ],
       "status": "forward",
       "missing_genotypes": []
@@ -2272,6 +2370,96 @@
       "brain attribute",
       "osteoarthritis, knee",
       "cerebral cortex area attribute"
+    ]
+  },
+  {
+    "rsid": "rs147445322",
+    "gene": "KCNQ1",
+    "trait": "Carrier status: KCNQ1 p.Asp611Asn",
+    "deep_dive_gene": null,
+    "evidence_gene": null,
+    "issues": [],
+    "severity": "ok",
+    "location": "chr11:2847803",
+    "consequence": "missense_variant",
+    "alleles": [
+      "G",
+      "A",
+      "T"
+    ],
+    "genes_at_site": {
+      "KCNQ1": 0,
+      "KCNQ1-AS1": 0
+    },
+    "eur_af": {
+      "A": 0
+    },
+    "gene_supported": {
+      "snp_traits": true,
+      "deep_dive": null,
+      "evidence": null
+    },
+    "allele_check": {
+      "letters": [
+        "A",
+        "G"
+      ],
+      "status": "forward",
+      "missing_genotypes": []
+    },
+    "gwas_mapped_genes": [
+      "KCNQ1",
+      "KCNQ1-AS1"
+    ],
+    "gwas_top_traits": [
+      "uric acid measurement",
+      "hyperuricemia"
+    ]
+  },
+  {
+    "rsid": "rs147998249",
+    "gene": "GPT",
+    "trait": "ALT liver-test reading (GPT Val452Leu)",
+    "deep_dive_gene": "GPT",
+    "evidence_gene": "GPT",
+    "issues": [],
+    "severity": "ok",
+    "location": "chr8:144506797",
+    "consequence": "missense_variant",
+    "alleles": [
+      "G",
+      "C"
+    ],
+    "genes_at_site": {
+      "PPP1R16A": 4671,
+      "RECQL4": 4487,
+      "SLC33A2": 1466,
+      "GPT": 0,
+      "ENSG00000255182": 1353
+    },
+    "eur_af": {
+      "C": 0.006
+    },
+    "gene_supported": {
+      "snp_traits": true,
+      "deep_dive": true,
+      "evidence": true
+    },
+    "allele_check": {
+      "letters": [
+        "C",
+        "G"
+      ],
+      "status": "forward (verified)",
+      "missing_genotypes": []
+    },
+    "strand_note": "GPT V452L: forward C is the rare allele (0.6% EUR), matching the GWAS ALT-lowering allele (2026-11-04)",
+    "gwas_mapped_genes": [
+      "GPT"
+    ],
+    "gwas_top_traits": [
+      "serum alanine aminotransferase amount",
+      "aspartate aminotransferase to alanine aminotransferase ratio"
     ]
   },
   {
@@ -3382,6 +3570,87 @@
       "status": "forward",
       "missing_genotypes": []
     },
+    "gwas_mapped_genes": [],
+    "gwas_top_traits": []
+  },
+  {
+    "rsid": "rs1800100",
+    "gene": "CFTR",
+    "trait": "Carrier status: CFTR p.Arg668Cys",
+    "deep_dive_gene": null,
+    "evidence_gene": null,
+    "issues": [],
+    "severity": "ok",
+    "location": "chr7:117592169",
+    "consequence": "missense_variant",
+    "alleles": [
+      "C",
+      "A",
+      "T"
+    ],
+    "genes_at_site": {
+      "CFTR": 0
+    },
+    "eur_af": {
+      "T": 0.0119
+    },
+    "gene_supported": {
+      "snp_traits": true,
+      "deep_dive": null,
+      "evidence": null
+    },
+    "allele_check": {
+      "letters": [
+        "C",
+        "T"
+      ],
+      "status": "forward",
+      "missing_genotypes": []
+    },
+    "gwas_mapped_genes": [
+      "CFTR"
+    ],
+    "gwas_top_traits": [
+      "amount of carboxypeptidase B (human) in blood",
+      "amount of carboxypeptidase A1 in blood"
+    ]
+  },
+  {
+    "rsid": "rs1800111",
+    "gene": "CFTR",
+    "trait": "Carrier status: CFTR p.Leu997Phe",
+    "deep_dive_gene": null,
+    "evidence_gene": null,
+    "issues": [],
+    "severity": "ok",
+    "location": "chr7:117610521",
+    "consequence": "missense_variant",
+    "alleles": [
+      "G",
+      "A",
+      "C"
+    ],
+    "genes_at_site": {
+      "CFTR": 0,
+      "CFTR-AS2": 0
+    },
+    "eur_af": {
+      "C": 0.004
+    },
+    "gene_supported": {
+      "snp_traits": true,
+      "deep_dive": null,
+      "evidence": null
+    },
+    "allele_check": {
+      "letters": [
+        "C",
+        "G"
+      ],
+      "status": "forward (verified)",
+      "missing_genotypes": []
+    },
+    "strand_note": "CFTR L997F: forward C is the rare allele (0.4% EUR), matching the UniProt variant (2026-11-04)",
     "gwas_mapped_genes": [],
     "gwas_top_traits": []
   },
@@ -4856,6 +5125,51 @@
     "gwas_top_traits": []
   },
   {
+    "rsid": "rs2108622",
+    "gene": "CYP4F2",
+    "trait": "Vitamin K breakdown (CYP4F2 Val433Met)",
+    "deep_dive_gene": "CYP4F2",
+    "evidence_gene": "CYP4F2",
+    "issues": [],
+    "severity": "ok",
+    "location": "chr19:15879621",
+    "consequence": "missense_variant",
+    "alleles": [
+      "C",
+      "A",
+      "G",
+      "T"
+    ],
+    "genes_at_site": {
+      "CYP4F2": 0
+    },
+    "eur_af": {
+      "T": 0.2903
+    },
+    "gene_supported": {
+      "snp_traits": true,
+      "deep_dive": true,
+      "evidence": true
+    },
+    "allele_check": {
+      "letters": [
+        "C",
+        "T"
+      ],
+      "status": "forward",
+      "missing_genotypes": []
+    },
+    "gwas_mapped_genes": [
+      "CYP4F2"
+    ],
+    "gwas_top_traits": [
+      "hexadecanedioate measurement",
+      "metabolite measurement",
+      "gamma-CEHC measurement",
+      "X-11538 measurement"
+    ]
+  },
+  {
     "rsid": "rs2228145",
     "gene": "IL6R",
     "trait": "IL-6 receptor signaling tone",
@@ -6094,6 +6408,43 @@
     ]
   },
   {
+    "rsid": "rs35516286",
+    "gene": "CFTR",
+    "trait": "Carrier status: CFTR p.Ile148Thr",
+    "deep_dive_gene": null,
+    "evidence_gene": null,
+    "issues": [],
+    "severity": "ok",
+    "location": "chr7:117531068",
+    "consequence": "missense_variant",
+    "alleles": [
+      "T",
+      "A",
+      "C"
+    ],
+    "genes_at_site": {
+      "CFTR": 0
+    },
+    "eur_af": {
+      "C": 0.002
+    },
+    "gene_supported": {
+      "snp_traits": true,
+      "deep_dive": null,
+      "evidence": null
+    },
+    "allele_check": {
+      "letters": [
+        "C",
+        "T"
+      ],
+      "status": "forward",
+      "missing_genotypes": []
+    },
+    "gwas_mapped_genes": [],
+    "gwas_top_traits": []
+  },
+  {
     "rsid": "rs35652124",
     "gene": "NFE2L2 (NRF2)",
     "trait": "Master Antioxidant Switch (NRF2)",
@@ -6967,6 +7318,52 @@
       "androsterone sulfate measurement",
       "5alpha-androstan-3beta,17beta-diol disulfate measurement",
       "5alpha-androstan-3alpha,17beta-diol monosulfate (1) measurement"
+    ]
+  },
+  {
+    "rsid": "rs45551835",
+    "gene": "CUBN",
+    "trait": "Urine albumin (CUBN Ala2914Val)",
+    "deep_dive_gene": "CUBN",
+    "evidence_gene": "CUBN",
+    "issues": [],
+    "severity": "ok",
+    "location": "chr10:16890385",
+    "consequence": "missense_variant",
+    "alleles": [
+      "G",
+      "A",
+      "T"
+    ],
+    "genes_at_site": {
+      "CUBN": 0,
+      "ENSG00000296126": 1127,
+      "ENSG00000296147": 1506
+    },
+    "eur_af": {
+      "A": 0.0099
+    },
+    "gene_supported": {
+      "snp_traits": true,
+      "deep_dive": true,
+      "evidence": true
+    },
+    "allele_check": {
+      "letters": [
+        "A",
+        "G"
+      ],
+      "status": "forward",
+      "missing_genotypes": []
+    },
+    "gwas_mapped_genes": [
+      "CUBN"
+    ],
+    "gwas_top_traits": [
+      "urinary albumin to creatinine ratio",
+      "albuminuria",
+      "Moderate albuminuria",
+      "urinary microalbumin measurement"
     ]
   },
   {
@@ -8087,6 +8484,91 @@
     "gwas_top_traits": []
   },
   {
+    "rsid": "rs61730509",
+    "gene": "ABCB4",
+    "trait": "Bile phospholipid pump (ABCB4 Ala934Thr)",
+    "deep_dive_gene": "ABCB4",
+    "evidence_gene": "ABCB4",
+    "issues": [],
+    "severity": "ok",
+    "location": "chr7:87412017",
+    "consequence": "missense_variant",
+    "alleles": [
+      "C",
+      "T"
+    ],
+    "genes_at_site": {
+      "ABCB4": 0
+    },
+    "eur_af": {
+      "T": 0
+    },
+    "gene_supported": {
+      "snp_traits": true,
+      "deep_dive": true,
+      "evidence": true
+    },
+    "allele_check": {
+      "letters": [
+        "C",
+        "T"
+      ],
+      "status": "forward",
+      "missing_genotypes": []
+    },
+    "gwas_mapped_genes": [
+      "ABCB4"
+    ],
+    "gwas_top_traits": [
+      "serum alanine aminotransferase amount",
+      "aspartate aminotransferase measurement"
+    ]
+  },
+  {
+    "rsid": "rs61910685",
+    "gene": "ANO5",
+    "trait": "Carrier status: ANO5 p.Ser796Leu",
+    "deep_dive_gene": null,
+    "evidence_gene": null,
+    "issues": [],
+    "severity": "ok",
+    "location": "chr11:22274720",
+    "consequence": "missense_variant",
+    "alleles": [
+      "C",
+      "G",
+      "T"
+    ],
+    "genes_at_site": {
+      "ANO5": 0
+    },
+    "eur_af": {
+      "T": 0.0109
+    },
+    "gene_supported": {
+      "snp_traits": true,
+      "deep_dive": null,
+      "evidence": null
+    },
+    "allele_check": {
+      "letters": [
+        "C",
+        "T"
+      ],
+      "status": "forward",
+      "missing_genotypes": []
+    },
+    "gwas_mapped_genes": [
+      "ANO5"
+    ],
+    "gwas_top_traits": [
+      "amount of myomesin-3 in blood serum",
+      "amount of myosin light chain 3 in blood",
+      "aspartate aminotransferase measurement",
+      "myosin-binding protein C, slow-type measurement"
+    ]
+  },
+  {
     "rsid": "rs6214",
     "gene": "IGF1",
     "trait": "Circulating Growth Factor Levels",
@@ -8170,6 +8652,49 @@
     ],
     "gwas_top_traits": [
       "body mass index"
+    ]
+  },
+  {
+    "rsid": "rs62483572",
+    "gene": "EPO",
+    "trait": "Red blood cell signal (EPO Asp70Asn)",
+    "deep_dive_gene": "EPO",
+    "evidence_gene": "EPO",
+    "issues": [],
+    "severity": "ok",
+    "location": "chr7:100722010",
+    "consequence": "missense_variant",
+    "alleles": [
+      "G",
+      "A"
+    ],
+    "genes_at_site": {
+      "EPO": 0
+    },
+    "eur_af": {
+      "A": 0.007
+    },
+    "gene_supported": {
+      "snp_traits": true,
+      "deep_dive": true,
+      "evidence": true
+    },
+    "allele_check": {
+      "letters": [
+        "A",
+        "G"
+      ],
+      "status": "forward",
+      "missing_genotypes": []
+    },
+    "gwas_mapped_genes": [
+      "EPO"
+    ],
+    "gwas_top_traits": [
+      "hemoglobin measurement",
+      "hematocrit",
+      "high density lipoprotein cholesterol measurement",
+      "erythrocyte count"
     ]
   },
   {

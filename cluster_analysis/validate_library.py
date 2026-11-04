@@ -35,6 +35,8 @@ STRAND_VERIFIED = {
     "rs2304672": "PER2 C111G: gene on minus strand, forward C = 111G (2026-11-04)",
     "rs2631367": "SLC22A5 -207G>C: gene on plus strand, forward C = -207C (2026-11-04)",
     "rs523349": "SRD5A2 V89L: forward C = Val89, G = Leu89 (2026-11-04)",
+    "rs147998249": "GPT V452L: forward C is the rare allele (0.6% EUR), matching the GWAS ALT-lowering allele (2026-11-04)",
+    "rs1800111": "CFTR L997F: forward C is the rare allele (0.4% EUR), matching the UniProt variant (2026-11-04)",
 }
 
 

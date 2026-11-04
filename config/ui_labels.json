@@ -1,6 +1,14 @@
 {
   "English": {
     "header_tag": "Personalized Genetic Trait Report",
+    "carrier_title": "Carrier findings",
+    "carrier_intro": "These variants sit in genes for inherited conditions. They are listed separately and do not count towards your strengths or risks: for most of them, one copy does not affect your own health. They matter for family planning, or when you or a relative has symptoms of the condition.",
+    "carrier_none": "No carrier variants were found among the {n} variants screened.",
+    "carrier_one_recessive": "You carry one copy. For a recessive condition, one copy usually causes no symptoms. A child can only be affected if both parents pass on a variant in the same gene, so a genetic counsellor can advise on testing a partner.",
+    "carrier_two_recessive": "You carry two copies. Two copies can cause the condition or a milder form of it. Discuss this result with a doctor; a clinical test is needed to confirm it.",
+    "carrier_rare": "This is a rare variant in a gene linked to the condition. Its effect is uncertain: it has not been proven to cause disease. Mention it to a doctor if you or close relatives have symptoms of the condition.",
+    "carrier_confirm": "Rare variants are the hardest genotypes for consumer tests to call correctly, especially in files built by imputation (statistically filled-in genotypes). Confirm any finding on this page with a clinical genetic test before acting on it.",
+    "carrier_screened": "Screened",
     "footer_page_label": "Page",
     "introduction": {
       "title": "The Science Behind Your Report",
@@ -69,6 +77,14 @@
   },
   "Swedish": {
     "header_tag": "Personlig Genetisk Profilrapport",
+    "carrier_title": "Bärarfynd",
+    "carrier_intro": "Dessa varianter finns i gener för ärftliga tillstånd. De redovisas separat och räknas inte in i dina styrkor eller risker: för de flesta påverkar en kopia inte din egen hälsa. De har betydelse vid familjeplanering, eller om du eller en släkting har symtom på tillståndet.",
+    "carrier_none": "Inga bärarvarianter hittades bland de {n} varianter som kontrollerades.",
+    "carrier_one_recessive": "Du bär en kopia. Vid ett recessivt tillstånd ger en kopia oftast inga symtom. Ett barn kan bara drabbas om båda föräldrarna för vidare en variant i samma gen, så en genetisk vägledare kan ge råd om att testa en partner.",
+    "carrier_two_recessive": "Du bär två kopior. Två kopior kan ge tillståndet eller en mildare form av det. Diskutera resultatet med en läkare; ett kliniskt test behövs för att bekräfta det.",
+    "carrier_rare": "Detta är en sällsynt variant i en gen kopplad till tillståndet. Effekten är osäker: den har inte visats orsaka sjukdom. Nämn den för en läkare om du eller nära släktingar har symtom på tillståndet.",
+    "carrier_confirm": "Sällsynta varianter är de genotyper som konsumenttester har svårast att avläsa korrekt, särskilt i filer byggda med imputering (statistiskt ifyllda genotyper). Bekräfta varje fynd på denna sida med ett kliniskt genetiskt test innan du agerar på det.",
+    "carrier_screened": "Kontrollerade",
     "footer_page_label": "Sida",
     "introduction": {
       "title": "Vetenskapen bakom din rapport",

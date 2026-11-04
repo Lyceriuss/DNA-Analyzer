@@ -18594,5 +18594,313 @@
             "PMID:39024449"
         ],
         "name": "APOE_E2"
+    },
+    "rs2108622": {
+        "rsid": "rs2108622",
+        "variant_identity": {
+            "gene_symbol": "CYP4F2",
+            "common_name": "The Vitamin K Keeper",
+            "rsid": "rs2108622",
+            "biotype": "Missense Variant (Val433Met)"
+        },
+        "affected_organs": [
+            "Liver"
+        ],
+        "affected_systems": [],
+        "impact_type": "",
+        "metabolic_connections": {
+            "upstream_requirements": [],
+            "downstream_impacts": []
+        },
+        "metrics": {
+            "mechanistic_impact": {
+                "score": 4,
+                "rationale": "Slower vitamin K hydroxylation.",
+                "detail": "CYP4F2 is the liver enzyme that starts the breakdown of vitamin K1 by hydroxylating its side chain. The rs2108622 T allele (Met433) lowers the amount of active enzyme, so vitamin K is cleared more slowly and more remains for the gamma-carboxylation of clotting factors. This is why carriers need higher warfarin doses, and the effect is built into international dosing algorithms. The same enzyme also omega-hydroxylates fatty acids, which explains the strong metabolomics signals for dicarboxylic acids such as hexadecanedioate."
+            },
+            "study_quality": {
+                "score": 5,
+                "rationale": "Dosing guideline and metabolomics GWAS.",
+                "detail": "Included in warfarin dosing guidelines (evidence level 1A) and confirmed by metabolomics GWAS (p = 3e-108)."
+            },
+            "methodology": {
+                "score": 5,
+                "rationale": "Pharmacogenetic trials and GWAS.",
+                "detail": "Warfarin dose studies and metabolite GWAS."
+            }
+        },
+        "consensus_label": "DRUG METABOLISM",
+        "methodology_audit": [
+            {
+                "study": "Surendran et al. (2022) - Nature Medicine",
+                "type": "Genome-wide association",
+                "population": "Large plasma metabolomics cohorts",
+                "methods": "Genome-wide association of metabolites.",
+                "critique": "STRENGTH: Very strong, replicated signal with a clear enzyme mechanism. CRITIQUE: Health effects outside warfarin dosing are small.",
+                "score_contribution": "Study Quality (5/5)"
+            }
+        ],
+        "citations": [
+            "PMID:36357675",
+            "PMID:36635386"
+        ],
+        "name": "CYP4F2_VITK"
+    },
+    "rs10929302": {
+        "rsid": "rs10929302",
+        "variant_identity": {
+            "gene_symbol": "UGT1A1",
+            "common_name": "The Bilirubin Clearer",
+            "rsid": "rs10929302",
+            "biotype": "Promoter Variant (-3156G>A)"
+        },
+        "affected_organs": [
+            "Liver"
+        ],
+        "affected_systems": [],
+        "impact_type": "",
+        "metabolic_connections": {
+            "upstream_requirements": [],
+            "downstream_impacts": []
+        },
+        "metrics": {
+            "mechanistic_impact": {
+                "score": 5,
+                "rationale": "Lower UGT1A1 expression.",
+                "detail": "UGT1A1 glucuronidates bilirubin, making it water-soluble so the liver can excrete it in bile. The rs10929302 A allele sits in the phenobarbital-responsive enhancer of the UGT1A1 promoter and lowers transcription; it is often inherited together with the TA-repeat variant UGT1A1*28. Lower enzyme output raises unconjugated bilirubin, the Gilbert's syndrome pattern, and slows the inactivation of SN-38, the active metabolite of the chemotherapy drug irinotecan."
+            },
+            "study_quality": {
+                "score": 5,
+                "rationale": "Strongest bilirubin locus.",
+                "detail": "The UGT1A1 locus is the strongest bilirubin signal in the genome (p < 1e-300)."
+            },
+            "methodology": {
+                "score": 5,
+                "rationale": "GWAS and clinical pharmacology.",
+                "detail": "Bilirubin GWAS and irinotecan toxicity studies."
+            }
+        },
+        "consensus_label": "DETOXIFICATION",
+        "methodology_audit": [
+            {
+                "study": "Sinnott-Armstrong et al. (2021) - Nature Genetics",
+                "type": "Genome-wide association",
+                "population": "UK Biobank",
+                "methods": "Genome-wide association of 35 blood and urine biomarkers.",
+                "critique": "STRENGTH: Enormous sample with an unambiguous effect allele. CRITIQUE: The SNP tags a haplotype; the TA-repeat itself is not measured.",
+                "score_contribution": "Study Quality (5/5)"
+            }
+        ],
+        "citations": [
+            "PMID:33462484",
+            "PMID:32084209"
+        ],
+        "name": "UGT1A1_BILIRUBIN"
+    },
+    "rs147998249": {
+        "rsid": "rs147998249",
+        "variant_identity": {
+            "gene_symbol": "GPT",
+            "common_name": "The ALT Enzyme",
+            "rsid": "rs147998249",
+            "biotype": "Missense Variant (Val452Leu)"
+        },
+        "affected_organs": [
+            "Liver",
+            "Muscles"
+        ],
+        "affected_systems": [],
+        "impact_type": "",
+        "metabolic_connections": {
+            "upstream_requirements": [],
+            "downstream_impacts": []
+        },
+        "metrics": {
+            "mechanistic_impact": {
+                "score": 4,
+                "rationale": "Changes the measured enzyme, not liver health.",
+                "detail": "GPT encodes alanine aminotransferase 1, the enzyme measured as ALT in routine liver panels. The rs147998249 C allele (Leu452) is among the strongest common-variant effects on any blood test: carriers show markedly lower ALT. The effect is on the enzyme itself, its stability or its activity in the assay, not on the health of the liver, so carriers can have liver strain that ALT under-reports."
+            },
+            "study_quality": {
+                "score": 5,
+                "rationale": "Extremely strong biobank signal.",
+                "detail": "ALT association at p < 1e-300 in several biobanks."
+            },
+            "methodology": {
+                "score": 4,
+                "rationale": "Biobank GWAS.",
+                "detail": "Biobank-scale GWAS of liver enzymes."
+            }
+        },
+        "consensus_label": "LAB INTERPRETATION",
+        "methodology_audit": [
+            {
+                "study": "Sinnott-Armstrong et al. (2021) - Nature Genetics",
+                "type": "Genome-wide association",
+                "population": "UK Biobank",
+                "methods": "Genome-wide association of 35 blood and urine biomarkers.",
+                "critique": "STRENGTH: Unambiguous, very large effect. CRITIQUE: Rare (about 0.6% in Europeans); consumer genotypes for rare variants need confirmation.",
+                "score_contribution": "Study Quality (5/5)"
+            }
+        ],
+        "citations": [
+            "PMID:33462484",
+            "PMID:40436827"
+        ],
+        "name": "GPT_ALT"
+    },
+    "rs45551835": {
+        "rsid": "rs45551835",
+        "variant_identity": {
+            "gene_symbol": "CUBN",
+            "common_name": "The Albumin Receptor",
+            "rsid": "rs45551835",
+            "biotype": "Missense Variant (Ala2914Val)"
+        },
+        "affected_organs": [
+            "Kidneys",
+            "Intestines"
+        ],
+        "affected_systems": [],
+        "impact_type": "",
+        "metabolic_connections": {
+            "upstream_requirements": [],
+            "downstream_impacts": []
+        },
+        "metrics": {
+            "mechanistic_impact": {
+                "score": 4,
+                "rationale": "Weaker tubular albumin reabsorption.",
+                "detail": "Cubilin works with amnionless and megalin to pull filtered albumin back out of urine in the proximal tubule, and with intrinsic factor to absorb vitamin B12 in the gut. The rs45551835 A allele (Val2914) lies in the C-terminal part of cubilin and lowers albumin reabsorption, raising the urinary albumin-to-creatinine ratio. Follow-up work suggests such C-terminal variants cause albuminuria without loss of kidney filtration."
+            },
+            "study_quality": {
+                "score": 5,
+                "rationale": "Replicated albuminuria GWAS.",
+                "detail": "Urinary albumin-to-creatinine association at p = 3e-126, replicated across consortia."
+            },
+            "methodology": {
+                "score": 5,
+                "rationale": "GWAS and functional follow-up.",
+                "detail": "Albuminuria GWAS with kidney function follow-up."
+            }
+        },
+        "consensus_label": "KIDNEY",
+        "methodology_audit": [
+            {
+                "study": "Teumer et al. (2019) - Nature Communications",
+                "type": "Genome-wide association",
+                "population": "CKDGen consortium",
+                "methods": "Genome-wide association of urinary albumin.",
+                "critique": "STRENGTH: Large, replicated signal. CRITIQUE: Raised albumin here may not mean kidney disease, which matters for how it is read.",
+                "score_contribution": "Study Quality (5/5)"
+            }
+        ],
+        "citations": [
+            "PMID:31511532",
+            "PMID:30220432"
+        ],
+        "name": "CUBN_ALBUMIN"
+    },
+    "rs61730509": {
+        "rsid": "rs61730509",
+        "variant_identity": {
+            "gene_symbol": "ABCB4",
+            "common_name": "The Bile Phospholipid Pump",
+            "rsid": "rs61730509",
+            "biotype": "Missense Variant (Ala934Thr)"
+        },
+        "affected_organs": [
+            "Liver"
+        ],
+        "affected_systems": [],
+        "impact_type": "",
+        "metabolic_connections": {
+            "upstream_requirements": [],
+            "downstream_impacts": []
+        },
+        "metrics": {
+            "mechanistic_impact": {
+                "score": 4,
+                "rationale": "Weaker phosphatidylcholine export into bile.",
+                "detail": "ABCB4 (MDR3) flips phosphatidylcholine into bile, where it forms mixed micelles that buffer the detergent action of bile acids and keep cholesterol in solution. Loss of ABCB4 function causes cholestatic liver disease and low-phospholipid gallstones. The rs61730509 T allele (Thr934) is associated with higher ALT in a large biobank study, consistent with milder bile-duct stress; its effect on transport has not been measured directly."
+            },
+            "study_quality": {
+                "score": 4,
+                "rationale": "One large biobank signal.",
+                "detail": "ALT association at p = 4e-55 in one large biobank analysis."
+            },
+            "methodology": {
+                "score": 3,
+                "rationale": "GWAS only for this variant.",
+                "detail": "Biobank GWAS; no functional assay of this exact change."
+            }
+        },
+        "consensus_label": "BILE AND LIVER",
+        "methodology_audit": [
+            {
+                "study": "Verma et al. (2024) - Science",
+                "type": "Genome-wide association",
+                "population": "Million Veteran Program",
+                "methods": "Genome-wide association across hundreds of traits.",
+                "critique": "STRENGTH: Large sample. CRITIQUE: Rare variant with a single strong study; treat the gallstone link as a reasonable inference.",
+                "score_contribution": "Study Quality (5/5)"
+            }
+        ],
+        "citations": [
+            "PMID:39024449"
+        ],
+        "name": "ABCB4_BILE"
+    },
+    "rs62483572": {
+        "rsid": "rs62483572",
+        "variant_identity": {
+            "gene_symbol": "EPO",
+            "common_name": "The Red Cell Hormone",
+            "rsid": "rs62483572",
+            "biotype": "Missense Variant (Asp70Asn)"
+        },
+        "affected_organs": [
+            "Kidneys",
+            "Bones"
+        ],
+        "affected_systems": [],
+        "impact_type": "",
+        "metabolic_connections": {
+            "upstream_requirements": [],
+            "downstream_impacts": []
+        },
+        "metrics": {
+            "mechanistic_impact": {
+                "score": 4,
+                "rationale": "Lower erythropoietin signalling.",
+                "detail": "Erythropoietin is made by the kidney when oxygen falls and drives red blood cell production in the bone marrow. The rs62483572 A allele (Asn70) is associated with lower haemoglobin and haematocrit in several large blood-cell GWAS, pointing to a weaker hormone signal. UniProt also lists this position in familial erythrocytosis, which runs the opposite way, so the population data is the more reliable guide here."
+            },
+            "study_quality": {
+                "score": 5,
+                "rationale": "Replicated blood-cell GWAS.",
+                "detail": "Haemoglobin association at p = 2e-95, replicated in independent cohorts."
+            },
+            "methodology": {
+                "score": 4,
+                "rationale": "Blood-cell GWAS.",
+                "detail": "Large blood-cell trait GWAS."
+            }
+        },
+        "consensus_label": "BLOOD",
+        "methodology_audit": [
+            {
+                "study": "Vuckovic et al. (2020) - Cell",
+                "type": "Genome-wide association",
+                "population": "UK Biobank and INTERVAL",
+                "methods": "Genome-wide association of blood cell traits.",
+                "critique": "STRENGTH: Large, replicated effect on measured blood values. CRITIQUE: Rare variant; the disease annotation points the other way.",
+                "score_contribution": "Study Quality (5/5)"
+            }
+        ],
+        "citations": [
+            "PMID:32888494",
+            "PMID:34226706"
+        ],
+        "name": "EPO_RED_CELLS"
     }
 }

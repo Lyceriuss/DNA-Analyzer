@@ -641,6 +641,66 @@ class PDFReport(FPDF):
         if not isinstance(text, str): text = str(text)
         return text[:length-3] + "..." if len(text) > length else text
 
+    def add_carrier_page(self, carriers_df, traits_db, language="English"):
+        """Carrier and rare-variant findings: only variants the person carries, framed by inheritance."""
+        sv = language == "Swedish"
+        L = self.labels.get
+        found, screened = [], []
+        for _, row in carriers_df.iterrows():
+            info = traits_db.get(row["RSID"], {})
+            ref = "".join(sorted(info.get("reference_genotype", "")))
+            name = f"{info.get('gene', row['Gene'])} {info.get('variant_name', '')}".strip()
+            screened.append(name)
+            if ref and row["Result"] != ref:
+                copies = 2 if row["Result"][0] == row["Result"][1] else 1
+                found.append((row, info, name, copies))
+
+        self.add_page()
+        self.chapter_title(L("carrier_title", "Carrier findings"))
+        self.set_font('Arial', '', 10)
+        self.set_text_color(0)
+        self.multi_cell(0, 5, clean_text(L("carrier_intro", "")))
+        self.ln(4)
+
+        if not found:
+            self.set_font('Arial', 'B', 11)
+            self.set_text_color(39, 174, 96)
+            self.multi_cell(0, 6, clean_text(L("carrier_none", "No carrier variants found.").format(n=len(screened))))
+            self.ln(3)
+        for row, info, name, copies in found:
+            if self.get_y() > 230:
+                self.add_page()
+            kind = info.get("category")
+            text = (L("carrier_rare", "") if kind == "rare_variant"
+                    else L("carrier_two_recessive" if copies == 2 else "carrier_one_recessive", ""))
+            condition = info.get("condition_sv" if sv else "condition", "")
+            top = self.get_y()
+            self.set_fill_color(255, 248, 235)
+            self.set_font('Arial', '', 10)
+            body_h = 6 + 6 + self._count_lines(clean_text(text), 176) * 5 + 8
+            self.rect(10, top, 190, body_h, 'F')
+            self.set_xy(14, top + 3)
+            self.set_font('Arial', 'B', 11)
+            self.set_text_color(160, 100, 0)
+            self.cell(0, 6, clean_text(f"{name} ({row['RSID']}): {row['Result']}"), 0, 1)
+            self.set_x(14)
+            self.set_font('Arial', 'I', 10)
+            self.set_text_color(60)
+            self.cell(0, 6, clean_text(condition), 0, 1)
+            self.set_x(14)
+            self.set_font('Arial', '', 10)
+            self.set_text_color(0)
+            self.multi_cell(180, 5, clean_text(text))
+            self.set_y(top + body_h + 4)
+
+        self.ln(2)
+        self.set_font('Arial', 'I', 9)
+        self.set_text_color(90)
+        self.multi_cell(0, 4.5, clean_text(L("carrier_confirm", "")))
+        if screened:
+            self.ln(2)
+            self.multi_cell(0, 4.5, clean_text(f"{L('carrier_screened', 'Screened')}: {', '.join(screened)}"))
+
     def add_inheritance_page(self, inheritance_df, parent1_name="Parent 1", parent2_name="Parent 2", two_parents=True, chart_path=None):
         self.add_page()
         title = self.labels.get('inheritance_title', "Family Trait Inheritance Breakdown")

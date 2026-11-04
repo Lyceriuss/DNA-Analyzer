@@ -1,5 +1,6 @@
 import os
 import glob
+import json
 import pandas as pd
 from src.analyzer import run_analysis
 from src.visualizer import create_polar_chart, create_heritage_pie_chart
@@ -187,7 +188,12 @@ def main():
         return
 
     df = clean_domain_names(df)
-    
+
+    # Carrier and rare-variant entries describe inheritance, not the person's own function:
+    # keep them out of every score and give them their own page
+    carriers = df[df["Category"].isin(["carrier", "rare_variant"])]
+    df = df[~df["Category"].isin(["carrier", "rare_variant"])]
+
     # 4. DASHBOARD DATA AGGREGATION
     summary = df.groupby("Domain").agg(
         Positive=("Score", lambda x: (x > 5).sum()),
@@ -317,6 +323,11 @@ def main():
     ].head(12)
     if not leftover_risks.empty:
         pdf.add_risk_summary_page(leftover_risks)
+
+    # --- CARRIER FINDINGS ---
+    # Screened = carrier entries on this file's panel; reported = those where a variant copy was found
+    traits_db = json.load(open(TRAITS_FILE, encoding="utf-8"))
+    pdf.add_carrier_page(carriers, traits_db, language)
 
     # --- HERITAGE / INHERITANCE MODULE ---
     if profiles["parents"]:

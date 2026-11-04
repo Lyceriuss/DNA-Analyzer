@@ -7643,5 +7643,204 @@
                 "body": "Your vascular system resists aging. Aerobic exercise will further enhance this natural advantage."
             }
         }
+    },
+    "rs2108622": {
+        "risk_genotypes": [
+            "TT"
+        ],
+        "strength_genotypes": [
+            "CC"
+        ],
+        "data_risk": {
+            "gene": "CYP4F2",
+            "title": "The Vitamin K Keeper",
+            "badge_type": "RISK",
+            "mechanisms": {
+                "what": "CYP4F2 breaks down vitamin K1 in the liver, helping set how much vitamin K is available for clotting proteins.",
+                "how": "You carry two copies of the Val433Met variant (T allele). Your enzyme clears vitamin K more slowly, so more of it stays available for clotting. Day to day this is harmless, but people with this genotype need higher doses of the blood thinner warfarin.",
+                "ancestral": "Typical Breakdown (CC).",
+                "yours": "Your Result: Slower Breakdown (TT)."
+            },
+            "risks": [
+                "Medication: Higher warfarin dose needed; under-dosing risk if not known."
+            ],
+            "action": {
+                "title": "Tell Your Doctor",
+                "body": "If you are ever prescribed warfarin, mention this result: dosing guidelines raise the starting dose for your genotype. Keep vitamin K intake from leafy greens steady rather than high one week and low the next.",
+                "foods": [
+                    "Steady Leafy Greens",
+                    "Fermented Foods (K2)",
+                    "Consistent Diet"
+                ]
+            },
+            "confidence": 4
+        }
+    },
+    "rs10929302": {
+        "risk_genotypes": [
+            "AA"
+        ],
+        "strength_genotypes": [
+            "GG"
+        ],
+        "data_risk": {
+            "gene": "UGT1A1",
+            "title": "The Slow Bilirubin Clearer",
+            "badge_type": "RISK",
+            "mechanisms": {
+                "what": "UGT1A1 attaches a sugar to bilirubin, the yellow breakdown product of red blood cells, so the liver can excrete it.",
+                "how": "Your AA genotype lowers UGT1A1 output, so bilirubin runs higher: the pattern behind Gilbert's syndrome. It is harmless and mildly antioxidant, but fasting, illness or alcohol can tint the eyes yellow, and the cancer drug irinotecan clears more slowly.",
+                "ancestral": "Typical Clearance (GG).",
+                "yours": "Your Result: Slow Clearance (AA)."
+            },
+            "risks": [
+                "Lab tests: Raised bilirubin that can be mistaken for liver disease.",
+                "Medication: Higher irinotecan toxicity risk."
+            ],
+            "action": {
+                "title": "Know Your Number",
+                "body": "A raised bilirubin on a blood test is likely genetic for you; mention it so it is not mistaken for liver disease. Before irinotecan chemotherapy, ask about UGT1A1 testing, and avoid long fasts if they leave you tired or yellow.",
+                "foods": [
+                    "Regular Meals",
+                    "Cruciferous Vegetables",
+                    "Hydration"
+                ]
+            },
+            "confidence": 4
+        }
+    },
+    "rs147998249": {
+        "risk_genotypes": [
+            "CG",
+            "CC"
+        ],
+        "strength_genotypes": [
+            "GG"
+        ],
+        "data_risk": {
+            "gene": "GPT",
+            "title": "The Quiet Liver Alarm",
+            "badge_type": "RISK",
+            "mechanisms": {
+                "what": "GPT is the enzyme measured as ALT in routine blood tests to spot liver damage.",
+                "how": "You carry the Val452Leu variant, which makes the ALT enzyme read markedly lower in blood tests. Your liver works normally, but its alarm signal is turned down: a level that is raised for you may look normal on paper.",
+                "ancestral": "Typical Readings (GG).",
+                "yours": "Your Result: Low ALT Readings."
+            },
+            "risks": [
+                "Lab tests: Liver strain can be missed when ALT is the only marker."
+            ],
+            "action": {
+                "title": "Read ALT With Care",
+                "body": "Tell your doctor your ALT runs genetically low. Rely more on GGT, AST and ultrasound when checking the liver, especially with alcohol use, fatty liver risk or medicines that strain the liver.",
+                "foods": [
+                    "Limit Alcohol",
+                    "Coffee",
+                    "Leafy Greens"
+                ]
+            },
+            "confidence": 4
+        }
+    },
+    "rs45551835": {
+        "risk_genotypes": [
+            "AG",
+            "AA"
+        ],
+        "strength_genotypes": [
+            "GG"
+        ],
+        "data_risk": {
+            "gene": "CUBN",
+            "title": "The Leaky Albumin Filter",
+            "badge_type": "RISK",
+            "mechanisms": {
+                "what": "Cubilin helps the kidneys reclaim albumin from urine and helps the gut absorb vitamin B12.",
+                "how": "Your variant weakens albumin recovery in the kidney tubules, so a little more albumin appears in urine. Large studies show this rarely harms kidney function, but urine albumin tests can look raised.",
+                "ancestral": "Typical Recovery (GG).",
+                "yours": "Your Result: Higher Urine Albumin."
+            },
+            "risks": [
+                "Lab tests: Mildly raised urine albumin without kidney disease."
+            ],
+            "action": {
+                "title": "Interpret Urine Tests",
+                "body": "If a urine albumin-to-creatinine test comes back mildly raised, mention this result before kidney damage is assumed. Check vitamin B12 now and then, since cubilin also handles B12 uptake.",
+                "foods": [
+                    "Hydration",
+                    "B12 Sources",
+                    "Moderate Salt"
+                ]
+            },
+            "confidence": 4
+        }
+    },
+    "rs61730509": {
+        "risk_genotypes": [
+            "CT",
+            "TT"
+        ],
+        "strength_genotypes": [
+            "CC"
+        ],
+        "data_risk": {
+            "gene": "ABCB4",
+            "title": "The Bile Shield",
+            "badge_type": "RISK",
+            "mechanisms": {
+                "what": "ABCB4 pumps phospholipids into bile, which shields the bile ducts from bile acids and keeps cholesterol dissolved.",
+                "how": "Your Ala934Thr variant is linked to higher ALT liver enzyme levels in large studies. Weaker phospholipid output makes bile harsher and more prone to cholesterol stones, especially under hormonal or weight stress.",
+                "ancestral": "Typical Protection (CC).",
+                "yours": "Your Result: Weaker Protection."
+            },
+            "risks": [
+                "Liver: Higher liver enzymes.",
+                "Gallbladder: Higher gallstone tendency."
+            ],
+            "action": {
+                "title": "Protect the Bile Ducts",
+                "body": "Keep weight stable and avoid crash diets, which favour gallstones; limit alcohol, and mention this result if liver enzymes rise or gallstones appear. Pregnancy and oral estrogen can unmask this gene.",
+                "foods": [
+                    "Steady Weight",
+                    "Fiber",
+                    "Olive Oil"
+                ]
+            },
+            "confidence": 3
+        }
+    },
+    "rs62483572": {
+        "risk_genotypes": [
+            "AG",
+            "AA"
+        ],
+        "strength_genotypes": [
+            "GG"
+        ],
+        "data_risk": {
+            "gene": "EPO",
+            "title": "The Red Cell Signal",
+            "badge_type": "RISK",
+            "mechanisms": {
+                "what": "EPO is the kidney hormone that tells the bone marrow to make red blood cells.",
+                "how": "Your Asp70Asn variant is linked to lower haemoglobin and haematocrit in large studies, so your blood carries slightly less oxygen capacity than average.",
+                "ancestral": "Typical Signal (GG).",
+                "yours": "Your Result: Lower Red Cell Signal."
+            },
+            "risks": [
+                "Blood: Lower haemoglobin and haematocrit.",
+                "Performance: Slightly lower oxygen capacity."
+            ],
+            "action": {
+                "title": "Feed the Red Cells",
+                "body": "Keep iron, B12 and folate sufficient, and check haemoglobin and ferritin yearly. If you train for endurance or spend time at altitude, expect to adapt a little more slowly.",
+                "foods": [
+                    "Iron-Rich Foods",
+                    "Vitamin C with Meals",
+                    "B12 and Folate"
+                ]
+            },
+            "confidence": 4
+        }
     }
 }

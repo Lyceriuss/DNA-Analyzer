@@ -4139,5 +4139,245 @@
             "CT": 5,
             "TT": 4
         }
+    },
+    "rs2108622": {
+        "gene": "CYP4F2",
+        "system": "Vitamins / Drug Metabolism",
+        "trait": "Vitamin K breakdown (CYP4F2 Val433Met)",
+        "description": "The T allele slows vitamin K1 breakdown; carriers need higher warfarin doses (dosing guideline level 1A).",
+        "impact": "Medium",
+        "variants": {
+            "CC": "Typical vitamin K breakdown",
+            "CT": "Slightly slower vitamin K breakdown",
+            "TT": "Slower vitamin K breakdown; higher warfarin dose needed"
+        },
+        "scores": {
+            "CC": 5,
+            "CT": 5,
+            "TT": 4
+        }
+    },
+    "rs10929302": {
+        "gene": "UGT1A1",
+        "system": "Liver / Detox",
+        "trait": "Bilirubin clearance (UGT1A1 -3156G>A)",
+        "description": "The A allele lowers UGT1A1 output: higher bilirubin (Gilbert-type) and slower irinotecan clearance.",
+        "impact": "Medium",
+        "variants": {
+            "GG": "Typical bilirubin clearance",
+            "AG": "Somewhat higher bilirubin",
+            "AA": "Higher bilirubin (Gilbert-type); irinotecan caution"
+        },
+        "scores": {
+            "GG": 5,
+            "AG": 5,
+            "AA": 4
+        }
+    },
+    "rs147998249": {
+        "gene": "GPT",
+        "system": "Liver / Lab tests",
+        "trait": "ALT liver-test reading (GPT Val452Leu)",
+        "description": "The C allele makes the ALT enzyme read markedly lower in blood tests, which can hide liver strain.",
+        "impact": "Medium",
+        "variants": {
+            "GG": "Typical ALT readings",
+            "CG": "ALT reads markedly lower than liver status",
+            "CC": "ALT reads very low"
+        },
+        "scores": {
+            "GG": 5,
+            "CG": 4,
+            "CC": 4
+        }
+    },
+    "rs45551835": {
+        "gene": "CUBN",
+        "system": "Kidney / Lab tests",
+        "trait": "Urine albumin (CUBN Ala2914Val)",
+        "description": "The A allele raises urine albumin through weaker kidney reabsorption, usually without kidney damage.",
+        "impact": "Low",
+        "variants": {
+            "GG": "Typical urine albumin",
+            "AG": "Higher urine albumin, usually harmless",
+            "AA": "Higher urine albumin"
+        },
+        "scores": {
+            "GG": 5,
+            "AG": 4,
+            "AA": 4
+        }
+    },
+    "rs61730509": {
+        "gene": "ABCB4",
+        "system": "Liver / Bile",
+        "trait": "Bile phospholipid pump (ABCB4 Ala934Thr)",
+        "description": "The T allele is linked to higher ALT; ABCB4 protects bile ducts and keeps bile cholesterol dissolved.",
+        "impact": "Medium",
+        "variants": {
+            "CC": "Typical bile protection",
+            "CT": "Weaker bile protection; higher ALT",
+            "TT": "Weaker bile protection"
+        },
+        "scores": {
+            "CC": 5,
+            "CT": 4,
+            "TT": 3
+        }
+    },
+    "rs62483572": {
+        "gene": "EPO",
+        "system": "Blood / Oxygen",
+        "trait": "Red blood cell signal (EPO Asp70Asn)",
+        "description": "The A allele is linked to lower haemoglobin and haematocrit in large studies.",
+        "impact": "Medium",
+        "variants": {
+            "GG": "Typical red cell production",
+            "AG": "Lower haemoglobin and haematocrit",
+            "AA": "Lower haemoglobin and haematocrit"
+        },
+        "scores": {
+            "GG": 5,
+            "AG": 4,
+            "AA": 4
+        }
+    },
+    "rs115545701": {
+        "gene": "CFTR",
+        "system": "Inherited conditions",
+        "trait": "Carrier status: CFTR p.Arg74Trp",
+        "description": "Cystic fibrosis / congenital absence of the vas deferens (CBAVD). Inheritance: recessive.",
+        "impact": "Low",
+        "category": "carrier",
+        "variant_name": "p.Arg74Trp",
+        "reference_genotype": "CC",
+        "condition": "Cystic fibrosis / congenital absence of the vas deferens (CBAVD)",
+        "condition_sv": "Cystisk fibros / medfödd avsaknad av sädesledare (CBAVD)",
+        "inheritance": "recessive",
+        "variants": {
+            "CC": "Not a carrier",
+            "CT": "Carrier: one copy",
+            "TT": "Two copies"
+        },
+        "scores": {
+            "CC": 5,
+            "CT": 5,
+            "TT": 5
+        }
+    },
+    "rs35516286": {
+        "gene": "CFTR",
+        "system": "Inherited conditions",
+        "trait": "Carrier status: CFTR p.Ile148Thr",
+        "description": "Cystic fibrosis (usually mild or harmless on its own). Inheritance: recessive.",
+        "impact": "Low",
+        "category": "carrier",
+        "variant_name": "p.Ile148Thr",
+        "reference_genotype": "TT",
+        "condition": "Cystic fibrosis (usually mild or harmless on its own)",
+        "condition_sv": "Cystisk fibros (oftast mild eller ofarlig ensam)",
+        "inheritance": "recessive",
+        "variants": {
+            "TT": "Not a carrier",
+            "CT": "Carrier: one copy",
+            "CC": "Two copies"
+        },
+        "scores": {
+            "TT": 5,
+            "CT": 5,
+            "CC": 5
+        }
+    },
+    "rs1800100": {
+        "gene": "CFTR",
+        "system": "Inherited conditions",
+        "trait": "Carrier status: CFTR p.Arg668Cys",
+        "description": "Congenital absence of the vas deferens (CBAVD) and mild CFTR conditions. Inheritance: recessive.",
+        "impact": "Low",
+        "category": "carrier",
+        "variant_name": "p.Arg668Cys",
+        "reference_genotype": "CC",
+        "condition": "Congenital absence of the vas deferens (CBAVD) and mild CFTR conditions",
+        "condition_sv": "Medfödd avsaknad av sädesledare (CBAVD) och milda CFTR-tillstånd",
+        "inheritance": "recessive",
+        "variants": {
+            "CC": "Not a carrier",
+            "CT": "Carrier: one copy",
+            "TT": "Two copies"
+        },
+        "scores": {
+            "CC": 5,
+            "CT": 5,
+            "TT": 5
+        }
+    },
+    "rs1800111": {
+        "gene": "CFTR",
+        "system": "Inherited conditions",
+        "trait": "Carrier status: CFTR p.Leu997Phe",
+        "description": "Congenital absence of the vas deferens (CBAVD) and mild CFTR conditions. Inheritance: recessive.",
+        "impact": "Low",
+        "category": "carrier",
+        "variant_name": "p.Leu997Phe",
+        "reference_genotype": "GG",
+        "condition": "Congenital absence of the vas deferens (CBAVD) and mild CFTR conditions",
+        "condition_sv": "Medfödd avsaknad av sädesledare (CBAVD) och milda CFTR-tillstånd",
+        "inheritance": "recessive",
+        "variants": {
+            "GG": "Not a carrier",
+            "CG": "Carrier: one copy",
+            "CC": "Two copies"
+        },
+        "scores": {
+            "GG": 5,
+            "CG": 5,
+            "CC": 5
+        }
+    },
+    "rs61910685": {
+        "gene": "ANO5",
+        "system": "Inherited conditions",
+        "trait": "Carrier status: ANO5 p.Ser796Leu",
+        "description": "Limb-girdle muscular dystrophy type R12. Inheritance: recessive.",
+        "impact": "Low",
+        "category": "carrier",
+        "variant_name": "p.Ser796Leu",
+        "reference_genotype": "CC",
+        "condition": "Limb-girdle muscular dystrophy type R12",
+        "condition_sv": "Limb-girdle muskeldystrofi typ R12",
+        "inheritance": "recessive",
+        "variants": {
+            "CC": "Not a carrier",
+            "CT": "Carrier: one copy",
+            "TT": "Two copies"
+        },
+        "scores": {
+            "CC": 5,
+            "CT": 5,
+            "TT": 5
+        }
+    },
+    "rs147445322": {
+        "gene": "KCNQ1",
+        "system": "Inherited conditions",
+        "trait": "Carrier status: KCNQ1 p.Asp611Asn",
+        "description": "Long QT syndrome type 1 (heart rhythm). Inheritance: dominant gene; uncertain significance.",
+        "impact": "Low",
+        "category": "rare_variant",
+        "variant_name": "p.Asp611Asn",
+        "reference_genotype": "GG",
+        "condition": "Long QT syndrome type 1 (heart rhythm)",
+        "condition_sv": "Långt QT-syndrom typ 1 (hjärtrytm)",
+        "inheritance": "dominant gene; uncertain significance",
+        "variants": {
+            "GG": "Not a carrier",
+            "AG": "Carrier: one copy",
+            "AA": "Two copies"
+        },
+        "scores": {
+            "GG": 5,
+            "AG": 5,
+            "AA": 5
+        }
     }
 }

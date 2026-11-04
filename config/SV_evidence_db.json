@@ -18390,5 +18390,313 @@
             "PMID:39024449"
         ],
         "name": "APOE_E2"
+    },
+    "rs2108622": {
+        "rsid": "rs2108622",
+        "variant_identity": {
+            "gene_symbol": "CYP4F2",
+            "common_name": "K-vitaminvakten",
+            "rsid": "rs2108622",
+            "biotype": "Missense-variant (Val433Met)"
+        },
+        "affected_organs": [
+            "Lever"
+        ],
+        "affected_systems": [],
+        "impact_type": "",
+        "metabolic_connections": {
+            "upstream_requirements": [],
+            "downstream_impacts": []
+        },
+        "metrics": {
+            "mechanistic_impact": {
+                "score": 4,
+                "rationale": "Långsammare hydroxylering av vitamin K.",
+                "detail": "CYP4F2 är leverenzymet som inleder nedbrytningen av vitamin K1 genom att hydroxylera dess sidokedja. T-allelen för rs2108622 (Met433) sänker mängden aktivt enzym, så vitamin K rensas långsammare och mer finns kvar för gammakarboxyleringen av koagulationsfaktorer. Därför behöver bärare högre warfarindoser, och effekten finns inbyggd i internationella doseringsalgoritmer. Samma enzym omega-hydroxylerar också fettsyror, vilket förklarar de starka metabolomiksignalerna för dikarboxylsyror som hexadekandioat."
+            },
+            "study_quality": {
+                "score": 5,
+                "rationale": "Doseringsriktlinje och metabolomik-GWAS.",
+                "detail": "Ingår i doseringsriktlinjer för warfarin (evidensnivå 1A) och bekräftas av metabolomik-GWAS (p = 3e-108)."
+            },
+            "methodology": {
+                "score": 5,
+                "rationale": "Farmakogenetiska studier och GWAS.",
+                "detail": "Studier av warfarindos och GWAS av metaboliter."
+            }
+        },
+        "consensus_label": "LÄKEMEDELSMETABOLISM",
+        "methodology_audit": [
+            {
+                "study": "Surendran et al. (2022) - Nature Medicine",
+                "type": "Genomvid associationsstudie",
+                "population": "Large plasma metabolomics cohorts",
+                "methods": "Genome-wide association of metabolites.",
+                "critique": "STYRKA: Mycket stark, replikerad signal med en tydlig enzymmekanism. KRITIK: Hälsoeffekterna utanför warfarindosering är små.",
+                "score_contribution": "Studiekvalitet (5/5)"
+            }
+        ],
+        "citations": [
+            "PMID:36357675",
+            "PMID:36635386"
+        ],
+        "name": "CYP4F2_VITK"
+    },
+    "rs10929302": {
+        "rsid": "rs10929302",
+        "variant_identity": {
+            "gene_symbol": "UGT1A1",
+            "common_name": "Bilirubinrensaren",
+            "rsid": "rs10929302",
+            "biotype": "Promotorvariant (-3156G>A)"
+        },
+        "affected_organs": [
+            "Lever"
+        ],
+        "affected_systems": [],
+        "impact_type": "",
+        "metabolic_connections": {
+            "upstream_requirements": [],
+            "downstream_impacts": []
+        },
+        "metrics": {
+            "mechanistic_impact": {
+                "score": 5,
+                "rationale": "Lägre uttryck av UGT1A1.",
+                "detail": "UGT1A1 glukuronerar bilirubin så att det blir vattenlösligt och kan utsöndras med gallan. A-allelen för rs10929302 sitter i den fenobarbitalkänsliga förstärkaren i UGT1A1-promotorn och sänker transkriptionen; den ärvs ofta tillsammans med TA-repetitionsvarianten UGT1A1*28. Lägre enzymproduktion höjer det okonjugerade bilirubinet, mönstret vid Gilberts syndrom, och bromsar inaktiveringen av SN-38, den aktiva metaboliten av cytostatikumet irinotekan."
+            },
+            "study_quality": {
+                "score": 5,
+                "rationale": "Det starkaste bilirubinlocuset.",
+                "detail": "UGT1A1-locuset är den starkaste bilirubinsignalen i genomet (p < 1e-300)."
+            },
+            "methodology": {
+                "score": 5,
+                "rationale": "GWAS och klinisk farmakologi.",
+                "detail": "Bilirubin-GWAS och studier av irinotekantoxicitet."
+            }
+        },
+        "consensus_label": "AVGIFTNING",
+        "methodology_audit": [
+            {
+                "study": "Sinnott-Armstrong et al. (2021) - Nature Genetics",
+                "type": "Genomvid associationsstudie",
+                "population": "UK Biobank",
+                "methods": "Genome-wide association of 35 blood and urine biomarkers.",
+                "critique": "STYRKA: Enormt urval med en entydig effektallel. KRITIK: SNP:n markerar en haplotyp; själva TA-repetitionen mäts inte.",
+                "score_contribution": "Studiekvalitet (5/5)"
+            }
+        ],
+        "citations": [
+            "PMID:33462484",
+            "PMID:32084209"
+        ],
+        "name": "UGT1A1_BILIRUBIN"
+    },
+    "rs147998249": {
+        "rsid": "rs147998249",
+        "variant_identity": {
+            "gene_symbol": "GPT",
+            "common_name": "ALAT-enzymet",
+            "rsid": "rs147998249",
+            "biotype": "Missense-variant (Val452Leu)"
+        },
+        "affected_organs": [
+            "Lever",
+            "Muskler"
+        ],
+        "affected_systems": [],
+        "impact_type": "",
+        "metabolic_connections": {
+            "upstream_requirements": [],
+            "downstream_impacts": []
+        },
+        "metrics": {
+            "mechanistic_impact": {
+                "score": 4,
+                "rationale": "Ändrar det uppmätta enzymet, inte leverns hälsa.",
+                "detail": "GPT kodar för alaninaminotransferas 1, enzymet som mäts som ALAT i vanliga leverprover. C-allelen för rs147998249 (Leu452) är bland de starkaste effekterna av en vanlig variant på något blodprov: bärare har tydligt lägre ALAT. Effekten gäller själva enzymet, dess stabilitet eller aktivitet i analysen, inte leverns hälsa, så bärare kan ha leverbelastning som ALAT underskattar."
+            },
+            "study_quality": {
+                "score": 5,
+                "rationale": "Extremt stark biobankssignal.",
+                "detail": "Koppling till ALAT med p < 1e-300 i flera biobanker."
+            },
+            "methodology": {
+                "score": 4,
+                "rationale": "Biobanks-GWAS.",
+                "detail": "GWAS av leverenzymer i biobanksskala."
+            }
+        },
+        "consensus_label": "PROVTOLKNING",
+        "methodology_audit": [
+            {
+                "study": "Sinnott-Armstrong et al. (2021) - Nature Genetics",
+                "type": "Genomvid associationsstudie",
+                "population": "UK Biobank",
+                "methods": "Genome-wide association of 35 blood and urine biomarkers.",
+                "critique": "STYRKA: Entydig och mycket stor effekt. KRITIK: Sällsynt (cirka 0,6 % hos européer); konsumentgenotyper för sällsynta varianter behöver bekräftas.",
+                "score_contribution": "Studiekvalitet (5/5)"
+            }
+        ],
+        "citations": [
+            "PMID:33462484",
+            "PMID:40436827"
+        ],
+        "name": "GPT_ALT"
+    },
+    "rs45551835": {
+        "rsid": "rs45551835",
+        "variant_identity": {
+            "gene_symbol": "CUBN",
+            "common_name": "Albuminreceptorn",
+            "rsid": "rs45551835",
+            "biotype": "Missense-variant (Ala2914Val)"
+        },
+        "affected_organs": [
+            "Njurar",
+            "Tarmar"
+        ],
+        "affected_systems": [],
+        "impact_type": "",
+        "metabolic_connections": {
+            "upstream_requirements": [],
+            "downstream_impacts": []
+        },
+        "metrics": {
+            "mechanistic_impact": {
+                "score": 4,
+                "rationale": "Svagare återupptag av albumin i tubuli.",
+                "detail": "Kubilin arbetar med amnionless och megalin för att ta tillbaka filtrerat albumin från urinen i proximala tubuli, och med intrinsic factor för att ta upp vitamin B12 i tarmen. A-allelen för rs45551835 (Val2914) ligger i kubilinets C-terminala del och sänker återupptaget av albumin, vilket höjer albumin/kreatinin-kvoten i urinen. Uppföljande studier tyder på att sådana C-terminala varianter ger albuminuri utan förlust av njurfiltration."
+            },
+            "study_quality": {
+                "score": 5,
+                "rationale": "Replikerad albuminuri-GWAS.",
+                "detail": "Koppling till albumin/kreatinin i urin med p = 3e-126, replikerad i flera konsortier."
+            },
+            "methodology": {
+                "score": 5,
+                "rationale": "GWAS och funktionell uppföljning.",
+                "detail": "Albuminuri-GWAS med uppföljning av njurfunktion."
+            }
+        },
+        "consensus_label": "NJURE",
+        "methodology_audit": [
+            {
+                "study": "Teumer et al. (2019) - Nature Communications",
+                "type": "Genomvid associationsstudie",
+                "population": "CKDGen consortium",
+                "methods": "Genome-wide association of urinary albumin.",
+                "critique": "STYRKA: Stor, replikerad signal. KRITIK: Förhöjt albumin här behöver inte betyda njursjukdom, vilket påverkar hur värdet tolkas.",
+                "score_contribution": "Studiekvalitet (5/5)"
+            }
+        ],
+        "citations": [
+            "PMID:31511532",
+            "PMID:30220432"
+        ],
+        "name": "CUBN_ALBUMIN"
+    },
+    "rs61730509": {
+        "rsid": "rs61730509",
+        "variant_identity": {
+            "gene_symbol": "ABCB4",
+            "common_name": "Gallans fosfolipidpump",
+            "rsid": "rs61730509",
+            "biotype": "Missense-variant (Ala934Thr)"
+        },
+        "affected_organs": [
+            "Lever"
+        ],
+        "affected_systems": [],
+        "impact_type": "",
+        "metabolic_connections": {
+            "upstream_requirements": [],
+            "downstream_impacts": []
+        },
+        "metrics": {
+            "mechanistic_impact": {
+                "score": 4,
+                "rationale": "Svagare export av fosfatidylkolin till gallan.",
+                "detail": "ABCB4 (MDR3) vänder fosfatidylkolin ut i gallan, där det bildar blandade miceller som dämpar gallsyrornas tvättmedelseffekt och håller kolesterolet löst. Förlust av ABCB4-funktion ger kolestatisk leversjukdom och gallsten med låg fosfolipidhalt. T-allelen för rs61730509 (Thr934) är kopplad till högre ALAT i en stor biobanksstudie, i linje med mildare stress på gallgångarna; effekten på transporten har inte mätts direkt."
+            },
+            "study_quality": {
+                "score": 4,
+                "rationale": "En stor biobankssignal.",
+                "detail": "Koppling till ALAT med p = 4e-55 i en stor biobanksanalys."
+            },
+            "methodology": {
+                "score": 3,
+                "rationale": "Endast GWAS för denna variant.",
+                "detail": "Biobanks-GWAS; ingen funktionell analys av just denna förändring."
+            }
+        },
+        "consensus_label": "GALLA OCH LEVER",
+        "methodology_audit": [
+            {
+                "study": "Verma et al. (2024) - Science",
+                "type": "Genomvid associationsstudie",
+                "population": "Million Veteran Program",
+                "methods": "Genome-wide association across hundreds of traits.",
+                "critique": "STYRKA: Stort urval. KRITIK: Sällsynt variant med en enda stark studie; se kopplingen till gallsten som en rimlig slutsats.",
+                "score_contribution": "Studiekvalitet (5/5)"
+            }
+        ],
+        "citations": [
+            "PMID:39024449"
+        ],
+        "name": "ABCB4_BILE"
+    },
+    "rs62483572": {
+        "rsid": "rs62483572",
+        "variant_identity": {
+            "gene_symbol": "EPO",
+            "common_name": "Hormonet för röda blodkroppar",
+            "rsid": "rs62483572",
+            "biotype": "Missense-variant (Asp70Asn)"
+        },
+        "affected_organs": [
+            "Njurar",
+            "Skelett"
+        ],
+        "affected_systems": [],
+        "impact_type": "",
+        "metabolic_connections": {
+            "upstream_requirements": [],
+            "downstream_impacts": []
+        },
+        "metrics": {
+            "mechanistic_impact": {
+                "score": 4,
+                "rationale": "Svagare erytropoetinsignal.",
+                "detail": "Erytropoetin bildas av njuren när syret sjunker och driver produktionen av röda blodkroppar i benmärgen. A-allelen för rs62483572 (Asn70) är kopplad till lägre hemoglobin och hematokrit i flera stora GWAS av blodceller, vilket tyder på en svagare hormonsignal. UniProt listar även denna position vid familjär erytrocytos, som går åt motsatt håll, så befolkningsdatan är den mer tillförlitliga vägledningen här."
+            },
+            "study_quality": {
+                "score": 5,
+                "rationale": "Replikerad blodcells-GWAS.",
+                "detail": "Koppling till hemoglobin med p = 2e-95, replikerad i oberoende kohorter."
+            },
+            "methodology": {
+                "score": 4,
+                "rationale": "Blodcells-GWAS.",
+                "detail": "Stora GWAS av blodcellsegenskaper."
+            }
+        },
+        "consensus_label": "BLOD",
+        "methodology_audit": [
+            {
+                "study": "Vuckovic et al. (2020) - Cell",
+                "type": "Genomvid associationsstudie",
+                "population": "UK Biobank and INTERVAL",
+                "methods": "Genome-wide association of blood cell traits.",
+                "critique": "STYRKA: Stor, replikerad effekt på uppmätta blodvärden. KRITIK: Sällsynt variant; sjukdomsannoteringen pekar åt motsatt håll.",
+                "score_contribution": "Studiekvalitet (5/5)"
+            }
+        ],
+        "citations": [
+            "PMID:32888494",
+            "PMID:34226706"
+        ],
+        "name": "EPO_RED_CELLS"
     }
 }

@@ -4,7 +4,7 @@ All files are UTF-8 JSON keyed by rsID unless noted otherwise. The counts are fr
 
 | File | Entries | Used by | Role |
 |---|---|---|---|
-| `snp_traits.json` | 229 | analyzer (runtime) | **Ground truth**: genotype → score / interpretation |
+| `snp_traits.json` | 247 | analyzer (runtime) | **Ground truth**: genotype → score / interpretation |
 | `deep_dive_content.json` | 246 | report (EN) | Narrative for strength and risk deep-dive pages |
 | `SV_deep_dive_content.json` | 243 | report (SV) | Swedish translation of the above |
 | `evidence_db.json` | 231 | report (EN) | Research/evidence panel and confidence metrics |
@@ -33,6 +33,26 @@ Rules:
 - The `variants` and `scores` keys must be identical (they currently are).
 - **Write genotype keys in sorted order** (`AG`, not `GA`), or list both orders. The matcher only sorts the user side.
 - Keys are on the strand the matcher should *prefer*. The complement is tried as a fallback.
+
+### Carrier and rare-variant entries
+
+Entries with `"category": "carrier"` (recessive conditions) or `"category": "rare_variant"` (a rare variant of uncertain
+significance in a dominant-disease gene) are never scored: `main.py` keeps them out of the dashboard, strengths and risks, and
+lists them on a separate **Carrier findings** page, only when the person carries a variant copy.
+
+```json
+"rs1800100": {
+  "gene": "CFTR", "category": "carrier", "variant_name": "p.Arg668Cys",
+  "reference_genotype": "CC",                 // forward strand; anything else = carries the variant
+  "condition": "Congenital absence of the vas deferens (CBAVD) and mild CFTR conditions",
+  "condition_sv": "Medfödd avsaknad av sädesledare (CBAVD) och milda CFTR-tillstånd",
+  "inheritance": "recessive",
+  "variants": { "CC": "Not a carrier", "CT": "Carrier: one copy", "TT": "Two copies" },
+  "scores":   { "CC": 5, "CT": 5, "TT": 5 }
+}
+```
+
+The page wording lives in `ui_labels.json` (`carrier_*` keys, English and Swedish).
 
 ## `deep_dive_content.json`
 
