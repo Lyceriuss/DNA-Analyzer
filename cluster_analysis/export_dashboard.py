@@ -99,12 +99,37 @@ def evidence_summary(ev, genotype):
     return out
 
 
+def genotype_ladder(rsid, common, minor, traits, ev):
+    """Every library genotype at a SNP, from the common homozygote to the less common one: library reading, report
+    score and, where MaveDB measured the protein change, an activity estimate as a share of the common form. The
+    estimate is additive: each allele contributes half, the common allele 1 and the variant its measured score."""
+    entry = traits.get(rsid)
+    if not entry or not common or not minor:
+        return []
+    flip = str.maketrans("ACGT", "TGCA")
+    rows = {}
+    for key, text in entry["variants"].items():
+        gt = "".join(sorted(key))
+        oriented = gt if set(gt) <= {common, minor} else gt.translate(flip)
+        if not set(oriented) <= {common, minor} or gt in rows:
+            continue
+        rows[gt] = {"genotype": gt, "dose": oriented.count(minor), "text": text, "score": entry["scores"].get(key)}
+    mave = [m["score"] for m in (ev.get("mavedb") or [])]
+    for r in rows.values():
+        if mave:
+            r["capacity"] = [round(((2 - r["dose"]) + r["dose"] * min(mave)) / 2, 2), round(((2 - r["dose"]) + r["dose"] * max(mave)) / 2, 2)]
+        elif r["dose"] == 0:
+            r["capacity"] = [1.0, 1.0]
+    return sorted(rows.values(), key=lambda r: r["dose"])
+
+
 def lifecycle_rows(lifecycles, status=None):
     """Flattens lifecycle.py output into (steps, genes, gene_function) row lists for dashboards.
     Contains genotypes when the lifecycles were built with a DNA file. status ({gene: summarized person call},
     from gene_trace.person_status) replaces the calls stored in the lifecycles, so a new function call
     does not need new API walks."""
     status = status or {}
+    traits = json.load(open(TRAITS_PATH, encoding="utf-8"))
     evidence = {e["rsid"]: e for e in json.load(open(EVIDENCE_PATH, encoding="utf-8"))}
     literature = json.load(open(LITERATURE_PATH, encoding="utf-8")) if os.path.exists(LITERATURE_PATH) else {}
     person = lambda g: status.get(g["gene"]) or g.get("person") or {}
@@ -151,6 +176,8 @@ def lifecycle_rows(lifecycles, status=None):
                          "common": p.get("common"), "minor": p.get("minor"), "minor_af": p.get("minor_af"),
                          "score": p.get("score"), "interpretation": p.get("interpretation"), "n_snps": p.get("n_snps"),
                          "evidence": json.dumps(evidence_summary(ev, p.get("genotype")) if ev else {}),
+                         "ladder": json.dumps(genotype_ladder(p.get("rsid"), p.get("common"), p.get("minor"), traits,
+                                                              evidence_summary(ev, p.get("genotype")) if ev else {})),
                          "literature": json.dumps({k: v for k, v in literature.get(p.get("rsid"), {}).items()
                                                    if k in ("papers", "quotes", "hits")})})
     return steps, genes, function
