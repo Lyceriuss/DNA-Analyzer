@@ -44,6 +44,63 @@ GO_EVIDENCE = ",".join(e for codes in GO_CLASSES.values() for e in codes)
 ECO_CLASS = {e: c for c, codes in GO_CLASSES.items() for e in codes}
 
 THEMES = {
+    "fertility_female": {
+        "name": "Female fertility",
+        "sex": "XX",
+        "person": "data/input/MyHeritage_raw_dna_data_HJ.csv",
+        "about": "The XX reproductive system: desire, the hypothalamus–pituitary signals, the ovaries and their eggs and hormones, "
+                 "the fallopian tubes, and the uterus that carries a pregnancy. Built from Open Targets disease genetics and Gene "
+                 "Ontology, not from the library.",
+        "diseases": {
+            "MONDO_0021124": "female infertility", "MONDO_0005387": "primary ovarian failure",
+            "MONDO_0018555": "hypogonadotropic hypogonadism", "MONDO_0008487": "polycystic ovary syndrome",
+            "MONDO_0005133": "endometriosis", "MONDO_0007886": "uterine fibroids", "MONDO_0006774": "recurrent miscarriage",
+            "MONDO_0005081": "preeclampsia", "EFO_0004703": "age at menarche", "EFO_0004704": "age at menopause",
+            "EFO_0004697": "estradiol level",
+        },
+        "measurements": ["age at menarche", "age at menopause", "estradiol level"],
+        "pathway_terms": r"Meiosis|Meiotic|Fertilization|Oocyte|Estrogen|Progesterone|Pregnenolone|steroid|Glycoprotein hormones|"
+                         r"Hormone ligand-binding|ESR-mediated|Ovarian|Gonadotropin|Prolactin|Oxytocin|Kisspeptin|Peptide hormone",
+        "clinvar_terms": r"infertil|hypogonad|ovar|oocyte|estrogen|estradiol|progesterone|pregnan|menstru|menarche|menopaus|puberty|"
+                         r"kallmann|aromatase|letrozole|FSH|luteiniz|endometrio|pre-?eclampsia|miscarriage|abortion|uter|leiomyom|"
+                         r"polycystic|sex development",
+        # Organs drawn on the diagram; mechanisms and diseases place genes on them
+        "organs": [
+            {"id": "brain", "name": "Brain", "about": "Desire, mating and maternal behaviour."},
+            {"id": "pituitary", "name": "Hypothalamus and pituitary", "about": "GnRH from the hypothalamus releases LH and FSH from the pituitary, which run the ovaries."},
+            {"id": "ovaries", "name": "Ovaries", "about": "Store and mature eggs, ovulate, and make estrogen and progesterone."},
+            {"id": "tubes", "name": "Fallopian tubes", "about": "Carry the egg from the ovary; fertilization happens here."},
+            {"id": "uterus", "name": "Uterus", "about": "The muscular wall that grows with and carries a pregnancy."},
+            {"id": "endometrium", "name": "Endometrium and placenta", "about": "The lining where the embryo implants and the placenta forms."},
+        ],
+        "disease_organs": {
+            "primary ovarian failure": "ovaries", "polycystic ovary syndrome": "ovaries", "age at menarche": "ovaries",
+            "age at menopause": "ovaries", "estradiol level": "ovaries", "hypogonadotropic hypogonadism": "pituitary",
+            "endometriosis": "endometrium", "preeclampsia": "endometrium", "recurrent miscarriage": "endometrium",
+            "uterine fibroids": "uterus",
+        },
+        "mechanisms": [
+            {"id": "drive", "name": "Desire and maternal behaviour", "go": ["GO:0060180", "GO:0042711", "GO:0019098"],
+             "orthologs": True, "organ": "brain", "about": "Female mating behaviour, maternal behaviour and other reproductive behaviour."},
+            {"id": "axis", "name": "Hypothalamus–pituitary signals", "go": ["GO:0032274", "GO:0034698", "GO:0043401"],
+             "organ": "pituitary", "about": "GnRH, LH and FSH release and response, and steroid hormone receptor signalling."},
+            {"id": "hormones", "name": "Estrogen and progesterone production", "go": ["GO:0006703", "GO:0006701", "GO:0120178"],
+             "organ": "ovaries", "about": "Making estradiol, progesterone and their precursors."},
+            {"id": "ovary", "name": "Ovary development", "go": ["GO:0008585"], "organ": "ovaries",
+             "about": "Building the ovaries."},
+            {"id": "eggs", "name": "Eggs and follicles", "go": ["GO:0048477", "GO:0001541"], "organ": "ovaries",
+             "about": "Oogenesis and follicle growth: how many eggs there are and how they mature."},
+            {"id": "cycle", "name": "Ovulation and the cycle", "go": ["GO:0042698", "GO:0030728", "GO:0001553"], "organ": "ovaries",
+             "about": "Ovulation, the corpus luteum and the menstrual cycle."},
+            {"id": "tubes", "name": "Tubes and fertilization", "go": ["GO:0060066", "GO:0009566"], "organ": "tubes",
+             "about": "The oviduct, and sperm meeting egg."},
+            {"id": "uterus", "name": "Uterus", "go": ["GO:0060065"], "organ": "uterus", "about": "Building the uterus."},
+            {"id": "implantation", "name": "Implantation and decidualization", "go": ["GO:0007566", "GO:0046697"],
+             "organ": "endometrium", "about": "The embryo attaching and the lining transforming to receive it."},
+            {"id": "pregnancy", "name": "Placenta and pregnancy", "go": ["GO:0007565", "GO:0001890"], "organ": "endometrium",
+             "about": "The placenta and carrying a pregnancy."},
+        ],
+    },
     "fertility": {
         "name": "Fertility",
         "about": "Desire, the hormones that drive it and the reproductive axis, gonads and gametes, the cycle, fertilization and "
@@ -174,7 +231,12 @@ def build(theme_id):
             continue
         diseases = assoc.get(sym, {})
         best = max(diseases, key=lambda d: diseases[d]["score"]) if diseases else None
+        # Organs: from the gene's mechanisms, and from diseases it is strongly linked to
+        mech_organ = {m["id"]: m.get("organ") for m in theme["mechanisms"]}
+        organs = {mech_organ[m] for m in mechanisms if mech_organ.get(m)}
+        organs |= {theme.get("disease_organs", {}).get(d) for d in by_disease.get(sym, ())} - {None}
         genes[sym] = {"mechanisms": mechanisms, "diseases": diseases, "joined_by": sorted(by_disease.get(sym, ())),
+                      "organs": sorted(organs),
                       "primary": next((m["id"] for m in theme["mechanisms"] if m["id"] in mechanisms), None),
                       "best_disease": best, "best_score": diseases[best]["score"] if best else 0}
     print(f"   {len(genes)} genes: {sum(1 for g in genes.values() if g['mechanisms'])} with a mechanism, "
@@ -205,7 +267,9 @@ def build(theme_id):
     return {"theme": theme_id, "name": theme["name"], "about": theme["about"],
             "rule": "Gene Ontology mechanism genes, plus Open Targets genes scoring ≥ 0.5 (≥ 0.8 genetic for level and timing traits)",
             "diseases": theme["diseases"], "disease_ids": disease_ids,
-            "mechanisms": [{k: m[k] for k in ("id", "name", "about", "go")} for m in theme["mechanisms"]],
+            "mechanisms": [{k: m.get(k) for k in ("id", "name", "about", "go", "organ")} for m in theme["mechanisms"]],
+            "organs": theme.get("organs", []), "disease_organs": theme.get("disease_organs", {}), "sex": theme.get("sex"),
+            "person": theme.get("person"),
             "genes": dict(sorted(genes.items())), "links": links, "pathways": pathways}
 
 
@@ -330,7 +394,13 @@ def cross_reference(graph, dna_path):
             if is_path:
                 pathogenic["measured"] += 1
                 if copies:
-                    pathogenic["carried"].append({"gene": s["gene"], "rsid": s["rsid"], "genotype": gt, "condition": c["condition"]})
+                    hit = next((x for x in pathogenic["carried"] if x["rsid"] == s["rsid"]), None)
+                    if hit:  # ClinVar lists one variant once per submitted condition
+                        if c["condition"] not in hit["condition"]:
+                            hit["condition"] += "; " + c["condition"]
+                    else:
+                        pathogenic["carried"].append({"gene": s["gene"], "rsid": s["rsid"], "genotype": gt, "condition": c["condition"],
+                                                      "copies": copies})
                 else:
                     continue  # a pathogenic variant HP does not carry is counted, not listed
             found.append({"source": "ClinVar", "what": f"{c['significance']}: {c['condition']}", "copies": copies,
@@ -358,7 +428,7 @@ def cross_reference(graph, dna_path):
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("theme", choices=sorted(THEMES))
-    ap.add_argument("--dna")
+    ap.add_argument("--dna", help="DNA file to cross-reference (default: the theme's own person, if it names one)")
     args = ap.parse_args()
     graph = build(args.theme)
     path = os.path.join(os.path.dirname(__file__), f"theme_graph_{args.theme}.json")
@@ -366,9 +436,10 @@ if __name__ == "__main__":
     by_mech = {m["id"]: sum(1 for g in graph["genes"].values() if m["id"] in g["mechanisms"]) for m in graph["mechanisms"]}
     print(f"✅ {graph['name']}: {len(graph['genes'])} genes, {len(graph['links'])} links, "
           f"{sum(1 for g in graph['genes'].values() if not g['mechanisms'])} without a GO mechanism | {by_mech} → {path}")
-    if args.dna:
-        xref = cross_reference(graph, args.dna)
-        name = re.sub(r"^MyHeritage_raw_dna_data_|\.csv$", "", os.path.basename(args.dna))
+    dna = args.dna or THEMES[args.theme].get("person")
+    if dna:
+        xref = cross_reference(graph, dna)
+        name = re.sub(r"^MyHeritage_raw_dna_data_|\.csv$", "", os.path.basename(dna))
         os.makedirs(OUTPUT_DIR, exist_ok=True)
         out = os.path.join(OUTPUT_DIR, f"theme_{name}_{args.theme}.json")
         json.dump(xref, open(out, "w", encoding="utf-8"), ensure_ascii=False, indent=1)

@@ -94,6 +94,8 @@ These themes don't depend on the library: the categories come from the APIs and 
 
   Only theme names, disease IDs and gene symbols go to the APIs.
 
+Themes can be sex-specific and name their own person. `fertility_female` uses HJ's file (XX) and places every gene on an organ through its mechanisms (`organ`) and strongly linked conditions (`disease_organs`): brain, hypothalamus–pituitary, ovaries, fallopian tubes, uterus, and endometrium/placenta. The explorer draws these as a body map, and selecting an organ narrows the page to its genes. `fertility` (HP) is the male-side theme for now.
+
 `theme_graph_<theme>.json` is public data. `data/output/cluster_analysis/theme_<name>_<theme>.json` holds the person's cross-reference and stays out of git. `export_dashboard` uses an API theme in place of the library theme with the same id. It draws the notable genes: those with a library call, a ClinVar entry, a carried finding in a mechanism gene, or an Open Targets score ≥ 0.8.
 
 ## Gene function calls (GoF / LoF)

@@ -208,7 +208,7 @@ def theme_rows(themes, status, with_lifecycle=()):
     return meta, genes, links, pathways
 
 
-def api_theme_rows(graph, xref, status, with_lifecycle=(), order=0):
+def api_theme_rows(graph, xref, status, with_lifecycle=(), order=0, person=None):
     """theme_graph.py output plus a person's cross-reference → the same four theme datasets. Every gene is listed;
     notable ones (a library call, a finding where the person carries the allele, or an Open Targets score ≥ 0.8)
     are the ones the explorer draws."""
@@ -221,9 +221,11 @@ def api_theme_rows(graph, xref, status, with_lifecycle=(), order=0):
     stats = {"n_genes": len(graph["genes"]), "n_mechanism": sum(1 for g in graph["genes"].values() if g["mechanisms"]),
              "n_snps": (xref or {}).get("n_snps_in_theme_genes"), "n_genes_with_findings": with_findings,
              "pathogenic_measured": (xref or {}).get("pathogenic", {}).get("measured"),
-             "pathogenic_carried": (xref or {}).get("pathogenic", {}).get("carried", []), "rule": graph["rule"]}
+             "pathogenic_carried": (xref or {}).get("pathogenic", {}).get("carried", []), "rule": graph["rule"],
+             "person": person, "sex": graph.get("sex"), "organs": graph.get("organs", []),
+             "disease_organs": graph.get("disease_organs", {})}
     meta = [{"theme": tid, "theme_name": graph["name"], "about": graph["about"], "theme_order": order, "facet": f["id"],
-             "facet_name": f["name"], "facet_about": f.get("about"), "core": True, "facet_order": i, "source": "api",
+             "facet_name": f["name"], "facet_about": f.get("about"), "organ": f.get("organ"), "core": True, "facet_order": i, "source": "api",
              "stats": json.dumps(stats)} for i, f in enumerate(facets)]
     genes, notable = [], set()
     for sym, g in graph["genes"].items():
@@ -240,7 +242,8 @@ def api_theme_rows(graph, xref, status, with_lifecycle=(), order=0):
         genes.append({"theme": tid, "gene": sym, "primary": g["primary"] or "disease",
                       "facets": json.dumps(list(g["mechanisms"]) or ["disease"]),
                       "evidence": json.dumps({"mechanisms": g["mechanisms"], "diseases": dict(top), "joined_by": g["joined_by"],
-                                              "findings": findings, "n_snps": xg.get(sym, {}).get("n_snps", 0)}),
+                                              "findings": findings, "n_snps": xg.get(sym, {}).get("n_snps", 0),
+                                              "organs": g.get("organs", [])}),
                       "rsid": p.get("rsid"), "genotype": p.get("genotype"), "function": p.get("function") if p.get("genotype") else None,
                       "dose": p.get("dose"), "minor": p.get("minor"), "interpretation": p.get("interpretation"), "score": p.get("score"),
                       "has_lifecycle": sym in with_lifecycle, "source": "api", "notable": is_notable, "carried": carried,
@@ -272,14 +275,22 @@ if __name__ == "__main__":
             lifecycle_genes = {r["gene"] for r in tables[1]}
             tables = list(theme_rows(json.load(open(THEMES_PATH, encoding="utf-8")), status, lifecycle_genes))
             # API-built themes replace the library-built theme of the same name
-            person = re.sub(r"^MyHeritage_raw_dna_data_|\.csv$", "", os.path.basename(args.dna or ""))
+            # Each API theme uses its own person when it names one (female fertility: HJ), otherwise --dna
+            statuses = {args.dna: status}
             for path in sorted(glob.glob(os.path.join(os.path.dirname(__file__), "theme_graph_*.json"))):
                 graph = json.load(open(path, encoding="utf-8"))
+                dna = graph.get("person") or args.dna
+                if dna not in statuses:
+                    statuses[dna] = {g: summarize(v) for g, v in person_status(dna).items()}
+                person = re.sub(r"^MyHeritage_raw_dna_data_|\.csv$", "", os.path.basename(dna or ""))
                 xpath = os.path.join("data/output/cluster_analysis", f"theme_{person}_{graph['theme']}.json")
                 xref = json.load(open(xpath, encoding="utf-8")) if os.path.exists(xpath) else None
-                order = next((r["theme_order"] for r in tables[0] if r["theme"] == graph["theme"]), len(tables[0]))
+                orders = {r["theme"]: r["theme_order"] for r in tables[0]}
+                order = orders.get(graph["theme"], orders.get(graph["theme"].split("_")[0], len(orders)) + 0.5)
                 tables = [[r for r in t if r["theme"] != graph["theme"]] for t in tables]
-                for t, extra in zip(tables, api_theme_rows(graph, xref, status, lifecycle_genes, order)):
+                # Lifecycles are built for --dna's person only, so other people's genes do not link to them
+                own = lifecycle_genes if dna == args.dna else set()
+                for t, extra in zip(tables, api_theme_rows(graph, xref, statuses[dna], own, order, person)):
                     t.extend(extra)
             for name, rows in zip(("theme_meta", "theme_genes", "theme_links", "theme_pathways"), tables):
                 with open(os.path.join(out_dir, name + ".json"), "w", encoding="utf-8") as f:
