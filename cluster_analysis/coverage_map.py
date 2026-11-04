@@ -6,7 +6,7 @@ offline, against bulk downloads: no per-SNP API requests, nothing from the file 
     python -m cluster_analysis.coverage_map data/input/MyHeritage_raw_dna_data_HP.csv
 
 Reference files in data/reference/ (download once, see docs):
-  gwas_associations.zip            GWAS Catalog, all associations
+  gwas_associations_ontology.zip   GWAS Catalog, all associations (ontology-annotated)
   humsavar.txt                     UniProt curated human variants
   clinpgx_variants.zip             ClinPGx/PharmGKB variants
   clinpgx_clinical_annotations.zip ClinPGx/PharmGKB clinical annotations
@@ -56,7 +56,7 @@ def rsids_in_zip(path, column_hint=None):
 def load_sources():
     print("Reading reference files...")
     s = {}
-    s["gwas"] = rsids_in_zip(f"{REF}/gwas_associations.zip", r"^SNPS$|SNP_ID_CURRENT|STRONGEST")
+    s["gwas"] = rsids_in_zip(f"{REF}/gwas_associations_ontology.zip", r"^SNPS$|SNP_ID_CURRENT|STRONGEST")
     print(f"  GWAS Catalog: {len(s['gwas']):,} rsIDs")
     # humsavar classes: P/LP (likely) disease-causing, US uncertain, LB/B (likely) benign
     s["uniprot"], s["uniprot_effect"] = set(), set()
