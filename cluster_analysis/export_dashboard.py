@@ -183,6 +183,29 @@ def lifecycle_rows(lifecycles, status=None):
     return steps, genes, function
 
 
+THEMES_PATH = os.path.join(os.path.dirname(__file__), "themes.json")
+
+
+def theme_rows(themes, status, with_lifecycle=()):
+    """themes.json plus a person's calls → (meta, genes, links, pathways) rows for the explorer's theme clusters."""
+    meta, genes, links, pathways = [], [], [], []
+    for order, (tid, t) in enumerate(themes["themes"].items()):
+        for fi, f in enumerate(t["facets"]):
+            meta.append({"theme": tid, "theme_name": t["name"], "about": t["about"], "theme_order": order,
+                         "facet": f["id"], "facet_name": f["name"], "core": f["core"], "facet_order": fi})
+        for g, m in t["genes"].items():
+            p = status.get(g) or {}
+            genes.append({"theme": tid, "gene": g, "primary": m["primary"], "facets": json.dumps(list(m["facets"])),
+                          "evidence": json.dumps(m["facets"]), "rsid": p.get("rsid"), "genotype": p.get("genotype"),
+                          "function": p.get("function") if p.get("genotype") else None, "dose": p.get("dose"),
+                          "minor": p.get("minor"), "interpretation": p.get("interpretation"), "score": p.get("score"),
+                          "has_lifecycle": g in with_lifecycle})
+        links += [{"theme": tid, **l} for l in t["links"]]
+        pathways += [{"theme": tid, "pathway": x["pathway"], "genes": json.dumps(x["genes"]), "n": len(x["genes"]),
+                      "on_theme": x["on_theme"]} for x in t["pathways"]]
+    return meta, genes, links, pathways
+
+
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("out")
@@ -200,6 +223,13 @@ if __name__ == "__main__":
             with open(os.path.join(out_dir, name + ".json"), "w", encoding="utf-8") as f:
                 json.dump(rows, f, ensure_ascii=False, separators=(",", ":"))
             print(f"✅ Wrote {name}.json ({len(rows)} rows)")
+        if os.path.exists(THEMES_PATH):
+            lifecycle_genes = {r["gene"] for r in tables[1]}
+            for name, rows in zip(("theme_meta", "theme_genes", "theme_links", "theme_pathways"),
+                                  theme_rows(json.load(open(THEMES_PATH, encoding="utf-8")), status, lifecycle_genes)):
+                with open(os.path.join(out_dir, name + ".json"), "w", encoding="utf-8") as f:
+                    json.dump(rows, f, ensure_ascii=False, separators=(",", ":"))
+                print(f"✅ Wrote {name}.json ({len(rows)} rows)")
     data = bundle()
     if args.person:
         p = json.load(open(args.person, encoding="utf-8"))

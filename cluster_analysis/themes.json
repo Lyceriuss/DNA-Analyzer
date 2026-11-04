@@ -1,0 +1,7999 @@
+{
+ "themes": {
+  "cancer": {
+   "name": "Cancer",
+   "about": "Genes that guard the genome, control when cells grow and die, turn chemicals into carcinogens or clear them, and shape the hormonal, oxidative and inflammatory setting tumours grow in.",
+   "facets": [
+    {
+     "id": "repair",
+     "name": "DNA repair and genome stability",
+     "core": true
+    },
+    {
+     "id": "growth",
+     "name": "Growth signals and cell division",
+     "core": false
+    },
+    {
+     "id": "death",
+     "name": "Cell death and tumour suppression",
+     "core": false
+    },
+    {
+     "id": "carcinogen",
+     "name": "Carcinogen activation and detox",
+     "core": true
+    },
+    {
+     "id": "hormone",
+     "name": "Hormone-driven growth",
+     "core": false
+    },
+    {
+     "id": "oxidative",
+     "name": "Oxidative stress",
+     "core": false
+    },
+    {
+     "id": "immune",
+     "name": "Inflammation and immune surveillance",
+     "core": false
+    },
+    {
+     "id": "methyl",
+     "name": "Folate and DNA building blocks",
+     "core": false
+    }
+   ],
+   "genes": {
+    "ABCB1": {
+     "facets": {
+      "growth": [
+       {
+        "source": "GO",
+        "text": "G2/M transition of mitotic cell cycle"
+       }
+      ],
+      "carcinogen": [
+       {
+        "source": "GO",
+        "text": "xenobiotic metabolic process"
+       }
+      ]
+     },
+     "primary": "growth"
+    },
+    "ABCG2": {
+     "facets": {
+      "oxidative": [
+       {
+        "source": "Reactome",
+        "text": "NFE2L2 regulating MDR associated enzymes"
+       }
+      ]
+     },
+     "primary": "oxidative"
+    },
+    "ADA": {
+     "facets": {
+      "carcinogen": [
+       {
+        "source": "GO",
+        "text": "xenobiotic metabolic process"
+       }
+      ]
+     },
+     "primary": "carcinogen"
+    },
+    "AHR": {
+     "facets": {
+      "carcinogen": [
+       {
+        "source": "GO",
+        "text": "xenobiotic metabolic process"
+       },
+       {
+        "source": "Reactome",
+        "text": "Phase I - Functionalization of compounds"
+       },
+       {
+        "source": "Reactome",
+        "text": "Xenobiotics"
+       }
+      ]
+     },
+     "primary": "carcinogen"
+    },
+    "AOC1": {
+     "facets": {
+      "carcinogen": [
+       {
+        "source": "Reactome",
+        "text": "Phase I - Functionalization of compounds"
+       }
+      ]
+     },
+     "primary": "carcinogen"
+    },
+    "ATM": {
+     "facets": {
+      "repair": [
+       {
+        "source": "GO",
+        "text": "DNA damage checkpoint signaling"
+       },
+       {
+        "source": "GO",
+        "text": "DNA double-strand break processing"
+       },
+       {
+        "source": "GO",
+        "text": "DNA repair"
+       },
+       {
+        "source": "Reactome",
+        "text": "DNA Damage/Telomere Stress Induced Senescence"
+       },
+       {
+        "source": "Reactome",
+        "text": "G2/M DNA damage checkpoint"
+       },
+       {
+        "source": "Reactome",
+        "text": "TP53 Regulates Transcription of DNA Repair Genes"
+       }
+      ],
+      "growth": [
+       {
+        "source": "GO",
+        "text": "mitotic cell cycle"
+       },
+       {
+        "source": "GO",
+        "text": "regulation of cell cycle"
+       }
+      ],
+      "death": [
+       {
+        "source": "GO",
+        "text": "cellular senescence"
+       },
+       {
+        "source": "GO",
+        "text": "positive regulation of apoptotic process"
+       },
+       {
+        "source": "GO",
+        "text": "regulation of apoptotic process"
+       },
+       {
+        "source": "Reactome",
+        "text": "DNA Damage/Telomere Stress Induced Senescence"
+       },
+       {
+        "source": "Reactome",
+        "text": "Regulation of TP53 Activity through Methylation"
+       },
+       {
+        "source": "Reactome",
+        "text": "Regulation of TP53 Activity through Phosphorylation"
+       }
+      ],
+      "oxidative": [
+       {
+        "source": "GO",
+        "text": "cellular response to reactive oxygen species"
+       },
+       {
+        "source": "GO",
+        "text": "response to oxidative stress"
+       }
+      ],
+      "methyl": [
+       {
+        "source": "Reactome",
+        "text": "Regulation of TP53 Activity through Methylation"
+       }
+      ]
+     },
+     "primary": "repair"
+    },
+    "BCHE": {
+     "facets": {
+      "carcinogen": [
+       {
+        "source": "GO",
+        "text": "xenobiotic metabolic process"
+       }
+      ]
+     },
+     "primary": "carcinogen"
+    },
+    "BRCA1": {
+     "facets": {
+      "repair": [
+       {
+        "source": "GO",
+        "text": "DNA repair"
+       },
+       {
+        "source": "GO",
+        "text": "double-strand break repair"
+       },
+       {
+        "source": "GO",
+        "text": "double-strand break repair via homologous recombination"
+       },
+       {
+        "source": "Reactome",
+        "text": "G2/M DNA damage checkpoint"
+       },
+       {
+        "source": "Reactome",
+        "text": "SUMOylation of DNA damage response and repair proteins"
+       },
+       {
+        "source": "Reactome",
+        "text": "TP53 Regulates Transcription of DNA Repair Genes"
+       }
+      ],
+      "growth": [
+       {
+        "source": "GO",
+        "text": "negative regulation of cell cycle"
+       },
+       {
+        "source": "GO",
+        "text": "negative regulation of cell growth"
+       },
+       {
+        "source": "GO",
+        "text": "regulation of cell cycle"
+       }
+      ],
+      "death": [
+       {
+        "source": "Reactome",
+        "text": "Regulation of MITF-M-dependent genes involved in DNA replication, damage repair and senescence"
+       },
+       {
+        "source": "Reactome",
+        "text": "Regulation of TP53 Activity through Phosphorylation"
+       },
+       {
+        "source": "Reactome",
+        "text": "TP53 Regulates Transcription of DNA Repair Genes"
+       }
+      ],
+      "hormone": [
+       {
+        "source": "GO",
+        "text": "negative regulation of intracellular estrogen receptor signaling pathway"
+       }
+      ],
+      "oxidative": [
+       {
+        "source": "GO",
+        "text": "negative regulation of reactive oxygen species metabolic process"
+       },
+       {
+        "source": "Reactome",
+        "text": "KEAP1-NFE2L2 pathway"
+       }
+      ]
+     },
+     "primary": "repair"
+    },
+    "CAT": {
+     "facets": {
+      "death": [
+       {
+        "source": "GO",
+        "text": "negative regulation of apoptotic process"
+       }
+      ],
+      "hormone": [
+       {
+        "source": "GO",
+        "text": "response to estradiol"
+       }
+      ],
+      "oxidative": [
+       {
+        "source": "GO",
+        "text": "cellular detoxification of hydrogen peroxide"
+       },
+       {
+        "source": "GO",
+        "text": "hydrogen peroxide catabolic process"
+       },
+       {
+        "source": "GO",
+        "text": "response to hydrogen peroxide"
+       },
+       {
+        "source": "Reactome",
+        "text": "Detoxification of Reactive Oxygen Species"
+       },
+       {
+        "source": "Reactome",
+        "text": "FOXO-mediated transcription of oxidative stress, metabolic and neuronal genes"
+       }
+      ]
+     },
+     "primary": "oxidative"
+    },
+    "CDKN2A": {
+     "facets": {
+      "growth": [
+       {
+        "source": "GO",
+        "text": "negative regulation of cell growth"
+       },
+       {
+        "source": "GO",
+        "text": "regulation of G1/S transition of mitotic cell cycle"
+       },
+       {
+        "source": "GO",
+        "text": "regulation of cell cycle"
+       },
+       {
+        "source": "Reactome",
+        "text": "Regulation of MITF-M-dependent genes involved in cell cycle and proliferation"
+       },
+       {
+        "source": "Library",
+        "text": "Cell cycle control / tumor suppression (DNA Repair / Longevity); Coronary Artery Disease Risk (9p21 locus) (Cardiovascular)"
+       }
+      ],
+      "death": [
+       {
+        "source": "GO",
+        "text": "apoptotic process"
+       },
+       {
+        "source": "GO",
+        "text": "cellular senescence"
+       },
+       {
+        "source": "GO",
+        "text": "negative regulation of cell population proliferation"
+       },
+       {
+        "source": "Reactome",
+        "text": "Evasion of Oncogene Induced Senescence Due to Defective p16INK4A binding to CDK4"
+       },
+       {
+        "source": "Reactome",
+        "text": "Evasion of Oncogene Induced Senescence Due to Defective p16INK4A binding to CDK4 and CDK6"
+       },
+       {
+        "source": "Reactome",
+        "text": "Evasion of Oxidative Stress Induced Senescence Due to Defective p16INK4A binding to CDK4"
+       }
+      ],
+      "oxidative": [
+       {
+        "source": "Reactome",
+        "text": "Evasion of Oxidative Stress Induced Senescence Due to Defective p16INK4A binding to CDK4"
+       },
+       {
+        "source": "Reactome",
+        "text": "Evasion of Oxidative Stress Induced Senescence Due to Defective p16INK4A binding to CDK4 and CDK6"
+       },
+       {
+        "source": "Reactome",
+        "text": "Oxidative Stress Induced Senescence"
+       }
+      ]
+     },
+     "primary": "death"
+    },
+    "CDKN2B": {
+     "facets": {
+      "growth": [
+       {
+        "source": "GO",
+        "text": "negative regulation of G1/S transition of mitotic cell cycle"
+       },
+       {
+        "source": "GO",
+        "text": "regulation of G1/S transition of mitotic cell cycle"
+       }
+      ],
+      "death": [
+       {
+        "source": "GO",
+        "text": "cellular senescence"
+       },
+       {
+        "source": "GO",
+        "text": "negative regulation of cell population proliferation"
+       },
+       {
+        "source": "Reactome",
+        "text": "Oncogene Induced Senescence"
+       },
+       {
+        "source": "Reactome",
+        "text": "Oxidative Stress Induced Senescence"
+       },
+       {
+        "source": "Reactome",
+        "text": "Senescence-Associated Secretory Phenotype (SASP)"
+       }
+      ],
+      "oxidative": [
+       {
+        "source": "Reactome",
+        "text": "Oxidative Stress Induced Senescence"
+       }
+      ]
+     },
+     "primary": "death"
+    },
+    "CLOCK": {
+     "facets": {
+      "repair": [
+       {
+        "source": "GO",
+        "text": "DNA damage checkpoint signaling"
+       }
+      ]
+     },
+     "primary": "repair"
+    },
+    "COL18A1": {
+     "facets": {
+      "death": [
+       {
+        "source": "GO",
+        "text": "negative regulation of cell population proliferation"
+       }
+      ]
+     },
+     "primary": "death"
+    },
+    "COL1A1": {
+     "facets": {
+      "hormone": [
+       {
+        "source": "GO",
+        "text": "response to estradiol"
+       }
+      ],
+      "oxidative": [
+       {
+        "source": "GO",
+        "text": "response to hydrogen peroxide"
+       }
+      ]
+     },
+     "primary": "hormone"
+    },
+    "CYP1A1": {
+     "facets": {
+      "growth": [
+       {
+        "source": "GO",
+        "text": "positive regulation of G1/S transition of mitotic cell cycle"
+       }
+      ],
+      "carcinogen": [
+       {
+        "source": "GO",
+        "text": "xenobiotic catabolic process"
+       },
+       {
+        "source": "GO",
+        "text": "xenobiotic metabolic process"
+       },
+       {
+        "source": "Reactome",
+        "text": "Xenobiotics"
+       }
+      ],
+      "hormone": [
+       {
+        "source": "GO",
+        "text": "estrogen metabolic process"
+       }
+      ]
+     },
+     "primary": "carcinogen"
+    },
+    "CYP1A2": {
+     "facets": {
+      "carcinogen": [
+       {
+        "source": "GO",
+        "text": "xenobiotic catabolic process"
+       },
+       {
+        "source": "GO",
+        "text": "xenobiotic metabolic process"
+       },
+       {
+        "source": "Reactome",
+        "text": "Aflatoxin activation and detoxification"
+       }
+      ]
+     },
+     "primary": "carcinogen"
+    },
+    "CYP1B1": {
+     "facets": {
+      "death": [
+       {
+        "source": "GO",
+        "text": "negative regulation of cell population proliferation"
+       },
+       {
+        "source": "GO",
+        "text": "positive regulation of apoptotic process"
+       }
+      ],
+      "carcinogen": [
+       {
+        "source": "GO",
+        "text": "xenobiotic catabolic process"
+       },
+       {
+        "source": "GO",
+        "text": "xenobiotic metabolic process"
+       }
+      ],
+      "hormone": [
+       {
+        "source": "GO",
+        "text": "estrogen metabolic process"
+       }
+      ],
+      "oxidative": [
+       {
+        "source": "GO",
+        "text": "cellular response to hydrogen peroxide"
+       },
+       {
+        "source": "GO",
+        "text": "intrinsic apoptotic signaling pathway in response to oxidative stress"
+       },
+       {
+        "source": "GO",
+        "text": "regulation of reactive oxygen species metabolic process"
+       }
+      ]
+     },
+     "primary": "oxidative"
+    },
+    "CYP2A6": {
+     "facets": {
+      "carcinogen": [
+       {
+        "source": "GO",
+        "text": "xenobiotic catabolic process"
+       },
+       {
+        "source": "GO",
+        "text": "xenobiotic metabolic process"
+       },
+       {
+        "source": "Reactome",
+        "text": "Xenobiotics"
+       }
+      ]
+     },
+     "primary": "carcinogen"
+    },
+    "CYP2C19": {
+     "facets": {
+      "carcinogen": [
+       {
+        "source": "GO",
+        "text": "xenobiotic catabolic process"
+       },
+       {
+        "source": "GO",
+        "text": "xenobiotic metabolic process"
+       },
+       {
+        "source": "Reactome",
+        "text": "Xenobiotics"
+       }
+      ]
+     },
+     "primary": "carcinogen"
+    },
+    "CYP2D6": {
+     "facets": {
+      "carcinogen": [
+       {
+        "source": "GO",
+        "text": "xenobiotic catabolic process"
+       },
+       {
+        "source": "GO",
+        "text": "xenobiotic metabolic process"
+       },
+       {
+        "source": "Reactome",
+        "text": "Xenobiotics"
+       }
+      ]
+     },
+     "primary": "carcinogen"
+    },
+    "CYP2E1": {
+     "facets": {
+      "carcinogen": [
+       {
+        "source": "GO",
+        "text": "xenobiotic metabolic process"
+       },
+       {
+        "source": "Reactome",
+        "text": "Xenobiotics"
+       }
+      ]
+     },
+     "primary": "carcinogen"
+    },
+    "CYP2R1": {
+     "facets": {
+      "carcinogen": [
+       {
+        "source": "GO",
+        "text": "xenobiotic metabolic process"
+       }
+      ]
+     },
+     "primary": "carcinogen"
+    },
+    "CYP3A4": {
+     "facets": {
+      "carcinogen": [
+       {
+        "source": "GO",
+        "text": "xenobiotic catabolic process"
+       },
+       {
+        "source": "GO",
+        "text": "xenobiotic metabolic process"
+       },
+       {
+        "source": "Reactome",
+        "text": "Aflatoxin activation and detoxification"
+       },
+       {
+        "source": "Reactome",
+        "text": "Phase I - Functionalization of compounds"
+       },
+       {
+        "source": "Reactome",
+        "text": "Xenobiotics"
+       }
+      ]
+     },
+     "primary": "carcinogen"
+    },
+    "CYP3A7": {
+     "facets": {
+      "carcinogen": [
+       {
+        "source": "GO",
+        "text": "xenobiotic metabolic process"
+       },
+       {
+        "source": "Reactome",
+        "text": "Xenobiotics"
+       }
+      ]
+     },
+     "primary": "carcinogen"
+    },
+    "CYP4F2": {
+     "facets": {
+      "carcinogen": [
+       {
+        "source": "GO",
+        "text": "xenobiotic metabolic process"
+       }
+      ]
+     },
+     "primary": "carcinogen"
+    },
+    "EDAR": {
+     "facets": {
+      "immune": [
+       {
+        "source": "GO",
+        "text": "cytokine-mediated signaling pathway"
+       }
+      ]
+     },
+     "primary": "immune"
+    },
+    "EDN1": {
+     "facets": {
+      "growth": [
+       {
+        "source": "GO",
+        "text": "positive regulation of cell growth involved in cardiac muscle cell development"
+       },
+       {
+        "source": "GO",
+        "text": "positive regulation of cell population proliferation"
+       }
+      ],
+      "death": [
+       {
+        "source": "GO",
+        "text": "negative regulation of smooth muscle cell apoptotic process"
+       }
+      ],
+      "oxidative": [
+       {
+        "source": "GO",
+        "text": "cellular response to hydrogen peroxide"
+       },
+       {
+        "source": "GO",
+        "text": "superoxide anion generation"
+       }
+      ]
+     },
+     "primary": "growth"
+    },
+    "EPHX1": {
+     "facets": {
+      "carcinogen": [
+       {
+        "source": "GO",
+        "text": "xenobiotic metabolic process"
+       },
+       {
+        "source": "Reactome",
+        "text": "Phase I - Functionalization of compounds"
+       }
+      ]
+     },
+     "primary": "carcinogen"
+    },
+    "EPO": {
+     "facets": {
+      "growth": [
+       {
+        "source": "GO",
+        "text": "positive regulation of cell population proliferation"
+       }
+      ],
+      "death": [
+       {
+        "source": "GO",
+        "text": "negative regulation of apoptotic process"
+       },
+       {
+        "source": "GO",
+        "text": "negative regulation of erythrocyte apoptotic process"
+       }
+      ]
+     },
+     "primary": "death"
+    },
+    "ERCC1": {
+     "facets": {
+      "repair": [
+       {
+        "source": "GO",
+        "text": "DNA repair"
+       },
+       {
+        "source": "GO",
+        "text": "double-strand break repair"
+       },
+       {
+        "source": "GO",
+        "text": "double-strand break repair via nonhomologous end joining"
+       },
+       {
+        "source": "Reactome",
+        "text": "Fanconi Anemia Pathway"
+       }
+      ]
+     },
+     "primary": "repair"
+    },
+    "ERCC2": {
+     "facets": {
+      "repair": [
+       {
+        "source": "GO",
+        "text": "nucleotide-excision repair"
+       },
+       {
+        "source": "GO",
+        "text": "transcription-coupled nucleotide-excision repair"
+       },
+       {
+        "source": "Reactome",
+        "text": "Gap-filling DNA repair synthesis and ligation in TC-NER"
+       },
+       {
+        "source": "Reactome",
+        "text": "TP53 Regulates Transcription of DNA Repair Genes"
+       },
+       {
+        "source": "Reactome",
+        "text": "Transcription-Coupled Nucleotide Excision Repair (TC-NER)"
+       }
+      ],
+      "growth": [
+       {
+        "source": "GO",
+        "text": "regulation of mitotic cell cycle phase transition"
+       }
+      ],
+      "death": [
+       {
+        "source": "GO",
+        "text": "apoptotic process"
+       },
+       {
+        "source": "Reactome",
+        "text": "TP53 Regulates Transcription of DNA Repair Genes"
+       }
+      ],
+      "oxidative": [
+       {
+        "source": "GO",
+        "text": "response to oxidative stress"
+       }
+      ]
+     },
+     "primary": "repair"
+    },
+    "ESR1": {
+     "facets": {
+      "growth": [
+       {
+        "source": "Reactome",
+        "text": "Nuclear signaling by ERBB4"
+       },
+       {
+        "source": "Reactome",
+        "text": "PIP3 activates AKT signaling"
+       }
+      ],
+      "death": [
+       {
+        "source": "GO",
+        "text": "negative regulation of smooth muscle cell apoptotic process"
+       }
+      ],
+      "hormone": [
+       {
+        "source": "GO",
+        "text": "cellular response to estradiol stimulus"
+       },
+       {
+        "source": "GO",
+        "text": "estrogen receptor signaling pathway"
+       },
+       {
+        "source": "GO",
+        "text": "response to estradiol"
+       },
+       {
+        "source": "Reactome",
+        "text": "ESR-mediated signaling"
+       },
+       {
+        "source": "Reactome",
+        "text": "Estrogen-dependent gene expression"
+       },
+       {
+        "source": "Reactome",
+        "text": "Extra-nuclear estrogen signaling"
+       }
+      ]
+     },
+     "primary": "hormone"
+    },
+    "FOXO3": {
+     "facets": {
+      "growth": [
+       {
+        "source": "Reactome",
+        "text": "FOXO-mediated transcription of cell cycle genes"
+       }
+      ],
+      "death": [
+       {
+        "source": "GO",
+        "text": "positive regulation of apoptotic process"
+       },
+       {
+        "source": "GO",
+        "text": "positive regulation of hydrogen peroxide-mediated programmed cell death"
+       },
+       {
+        "source": "GO",
+        "text": "positive regulation of neuron apoptotic process"
+       }
+      ],
+      "hormone": [
+       {
+        "source": "Reactome",
+        "text": "Estrogen-dependent nuclear events downstream of ESR-membrane signaling"
+       }
+      ],
+      "oxidative": [
+       {
+        "source": "GO",
+        "text": "cellular response to oxidative stress"
+       },
+       {
+        "source": "GO",
+        "text": "positive regulation of hydrogen peroxide-mediated programmed cell death"
+       },
+       {
+        "source": "Reactome",
+        "text": "FOXO-mediated transcription of oxidative stress, metabolic and neuronal genes"
+       }
+      ],
+      "immune": [
+       {
+        "source": "Reactome",
+        "text": "Interleukin-4 and Interleukin-13 signaling"
+       }
+      ]
+     },
+     "primary": "death"
+    },
+    "GCH1": {
+     "facets": {
+      "oxidative": [
+       {
+        "source": "GO",
+        "text": "regulation of removal of superoxide radicals"
+       }
+      ],
+      "methyl": [
+       {
+        "source": "GO",
+        "text": "tetrahydrofolate biosynthetic process"
+       }
+      ]
+     },
+     "primary": "oxidative"
+    },
+    "GDF5": {
+     "facets": {
+      "death": [
+       {
+        "source": "GO",
+        "text": "negative regulation of neuron apoptotic process"
+       }
+      ]
+     },
+     "primary": "death"
+    },
+    "GPX1": {
+     "facets": {
+      "carcinogen": [
+       {
+        "source": "GO",
+        "text": "glutathione metabolic process"
+       }
+      ],
+      "hormone": [
+       {
+        "source": "GO",
+        "text": "response to estradiol"
+       }
+      ],
+      "oxidative": [
+       {
+        "source": "GO",
+        "text": "cellular oxidant detoxification"
+       },
+       {
+        "source": "GO",
+        "text": "cellular response to oxidative stress"
+       },
+       {
+        "source": "GO",
+        "text": "hydrogen peroxide catabolic process"
+       },
+       {
+        "source": "Reactome",
+        "text": "Detoxification of Reactive Oxygen Species"
+       }
+      ],
+      "methyl": [
+       {
+        "source": "GO",
+        "text": "response to folic acid"
+       }
+      ]
+     },
+     "primary": "oxidative"
+    },
+    "GSTP1": {
+     "facets": {
+      "death": [
+       {
+        "source": "GO",
+        "text": "negative regulation of apoptotic process"
+       }
+      ],
+      "carcinogen": [
+       {
+        "source": "GO",
+        "text": "glutathione derivative biosynthetic process"
+       },
+       {
+        "source": "GO",
+        "text": "glutathione metabolic process"
+       },
+       {
+        "source": "GO",
+        "text": "xenobiotic metabolic process"
+       },
+       {
+        "source": "Reactome",
+        "text": "Glutathione conjugation"
+       }
+      ],
+      "hormone": [
+       {
+        "source": "GO",
+        "text": "response to estradiol"
+       }
+      ],
+      "oxidative": [
+       {
+        "source": "GO",
+        "text": "cellular oxidant detoxification"
+       },
+       {
+        "source": "GO",
+        "text": "positive regulation of superoxide anion generation"
+       },
+       {
+        "source": "GO",
+        "text": "response to reactive oxygen species"
+       },
+       {
+        "source": "Reactome",
+        "text": "Detoxification of Reactive Oxygen Species"
+       }
+      ],
+      "immune": [
+       {
+        "source": "GO",
+        "text": "negative regulation of acute inflammatory response"
+       }
+      ]
+     },
+     "primary": "carcinogen"
+    },
+    "HERC2": {
+     "facets": {
+      "repair": [
+       {
+        "source": "Reactome",
+        "text": "G2/M DNA damage checkpoint"
+       },
+       {
+        "source": "Reactome",
+        "text": "SUMOylation of DNA damage response and repair proteins"
+       }
+      ]
+     },
+     "primary": "repair"
+    },
+    "HLA-DQA1": {
+     "facets": {
+      "immune": [
+       {
+        "source": "GO",
+        "text": "antigen processing and presentation"
+       },
+       {
+        "source": "GO",
+        "text": "antigen processing and presentation of exogenous peptide antigen via MHC class II"
+       },
+       {
+        "source": "GO",
+        "text": "positive regulation of T cell activation"
+       }
+      ]
+     },
+     "primary": "immune"
+    },
+    "IGF1R": {
+     "facets": {
+      "growth": [
+       {
+        "source": "GO",
+        "text": "positive regulation of cell population proliferation"
+       }
+      ],
+      "death": [
+       {
+        "source": "GO",
+        "text": "negative regulation of apoptotic process"
+       }
+      ],
+      "hormone": [
+       {
+        "source": "Reactome",
+        "text": "Extra-nuclear estrogen signaling"
+       }
+      ]
+     },
+     "primary": "growth"
+    },
+    "IL1RN": {
+     "facets": {
+      "immune": [
+       {
+        "source": "GO",
+        "text": "inflammatory response"
+       },
+       {
+        "source": "GO",
+        "text": "negative regulation of cytokine-mediated signaling pathway"
+       },
+       {
+        "source": "GO",
+        "text": "negative regulation of inflammatory response"
+       },
+       {
+        "source": "Reactome",
+        "text": "Interleukin-1 signaling"
+       },
+       {
+        "source": "Reactome",
+        "text": "Interleukin-10 signaling"
+       }
+      ]
+     },
+     "primary": "immune"
+    },
+    "IL6R": {
+     "facets": {
+      "growth": [
+       {
+        "source": "GO",
+        "text": "positive regulation of cell population proliferation"
+       }
+      ],
+      "immune": [
+       {
+        "source": "GO",
+        "text": "cytokine-mediated signaling pathway"
+       },
+       {
+        "source": "GO",
+        "text": "inflammatory response"
+       },
+       {
+        "source": "Reactome",
+        "text": "Interleukin-4 and Interleukin-13 signaling"
+       },
+       {
+        "source": "Reactome",
+        "text": "Interleukin-6 signaling"
+       }
+      ]
+     },
+     "primary": "immune"
+    },
+    "IRF4": {
+     "facets": {
+      "immune": [
+       {
+        "source": "GO",
+        "text": "T cell activation"
+       },
+       {
+        "source": "Reactome",
+        "text": "Interleukin-4 and Interleukin-13 signaling"
+       }
+      ]
+     },
+     "primary": "immune"
+    },
+    "MMP3": {
+     "facets": {
+      "hormone": [
+       {
+        "source": "Reactome",
+        "text": "Extra-nuclear estrogen signaling"
+       }
+      ],
+      "oxidative": [
+       {
+        "source": "GO",
+        "text": "cellular response to reactive oxygen species"
+       },
+       {
+        "source": "GO",
+        "text": "negative regulation of reactive oxygen species metabolic process"
+       }
+      ],
+      "immune": [
+       {
+        "source": "GO",
+        "text": "regulation of neuroinflammatory response"
+       },
+       {
+        "source": "Reactome",
+        "text": "Interleukin-4 and Interleukin-13 signaling"
+       }
+      ]
+     },
+     "primary": "oxidative"
+    },
+    "MTHFR": {
+     "facets": {
+      "methyl": [
+       {
+        "source": "GO",
+        "text": "L-methionine metabolic process"
+       },
+       {
+        "source": "GO",
+        "text": "S-adenosylmethionine metabolic process"
+       },
+       {
+        "source": "GO",
+        "text": "response to folic acid"
+       },
+       {
+        "source": "Reactome",
+        "text": "Metabolism of folate and pterines"
+       }
+      ]
+     },
+     "primary": "methyl"
+    },
+    "NAT2": {
+     "facets": {
+      "carcinogen": [
+       {
+        "source": "GO",
+        "text": "xenobiotic metabolic process"
+       }
+      ]
+     },
+     "primary": "carcinogen"
+    },
+    "NOS3": {
+     "facets": {
+      "death": [
+       {
+        "source": "GO",
+        "text": "negative regulation of cell population proliferation"
+       }
+      ],
+      "oxidative": [
+       {
+        "source": "GO",
+        "text": "removal of superoxide radicals"
+       }
+      ]
+     },
+     "primary": "death"
+    },
+    "NQO1": {
+     "facets": {
+      "carcinogen": [
+       {
+        "source": "GO",
+        "text": "xenobiotic metabolic process"
+       }
+      ],
+      "oxidative": [
+       {
+        "source": "GO",
+        "text": "cellular response to oxidative stress"
+       },
+       {
+        "source": "GO",
+        "text": "removal of superoxide radicals"
+       },
+       {
+        "source": "GO",
+        "text": "response to oxidative stress"
+       },
+       {
+        "source": "Reactome",
+        "text": "NFE2L2 regulating anti-oxidant/detoxification enzymes"
+       }
+      ]
+     },
+     "primary": "oxidative"
+    },
+    "OGG1": {
+     "facets": {
+      "repair": [
+       {
+        "source": "GO",
+        "text": "DNA repair"
+       },
+       {
+        "source": "GO",
+        "text": "base-excision repair"
+       },
+       {
+        "source": "GO",
+        "text": "base-excision repair, AP site formation"
+       }
+      ]
+     },
+     "primary": "repair"
+    },
+    "PER2": {
+     "facets": {
+      "growth": [
+       {
+        "source": "GO",
+        "text": "regulation of cell cycle"
+       }
+      ]
+     },
+     "primary": "growth"
+    },
+    "PPARD": {
+     "facets": {
+      "growth": [
+       {
+        "source": "GO",
+        "text": "negative regulation of cell growth"
+       }
+      ],
+      "death": [
+       {
+        "source": "GO",
+        "text": "apoptotic process"
+       },
+       {
+        "source": "GO",
+        "text": "negative regulation of apoptotic process"
+       }
+      ]
+     },
+     "primary": "death"
+    },
+    "PPARG": {
+     "facets": {
+      "death": [
+       {
+        "source": "GO",
+        "text": "positive regulation of vascular associated smooth muscle cell apoptotic process"
+       }
+      ],
+      "immune": [
+       {
+        "source": "GO",
+        "text": "negative regulation of connective tissue replacement involved in inflammatory response wound healing"
+       }
+      ]
+     },
+     "primary": "death"
+    },
+    "SIRT1": {
+     "facets": {
+      "repair": [
+       {
+        "source": "GO",
+        "text": "DNA repair-dependent chromatin remodeling"
+       },
+       {
+        "source": "GO",
+        "text": "DNA synthesis involved in DNA repair"
+       },
+       {
+        "source": "GO",
+        "text": "nucleotide-excision repair"
+       }
+      ]
+     },
+     "primary": "repair"
+    },
+    "SLCO1B1": {
+     "facets": {
+      "carcinogen": [
+       {
+        "source": "GO",
+        "text": "xenobiotic metabolic process"
+       }
+      ]
+     },
+     "primary": "carcinogen"
+    },
+    "SOD2": {
+     "facets": {
+      "death": [
+       {
+        "source": "GO",
+        "text": "negative regulation of apoptotic process"
+       },
+       {
+        "source": "GO",
+        "text": "negative regulation of cell population proliferation"
+       },
+       {
+        "source": "GO",
+        "text": "negative regulation of neuron apoptotic process"
+       }
+      ],
+      "oxidative": [
+       {
+        "source": "GO",
+        "text": "cellular response to oxidative stress"
+       },
+       {
+        "source": "GO",
+        "text": "hydrogen peroxide biosynthetic process"
+       },
+       {
+        "source": "GO",
+        "text": "hydrogen peroxide metabolic process"
+       },
+       {
+        "source": "Reactome",
+        "text": "Detoxification of Reactive Oxygen Species"
+       },
+       {
+        "source": "Reactome",
+        "text": "FOXO-mediated transcription of oxidative stress, metabolic and neuronal genes"
+       }
+      ],
+      "immune": [
+       {
+        "source": "Reactome",
+        "text": "Gene and protein expression by JAK-STAT signaling after Interleukin-12 stimulation"
+       }
+      ]
+     },
+     "primary": "oxidative"
+    },
+    "TNF": {
+     "facets": {
+      "growth": [
+       {
+        "source": "GO",
+        "text": "negative regulation of mitotic cell cycle"
+       }
+      ],
+      "death": [
+       {
+        "source": "GO",
+        "text": "endothelial cell apoptotic process"
+       },
+       {
+        "source": "GO",
+        "text": "negative regulation of apoptotic process"
+       },
+       {
+        "source": "GO",
+        "text": "negative regulation of cell population proliferation"
+       }
+      ],
+      "oxidative": [
+       {
+        "source": "GO",
+        "text": "regulation of reactive oxygen species metabolic process"
+       }
+      ],
+      "immune": [
+       {
+        "source": "GO",
+        "text": "chronic inflammatory response to antigenic stimulus"
+       },
+       {
+        "source": "GO",
+        "text": "inflammatory response"
+       },
+       {
+        "source": "GO",
+        "text": "inflammatory response to wounding"
+       },
+       {
+        "source": "Reactome",
+        "text": "Interleukin-10 signaling"
+       },
+       {
+        "source": "Reactome",
+        "text": "Interleukin-4 and Interleukin-13 signaling"
+       },
+       {
+        "source": "Reactome",
+        "text": "TNF signaling"
+       }
+      ]
+     },
+     "primary": "immune"
+    },
+    "TP53": {
+     "facets": {
+      "repair": [
+       {
+        "source": "GO",
+        "text": "mitotic G1 DNA damage checkpoint signaling"
+       },
+       {
+        "source": "GO",
+        "text": "negative regulation of telomere maintenance via telomerase"
+       },
+       {
+        "source": "GO",
+        "text": "nucleotide-excision repair"
+       },
+       {
+        "source": "Reactome",
+        "text": "DNA Damage/Telomere Stress Induced Senescence"
+       },
+       {
+        "source": "Reactome",
+        "text": "G2/M DNA damage checkpoint"
+       },
+       {
+        "source": "Reactome",
+        "text": "TP53 Regulates Transcription of DNA Repair Genes"
+       },
+       {
+        "source": "Library",
+        "text": "p53 damage response efficiency (DNA Repair / Tumor Suppression)"
+       }
+      ],
+      "growth": [
+       {
+        "source": "GO",
+        "text": "negative regulation of cell growth"
+       },
+       {
+        "source": "GO",
+        "text": "regulation of cell cycle"
+       },
+       {
+        "source": "GO",
+        "text": "regulation of cell cycle G2/M phase transition"
+       },
+       {
+        "source": "Reactome",
+        "text": "TP53 Regulates Transcription of Genes Involved in G1 Cell Cycle Arrest"
+       },
+       {
+        "source": "Reactome",
+        "text": "TP53 Regulates Transcription of Genes Involved in G2 Cell Cycle Arrest"
+       },
+       {
+        "source": "Reactome",
+        "text": "TP53 regulates transcription of additional cell cycle genes whose exact role in the p53 pathway remain uncertain"
+       }
+      ],
+      "death": [
+       {
+        "source": "GO",
+        "text": "apoptotic process"
+       },
+       {
+        "source": "GO",
+        "text": "cellular senescence"
+       },
+       {
+        "source": "GO",
+        "text": "negative regulation of apoptotic process"
+       },
+       {
+        "source": "Reactome",
+        "text": "DNA Damage/Telomere Stress Induced Senescence"
+       },
+       {
+        "source": "Reactome",
+        "text": "Formation of Senescence-Associated Heterochromatin Foci (SAHF)"
+       },
+       {
+        "source": "Reactome",
+        "text": "Loss of function of TP53 in cancer due to loss of tetramerization ability"
+       }
+      ],
+      "oxidative": [
+       {
+        "source": "GO",
+        "text": "positive regulation of reactive oxygen species metabolic process"
+       },
+       {
+        "source": "GO",
+        "text": "response to oxidative stress"
+       },
+       {
+        "source": "Reactome",
+        "text": "Oxidative Stress Induced Senescence"
+       }
+      ],
+      "immune": [
+       {
+        "source": "Reactome",
+        "text": "Interleukin-4 and Interleukin-13 signaling"
+       }
+      ],
+      "methyl": [
+       {
+        "source": "Reactome",
+        "text": "Regulation of TP53 Activity through Methylation"
+       }
+      ]
+     },
+     "primary": "repair"
+    },
+    "UGT1A1": {
+     "facets": {
+      "carcinogen": [
+       {
+        "source": "GO",
+        "text": "xenobiotic metabolic process"
+       }
+      ]
+     },
+     "primary": "carcinogen"
+    },
+    "VKORC1": {
+     "facets": {
+      "carcinogen": [
+       {
+        "source": "GO",
+        "text": "xenobiotic metabolic process"
+       }
+      ]
+     },
+     "primary": "carcinogen"
+    },
+    "XRCC1": {
+     "facets": {
+      "repair": [
+       {
+        "source": "GO",
+        "text": "base-excision repair"
+       },
+       {
+        "source": "GO",
+        "text": "double-strand break repair"
+       },
+       {
+        "source": "GO",
+        "text": "double-strand break repair via nonhomologous end joining"
+       },
+       {
+        "source": "Reactome",
+        "text": "Gap-filling DNA repair synthesis and ligation in GG-NER"
+       },
+       {
+        "source": "Reactome",
+        "text": "Gap-filling DNA repair synthesis and ligation in TC-NER"
+       }
+      ]
+     },
+     "primary": "repair"
+    }
+   },
+   "links": [
+    {
+     "a": "ERCC1",
+     "b": "ABCG2",
+     "score": 0.427
+    },
+    {
+     "a": "ERCC1",
+     "b": "CDKN2A",
+     "score": 0.467
+    },
+    {
+     "a": "ERCC1",
+     "b": "MTHFR",
+     "score": 0.492
+    },
+    {
+     "a": "ERCC1",
+     "b": "ABCB1",
+     "score": 0.496
+    },
+    {
+     "a": "ERCC1",
+     "b": "GSTP1",
+     "score": 0.585
+    },
+    {
+     "a": "ERCC1",
+     "b": "TP53",
+     "score": 0.657
+    },
+    {
+     "a": "ERCC1",
+     "b": "OGG1",
+     "score": 0.77
+    },
+    {
+     "a": "ERCC1",
+     "b": "ATM",
+     "score": 0.839
+    },
+    {
+     "a": "ERCC1",
+     "b": "XRCC1",
+     "score": 0.954
+    },
+    {
+     "a": "ERCC1",
+     "b": "BRCA1",
+     "score": 0.958
+    },
+    {
+     "a": "ERCC1",
+     "b": "ERCC2",
+     "score": 0.995
+    },
+    {
+     "a": "SIRT1",
+     "b": "CYP2E1",
+     "score": 0.415
+    },
+    {
+     "a": "SIRT1",
+     "b": "CDKN2B",
+     "score": 0.429
+    },
+    {
+     "a": "SIRT1",
+     "b": "MMP3",
+     "score": 0.444
+    },
+    {
+     "a": "SIRT1",
+     "b": "OGG1",
+     "score": 0.45
+    },
+    {
+     "a": "SIRT1",
+     "b": "EDN1",
+     "score": 0.462
+    },
+    {
+     "a": "SIRT1",
+     "b": "HERC2",
+     "score": 0.502
+    },
+    {
+     "a": "SIRT1",
+     "b": "ABCB1",
+     "score": 0.512
+    },
+    {
+     "a": "SIRT1",
+     "b": "IGF1R",
+     "score": 0.568
+    },
+    {
+     "a": "SIRT1",
+     "b": "PPARD",
+     "score": 0.585
+    },
+    {
+     "a": "SIRT1",
+     "b": "XRCC1",
+     "score": 0.592
+    },
+    {
+     "a": "SIRT1",
+     "b": "CDKN2A",
+     "score": 0.593
+    },
+    {
+     "a": "SIRT1",
+     "b": "MTHFR",
+     "score": 0.643
+    },
+    {
+     "a": "SIRT1",
+     "b": "ATM",
+     "score": 0.647
+    },
+    {
+     "a": "SIRT1",
+     "b": "NQO1",
+     "score": 0.677
+    },
+    {
+     "a": "SIRT1",
+     "b": "ESR1",
+     "score": 0.758
+    },
+    {
+     "a": "SIRT1",
+     "b": "PER2",
+     "score": 0.766
+    },
+    {
+     "a": "SIRT1",
+     "b": "BRCA1",
+     "score": 0.793
+    },
+    {
+     "a": "SIRT1",
+     "b": "TNF",
+     "score": 0.797
+    },
+    {
+     "a": "SIRT1",
+     "b": "NOS3",
+     "score": 0.817
+    },
+    {
+     "a": "SIRT1",
+     "b": "SOD2",
+     "score": 0.887
+    },
+    {
+     "a": "SIRT1",
+     "b": "PPARG",
+     "score": 0.994
+    },
+    {
+     "a": "SIRT1",
+     "b": "CLOCK",
+     "score": 0.994
+    },
+    {
+     "a": "SIRT1",
+     "b": "TP53",
+     "score": 0.999
+    },
+    {
+     "a": "SIRT1",
+     "b": "FOXO3",
+     "score": 0.999
+    },
+    {
+     "a": "CYP4F2",
+     "b": "CYP3A7",
+     "score": 0.44
+    },
+    {
+     "a": "CYP4F2",
+     "b": "CYP1B1",
+     "score": 0.465
+    },
+    {
+     "a": "CYP4F2",
+     "b": "ABCB1",
+     "score": 0.486
+    },
+    {
+     "a": "CYP4F2",
+     "b": "CYP1A1",
+     "score": 0.493
+    },
+    {
+     "a": "CYP4F2",
+     "b": "CYP2D6",
+     "score": 0.54
+    },
+    {
+     "a": "CYP4F2",
+     "b": "CYP1A2",
+     "score": 0.541
+    },
+    {
+     "a": "CYP4F2",
+     "b": "CYP3A4",
+     "score": 0.556
+    },
+    {
+     "a": "CYP4F2",
+     "b": "CYP2A6",
+     "score": 0.562
+    },
+    {
+     "a": "CYP4F2",
+     "b": "UGT1A1",
+     "score": 0.572
+    },
+    {
+     "a": "CYP4F2",
+     "b": "EPHX1",
+     "score": 0.626
+    },
+    {
+     "a": "CYP4F2",
+     "b": "SLCO1B1",
+     "score": 0.68
+    },
+    {
+     "a": "CYP4F2",
+     "b": "CYP2E1",
+     "score": 0.947
+    },
+    {
+     "a": "CYP4F2",
+     "b": "CYP2C19",
+     "score": 0.955
+    },
+    {
+     "a": "CYP4F2",
+     "b": "VKORC1",
+     "score": 0.959
+    },
+    {
+     "a": "COL1A1",
+     "b": "EDN1",
+     "score": 0.418
+    },
+    {
+     "a": "COL1A1",
+     "b": "ESR1",
+     "score": 0.422
+    },
+    {
+     "a": "COL1A1",
+     "b": "GDF5",
+     "score": 0.455
+    },
+    {
+     "a": "COL1A1",
+     "b": "TP53",
+     "score": 0.474
+    },
+    {
+     "a": "COL1A1",
+     "b": "PPARG",
+     "score": 0.602
+    },
+    {
+     "a": "COL1A1",
+     "b": "TNF",
+     "score": 0.612
+    },
+    {
+     "a": "COL1A1",
+     "b": "MMP3",
+     "score": 0.642
+    },
+    {
+     "a": "COL1A1",
+     "b": "COL18A1",
+     "score": 0.828
+    },
+    {
+     "a": "CAT",
+     "b": "FOXO3",
+     "score": 0.781
+    },
+    {
+     "a": "CAT",
+     "b": "SOD2",
+     "score": 0.912
+    },
+    {
+     "a": "AHR",
+     "b": "CYP2C19",
+     "score": 0.401
+    },
+    {
+     "a": "AHR",
+     "b": "IRF4",
+     "score": 0.402
+    },
+    {
+     "a": "AHR",
+     "b": "ABCB1",
+     "score": 0.418
+    },
+    {
+     "a": "AHR",
+     "b": "TP53",
+     "score": 0.495
+    },
+    {
+     "a": "AHR",
+     "b": "CYP2E1",
+     "score": 0.504
+    },
+    {
+     "a": "AHR",
+     "b": "EPHX1",
+     "score": 0.525
+    },
+    {
+     "a": "AHR",
+     "b": "PPARG",
+     "score": 0.578
+    },
+    {
+     "a": "AHR",
+     "b": "CYP3A4",
+     "score": 0.584
+    },
+    {
+     "a": "AHR",
+     "b": "BRCA1",
+     "score": 0.592
+    },
+    {
+     "a": "AHR",
+     "b": "TNF",
+     "score": 0.594
+    },
+    {
+     "a": "AHR",
+     "b": "ABCG2",
+     "score": 0.617
+    },
+    {
+     "a": "AHR",
+     "b": "CYP2D6",
+     "score": 0.626
+    },
+    {
+     "a": "AHR",
+     "b": "NQO1",
+     "score": 0.636
+    },
+    {
+     "a": "AHR",
+     "b": "UGT1A1",
+     "score": 0.709
+    },
+    {
+     "a": "AHR",
+     "b": "CYP1A2",
+     "score": 0.938
+    },
+    {
+     "a": "AHR",
+     "b": "CYP1B1",
+     "score": 0.968
+    },
+    {
+     "a": "AHR",
+     "b": "CYP1A1",
+     "score": 0.994
+    },
+    {
+     "a": "AHR",
+     "b": "ESR1",
+     "score": 0.999
+    },
+    {
+     "a": "EPO",
+     "b": "TP53",
+     "score": 0.47
+    },
+    {
+     "a": "EPO",
+     "b": "NOS3",
+     "score": 0.518
+    },
+    {
+     "a": "EPO",
+     "b": "EDN1",
+     "score": 0.535
+    },
+    {
+     "a": "EPO",
+     "b": "IL6R",
+     "score": 0.718
+    },
+    {
+     "a": "EPO",
+     "b": "TNF",
+     "score": 0.742
+    },
+    {
+     "a": "PER2",
+     "b": "PPARG",
+     "score": 0.477
+    },
+    {
+     "a": "PER2",
+     "b": "TP53",
+     "score": 0.881
+    },
+    {
+     "a": "PER2",
+     "b": "CLOCK",
+     "score": 0.998
+    },
+    {
+     "a": "SLCO1B1",
+     "b": "CYP1A1",
+     "score": 0.466
+    },
+    {
+     "a": "SLCO1B1",
+     "b": "CYP3A7",
+     "score": 0.471
+    },
+    {
+     "a": "SLCO1B1",
+     "b": "NAT2",
+     "score": 0.489
+    },
+    {
+     "a": "SLCO1B1",
+     "b": "MTHFR",
+     "score": 0.495
+    },
+    {
+     "a": "SLCO1B1",
+     "b": "CYP2E1",
+     "score": 0.572
+    },
+    {
+     "a": "SLCO1B1",
+     "b": "CYP2A6",
+     "score": 0.658
+    },
+    {
+     "a": "SLCO1B1",
+     "b": "VKORC1",
+     "score": 0.76
+    },
+    {
+     "a": "SLCO1B1",
+     "b": "CYP1A2",
+     "score": 0.769
+    },
+    {
+     "a": "SLCO1B1",
+     "b": "CYP2D6",
+     "score": 0.798
+    },
+    {
+     "a": "SLCO1B1",
+     "b": "CYP2C19",
+     "score": 0.802
+    },
+    {
+     "a": "SLCO1B1",
+     "b": "ABCG2",
+     "score": 0.804
+    },
+    {
+     "a": "SLCO1B1",
+     "b": "ABCB1",
+     "score": 0.868
+    },
+    {
+     "a": "SLCO1B1",
+     "b": "UGT1A1",
+     "score": 0.926
+    },
+    {
+     "a": "SLCO1B1",
+     "b": "CYP3A4",
+     "score": 0.926
+    },
+    {
+     "a": "EDAR",
+     "b": "TNF",
+     "score": 0.553
+    },
+    {
+     "a": "IL1RN",
+     "b": "SOD2",
+     "score": 0.408
+    },
+    {
+     "a": "IL1RN",
+     "b": "MMP3",
+     "score": 0.453
+    },
+    {
+     "a": "IL1RN",
+     "b": "IL6R",
+     "score": 0.473
+    },
+    {
+     "a": "IL1RN",
+     "b": "TNF",
+     "score": 0.847
+    },
+    {
+     "a": "HERC2",
+     "b": "ATM",
+     "score": 0.584
+    },
+    {
+     "a": "HERC2",
+     "b": "BRCA1",
+     "score": 0.989
+    },
+    {
+     "a": "HERC2",
+     "b": "TP53",
+     "score": 0.993
+    },
+    {
+     "a": "XRCC1",
+     "b": "EPHX1",
+     "score": 0.433
+    },
+    {
+     "a": "XRCC1",
+     "b": "CYP1A1",
+     "score": 0.47
+    },
+    {
+     "a": "XRCC1",
+     "b": "MTHFR",
+     "score": 0.6
+    },
+    {
+     "a": "XRCC1",
+     "b": "GSTP1",
+     "score": 0.647
+    },
+    {
+     "a": "XRCC1",
+     "b": "BRCA1",
+     "score": 0.735
+    },
+    {
+     "a": "XRCC1",
+     "b": "ATM",
+     "score": 0.748
+    },
+    {
+     "a": "XRCC1",
+     "b": "TP53",
+     "score": 0.793
+    },
+    {
+     "a": "XRCC1",
+     "b": "OGG1",
+     "score": 0.965
+    },
+    {
+     "a": "XRCC1",
+     "b": "ERCC2",
+     "score": 0.974
+    },
+    {
+     "a": "BCHE",
+     "b": "CYP2D6",
+     "score": 0.445
+    },
+    {
+     "a": "BCHE",
+     "b": "CYP3A4",
+     "score": 0.446
+    },
+    {
+     "a": "BCHE",
+     "b": "TNF",
+     "score": 0.453
+    },
+    {
+     "a": "BCHE",
+     "b": "ADA",
+     "score": 0.454
+    },
+    {
+     "a": "TP53",
+     "b": "PPARD",
+     "score": 0.4
+    },
+    {
+     "a": "TP53",
+     "b": "MTHFR",
+     "score": 0.403
+    },
+    {
+     "a": "TP53",
+     "b": "CYP1B1",
+     "score": 0.431
+    },
+    {
+     "a": "TP53",
+     "b": "CYP2E1",
+     "score": 0.44
+    },
+    {
+     "a": "TP53",
+     "b": "CYP3A4",
+     "score": 0.44
+    },
+    {
+     "a": "TP53",
+     "b": "EDN1",
+     "score": 0.449
+    },
+    {
+     "a": "TP53",
+     "b": "CYP1A1",
+     "score": 0.51
+    },
+    {
+     "a": "TP53",
+     "b": "MMP3",
+     "score": 0.52
+    },
+    {
+     "a": "TP53",
+     "b": "ABCG2",
+     "score": 0.601
+    },
+    {
+     "a": "TP53",
+     "b": "NOS3",
+     "score": 0.652
+    },
+    {
+     "a": "TP53",
+     "b": "GSTP1",
+     "score": 0.652
+    },
+    {
+     "a": "TP53",
+     "b": "SOD2",
+     "score": 0.729
+    },
+    {
+     "a": "TP53",
+     "b": "OGG1",
+     "score": 0.736
+    },
+    {
+     "a": "TP53",
+     "b": "CDKN2B",
+     "score": 0.754
+    },
+    {
+     "a": "TP53",
+     "b": "IRF4",
+     "score": 0.781
+    },
+    {
+     "a": "TP53",
+     "b": "IGF1R",
+     "score": 0.837
+    },
+    {
+     "a": "TP53",
+     "b": "TNF",
+     "score": 0.857
+    },
+    {
+     "a": "TP53",
+     "b": "ABCB1",
+     "score": 0.857
+    },
+    {
+     "a": "TP53",
+     "b": "PPARG",
+     "score": 0.943
+    },
+    {
+     "a": "TP53",
+     "b": "ERCC2",
+     "score": 0.956
+    },
+    {
+     "a": "TP53",
+     "b": "NQO1",
+     "score": 0.995
+    },
+    {
+     "a": "TP53",
+     "b": "ATM",
+     "score": 0.999
+    },
+    {
+     "a": "TP53",
+     "b": "FOXO3",
+     "score": 0.999
+    },
+    {
+     "a": "TP53",
+     "b": "ESR1",
+     "score": 0.999
+    },
+    {
+     "a": "TP53",
+     "b": "CDKN2A",
+     "score": 0.999
+    },
+    {
+     "a": "TP53",
+     "b": "BRCA1",
+     "score": 0.999
+    },
+    {
+     "a": "CDKN2B",
+     "b": "GSTP1",
+     "score": 0.411
+    },
+    {
+     "a": "CDKN2B",
+     "b": "FOXO3",
+     "score": 0.46
+    },
+    {
+     "a": "CDKN2B",
+     "b": "BRCA1",
+     "score": 0.481
+    },
+    {
+     "a": "CDKN2B",
+     "b": "ATM",
+     "score": 0.497
+    },
+    {
+     "a": "CDKN2B",
+     "b": "IGF1R",
+     "score": 0.571
+    },
+    {
+     "a": "CDKN2B",
+     "b": "CDKN2A",
+     "score": 0.998
+    },
+    {
+     "a": "ATM",
+     "b": "PPARG",
+     "score": 0.411
+    },
+    {
+     "a": "ATM",
+     "b": "NAT2",
+     "score": 0.476
+    },
+    {
+     "a": "ATM",
+     "b": "TNF",
+     "score": 0.512
+    },
+    {
+     "a": "ATM",
+     "b": "IGF1R",
+     "score": 0.565
+    },
+    {
+     "a": "ATM",
+     "b": "ESR1",
+     "score": 0.584
+    },
+    {
+     "a": "ATM",
+     "b": "OGG1",
+     "score": 0.653
+    },
+    {
+     "a": "ATM",
+     "b": "CDKN2A",
+     "score": 0.829
+    },
+    {
+     "a": "ATM",
+     "b": "ERCC2",
+     "score": 0.851
+    },
+    {
+     "a": "ATM",
+     "b": "FOXO3",
+     "score": 0.899
+    },
+    {
+     "a": "ATM",
+     "b": "BRCA1",
+     "score": 0.999
+    },
+    {
+     "a": "NAT2",
+     "b": "ABCB1",
+     "score": 0.424
+    },
+    {
+     "a": "NAT2",
+     "b": "EPHX1",
+     "score": 0.464
+    },
+    {
+     "a": "NAT2",
+     "b": "GSTP1",
+     "score": 0.473
+    },
+    {
+     "a": "NAT2",
+     "b": "UGT1A1",
+     "score": 0.551
+    },
+    {
+     "a": "NAT2",
+     "b": "CYP1A1",
+     "score": 0.568
+    },
+    {
+     "a": "NAT2",
+     "b": "CYP2C19",
+     "score": 0.577
+    },
+    {
+     "a": "NAT2",
+     "b": "CYP3A4",
+     "score": 0.606
+    },
+    {
+     "a": "NAT2",
+     "b": "CYP2D6",
+     "score": 0.777
+    },
+    {
+     "a": "NAT2",
+     "b": "CYP2A6",
+     "score": 0.95
+    },
+    {
+     "a": "NAT2",
+     "b": "CYP2E1",
+     "score": 0.965
+    },
+    {
+     "a": "NAT2",
+     "b": "CYP1A2",
+     "score": 0.971
+    },
+    {
+     "a": "PPARG",
+     "b": "CYP1A1",
+     "score": 0.409
+    },
+    {
+     "a": "PPARG",
+     "b": "CYP3A4",
+     "score": 0.437
+    },
+    {
+     "a": "PPARG",
+     "b": "CYP2E1",
+     "score": 0.462
+    },
+    {
+     "a": "PPARG",
+     "b": "MMP3",
+     "score": 0.484
+    },
+    {
+     "a": "PPARG",
+     "b": "IRF4",
+     "score": 0.494
+    },
+    {
+     "a": "PPARG",
+     "b": "NQO1",
+     "score": 0.495
+    },
+    {
+     "a": "PPARG",
+     "b": "CDKN2A",
+     "score": 0.495
+    },
+    {
+     "a": "PPARG",
+     "b": "IGF1R",
+     "score": 0.498
+    },
+    {
+     "a": "PPARG",
+     "b": "SOD2",
+     "score": 0.535
+    },
+    {
+     "a": "PPARG",
+     "b": "ESR1",
+     "score": 0.553
+    },
+    {
+     "a": "PPARG",
+     "b": "EDN1",
+     "score": 0.564
+    },
+    {
+     "a": "PPARG",
+     "b": "ABCG2",
+     "score": 0.58
+    },
+    {
+     "a": "PPARG",
+     "b": "NOS3",
+     "score": 0.64
+    },
+    {
+     "a": "PPARG",
+     "b": "FOXO3",
+     "score": 0.702
+    },
+    {
+     "a": "PPARG",
+     "b": "TNF",
+     "score": 0.793
+    },
+    {
+     "a": "PPARG",
+     "b": "PPARD",
+     "score": 0.944
+    },
+    {
+     "a": "NOS3",
+     "b": "FOXO3",
+     "score": 0.404
+    },
+    {
+     "a": "NOS3",
+     "b": "NQO1",
+     "score": 0.406
+    },
+    {
+     "a": "NOS3",
+     "b": "SOD2",
+     "score": 0.508
+    },
+    {
+     "a": "NOS3",
+     "b": "GCH1",
+     "score": 0.585
+    },
+    {
+     "a": "NOS3",
+     "b": "PPARD",
+     "score": 0.589
+    },
+    {
+     "a": "NOS3",
+     "b": "MTHFR",
+     "score": 0.591
+    },
+    {
+     "a": "NOS3",
+     "b": "TNF",
+     "score": 0.712
+    },
+    {
+     "a": "NOS3",
+     "b": "ESR1",
+     "score": 0.741
+    },
+    {
+     "a": "NOS3",
+     "b": "EDN1",
+     "score": 0.867
+    },
+    {
+     "a": "MMP3",
+     "b": "ESR1",
+     "score": 0.4
+    },
+    {
+     "a": "MMP3",
+     "b": "GDF5",
+     "score": 0.426
+    },
+    {
+     "a": "MMP3",
+     "b": "CDKN2A",
+     "score": 0.473
+    },
+    {
+     "a": "MMP3",
+     "b": "COL18A1",
+     "score": 0.637
+    },
+    {
+     "a": "MMP3",
+     "b": "TNF",
+     "score": 0.801
+    },
+    {
+     "a": "CYP2A6",
+     "b": "CYP2C19",
+     "score": 0.455
+    },
+    {
+     "a": "CYP2A6",
+     "b": "ABCG2",
+     "score": 0.459
+    },
+    {
+     "a": "CYP2A6",
+     "b": "ABCB1",
+     "score": 0.544
+    },
+    {
+     "a": "CYP2A6",
+     "b": "VKORC1",
+     "score": 0.637
+    },
+    {
+     "a": "CYP2A6",
+     "b": "GSTP1",
+     "score": 0.8
+    },
+    {
+     "a": "CYP2A6",
+     "b": "UGT1A1",
+     "score": 0.875
+    },
+    {
+     "a": "CYP2A6",
+     "b": "CYP1A1",
+     "score": 0.937
+    },
+    {
+     "a": "CYP2A6",
+     "b": "EPHX1",
+     "score": 0.944
+    },
+    {
+     "a": "CYP2A6",
+     "b": "CYP3A7",
+     "score": 0.952
+    },
+    {
+     "a": "CYP2A6",
+     "b": "CYP1A2",
+     "score": 0.956
+    },
+    {
+     "a": "CYP2A6",
+     "b": "CYP3A4",
+     "score": 0.961
+    },
+    {
+     "a": "CYP2A6",
+     "b": "CYP2E1",
+     "score": 0.966
+    },
+    {
+     "a": "CYP2A6",
+     "b": "CYP2D6",
+     "score": 0.979
+    },
+    {
+     "a": "UGT1A1",
+     "b": "ESR1",
+     "score": 0.402
+    },
+    {
+     "a": "UGT1A1",
+     "b": "EPHX1",
+     "score": 0.415
+    },
+    {
+     "a": "UGT1A1",
+     "b": "MTHFR",
+     "score": 0.444
+    },
+    {
+     "a": "UGT1A1",
+     "b": "GSTP1",
+     "score": 0.549
+    },
+    {
+     "a": "UGT1A1",
+     "b": "NQO1",
+     "score": 0.564
+    },
+    {
+     "a": "UGT1A1",
+     "b": "VKORC1",
+     "score": 0.657
+    },
+    {
+     "a": "UGT1A1",
+     "b": "ABCB1",
+     "score": 0.66
+    },
+    {
+     "a": "UGT1A1",
+     "b": "ABCG2",
+     "score": 0.686
+    },
+    {
+     "a": "UGT1A1",
+     "b": "CYP2C19",
+     "score": 0.785
+    },
+    {
+     "a": "UGT1A1",
+     "b": "CYP3A7",
+     "score": 0.837
+    },
+    {
+     "a": "UGT1A1",
+     "b": "CYP1A2",
+     "score": 0.926
+    },
+    {
+     "a": "UGT1A1",
+     "b": "CYP1B1",
+     "score": 0.962
+    },
+    {
+     "a": "UGT1A1",
+     "b": "CYP2E1",
+     "score": 0.969
+    },
+    {
+     "a": "UGT1A1",
+     "b": "CYP1A1",
+     "score": 0.974
+    },
+    {
+     "a": "UGT1A1",
+     "b": "CYP2D6",
+     "score": 0.978
+    },
+    {
+     "a": "UGT1A1",
+     "b": "CYP3A4",
+     "score": 0.992
+    },
+    {
+     "a": "OGG1",
+     "b": "CYP1A1",
+     "score": 0.429
+    },
+    {
+     "a": "OGG1",
+     "b": "GSTP1",
+     "score": 0.44
+    },
+    {
+     "a": "OGG1",
+     "b": "MTHFR",
+     "score": 0.447
+    },
+    {
+     "a": "OGG1",
+     "b": "SOD2",
+     "score": 0.501
+    },
+    {
+     "a": "OGG1",
+     "b": "BRCA1",
+     "score": 0.521
+    },
+    {
+     "a": "OGG1",
+     "b": "ESR1",
+     "score": 0.547
+    },
+    {
+     "a": "OGG1",
+     "b": "ERCC2",
+     "score": 0.805
+    },
+    {
+     "a": "PPARD",
+     "b": "TNF",
+     "score": 0.556
+    },
+    {
+     "a": "NQO1",
+     "b": "ESR1",
+     "score": 0.506
+    },
+    {
+     "a": "NQO1",
+     "b": "CYP1A2",
+     "score": 0.559
+    },
+    {
+     "a": "NQO1",
+     "b": "CYP2E1",
+     "score": 0.568
+    },
+    {
+     "a": "NQO1",
+     "b": "CYP1B1",
+     "score": 0.631
+    },
+    {
+     "a": "NQO1",
+     "b": "SOD2",
+     "score": 0.648
+    },
+    {
+     "a": "NQO1",
+     "b": "GSTP1",
+     "score": 0.703
+    },
+    {
+     "a": "NQO1",
+     "b": "CYP1A1",
+     "score": 0.743
+    },
+    {
+     "a": "NQO1",
+     "b": "EPHX1",
+     "score": 0.753
+    },
+    {
+     "a": "NQO1",
+     "b": "TNF",
+     "score": 0.799
+    },
+    {
+     "a": "NQO1",
+     "b": "VKORC1",
+     "score": 0.947
+    },
+    {
+     "a": "CYP2R1",
+     "b": "CYP3A7",
+     "score": 0.611
+    },
+    {
+     "a": "CYP2R1",
+     "b": "CYP3A4",
+     "score": 0.625
+    },
+    {
+     "a": "CYP3A7",
+     "b": "GSTP1",
+     "score": 0.4
+    },
+    {
+     "a": "CYP3A7",
+     "b": "ABCB1",
+     "score": 0.479
+    },
+    {
+     "a": "CYP3A7",
+     "b": "ESR1",
+     "score": 0.482
+    },
+    {
+     "a": "CYP3A7",
+     "b": "CYP1B1",
+     "score": 0.493
+    },
+    {
+     "a": "CYP3A7",
+     "b": "CYP2C19",
+     "score": 0.52
+    },
+    {
+     "a": "CYP3A7",
+     "b": "CYP2E1",
+     "score": 0.527
+    },
+    {
+     "a": "CYP3A7",
+     "b": "CYP2D6",
+     "score": 0.556
+    },
+    {
+     "a": "CYP3A7",
+     "b": "CYP3A4",
+     "score": 0.57
+    },
+    {
+     "a": "CYP3A7",
+     "b": "CYP1A2",
+     "score": 0.953
+    },
+    {
+     "a": "CYP3A7",
+     "b": "CYP1A1",
+     "score": 0.954
+    },
+    {
+     "a": "HLA-DQA1",
+     "b": "SOD2",
+     "score": 0.432
+    },
+    {
+     "a": "HLA-DQA1",
+     "b": "TNF",
+     "score": 0.614
+    },
+    {
+     "a": "FOXO3",
+     "b": "CDKN2A",
+     "score": 0.492
+    },
+    {
+     "a": "FOXO3",
+     "b": "TNF",
+     "score": 0.564
+    },
+    {
+     "a": "FOXO3",
+     "b": "BRCA1",
+     "score": 0.663
+    },
+    {
+     "a": "FOXO3",
+     "b": "IGF1R",
+     "score": 0.703
+    },
+    {
+     "a": "FOXO3",
+     "b": "ESR1",
+     "score": 0.961
+    },
+    {
+     "a": "FOXO3",
+     "b": "SOD2",
+     "score": 0.967
+    },
+    {
+     "a": "CYP1A2",
+     "b": "MTHFR",
+     "score": 0.4
+    },
+    {
+     "a": "CYP1A2",
+     "b": "VKORC1",
+     "score": 0.498
+    },
+    {
+     "a": "CYP1A2",
+     "b": "ESR1",
+     "score": 0.51
+    },
+    {
+     "a": "CYP1A2",
+     "b": "CYP2D6",
+     "score": 0.514
+    },
+    {
+     "a": "CYP1A2",
+     "b": "ABCG2",
+     "score": 0.637
+    },
+    {
+     "a": "CYP1A2",
+     "b": "ABCB1",
+     "score": 0.669
+    },
+    {
+     "a": "CYP1A2",
+     "b": "CYP1A1",
+     "score": 0.93
+    },
+    {
+     "a": "CYP1A2",
+     "b": "CYP1B1",
+     "score": 0.937
+    },
+    {
+     "a": "CYP1A2",
+     "b": "CYP2C19",
+     "score": 0.952
+    },
+    {
+     "a": "CYP1A2",
+     "b": "GSTP1",
+     "score": 0.955
+    },
+    {
+     "a": "CYP1A2",
+     "b": "EPHX1",
+     "score": 0.957
+    },
+    {
+     "a": "CYP1A2",
+     "b": "CYP2E1",
+     "score": 0.961
+    },
+    {
+     "a": "CYP1A2",
+     "b": "CYP3A4",
+     "score": 0.966
+    },
+    {
+     "a": "COL18A1",
+     "b": "EDN1",
+     "score": 0.405
+    },
+    {
+     "a": "COL18A1",
+     "b": "TNF",
+     "score": 0.427
+    },
+    {
+     "a": "IL6R",
+     "b": "IRF4",
+     "score": 0.429
+    },
+    {
+     "a": "IL6R",
+     "b": "TNF",
+     "score": 0.779
+    },
+    {
+     "a": "CYP2C19",
+     "b": "MTHFR",
+     "score": 0.43
+    },
+    {
+     "a": "CYP2C19",
+     "b": "ESR1",
+     "score": 0.537
+    },
+    {
+     "a": "CYP2C19",
+     "b": "ABCG2",
+     "score": 0.662
+    },
+    {
+     "a": "CYP2C19",
+     "b": "GSTP1",
+     "score": 0.806
+    },
+    {
+     "a": "CYP2C19",
+     "b": "ABCB1",
+     "score": 0.841
+    },
+    {
+     "a": "CYP2C19",
+     "b": "VKORC1",
+     "score": 0.907
+    },
+    {
+     "a": "CYP2C19",
+     "b": "CYP2E1",
+     "score": 0.935
+    },
+    {
+     "a": "CYP2C19",
+     "b": "EPHX1",
+     "score": 0.951
+    },
+    {
+     "a": "CYP2C19",
+     "b": "CYP2D6",
+     "score": 0.951
+    },
+    {
+     "a": "CYP2C19",
+     "b": "CYP3A4",
+     "score": 0.975
+    },
+    {
+     "a": "ADA",
+     "b": "TNF",
+     "score": 0.444
+    },
+    {
+     "a": "MTHFR",
+     "b": "CDKN2A",
+     "score": 0.401
+    },
+    {
+     "a": "MTHFR",
+     "b": "TNF",
+     "score": 0.422
+    },
+    {
+     "a": "MTHFR",
+     "b": "GCH1",
+     "score": 0.436
+    },
+    {
+     "a": "MTHFR",
+     "b": "SOD2",
+     "score": 0.447
+    },
+    {
+     "a": "MTHFR",
+     "b": "CYP2D6",
+     "score": 0.453
+    },
+    {
+     "a": "MTHFR",
+     "b": "CYP1A1",
+     "score": 0.463
+    },
+    {
+     "a": "MTHFR",
+     "b": "VKORC1",
+     "score": 0.478
+    },
+    {
+     "a": "MTHFR",
+     "b": "ABCB1",
+     "score": 0.526
+    },
+    {
+     "a": "MTHFR",
+     "b": "ERCC2",
+     "score": 0.596
+    },
+    {
+     "a": "MTHFR",
+     "b": "EPHX1",
+     "score": 0.601
+    },
+    {
+     "a": "MTHFR",
+     "b": "GSTP1",
+     "score": 0.713
+    },
+    {
+     "a": "EDN1",
+     "b": "ESR1",
+     "score": 0.41
+    },
+    {
+     "a": "EDN1",
+     "b": "TNF",
+     "score": 0.731
+    },
+    {
+     "a": "IRF4",
+     "b": "TNF",
+     "score": 0.601
+    },
+    {
+     "a": "ERCC2",
+     "b": "CYP1A1",
+     "score": 0.4
+    },
+    {
+     "a": "ERCC2",
+     "b": "EPHX1",
+     "score": 0.401
+    },
+    {
+     "a": "ERCC2",
+     "b": "GSTP1",
+     "score": 0.606
+    },
+    {
+     "a": "ERCC2",
+     "b": "BRCA1",
+     "score": 0.803
+    },
+    {
+     "a": "VKORC1",
+     "b": "ABCB1",
+     "score": 0.491
+    },
+    {
+     "a": "VKORC1",
+     "b": "CYP3A4",
+     "score": 0.593
+    },
+    {
+     "a": "VKORC1",
+     "b": "EPHX1",
+     "score": 0.753
+    },
+    {
+     "a": "VKORC1",
+     "b": "CYP2D6",
+     "score": 0.758
+    },
+    {
+     "a": "CYP1A1",
+     "b": "TNF",
+     "score": 0.467
+    },
+    {
+     "a": "CYP1A1",
+     "b": "BRCA1",
+     "score": 0.478
+    },
+    {
+     "a": "CYP1A1",
+     "b": "ABCB1",
+     "score": 0.544
+    },
+    {
+     "a": "CYP1A1",
+     "b": "ABCG2",
+     "score": 0.544
+    },
+    {
+     "a": "CYP1A1",
+     "b": "ESR1",
+     "score": 0.734
+    },
+    {
+     "a": "CYP1A1",
+     "b": "CYP2D6",
+     "score": 0.937
+    },
+    {
+     "a": "CYP1A1",
+     "b": "CYP2E1",
+     "score": 0.943
+    },
+    {
+     "a": "CYP1A1",
+     "b": "CYP1B1",
+     "score": 0.947
+    },
+    {
+     "a": "CYP1A1",
+     "b": "CYP3A4",
+     "score": 0.96
+    },
+    {
+     "a": "CYP1A1",
+     "b": "GSTP1",
+     "score": 0.972
+    },
+    {
+     "a": "CYP1A1",
+     "b": "EPHX1",
+     "score": 0.972
+    },
+    {
+     "a": "GSTP1",
+     "b": "ABCG2",
+     "score": 0.437
+    },
+    {
+     "a": "GSTP1",
+     "b": "ESR1",
+     "score": 0.498
+    },
+    {
+     "a": "GSTP1",
+     "b": "BRCA1",
+     "score": 0.535
+    },
+    {
+     "a": "GSTP1",
+     "b": "SOD2",
+     "score": 0.555
+    },
+    {
+     "a": "GSTP1",
+     "b": "ABCB1",
+     "score": 0.56
+    },
+    {
+     "a": "GSTP1",
+     "b": "CDKN2A",
+     "score": 0.654
+    },
+    {
+     "a": "GSTP1",
+     "b": "CYP2D6",
+     "score": 0.703
+    },
+    {
+     "a": "GSTP1",
+     "b": "CYP1B1",
+     "score": 0.958
+    },
+    {
+     "a": "GSTP1",
+     "b": "CYP2E1",
+     "score": 0.961
+    },
+    {
+     "a": "GSTP1",
+     "b": "CYP3A4",
+     "score": 0.969
+    },
+    {
+     "a": "GSTP1",
+     "b": "EPHX1",
+     "score": 0.983
+    },
+    {
+     "a": "TNF",
+     "b": "BRCA1",
+     "score": 0.423
+    },
+    {
+     "a": "TNF",
+     "b": "ABCB1",
+     "score": 0.433
+    },
+    {
+     "a": "TNF",
+     "b": "AOC1",
+     "score": 0.442
+    },
+    {
+     "a": "TNF",
+     "b": "GCH1",
+     "score": 0.445
+    },
+    {
+     "a": "TNF",
+     "b": "CYP3A4",
+     "score": 0.459
+    },
+    {
+     "a": "TNF",
+     "b": "IGF1R",
+     "score": 0.501
+    },
+    {
+     "a": "TNF",
+     "b": "CYP2E1",
+     "score": 0.564
+    },
+    {
+     "a": "TNF",
+     "b": "CDKN2A",
+     "score": 0.57
+    },
+    {
+     "a": "TNF",
+     "b": "SOD2",
+     "score": 0.612
+    },
+    {
+     "a": "TNF",
+     "b": "ESR1",
+     "score": 0.734
+    },
+    {
+     "a": "ESR1",
+     "b": "ABCB1",
+     "score": 0.495
+    },
+    {
+     "a": "ESR1",
+     "b": "CYP2D6",
+     "score": 0.572
+    },
+    {
+     "a": "ESR1",
+     "b": "ABCG2",
+     "score": 0.637
+    },
+    {
+     "a": "ESR1",
+     "b": "CDKN2A",
+     "score": 0.655
+    },
+    {
+     "a": "ESR1",
+     "b": "CYP3A4",
+     "score": 0.675
+    },
+    {
+     "a": "ESR1",
+     "b": "CYP1B1",
+     "score": 0.727
+    },
+    {
+     "a": "ESR1",
+     "b": "BRCA1",
+     "score": 0.999
+    },
+    {
+     "a": "ESR1",
+     "b": "IGF1R",
+     "score": 0.999
+    },
+    {
+     "a": "CDKN2A",
+     "b": "IGF1R",
+     "score": 0.679
+    },
+    {
+     "a": "CDKN2A",
+     "b": "BRCA1",
+     "score": 0.861
+    },
+    {
+     "a": "BRCA1",
+     "b": "ABCG2",
+     "score": 0.433
+    },
+    {
+     "a": "BRCA1",
+     "b": "ABCB1",
+     "score": 0.467
+    },
+    {
+     "a": "BRCA1",
+     "b": "CYP1B1",
+     "score": 0.476
+    },
+    {
+     "a": "BRCA1",
+     "b": "IGF1R",
+     "score": 0.695
+    },
+    {
+     "a": "CYP2E1",
+     "b": "ABCG2",
+     "score": 0.423
+    },
+    {
+     "a": "CYP2E1",
+     "b": "CYP1B1",
+     "score": 0.43
+    },
+    {
+     "a": "CYP2E1",
+     "b": "CYP2D6",
+     "score": 0.489
+    },
+    {
+     "a": "CYP2E1",
+     "b": "ABCB1",
+     "score": 0.626
+    },
+    {
+     "a": "CYP2E1",
+     "b": "CYP3A4",
+     "score": 0.963
+    },
+    {
+     "a": "CYP2E1",
+     "b": "EPHX1",
+     "score": 0.966
+    },
+    {
+     "a": "ABCB1",
+     "b": "IGF1R",
+     "score": 0.44
+    },
+    {
+     "a": "ABCB1",
+     "b": "CYP1B1",
+     "score": 0.459
+    },
+    {
+     "a": "ABCB1",
+     "b": "ABCG2",
+     "score": 0.587
+    },
+    {
+     "a": "ABCB1",
+     "b": "CYP2D6",
+     "score": 0.748
+    },
+    {
+     "a": "ABCB1",
+     "b": "CYP3A4",
+     "score": 0.867
+    },
+    {
+     "a": "CYP1B1",
+     "b": "ABCG2",
+     "score": 0.411
+    },
+    {
+     "a": "CYP1B1",
+     "b": "CYP3A4",
+     "score": 0.549
+    },
+    {
+     "a": "CYP1B1",
+     "b": "EPHX1",
+     "score": 0.965
+    },
+    {
+     "a": "EPHX1",
+     "b": "CYP2D6",
+     "score": 0.472
+    },
+    {
+     "a": "EPHX1",
+     "b": "ABCG2",
+     "score": 0.476
+    },
+    {
+     "a": "EPHX1",
+     "b": "CYP3A4",
+     "score": 0.951
+    },
+    {
+     "a": "CYP2D6",
+     "b": "ABCG2",
+     "score": 0.644
+    },
+    {
+     "a": "CYP2D6",
+     "b": "CYP3A4",
+     "score": 0.963
+    },
+    {
+     "a": "IGF1R",
+     "b": "ABCG2",
+     "score": 0.408
+    },
+    {
+     "a": "ABCG2",
+     "b": "CYP3A4",
+     "score": 0.792
+    }
+   ],
+   "pathways": [
+    {
+     "pathway": "Xenobiotics",
+     "genes": [
+      "AHR",
+      "CYP1A1",
+      "CYP2A6",
+      "CYP2C19",
+      "CYP2D6",
+      "CYP2E1",
+      "CYP3A4",
+      "CYP3A7"
+     ],
+     "on_theme": true
+    },
+    {
+     "pathway": "Interleukin-4 and Interleukin-13 signaling",
+     "genes": [
+      "FOXO3",
+      "IL6R",
+      "IRF4",
+      "MMP3",
+      "TNF",
+      "TP53"
+     ],
+     "on_theme": true
+    },
+    {
+     "pathway": "Phase I - Functionalization of compounds",
+     "genes": [
+      "AHR",
+      "AOC1",
+      "CYP3A4",
+      "EPHX1"
+     ],
+     "on_theme": true
+    },
+    {
+     "pathway": "G2/M DNA damage checkpoint",
+     "genes": [
+      "ATM",
+      "BRCA1",
+      "HERC2",
+      "TP53"
+     ],
+     "on_theme": true
+    },
+    {
+     "pathway": "TP53 Regulates Transcription of DNA Repair Genes",
+     "genes": [
+      "ATM",
+      "BRCA1",
+      "ERCC2",
+      "TP53"
+     ],
+     "on_theme": true
+    },
+    {
+     "pathway": "Detoxification of Reactive Oxygen Species",
+     "genes": [
+      "CAT",
+      "GPX1",
+      "GSTP1",
+      "SOD2"
+     ],
+     "on_theme": true
+    },
+    {
+     "pathway": "Regulation of TP53 Activity through Phosphorylation",
+     "genes": [
+      "ATM",
+      "BRCA1",
+      "TP53"
+     ],
+     "on_theme": true
+    },
+    {
+     "pathway": "FOXO-mediated transcription of oxidative stress, metabolic and neuronal genes",
+     "genes": [
+      "CAT",
+      "FOXO3",
+      "SOD2"
+     ],
+     "on_theme": true
+    },
+    {
+     "pathway": "Oncogene Induced Senescence",
+     "genes": [
+      "CDKN2A",
+      "CDKN2B",
+      "TP53"
+     ],
+     "on_theme": true
+    },
+    {
+     "pathway": "Oxidative Stress Induced Senescence",
+     "genes": [
+      "CDKN2A",
+      "CDKN2B",
+      "TP53"
+     ],
+     "on_theme": true
+    },
+    {
+     "pathway": "Extra-nuclear estrogen signaling",
+     "genes": [
+      "ESR1",
+      "IGF1R",
+      "MMP3"
+     ],
+     "on_theme": true
+    },
+    {
+     "pathway": "DNA Damage/Telomere Stress Induced Senescence",
+     "genes": [
+      "ATM",
+      "TP53"
+     ],
+     "on_theme": true
+    },
+    {
+     "pathway": "Regulation of TP53 Activity through Methylation",
+     "genes": [
+      "ATM",
+      "TP53"
+     ],
+     "on_theme": true
+    },
+    {
+     "pathway": "Regulation of TP53 Degradation",
+     "genes": [
+      "ATM",
+      "TP53"
+     ],
+     "on_theme": true
+    },
+    {
+     "pathway": "TP53 Regulates Transcription of Caspase Activators and Caspases",
+     "genes": [
+      "ATM",
+      "TP53"
+     ],
+     "on_theme": true
+    },
+    {
+     "pathway": "TP53 Regulates Transcription of Genes Involved in Cytochrome C Release",
+     "genes": [
+      "ATM",
+      "TP53"
+     ],
+     "on_theme": true
+    },
+    {
+     "pathway": "SUMOylation of DNA damage response and repair proteins",
+     "genes": [
+      "BRCA1",
+      "HERC2"
+     ],
+     "on_theme": true
+    },
+    {
+     "pathway": "Senescence-Associated Secretory Phenotype (SASP)",
+     "genes": [
+      "CDKN2A",
+      "CDKN2B"
+     ],
+     "on_theme": true
+    },
+    {
+     "pathway": "Aflatoxin activation and detoxification",
+     "genes": [
+      "CYP1A2",
+      "CYP3A4"
+     ],
+     "on_theme": true
+    },
+    {
+     "pathway": "Gap-filling DNA repair synthesis and ligation in TC-NER",
+     "genes": [
+      "ERCC2",
+      "XRCC1"
+     ],
+     "on_theme": true
+    },
+    {
+     "pathway": "Interleukin-10 signaling",
+     "genes": [
+      "IL1RN",
+      "TNF"
+     ],
+     "on_theme": true
+    },
+    {
+     "pathway": "Aspirin ADME",
+     "genes": [
+      "BCHE",
+      "CYP2C19",
+      "CYP2D6",
+      "CYP2E1",
+      "CYP3A4",
+      "UGT1A1"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Paracetamol ADME",
+     "genes": [
+      "ABCG2",
+      "CYP2E1",
+      "GSTP1",
+      "NAT2",
+      "UGT1A1"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Synthesis of (16-20)-hydroxyeicosatetraenoic acids (HETE)",
+     "genes": [
+      "CYP1A1",
+      "CYP1A2",
+      "CYP1B1",
+      "CYP2C19",
+      "CYP4F2"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "PPARA activates gene expression",
+     "genes": [
+      "AHR",
+      "CLOCK",
+      "CYP1A1",
+      "PPARG"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Recruitment and ATM-mediated phosphorylation of repair and signaling proteins at DNA double strand breaks",
+     "genes": [
+      "ATM",
+      "BRCA1",
+      "HERC2",
+      "TP53"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Mitochondrial unfolded protein response (UPRmt)",
+     "genes": [
+      "CAT",
+      "ESR1",
+      "FOXO3",
+      "SOD2"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Synthesis of epoxy (EET) and dihydroxyeicosatrienoic acids (DHET)",
+     "genes": [
+      "CYP1A1",
+      "CYP1A2",
+      "CYP1B1",
+      "CYP2C19"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Biosynthesis of maresin-like SPMs",
+     "genes": [
+      "CYP1A2",
+      "CYP2D6",
+      "CYP2E1",
+      "CYP3A4"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "CYP2E1 reactions",
+     "genes": [
+      "CYP2A6",
+      "CYP2C19",
+      "CYP2D6",
+      "CYP2E1"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Atorvastatin ADME",
+     "genes": [
+      "ABCB1",
+      "CYP3A4",
+      "SLCO1B1"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Heme degradation",
+     "genes": [
+      "ABCG2",
+      "SLCO1B1",
+      "UGT1A1"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Neutrophil degranulation",
+     "genes": [
+      "AOC1",
+      "CAT",
+      "GSTP1"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "HDR through Single Strand Annealing (SSA)",
+     "genes": [
+      "ATM",
+      "BRCA1",
+      "ERCC1"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Nonhomologous End-Joining (NHEJ)",
+     "genes": [
+      "ATM",
+      "BRCA1",
+      "HERC2"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Processing of DNA double-strand break ends",
+     "genes": [
+      "ATM",
+      "BRCA1",
+      "HERC2"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "NAD+ and Sirtuins regulate the circadian clock",
+     "genes": [
+      "CLOCK",
+      "PER2",
+      "SIRT1"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Assembly of collagen fibrils and other multimeric structures",
+     "genes": [
+      "COL18A1",
+      "COL1A1",
+      "MMP3"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Collagen degradation",
+     "genes": [
+      "COL18A1",
+      "COL1A1",
+      "MMP3"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Nuclear Receptor transcription pathway",
+     "genes": [
+      "ESR1",
+      "PPARD",
+      "PPARG"
+     ],
+     "on_theme": false
+    }
+   ]
+  },
+  "fertility": {
+   "name": "Fertility",
+   "about": "Genes that make and break down sex hormones, carry the signals of the reproductive axis, drive desire, run the cycle and gamete production, and support implantation and pregnancy.",
+   "facets": [
+    {
+     "id": "make",
+     "name": "Sex hormone production and breakdown",
+     "core": true
+    },
+    {
+     "id": "axis",
+     "name": "Hormone signals and the reproductive axis",
+     "core": true
+    },
+    {
+     "id": "drive",
+     "name": "Sexual drive and bonding",
+     "core": true
+    },
+    {
+     "id": "cycle",
+     "name": "Cycle, ovulation and sperm",
+     "core": true
+    },
+    {
+     "id": "pregnancy",
+     "name": "Implantation and pregnancy",
+     "core": true
+    },
+    {
+     "id": "support",
+     "name": "Gamete and embryo support (folate, clotting, oxidative stress)",
+     "core": false
+    }
+   ],
+   "genes": {
+    "ACE": {
+     "facets": {
+      "cycle": [
+       {
+        "source": "GO",
+        "text": "male gonad development"
+       },
+       {
+        "source": "GO",
+        "text": "spermatogenesis"
+       }
+      ]
+     },
+     "primary": "cycle"
+    },
+    "ADORA2A": {
+     "facets": {
+      "support": [
+       {
+        "source": "GO",
+        "text": "blood coagulation"
+       }
+      ]
+     },
+     "primary": "support"
+    },
+    "AR": {
+     "facets": {
+      "axis": [
+       {
+        "source": "GO",
+        "text": "androgen receptor signaling pathway"
+       },
+       {
+        "source": "GO",
+        "text": "estrogen receptor signaling pathway"
+       },
+       {
+        "source": "Reactome",
+        "text": "Nuclear Receptor transcription pathway"
+       },
+       {
+        "source": "Library",
+        "text": "Male Pattern Baldness (Androgen Receptor) (Appearance / Hormones)"
+       }
+      ],
+      "cycle": [
+       {
+        "source": "GO",
+        "text": "male gonad development"
+       },
+       {
+        "source": "GO",
+        "text": "spermatogenesis"
+       }
+      ]
+     },
+     "primary": "axis"
+    },
+    "ATM": {
+     "facets": {
+      "cycle": [
+       {
+        "source": "GO",
+        "text": "reciprocal meiotic recombination"
+       }
+      ]
+     },
+     "primary": "cycle"
+    },
+    "BRCA1": {
+     "facets": {
+      "axis": [
+       {
+        "source": "GO",
+        "text": "negative regulation of intracellular estrogen receptor signaling pathway"
+       }
+      ]
+     },
+     "primary": "axis"
+    },
+    "CFTR": {
+     "facets": {
+      "cycle": [
+       {
+        "source": "GO",
+        "text": "sperm capacitation"
+       }
+      ]
+     },
+     "primary": "cycle"
+    },
+    "CLOCK": {
+     "facets": {
+      "cycle": [
+       {
+        "source": "GO",
+        "text": "spermatogenesis"
+       }
+      ]
+     },
+     "primary": "cycle"
+    },
+    "CYP11B2": {
+     "facets": {
+      "make": [
+       {
+        "source": "GO",
+        "text": "C21-steroid hormone biosynthetic process"
+       },
+       {
+        "source": "Reactome",
+        "text": "Glucocorticoid biosynthesis"
+       },
+       {
+        "source": "Reactome",
+        "text": "Mineralocorticoid biosynthesis"
+       }
+      ]
+     },
+     "primary": "make"
+    },
+    "CYP17A1": {
+     "facets": {
+      "make": [
+       {
+        "source": "GO",
+        "text": "androgen biosynthetic process"
+       },
+       {
+        "source": "GO",
+        "text": "progesterone metabolic process"
+       },
+       {
+        "source": "Reactome",
+        "text": "Androgen biosynthesis"
+       },
+       {
+        "source": "Reactome",
+        "text": "Glucocorticoid biosynthesis"
+       },
+       {
+        "source": "Library",
+        "text": "Testosterone synthesis capacity (Sex Hormones)"
+       }
+      ]
+     },
+     "primary": "make"
+    },
+    "CYP1A1": {
+     "facets": {
+      "make": [
+       {
+        "source": "GO",
+        "text": "estrogen metabolic process"
+       }
+      ],
+      "pregnancy": [
+       {
+        "source": "GO",
+        "text": "maternal process involved in parturition"
+       }
+      ]
+     },
+     "primary": "make"
+    },
+    "CYP1A2": {
+     "facets": {
+      "make": [
+       {
+        "source": "GO",
+        "text": "estrogen metabolic process"
+       }
+      ]
+     },
+     "primary": "make"
+    },
+    "CYP1B1": {
+     "facets": {
+      "make": [
+       {
+        "source": "GO",
+        "text": "estrogen metabolic process"
+       },
+       {
+        "source": "Library",
+        "text": "Hormone & toxin hydroxylation (Detox); Estrogen Detox (4-OH Estrogen) (Detox / Hormones)"
+       }
+      ],
+      "support": [
+       {
+        "source": "GO",
+        "text": "intrinsic apoptotic signaling pathway in response to oxidative stress"
+       }
+      ]
+     },
+     "primary": "make"
+    },
+    "CYP2D6": {
+     "facets": {
+      "make": [
+       {
+        "source": "GO",
+        "text": "estrogen metabolic process"
+       }
+      ]
+     },
+     "primary": "make"
+    },
+    "CYP3A4": {
+     "facets": {
+      "make": [
+       {
+        "source": "GO",
+        "text": "estrogen metabolic process"
+       }
+      ]
+     },
+     "primary": "make"
+    },
+    "CYP3A7": {
+     "facets": {
+      "make": [
+       {
+        "source": "GO",
+        "text": "estrogen metabolic process"
+       },
+       {
+        "source": "GWAS",
+        "text": "16a-hydroxy DHEA 3-sulfate measurement"
+       },
+       {
+        "source": "GWAS",
+        "text": "testosterone measurement"
+       }
+      ]
+     },
+     "primary": "make"
+    },
+    "EDN1": {
+     "facets": {
+      "axis": [
+       {
+        "source": "GO",
+        "text": "cellular response to follicle-stimulating hormone stimulus"
+       },
+       {
+        "source": "GO",
+        "text": "cellular response to human chorionic gonadotropin stimulus"
+       },
+       {
+        "source": "GO",
+        "text": "cellular response to luteinizing hormone stimulus"
+       }
+      ],
+      "cycle": [
+       {
+        "source": "GO",
+        "text": "meiotic cell cycle process involved in oocyte maturation"
+       }
+      ],
+      "pregnancy": [
+       {
+        "source": "GO",
+        "text": "maternal process involved in parturition"
+       }
+      ]
+     },
+     "primary": "axis"
+    },
+    "ESR1": {
+     "facets": {
+      "axis": [
+       {
+        "source": "GO",
+        "text": "estrogen receptor signaling pathway"
+       },
+       {
+        "source": "Reactome",
+        "text": "ESR-mediated signaling"
+       },
+       {
+        "source": "Reactome",
+        "text": "Nuclear Receptor transcription pathway"
+       },
+       {
+        "source": "Library",
+        "text": "Estrogen Receptor Alpha Sensitivity (Connective Tissue / Hormonal); Estrogen receptor sensitivity (Hormones)"
+       }
+      ],
+      "drive": [
+       {
+        "source": "GWAS",
+        "text": "sexual dimorphism measurement"
+       }
+      ]
+     },
+     "primary": "axis"
+    },
+    "ESR2": {
+     "facets": {
+      "axis": [
+       {
+        "source": "GO",
+        "text": "estrogen receptor signaling pathway"
+       },
+       {
+        "source": "Reactome",
+        "text": "ESR-mediated signaling"
+       },
+       {
+        "source": "Reactome",
+        "text": "Nuclear Receptor transcription pathway"
+       },
+       {
+        "source": "Library",
+        "text": "Estrogen Receptor Beta Sensitivity (Reproductive / Hormonal)"
+       }
+      ]
+     },
+     "primary": "axis"
+    },
+    "FKBP5": {
+     "facets": {
+      "axis": [
+       {
+        "source": "Reactome",
+        "text": "ESR-mediated signaling"
+       }
+      ]
+     },
+     "primary": "axis"
+    },
+    "FSHR": {
+     "facets": {
+      "axis": [
+       {
+        "source": "GO",
+        "text": "cellular response to follicle-stimulating hormone stimulus"
+       },
+       {
+        "source": "GO",
+        "text": "follicle-stimulating hormone signaling pathway"
+       },
+       {
+        "source": "Reactome",
+        "text": "Hormone ligand-binding receptors"
+       },
+       {
+        "source": "Library",
+        "text": "FSH receptor sensitivity (Ala307Thr) (Sex Hormones / Fertility); FSH receptor signaling strength (Ser680Asn) (Sex Hormones / Fertility)"
+       }
+      ],
+      "cycle": [
+       {
+        "source": "GO",
+        "text": "female gamete generation"
+       },
+       {
+        "source": "GO",
+        "text": "female gonad development"
+       },
+       {
+        "source": "GO",
+        "text": "male gonad development"
+       }
+      ]
+     },
+     "primary": "axis"
+    },
+    "GPX1": {
+     "facets": {
+      "support": [
+       {
+        "source": "GO",
+        "text": "cellular response to oxidative stress"
+       },
+       {
+        "source": "GO",
+        "text": "response to folic acid"
+       },
+       {
+        "source": "GO",
+        "text": "response to oxidative stress"
+       },
+       {
+        "source": "Reactome",
+        "text": "Detoxification of Reactive Oxygen Species"
+       }
+      ]
+     },
+     "primary": "support"
+    },
+    "GPX4": {
+     "facets": {
+      "cycle": [
+       {
+        "source": "GO",
+        "text": "spermatogenesis"
+       }
+      ],
+      "support": [
+       {
+        "source": "GO",
+        "text": "cellular response to oxidative stress"
+       },
+       {
+        "source": "GO",
+        "text": "response to oxidative stress"
+       }
+      ]
+     },
+     "primary": "support"
+    },
+    "HSD3B1": {
+     "facets": {
+      "make": [
+       {
+        "source": "GO",
+        "text": "androgen biosynthetic process"
+       },
+       {
+        "source": "GO",
+        "text": "estrogen biosynthetic process"
+       },
+       {
+        "source": "GO",
+        "text": "progesterone biosynthetic process"
+       },
+       {
+        "source": "Reactome",
+        "text": "Androgen biosynthesis"
+       },
+       {
+        "source": "Reactome",
+        "text": "Glucocorticoid biosynthesis"
+       },
+       {
+        "source": "Reactome",
+        "text": "Mineralocorticoid biosynthesis"
+       },
+       {
+        "source": "Library",
+        "text": "Adrenal androgen conversion (HSD3B1 1245C) (Sex Hormones)"
+       }
+      ]
+     },
+     "primary": "make"
+    },
+    "IGF1": {
+     "facets": {
+      "cycle": [
+       {
+        "source": "GO",
+        "text": "negative regulation of oocyte development"
+       }
+      ]
+     },
+     "primary": "cycle"
+    },
+    "IL1B": {
+     "facets": {
+      "pregnancy": [
+       {
+        "source": "GO",
+        "text": "embryo implantation"
+       }
+      ]
+     },
+     "primary": "pregnancy"
+    },
+    "IL23R": {
+     "facets": {
+      "axis": [
+       {
+        "source": "GO",
+        "text": "prolactin signaling pathway"
+       }
+      ]
+     },
+     "primary": "axis"
+    },
+    "IRS1": {
+     "facets": {
+      "make": [
+       {
+        "source": "GWAS",
+        "text": "sex hormone-binding globulin measurement"
+       }
+      ]
+     },
+     "primary": "make"
+    },
+    "LEP": {
+     "facets": {
+      "axis": [
+       {
+        "source": "GO",
+        "text": "positive regulation of follicle-stimulating hormone secretion"
+       },
+       {
+        "source": "GO",
+        "text": "positive regulation of luteinizing hormone secretion"
+       }
+      ],
+      "cycle": [
+       {
+        "source": "GO",
+        "text": "ovulation from ovarian follicle"
+       }
+      ],
+      "pregnancy": [
+       {
+        "source": "GO",
+        "text": "placenta development"
+       }
+      ]
+     },
+     "primary": "axis"
+    },
+    "LHCGR": {
+     "facets": {
+      "axis": [
+       {
+        "source": "GO",
+        "text": "cellular response to gonadotropin stimulus"
+       },
+       {
+        "source": "GO",
+        "text": "cellular response to luteinizing hormone stimulus"
+       },
+       {
+        "source": "GO",
+        "text": "luteinizing hormone signaling pathway"
+       },
+       {
+        "source": "Reactome",
+        "text": "Hormone ligand-binding receptors"
+       }
+      ],
+      "cycle": [
+       {
+        "source": "GO",
+        "text": "male gonad development"
+       },
+       {
+        "source": "GO",
+        "text": "ovarian follicle development"
+       },
+       {
+        "source": "GO",
+        "text": "ovulation cycle process"
+       }
+      ]
+     },
+     "primary": "axis"
+    },
+    "MTHFD1": {
+     "facets": {
+      "pregnancy": [
+       {
+        "source": "GO",
+        "text": "neural tube closure"
+       }
+      ]
+     },
+     "primary": "pregnancy"
+    },
+    "MTHFR": {
+     "facets": {
+      "pregnancy": [
+       {
+        "source": "GO",
+        "text": "neural tube closure"
+       }
+      ]
+     },
+     "primary": "pregnancy"
+    },
+    "NR3C1": {
+     "facets": {
+      "axis": [
+       {
+        "source": "Reactome",
+        "text": "Nuclear Receptor transcription pathway"
+       }
+      ]
+     },
+     "primary": "axis"
+    },
+    "OXTR": {
+     "facets": {
+      "drive": [
+       {
+        "source": "GO",
+        "text": "female mating behavior"
+       },
+       {
+        "source": "GO",
+        "text": "maternal behavior"
+       },
+       {
+        "source": "Reactome",
+        "text": "Vasopressin-like receptors"
+       },
+       {
+        "source": "Library",
+        "text": "Oxytocin Receptor Sensitivity (Nervous / Reproductive); Oxytocin receptor sensitivity (Empathy/Stress) (Brain & Neurotransmitters)"
+       }
+      ],
+      "pregnancy": [
+       {
+        "source": "GO",
+        "text": "fetal process involved in parturition"
+       },
+       {
+        "source": "GO",
+        "text": "lactation"
+       }
+      ]
+     },
+     "primary": "drive"
+    },
+    "PGR": {
+     "facets": {
+      "axis": [
+       {
+        "source": "Reactome",
+        "text": "Nuclear Receptor transcription pathway"
+       },
+       {
+        "source": "Library",
+        "text": "Progesterone Receptor Efficiency (Reproductive / Hormonal)"
+       }
+      ]
+     },
+     "primary": "axis"
+    },
+    "PPARA": {
+     "facets": {
+      "axis": [
+       {
+        "source": "Reactome",
+        "text": "Nuclear Receptor transcription pathway"
+       }
+      ],
+      "pregnancy": [
+       {
+        "source": "GO",
+        "text": "lactation"
+       }
+      ]
+     },
+     "primary": "axis"
+    },
+    "PPARD": {
+     "facets": {
+      "axis": [
+       {
+        "source": "Reactome",
+        "text": "Nuclear Receptor transcription pathway"
+       }
+      ],
+      "pregnancy": [
+       {
+        "source": "GO",
+        "text": "decidualization"
+       },
+       {
+        "source": "GO",
+        "text": "embryo implantation"
+       }
+      ]
+     },
+     "primary": "pregnancy"
+    },
+    "PPARG": {
+     "facets": {
+      "axis": [
+       {
+        "source": "Reactome",
+        "text": "Nuclear Receptor transcription pathway"
+       }
+      ],
+      "pregnancy": [
+       {
+        "source": "GO",
+        "text": "placenta development"
+       }
+      ],
+      "make": [
+       {
+        "source": "GWAS",
+        "text": "sex hormone-binding globulin measurement"
+       }
+      ]
+     },
+     "primary": "make"
+    },
+    "SIRT1": {
+     "facets": {
+      "axis": [
+       {
+        "source": "GO",
+        "text": "negative regulation of androgen receptor signaling pathway"
+       }
+      ]
+     },
+     "primary": "axis"
+    },
+    "SLC6A4": {
+     "facets": {
+      "drive": [
+       {
+        "source": "GO",
+        "text": "male mating behavior"
+       }
+      ]
+     },
+     "primary": "drive"
+    },
+    "SRD5A2": {
+     "facets": {
+      "make": [
+       {
+        "source": "GO",
+        "text": "androgen biosynthetic process"
+       },
+       {
+        "source": "GO",
+        "text": "androgen metabolic process"
+       },
+       {
+        "source": "GO",
+        "text": "testosterone biosynthetic process"
+       },
+       {
+        "source": "Reactome",
+        "text": "Androgen biosynthesis"
+       }
+      ],
+      "axis": [
+       {
+        "source": "GO",
+        "text": "response to follicle-stimulating hormone"
+       }
+      ],
+      "cycle": [
+       {
+        "source": "GO",
+        "text": "male gonad development"
+       }
+      ]
+     },
+     "primary": "make"
+    },
+    "TCF7L2": {
+     "facets": {
+      "axis": [
+       {
+        "source": "GO",
+        "text": "negative regulation of androgen receptor signaling pathway"
+       }
+      ]
+     },
+     "primary": "axis"
+    },
+    "TP53": {
+     "facets": {
+      "support": [
+       {
+        "source": "GO",
+        "text": "response to oxidative stress"
+       }
+      ],
+      "make": [
+       {
+        "source": "GWAS",
+        "text": "sex hormone-binding globulin measurement"
+       },
+       {
+        "source": "GWAS",
+        "text": "testosterone measurement"
+       }
+      ]
+     },
+     "primary": "make"
+    },
+    "UGT1A1": {
+     "facets": {
+      "make": [
+       {
+        "source": "GO",
+        "text": "estrogen metabolic process"
+       }
+      ]
+     },
+     "primary": "make"
+    }
+   },
+   "links": [
+    {
+     "a": "CFTR",
+     "b": "TP53",
+     "score": 0.437
+    },
+    {
+     "a": "CFTR",
+     "b": "IL1B",
+     "score": 0.497
+    },
+    {
+     "a": "SIRT1",
+     "b": "NR3C1",
+     "score": 0.407
+    },
+    {
+     "a": "SIRT1",
+     "b": "ESR2",
+     "score": 0.416
+    },
+    {
+     "a": "SIRT1",
+     "b": "ACE",
+     "score": 0.451
+    },
+    {
+     "a": "SIRT1",
+     "b": "EDN1",
+     "score": 0.462
+    },
+    {
+     "a": "SIRT1",
+     "b": "GPX4",
+     "score": 0.511
+    },
+    {
+     "a": "SIRT1",
+     "b": "PPARD",
+     "score": 0.585
+    },
+    {
+     "a": "SIRT1",
+     "b": "LEP",
+     "score": 0.626
+    },
+    {
+     "a": "SIRT1",
+     "b": "MTHFR",
+     "score": 0.643
+    },
+    {
+     "a": "SIRT1",
+     "b": "ATM",
+     "score": 0.647
+    },
+    {
+     "a": "SIRT1",
+     "b": "IGF1",
+     "score": 0.66
+    },
+    {
+     "a": "SIRT1",
+     "b": "AR",
+     "score": 0.661
+    },
+    {
+     "a": "SIRT1",
+     "b": "ESR1",
+     "score": 0.758
+    },
+    {
+     "a": "SIRT1",
+     "b": "BRCA1",
+     "score": 0.793
+    },
+    {
+     "a": "SIRT1",
+     "b": "IL1B",
+     "score": 0.802
+    },
+    {
+     "a": "SIRT1",
+     "b": "PPARA",
+     "score": 0.911
+    },
+    {
+     "a": "SIRT1",
+     "b": "IRS1",
+     "score": 0.918
+    },
+    {
+     "a": "SIRT1",
+     "b": "PPARG",
+     "score": 0.994
+    },
+    {
+     "a": "SIRT1",
+     "b": "CLOCK",
+     "score": 0.994
+    },
+    {
+     "a": "SIRT1",
+     "b": "TP53",
+     "score": 0.999
+    },
+    {
+     "a": "NR3C1",
+     "b": "UGT1A1",
+     "score": 0.407
+    },
+    {
+     "a": "NR3C1",
+     "b": "CYP11B2",
+     "score": 0.429
+    },
+    {
+     "a": "NR3C1",
+     "b": "BRCA1",
+     "score": 0.434
+    },
+    {
+     "a": "NR3C1",
+     "b": "CYP3A4",
+     "score": 0.441
+    },
+    {
+     "a": "NR3C1",
+     "b": "ESR2",
+     "score": 0.451
+    },
+    {
+     "a": "NR3C1",
+     "b": "IGF1",
+     "score": 0.473
+    },
+    {
+     "a": "NR3C1",
+     "b": "OXTR",
+     "score": 0.576
+    },
+    {
+     "a": "NR3C1",
+     "b": "IL1B",
+     "score": 0.598
+    },
+    {
+     "a": "NR3C1",
+     "b": "PPARG",
+     "score": 0.619
+    },
+    {
+     "a": "NR3C1",
+     "b": "PGR",
+     "score": 0.641
+    },
+    {
+     "a": "NR3C1",
+     "b": "CLOCK",
+     "score": 0.647
+    },
+    {
+     "a": "NR3C1",
+     "b": "LEP",
+     "score": 0.666
+    },
+    {
+     "a": "NR3C1",
+     "b": "SLC6A4",
+     "score": 0.707
+    },
+    {
+     "a": "NR3C1",
+     "b": "ESR1",
+     "score": 0.721
+    },
+    {
+     "a": "NR3C1",
+     "b": "AR",
+     "score": 0.829
+    },
+    {
+     "a": "NR3C1",
+     "b": "TP53",
+     "score": 0.935
+    },
+    {
+     "a": "NR3C1",
+     "b": "FKBP5",
+     "score": 0.994
+    },
+    {
+     "a": "SLC6A4",
+     "b": "CYP3A4",
+     "score": 0.413
+    },
+    {
+     "a": "SLC6A4",
+     "b": "ESR1",
+     "score": 0.418
+    },
+    {
+     "a": "SLC6A4",
+     "b": "CYP1A2",
+     "score": 0.461
+    },
+    {
+     "a": "SLC6A4",
+     "b": "IL1B",
+     "score": 0.584
+    },
+    {
+     "a": "SLC6A4",
+     "b": "CYP2D6",
+     "score": 0.62
+    },
+    {
+     "a": "SLC6A4",
+     "b": "MTHFR",
+     "score": 0.657
+    },
+    {
+     "a": "SLC6A4",
+     "b": "OXTR",
+     "score": 0.701
+    },
+    {
+     "a": "SLC6A4",
+     "b": "FKBP5",
+     "score": 0.718
+    },
+    {
+     "a": "IL1B",
+     "b": "AR",
+     "score": 0.403
+    },
+    {
+     "a": "IL1B",
+     "b": "CYP1A2",
+     "score": 0.407
+    },
+    {
+     "a": "IL1B",
+     "b": "CYP1B1",
+     "score": 0.408
+    },
+    {
+     "a": "IL1B",
+     "b": "PGR",
+     "score": 0.409
+    },
+    {
+     "a": "IL1B",
+     "b": "ATM",
+     "score": 0.442
+    },
+    {
+     "a": "IL1B",
+     "b": "OXTR",
+     "score": 0.455
+    },
+    {
+     "a": "IL1B",
+     "b": "CYP1A1",
+     "score": 0.488
+    },
+    {
+     "a": "IL1B",
+     "b": "CYP3A4",
+     "score": 0.5
+    },
+    {
+     "a": "IL1B",
+     "b": "ESR2",
+     "score": 0.51
+    },
+    {
+     "a": "IL1B",
+     "b": "ADORA2A",
+     "score": 0.518
+    },
+    {
+     "a": "IL1B",
+     "b": "PPARD",
+     "score": 0.558
+    },
+    {
+     "a": "IL1B",
+     "b": "GPX4",
+     "score": 0.583
+    },
+    {
+     "a": "IL1B",
+     "b": "ESR1",
+     "score": 0.617
+    },
+    {
+     "a": "IL1B",
+     "b": "IRS1",
+     "score": 0.634
+    },
+    {
+     "a": "IL1B",
+     "b": "PPARA",
+     "score": 0.708
+    },
+    {
+     "a": "IL1B",
+     "b": "ACE",
+     "score": 0.709
+    },
+    {
+     "a": "IL1B",
+     "b": "TP53",
+     "score": 0.731
+    },
+    {
+     "a": "IL1B",
+     "b": "EDN1",
+     "score": 0.731
+    },
+    {
+     "a": "IL1B",
+     "b": "IL23R",
+     "score": 0.735
+    },
+    {
+     "a": "IL1B",
+     "b": "IGF1",
+     "score": 0.755
+    },
+    {
+     "a": "IL1B",
+     "b": "PPARG",
+     "score": 0.815
+    },
+    {
+     "a": "IL1B",
+     "b": "LEP",
+     "score": 0.85
+    },
+    {
+     "a": "TP53",
+     "b": "PPARD",
+     "score": 0.4
+    },
+    {
+     "a": "TP53",
+     "b": "MTHFR",
+     "score": 0.403
+    },
+    {
+     "a": "TP53",
+     "b": "ACE",
+     "score": 0.422
+    },
+    {
+     "a": "TP53",
+     "b": "CYP1B1",
+     "score": 0.431
+    },
+    {
+     "a": "TP53",
+     "b": "CYP3A4",
+     "score": 0.44
+    },
+    {
+     "a": "TP53",
+     "b": "EDN1",
+     "score": 0.449
+    },
+    {
+     "a": "TP53",
+     "b": "CYP1A1",
+     "score": 0.51
+    },
+    {
+     "a": "TP53",
+     "b": "IRS1",
+     "score": 0.517
+    },
+    {
+     "a": "TP53",
+     "b": "ESR2",
+     "score": 0.57
+    },
+    {
+     "a": "TP53",
+     "b": "LEP",
+     "score": 0.577
+    },
+    {
+     "a": "TP53",
+     "b": "TCF7L2",
+     "score": 0.618
+    },
+    {
+     "a": "TP53",
+     "b": "GPX4",
+     "score": 0.654
+    },
+    {
+     "a": "TP53",
+     "b": "PPARA",
+     "score": 0.687
+    },
+    {
+     "a": "TP53",
+     "b": "IGF1",
+     "score": 0.78
+    },
+    {
+     "a": "TP53",
+     "b": "PGR",
+     "score": 0.838
+    },
+    {
+     "a": "TP53",
+     "b": "PPARG",
+     "score": 0.943
+    },
+    {
+     "a": "TP53",
+     "b": "AR",
+     "score": 0.951
+    },
+    {
+     "a": "TP53",
+     "b": "ATM",
+     "score": 0.999
+    },
+    {
+     "a": "TP53",
+     "b": "ESR1",
+     "score": 0.999
+    },
+    {
+     "a": "TP53",
+     "b": "BRCA1",
+     "score": 0.999
+    },
+    {
+     "a": "ATM",
+     "b": "IGF1",
+     "score": 0.402
+    },
+    {
+     "a": "ATM",
+     "b": "PPARG",
+     "score": 0.411
+    },
+    {
+     "a": "ATM",
+     "b": "PGR",
+     "score": 0.459
+    },
+    {
+     "a": "ATM",
+     "b": "AR",
+     "score": 0.551
+    },
+    {
+     "a": "ATM",
+     "b": "ESR1",
+     "score": 0.584
+    },
+    {
+     "a": "ATM",
+     "b": "BRCA1",
+     "score": 0.999
+    },
+    {
+     "a": "PPARG",
+     "b": "GPX4",
+     "score": 0.407
+    },
+    {
+     "a": "PPARG",
+     "b": "CYP1A1",
+     "score": 0.409
+    },
+    {
+     "a": "PPARG",
+     "b": "CYP3A4",
+     "score": 0.437
+    },
+    {
+     "a": "PPARG",
+     "b": "ESR1",
+     "score": 0.553
+    },
+    {
+     "a": "PPARG",
+     "b": "EDN1",
+     "score": 0.564
+    },
+    {
+     "a": "PPARG",
+     "b": "TCF7L2",
+     "score": 0.62
+    },
+    {
+     "a": "PPARG",
+     "b": "ACE",
+     "score": 0.655
+    },
+    {
+     "a": "PPARG",
+     "b": "IGF1",
+     "score": 0.682
+    },
+    {
+     "a": "PPARG",
+     "b": "PPARA",
+     "score": 0.709
+    },
+    {
+     "a": "PPARG",
+     "b": "IRS1",
+     "score": 0.718
+    },
+    {
+     "a": "PPARG",
+     "b": "LEP",
+     "score": 0.936
+    },
+    {
+     "a": "PPARG",
+     "b": "PPARD",
+     "score": 0.944
+    },
+    {
+     "a": "ACE",
+     "b": "CYP2D6",
+     "score": 0.457
+    },
+    {
+     "a": "ACE",
+     "b": "ESR1",
+     "score": 0.492
+    },
+    {
+     "a": "ACE",
+     "b": "IGF1",
+     "score": 0.499
+    },
+    {
+     "a": "ACE",
+     "b": "PPARA",
+     "score": 0.541
+    },
+    {
+     "a": "ACE",
+     "b": "CYP3A4",
+     "score": 0.564
+    },
+    {
+     "a": "ACE",
+     "b": "LEP",
+     "score": 0.597
+    },
+    {
+     "a": "ACE",
+     "b": "EDN1",
+     "score": 0.767
+    },
+    {
+     "a": "ACE",
+     "b": "CYP11B2",
+     "score": 0.786
+    },
+    {
+     "a": "ACE",
+     "b": "MTHFR",
+     "score": 0.807
+    },
+    {
+     "a": "LHCGR",
+     "b": "LEP",
+     "score": 0.452
+    },
+    {
+     "a": "LHCGR",
+     "b": "SRD5A2",
+     "score": 0.457
+    },
+    {
+     "a": "LHCGR",
+     "b": "IGF1",
+     "score": 0.46
+    },
+    {
+     "a": "LHCGR",
+     "b": "CYP1B1",
+     "score": 0.474
+    },
+    {
+     "a": "LHCGR",
+     "b": "AR",
+     "score": 0.509
+    },
+    {
+     "a": "LHCGR",
+     "b": "FSHR",
+     "score": 0.509
+    },
+    {
+     "a": "LHCGR",
+     "b": "PGR",
+     "score": 0.541
+    },
+    {
+     "a": "LHCGR",
+     "b": "CYP11B2",
+     "score": 0.566
+    },
+    {
+     "a": "LHCGR",
+     "b": "ESR1",
+     "score": 0.682
+    },
+    {
+     "a": "LHCGR",
+     "b": "ESR2",
+     "score": 0.701
+    },
+    {
+     "a": "LHCGR",
+     "b": "HSD3B1",
+     "score": 0.792
+    },
+    {
+     "a": "LHCGR",
+     "b": "CYP17A1",
+     "score": 0.877
+    },
+    {
+     "a": "UGT1A1",
+     "b": "ESR1",
+     "score": 0.402
+    },
+    {
+     "a": "UGT1A1",
+     "b": "MTHFR",
+     "score": 0.444
+    },
+    {
+     "a": "UGT1A1",
+     "b": "PPARA",
+     "score": 0.45
+    },
+    {
+     "a": "UGT1A1",
+     "b": "SRD5A2",
+     "score": 0.698
+    },
+    {
+     "a": "UGT1A1",
+     "b": "HSD3B1",
+     "score": 0.724
+    },
+    {
+     "a": "UGT1A1",
+     "b": "CYP3A7",
+     "score": 0.837
+    },
+    {
+     "a": "UGT1A1",
+     "b": "CYP17A1",
+     "score": 0.925
+    },
+    {
+     "a": "UGT1A1",
+     "b": "CYP1A2",
+     "score": 0.926
+    },
+    {
+     "a": "UGT1A1",
+     "b": "CYP1B1",
+     "score": 0.962
+    },
+    {
+     "a": "UGT1A1",
+     "b": "CYP1A1",
+     "score": 0.974
+    },
+    {
+     "a": "UGT1A1",
+     "b": "CYP2D6",
+     "score": 0.978
+    },
+    {
+     "a": "UGT1A1",
+     "b": "CYP3A4",
+     "score": 0.992
+    },
+    {
+     "a": "IRS1",
+     "b": "EDN1",
+     "score": 0.424
+    },
+    {
+     "a": "IRS1",
+     "b": "PPARD",
+     "score": 0.45
+    },
+    {
+     "a": "IRS1",
+     "b": "TCF7L2",
+     "score": 0.567
+    },
+    {
+     "a": "IRS1",
+     "b": "PPARA",
+     "score": 0.648
+    },
+    {
+     "a": "IRS1",
+     "b": "ESR1",
+     "score": 0.71
+    },
+    {
+     "a": "IRS1",
+     "b": "LEP",
+     "score": 0.914
+    },
+    {
+     "a": "IRS1",
+     "b": "IGF1",
+     "score": 0.938
+    },
+    {
+     "a": "PPARD",
+     "b": "IGF1",
+     "score": 0.406
+    },
+    {
+     "a": "PPARD",
+     "b": "PPARA",
+     "score": 0.496
+    },
+    {
+     "a": "PPARD",
+     "b": "LEP",
+     "score": 0.55
+    },
+    {
+     "a": "LEP",
+     "b": "CYP17A1",
+     "score": 0.47
+    },
+    {
+     "a": "LEP",
+     "b": "OXTR",
+     "score": 0.519
+    },
+    {
+     "a": "LEP",
+     "b": "CLOCK",
+     "score": 0.546
+    },
+    {
+     "a": "LEP",
+     "b": "AR",
+     "score": 0.592
+    },
+    {
+     "a": "LEP",
+     "b": "PGR",
+     "score": 0.604
+    },
+    {
+     "a": "LEP",
+     "b": "ESR2",
+     "score": 0.628
+    },
+    {
+     "a": "LEP",
+     "b": "EDN1",
+     "score": 0.679
+    },
+    {
+     "a": "LEP",
+     "b": "ESR1",
+     "score": 0.75
+    },
+    {
+     "a": "LEP",
+     "b": "PPARA",
+     "score": 0.812
+    },
+    {
+     "a": "LEP",
+     "b": "IGF1",
+     "score": 0.879
+    },
+    {
+     "a": "OXTR",
+     "b": "FKBP5",
+     "score": 0.558
+    },
+    {
+     "a": "OXTR",
+     "b": "ESR1",
+     "score": 0.648
+    },
+    {
+     "a": "OXTR",
+     "b": "PGR",
+     "score": 0.681
+    },
+    {
+     "a": "OXTR",
+     "b": "ESR2",
+     "score": 0.717
+    },
+    {
+     "a": "OXTR",
+     "b": "EDN1",
+     "score": 0.788
+    },
+    {
+     "a": "PGR",
+     "b": "HSD3B1",
+     "score": 0.446
+    },
+    {
+     "a": "PGR",
+     "b": "FSHR",
+     "score": 0.511
+    },
+    {
+     "a": "PGR",
+     "b": "CYP3A7",
+     "score": 0.524
+    },
+    {
+     "a": "PGR",
+     "b": "IGF1",
+     "score": 0.563
+    },
+    {
+     "a": "PGR",
+     "b": "CYP3A4",
+     "score": 0.601
+    },
+    {
+     "a": "PGR",
+     "b": "CYP17A1",
+     "score": 0.63
+    },
+    {
+     "a": "PGR",
+     "b": "AR",
+     "score": 0.686
+    },
+    {
+     "a": "PGR",
+     "b": "FKBP5",
+     "score": 0.963
+    },
+    {
+     "a": "PGR",
+     "b": "BRCA1",
+     "score": 0.971
+    },
+    {
+     "a": "PGR",
+     "b": "ESR1",
+     "score": 0.999
+    },
+    {
+     "a": "CYP11B2",
+     "b": "CYP1A1",
+     "score": 0.421
+    },
+    {
+     "a": "CYP11B2",
+     "b": "CYP1A2",
+     "score": 0.455
+    },
+    {
+     "a": "CYP11B2",
+     "b": "FSHR",
+     "score": 0.471
+    },
+    {
+     "a": "CYP11B2",
+     "b": "SRD5A2",
+     "score": 0.936
+    },
+    {
+     "a": "CYP11B2",
+     "b": "CYP17A1",
+     "score": 0.96
+    },
+    {
+     "a": "CYP11B2",
+     "b": "HSD3B1",
+     "score": 0.972
+    },
+    {
+     "a": "CYP3A7",
+     "b": "ESR1",
+     "score": 0.482
+    },
+    {
+     "a": "CYP3A7",
+     "b": "CYP1B1",
+     "score": 0.493
+    },
+    {
+     "a": "CYP3A7",
+     "b": "CYP2D6",
+     "score": 0.556
+    },
+    {
+     "a": "CYP3A7",
+     "b": "CYP3A4",
+     "score": 0.57
+    },
+    {
+     "a": "CYP3A7",
+     "b": "HSD3B1",
+     "score": 0.934
+    },
+    {
+     "a": "CYP3A7",
+     "b": "CYP17A1",
+     "score": 0.938
+    },
+    {
+     "a": "CYP3A7",
+     "b": "CYP1A2",
+     "score": 0.953
+    },
+    {
+     "a": "CYP3A7",
+     "b": "CYP1A1",
+     "score": 0.954
+    },
+    {
+     "a": "CYP1A2",
+     "b": "MTHFR",
+     "score": 0.4
+    },
+    {
+     "a": "CYP1A2",
+     "b": "ADORA2A",
+     "score": 0.423
+    },
+    {
+     "a": "CYP1A2",
+     "b": "PPARA",
+     "score": 0.433
+    },
+    {
+     "a": "CYP1A2",
+     "b": "ESR1",
+     "score": 0.51
+    },
+    {
+     "a": "CYP1A2",
+     "b": "CYP2D6",
+     "score": 0.514
+    },
+    {
+     "a": "CYP1A2",
+     "b": "HSD3B1",
+     "score": 0.93
+    },
+    {
+     "a": "CYP1A2",
+     "b": "CYP17A1",
+     "score": 0.93
+    },
+    {
+     "a": "CYP1A2",
+     "b": "CYP1A1",
+     "score": 0.93
+    },
+    {
+     "a": "CYP1A2",
+     "b": "CYP1B1",
+     "score": 0.937
+    },
+    {
+     "a": "CYP1A2",
+     "b": "CYP3A4",
+     "score": 0.966
+    },
+    {
+     "a": "ESR2",
+     "b": "AR",
+     "score": 0.49
+    },
+    {
+     "a": "ESR2",
+     "b": "SRD5A2",
+     "score": 0.495
+    },
+    {
+     "a": "ESR2",
+     "b": "CYP1B1",
+     "score": 0.53
+    },
+    {
+     "a": "ESR2",
+     "b": "CYP1A1",
+     "score": 0.55
+    },
+    {
+     "a": "ESR2",
+     "b": "HSD3B1",
+     "score": 0.577
+    },
+    {
+     "a": "ESR2",
+     "b": "IGF1",
+     "score": 0.589
+    },
+    {
+     "a": "ESR2",
+     "b": "FKBP5",
+     "score": 0.614
+    },
+    {
+     "a": "ESR2",
+     "b": "FSHR",
+     "score": 0.657
+    },
+    {
+     "a": "ESR2",
+     "b": "BRCA1",
+     "score": 0.698
+    },
+    {
+     "a": "ESR2",
+     "b": "CYP17A1",
+     "score": 0.728
+    },
+    {
+     "a": "ESR2",
+     "b": "ESR1",
+     "score": 0.999
+    },
+    {
+     "a": "HSD3B1",
+     "b": "IGF1",
+     "score": 0.438
+    },
+    {
+     "a": "HSD3B1",
+     "b": "CYP1B1",
+     "score": 0.497
+    },
+    {
+     "a": "HSD3B1",
+     "b": "ESR1",
+     "score": 0.567
+    },
+    {
+     "a": "HSD3B1",
+     "b": "AR",
+     "score": 0.608
+    },
+    {
+     "a": "HSD3B1",
+     "b": "FSHR",
+     "score": 0.731
+    },
+    {
+     "a": "HSD3B1",
+     "b": "CYP3A4",
+     "score": 0.94
+    },
+    {
+     "a": "HSD3B1",
+     "b": "CYP1A1",
+     "score": 0.945
+    },
+    {
+     "a": "HSD3B1",
+     "b": "SRD5A2",
+     "score": 0.963
+    },
+    {
+     "a": "HSD3B1",
+     "b": "CYP17A1",
+     "score": 0.994
+    },
+    {
+     "a": "CYP17A1",
+     "b": "IGF1",
+     "score": 0.515
+    },
+    {
+     "a": "CYP17A1",
+     "b": "ESR1",
+     "score": 0.713
+    },
+    {
+     "a": "CYP17A1",
+     "b": "AR",
+     "score": 0.775
+    },
+    {
+     "a": "CYP17A1",
+     "b": "FSHR",
+     "score": 0.829
+    },
+    {
+     "a": "CYP17A1",
+     "b": "CYP1A1",
+     "score": 0.925
+    },
+    {
+     "a": "CYP17A1",
+     "b": "CYP3A4",
+     "score": 0.944
+    },
+    {
+     "a": "CYP17A1",
+     "b": "SRD5A2",
+     "score": 0.984
+    },
+    {
+     "a": "AR",
+     "b": "FSHR",
+     "score": 0.547
+    },
+    {
+     "a": "AR",
+     "b": "TCF7L2",
+     "score": 0.57
+    },
+    {
+     "a": "AR",
+     "b": "IGF1",
+     "score": 0.626
+    },
+    {
+     "a": "AR",
+     "b": "ESR1",
+     "score": 0.755
+    },
+    {
+     "a": "AR",
+     "b": "SRD5A2",
+     "score": 0.812
+    },
+    {
+     "a": "AR",
+     "b": "BRCA1",
+     "score": 0.955
+    },
+    {
+     "a": "AR",
+     "b": "FKBP5",
+     "score": 0.989
+    },
+    {
+     "a": "MTHFR",
+     "b": "CYP2D6",
+     "score": 0.453
+    },
+    {
+     "a": "MTHFR",
+     "b": "CYP1A1",
+     "score": 0.463
+    },
+    {
+     "a": "MTHFR",
+     "b": "MTHFD1",
+     "score": 0.996
+    },
+    {
+     "a": "EDN1",
+     "b": "ESR1",
+     "score": 0.41
+    },
+    {
+     "a": "EDN1",
+     "b": "PPARA",
+     "score": 0.456
+    },
+    {
+     "a": "EDN1",
+     "b": "IGF1",
+     "score": 0.588
+    },
+    {
+     "a": "IGF1",
+     "b": "TCF7L2",
+     "score": 0.428
+    },
+    {
+     "a": "IGF1",
+     "b": "FSHR",
+     "score": 0.484
+    },
+    {
+     "a": "IGF1",
+     "b": "PPARA",
+     "score": 0.556
+    },
+    {
+     "a": "IGF1",
+     "b": "BRCA1",
+     "score": 0.56
+    },
+    {
+     "a": "IGF1",
+     "b": "ESR1",
+     "score": 0.739
+    },
+    {
+     "a": "CYP1A1",
+     "b": "BRCA1",
+     "score": 0.478
+    },
+    {
+     "a": "CYP1A1",
+     "b": "ESR1",
+     "score": 0.734
+    },
+    {
+     "a": "CYP1A1",
+     "b": "PPARA",
+     "score": 0.766
+    },
+    {
+     "a": "CYP1A1",
+     "b": "CYP2D6",
+     "score": 0.937
+    },
+    {
+     "a": "CYP1A1",
+     "b": "CYP1B1",
+     "score": 0.947
+    },
+    {
+     "a": "CYP1A1",
+     "b": "CYP3A4",
+     "score": 0.96
+    },
+    {
+     "a": "FSHR",
+     "b": "ESR1",
+     "score": 0.727
+    },
+    {
+     "a": "PPARA",
+     "b": "CYP3A4",
+     "score": 0.525
+    },
+    {
+     "a": "PPARA",
+     "b": "CLOCK",
+     "score": 0.857
+    },
+    {
+     "a": "ESR1",
+     "b": "TCF7L2",
+     "score": 0.417
+    },
+    {
+     "a": "ESR1",
+     "b": "SRD5A2",
+     "score": 0.478
+    },
+    {
+     "a": "ESR1",
+     "b": "CYP2D6",
+     "score": 0.572
+    },
+    {
+     "a": "ESR1",
+     "b": "CYP3A4",
+     "score": 0.675
+    },
+    {
+     "a": "ESR1",
+     "b": "CYP1B1",
+     "score": 0.727
+    },
+    {
+     "a": "ESR1",
+     "b": "FKBP5",
+     "score": 0.88
+    },
+    {
+     "a": "ESR1",
+     "b": "BRCA1",
+     "score": 0.999
+    },
+    {
+     "a": "BRCA1",
+     "b": "CYP1B1",
+     "score": 0.476
+    },
+    {
+     "a": "SRD5A2",
+     "b": "CYP2D6",
+     "score": 0.402
+    },
+    {
+     "a": "SRD5A2",
+     "b": "CYP3A4",
+     "score": 0.653
+    },
+    {
+     "a": "CYP1B1",
+     "b": "CYP3A4",
+     "score": 0.549
+    },
+    {
+     "a": "CYP2D6",
+     "b": "CYP3A4",
+     "score": 0.963
+    }
+   ],
+   "pathways": [
+    {
+     "pathway": "Nuclear Receptor transcription pathway",
+     "genes": [
+      "AR",
+      "ESR1",
+      "ESR2",
+      "NR3C1",
+      "PGR",
+      "PPARA",
+      "PPARD",
+      "PPARG"
+     ],
+     "on_theme": true
+    },
+    {
+     "pathway": "Glucocorticoid biosynthesis",
+     "genes": [
+      "CYP11B2",
+      "CYP17A1",
+      "HSD3B1"
+     ],
+     "on_theme": true
+    },
+    {
+     "pathway": "Androgen biosynthesis",
+     "genes": [
+      "CYP17A1",
+      "HSD3B1",
+      "SRD5A2"
+     ],
+     "on_theme": true
+    },
+    {
+     "pathway": "ESR-mediated signaling",
+     "genes": [
+      "ESR1",
+      "ESR2",
+      "FKBP5"
+     ],
+     "on_theme": true
+    },
+    {
+     "pathway": "Mineralocorticoid biosynthesis",
+     "genes": [
+      "CYP11B2",
+      "HSD3B1"
+     ],
+     "on_theme": true
+    },
+    {
+     "pathway": "Hormone ligand-binding receptors",
+     "genes": [
+      "FSHR",
+      "LHCGR"
+     ],
+     "on_theme": true
+    },
+    {
+     "pathway": "Metabolism of folate and pterines",
+     "genes": [
+      "MTHFD1",
+      "MTHFR"
+     ],
+     "on_theme": true
+    },
+    {
+     "pathway": "SUMOylation of intracellular receptors",
+     "genes": [
+      "AR",
+      "ESR1",
+      "NR3C1",
+      "PGR",
+      "PPARA",
+      "PPARG"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "HSP90 chaperone cycle for steroid hormone receptors (SHR) in the presence of ligand",
+     "genes": [
+      "AR",
+      "FKBP5",
+      "NR3C1",
+      "PGR"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "PPARA activates gene expression",
+     "genes": [
+      "CLOCK",
+      "CYP1A1",
+      "PPARA",
+      "PPARG"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Xenobiotics",
+     "genes": [
+      "CYP1A1",
+      "CYP2D6",
+      "CYP3A4",
+      "CYP3A7"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "G alpha (s) signalling events",
+     "genes": [
+      "ADORA2A",
+      "FSHR",
+      "LHCGR"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Ub-specific processing proteases",
+     "genes": [
+      "AR",
+      "CFTR",
+      "TP53"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "G2/M DNA damage checkpoint",
+     "genes": [
+      "ATM",
+      "BRCA1",
+      "TP53"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Recruitment and ATM-mediated phosphorylation of repair and signaling proteins at DNA double strand breaks",
+     "genes": [
+      "ATM",
+      "BRCA1",
+      "TP53"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Regulation of TP53 Activity through Phosphorylation",
+     "genes": [
+      "ATM",
+      "BRCA1",
+      "TP53"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "TP53 Regulates Transcription of DNA Repair Genes",
+     "genes": [
+      "ATM",
+      "BRCA1",
+      "TP53"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Expression of BMAL (ARNTL), CLOCK, and NPAS2",
+     "genes": [
+      "CLOCK",
+      "PPARA",
+      "SIRT1"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Heme signaling",
+     "genes": [
+      "CLOCK",
+      "PPARA",
+      "SIRT1"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Synthesis of (16-20)-hydroxyeicosatetraenoic acids (HETE)",
+     "genes": [
+      "CYP1A1",
+      "CYP1A2",
+      "CYP1B1"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Synthesis of epoxy (EET) and dihydroxyeicosatrienoic acids (DHET)",
+     "genes": [
+      "CYP1A1",
+      "CYP1A2",
+      "CYP1B1"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Biosynthesis of maresin-like SPMs",
+     "genes": [
+      "CYP1A2",
+      "CYP2D6",
+      "CYP3A4"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Aspirin ADME",
+     "genes": [
+      "CYP2D6",
+      "CYP3A4",
+      "UGT1A1"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Constitutive Signaling by Aberrant PI3K in Cancer",
+     "genes": [
+      "ESR1",
+      "ESR2",
+      "IRS1"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "PI5P, PP2A and IER3 Regulate PI3K/AKT Signaling",
+     "genes": [
+      "ESR1",
+      "ESR2",
+      "IRS1"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "PIP3 activates AKT signaling",
+     "genes": [
+      "ESR1",
+      "ESR2",
+      "IRS1"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Interleukin-4 and Interleukin-13 signaling",
+     "genes": [
+      "IL1B",
+      "IL23R",
+      "TP53"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Transcriptional regulation of white adipocyte differentiation",
+     "genes": [
+      "LEP",
+      "PPARA",
+      "PPARG"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Autodegradation of the E3 ubiquitin ligase COP1",
+     "genes": [
+      "ATM",
+      "TP53"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "DNA Damage/Telomere Stress Induced Senescence",
+     "genes": [
+      "ATM",
+      "TP53"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Defective HDR through Homologous Recombination Repair (HRR) due to PALB2 loss of BRCA1 binding function",
+     "genes": [
+      "ATM",
+      "BRCA1"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Defective HDR through Homologous Recombination Repair (HRR) due to PALB2 loss of BRCA2/RAD51/RAD51C binding function",
+     "genes": [
+      "ATM",
+      "BRCA1"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Defective homologous recombination repair (HRR) due to BRCA1 loss of function",
+     "genes": [
+      "ATM",
+      "BRCA1"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "HDR through Homologous Recombination (HRR)",
+     "genes": [
+      "ATM",
+      "BRCA1"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "HDR through Single Strand Annealing (SSA)",
+     "genes": [
+      "ATM",
+      "BRCA1"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Homologous DNA Pairing and Strand Exchange",
+     "genes": [
+      "ATM",
+      "BRCA1"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Impaired BRCA2 binding to PALB2",
+     "genes": [
+      "ATM",
+      "BRCA1"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Impaired BRCA2 binding to RAD51",
+     "genes": [
+      "ATM",
+      "BRCA1"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Meiotic recombination",
+     "genes": [
+      "ATM",
+      "BRCA1"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Nonhomologous End-Joining (NHEJ)",
+     "genes": [
+      "ATM",
+      "BRCA1"
+     ],
+     "on_theme": false
+    }
+   ]
+  },
+  "muscle": {
+   "name": "Muscle growth",
+   "about": "Genes behind the growth hormone and IGF-1 signal, protein synthesis, the supply of amino acids, anabolic hormones, muscle fibres, the energy for training, and repair afterwards.",
+   "facets": [
+    {
+     "id": "gh",
+     "name": "Growth hormone and IGF-1 axis",
+     "core": true
+    },
+    {
+     "id": "synthesis",
+     "name": "Protein synthesis (mTOR)",
+     "core": true
+    },
+    {
+     "id": "amino",
+     "name": "Amino acid supply",
+     "core": false
+    },
+    {
+     "id": "anabolic",
+     "name": "Anabolic hormones (testosterone, insulin)",
+     "core": false
+    },
+    {
+     "id": "fibre",
+     "name": "Muscle fibres and contraction",
+     "core": true
+    },
+    {
+     "id": "regulators",
+     "name": "Brakes and boosters of muscle growth",
+     "core": true
+    },
+    {
+     "id": "energy",
+     "name": "Energy for training",
+     "core": false
+    },
+    {
+     "id": "repair",
+     "name": "Repair and recovery",
+     "core": false
+    }
+   ],
+   "genes": {
+    "ACTN3": {
+     "facets": {
+      "fibre": [
+       {
+        "source": "GO",
+        "text": "positive regulation of fast-twitch skeletal muscle fiber contraction"
+       },
+       {
+        "source": "GO",
+        "text": "positive regulation of skeletal muscle fiber development"
+       },
+       {
+        "source": "GO",
+        "text": "regulation of the force of skeletal muscle contraction"
+       },
+       {
+        "source": "Reactome",
+        "text": "Striated Muscle Contraction"
+       },
+       {
+        "source": "Library",
+        "text": "Fast-twitch muscle fiber power (Fitness / Muscle)"
+       }
+      ],
+      "regulators": [
+       {
+        "source": "GO",
+        "text": "positive regulation of skeletal muscle fiber development"
+       },
+       {
+        "source": "GO",
+        "text": "positive regulation of skeletal muscle tissue growth"
+       }
+      ],
+      "energy": [
+       {
+        "source": "GO",
+        "text": "negative regulation of glycolytic process"
+       },
+       {
+        "source": "GO",
+        "text": "negative regulation of oxidative phosphorylation"
+       }
+      ]
+     },
+     "primary": "fibre"
+    },
+    "AR": {
+     "facets": {
+      "anabolic": [
+       {
+        "source": "GO",
+        "text": "androgen receptor signaling pathway"
+       },
+       {
+        "source": "GO",
+        "text": "cellular response to testosterone stimulus"
+       },
+       {
+        "source": "GO",
+        "text": "response to testosterone"
+       }
+      ]
+     },
+     "primary": "anabolic"
+    },
+    "ATM": {
+     "facets": {
+      "synthesis": [
+       {
+        "source": "GO",
+        "text": "negative regulation of TORC1 signaling"
+       }
+      ]
+     },
+     "primary": "synthesis"
+    },
+    "CYP3A7": {
+     "facets": {
+      "anabolic": [
+       {
+        "source": "GWAS",
+        "text": "testosterone measurement"
+       }
+      ]
+     },
+     "primary": "anabolic"
+    },
+    "DRD2": {
+     "facets": {
+      "gh": [
+       {
+        "source": "GO",
+        "text": "positive regulation of growth hormone secretion"
+       }
+      ]
+     },
+     "primary": "gh"
+    },
+    "EDN1": {
+     "facets": {
+      "fibre": [
+       {
+        "source": "GO",
+        "text": "positive regulation of sarcomere organization"
+       }
+      ]
+     },
+     "primary": "fibre"
+    },
+    "IGF1": {
+     "facets": {
+      "gh": [
+       {
+        "source": "GO",
+        "text": "growth hormone receptor signaling pathway"
+       },
+       {
+        "source": "GO",
+        "text": "insulin-like growth factor receptor signaling pathway"
+       },
+       {
+        "source": "GO",
+        "text": "positive regulation of insulin-like growth factor receptor signaling pathway"
+       },
+       {
+        "source": "Reactome",
+        "text": "IRS-related events triggered by IGF1R"
+       },
+       {
+        "source": "Reactome",
+        "text": "SHC-related events triggered by IGF1R"
+       },
+       {
+        "source": "Reactome",
+        "text": "Signaling by Type 1 Insulin-like Growth Factor 1 Receptor (IGF1R)"
+       },
+       {
+        "source": "Library",
+        "text": "Circulating Growth Factor Levels (Muscles / Endocrine)"
+       }
+      ],
+      "anabolic": [
+       {
+        "source": "GO",
+        "text": "insulin receptor signaling pathway"
+       }
+      ],
+      "fibre": [
+       {
+        "source": "GO",
+        "text": "myoblast differentiation"
+       },
+       {
+        "source": "GO",
+        "text": "myoblast proliferation"
+       }
+      ],
+      "energy": [
+       {
+        "source": "GO",
+        "text": "positive regulation of glycolytic process"
+       }
+      ],
+      "repair": [
+       {
+        "source": "GO",
+        "text": "positive regulation of skeletal muscle tissue regeneration"
+       },
+       {
+        "source": "GO",
+        "text": "skeletal muscle satellite cell maintenance involved in skeletal muscle regeneration"
+       }
+      ]
+     },
+     "primary": "gh"
+    },
+    "IGF1R": {
+     "facets": {
+      "gh": [
+       {
+        "source": "GO",
+        "text": "insulin-like growth factor receptor signaling pathway"
+       },
+       {
+        "source": "Reactome",
+        "text": "IRS-related events triggered by IGF1R"
+       },
+       {
+        "source": "Reactome",
+        "text": "SHC-related events triggered by IGF1R"
+       },
+       {
+        "source": "Reactome",
+        "text": "Signaling by Type 1 Insulin-like Growth Factor 1 Receptor (IGF1R)"
+       },
+       {
+        "source": "Library",
+        "text": "Growth Factor Receptor Sensitivity (Muscles / Cellular)"
+       }
+      ],
+      "anabolic": [
+       {
+        "source": "GO",
+        "text": "insulin receptor signaling pathway"
+       }
+      ]
+     },
+     "primary": "gh"
+    },
+    "IL6": {
+     "facets": {
+      "synthesis": [
+       {
+        "source": "GO",
+        "text": "positive regulation of translation"
+       }
+      ]
+     },
+     "primary": "synthesis"
+    },
+    "IRS1": {
+     "facets": {
+      "gh": [
+       {
+        "source": "GO",
+        "text": "insulin-like growth factor receptor signaling pathway"
+       },
+       {
+        "source": "Reactome",
+        "text": "Growth hormone receptor signaling"
+       },
+       {
+        "source": "Reactome",
+        "text": "IRS-related events triggered by IGF1R"
+       }
+      ]
+     },
+     "primary": "gh"
+    },
+    "LEP": {
+     "facets": {
+      "synthesis": [
+       {
+        "source": "GO",
+        "text": "positive regulation of TOR signaling"
+       }
+      ]
+     },
+     "primary": "synthesis"
+    },
+    "LRP5": {
+     "facets": {
+      "fibre": [
+       {
+        "source": "GWAS",
+        "text": "appendicular lean mass"
+       }
+      ]
+     },
+     "primary": "fibre"
+    },
+    "NOS3": {
+     "facets": {
+      "regulators": [
+       {
+        "source": "GO",
+        "text": "negative regulation of muscle hyperplasia"
+       }
+      ]
+     },
+     "primary": "regulators"
+    },
+    "PEMT": {
+     "facets": {
+      "fibre": [
+       {
+        "source": "GWAS",
+        "text": "lean body mass"
+       }
+      ]
+     },
+     "primary": "fibre"
+    },
+    "PPARA": {
+     "facets": {
+      "anabolic": [
+       {
+        "source": "GO",
+        "text": "response to insulin"
+       },
+       {
+        "source": "Library",
+        "text": "Fat metabolism in endurance (Muscle / Endurance)"
+       }
+      ],
+      "energy": [
+       {
+        "source": "GO",
+        "text": "negative regulation of glycolytic process"
+       },
+       {
+        "source": "GO",
+        "text": "positive regulation of fatty acid beta-oxidation"
+       },
+       {
+        "source": "Reactome",
+        "text": "Transcriptional activation of mitochondrial biogenesis"
+       }
+      ]
+     },
+     "primary": "energy"
+    },
+    "PPARD": {
+     "facets": {
+      "fibre": [
+       {
+        "source": "GO",
+        "text": "negative regulation of myoblast differentiation"
+       },
+       {
+        "source": "GO",
+        "text": "positive regulation of myoblast proliferation"
+       },
+       {
+        "source": "Library",
+        "text": "Fat Burning for Endurance (Fitness / Endurance)"
+       }
+      ],
+      "energy": [
+       {
+        "source": "GO",
+        "text": "fatty acid beta-oxidation"
+       }
+      ],
+      "repair": [
+       {
+        "source": "GO",
+        "text": "positive regulation of skeletal muscle tissue regeneration"
+       },
+       {
+        "source": "GO",
+        "text": "regulation of skeletal muscle satellite cell proliferation"
+       }
+      ]
+     },
+     "primary": "fibre"
+    },
+    "PPARGC1A": {
+     "facets": {
+      "energy": [
+       {
+        "source": "Reactome",
+        "text": "Transcriptional activation of mitochondrial biogenesis"
+       },
+       {
+        "source": "Library",
+        "text": "Mitochondrial biogenesis rate (Endurance / Mitochondria)"
+       }
+      ],
+      "repair": [
+       {
+        "source": "GO",
+        "text": "response to muscle activity"
+       }
+      ]
+     },
+     "primary": "energy"
+    },
+    "SH2B1": {
+     "facets": {
+      "gh": [
+       {
+        "source": "Reactome",
+        "text": "Growth hormone receptor signaling"
+       }
+      ]
+     },
+     "primary": "gh"
+    },
+    "SIRT1": {
+     "facets": {
+      "synthesis": [
+       {
+        "source": "GO",
+        "text": "negative regulation of TOR signaling"
+       },
+       {
+        "source": "GO",
+        "text": "negative regulation of TORC1 signaling"
+       }
+      ]
+     },
+     "primary": "synthesis"
+    },
+    "SLC22A5": {
+     "facets": {
+      "fibre": [
+       {
+        "source": "GWAS",
+        "text": "lean body mass"
+       }
+      ]
+     },
+     "primary": "fibre"
+    },
+    "SLC30A8": {
+     "facets": {
+      "amino": [
+       {
+        "source": "GWAS",
+        "text": "glutamine measurement"
+       }
+      ]
+     },
+     "primary": "amino"
+    },
+    "TCF7L2": {
+     "facets": {
+      "fibre": [
+       {
+        "source": "GO",
+        "text": "myoblast fate commitment"
+       }
+      ]
+     },
+     "primary": "fibre"
+    },
+    "TNF": {
+     "facets": {
+      "fibre": [
+       {
+        "source": "GO",
+        "text": "skeletal muscle contraction"
+       }
+      ]
+     },
+     "primary": "fibre"
+    },
+    "TP53": {
+     "facets": {
+      "anabolic": [
+       {
+        "source": "GWAS",
+        "text": "testosterone measurement"
+       }
+      ]
+     },
+     "primary": "anabolic"
+    },
+    "UCP2": {
+     "facets": {
+      "amino": [
+       {
+        "source": "GO",
+        "text": "L-glutamine metabolic process"
+       }
+      ],
+      "anabolic": [
+       {
+        "source": "GO",
+        "text": "cellular response to insulin stimulus"
+       }
+      ],
+      "energy": [
+       {
+        "source": "GO",
+        "text": "glycolytic process"
+       }
+      ]
+     },
+     "primary": "amino"
+    },
+    "UCP3": {
+     "facets": {
+      "anabolic": [
+       {
+        "source": "GO",
+        "text": "response to insulin"
+       },
+       {
+        "source": "Library",
+        "text": "Muscle Fat Oxidation (Muscle / Metabolism)"
+       }
+      ]
+     },
+     "primary": "anabolic"
+    }
+   },
+   "links": [
+    {
+     "a": "SIRT1",
+     "b": "EDN1",
+     "score": 0.462
+    },
+    {
+     "a": "SIRT1",
+     "b": "IGF1R",
+     "score": 0.568
+    },
+    {
+     "a": "SIRT1",
+     "b": "PPARD",
+     "score": 0.585
+    },
+    {
+     "a": "SIRT1",
+     "b": "UCP3",
+     "score": 0.616
+    },
+    {
+     "a": "SIRT1",
+     "b": "LEP",
+     "score": 0.626
+    },
+    {
+     "a": "SIRT1",
+     "b": "ATM",
+     "score": 0.647
+    },
+    {
+     "a": "SIRT1",
+     "b": "IGF1",
+     "score": 0.66
+    },
+    {
+     "a": "SIRT1",
+     "b": "AR",
+     "score": 0.661
+    },
+    {
+     "a": "SIRT1",
+     "b": "UCP2",
+     "score": 0.67
+    },
+    {
+     "a": "SIRT1",
+     "b": "IL6",
+     "score": 0.757
+    },
+    {
+     "a": "SIRT1",
+     "b": "TNF",
+     "score": 0.797
+    },
+    {
+     "a": "SIRT1",
+     "b": "NOS3",
+     "score": 0.817
+    },
+    {
+     "a": "SIRT1",
+     "b": "PPARA",
+     "score": 0.911
+    },
+    {
+     "a": "SIRT1",
+     "b": "IRS1",
+     "score": 0.918
+    },
+    {
+     "a": "SIRT1",
+     "b": "PPARGC1A",
+     "score": 0.998
+    },
+    {
+     "a": "SIRT1",
+     "b": "TP53",
+     "score": 0.999
+    },
+    {
+     "a": "PPARGC1A",
+     "b": "ACTN3",
+     "score": 0.4
+    },
+    {
+     "a": "PPARGC1A",
+     "b": "IGF1R",
+     "score": 0.408
+    },
+    {
+     "a": "PPARGC1A",
+     "b": "NOS3",
+     "score": 0.571
+    },
+    {
+     "a": "PPARGC1A",
+     "b": "TNF",
+     "score": 0.651
+    },
+    {
+     "a": "PPARGC1A",
+     "b": "IRS1",
+     "score": 0.653
+    },
+    {
+     "a": "PPARGC1A",
+     "b": "IL6",
+     "score": 0.682
+    },
+    {
+     "a": "PPARGC1A",
+     "b": "IGF1",
+     "score": 0.746
+    },
+    {
+     "a": "PPARGC1A",
+     "b": "UCP3",
+     "score": 0.844
+    },
+    {
+     "a": "PPARGC1A",
+     "b": "TP53",
+     "score": 0.865
+    },
+    {
+     "a": "PPARGC1A",
+     "b": "UCP2",
+     "score": 0.879
+    },
+    {
+     "a": "PPARGC1A",
+     "b": "LEP",
+     "score": 0.9
+    },
+    {
+     "a": "PPARGC1A",
+     "b": "PPARD",
+     "score": 0.97
+    },
+    {
+     "a": "PPARGC1A",
+     "b": "PPARA",
+     "score": 0.999
+    },
+    {
+     "a": "TP53",
+     "b": "PPARD",
+     "score": 0.4
+    },
+    {
+     "a": "TP53",
+     "b": "UCP2",
+     "score": 0.411
+    },
+    {
+     "a": "TP53",
+     "b": "EDN1",
+     "score": 0.449
+    },
+    {
+     "a": "TP53",
+     "b": "IRS1",
+     "score": 0.517
+    },
+    {
+     "a": "TP53",
+     "b": "LEP",
+     "score": 0.577
+    },
+    {
+     "a": "TP53",
+     "b": "TCF7L2",
+     "score": 0.618
+    },
+    {
+     "a": "TP53",
+     "b": "NOS3",
+     "score": 0.652
+    },
+    {
+     "a": "TP53",
+     "b": "PPARA",
+     "score": 0.687
+    },
+    {
+     "a": "TP53",
+     "b": "IGF1",
+     "score": 0.78
+    },
+    {
+     "a": "TP53",
+     "b": "IGF1R",
+     "score": 0.837
+    },
+    {
+     "a": "TP53",
+     "b": "TNF",
+     "score": 0.857
+    },
+    {
+     "a": "TP53",
+     "b": "IL6",
+     "score": 0.878
+    },
+    {
+     "a": "TP53",
+     "b": "AR",
+     "score": 0.951
+    },
+    {
+     "a": "TP53",
+     "b": "ATM",
+     "score": 0.999
+    },
+    {
+     "a": "ATM",
+     "b": "IGF1",
+     "score": 0.402
+    },
+    {
+     "a": "ATM",
+     "b": "TNF",
+     "score": 0.512
+    },
+    {
+     "a": "ATM",
+     "b": "IL6",
+     "score": 0.542
+    },
+    {
+     "a": "ATM",
+     "b": "AR",
+     "score": 0.551
+    },
+    {
+     "a": "ATM",
+     "b": "IGF1R",
+     "score": 0.565
+    },
+    {
+     "a": "LRP5",
+     "b": "IGF1R",
+     "score": 0.412
+    },
+    {
+     "a": "LRP5",
+     "b": "IGF1",
+     "score": 0.441
+    },
+    {
+     "a": "LRP5",
+     "b": "TCF7L2",
+     "score": 0.523
+    },
+    {
+     "a": "NOS3",
+     "b": "UCP2",
+     "score": 0.44
+    },
+    {
+     "a": "NOS3",
+     "b": "IGF1",
+     "score": 0.515
+    },
+    {
+     "a": "NOS3",
+     "b": "IRS1",
+     "score": 0.516
+    },
+    {
+     "a": "NOS3",
+     "b": "PPARA",
+     "score": 0.531
+    },
+    {
+     "a": "NOS3",
+     "b": "PPARD",
+     "score": 0.589
+    },
+    {
+     "a": "NOS3",
+     "b": "LEP",
+     "score": 0.649
+    },
+    {
+     "a": "NOS3",
+     "b": "TNF",
+     "score": 0.712
+    },
+    {
+     "a": "NOS3",
+     "b": "IL6",
+     "score": 0.78
+    },
+    {
+     "a": "NOS3",
+     "b": "EDN1",
+     "score": 0.867
+    },
+    {
+     "a": "IRS1",
+     "b": "SLC30A8",
+     "score": 0.404
+    },
+    {
+     "a": "IRS1",
+     "b": "UCP3",
+     "score": 0.419
+    },
+    {
+     "a": "IRS1",
+     "b": "EDN1",
+     "score": 0.424
+    },
+    {
+     "a": "IRS1",
+     "b": "PPARD",
+     "score": 0.45
+    },
+    {
+     "a": "IRS1",
+     "b": "UCP2",
+     "score": 0.506
+    },
+    {
+     "a": "IRS1",
+     "b": "TCF7L2",
+     "score": 0.567
+    },
+    {
+     "a": "IRS1",
+     "b": "PPARA",
+     "score": 0.648
+    },
+    {
+     "a": "IRS1",
+     "b": "IL6",
+     "score": 0.738
+    },
+    {
+     "a": "IRS1",
+     "b": "TNF",
+     "score": 0.783
+    },
+    {
+     "a": "IRS1",
+     "b": "SH2B1",
+     "score": 0.85
+    },
+    {
+     "a": "IRS1",
+     "b": "LEP",
+     "score": 0.914
+    },
+    {
+     "a": "IRS1",
+     "b": "IGF1",
+     "score": 0.938
+    },
+    {
+     "a": "IRS1",
+     "b": "IGF1R",
+     "score": 0.999
+    },
+    {
+     "a": "PPARD",
+     "b": "IGF1",
+     "score": 0.406
+    },
+    {
+     "a": "PPARD",
+     "b": "PPARA",
+     "score": 0.496
+    },
+    {
+     "a": "PPARD",
+     "b": "LEP",
+     "score": 0.55
+    },
+    {
+     "a": "PPARD",
+     "b": "TNF",
+     "score": 0.556
+    },
+    {
+     "a": "PPARD",
+     "b": "IL6",
+     "score": 0.557
+    },
+    {
+     "a": "PPARD",
+     "b": "UCP2",
+     "score": 0.719
+    },
+    {
+     "a": "PPARD",
+     "b": "UCP3",
+     "score": 0.743
+    },
+    {
+     "a": "LEP",
+     "b": "DRD2",
+     "score": 0.428
+    },
+    {
+     "a": "LEP",
+     "b": "UCP3",
+     "score": 0.583
+    },
+    {
+     "a": "LEP",
+     "b": "AR",
+     "score": 0.592
+    },
+    {
+     "a": "LEP",
+     "b": "IGF1R",
+     "score": 0.629
+    },
+    {
+     "a": "LEP",
+     "b": "EDN1",
+     "score": 0.679
+    },
+    {
+     "a": "LEP",
+     "b": "PPARA",
+     "score": 0.812
+    },
+    {
+     "a": "LEP",
+     "b": "UCP2",
+     "score": 0.814
+    },
+    {
+     "a": "LEP",
+     "b": "SH2B1",
+     "score": 0.874
+    },
+    {
+     "a": "LEP",
+     "b": "IGF1",
+     "score": 0.879
+    },
+    {
+     "a": "LEP",
+     "b": "IL6",
+     "score": 0.921
+    },
+    {
+     "a": "LEP",
+     "b": "TNF",
+     "score": 0.951
+    },
+    {
+     "a": "SH2B1",
+     "b": "IGF1R",
+     "score": 0.485
+    },
+    {
+     "a": "SH2B1",
+     "b": "UCP2",
+     "score": 0.501
+    },
+    {
+     "a": "UCP3",
+     "b": "UCP2",
+     "score": 0.515
+    },
+    {
+     "a": "UCP3",
+     "b": "PPARA",
+     "score": 0.726
+    },
+    {
+     "a": "DRD2",
+     "b": "EDN1",
+     "score": 0.714
+    },
+    {
+     "a": "AR",
+     "b": "TNF",
+     "score": 0.489
+    },
+    {
+     "a": "AR",
+     "b": "TCF7L2",
+     "score": 0.57
+    },
+    {
+     "a": "AR",
+     "b": "IGF1",
+     "score": 0.626
+    },
+    {
+     "a": "AR",
+     "b": "IL6",
+     "score": 0.642
+    },
+    {
+     "a": "AR",
+     "b": "IGF1R",
+     "score": 0.73
+    },
+    {
+     "a": "EDN1",
+     "b": "PPARA",
+     "score": 0.456
+    },
+    {
+     "a": "EDN1",
+     "b": "IGF1",
+     "score": 0.588
+    },
+    {
+     "a": "EDN1",
+     "b": "TNF",
+     "score": 0.731
+    },
+    {
+     "a": "EDN1",
+     "b": "IL6",
+     "score": 0.775
+    },
+    {
+     "a": "IGF1",
+     "b": "UCP2",
+     "score": 0.427
+    },
+    {
+     "a": "IGF1",
+     "b": "TCF7L2",
+     "score": 0.428
+    },
+    {
+     "a": "IGF1",
+     "b": "PPARA",
+     "score": 0.556
+    },
+    {
+     "a": "IGF1",
+     "b": "TNF",
+     "score": 0.761
+    },
+    {
+     "a": "IGF1",
+     "b": "IL6",
+     "score": 0.863
+    },
+    {
+     "a": "IGF1",
+     "b": "IGF1R",
+     "score": 0.999
+    },
+    {
+     "a": "PPARA",
+     "b": "SLC22A5",
+     "score": 0.455
+    },
+    {
+     "a": "PPARA",
+     "b": "IGF1R",
+     "score": 0.572
+    },
+    {
+     "a": "PPARA",
+     "b": "TNF",
+     "score": 0.704
+    },
+    {
+     "a": "PPARA",
+     "b": "IL6",
+     "score": 0.792
+    },
+    {
+     "a": "PPARA",
+     "b": "UCP2",
+     "score": 0.808
+    },
+    {
+     "a": "IL6",
+     "b": "UCP2",
+     "score": 0.47
+    },
+    {
+     "a": "IL6",
+     "b": "IGF1R",
+     "score": 0.612
+    },
+    {
+     "a": "IL6",
+     "b": "TNF",
+     "score": 0.995
+    },
+    {
+     "a": "TNF",
+     "b": "UCP2",
+     "score": 0.462
+    },
+    {
+     "a": "TNF",
+     "b": "IGF1R",
+     "score": 0.501
+    },
+    {
+     "a": "SLC30A8",
+     "b": "TCF7L2",
+     "score": 0.873
+    }
+   ],
+   "pathways": [
+    {
+     "pathway": "IRS-related events triggered by IGF1R",
+     "genes": [
+      "IGF1",
+      "IGF1R",
+      "IRS1"
+     ],
+     "on_theme": true
+    },
+    {
+     "pathway": "SHC-related events triggered by IGF1R",
+     "genes": [
+      "IGF1",
+      "IGF1R"
+     ],
+     "on_theme": true
+    },
+    {
+     "pathway": "Signaling by Type 1 Insulin-like Growth Factor 1 Receptor (IGF1R)",
+     "genes": [
+      "IGF1",
+      "IGF1R"
+     ],
+     "on_theme": true
+    },
+    {
+     "pathway": "Growth hormone receptor signaling",
+     "genes": [
+      "IRS1",
+      "SH2B1"
+     ],
+     "on_theme": true
+    },
+    {
+     "pathway": "Transcriptional activation of mitochondrial biogenesis",
+     "genes": [
+      "PPARA",
+      "PPARGC1A"
+     ],
+     "on_theme": true
+    },
+    {
+     "pathway": "Transcriptional regulation of white adipocyte differentiation",
+     "genes": [
+      "LEP",
+      "PPARA",
+      "PPARGC1A",
+      "TNF"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Nuclear Receptor transcription pathway",
+     "genes": [
+      "AR",
+      "PPARA",
+      "PPARD"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Interleukin-4 and Interleukin-13 signaling",
+     "genes": [
+      "IL6",
+      "TNF",
+      "TP53"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Transcriptional Regulation by VENTX",
+     "genes": [
+      "IL6",
+      "TCF7L2",
+      "TP53"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Signaling by Leptin",
+     "genes": [
+      "IRS1",
+      "LEP",
+      "SH2B1"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Expression of BMAL (ARNTL), CLOCK, and NPAS2",
+     "genes": [
+      "PPARA",
+      "PPARGC1A",
+      "SIRT1"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Heme signaling",
+     "genes": [
+      "PPARA",
+      "PPARGC1A",
+      "SIRT1"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "SUMOylation of intracellular receptors",
+     "genes": [
+      "AR",
+      "PPARA"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Ub-specific processing proteases",
+     "genes": [
+      "AR",
+      "TP53"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Autodegradation of the E3 ubiquitin ligase COP1",
+     "genes": [
+      "ATM",
+      "TP53"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "DNA Damage/Telomere Stress Induced Senescence",
+     "genes": [
+      "ATM",
+      "TP53"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "G2/M DNA damage checkpoint",
+     "genes": [
+      "ATM",
+      "TP53"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Recruitment and ATM-mediated phosphorylation of repair and signaling proteins at DNA double strand breaks",
+     "genes": [
+      "ATM",
+      "TP53"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Regulation of HSF1-mediated heat shock response",
+     "genes": [
+      "ATM",
+      "SIRT1"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Regulation of TP53 Activity through Methylation",
+     "genes": [
+      "ATM",
+      "TP53"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Regulation of TP53 Activity through Phosphorylation",
+     "genes": [
+      "ATM",
+      "TP53"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Regulation of TP53 Degradation",
+     "genes": [
+      "ATM",
+      "TP53"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Stabilization of p53",
+     "genes": [
+      "ATM",
+      "TP53"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "TP53 Regulates Transcription of Caspase Activators and Caspases",
+     "genes": [
+      "ATM",
+      "TP53"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "TP53 Regulates Transcription of DNA Repair Genes",
+     "genes": [
+      "ATM",
+      "TP53"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "TP53 Regulates Transcription of Genes Involved in Cytochrome C Release",
+     "genes": [
+      "ATM",
+      "TP53"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Transcriptional and post-translational regulation of MITF-M expression and activity",
+     "genes": [
+      "EDN1",
+      "SIRT1"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Regulation of Insulin-like Growth Factor (IGF) transport and uptake by Insulin-like Growth Factor Binding Proteins (IGFBPs)",
+     "genes": [
+      "IGF1",
+      "IL6"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Synthesis, secretion, and deacylation of Ghrelin",
+     "genes": [
+      "IGF1",
+      "LEP"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Differentiation of Circulating Monocytes",
+     "genes": [
+      "IL6",
+      "TNF"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Interleukin-10 signaling",
+     "genes": [
+      "IL6",
+      "TNF"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Signaling by ALK fusions and activated point mutants",
+     "genes": [
+      "IRS1",
+      "TP53"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Synthesis, secretion, and inactivation of Glucagon-like Peptide-1 (GLP-1)",
+     "genes": [
+      "LEP",
+      "TCF7L2"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "PPARA activates gene expression",
+     "genes": [
+      "PPARA",
+      "PPARGC1A"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "RORA,B,C and NR1D1 (REV-ERBA) regulate gene expression",
+     "genes": [
+      "PPARA",
+      "PPARGC1A"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Transcriptional regulation of brown and beige adipocyte differentiation by EBF2",
+     "genes": [
+      "PPARA",
+      "PPARGC1A"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Carnitine shuttle",
+     "genes": [
+      "PPARD",
+      "SLC22A5"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "MLL4 and MLL3 complexes regulate expression of PPARG target genes in adipogenesis and hepatic steatosis",
+     "genes": [
+      "PPARGC1A",
+      "SIRT1"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "NAD+ and Sirtuins regulate the circadian clock",
+     "genes": [
+      "PPARGC1A",
+      "SIRT1"
+     ],
+     "on_theme": false
+    },
+    {
+     "pathway": "Regulation of MITF-M dependent genes involved in metabolism",
+     "genes": [
+      "PPARGC1A",
+      "SIRT1"
+     ],
+     "on_theme": false
+    }
+   ]
+  }
+ },
+ "n_library_genes": 217
+}

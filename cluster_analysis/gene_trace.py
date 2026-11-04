@@ -52,6 +52,7 @@ GOF_WORDS = r"increas|higher|\bhigh\b|fast|enhanc|elevat|rapid|\bmore\b|strong|g
 ACTIVITY_WORDS = (r"activit|function|metaboli|level|transport|activation|production|breakdown|clearance|detox|"
                   r"recycl|acetylat|conversion|removal|expression|synthesis|uptake|absorption|signal")
 COMPLEMENT = str.maketrans("ACGT", "TGCA")
+TRUNCATING = {"stop_gained", "frameshift_variant", "splice_acceptor_variant", "splice_donor_variant", "start_lost"}
 
 
 # --- Reactome -------------------------------------------------------------------------------
@@ -234,6 +235,9 @@ def function_call(rsid, genotype, variants, vep):
     d = direction(hom_minor) - direction(hom_common) if hom_minor or hom_common else 0
     if not d:
         d = direction(texts.get("".join(sorted(gt))))
+    # Silent library text: a less common allele that truncates the protein (ACTN3 R577X) is a loss of function
+    if not d and v.get("consequence") in TRUNCATING and minor != alleles[0]:
+        d = -1
     out["function"] = "GoF" if d > 0 else "LoF" if d < 0 else "altered"
     return out
 

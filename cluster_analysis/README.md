@@ -66,6 +66,16 @@ GPX1 and CDKN2B-AS1 (a non-coding RNA) aren't in STRING. ABCC11 and TRPM6 have n
 - **Buffered link**: a reduced gene interacting with a strength gene, so it may be partly compensated.
 - **Reduced bridge gene**: a reduced gene that reaches into other modules, a candidate for cross-system effects.
 
+## Theme clusters
+
+```bash
+python -m cluster_analysis.themes   # → cluster_analysis/themes.json (public data)
+```
+
+A theme (cancer, fertility, muscle growth) gathers every library gene with evidence that it bears on that area of health, grouped by the mechanism it acts through. Cancer, for example, covers DNA repair, growth signals, cell death, carcinogen activation and detox, hormones, oxidative stress, inflammation and folate. A gene joins a mechanism when its Gene Ontology processes, Reactome pathways (ContentService, by UniProt accession), UniProt function or disease text, or the GWAS traits of its library SNPs match that mechanism's patterns in `THEMES`. The matching terms are kept as evidence.
+
+Broad mechanisms (growth signals, cell death, oxidative stress, inflammation, energy) also need a direct link to the theme: its name in the UniProt text, the gene summary, GWAS traits or the library entry. Otherwise every antioxidant or receptor gene would count as a cancer gene. Connections are STRING interactions (confidence ≥ 0.4) between theme genes, and pathways are Reactome pathways shared by two or more of them. Add a theme by adding an entry to `THEMES`. `export_dashboard --lifecycles ... --dna ...` also writes `theme_meta`, `theme_genes`, `theme_links` and `theme_pathways` with the person's calls.
+
 ## Gene function calls (GoF / LoF)
 
 `gene_trace.function_call` compares a genotype with the **most common European allele** at the SNP (Ensembl VEP frequencies), not with the reference genome or the healthiest genotype. The reference genome carries the rare allele at some SNPs, such as CYP3A4 rs2740574.
@@ -76,6 +86,8 @@ GPX1 and CDKN2B-AS1 (a non-coding RNA) aren't in STRING. ABCC11 and TRPM6 have n
 | `LoF` / `GoF` | One or two copies (`dose`) of the less common allele, which the library reads as less / more activity |
 | `altered` | Carries the less common allele, but the library text gives no direction |
 | `unknown` | The genotype doesn't match the SNP's alleles on either strand |
+
+When the library text gives no direction and the less common allele truncates the protein (stop gained, frameshift, splice site), the call is LoF. ACTN3 R577X is an example.
 
 The direction comes from the library text for the less common homozygote against the common homozygote. Clauses that name an activity decide first, so "Reduced GPX4 activity; higher oxidative stress risk" reads as less. Where both alleles are near 50% (COMT, MTRR), "common" is close to arbitrary, and the explorer says so.
 
