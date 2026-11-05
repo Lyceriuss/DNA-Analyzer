@@ -1,0 +1,56 @@
+  <section class="gx-page" id="clusters" data-page="clusters">
+    <p class="gx-note">A theme gathers every library gene with evidence that it bears on one area of health, grouped by the mechanism it acts
+      through: repair, growth signals, hormones, the supply of building blocks. Evidence comes from Gene Ontology, Reactome, UniProt and GWAS,
+      and each gene shows why it is included. Colours are the calls for the theme's person (HP; HJ for female fertility): blue more active, green typical function, red less active.</p>
+    <div class="th-picker" data-draw="th-picker" data-source="theme_meta" role="group" aria-label="Theme"></div>
+    <div class="gx-card" id="theme-head">
+      <div class="th-head" data-draw="th-head" data-source="theme_meta theme_genes"></div>
+    </div>
+    <div class="gx-card" id="theme-body">
+      <h2>Body map</h2>
+      <p class="gx-note">Where in the body the theme's genes act. Each gene is placed by its mechanisms and the conditions it is linked to.
+        Select an organ to narrow the mechanisms, connections and gene panel to it.</p>
+      <div class="th-body" data-draw="th-body" data-source="theme_meta theme_genes"></div>
+    </div>
+    <div class="gx-card" id="theme-facets">
+      <div class="lc-flow-head">
+        <h2>Mechanisms</h2>
+        <div class="lc-legend" aria-label="Gene colours">
+          <span class="lc-chip lc-gof">More active (GoF)</span><span class="lc-chip lc-norm">Typical function</span><span class="lc-chip lc-lof">Less active (LoF)</span>
+          <span class="lc-chip lc-alt">Changed, direction unclear</span>
+          <span class="lc-chip lc-var">Carries a trait-linked variant</span>
+          <span class="lc-chip lc-untested">Not genotyped</span>
+        </div>
+      </div>
+      <p class="gx-note">Each box is one way genes act on the theme. A gene appears in every box its evidence supports, and ×1 or ×2 is how many
+        copies of the less common allele the person carries. Boxes marked "needs a direct link" only take genes whose curated function, summary or
+        GWAS traits also name the theme. Select a box's title to open it in depth, or a gene to see why it is here.</p>
+      <div class="th-facets" data-draw="th-facets" data-source="theme_meta theme_genes"></div>
+    </div>
+    <div class="gx-card" id="theme-facet">
+      <span class="gx-label">Mechanism in depth</span>
+      <div class="th-facet-detail" data-draw="th-facet" data-source="theme_meta theme_genes theme_pathways"></div>
+    </div>
+    <div class="th-grid">
+      <div class="gx-card" id="theme-network">
+        <h2>Connections</h2>
+        <p class="gx-note">Each dot is a gene, placed by the mechanism it acts through most. Lines are protein interactions from STRING, and
+          thicker lines are more confident ones. Select a gene to light up its partners.</p>
+        <div class="gx-chart th-net" data-draw="th-net" data-source="theme_meta theme_genes theme_links"></div>
+      </div>
+      <div class="gx-card" id="theme-gene">
+        <span class="gx-label">Selected gene</span>
+        <div class="th-detail" data-draw="th-detail" data-source="theme_meta theme_genes theme_links theme_pathways"></div>
+      </div>
+    </div>
+    <div class="gx-card" id="theme-pathways">
+      <h2>Shared pathways</h2>
+      <p class="gx-note">Reactome pathways that two or more of the theme's genes work in. Pathways that match one of the theme's mechanisms come first.</p>
+      <div class="gx-table-box">
+        <table class="gx-table">
+          <thead><tr><th>Pathway</th><th>Genes in this theme</th></tr></thead>
+          <tbody data-draw="th-pathways" data-source="theme_pathways theme_genes"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>

@@ -1,0 +1,2450 @@
+<meta name="dash-one-writer">
+<style>
+  .gx { display: grid; gap: var(--cds-gap-lg); font-family: var(--font-anthropic-sans); }
+  .gx-head { display: grid; gap: var(--cds-gap-xs); }
+  .gx-title { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); margin: 0; text-wrap: balance; }
+  .gx-lede { margin: 0; color: var(--color-fg-muted); max-width: 70ch; }
+  .gx .gx-lede b, .gx .gx-note b { color: var(--color-fg); font-weight: 600; font-variant-numeric: tabular-nums; }
+  .gx-tabs { display: flex; flex-wrap: wrap; gap: var(--cds-gap-xs); border-bottom: 1px solid var(--color-border-line); }
+  .gx-tab { font: inherit; background: none; border: 0; border-bottom: 2px solid transparent; color: var(--color-fg-muted);
+            padding: var(--cds-pad-sm) var(--cds-pad-md); cursor: pointer; margin-bottom: -1px; }
+  .gx-tab[aria-selected="true"] { color: var(--color-fg); border-bottom-color: var(--color-fg); }
+  .gx-tab:focus-visible, .gx-chip:focus-visible { outline: 2px solid var(--color-fg); outline-offset: 2px; }
+  .gx-page { display: grid; gap: var(--cds-gap-md); }
+  .gx-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr)); gap: var(--cds-gap-md); }
+  .gx-kpi { display: grid; gap: var(--cds-gap-xs); }
+  .gx-kpi-label { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+  .gx-kpi-value { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); font-variant-numeric: tabular-nums; }
+  .gx-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: var(--cds-gap-md); }
+  .gx-wide { grid-column: 1 / -1; }
+  .gx-card { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius);
+             padding: var(--cds-pad-lg); display: grid; gap: var(--cds-gap-sm); align-content: start; min-width: 0; }
+  .gx-card h2, .gx-card h3 { font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); margin: 0; }
+  .gx-note { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); margin: 0; max-width: 75ch; }
+  .gx-sample { border-left: 3px solid var(--color-warn); padding-left: var(--cds-pad-sm); }
+  .gx-chart { position: relative; min-width: 0; }
+  .gx-net { min-height: 460px; }
+  .gx-heat { min-height: 420px; overflow-x: auto; }
+  .gx-bars { min-height: 380px; }
+  .gx-chart svg { display: block; }
+  .gx-tip { position: absolute; pointer-events: none; background: var(--cds-surface-popover); border: 1px solid var(--cds-border);
+            border-radius: var(--cds-radius); box-shadow: var(--cds-shadow-popover); padding: var(--cds-pad-xs) var(--cds-pad-sm);
+            font-size: var(--cds-font-size-caption); max-width: 18rem; z-index: 2; }
+  .gx-tip-head { color: var(--cds-text-secondary); }
+  .gx-detail { display: grid; gap: var(--cds-gap-sm); min-height: 300px; align-content: start; }
+  .gx-detail h3 { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); }
+  .gx-label { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); text-transform: uppercase; letter-spacing: .04em; }
+  .gx-chips { display: flex; flex-wrap: wrap; gap: var(--cds-gap-xs); }
+  .gx-chip { font: inherit; font-size: var(--cds-font-size-caption); border: 1px solid var(--color-border-line); background: var(--color-bg);
+             color: var(--color-fg); border-radius: 999px; padding: 2px var(--cds-pad-sm); }
+  button.gx-chip { cursor: pointer; }
+  button.gx-chip:hover { border-color: var(--color-fg-muted); }
+  .gx-table-box { max-height: 26rem; overflow: auto; }
+  .gx-table { width: 100%; border-collapse: collapse; font-size: var(--cds-font-size-caption); font-variant-numeric: tabular-nums; }
+  .gx-table th { position: sticky; top: 0; background: var(--color-panel); text-align: left; font-weight: var(--cds-font-weight-medium);
+                 color: var(--color-fg-muted); padding: var(--cds-pad-xs) var(--cds-pad-sm); border-bottom: 1px solid var(--color-border-line); }
+  .gx-table td { padding: var(--cds-pad-xs) var(--cds-pad-sm); border-bottom: 1px solid var(--color-border-line); vertical-align: top; }
+  .gx-up { color: var(--color-bad); }
+  .gx-down { color: var(--color-ok); }
+  .gx-muted { color: var(--color-fg-muted); }
+  .gx [data-dash-source-state=empty] { color: transparent; }
+  .gx [data-dash-source-state=refreshing] { opacity: .5; transition: opacity var(--cds-dur-slow); }
+  @media (max-width: 40rem) { .gx-hide-narrow { display: none; } }
+  .gx { --typical: color-mix(in srgb, var(--color-ok) 38%, var(--color-fg-muted)); }
+  /* Call scale: blue = more active (GoF), green = typical function, red = less active (LoF). The blue leans towards the
+     text colour, so it lightens in dark mode and deepens in light mode like the theme tokens do. */
+  .gx { --gof: color-mix(in srgb, #3b82f6 82%, var(--color-fg)); --typical: var(--color-ok); }
+  /* Call scale: blue = more active (GoF), green = typical function, red = less active (LoF). The blue leans towards the
+     text colour, so it lightens in dark mode and deepens in light mode like the theme tokens do. */
+  .gx { --gof: color-mix(in srgb, #3b82f6 82%, var(--color-fg)); --typical: var(--color-ok); }
+  /* Call scale: blue = more active (GoF), green = typical function, red = less active (LoF). The blue leans towards the
+     text colour, so it lightens in dark mode and deepens in light mode like the theme tokens do. */
+  .gx { --gof: color-mix(in srgb, #3b82f6 82%, var(--color-fg)); --typical: var(--color-ok); }
+  /* Call scale: blue = more active (GoF), green = typical function, red = less active (LoF). The blue leans towards the
+     text colour, so it lightens in dark mode and deepens in light mode like the theme tokens do. */
+  .gx { --gof: color-mix(in srgb, #3b82f6 82%, var(--color-fg)); --typical: var(--color-ok); }
+  .lc-controls { display: flex; flex-wrap: wrap; gap: var(--cds-gap-sm); align-items: center; }
+  .lc-select { font: inherit; padding: var(--cds-pad-xs) var(--cds-pad-sm); border: 1px solid var(--color-border-line);
+               border-radius: var(--cds-radius); background: var(--color-bg); color: var(--color-fg); }
+  .lc-roles { display: flex; flex-wrap: wrap; gap: var(--cds-gap-xs); }
+  .lc-role { font: inherit; font-size: var(--cds-font-size-caption); border: 1px solid var(--color-border-line); background: var(--color-panel);
+             color: var(--color-fg-muted); border-radius: 999px; padding: 2px var(--cds-pad-sm); cursor: pointer; }
+  .lc-role[aria-pressed="true"] { color: var(--color-fg); border-color: var(--color-fg); }
+  .lc-role:focus-visible, .lc-btn:focus-visible, .lc-link:focus-visible { outline: 2px solid var(--color-fg); outline-offset: 2px; }
+  .lc-spacer { flex: 1; }
+  .lc-btn { font: inherit; font-size: var(--cds-font-size-caption); border: 1px solid var(--color-border-line); background: var(--color-bg);
+            color: var(--color-fg); border-radius: var(--cds-radius); padding: 2px var(--cds-pad-sm); cursor: pointer; }
+  .lc-btn[aria-pressed="true"] { border-color: var(--color-fg); }
+  .lc-top { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: var(--cds-gap-md); }
+  @media (max-width: 56rem) { .lc-top { grid-template-columns: minmax(0, 1fr); } }
+  .lc-head { display: grid; gap: var(--cds-gap-sm); align-content: start; }
+  .lc-name { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--cds-gap-sm); }
+  .lc-name h3 { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); margin: 0; }
+  /* Call colours: blue = more active (GoF), green = typical function, red = less active (LoF) */
+  .lc-call { font-size: var(--cds-font-size-caption); font-weight: var(--cds-font-weight-medium); border: 2px solid var(--color-fg-muted);
+             border-radius: 999px; padding: 2px var(--cds-pad-sm); color: var(--color-fg); }
+  .lc-call.gof { border-color: var(--gof); background: color-mix(in srgb, var(--gof) 22%, transparent); }
+  .lc-call.lof { border-color: var(--color-bad); background: color-mix(in srgb, var(--color-bad) 22%, transparent); }
+  .lc-call.norm { border-color: var(--typical); background: color-mix(in srgb, var(--typical) 22%, transparent); }
+  .lc-call.altered { border-style: dotted; border-color: var(--color-fg); }
+  .lc-call.unknown { border-style: dashed; color: var(--color-fg-muted); }
+  .gx-card.lc-tone-gof { border-color: var(--gof); box-shadow: inset 4px 0 0 var(--gof);
+                         background: color-mix(in srgb, var(--gof) 6%, var(--color-panel)); }
+  .gx-card.lc-tone-lof { border-color: var(--color-bad); box-shadow: inset 4px 0 0 var(--color-bad);
+                         background: color-mix(in srgb, var(--color-bad) 6%, var(--color-panel)); }
+  .gx-card.lc-tone-norm { border-color: var(--typical); box-shadow: inset 4px 0 0 var(--typical);
+                          background: color-mix(in srgb, var(--typical) 6%, var(--color-panel)); }
+  .lc-lead { margin: 0; max-width: 70ch; }
+  .lc-ev { display: grid; gap: var(--cds-gap-xs); margin: 0; padding: 0; list-style: none; }
+  .lc-ev li { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: var(--cds-gap-sm); font-size: var(--cds-font-size-caption);
+              padding-top: var(--cds-gap-xs); border-top: 1px solid var(--color-border-line); }
+  .lc-ev li > span:first-child { color: var(--color-fg-muted); }
+  @media (max-width: 40rem) { .lc-ev li { grid-template-columns: minmax(0, 1fr); gap: 0; } }
+  .lc-kv { display: grid; gap: var(--cds-gap-sm); }
+  .lc-kv p { margin: 0; font-size: var(--cds-font-size-caption); }
+  .lc-kv details summary { cursor: pointer; color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); }
+  .lc-regs { display: grid; gap: var(--cds-gap-xs); }
+  .lc-reg-row { display: flex; flex-wrap: wrap; gap: var(--cds-gap-xs); align-items: center; }
+  .lc-reg-row > span:first-child { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); min-width: 4.5rem; }
+  .lc-link { font: inherit; background: none; border: 0; padding: 0; color: var(--color-fg); text-decoration: underline;
+             text-underline-offset: 2px; cursor: pointer; }
+  .lc-flow-head { display: flex; flex-wrap: wrap; gap: var(--cds-gap-sm) var(--cds-gap-md); align-items: center; justify-content: space-between; }
+  .lc-legend { display: flex; flex-wrap: wrap; gap: var(--cds-gap-xs); }
+  .lc-chip { font-size: var(--cds-font-size-caption); border: 1.5px solid var(--color-border-line); border-radius: 999px;
+             padding: 1px var(--cds-pad-sm); background: var(--color-bg); }
+  .lc-lof { border-color: var(--color-bad); background: color-mix(in srgb, var(--color-bad) 22%, var(--color-bg)); }
+  .lc-gof { border-color: var(--gof); background: color-mix(in srgb, var(--gof) 22%, var(--color-bg)); }
+  .lc-alt { border-color: var(--color-fg); border-style: dotted; }
+  .lc-norm { border-color: var(--typical); background: color-mix(in srgb, var(--typical) 22%, var(--color-bg)); }
+  .lc-untested { border-style: dashed; }
+  .lc-out { color: var(--color-fg-muted); border-color: transparent; }
+  .lc-graph { position: relative; overflow-x: auto; min-height: 220px; padding-bottom: var(--cds-pad-sm); }
+  .lc-graph svg { display: block; font-family: var(--font-anthropic-sans); }
+  .lc-step { cursor: pointer; outline: none; }
+  .lc-enz { cursor: pointer; }
+  .lc-patterns { display: grid; gap: var(--cds-gap-xs); }
+  .lc-patterns p { margin: 0; font-size: var(--cds-font-size-caption); }
+  .lc-warn { color: var(--color-bad); }
+  .lc-detail { display: grid; gap: var(--cds-gap-sm); }
+  .lc-detail h3 { font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); margin: 0; }
+  .lc-detail .lc-rx { margin: 0; font-family: var(--font-anthropic-serif); font-size: var(--cds-font-size-heading); max-width: 80ch; }
+  .lc-flowline { display: flex; flex-wrap: wrap; gap: var(--cds-gap-xs); align-items: center; font-size: var(--cds-font-size-caption); }
+  .lc-mol { border: 1px solid var(--color-border-line); border-radius: 999px; padding: 1px var(--cds-pad-sm); background: var(--color-bg); }
+  .lc-mol small { color: var(--color-fg-muted); }
+  .lc-alts { margin: 0; padding-left: 1.1rem; font-size: var(--cds-font-size-caption); }
+  .lc-detail a { color: var(--color-fg); text-underline-offset: 2px; }
+  .lc-stepsum { margin: 0; max-width: 80ch; }
+  .lc-enzcard { display: grid; gap: var(--cds-gap-sm); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius);
+                padding: var(--cds-pad-md); background: var(--color-bg); }
+  .lc-enzcard.tone-gof { box-shadow: inset 4px 0 0 var(--gof); }
+  .lc-enzcard.tone-lof { box-shadow: inset 4px 0 0 var(--color-bad); }
+  .lc-enzcard.tone-norm { box-shadow: inset 4px 0 0 var(--typical); }
+  .lc-enzhead { display: flex; flex-wrap: wrap; gap: var(--cds-gap-sm); align-items: center; }
+  .lc-enzhead .lc-btn { margin-left: auto; }
+  .lc-how, .lc-research { display: grid; gap: var(--cds-gap-xs); }
+  .lc-howrow { display: grid; grid-template-columns: 8rem minmax(0, 1fr); gap: var(--cds-gap-sm); font-size: var(--cds-font-size-caption);
+               padding-top: var(--cds-gap-xs); border-top: 1px solid var(--color-border-line); }
+  @media (max-width: 40rem) { .lc-howrow { grid-template-columns: minmax(0, 1fr); gap: 2px; } }
+  .lc-howkey { color: var(--color-fg-muted); }
+  .lc-bar { position: relative; height: 10px; max-width: 18rem; border-radius: 5px; background: var(--color-panel);
+            border: 1px solid var(--color-border-line); margin: 3px 0; }
+  .lc-bar-fill { position: absolute; top: 0; bottom: 0; border-radius: 5px; background: var(--color-fg-muted); min-width: 3px; }
+  .lc-bar-tick { position: absolute; top: -3px; bottom: -3px; width: 2px; margin-left: -1px; background: var(--color-fg); }
+  .lc-quotes { display: grid; gap: var(--cds-gap-xs); }
+  .lc-quotes blockquote { margin: 0; padding-left: var(--cds-pad-sm); border-left: 2px solid var(--color-border-line); }
+  .lc-quotes cite { display: block; font-style: normal; color: var(--color-fg-muted); }
+  .lc-research ol { margin: 0; padding-left: 1.2rem; font-size: var(--cds-font-size-caption); display: grid; gap: 2px; }
+  .lc-enzcard a, .lc-research a { color: var(--color-fg); text-underline-offset: 2px; }
+  .lc-bar.cap.tone-norm .lc-bar-fill { background: var(--typical); }
+  .lc-bar.cap.tone-lof .lc-bar-fill { background: var(--color-bad); }
+  .lc-bar.cap.tone-gof .lc-bar-fill { background: var(--gof); }
+  .lc-ladder { margin-top: var(--cds-gap-xs); max-width: 44rem; }
+  .lc-ladder tr.is-hp td { font-weight: var(--cds-font-weight-medium); color: var(--color-fg); }
+  .lc-ladder tr.is-hp td:first-child { box-shadow: inset 3px 0 0 var(--color-fg-muted); }
+  .lc-ladder tr.is-hp.tone-norm td:first-child { box-shadow: inset 3px 0 0 var(--typical); }
+  .lc-ladder tr.is-hp.tone-lof td:first-child { box-shadow: inset 3px 0 0 var(--color-bad); }
+  .lc-ladder tr.is-hp.tone-gof td:first-child { box-shadow: inset 3px 0 0 var(--gof); }
+  .lc-card { fill: var(--color-panel); stroke: var(--color-border-line); stroke-width: 1; }
+  .lc-card.is-focal { stroke: var(--color-fg); stroke-width: 2; }
+  .lc-step:hover .lc-card:not(.is-focal) { stroke: var(--color-fg-muted); }
+  .lc-step.is-selected .lc-card { fill: color-mix(in srgb, var(--color-fg) 9%, var(--color-panel)); }
+  .lc-sel-ring { fill: none; stroke: var(--color-fg); stroke-width: 1; stroke-dasharray: 5 4; display: none; }
+  .lc-step.is-selected .lc-sel-ring { display: block; }
+  .lc-step:focus-visible .lc-sel-ring { display: block; stroke: var(--color-fg-muted); }
+  .lc-bar.gtex.up .lc-bar-fill { background: var(--gof); }
+  .lc-bar.gtex.down .lc-bar-fill { background: var(--color-bad); }
+  /* Crisp vector drawing: curves keep full precision, text keeps its hinting */
+  .lc-graph svg, .th-net svg, .th-body-svg svg, .th-cycle-svg svg { shape-rendering: geometricPrecision; text-rendering: optimizeLegibility; }
+  .lc-step.is-selected .lc-card { fill: color-mix(in srgb, var(--color-fg) 9%, var(--color-panel)); }
+  .lc-sel-ring { fill: none; stroke: var(--color-fg); stroke-width: 1; stroke-dasharray: 5 4; display: none; }
+  .lc-step.is-selected .lc-sel-ring { display: block; }
+  .lc-step:focus-visible .lc-sel-ring { display: block; stroke: var(--color-fg-muted); }
+  .lc-bar.gtex.up .lc-bar-fill { background: var(--gof); }
+  .lc-bar.gtex.down .lc-bar-fill { background: var(--color-bad); }
+  /* Crisp vector drawing: curves keep full precision, text keeps its hinting */
+  .lc-graph svg, .th-net svg, .th-body-svg svg, .th-cycle-svg svg { shape-rendering: geometricPrecision; text-rendering: optimizeLegibility; }
+  .lc-step.is-selected .lc-card { fill: color-mix(in srgb, var(--color-fg) 9%, var(--color-panel)); }
+  .lc-sel-ring { fill: none; stroke: var(--color-fg); stroke-width: 1.5; stroke-dasharray: 5 4; display: none; }
+  .lc-step.is-selected .lc-sel-ring { display: block; }
+  .lc-step:focus-visible .lc-sel-ring { display: block; stroke: var(--color-fg-muted); }
+  .lc-bar.gtex.up .lc-bar-fill { background: var(--gof); }
+  .lc-bar.gtex.down .lc-bar-fill { background: var(--color-bad); }
+  .lc-step.is-selected .lc-card { fill: color-mix(in srgb, var(--color-fg) 9%, var(--color-panel)); }
+  .lc-sel-ring { fill: none; stroke: var(--color-fg); stroke-width: 1.5; stroke-dasharray: 5 4; display: none; }
+  .lc-step.is-selected .lc-sel-ring { display: block; }
+  .lc-step:focus-visible .lc-sel-ring { display: block; stroke: var(--color-fg-muted); }
+  .lc-bar.gtex.up .lc-bar-fill { background: var(--gof); }
+  .lc-bar.gtex.down .lc-bar-fill { background: var(--color-bad); }
+  .lc-step.is-selected .lc-card { fill: color-mix(in srgb, var(--color-fg) 9%, var(--color-panel)); }
+  .lc-sel-ring { fill: none; stroke: var(--color-fg); stroke-width: 1.5; stroke-dasharray: 5 4; display: none; }
+  .lc-step.is-selected .lc-sel-ring { display: block; }
+  .lc-step:focus-visible .lc-sel-ring { display: block; stroke: var(--color-fg-muted); }
+  .lc-bar.gtex.up .lc-bar-fill { background: var(--color-ok); }
+  .lc-bar.gtex.down .lc-bar-fill { background: var(--color-bad); }
+  .lc-step.is-selected .lc-card { fill: color-mix(in srgb, var(--color-fg) 9%, var(--color-panel)); }
+  .lc-sel-ring { fill: none; stroke: var(--color-fg); stroke-width: 1.5; stroke-dasharray: 5 4; display: none; }
+  .lc-step.is-selected .lc-sel-ring { display: block; }
+  .lc-step:focus-visible .lc-sel-ring { display: block; stroke: var(--color-fg-muted); }
+  .lc-bar.gtex.up .lc-bar-fill { background: var(--color-ok); }
+  .lc-bar.gtex.down .lc-bar-fill { background: var(--color-bad); }
+  .lc-step.is-selected .lc-card { fill: color-mix(in srgb, var(--color-fg) 9%, var(--color-panel)); }
+  .lc-sel-ring { fill: none; stroke: var(--color-fg); stroke-width: 1.5; stroke-dasharray: 5 4; display: none; }
+  .lc-step.is-selected .lc-sel-ring { display: block; }
+  .lc-step:focus-visible .lc-sel-ring { display: block; stroke: var(--color-fg-muted); }
+  .lc-bar.gtex.up .lc-bar-fill { background: var(--color-ok); }
+  .lc-bar.gtex.down .lc-bar-fill { background: var(--color-bad); }
+  .lc-step.is-selected .lc-card { fill: color-mix(in srgb, var(--color-fg) 9%, var(--color-panel)); }
+  .lc-sel-ring { fill: none; stroke: var(--color-fg); stroke-width: 1.5; stroke-dasharray: 5 4; display: none; }
+  .lc-step.is-selected .lc-sel-ring { display: block; }
+  .lc-step:focus-visible .lc-sel-ring { display: block; stroke: var(--color-fg-muted); }
+  .lc-bar.gtex.up .lc-bar-fill { background: var(--color-ok); }
+  .lc-bar.gtex.down .lc-bar-fill { background: var(--color-bad); }
+  .lc-step:focus-visible rect.lc-card { stroke: var(--color-fg); stroke-dasharray: 4 3; }
+  .lc-step.is-selected rect.lc-card { stroke: var(--color-fg); fill: var(--color-bg); }
+  .lc-enz { cursor: pointer; }
+  .lc-patterns { display: grid; gap: var(--cds-gap-xs); }
+  .lc-patterns p { margin: 0; font-size: var(--cds-font-size-caption); }
+  .lc-warn { color: var(--color-bad); }
+  .lc-detail { display: grid; gap: var(--cds-gap-sm); }
+  .lc-detail h3 { font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); margin: 0; }
+  .lc-detail .lc-rx { margin: 0; font-family: var(--font-anthropic-serif); font-size: var(--cds-font-size-heading); max-width: 80ch; }
+  .lc-flowline { display: flex; flex-wrap: wrap; gap: var(--cds-gap-xs); align-items: center; font-size: var(--cds-font-size-caption); }
+  .lc-mol { border: 1px solid var(--color-border-line); border-radius: 999px; padding: 1px var(--cds-pad-sm); background: var(--color-bg); }
+  .lc-mol small { color: var(--color-fg-muted); }
+  .lc-alts { margin: 0; padding-left: 1.1rem; font-size: var(--cds-font-size-caption); }
+  .lc-detail a { color: var(--color-fg); text-underline-offset: 2px; }
+  .lc-stepsum { margin: 0; max-width: 80ch; }
+  .lc-enzcard { display: grid; gap: var(--cds-gap-sm); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius);
+                padding: var(--cds-pad-md); background: var(--color-bg); }
+  .lc-enzcard.tone-gof { box-shadow: inset 4px 0 0 var(--color-ok); }
+  .lc-enzcard.tone-lof { box-shadow: inset 4px 0 0 var(--color-bad); }
+  .lc-enzcard.tone-norm { box-shadow: inset 4px 0 0 var(--color-warn); }
+  .lc-enzhead { display: flex; flex-wrap: wrap; gap: var(--cds-gap-sm); align-items: center; }
+  .lc-enzhead .lc-btn { margin-left: auto; }
+  .lc-how, .lc-research { display: grid; gap: var(--cds-gap-xs); }
+  .lc-howrow { display: grid; grid-template-columns: 8rem minmax(0, 1fr); gap: var(--cds-gap-sm); font-size: var(--cds-font-size-caption);
+               padding-top: var(--cds-gap-xs); border-top: 1px solid var(--color-border-line); }
+  @media (max-width: 40rem) { .lc-howrow { grid-template-columns: minmax(0, 1fr); gap: 2px; } }
+  .lc-howkey { color: var(--color-fg-muted); }
+  .lc-bar { position: relative; height: 10px; max-width: 18rem; border-radius: 5px; background: var(--color-panel);
+            border: 1px solid var(--color-border-line); margin: 3px 0; }
+  .lc-bar-fill { position: absolute; top: 0; bottom: 0; border-radius: 5px; background: var(--color-fg-muted); min-width: 3px; }
+  .lc-bar-tick { position: absolute; top: -3px; bottom: -3px; width: 2px; margin-left: -1px; background: var(--color-fg); }
+  .lc-quotes { display: grid; gap: var(--cds-gap-xs); }
+  .lc-quotes blockquote { margin: 0; padding-left: var(--cds-pad-sm); border-left: 2px solid var(--color-border-line); }
+  .lc-quotes cite { display: block; font-style: normal; color: var(--color-fg-muted); }
+  .lc-research ol { margin: 0; padding-left: 1.2rem; font-size: var(--cds-font-size-caption); display: grid; gap: 2px; }
+  .lc-enzcard a, .lc-research a { color: var(--color-fg); text-underline-offset: 2px; }
+  .lc-bar.cap.tone-norm .lc-bar-fill { background: var(--color-warn); }
+  .lc-bar.cap.tone-lof .lc-bar-fill { background: var(--color-bad); }
+  .lc-bar.cap.tone-gof .lc-bar-fill { background: var(--color-ok); }
+  .lc-ladder { margin-top: var(--cds-gap-xs); max-width: 44rem; }
+  .lc-ladder tr.is-hp td { font-weight: var(--cds-font-weight-medium); color: var(--color-fg); }
+  .lc-ladder tr.is-hp td:first-child { box-shadow: inset 3px 0 0 var(--color-fg-muted); }
+  .lc-ladder tr.is-hp.tone-norm td:first-child { box-shadow: inset 3px 0 0 var(--color-warn); }
+  .lc-ladder tr.is-hp.tone-lof td:first-child { box-shadow: inset 3px 0 0 var(--color-bad); }
+  .lc-ladder tr.is-hp.tone-gof td:first-child { box-shadow: inset 3px 0 0 var(--color-ok); }
+  .lc-step:focus-visible rect.lc-card { stroke: var(--color-fg); stroke-dasharray: 4 3; }
+  .lc-step.is-selected rect.lc-card { stroke: var(--color-fg); fill: var(--color-bg); }
+  .lc-enz { cursor: pointer; }
+  .lc-patterns { display: grid; gap: var(--cds-gap-xs); }
+  .lc-patterns p { margin: 0; font-size: var(--cds-font-size-caption); }
+  .lc-warn { color: var(--color-bad); }
+  .lc-detail { display: grid; gap: var(--cds-gap-sm); }
+  .lc-detail h3 { font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); margin: 0; }
+  .lc-detail .lc-rx { margin: 0; font-family: var(--font-anthropic-serif); font-size: var(--cds-font-size-heading); max-width: 80ch; }
+  .lc-flowline { display: flex; flex-wrap: wrap; gap: var(--cds-gap-xs); align-items: center; font-size: var(--cds-font-size-caption); }
+  .lc-mol { border: 1px solid var(--color-border-line); border-radius: 999px; padding: 1px var(--cds-pad-sm); background: var(--color-bg); }
+  .lc-mol small { color: var(--color-fg-muted); }
+  .lc-alts { margin: 0; padding-left: 1.1rem; font-size: var(--cds-font-size-caption); }
+  .lc-detail a { color: var(--color-fg); text-underline-offset: 2px; }
+  .lc-stepsum { margin: 0; max-width: 80ch; }
+  .lc-enzcard { display: grid; gap: var(--cds-gap-sm); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius);
+                padding: var(--cds-pad-md); background: var(--color-bg); }
+  .lc-enzcard.tone-gof { box-shadow: inset 4px 0 0 var(--color-ok); }
+  .lc-enzcard.tone-lof { box-shadow: inset 4px 0 0 var(--color-bad); }
+  .lc-enzcard.tone-norm { box-shadow: inset 4px 0 0 var(--color-warn); }
+  .lc-enzhead { display: flex; flex-wrap: wrap; gap: var(--cds-gap-sm); align-items: center; }
+  .lc-enzhead .lc-btn { margin-left: auto; }
+  .lc-how, .lc-research { display: grid; gap: var(--cds-gap-xs); }
+  .lc-howrow { display: grid; grid-template-columns: 8rem minmax(0, 1fr); gap: var(--cds-gap-sm); font-size: var(--cds-font-size-caption);
+               padding-top: var(--cds-gap-xs); border-top: 1px solid var(--color-border-line); }
+  @media (max-width: 40rem) { .lc-howrow { grid-template-columns: minmax(0, 1fr); gap: 2px; } }
+  .lc-howkey { color: var(--color-fg-muted); }
+  .lc-bar { position: relative; height: 10px; max-width: 18rem; border-radius: 5px; background: var(--color-panel);
+            border: 1px solid var(--color-border-line); margin: 3px 0; }
+  .lc-bar-fill { position: absolute; top: 0; bottom: 0; border-radius: 5px; background: var(--color-fg-muted); min-width: 3px; }
+  .lc-bar-tick { position: absolute; top: -3px; bottom: -3px; width: 2px; margin-left: -1px; background: var(--color-fg); }
+  .lc-quotes { display: grid; gap: var(--cds-gap-xs); }
+  .lc-quotes blockquote { margin: 0; padding-left: var(--cds-pad-sm); border-left: 2px solid var(--color-border-line); }
+  .lc-quotes cite { display: block; font-style: normal; color: var(--color-fg-muted); }
+  .lc-research ol { margin: 0; padding-left: 1.2rem; font-size: var(--cds-font-size-caption); display: grid; gap: 2px; }
+  .lc-enzcard a, .lc-research a { color: var(--color-fg); text-underline-offset: 2px; }
+  .lc-bar.cap.tone-norm .lc-bar-fill { background: var(--color-warn); }
+  .lc-bar.cap.tone-lof .lc-bar-fill { background: var(--color-bad); }
+  .lc-bar.cap.tone-gof .lc-bar-fill { background: var(--color-ok); }
+  .lc-ladder { margin-top: var(--cds-gap-xs); max-width: 44rem; }
+  .lc-ladder tr.is-hp td { font-weight: var(--cds-font-weight-medium); color: var(--color-fg); }
+  .lc-ladder tr.is-hp td:first-child { box-shadow: inset 3px 0 0 var(--color-fg-muted); }
+  .lc-ladder tr.is-hp.tone-norm td:first-child { box-shadow: inset 3px 0 0 var(--color-warn); }
+  .lc-ladder tr.is-hp.tone-lof td:first-child { box-shadow: inset 3px 0 0 var(--color-bad); }
+  .lc-ladder tr.is-hp.tone-gof td:first-child { box-shadow: inset 3px 0 0 var(--color-ok); }
+  .lc-step:focus-visible rect.lc-card { stroke: var(--color-fg); stroke-dasharray: 4 3; }
+  .lc-step.is-selected rect.lc-card { stroke: var(--color-fg); fill: var(--color-bg); }
+  .lc-enz { cursor: pointer; }
+  .lc-patterns { display: grid; gap: var(--cds-gap-xs); }
+  .lc-patterns p { margin: 0; font-size: var(--cds-font-size-caption); }
+  .lc-warn { color: var(--color-bad); }
+  .lc-detail { display: grid; gap: var(--cds-gap-sm); }
+  .lc-detail h3 { font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); margin: 0; }
+  .lc-detail .lc-rx { margin: 0; font-family: var(--font-anthropic-serif); font-size: var(--cds-font-size-heading); max-width: 80ch; }
+  .lc-flowline { display: flex; flex-wrap: wrap; gap: var(--cds-gap-xs); align-items: center; font-size: var(--cds-font-size-caption); }
+  .lc-mol { border: 1px solid var(--color-border-line); border-radius: 999px; padding: 1px var(--cds-pad-sm); background: var(--color-bg); }
+  .lc-mol small { color: var(--color-fg-muted); }
+  .lc-alts { margin: 0; padding-left: 1.1rem; font-size: var(--cds-font-size-caption); }
+  .lc-detail a { color: var(--color-fg); text-underline-offset: 2px; }
+  .lc-stepsum { margin: 0; max-width: 80ch; }
+  .lc-enzcard { display: grid; gap: var(--cds-gap-sm); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius);
+                padding: var(--cds-pad-md); background: var(--color-bg); }
+  .lc-enzcard.tone-gof { box-shadow: inset 4px 0 0 var(--color-ok); }
+  .lc-enzcard.tone-lof { box-shadow: inset 4px 0 0 var(--color-bad); }
+  .lc-enzcard.tone-norm { box-shadow: inset 4px 0 0 var(--color-warn); }
+  .lc-enzhead { display: flex; flex-wrap: wrap; gap: var(--cds-gap-sm); align-items: center; }
+  .lc-enzhead .lc-btn { margin-left: auto; }
+  .lc-how, .lc-research { display: grid; gap: var(--cds-gap-xs); }
+  .lc-howrow { display: grid; grid-template-columns: 8rem minmax(0, 1fr); gap: var(--cds-gap-sm); font-size: var(--cds-font-size-caption);
+               padding-top: var(--cds-gap-xs); border-top: 1px solid var(--color-border-line); }
+  @media (max-width: 40rem) { .lc-howrow { grid-template-columns: minmax(0, 1fr); gap: 2px; } }
+  .lc-howkey { color: var(--color-fg-muted); }
+  .lc-bar { position: relative; height: 10px; max-width: 18rem; border-radius: 5px; background: var(--color-panel);
+            border: 1px solid var(--color-border-line); margin: 3px 0; }
+  .lc-bar-fill { position: absolute; top: 0; bottom: 0; border-radius: 5px; background: var(--color-fg-muted); min-width: 3px; }
+  .lc-bar-tick { position: absolute; top: -3px; bottom: -3px; width: 2px; margin-left: -1px; background: var(--color-fg); }
+  .lc-quotes { display: grid; gap: var(--cds-gap-xs); }
+  .lc-quotes blockquote { margin: 0; padding-left: var(--cds-pad-sm); border-left: 2px solid var(--color-border-line); }
+  .lc-quotes cite { display: block; font-style: normal; color: var(--color-fg-muted); }
+  .lc-research ol { margin: 0; padding-left: 1.2rem; font-size: var(--cds-font-size-caption); display: grid; gap: 2px; }
+  .lc-enzcard a, .lc-research a { color: var(--color-fg); text-underline-offset: 2px; }
+  .lc-bar.cap.tone-norm .lc-bar-fill { background: var(--color-warn); }
+  .lc-bar.cap.tone-lof .lc-bar-fill { background: var(--color-bad); }
+  .lc-bar.cap.tone-gof .lc-bar-fill { background: var(--color-ok); }
+  .lc-ladder { margin-top: var(--cds-gap-xs); max-width: 44rem; }
+  .lc-ladder tr.is-hp td { font-weight: var(--cds-font-weight-medium); color: var(--color-fg); }
+  .lc-ladder tr.is-hp td:first-child { box-shadow: inset 3px 0 0 var(--color-fg-muted); }
+  .lc-ladder tr.is-hp.tone-norm td:first-child { box-shadow: inset 3px 0 0 var(--color-warn); }
+  .lc-ladder tr.is-hp.tone-lof td:first-child { box-shadow: inset 3px 0 0 var(--color-bad); }
+  .lc-ladder tr.is-hp.tone-gof td:first-child { box-shadow: inset 3px 0 0 var(--color-ok); }
+  .lc-step:focus-visible rect.lc-card { stroke: var(--color-fg); stroke-dasharray: 4 3; }
+  .lc-step.is-selected rect.lc-card { stroke: var(--color-fg); fill: var(--color-bg); }
+  .lc-enz { cursor: pointer; }
+  .lc-patterns { display: grid; gap: var(--cds-gap-xs); }
+  .lc-patterns p { margin: 0; font-size: var(--cds-font-size-caption); }
+  .lc-warn { color: var(--color-bad); }
+  .lc-detail { display: grid; gap: var(--cds-gap-sm); }
+  .lc-detail h3 { font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); margin: 0; }
+  .lc-detail .lc-rx { margin: 0; font-family: var(--font-anthropic-serif); font-size: var(--cds-font-size-heading); max-width: 80ch; }
+  .lc-flowline { display: flex; flex-wrap: wrap; gap: var(--cds-gap-xs); align-items: center; font-size: var(--cds-font-size-caption); }
+  .lc-mol { border: 1px solid var(--color-border-line); border-radius: 999px; padding: 1px var(--cds-pad-sm); background: var(--color-bg); }
+  .lc-mol small { color: var(--color-fg-muted); }
+  .lc-alts { margin: 0; padding-left: 1.1rem; font-size: var(--cds-font-size-caption); }
+  .lc-detail a { color: var(--color-fg); text-underline-offset: 2px; }
+  .lc-stepsum { margin: 0; max-width: 80ch; }
+  .lc-enzcard { display: grid; gap: var(--cds-gap-sm); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius);
+                padding: var(--cds-pad-md); background: var(--color-bg); }
+  .lc-enzcard.tone-gof { box-shadow: inset 4px 0 0 var(--color-ok); }
+  .lc-enzcard.tone-lof { box-shadow: inset 4px 0 0 var(--color-bad); }
+  .lc-enzcard.tone-norm { box-shadow: inset 4px 0 0 var(--color-warn); }
+  .lc-enzhead { display: flex; flex-wrap: wrap; gap: var(--cds-gap-sm); align-items: center; }
+  .lc-enzhead .lc-btn { margin-left: auto; }
+  .lc-how, .lc-research { display: grid; gap: var(--cds-gap-xs); }
+  .lc-howrow { display: grid; grid-template-columns: 8rem minmax(0, 1fr); gap: var(--cds-gap-sm); font-size: var(--cds-font-size-caption);
+               padding-top: var(--cds-gap-xs); border-top: 1px solid var(--color-border-line); }
+  @media (max-width: 40rem) { .lc-howrow { grid-template-columns: minmax(0, 1fr); gap: 2px; } }
+  .lc-howkey { color: var(--color-fg-muted); }
+  .lc-bar { position: relative; height: 10px; max-width: 18rem; border-radius: 5px; background: var(--color-panel);
+            border: 1px solid var(--color-border-line); margin: 3px 0; }
+  .lc-bar-fill { position: absolute; top: 0; bottom: 0; border-radius: 5px; background: var(--color-fg-muted); min-width: 3px; }
+  .lc-bar-tick { position: absolute; top: -3px; bottom: -3px; width: 2px; margin-left: -1px; background: var(--color-fg); }
+  .lc-quotes { display: grid; gap: var(--cds-gap-xs); }
+  .lc-quotes blockquote { margin: 0; padding-left: var(--cds-pad-sm); border-left: 2px solid var(--color-border-line); }
+  .lc-quotes cite { display: block; font-style: normal; color: var(--color-fg-muted); }
+  .lc-research ol { margin: 0; padding-left: 1.2rem; font-size: var(--cds-font-size-caption); display: grid; gap: 2px; }
+  .lc-enzcard a, .lc-research a { color: var(--color-fg); text-underline-offset: 2px; }
+  .lc-step:focus-visible rect.lc-card { stroke: var(--color-fg); stroke-dasharray: 4 3; }
+  .lc-step.is-selected rect.lc-card { stroke: var(--color-fg); fill: var(--color-bg); }
+  .lc-enz { cursor: pointer; }
+  .lc-patterns { display: grid; gap: var(--cds-gap-xs); }
+  .lc-patterns p { margin: 0; font-size: var(--cds-font-size-caption); }
+  .lc-warn { color: var(--color-bad); }
+  .lc-detail { display: grid; gap: var(--cds-gap-sm); }
+  .lc-detail h3 { font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); margin: 0; }
+  .lc-detail .lc-rx { margin: 0; font-family: var(--font-anthropic-serif); font-size: var(--cds-font-size-heading); max-width: 80ch; }
+  .lc-flowline { display: flex; flex-wrap: wrap; gap: var(--cds-gap-xs); align-items: center; font-size: var(--cds-font-size-caption); }
+  .lc-mol { border: 1px solid var(--color-border-line); border-radius: 999px; padding: 1px var(--cds-pad-sm); background: var(--color-bg); }
+  .lc-mol small { color: var(--color-fg-muted); }
+  .lc-alts { margin: 0; padding-left: 1.1rem; font-size: var(--cds-font-size-caption); }
+  .lc-detail a { color: var(--color-fg); text-underline-offset: 2px; }
+  .lc-step:focus-visible rect.lc-card { stroke: var(--color-fg); stroke-dasharray: 4 3; }
+  .lc-step.is-selected rect.lc-card { stroke: var(--color-fg); fill: var(--color-bg); }
+  .lc-enz { cursor: pointer; }
+  .lc-patterns { display: grid; gap: var(--cds-gap-xs); }
+  .lc-patterns p { margin: 0; font-size: var(--cds-font-size-caption); }
+  .lc-warn { color: var(--color-warn); }
+  .lc-detail { display: grid; gap: var(--cds-gap-sm); }
+  .lc-detail h3 { font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); margin: 0; }
+  .lc-detail .lc-rx { margin: 0; font-family: var(--font-anthropic-serif); font-size: var(--cds-font-size-heading); max-width: 80ch; }
+  .lc-flowline { display: flex; flex-wrap: wrap; gap: var(--cds-gap-xs); align-items: center; font-size: var(--cds-font-size-caption); }
+  .lc-mol { border: 1px solid var(--color-border-line); border-radius: 999px; padding: 1px var(--cds-pad-sm); background: var(--color-bg); }
+  .lc-mol small { color: var(--color-fg-muted); }
+  .lc-alts { margin: 0; padding-left: 1.1rem; font-size: var(--cds-font-size-caption); }
+  .lc-detail a { color: var(--color-fg); text-underline-offset: 2px; }
+  .th-picker { display: flex; flex-wrap: wrap; gap: var(--cds-gap-sm); }
+  .th-pick { font: inherit; border: 1px solid var(--color-border-line); background: var(--color-panel); color: var(--color-fg-muted);
+             border-radius: 999px; padding: var(--cds-pad-xs) var(--cds-pad-md); cursor: pointer; }
+  .th-pick[aria-pressed="true"] { color: var(--color-fg); border-color: var(--color-fg); }
+  .th-pick:focus-visible, .th-gene:focus-visible { outline: 2px solid var(--color-fg); outline-offset: 2px; }
+  .th-head { display: grid; gap: var(--cds-gap-sm); }
+  .th-head h3 { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); margin: 0; }
+  .th-head p { margin: 0; max-width: 75ch; }
+  .th-balance { display: flex; height: 14px; border-radius: 7px; overflow: hidden; max-width: 40rem; border: 1px solid var(--color-border-line); }
+  .th-balance span { display: block; height: 100%; }
+  .th-b-gof { background: var(--gof); } .th-b-lof { background: var(--color-bad); } .th-b-norm { background: var(--typical); }
+  .th-b-alt { background: var(--color-fg); } .th-b-none { background: var(--color-border-line); }
+  .th-facets { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr)); gap: var(--cds-gap-md); }
+  .th-facet { display: grid; gap: var(--cds-gap-xs); align-content: start; border: 1px solid var(--color-border-line);
+              border-radius: var(--cds-radius); padding: var(--cds-pad-md); background: var(--color-bg); }
+  .th-facet h3 { font-size: var(--cds-font-size-body, 14px); font-weight: var(--cds-font-weight-medium); margin: 0; }
+  .th-facet .th-balance { height: 6px; }
+  .th-genes { display: flex; flex-wrap: wrap; gap: 4px; }
+  .th-gene { font: inherit; cursor: pointer; color: var(--color-fg); }
+  .th-gene.is-selected { outline: 2px solid var(--color-fg); outline-offset: 1px; }
+  .th-grid { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: var(--cds-gap-md); }
+  @media (max-width: 56rem) { .th-grid { grid-template-columns: minmax(0, 1fr); } }
+  .th-net { min-height: 580px; }
+  .th-net svg { display: block; }
+  .th-node { cursor: pointer; }
+  .th-node:focus-visible circle { stroke: var(--color-fg); stroke-width: 3; }
+  .th-detail { display: grid; gap: var(--cds-gap-sm); align-content: start; min-height: 300px; }
+  .th-detail h3 { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); margin: 0; }
+  .th-why { display: grid; gap: var(--cds-gap-xs); margin: 0; padding: 0; list-style: none; font-size: var(--cds-font-size-caption); }
+  .th-why li { border-top: 1px solid var(--color-border-line); padding-top: var(--cds-gap-xs); }
+  .th-src { display: inline-block; min-width: 4.8rem; color: var(--color-fg-muted); }
+  .th-tag { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+  .th-b-var { background: var(--color-fg-muted); }
+  .lc-var { border-color: var(--color-fg); background: color-mix(in srgb, var(--color-fg-muted) 25%, var(--color-bg)); }
+  .lc-call.var { border-color: var(--color-fg); background: color-mix(in srgb, var(--color-fg-muted) 25%, transparent); }
+  .th-why a, .th-detail a { color: var(--color-fg); text-underline-offset: 2px; }
+  .th-body-grid { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: var(--cds-gap-lg); align-items: start; }
+  @media (max-width: 56rem) { .th-body-grid { grid-template-columns: minmax(0, 1fr); } }
+  .th-body-svg { position: relative; min-width: 0; }
+  .th-body-svg svg { display: block; max-width: 760px; font-family: var(--font-anthropic-sans); }
+  .th-outline { fill: none; stroke: var(--color-border-line); stroke-width: 1.5; }
+  .th-zoom { fill: none; stroke: var(--color-fg-muted); stroke-width: 1; stroke-dasharray: 4 4; }
+  .th-shape { stroke: var(--color-fg-muted); stroke-width: 1.5; }
+  .th-tube { fill: none; stroke-width: 11; stroke-linecap: round; }
+  .th-hit { fill: none; stroke: transparent; stroke-width: 26; stroke-linecap: round; }
+  .th-organ-hit { cursor: pointer; outline: none; }
+  .th-organ-hit:hover .th-shape, .th-organ-hit:focus-visible .th-shape { stroke: var(--color-fg) !important; }
+  .th-organ-hit.is-selected .th-shape { stroke: var(--color-fg) !important; stroke-width: 3; }
+  .th-organ-hit.is-selected .th-tube { stroke-width: 15; }
+  .th-organ-hit:focus-visible .th-tube { stroke-width: 15; }
+  .th-leader { stroke: var(--color-fg-muted); stroke-width: 1; }
+  .th-label { font-size: 13px; font-weight: 600; fill: var(--color-fg); }
+  .th-label.is-selected { text-decoration: underline; }
+  .th-cap { font-size: 11px; fill: var(--color-fg-muted); }
+  .th-c-lof { fill: var(--color-bad); } .th-c-gof { fill: var(--gof); }
+  .th-organ { display: grid; gap: var(--cds-gap-sm); align-content: start; }
+  .th-organ h3 { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); margin: 0; }
+  .th-organ p { margin: 0; }
+  .th-context { fill: none; stroke: var(--color-border-line); stroke-width: 1.2; stroke-dasharray: 3 3; }
+  .th-facet-open { font: inherit; font-weight: var(--cds-font-weight-medium); background: none; border: 0; padding: 0; color: var(--color-fg);
+                   text-align: left; cursor: pointer; text-decoration: underline; text-decoration-color: var(--color-border-line);
+                   text-underline-offset: 3px; }
+  .th-facet-open:hover { text-decoration-color: var(--color-fg); }
+  .th-facet-open:focus-visible { outline: 2px solid var(--color-fg); outline-offset: 2px; }
+  .th-facet.is-open { border-color: var(--color-fg); box-shadow: inset 0 0 0 1px var(--color-fg); }
+  .th-facet-detail { display: grid; gap: var(--cds-gap-sm); }
+  .th-facet-detail h3 { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); margin: 0; }
+  .th-facet-detail p { margin: 0; max-width: 80ch; }
+  .th-explain { font-size: 15px; line-height: 1.5; }
+  .th-cycle { display: grid; gap: var(--cds-gap-sm); margin-top: var(--cds-gap-lg); padding-top: var(--cds-gap-md); border-top: 1px solid var(--color-border-line); }
+  .th-cycle h3 { font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); margin: 0; }
+  .th-cycle-svg { position: relative; }
+  .th-cycle-svg svg { display: block; font-family: var(--font-anthropic-sans); }
+  .th-cy-band { fill: transparent; }
+  .th-cy-band.th-cy-menses { fill: color-mix(in srgb, var(--color-bad) 9%, transparent); }
+  .th-cy-band.th-cy-ovulation { fill: color-mix(in srgb, var(--color-fg) 9%, transparent); }
+  .th-cy-band.th-cy-luteal { fill: color-mix(in srgb, var(--color-fg-muted) 5%, transparent); }
+  .th-cy-band:hover { fill: color-mix(in srgb, var(--color-fg) 12%, transparent); }
+  .th-cy-window { fill: color-mix(in srgb, var(--color-ok) 30%, transparent); stroke: var(--color-ok); stroke-dasharray: 3 3; }
+  .th-cy-line { fill: none; stroke-width: 2.2; }
+  .th-cy-hlabel { font-size: 11px; font-weight: 600; }
+  .th-cy-lining { fill: color-mix(in srgb, var(--color-bad) 30%, var(--color-panel)); stroke: var(--color-bad); stroke-width: 1; }
+  .th-cy-gene { cursor: pointer; outline: none; }
+  .th-cy-gene:focus-visible circle { stroke: var(--color-fg); stroke-width: 2.5; }
+  .th-cy-glabel { font-size: 10px; fill: var(--color-fg); }
+  .th-cycle-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: var(--cds-gap-md); }
+  .th-cycle-col { display: grid; gap: var(--cds-gap-xs); align-content: start; border-top: 3px solid var(--color-border-line); padding-top: var(--cds-gap-xs); }
+  .th-cycle-col.th-cy-col-menses { border-top-color: var(--color-bad); }
+  .th-cycle-col.th-cy-col-ovulation { border-top-color: var(--color-fg); }
+  .th-cycle-col p { margin: 0; }
+  .th-outline, .th-zoom, .th-shape, .th-leader, .th-context, .th-cy-line, .th-cy-lining, .th-cy-window { vector-effect: non-scaling-stroke; }
+  .th-shape { stroke-width: 1.5; }
+  .th-cy-band, .th-cy-window { shape-rendering: crispEdges; }
+</style>
+
+<div class="gx">
+  <header class="gx-head">
+    <h1 class="gx-title" id="title">Gene Cluster Explorer</h1>
+    <p class="gx-lede">The library's genes form <b data-draw="k-modules" data-source="kpis" data-field="modules" data-row="0">—</b> functional modules.
+      <b data-draw="k-biomarkers" data-source="kpis" data-field="biomarkers" data-row="0">—</b> standard lab biomarkers tie them together through
+      <b data-draw="k-linked" data-source="kpis" data-field="linked_snps" data-row="0">—</b> SNPs with a genome-wide significant GWAS link.
+      The first two tabs are public reference data; the third overlays HP's genome on them.</p>
+  </header>
+
+  <nav class="gx-tabs" role="tablist" aria-label="Views">
+    <button class="gx-tab" role="tab" data-tab="clusters" aria-selected="true">Clusters</button>
+    <button class="gx-tab" role="tab" data-tab="lifecycle" aria-selected="false">Gene lifecycle</button>
+    <button class="gx-tab" role="tab" data-tab="biomarkers" aria-selected="false">Biomarkers</button>
+    <button class="gx-tab" role="tab" data-tab="profile" aria-selected="false">HP profile</button>
+  </nav>
+
+  <section class="gx-page" id="clusters" data-page="clusters">
+    <p class="gx-note">A theme gathers every library gene with evidence that it bears on one area of health, grouped by the mechanism it acts
+      through: repair, growth signals, hormones, the supply of building blocks. Evidence comes from Gene Ontology, Reactome, UniProt and GWAS,
+      and each gene shows why it is included. Colours are the calls for the theme's person (HP; HJ for female fertility): blue more active, green typical function, red less active.</p>
+    <div class="th-picker" data-draw="th-picker" data-source="theme_meta" role="group" aria-label="Theme"></div>
+    <div class="gx-card" id="theme-head">
+      <div class="th-head" data-draw="th-head" data-source="theme_meta theme_genes"></div>
+    </div>
+    <div class="gx-card" id="theme-body">
+      <h2>Body map</h2>
+      <p class="gx-note">Where in the body the theme's genes act. Each gene is placed by its mechanisms and the conditions it is linked to.
+        Select an organ to narrow the mechanisms, connections and gene panel to it.</p>
+      <div class="th-body" data-draw="th-body" data-source="theme_meta theme_genes"></div>
+    </div>
+    <div class="gx-card" id="theme-facets">
+      <div class="lc-flow-head">
+        <h2>Mechanisms</h2>
+        <div class="lc-legend" aria-label="Gene colours">
+          <span class="lc-chip lc-gof">More active (GoF)</span><span class="lc-chip lc-norm">Typical function</span><span class="lc-chip lc-lof">Less active (LoF)</span>
+          <span class="lc-chip lc-alt">Changed, direction unclear</span>
+          <span class="lc-chip lc-var">Carries a trait-linked variant</span>
+          <span class="lc-chip lc-untested">Not genotyped</span>
+        </div>
+      </div>
+      <p class="gx-note">Each box is one way genes act on the theme. A gene appears in every box its evidence supports, and ×1 or ×2 is how many
+        copies of the less common allele the person carries. Boxes marked "needs a direct link" only take genes whose curated function, summary or
+        GWAS traits also name the theme. Select a box's title to open it in depth, or a gene to see why it is here.</p>
+      <div class="th-facets" data-draw="th-facets" data-source="theme_meta theme_genes"></div>
+    </div>
+    <div class="gx-card" id="theme-facet">
+      <span class="gx-label">Mechanism in depth</span>
+      <div class="th-facet-detail" data-draw="th-facet" data-source="theme_meta theme_genes theme_pathways"></div>
+    </div>
+    <div class="th-grid">
+      <div class="gx-card" id="theme-network">
+        <h2>Connections</h2>
+        <p class="gx-note">Each dot is a gene, placed by the mechanism it acts through most. Lines are protein interactions from STRING, and
+          thicker lines are more confident ones. Select a gene to light up its partners.</p>
+        <div class="gx-chart th-net" data-draw="th-net" data-source="theme_meta theme_genes theme_links"></div>
+      </div>
+      <div class="gx-card" id="theme-gene">
+        <span class="gx-label">Selected gene</span>
+        <div class="th-detail" data-draw="th-detail" data-source="theme_meta theme_genes theme_links theme_pathways"></div>
+      </div>
+    </div>
+    <div class="gx-card" id="theme-pathways">
+      <h2>Shared pathways</h2>
+      <p class="gx-note">Reactome pathways that two or more of the theme's genes work in. Pathways that match one of the theme's mechanisms come first.</p>
+      <div class="gx-table-box">
+        <table class="gx-table">
+          <thead><tr><th>Pathway</th><th>Genes in this theme</th></tr></thead>
+          <tbody data-draw="th-pathways" data-source="theme_pathways theme_genes"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="gx-page" id="lifecycle" data-page="lifecycle" hidden>
+    <p class="gx-note">One gene's life, read left to right: the building block it starts from, the steps that convert it, the gene's own step,
+      and where the product goes next, until it is excreted, burned for energy or recycled. Steps come from Reactome's curated reactions,
+      extended through shared molecules. At forks the route with the most library genes is shown and the others are listed in the step details.</p>
+    <div class="lc-controls">
+      <label class="gx-label" for="lc-gene">Gene</label>
+      <select id="lc-gene" class="lc-select" data-draw="lc-gene" data-source="lifecycle_genes" aria-label="Gene"></select>
+      <div class="lc-roles" data-draw="lc-roles" data-source="lifecycle_genes" role="group" aria-label="Pathway role"></div>
+    </div>
+    <div class="lc-top">
+      <div class="gx-card" id="lifecycle-head">
+        <span class="gx-label">This gene in HP</span>
+        <div class="lc-head" data-draw="lc-head" data-source="lifecycle_genes gene_function"></div>
+      </div>
+      <div class="gx-card" id="lifecycle-context">
+        <span class="gx-label">What it needs and what controls it</span>
+        <div class="lc-kv" data-draw="lc-context" data-source="lifecycle_genes gene_function"></div>
+      </div>
+    </div>
+    <div class="gx-card" id="lifecycle-timeline">
+      <div class="lc-flow-head">
+        <h2>Lifecycle</h2>
+        <div class="lc-legend" aria-label="Enzyme colours">
+          <span class="lc-chip lc-gof">More active (GoF)</span><span class="lc-chip lc-norm">Typical function</span><span class="lc-chip lc-lof">Less active (LoF)</span>
+          <span class="lc-chip lc-alt">Changed, direction unclear</span>
+          <span class="lc-chip lc-untested">In library, not genotyped</span><span class="lc-chip lc-out">Not in library *</span>
+        </div>
+      </div>
+      <p class="gx-note">Round nodes are molecules and cards are the steps that convert them, with the enzymes that do the work. Each enzyme is
+        compared with the most common European form at its SNP, and ×1 or ×2 is how many copies of the less common allele HP carries. A dashed
+        arrow is a move between compartments and ↺ marks a molecule that goes back into the route. Turn off wrapping to read the chain on one scrolling line. Select a step to see its details; select a
+        gene with its own lifecycle to open it.</p>
+      <div class="lc-controls">
+        <button type="button" class="lc-btn" id="lc-wrap" aria-pressed="true">Wrap to width</button>
+      </div>
+      <div class="lc-graph" data-draw="lc-timeline" data-source="lifecycle_steps lifecycle_genes gene_function"></div>
+      <div class="lc-patterns" data-draw="lc-patterns" data-source="lifecycle_steps lifecycle_genes gene_function"></div>
+    </div>
+    <div class="gx-card" id="lifecycle-step">
+      <span class="gx-label">Selected step</span>
+      <div class="lc-detail" data-draw="lc-detail" data-source="lifecycle_steps lifecycle_genes gene_function"></div>
+    </div>
+  </section>
+
+  <section class="gx-page" id="biomarkers" data-page="biomarkers" hidden>
+    <p class="gx-note"><b data-draw="top-bio" data-source="bio_reach" data-field="biomarker" data-row="0">—</b> draws on the most modules
+      (<b data-draw="top-bio-n" data-source="bio_reach" data-field="modules" data-row="0">—</b>), which makes it the strongest single lab test for
+      tying clusters together.</p>
+    <div class="gx-grid">
+      <div class="gx-card gx-wide" id="biomarker-heatmap">
+        <h2>Which modules feed which lab tests</h2>
+        <p class="gx-note">A cell counts the SNPs in a module with a genome-wide significant (p &lt; 5e-8) GWAS association to the biomarker.
+          Columns are grouped by lab panel. Click a column to list its SNPs.</p>
+        <div class="gx-chart gx-heat" data-draw="heatmap" data-source="module_biomarker"></div>
+      </div>
+      <div class="gx-card gx-wide" id="biomarker-snps">
+        <h2>SNPs behind <span data-draw="sel-bio">—</span></h2>
+        <p class="gx-note">Effect alleles are on the forward strand, as in a MyHeritage file. "Raises" means each copy of the effect allele raises
+          the measured value. EUR freq is the effect allele's frequency in Europeans. A/T or C/G SNPs marked "strand unverified" are left out of
+          person scores.</p>
+        <div class="gx-table-box">
+          <table class="gx-table" data-source="biomarker_snps" data-row-key="biomarker,rsid">
+            <thead><tr>
+              <th data-field="rsid">SNP</th><th data-field="genes">Gene</th><th data-field="module_name">Module</th>
+              <th data-field="effect_allele">Effect allele</th><th data-field="direction">Effect</th>
+              <th data-field="eaf_eur" class="gx-hide-narrow">EUR freq</th><th data-field="p_value">p-value</th>
+              <th data-field="first_author" class="gx-hide-narrow">Study</th>
+            </tr></thead>
+            <tbody data-draw="bio-rows"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="gx-page" id="profile" data-page="profile" hidden>
+    <p class="gx-note gx-sample">HP's own genome (MyHeritage file) scored against the library. <b data-draw="s-top" data-source="hp_modules" data-field="name" data-row="0">—</b>
+      carries the largest risk load, with <b data-draw="s-compound" data-source="hp_compound" data-field="n" data-row="0">—</b> compound links across all modules,
+      where two interacting genes are both reduced.</p>
+    <div class="gx-grid">
+      <div class="gx-card" id="profile-modules">
+        <h2>Module balance</h2>
+        <p class="gx-note">Risk load (left) sums how far each risk SNP sits below the neutral score of 5; strength load (right) sums how far each
+          strength SNP sits above it. Hover a bar for the genes.</p>
+        <div class="gx-chart gx-bars" data-draw="hp-modules" data-source="hp_modules"></div>
+      </div>
+      <div class="gx-card" id="profile-tilts">
+        <h2>Biomarker tilt</h2>
+        <p class="gx-note">Standardised genetic score per lab test against European allele frequencies (0 = average). The band marks ±1.
+          Only biomarkers with 3 or more scoreable SNPs are shown. It suggests what is worth measuring; it does not predict the value.</p>
+        <div class="gx-chart gx-bars" data-draw="hp-tilts" data-source="hp_tilts"></div>
+      </div>
+      <div class="gx-card" id="profile-links">
+        <h2>Gene interactions inside modules</h2>
+        <p class="gx-note">Compound: both interacting genes are reduced, so effects may stack. Buffered: a reduced gene interacts with a strength
+          gene, which may partly compensate. Score is STRING's interaction confidence (0–1).</p>
+        <div class="gx-table-box">
+          <table class="gx-table" data-source="hp_links" data-row-key="gene_a,gene_b">
+            <thead><tr>
+              <th data-field="kind">Type</th><th data-field="gene_a">Gene</th><th data-field="gene_b">Partner</th>
+              <th data-field="module_name">Module</th><th data-field="string_score">Score</th>
+            </tr></thead>
+            <tbody data-draw="hp-links"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="gx-card" id="profile-bridges">
+        <h2>Reduced bridge genes</h2>
+        <p class="gx-note">Reduced genes with strong interactions into other modules: candidates for effects that cross systems.</p>
+        <div class="gx-table-box">
+          <table class="gx-table" data-source="hp_bridges" data-row-key="gene">
+            <thead><tr>
+              <th data-field="gene">Gene</th><th data-field="module_name">Home module</th>
+              <th data-field="reaches">Reaches into</th><th data-field="total_weight" class="gx-hide-narrow">Weight</th>
+            </tr></thead>
+            <tbody data-draw="hp-bridges"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+  // Calculations from the attached datasets
+  dash.calc('kpis', {
+    inputs: ['modules', 'module_links', 'biomarker_snps'],
+    title: 'Library totals',
+    description: 'Counts of modules, genes in modules, module links, biomarkers and SNPs with a biomarker link.',
+    fn: (modules, module_links, biomarker_snps) => [{
+      modules: modules.length,
+      genes: modules.reduce((s, m) => s + Number(m.size), 0),
+      links: module_links.length,
+      biomarkers: new Set(biomarker_snps.map((r) => r.biomarker)).size,
+      linked_snps: new Set(biomarker_snps.map((r) => r.rsid)).size,
+    }],
+  });
+
+  dash.calc('module_biomarker', {
+    inputs: ['biomarker_snps'],
+    title: 'SNPs per module and biomarker',
+    description: 'Number of biomarker-linked SNPs in each module for each biomarker.',
+    fn: (biomarker_snps) => {
+      const counts = new Map();
+      for (const r of biomarker_snps) {
+        if (!r.module) continue;
+        const key = r.module + '|' + r.biomarker;
+        const row = counts.get(key) || { module: r.module, module_name: r.module_name, biomarker: r.biomarker, panel: r.panel, n: 0 };
+        row.n += 1;
+        counts.set(key, row);
+      }
+      return [...counts.values()];
+    },
+  });
+
+  dash.calc('bio_reach', {
+    inputs: ['biomarker_snps'],
+    title: 'Modules reached per biomarker',
+    description: 'For each biomarker, how many distinct modules and SNPs link to it, most modules first.',
+    fn: (biomarker_snps) => {
+      const by = new Map();
+      for (const r of biomarker_snps) {
+        const row = by.get(r.biomarker) || { biomarker: r.biomarker, mods: new Set(), snps: 0 };
+        if (r.module) row.mods.add(r.module);
+        row.snps += 1;
+        by.set(r.biomarker, row);
+      }
+      return [...by.values()]
+        .map((r) => ({ biomarker: r.biomarker, modules: r.mods.size, snps: r.snps }))
+        .sort((a, b) => b.modules - a.modules || b.snps - a.snps);
+    },
+  });
+
+  // Shared helpers
+  window.gx = {
+    rows(...ids) {
+      const all = ids.map((id) => dash.data(id));
+      return all.every((d) => d.status === 'ok') ? all.map((d) => d.data) : null;
+    },
+    failed(...ids) { return ids.some((id) => dash.data(id).status === 'error'); },
+    color(name) { return getComputedStyle(document.documentElement).getPropertyValue(name).trim() || null; },
+    show(tab) {
+      document.querySelectorAll('.gx-page').forEach((p) => { p.hidden = p.dataset.page !== tab; });
+      document.querySelectorAll('.gx-tab').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.tab === tab)));
+      dash.setLink(tab);
+    },
+    tip(box) {
+      let t = box.querySelector('.gx-tip');
+      if (!t) { t = document.createElement('div'); t.className = 'gx-tip'; t.hidden = true; box.appendChild(t); }
+      return {
+        show(event, head, lines) {
+          t.replaceChildren();
+          const h = document.createElement('div'); h.className = 'gx-tip-head'; h.textContent = head; t.appendChild(h);
+          for (const l of lines) { const d = document.createElement('div'); d.textContent = l; t.appendChild(d); }
+          t.hidden = false;
+          const b = box.getBoundingClientRect();
+          let x = event.clientX - b.left + 12, y = event.clientY - b.top + 12;
+          x = Math.min(x, box.clientWidth - t.offsetWidth - 4);
+          t.style.left = Math.max(0, x) + 'px'; t.style.top = y + 'px';
+        },
+        hide() { t.hidden = true; },
+      };
+    },
+    failLine(el) {
+      el.replaceChildren();
+      const p = document.createElement('p'); p.className = 'gx-note'; p.textContent = 'Failed to load'; el.appendChild(p);
+    },
+  };
+
+  document.querySelectorAll('.gx-tab').forEach((b) => b.addEventListener('click', () => gx.show(b.dataset.tab)));
+  const linked = location.hash.slice(1);
+  if (['clusters', 'lifecycle', 'biomarkers', 'profile'].includes(linked)) gx.show(linked);
+
+  dash.calc('hp_compound', {
+    inputs: ['hp_links'],
+    title: 'HP compound links',
+    description: 'Number of interacting gene pairs where both genes are reduced in HP.',
+    fn: (hp_links) => [{ n: hp_links.filter((l) => l.kind === 'compound').length }],
+  });
+
+  // Simple number drawings
+  const fmt = d3.format(',');
+  const numberDraw = (name, field) => dash.draw(name, (el) => {
+    const r = gx.rows('kpis');
+    el.textContent = r ? fmt(r[0][0][field]) : '—';
+  });
+  [['k-modules', 'modules'], ['k-biomarkers', 'biomarkers'], ['k-linked', 'linked_snps'],
+   ['t-modules', 'modules'], ['t-genes', 'genes'], ['t-links', 'links'], ['t-biomarkers', 'biomarkers']]
+    .forEach(([n, f]) => numberDraw(n, f));
+
+  dash.draw('top-bio', (el) => { const r = gx.rows('bio_reach'); el.textContent = r ? r[0][0].biomarker : '—'; });
+  dash.draw('top-bio-n', (el) => { const r = gx.rows('bio_reach'); el.textContent = r ? fmt(r[0][0].modules) : '—'; });
+  dash.draw('s-top', (el) => { const r = gx.rows('hp_modules'); el.textContent = r ? r[0][0].name : '—'; });
+  dash.draw('s-compound', (el) => { const r = gx.rows('hp_compound'); el.textContent = r ? fmt(r[0][0].n) : '—'; });
+  dash.draw('sel-bio', (el) => { el.textContent = dash.params().biomarker || '—'; });
+</script>
+
+<script>
+  // Theme clusters: picker, HP balance, mechanism map, connection network, gene detail and shared pathways
+  const TH_TEXT = { LoF: 'less active', GoF: 'more active', altered: 'changed, direction unclear', normal: 'typical function',
+                    variant: 'carries a trait-linked variant' };
+  const TH_CLASS = { LoF: 'lof', GoF: 'gof', altered: 'alt', normal: 'norm', variant: 'var' };
+  const TH_FILL = { LoF: 'var(--color-bad)', GoF: 'var(--gof)', altered: 'var(--color-fg)', normal: 'var(--typical)',
+                    variant: 'var(--color-fg-muted)' };
+  const thMake = (parent, tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; parent.appendChild(e); return e; };
+  // Library genes carry a function call; API-theme genes outside the library are marked when HP carries a trait-linked allele
+  const thCall = (g) => g.genotype ? (g.function || 'normal') : g.carried > 0 ? 'variant' : null;
+  const thLabel = (g) => g.gene + (g.genotype ? ` ${g.genotype}` : '') + (g.genotype && g.function !== 'normal' && g.dose ? ` ×${g.dose}` : '') +
+    (!g.genotype && g.carried > 0 ? ` · ${g.carried}` : '');
+  const thPubmed = (parent, id) => {
+    if (!id) return;
+    const a = thMake(parent, 'a', null, 'PubMed');
+    a.href = `https://pubmed.ncbi.nlm.nih.gov/${id}/`; a.target = '_blank'; a.rel = 'noopener';
+  };
+  const thFinding = (parent, f, it, who = 'HP') => {
+    const d = thMake(parent, 'div');
+    thMake(d, 'span', 'th-src', it.source);
+    if (it.source === 'GWAS') {
+      const known = /^[ACGT]$/.test(it.allele || '');
+      const copies = !known ? 'the study did not report which allele' : it.copies == null ? 'strand unclear' : `${it.copies} ${it.copies === 1 ? 'copy' : 'copies'} of ${it.allele}`;
+      const size = it.effect != null ? ` (${it.kind === 'beta' ? 'β' : 'OR'} ${d3.format('.3~g')(it.effect)} per copy, p ${d3.format('.0e')(it.p)})` : '';
+      d.append(`${f.rsid} ${f.genotype}: ${copies}. ${known ? it.allele + ' ' : 'The SNP '}${known && it.direction ? it.direction : 'is linked to'} ${known && it.direction && it.kind === 'odds ratio' ? 'the risk of ' : ''}${it.what}${size}. `);
+      thPubmed(d, it.pubmed);
+    } else if (it.source === 'ClinVar') {
+      d.append(`${f.rsid} ${f.genotype}: ${it.what}; ${who} has ${it.copies} ${it.copies === 1 ? 'copy' : 'copies'} of ${it.allele}.`);
+    } else d.append(`${f.rsid} ${f.genotype}: ${it.what}.`);
+  };
+
+  const thSel = () => {
+    const r = gx.rows('theme_meta', 'theme_genes');
+    if (!r) return null;
+    const [meta, rows] = r;
+    const themes = [...new Map(meta.map((m) => [m.theme, m])).values()].sort((a, b) => a.theme_order - b.theme_order);
+    const p = dash.params();
+    const theme = themes.find((t) => t.theme === p.theme) || themes[0];
+    const facets = meta.filter((m) => m.theme === theme.theme).sort((a, b) => a.facet_order - b.facet_order);
+    const genes = rows.filter((g) => g.theme === theme.theme).map((g) => ({ ...g, fl: JSON.parse(g.facets), ev: JSON.parse(g.evidence) }));
+    const api = theme.source === 'api';
+    const stats = api && theme.stats ? JSON.parse(theme.stats) : null;
+    // Organ focus (themes with a body map): the page narrows to genes acting in the selected organ
+    const organs = (stats && stats.organs) || [];
+    const organ = organs.find((o) => o.id === p.th_organ) || null;
+    const inOrgan = (g) => !organ || (g.ev.organs || []).includes(organ.id);
+    // An API theme lists every gene but draws the notable ones: a library call, a carried finding or a strong disease link
+    const shown = (api ? genes.filter((g) => g.notable) : genes).filter(inOrgan);
+    const byName = new Map(genes.map((g) => [g.gene, g]));
+    // Default selection: the first changed gene, so the panel opens on something HP carries
+    const order = (g) => (g.primary === 'disease' ? 4 : 0) + (g.function === 'LoF' || g.function === 'GoF' ? 0 : g.carried > 0 ? 1 : g.genotype ? 2 : 3);
+    const fallback = [...shown].sort((a, b) => order(a) - order(b) || (b.carried || 0) - (a.carried || 0) || a.gene.localeCompare(b.gene))[0];
+    const gene = byName.get(p.th_gene) || fallback;
+    return { themes, theme, facets, genes, shown, byName, gene, api, stats, organs, organ, inOrgan };
+  };
+  const thPick = (gene) => dash.setParams({ th_gene: gene });
+  const thWho = (s) => (s && s.stats && s.stats.person) || 'HP';
+
+  const thBalance = (parent, genes, none = 'not genotyped') => {
+    const bar = thMake(parent, 'div', 'th-balance');
+    bar.setAttribute('role', 'img');
+    const parts = [['GoF', 'gof'], ['normal', 'norm'], ['LoF', 'lof'], ['altered', 'alt'], ['variant', 'var'], [null, 'none']];
+    const label = [];
+    for (const [fn, cls] of parts) {
+      const n = genes.filter((g) => thCall(g) === fn).length;
+      if (!n) continue;
+      const s = thMake(bar, 'span', 'th-b-' + cls);
+      s.style.width = `${(n / genes.length) * 100}%`;
+      label.push(`${n} ${fn ? TH_TEXT[fn] : none}`);
+    }
+    bar.setAttribute('aria-label', label.join(', '));
+    return label;
+  };
+
+  dash.draw('th-picker', (el) => {
+    el.replaceChildren();
+    const s = thSel();
+    if (!s) { if (gx.failed('theme_meta')) gx.failLine(el); return; }
+    for (const t of s.themes) {
+      const who = t.stats ? JSON.parse(t.stats).person : null;
+      const b = thMake(el, 'button', 'th-pick', t.theme_name + (who ? ` · ${who}` : ''));
+      b.type = 'button';
+      b.setAttribute('aria-pressed', String(t.theme === s.theme.theme));
+      b.addEventListener('click', () => dash.setParams({ theme: t.theme, th_gene: null, th_organ: null, th_facet: null }));
+    }
+  });
+
+  dash.draw('th-head', (el) => {
+    el.replaceChildren();
+    const s = thSel();
+    if (!s) { if (gx.failed('theme_meta', 'theme_genes')) gx.failLine(el); return; }
+    thMake(el, 'h3', null, s.theme.theme_name);
+    thMake(el, 'p', 'gx-muted', s.theme.about);
+    if (s.api && s.stats) {
+      const st = s.stats, fmt = d3.format(','), who = thWho(s);
+      const parts = thBalance(el, s.shown);
+      thMake(el, 'p', null, `${fmt(st.n_genes)} genes act on ${s.theme.theme_name.toLowerCase()}, ${fmt(st.n_mechanism)} of them through a known ` +
+        `mechanism. ${who}'s file measures ${fmt(st.n_snps)} SNPs inside them, and ${st.n_genes_with_findings} genes have a SNP with something ` +
+        `known about it. The ${s.shown.length} drawn here are the notable ones: ${parts.filter((x) => !/not genotyped/.test(x)).join(', ')}.`);
+      const carried = st.pathogenic_carried || [];
+      thMake(el, 'p', carried.length ? 'lc-warn' : 'gx-note', carried.length
+        ? `${who} carries ${carried.length} ClinVar pathogenic ${carried.length === 1 ? 'allele' : 'alleles'}: ` + carried.map((c) => `${c.gene} ${c.rsid} (${c.condition})`).join('; ') + '.'
+        : `ClinVar pathogenic variants: the file measures ${st.pathogenic_measured} in these genes, and ${who} carries none of them.`);
+      thMake(el, 'p', 'gx-note', `Genes: ${st.rule}. This theme is built from Open Targets and Gene Ontology, not from the library; ` +
+        `${who}'s SNPs are matched offline against ClinVar and the GWAS Catalog.`);
+      return;
+    }
+    const typed = s.genes.filter((g) => g.genotype);
+    const parts = thBalance(el, s.genes);
+    thMake(el, 'p', null, `${s.genes.length} library genes act on ${s.theme.theme_name.toLowerCase()}, and HP has a call at ${typed.length}: ` +
+      parts.filter((x) => !/not genotyped/.test(x)).join(', ') + '.');
+    // Where HP's changed genes gather
+    const lean = s.facets.map((f) => {
+      const gs = s.genes.filter((g) => g.fl.includes(f.facet));
+      return { f, lof: gs.filter((g) => g.function === 'LoF'), gof: gs.filter((g) => g.function === 'GoF') };
+    });
+    const top = (key) => lean.filter((x) => x[key].length).sort((a, b) => b[key].length - a[key].length)[0];
+    const lo = top('lof'), hi = top('gof');
+    if (lo || hi) {
+      const p = thMake(el, 'p', 'gx-note');
+      p.textContent = [lo ? `Most less-active genes: ${lo.f.facet_name} (${lo.lof.map((g) => g.gene).join(', ')}).` : null,
+        hi ? `Most more-active genes: ${hi.f.facet_name} (${hi.gof.map((g) => g.gene).join(', ')}).` : null].filter(Boolean).join(' ');
+    }
+  });
+
+  dash.draw('th-facets', (el) => {
+    el.replaceChildren();
+    const s = thSel();
+    if (!s) { if (gx.failed('theme_meta', 'theme_genes')) gx.failLine(el); return; }
+    const rank = { LoF: 0, GoF: 1, altered: 2, variant: 3, normal: 4 };
+    for (const f of s.facets) {
+      const all = s.genes.filter((g) => g.fl.includes(f.facet) && s.inOrgan(g));
+      if (s.organ && !all.length) continue;
+      const gs = (s.api ? all.filter((g) => g.notable) : all)
+        .sort((a, b) => (rank[thCall(a)] ?? 5) - (rank[thCall(b)] ?? 5) || (b.carried || 0) - (a.carried || 0) || a.gene.localeCompare(b.gene));
+      const box = thMake(el, 'div', 'th-facet' + (dash.params().th_facet === f.facet ? ' is-open' : ''));
+      const open = thMake(thMake(box, 'h3'), 'button', 'th-facet-open', f.facet_name);
+      open.type = 'button';
+      open.title = 'Open this mechanism in depth';
+      open.addEventListener('click', () => thFacetOpen(f.facet));
+      thMake(box, 'span', 'th-tag', s.api
+        ? `${all.length} ${all.length === 1 ? 'gene' : 'genes'} · ${gs.length} notable`
+        : `${gs.length} ${gs.length === 1 ? 'gene' : 'genes'}${f.core ? '' : ' · needs a direct link to the theme'}`);
+      if (s.api && f.facet_about) thMake(box, 'p', 'gx-note', f.facet_about);
+      if (!gs.length) { thMake(box, 'p', 'gx-note', 'No library gene has evidence for this mechanism yet.'); continue; }
+      thBalance(box, gs);
+      const chips = thMake(box, 'div', 'th-genes');
+      for (const g of gs) {
+        const fn = thCall(g);
+        const b = thMake(chips, 'button', 'lc-chip th-gene ' + (fn ? 'lc-' + TH_CLASS[fn] : 'lc-untested') + (g.gene === s.gene.gene ? ' is-selected' : ''), thLabel(g));
+        b.type = 'button';
+        b.title = g.interpretation || (g.carried ? `${thWho(s)} carries ${g.carried} trait-linked ${g.carried === 1 ? 'allele' : 'alleles'}` : `No ${thWho(s)} finding`);
+        b.addEventListener('click', () => thPick(g.gene));
+      }
+      if (s.api && all.length > gs.length) thMake(box, 'span', 'th-tag', `+${all.length - gs.length} more with no ${thWho(s)} finding and a weaker disease link`);
+    }
+  });
+
+  dash.draw('th-net', (el) => {
+    el.replaceChildren();
+    const s = thSel();
+    const lr = gx.rows('theme_links');
+    if (!s || !lr) { if (gx.failed('theme_meta', 'theme_genes', 'theme_links')) gx.failLine(el); return; }
+    const W = Math.max(320, el.clientWidth), H = 580;
+    let links = lr[0].filter((l) => l.theme === s.theme.theme && s.byName.has(l.a) && s.byName.has(l.b));
+    const strong = links.filter((l) => l.score >= 0.7);
+    links = strong.length >= s.shown.length / 2 ? strong : links;
+
+    // Mechanism anchors around an ellipse; each gene is pulled towards its main mechanism
+    const used = s.facets.filter((f) => s.shown.some((g) => g.primary === f.facet));
+    const anchor = new Map(used.map((f, i) => {
+      const a = (i / used.length) * 2 * Math.PI - Math.PI / 2;
+      return [f.facet, { x: W / 2 + Math.cos(a) * W * 0.33, y: H / 2 + Math.sin(a) * H * 0.34, f }];
+    }));
+    const nodes = s.shown.map((g) => ({ id: g.gene, g, ...anchor.get(g.primary) }));
+    const drawn = new Set(nodes.map((n) => n.id));
+    links = links.filter((l) => drawn.has(l.a) && drawn.has(l.b));
+    const edges = links.map((l) => ({ source: l.a, target: l.b, score: l.score }));
+    const sim = d3.forceSimulation(nodes)
+      .force('link', d3.forceLink(edges).id((d) => d.id).strength(0.04))
+      .force('charge', d3.forceManyBody().strength(-70))
+      .force('x', d3.forceX((d) => anchor.get(d.g.primary).x).strength(0.3))
+      .force('y', d3.forceY((d) => anchor.get(d.g.primary).y).strength(0.3))
+      .force('collide', d3.forceCollide(17)).stop();
+    for (let i = 0; i < 300; i++) sim.tick();
+    for (const n of nodes) { n.x = Math.max(14, Math.min(W - 14, n.x)); n.y = Math.max(14, Math.min(H - 14, n.y)); }
+
+    const sel = s.gene.gene;
+    const near = new Set([sel, ...edges.filter((e) => e.source.id === sel || e.target.id === sel).flatMap((e) => [e.source.id, e.target.id])]);
+    const svg = d3.select(el).append('svg').attr('width', W).attr('height', H).attr('viewBox', `0 0 ${W} ${H}`)
+      .attr('role', 'group').attr('aria-label', `${s.theme.theme_name} genes and their interactions`);
+    const tip = gx.tip(el);
+    for (const a of anchor.values()) {
+      const side = a.x < W * 0.35 ? 'start' : a.x > W * 0.65 ? 'end' : 'middle';
+      const lx = side === 'start' ? Math.max(4, a.x - 90) : side === 'end' ? Math.min(W - 4, a.x + 90) : a.x;
+      svg.append('text').attr('x', lx).attr('y', a.y < H / 2 ? Math.max(12, a.y - 50) : Math.min(H - 4, a.y + 58)).attr('text-anchor', side)
+        .attr('font-size', 11).attr('letter-spacing', '.04em').style('fill', 'var(--color-fg-muted)').text(a.f.facet_name.toUpperCase());
+    }
+    svg.append('g').selectAll('line').data(edges).join('line')
+      .attr('x1', (e) => e.source.x).attr('y1', (e) => e.source.y).attr('x2', (e) => e.target.x).attr('y2', (e) => e.target.y)
+      .style('stroke', (e) => (e.source.id === sel || e.target.id === sel) ? 'var(--color-fg)' : 'var(--color-border-line)')
+      .attr('stroke-width', (e) => 0.6 + (e.score - 0.4) * 3)
+      .attr('stroke-opacity', (e) => (e.source.id === sel || e.target.id === sel) ? 0.9 : 0.45);
+    const node = svg.append('g').selectAll('g').data(nodes).join('g').attr('class', 'th-node')
+      .attr('transform', (n) => `translate(${n.x},${n.y})`).attr('tabindex', 0).attr('role', 'button')
+      .attr('aria-label', (n) => `${n.id}: ${thCall(n.g) ? TH_TEXT[thCall(n.g)] : 'not genotyped'}`)
+      .style('opacity', (n) => near.has(n.id) ? 1 : 0.45)
+      .on('click', (event, n) => thPick(n.id))
+      .on('keydown', (event, n) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); thPick(n.id); } })
+      .on('mousemove', (event, n) => tip.show(event, n.id, [n.g.genotype ? `${n.g.rsid} ${n.g.genotype} · ${TH_TEXT[thCall(n.g)]}` +
+        (n.g.function !== 'normal' && n.g.dose ? ` ×${n.g.dose}` : '') : `Not genotyped in ${thWho(s)}`, n.g.interpretation || '']))
+      .on('mouseleave', () => tip.hide());
+    node.append('circle').attr('r', (n) => n.id === sel ? 10 : 7)
+      .style('fill', (n) => thCall(n.g) ? TH_FILL[thCall(n.g)] : 'var(--color-panel)')
+      .style('stroke', (n) => n.id === sel ? 'var(--color-fg)' : thCall(n.g) ? 'var(--color-bg)' : 'var(--color-fg-muted)')
+      .attr('stroke-width', (n) => n.id === sel ? 2.5 : 1.5).attr('stroke-dasharray', (n) => thCall(n.g) ? null : '2 2');
+    node.append('text').attr('x', 11).attr('y', 4).attr('font-size', 11)
+      .attr('font-weight', (n) => n.id === sel ? 700 : 400).style('fill', 'var(--color-fg)').text((n) => n.id);
+  });
+
+  dash.draw('th-detail', (el) => {
+    el.replaceChildren();
+    const s = thSel();
+    const r = gx.rows('theme_links', 'theme_pathways');
+    if (!s || !r) { if (gx.failed('theme_meta', 'theme_genes', 'theme_links', 'theme_pathways')) gx.failLine(el); return; }
+    const g = s.gene, fn = thCall(g);
+    const head = thMake(el, 'div', 'lc-name');
+    thMake(head, 'h3', null, g.gene);
+    thMake(head, 'span', 'lc-call ' + (fn ? { LoF: 'lof', GoF: 'gof', altered: 'altered', normal: 'norm', variant: 'var' }[fn] : 'unknown'),
+      fn ? TH_TEXT[fn][0].toUpperCase() + TH_TEXT[fn].slice(1) + (fn !== 'normal' && g.dose ? ` ×${g.dose}` : '') : s.api ? `No ${thWho(s)} finding` : 'Not genotyped');
+    thMake(el, 'p', null, g.genotype ? `Library: ${g.rsid} ${g.genotype}: ${g.interpretation} (report score ${g.score}/10).`
+      : s.api ? `Not in the library. ${thWho(s)}'s file measures ${g.ev.n_snps || 0} SNPs in or near this gene.` : 'HP has no call at this gene\'s library SNP.');
+    if (g.has_lifecycle) {
+      const b = thMake(el, 'button', 'lc-btn', 'Open its lifecycle');
+      b.type = 'button';
+      b.addEventListener('click', () => { dash.setParams({ lc_gene: g.gene, lc_role: 1 }); gx.show('lifecycle'); });
+    }
+
+    if (s.api) {
+      // HP's variants first, then why the gene belongs to the theme
+      const fs = (g.ev.findings || []).filter((f) => f.items.length);
+      thMake(el, 'span', 'gx-label', `${thWho(s)}'s variants with a known effect (${fs.length})`);
+      if (fs.length) {
+        const fl = thMake(el, 'ul', 'th-why');
+        const carriedFirst = [...fs].sort((a, b) => Math.max(...b.items.map((i) => i.copies || 0)) - Math.max(...a.items.map((i) => i.copies || 0)));
+        for (const f of carriedFirst.slice(0, 12)) { const li = thMake(fl, 'li'); for (const it of f.items.slice(0, 3)) thFinding(li, f, it, thWho(s)); }
+        if (fs.length > 12) thMake(el, 'p', 'gx-note', `+${fs.length - 12} more SNPs with a finding.`);
+      } else thMake(el, 'p', 'gx-note', `None of ${thWho(s)}'s SNPs in this gene has a ClinVar, GWAS or library entry for a fertility trait.`);
+      thMake(el, 'span', 'gx-label', `Why it is in ${s.theme.theme_name.toLowerCase()}`);
+      const why = thMake(el, 'ul', 'th-why');
+      for (const f of s.facets) {
+        const m = (g.ev.mechanisms || {})[f.facet];
+        if (!m) continue;
+        const li = thMake(why, 'li');
+        thMake(li, 'b', null, f.facet_name + (f.facet === g.primary ? ' (main)' : ''));
+        const d = thMake(li, 'div'); thMake(d, 'span', 'th-src', 'GO'); d.append(`${m.terms.join('; ')} (${m.evidence})`);
+      }
+      const ds = Object.entries(g.ev.diseases || {});
+      if (ds.length) {
+        const li = thMake(why, 'li');
+        thMake(li, 'b', null, 'Disease and trait links (Open Targets)');
+        for (const [name, v] of ds) {
+          const d = thMake(li, 'div'); thMake(d, 'span', 'th-src', d3.format('.2f')(v.score));
+          d.append(`${name}${v.genetic >= 0.2 ? `, human genetics ${d3.format('.2f')(v.genetic)}` : ''} (${v.types.map((t) => t.replace(/_/g, ' ')).join(', ')})`);
+        }
+      }
+    } else {
+    thMake(el, 'span', 'gx-label', `Why it is in ${s.theme.theme_name.toLowerCase()}`);
+    const ul = thMake(el, 'ul', 'th-why');
+    for (const f of s.facets) {
+      const ev = g.ev[f.facet];
+      if (!ev) continue;
+      const li = thMake(ul, 'li');
+      thMake(li, 'b', null, f.facet_name + (f.facet === g.primary ? ' (main)' : ''));
+      for (const e of ev) { const d = thMake(li, 'div'); thMake(d, 'span', 'th-src', e.source); d.append(e.text); }
+    }
+    }
+
+    const links = r[0].filter((l) => l.theme === s.theme.theme && (l.a === g.gene || l.b === g.gene))
+      .map((l) => ({ other: l.a === g.gene ? l.b : l.a, score: l.score })).filter((l) => s.byName.has(l.other))
+      .sort((a, b) => b.score - a.score).slice(0, 14);
+    thMake(el, 'span', 'gx-label', 'Interacts with, in this theme');
+    if (links.length) {
+      const box = thMake(el, 'div', 'th-genes');
+      for (const l of links) {
+        const o = s.byName.get(l.other), ofn = thCall(o);
+        const b = thMake(box, 'button', 'lc-chip th-gene ' + (ofn ? 'lc-' + TH_CLASS[ofn] : 'lc-untested'), `${thLabel(o)} · ${l.score.toFixed(2)}`);
+        b.type = 'button';
+        b.title = `STRING confidence ${l.score.toFixed(2)}`;
+        b.addEventListener('click', () => thPick(o.gene));
+      }
+    } else thMake(el, 'p', 'gx-note', 'No STRING interaction with the other genes in this theme.');
+
+    const pws = r[1].filter((p) => p.theme === s.theme.theme && JSON.parse(p.genes).includes(g.gene));
+    if (pws.length) {
+      thMake(el, 'span', 'gx-label', 'Shared pathways');
+      const pl = thMake(el, 'ul', 'lc-alts');
+      for (const p of pws.slice(0, 8)) thMake(pl, 'li', null, `${p.pathway} (with ${JSON.parse(p.genes).filter((x) => x !== g.gene).join(', ')})`);
+    }
+  });
+
+  dash.draw('th-pathways', (tbody) => {
+    tbody.replaceChildren();
+    const s = thSel();
+    const r = gx.rows('theme_pathways');
+    if (!s || !r) return;
+    for (const p of r[0].filter((x) => x.theme === s.theme.theme)) {
+      const tr = thMake(tbody, 'tr');
+      const td = thMake(tr, 'td', null, p.pathway);
+      if (p.on_theme) thMake(td, 'span', 'th-tag', ' · mechanism pathway');
+      if (s.api && p.n > JSON.parse(p.genes).length) thMake(td, 'span', 'th-tag', ` · ${p.n} theme genes, notable ones shown`);
+      const cell = thMake(tr, 'td');
+      const box = thMake(cell, 'div', 'th-genes');
+      for (const name of JSON.parse(p.genes)) {
+        const g = s.byName.get(name), fn = g && thCall(g);
+        const b = thMake(box, 'button', 'lc-chip th-gene ' + (fn ? 'lc-' + TH_CLASS[fn] : 'lc-untested'), g ? thLabel(g) : name);
+        b.type = 'button';
+        b.addEventListener('click', () => thPick(name));
+      }
+    }
+  });
+
+  // The 28-day cycle for the female theme: textbook hormone shapes, the lining, and the person's genes on the days they act
+  const CYCLE_PHASES = [
+    { id: 'menses', name: 'Menstruation', from: 1, to: 5,
+      what: 'Progesterone has fallen, so the lining sheds. FSH starts rising to recruit a new group of follicles.' },
+    { id: 'follicular', name: 'Follicular phase', from: 1, to: 13,
+      what: 'FSH grows a group of follicles; one becomes dominant, and its rising estradiol rebuilds the lining.' },
+    { id: 'ovulation', name: 'Ovulation', from: 13, to: 15,
+      what: 'Peak estradiol flips to positive feedback: an LH surge releases the egg about 24–36 hours later.' },
+    { id: 'luteal', name: 'Luteal phase', from: 15, to: 28,
+      what: 'The empty follicle becomes the corpus luteum and makes progesterone, which readies the lining; the implantation ' +
+            'window is roughly days 19–24. Without a pregnancy, progesterone falls and the cycle restarts.' },
+  ];
+  // Relative hormone levels by day (0–1): the textbook shape of a 28-day cycle, not anyone's measurements
+  const CYCLE_HORMONES = [
+    { id: 'FSH', pts: [[1, .55], [3, .62], [7, .42], [11, .32], [14, .72], [16, .3], [22, .18], [26, .3], [28, .5]] },
+    { id: 'LH', pts: [[1, .2], [10, .22], [12, .32], [13, .7], [14, 1], [15, .42], [17, .2], [28, .18]] },
+    { id: 'Estradiol', pts: [[1, .15], [6, .25], [10, .55], [13, .95], [15, .35], [18, .45], [21, .55], [25, .35], [28, .15]] },
+    { id: 'Progesterone', pts: [[1, .05], [13, .05], [15, .14], [18, .6], [21, .95], [24, .7], [27, .2], [28, .08]] },
+  ];
+  const CYCLE_LINING = [[1, .55], [5, .15], [9, .35], [14, .62], [18, .82], [21, .95], [26, .9], [28, .6]];
+  // Core cycle genes: where they act and what a change in them does
+  const CYCLE_GENES = {
+    GNRH1: { day: 13, phases: ['follicular', 'ovulation'], role: 'GnRH pulses from the hypothalamus drive the whole cycle.',
+             LoF: 'Weaker GnRH signalling lowers LH and FSH, which can mean irregular or missed ovulation.' },
+    GNRHR: { day: 13, phases: ['follicular', 'ovulation'], role: 'The pituitary receptor that answers GnRH by releasing LH and FSH.',
+             LoF: 'A less responsive receptor lowers LH and FSH release; strong loss stops the cycle.' },
+    KISS1R: { day: 13, phases: ['ovulation'], role: 'Kisspeptin receptor: switches on GnRH pulses and the LH surge.',
+              LoF: 'Weaker kisspeptin signalling can delay puberty and blunt the LH surge.', GoF: 'Stronger signalling is linked to earlier puberty.' },
+    FSHB: { day: 3, phases: ['menses', 'follicular'], role: 'FSH beta subunit: FSH recruits and grows the follicles.',
+            LoF: 'Less FSH: slower follicle growth and a longer follicular phase.', GoF: 'More FSH: faster follicle recruitment.' },
+    FSHR: { day: 6, phases: ['follicular'], role: 'FSH receptor on the granulosa cells that line each follicle.',
+            LoF: 'A less responsive receptor needs more FSH to grow follicles; this is linked to a slightly longer follicular phase and higher FSH.',
+            GoF: 'A more responsive receptor grows follicles on less FSH.' },
+    AMH: { day: 4, phases: ['follicular'], role: 'Made by small follicles; restrains how many are recruited each cycle. Its blood level tracks egg reserve.',
+           LoF: 'Less AMH restraint lets follicles be used up faster.', GoF: 'More AMH holds back recruitment; high AMH is common in PCOS.' },
+    AMHR2: { day: 4, phases: ['follicular'], role: 'The AMH receptor.', LoF: 'Weaker AMH restraint on follicle recruitment.' },
+    GDF9: { day: 8, phases: ['follicular'], role: 'Egg-made signal that drives follicle growth.',
+            LoF: 'Weaker signalling slows follicle growth; strong loss causes early ovarian failure.' },
+    BMP15: { day: 8, phases: ['follicular'], role: 'Egg-made signal that sets how many follicles mature.',
+             LoF: 'Weaker signalling slows follicle growth; strong loss causes early ovarian failure.', GoF: 'Linked in some studies to more than one follicle maturing.' },
+    FOXL2: { day: 7, phases: ['follicular'], role: 'Keeps granulosa cells ovarian and paces follicle growth.',
+             LoF: 'Faster follicle use; strong loss causes early ovarian failure.' },
+    CYP17A1: { day: 10, phases: ['follicular'], role: 'Theca cells make androgens, the raw material for estradiol.',
+               LoF: 'Less androgen supply can lower estradiol.', GoF: 'More androgen production is a PCOS feature.' },
+    CYP19A1: { day: 12, phases: ['follicular', 'luteal'], role: 'Aromatase: turns androgens into estradiol in the growing follicle.',
+               LoF: 'Less estradiol: a slower rise, a later or weaker LH surge and a thinner lining.', GoF: 'More estradiol: a stronger rise and higher estrogen exposure.' },
+    HSD17B1: { day: 11, phases: ['follicular'], role: 'Converts estrone into the stronger estradiol.', LoF: 'Lower estradiol at the follicular peak.' },
+    ESR1: { day: 12, phases: ['follicular', 'ovulation'], role: 'Estrogen receptor alpha: estradiol builds the lining and, at its peak, triggers the LH surge.',
+            LoF: 'A weaker estrogen response: a thinner lining and a less certain surge.', GoF: 'A stronger estrogen response.' },
+    ESR2: { day: 10, phases: ['follicular'], role: 'Estrogen receptor beta, important inside the follicle.',
+            LoF: 'Weaker signalling can impair follicle maturation and ovulation.', GoF: 'Stronger estrogen signalling in the follicle.' },
+    LHB: { day: 14, phases: ['ovulation'], role: 'LH beta subunit: the LH surge triggers ovulation.', LoF: 'A weaker LH surge can delay or prevent ovulation.' },
+    LHCGR: { day: 14, phases: ['ovulation', 'luteal'], role: 'LH receptor: answers the surge to release the egg, then keeps the corpus luteum making progesterone.',
+             LoF: 'A less responsive receptor can weaken ovulation and the luteal phase: shorter, with less progesterone.',
+             GoF: 'A more responsive receptor; LHCGR variants are linked to PCOS in GWAS.' },
+    PGR: { day: 20, phases: ['ovulation', 'luteal'], role: 'Progesterone receptor: needed to release the egg and to prepare the lining for implantation.',
+           LoF: 'A weaker progesterone response: harder ovulation and a less receptive lining.', GoF: 'A stronger progesterone response: a more receptive lining.' },
+    PTGS2: { day: 14, phases: ['ovulation', 'menses'], role: 'COX-2 makes prostaglandins that help the follicle rupture, and that drive menstrual cramps.',
+             LoF: 'Less COX-2 can delay follicle rupture, as NSAIDs taken around ovulation can.' },
+    STAR: { day: 17, phases: ['luteal'], role: 'Moves cholesterol into mitochondria: the first step of every steroid hormone.',
+            LoF: 'Less steroid production overall, progesterone included.' },
+    CYP11A1: { day: 17, phases: ['luteal'], role: 'First enzyme of steroid making: cholesterol to pregnenolone.', LoF: 'Less pregnenolone, so less progesterone downstream.' },
+    HSD3B2: { day: 18, phases: ['luteal'], role: 'Turns pregnenolone into progesterone in the corpus luteum.', LoF: 'Lower progesterone in the luteal phase.' },
+    HOXA10: { day: 21, phases: ['luteal'], role: 'Opens the implantation window in the lining.',
+              LoF: 'A less receptive lining; linked to implantation failure and endometriosis.' },
+    LIF: { day: 21, phases: ['luteal'], role: 'Signal from the lining that lets the embryo attach.', LoF: 'A less receptive lining at implantation.' },
+    OXTR: { day: 2, phases: ['menses'], role: 'Oxytocin receptor in the uterine muscle: contractions at menstruation and birth.',
+            LoF: 'Weaker contraction signalling in the uterus.', GoF: 'Stronger contraction signalling in the uterus.' },
+    SHBG: { day: 9, phases: ['follicular', 'luteal'], role: 'Carries estradiol and testosterone in the blood; less SHBG means more free hormone.',
+            LoF: 'More free testosterone and estradiol; low SHBG is common in PCOS.', GoF: 'Less free hormone.' },
+  };
+  // Other genes are placed by their Gene Ontology mechanism
+  const MECH_PHASES = { eggs: ['follicular'], axis: ['follicular', 'ovulation'], hormones: ['follicular', 'luteal'], cycle: ['ovulation', 'luteal'],
+                        implantation: ['luteal'], uterus: ['menses'], ovary: ['follicular'] };
+
+  const drawCycle = (parent, s) => {
+    const who = thWho(s);
+    const sec = thMake(parent, 'div', 'th-cycle');
+    thMake(sec, 'h3', null, 'The 28-day cycle');
+    thMake(sec, 'p', 'gx-note', `Typical hormone shapes across a 28-day cycle: textbook curves, not ${who}'s measured levels. Dots mark ` +
+      `the day each of ${who}'s changed genes does its main work; hover a dot, a phase or a gene for what it means for the cycle.`);
+    const box = thMake(sec, 'div', 'th-cycle-svg');
+    // Drawn at the container's own width, 1:1, so it lines up with the phase columns below and follows resizes
+    const W = Math.max(320, Math.round(box.clientWidth || 760)), H = 270, L = 34, R = 12, T = 34, CH = 150, LT = T + CH + 18, LH = 40;
+    const x = d3.scaleLinear([1, 28], [L, W - R]);
+    const y = d3.scaleLinear([0, 1], [T + CH, T + 6]);
+    const svg = d3.select(box).append('svg').attr('viewBox', `0 0 ${W} ${H}`).attr('width', W).attr('height', H)
+      .attr('role', 'img').attr('aria-label', 'Hormone levels across a typical 28-day cycle, with the genes that act on each day');
+    const tip = gx.tip(box);
+    const callOf = (name) => { const g = s.byName.get(name); return g ? thCall(g) : null; };
+    const effect = (name) => {
+      const info = CYCLE_GENES[name] || {}, g = s.byName.get(name), fn = g && thCall(g);
+      const lines = [info.role || ''];
+      if (g && g.genotype) lines.push(`${who}: ${g.genotype}, ${TH_TEXT[fn]}${g.dose && fn !== 'normal' ? ` ×${g.dose}` : ''} (${g.interpretation})`);
+      else if (g && g.carried) lines.push(`${who} carries ${g.carried} trait-linked ${g.carried === 1 ? 'allele' : 'alleles'} here`);
+      else lines.push(`No ${who} call at this gene`);
+      if (fn === 'LoF' && info.LoF) lines.push('What it can mean: ' + info.LoF);
+      if (fn === 'GoF' && info.GoF) lines.push('What it can mean: ' + info.GoF);
+      return lines.filter(Boolean);
+    };
+
+    // Phase bands and the implantation window
+    for (const p of CYCLE_PHASES.filter((p) => p.id !== 'follicular')) {
+      svg.append('rect').attr('x', x(p.from)).attr('width', x(p.to) - x(p.from)).attr('y', T).attr('height', CH + 18 + LH)
+        .attr('class', 'th-cy-band th-cy-' + p.id)
+        .on('mousemove', (event) => tip.show(event, `${p.name} · days ${p.from}–${p.to}`, [p.what]))
+        .on('mouseleave', () => tip.hide());
+    }
+    svg.append('text').attr('x', (x(19) + x(24)) / 2).attr('y', LT - 4).attr('text-anchor', 'middle').attr('class', 'th-cap').text('implantation window');
+    svg.append('rect').attr('x', x(19)).attr('width', x(24) - x(19)).attr('y', LT).attr('height', LH).attr('class', 'th-cy-window')
+      .on('mousemove', (event) => tip.show(event, 'Implantation window · days 19–24', ['The lining is receptive to an embryo for a few days under progesterone.']))
+      .on('mouseleave', () => tip.hide());
+    for (const p of CYCLE_PHASES) {
+      const mid = p.id === 'follicular' ? x(8) : (x(p.from) + x(p.to)) / 2;
+      svg.append('text').attr('x', mid).attr('y', 16).attr('text-anchor', 'middle').attr('class', 'th-cap').text(p.name.toUpperCase());
+    }
+    svg.append('line').attr('x1', x(1)).attr('x2', x(13)).attr('y1', 22).attr('y2', 22).attr('class', 'th-leader');
+    svg.append('line').attr('x1', x(15)).attr('x2', x(28)).attr('y1', 22).attr('y2', 22).attr('class', 'th-leader');
+
+    // Hormone curves
+    const line = d3.line().x((d) => x(d[0])).y((d) => y(d[1])).curve(d3.curveMonotoneX);
+    CYCLE_HORMONES.forEach((h, i) => {
+      const color = dash.colors[i % dash.colors.length];
+      svg.append('path').attr('d', line(h.pts)).attr('class', 'th-cy-line').style('stroke', color);
+      const peak = h.pts.reduce((a, b) => (b[1] > a[1] ? b : a));
+      svg.append('text').attr('x', x(peak[0]) + (h.id === 'LH' ? 8 : 0)).attr('y', y(peak[1]) - 6).attr('text-anchor', h.id === 'LH' ? 'start' : 'middle')
+        .attr('class', 'th-cy-hlabel').style('fill', color).text(h.id);
+    });
+    // The lining
+    svg.append('text').attr('x', 4).attr('y', LT + LH / 2 + 4).attr('class', 'th-cap').text('Lining');
+    svg.append('path').attr('class', 'th-cy-lining')
+      .attr('d', d3.area().x((d) => x(d[0])).y0(LT + LH).y1((d) => LT + LH - d[1] * LH).curve(d3.curveMonotoneX)(CYCLE_LINING))
+      .on('mousemove', (event) => tip.show(event, 'Endometrium', ['Sheds at menstruation, rebuilds under estradiol, and matures under progesterone.']))
+      .on('mouseleave', () => tip.hide());
+    // Day axis
+    for (const d of [1, 7, 14, 21, 28]) {
+      svg.append('text').attr('x', x(d)).attr('y', H - 4).attr('text-anchor', d === 1 ? 'start' : d === 28 ? 'end' : 'middle').attr('class', 'th-cap').text(`day ${d}`);
+    }
+
+    // The person's changed genes on the day they act
+    const changed = Object.keys(CYCLE_GENES).filter((n) => ['LoF', 'GoF', 'altered', 'variant'].includes(callOf(n)));
+    const lane = new Map();
+    for (const n of changed.sort((a, b) => CYCLE_GENES[a].day - CYCLE_GENES[b].day)) {
+      const d = CYCLE_GENES[n].day, k = lane.get(d) || 0;
+      lane.set(d, k + 1);
+      const fn = callOf(n), cx = x(d) + (k % 2 ? 9 : 0) * (k ? 1 : 0), cy = T + 12 + k * 15;
+      const g = svg.append('g').attr('class', 'th-cy-gene').attr('transform', `translate(${cx},${cy})`).attr('tabindex', 0).attr('role', 'button')
+        .attr('aria-label', `${n}: ${effect(n).join(' ')}`)
+        .on('mousemove', (event) => tip.show(event, `${n} · day ${d}`, effect(n)))
+        .on('mouseleave', () => tip.hide())
+        .on('click', () => thPick(n));
+      g.append('circle').attr('r', 5.5).style('fill', TH_FILL[fn]).style('stroke', 'var(--color-bg)').attr('stroke-width', 1.5);
+      g.append('text').attr('x', 8).attr('y', 4).attr('class', 'th-cy-glabel').text(n);
+    }
+
+    // One column per phase: what happens, and the person's genes there
+    const cols = thMake(sec, 'div', 'th-cycle-cols');
+    for (const p of CYCLE_PHASES) {
+      const col = thMake(cols, 'div', 'th-cycle-col th-cy-col-' + p.id);
+      thMake(col, 'b', null, `${p.name} · days ${p.from}–${p.to}`);
+      thMake(col, 'p', 'gx-note', p.what);
+      const key = Object.keys(CYCLE_GENES).filter((n) => CYCLE_GENES[n].phases.includes(p.id));
+      const fromMech = s.shown.filter((g) => !CYCLE_GENES[g.gene] && (g.ev.organs || []).some((o) => o === 'ovaries' || o === 'endometrium' || o === 'uterus' || o === 'pituitary')
+        && Object.keys(g.ev.mechanisms || {}).some((m) => (MECH_PHASES[m] || []).includes(p.id))).map((g) => g.gene);
+      const chips = thMake(col, 'div', 'th-genes');
+      const rank = { GoF: 0, LoF: 1, altered: 2, variant: 3, normal: 4 };
+      for (const n of [...key, ...fromMech].sort((a, b) => (rank[callOf(a)] ?? 5) - (rank[callOf(b)] ?? 5))) {
+        const g = s.byName.get(n), fn = g && thCall(g);
+        const b = thMake(chips, 'button', 'lc-chip th-gene ' + (fn ? 'lc-' + TH_CLASS[fn] : 'lc-untested'), g ? thLabel(g) : n);
+        b.type = 'button';
+        b.addEventListener('mousemove', (event) => tip.show(event, n, CYCLE_GENES[n] ? effect(n) : [g && g.interpretation ? `${who}: ${g.interpretation}` : `No ${who} call here`]));
+        b.addEventListener('mouseleave', () => tip.hide());
+        b.addEventListener('click', () => thPick(n));
+      }
+      const notes = key.filter((n) => ['LoF', 'GoF'].includes(callOf(n)) && CYCLE_GENES[n][callOf(n)]);
+      if (notes.length) {
+        const ul = thMake(col, 'ul', 'th-why');
+        for (const n of notes) {
+          const g = s.byName.get(n);
+          const li = thMake(ul, 'li');
+          thMake(li, 'b', null, `${n} ${TH_TEXT[callOf(n)]}${g.dose ? ` ×${g.dose}` : ''}: `);
+          li.append(CYCLE_GENES[n][callOf(n)]);
+        }
+      }
+    }
+  };
+
+  // Body map: where a theme's genes act, shaded by the person's calls. Female (XX) layout: a body outline with brain and
+  // pituitary, and a front view of the reproductive organs. Each organ is a button that narrows the page to its genes.
+  const XX_SHAPES = {
+    brain: { shapes: [{ ellipse: [120, 54, 29, 19] }], label: [178, 42, 'start'], to: [146, 50] },
+    pituitary: { shapes: [{ circle: [124, 80, 6] }], label: [178, 94, 'start'], to: [131, 82] },
+    tubes: { shapes: [{ stroke: 'M404,166 C372,142 330,128 300,150 C288,160 284,176 290,186' },
+                      { stroke: 'M536,166 C568,142 610,128 640,150 C652,160 656,176 650,186' }], label: [470, 92, 'middle'], to: [470, 132] },
+    ovaries: { shapes: [{ ellipse: [300, 214, 30, 18, -18] }, { ellipse: [640, 214, 30, 18, 18] }], label: [300, 258, 'middle'], to: [300, 233] },
+    uterus: { shapes: [{ path: 'M400,172 C400,128 540,128 540,172 C540,232 506,276 490,298 L490,382 L450,382 L450,298 C434,276 400,232 400,172 Z' }],
+              label: [566, 300, 'start'], to: [522, 240] },
+    endometrium: { shapes: [{ path: 'M426,168 C444,156 496,156 514,168 C504,212 482,246 470,264 C458,246 436,212 426,168 Z' }],
+                   label: [566, 362, 'start'], to: [480, 228] },
+  };
+  const XX_BODY = 'M106,100 L104,114 C72,120 54,136 52,172 L60,262 C64,300 72,330 82,362 L158,362 C168,330 176,300 180,262 ' +
+                  'L188,172 C186,136 168,120 136,114 L134,100 Z';
+
+  dash.draw('th-body', (el) => {
+    el.replaceChildren();
+    const s = thSel();
+    if (!s) { if (gx.failed('theme_meta', 'theme_genes')) gx.failLine(el); return; }
+    if (!s.organs.length) {
+      thMake(el, 'p', 'gx-note', 'This theme has no body map yet. The fertility themes have one: female (HJ) and male (HP).');
+      return;
+    }
+    const who = thWho(s);
+    const male = s.stats.sex === 'XY';
+    const SHAPES = male ? XY_SHAPES : XX_SHAPES;
+
+    const per = new Map(s.organs.map((o) => [o.id, { o, all: 0, lof: 0, gof: 0, variant: 0, genes: [] }]));
+    for (const g of s.genes) {
+      for (const id of g.ev.organs || []) {
+        const c = per.get(id);
+        if (!c) continue;
+        c.all += 1;
+        const fn = thCall(g);
+        if (fn === 'LoF') c.lof += 1; else if (fn === 'GoF') c.gof += 1; else if (fn === 'variant') c.variant += 1;
+        if (g.notable) c.genes.push(g);
+      }
+    }
+    const signal = (c) => c.lof + c.gof + c.variant;
+    const maxSig = d3.max([...per.values()], signal) || 1;
+    const hueOf = (c) => c.lof > c.gof ? 'var(--color-bad)' : c.gof > c.lof ? 'var(--gof)' : 'var(--color-fg-muted)';
+    const tint = (c) => `color-mix(in srgb, ${hueOf(c)} ${Math.round(18 + 42 * signal(c) / maxSig)}%, var(--color-panel))`;
+    const edge = (c) => `color-mix(in srgb, ${hueOf(c)} 75%, var(--color-fg))`;
+
+    const grid = thMake(el, 'div', 'th-body-grid');
+    const box = thMake(grid, 'div', 'th-body-svg');
+    const info = thMake(grid, 'div', 'th-organ');
+    const svg = d3.select(box).append('svg').attr('viewBox', '0 0 760 432').attr('width', '100%')
+      .attr('role', 'group').attr('aria-label', `${s.theme.theme_name}: organs`);
+    const tip = gx.tip(box);
+
+    // Body outline and the zoom from the pelvis to the organ view
+    svg.append('circle').attr('cx', 120).attr('cy', 62).attr('r', 40).attr('class', 'th-outline');
+    svg.append('path').attr('d', male ? XY_BODY : XX_BODY).attr('class', 'th-outline');
+    if (male) {
+      for (const cx of XY_CONTEXT) {
+        if (cx.ellipse) {
+          svg.append('ellipse').attr('cx', cx.ellipse[0]).attr('cy', cx.ellipse[1]).attr('rx', cx.ellipse[2]).attr('ry', cx.ellipse[3]).attr('class', 'th-context');
+          svg.append('text').attr('x', cx.ellipse[0]).attr('y', cx.ellipse[1] + 4).attr('text-anchor', 'middle').attr('class', 'th-cap').text(cx.name);
+        } else svg.append('path').attr('d', cx.path).attr('class', 'th-context');
+      }
+    }
+    svg.append('rect').attr('x', 94).attr('y', 268).attr('width', 52).attr('height', 50).attr('rx', 6).attr('class', 'th-zoom');
+    svg.append('path').attr('d', 'M146,268 L262,120 M146,318 L262,400').attr('class', 'th-zoom');
+    svg.append('text').attr('x', 120).attr('y', 398).attr('text-anchor', 'middle').attr('class', 'th-cap').text(`${s.stats.sex || ''} · ${who}`);
+
+    for (const [id, shape] of Object.entries(SHAPES)) {
+      const c = per.get(id);
+      if (!c) continue;
+      const selected = s.organ && s.organ.id === id;
+      const g = svg.append('g').attr('class', 'th-organ-hit' + (selected ? ' is-selected' : '')).attr('tabindex', 0).attr('role', 'button')
+        .attr('aria-pressed', String(!!selected))
+        .attr('aria-label', `${c.o.name}: ${c.all} genes, ${c.lof} less active, ${c.gof} more active, ${c.variant} with carried variants`)
+        .on('click', () => dash.setParams({ th_organ: selected ? null : id, th_gene: null }))
+        .on('keydown', (event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); dash.setParams({ th_organ: selected ? null : id, th_gene: null }); } })
+        .on('mousemove', (event) => tip.show(event, c.o.name, [c.o.about, `${c.all} genes; ${who}: ${c.lof} less active, ${c.gof} more active, ` +
+          `${c.variant} with a carried variant`, selected ? 'Select again to show all organs' : 'Select to focus the page on this organ']))
+        .on('mouseleave', () => tip.hide());
+      for (const sh of shape.shapes) {
+        let node;
+        if (sh.ellipse) {
+          const [cx, cy, rx, ry, rot] = sh.ellipse;
+          node = g.append('ellipse').attr('cx', cx).attr('cy', cy).attr('rx', rx).attr('ry', ry)
+            .attr('transform', rot ? `rotate(${rot} ${cx} ${cy})` : null);
+        } else if (sh.circle) {
+          node = g.append('circle').attr('cx', sh.circle[0]).attr('cy', sh.circle[1]).attr('r', sh.circle[2]);
+        } else if (sh.stroke) {
+          // Tubes are lines: a wide invisible hit area under a coloured stroke
+          g.append('path').attr('d', sh.stroke).attr('class', 'th-hit');
+          node = g.append('path').attr('d', sh.stroke).attr('class', 'th-tube').style('stroke', tint(c));
+          continue;
+        } else node = g.append('path').attr('d', sh.path);
+        node.attr('class', 'th-shape').style('fill', tint(c)).style('stroke', edge(c));
+      }
+      const [lx, ly, anchor] = shape.label;
+      svg.append('line').attr('x1', shape.to[0]).attr('y1', shape.to[1])
+        .attr('x2', anchor === 'start' ? lx - 6 : anchor === 'end' ? lx + 6 : lx).attr('y2', anchor === 'middle' && ly < shape.to[1] ? ly + 20 : ly - 4).attr('class', 'th-leader');
+      const t = svg.append('text').attr('x', lx).attr('y', ly).attr('text-anchor', anchor).attr('class', 'th-label' + (selected ? ' is-selected' : ''));
+      t.append('tspan').text(c.o.name);
+      const sub = svg.append('text').attr('x', lx).attr('y', ly + 15).attr('text-anchor', anchor).attr('class', 'th-cap');
+      sub.append('tspan').text(`${c.all} genes`);
+      if (c.lof) sub.append('tspan').attr('class', 'th-c-lof').text(` · ▼${c.lof}`);
+      if (c.gof) sub.append('tspan').attr('class', 'th-c-gof').text(` · ▲${c.gof}`);
+      if (c.variant) sub.append('tspan').text(` · ●${c.variant}`);
+    }
+
+    // Female theme: the 28-day cycle sits under the organs
+    if (!male) drawCycle(el, s);
+
+    // Side panel: the selected organ, or how to read the map
+    const o = s.organ;
+    if (!o) {
+      thMake(info, 'h3', null, 'All organs');
+      thMake(info, 'p', 'gx-note', `▼ less active and ▲ more active are ${who}'s library calls; ● counts genes where ${who} carries an allele ` +
+        'that a GWAS or ClinVar links to a fertility trait. Shading is stronger where more of these gather, red where less-active genes ' +
+        'lead and blue where more-active ones do. Select an organ to focus the page on it.');
+      const list = thMake(info, 'div', 'th-genes');
+      for (const c of [...per.values()].sort((a, b) => signal(b) - signal(a))) {
+        const b = thMake(list, 'button', 'lc-chip th-gene', `${c.o.name} · ${signal(c)}`);
+        b.type = 'button';
+        b.addEventListener('click', () => dash.setParams({ th_organ: c.o.id, th_gene: null }));
+      }
+      return;
+    }
+    const c = per.get(o.id);
+    thMake(info, 'h3', null, o.name);
+    thMake(info, 'p', null, o.about);
+    thMake(info, 'p', 'gx-note', `${c.all} genes act here. ${who}: ${c.lof} less active, ${c.gof} more active, ${c.variant} with a carried trait-linked variant.`);
+    const mechs = s.facets.filter((f) => f.organ === o.id).map((f) => f.facet_name);
+    if (mechs.length) { thMake(info, 'span', 'gx-label', 'Mechanisms'); thMake(info, 'p', null, mechs.join(', ')); }
+    const ds = Object.entries(s.stats.disease_organs || {}).filter(([, v]) => v === o.id).map(([k]) => k);
+    if (ds.length) { thMake(info, 'span', 'gx-label', 'Conditions'); thMake(info, 'p', null, ds.join(', ')); }
+    thMake(info, 'span', 'gx-label', `Notable genes (${c.genes.length})`);
+    const chips = thMake(info, 'div', 'th-genes');
+    const rank = { LoF: 0, GoF: 1, altered: 2, variant: 3, normal: 4 };
+    for (const g of c.genes.sort((a, b) => (rank[thCall(a)] ?? 5) - (rank[thCall(b)] ?? 5) || (b.carried || 0) - (a.carried || 0)).slice(0, 40)) {
+      const fn = thCall(g);
+      const b = thMake(chips, 'button', 'lc-chip th-gene ' + (fn ? 'lc-' + TH_CLASS[fn] : 'lc-untested'), thLabel(g));
+      b.type = 'button';
+      b.addEventListener('click', () => thPick(g.gene));
+    }
+    const all = thMake(info, 'button', 'lc-btn', 'Show all organs');
+    all.type = 'button';
+    all.addEventListener('click', () => dash.setParams({ th_organ: null, th_gene: null }));
+  });
+
+  // Mechanism in depth: what it does, what the person carries in it, and every gene behind it
+  const XY_SHAPES = {
+    brain: { shapes: [{ ellipse: [120, 54, 29, 19] }], label: [178, 42, 'start'], to: [146, 50] },
+    pituitary: { shapes: [{ circle: [124, 80, 6] }], label: [178, 94, 'start'], to: [131, 82] },
+    prostate: { shapes: [{ ellipse: [470, 205, 28, 18] }, { ellipse: [428, 178, 20, 9, -35] }, { ellipse: [512, 178, 20, 9, 35] }],
+                label: [566, 190, 'start'], to: [498, 200] },
+    penis: { shapes: [{ path: 'M458,224 L458,318 C458,342 482,342 482,318 L482,224 Z' }], label: [566, 262, 'start'], to: [484, 268] },
+    testes: { shapes: [{ ellipse: [418, 330, 20, 27] }, { ellipse: [522, 330, 20, 27] }], label: [566, 340, 'start'], to: [544, 334] },
+    epididymis: { shapes: [{ stroke: 'M402,312 C392,326 394,350 408,358' }, { stroke: 'M538,312 C548,326 546,350 532,358' },
+                           { stroke: 'M418,303 C404,262 392,196 420,166 C436,150 452,176 458,196' },
+                           { stroke: 'M522,303 C536,262 548,196 520,166 C504,150 488,176 482,196' }],
+                  label: [380, 240, 'end'], to: [400, 246] },
+  };
+  const XY_BODY = 'M104,100 L102,114 C62,118 42,134 42,172 L54,262 C58,300 66,330 78,362 L162,362 C174,330 182,300 186,262 ' +
+                  'L198,172 C198,134 178,118 138,114 L136,100 Z';
+  const XY_CONTEXT = [{ ellipse: [470, 148, 50, 36], name: 'bladder' }, { path: 'M394,304 C382,352 404,374 470,374 C536,374 558,352 546,304' }];
+
+  const thFacetOpen = (id) => {
+    dash.setParams({ th_facet: id });
+    document.querySelectorAll('#theme-facet').forEach((c) => c.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+  };
+
+  dash.draw('th-facet', (el) => {
+    el.replaceChildren();
+    const s = thSel();
+    const pr = gx.rows('theme_pathways');
+    if (!s || !pr) { if (gx.failed('theme_meta', 'theme_genes', 'theme_pathways')) gx.failLine(el); return; }
+    const f = s.facets.find((x) => x.facet === dash.params().th_facet);
+    if (!f) { thMake(el, 'p', 'gx-note', 'Select a mechanism box above to open it here: what it does, how it works, what the person carries in it, and every gene behind it.'); return; }
+    const who = s.api ? thWho(s) : 'HP';
+    const genes = s.genes.filter((g) => g.fl.includes(f.facet));
+    const head = thMake(el, 'div', 'lc-name');
+    thMake(head, 'h3', null, f.facet_name);
+    const organ = (s.organs || []).find((o) => o.id === f.organ);
+    if (organ) {
+      const b = thMake(head, 'button', 'lc-chip th-gene', organ.name);
+      b.type = 'button';
+      b.title = 'Show this organ on the body map';
+      b.addEventListener('click', () => dash.setParams({ th_organ: organ.id }));
+    }
+    const close = thMake(head, 'button', 'lc-btn', 'Close');
+    close.type = 'button';
+    close.addEventListener('click', () => dash.setParams({ th_facet: null }));
+    if (f.facet_about) thMake(el, 'p', 'gx-muted', f.facet_about);
+    if (f.facet_explain) { thMake(el, 'span', 'gx-label', 'How it works'); thMake(el, 'p', 'th-explain', f.facet_explain); }
+
+    // What the person carries here
+    const changed = genes.filter((g) => ['LoF', 'GoF', 'altered'].includes(thCall(g)));
+    const carriers = genes.filter((g) => thCall(g) === 'variant');
+    thMake(el, 'span', 'gx-label', `What ${who} carries here`);
+    const parts = thBalance(el, genes, s.api ? 'without a finding' : 'not genotyped');
+    thMake(el, 'p', null, `${genes.length} genes. ${parts.join(', ')}.`);
+    if (changed.length) {
+      const ul = thMake(el, 'ul', 'th-why');
+      for (const g of changed) {
+        const li = thMake(ul, 'li');
+        const b = thMake(li, 'button', 'lc-link', g.gene);
+        b.type = 'button'; b.addEventListener('click', () => thPick(g.gene));
+        li.append(` ${g.genotype}: ${TH_TEXT[thCall(g)]}${g.dose && g.function !== 'normal' ? ` ×${g.dose}` : ''}. ${g.interpretation || ''}`);
+      }
+    }
+    if (carriers.length) {
+      thMake(el, 'p', 'gx-note', `${who} carries trait-linked alleles in ${carriers.length} more ${carriers.length === 1 ? 'gene' : 'genes'} here: ` +
+        carriers.sort((a, b) => b.carried - a.carried).slice(0, 12).map((g) => `${g.gene} (${g.carried})`).join(', ') +
+        (carriers.length > 12 ? ', …' : '') + '. Select one to see the variants.');
+    }
+    if (!changed.length && !carriers.length) thMake(el, 'p', 'gx-note', `${who} has no library call and no carried trait-linked allele in this mechanism's genes.`);
+
+    // Conditions, evidence strength and pathways (API themes)
+    if (s.api) {
+      const cond = new Map();
+      for (const g of genes) for (const [d, v] of Object.entries(g.ev.diseases || {})) if (v.score >= 0.3) cond.set(d, (cond.get(d) || 0) + 1);
+      if (cond.size) {
+        thMake(el, 'span', 'gx-label', 'Conditions its genes are linked to');
+        thMake(el, 'p', null, [...cond].sort((a, b) => b[1] - a[1]).slice(0, 8).map(([d, n]) => `${d} (${n})`).join(', '));
+      }
+      const evid = d3.rollup(genes.filter((g) => g.ev.mechanisms && g.ev.mechanisms[f.facet]), (v) => v.length, (g) => g.ev.mechanisms[f.facet].evidence);
+      if (evid.size) {
+        thMake(el, 'span', 'gx-label', 'How we know (Gene Ontology evidence)');
+        thMake(el, 'p', null, [...evid].map(([k, n]) => `${n} ${k}`).join(', ') + '.');
+      }
+    }
+    const names = new Set(genes.map((g) => g.gene));
+    const pws = pr[0].filter((p) => p.theme === s.theme.theme).map((p) => ({ ...p, hit: JSON.parse(p.genes).filter((x) => names.has(x)) }))
+      .filter((p) => p.hit.length >= 2).sort((a, b) => b.on_theme - a.on_theme || b.hit.length - a.hit.length).slice(0, 6);
+    if (pws.length) {
+      thMake(el, 'span', 'gx-label', 'Pathways it runs through');
+      const pl = thMake(el, 'ul', 'lc-alts');
+      for (const p of pws) thMake(pl, 'li', null, `${p.pathway} (${p.hit.join(', ')})`);
+    }
+
+    // Every gene, the person's changes first
+    thMake(el, 'span', 'gx-label', `All ${genes.length} genes`);
+    const rank = { LoF: 0, GoF: 1, altered: 2, variant: 3, normal: 4 };
+    const sorted = [...genes].sort((a, b) => (rank[thCall(a)] ?? 5) - (rank[thCall(b)] ?? 5) || (b.carried || 0) - (a.carried || 0) ||
+      (b.best_score || 0) - (a.best_score || 0) || a.gene.localeCompare(b.gene));
+    const table = (rows, parent) => {
+      const box = thMake(parent, 'div', 'gx-table-box');
+      const t = thMake(box, 'table', 'gx-table');
+      const hr = thMake(thMake(t, 'thead'), 'tr');
+      for (const h of ['Gene', who, s.api ? 'Carried alleles' : 'Evidence', s.api ? 'Strongest condition link' : '', s.api ? 'GO evidence' : ''].filter(Boolean)) thMake(hr, 'th', null, h);
+      const tb = thMake(t, 'tbody');
+      for (const g of rows) {
+        const tr = thMake(tb, 'tr');
+        const td = thMake(tr, 'td');
+        const b = thMake(td, 'button', 'lc-link', g.gene);
+        b.type = 'button'; b.addEventListener('click', () => thPick(g.gene));
+        const fn = thCall(g);
+        const c = thMake(tr, 'td', null, fn ? `${g.genotype ? g.genotype + ' · ' : ''}${TH_TEXT[fn]}${g.dose && g.function !== 'normal' ? ` ×${g.dose}` : ''}` : '—');
+        if (fn) c.style.boxShadow = `inset 3px 0 0 ${TH_FILL[fn]}`;
+        if (s.api) {
+          thMake(tr, 'td', null, g.carried ? String(g.carried) : '—');
+          const best = Object.entries(g.ev.diseases || {}).sort((a, b) => b[1].score - a[1].score)[0];
+          thMake(tr, 'td', null, best ? `${best[0]} (${d3.format('.2f')(best[1].score)})` : '—');
+          thMake(tr, 'td', 'gx-muted', (g.ev.mechanisms && g.ev.mechanisms[f.facet]) ? g.ev.mechanisms[f.facet].evidence : 'disease link');
+        } else thMake(tr, 'td', 'gx-muted', [...new Set((g.ev[f.facet] || []).map((e) => e.source))].join(', '));
+      }
+    };
+    table(sorted.slice(0, 30), el);
+    if (sorted.length > 30) {
+      const det = thMake(el, 'details');
+      thMake(det, 'summary', 'gx-note', `Show the other ${sorted.length - 30} genes`);
+      table(sorted.slice(30), det);
+    }
+  });
+</script>
+
+<script>
+  // Module x biomarker heatmap
+  dash.draw('heatmap', (el) => {
+    const r = gx.rows('module_biomarker');
+    el.replaceChildren();
+    if (!r) { if (gx.failed('module_biomarker')) gx.failLine(el); return; }
+    const [cells] = r;
+    const panels = ['Lipids', 'Glucose', 'Inflammation', 'Liver', 'Kidney', 'Vitamins', 'Blood & iron', 'Hormones', 'Thyroid', 'Blood pressure', 'Body'];
+    const totals = d3.rollup(cells, (v) => d3.sum(v, (c) => c.n), (c) => c.biomarker);
+    const panelOf = new Map(cells.map((c) => [c.biomarker, c.panel]));
+    const cols = [...totals.keys()].filter((b) => totals.get(b) >= 2)
+      .sort((a, b) => panels.indexOf(panelOf.get(a)) - panels.indexOf(panelOf.get(b)) || totals.get(b) - totals.get(a));
+    const rowsOrder = d3.rollups(cells, (v) => d3.sum(v, (c) => c.n), (c) => c.module_name).sort((a, b) => b[1] - a[1]).map((d) => d[0]);
+    const sel = dash.params().biomarker;
+
+    const svg = d3.select(el).append('svg');
+    const probe = svg.append('g').attr('font-size', 12);
+    const left = d3.max(rowsOrder, (n) => probe.append('text').text(n).node().getComputedTextLength()) + 12;
+    const top = d3.max(cols, (n) => probe.append('text').text(n).node().getComputedTextLength()) * 0.72 + 18;
+    probe.remove();
+    const avail = Math.max(280, el.clientWidth);
+    const cell = Math.max(18, Math.min(34, (avail - left - 8) / cols.length));
+    const W = left + cell * cols.length + 8 + top * 0.7, H = top + cell * rowsOrder.length + 4;
+    svg.attr('width', W).attr('height', H).attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img').attr('aria-label', 'Modules by biomarker heatmap');
+
+    const x = d3.scaleBand(cols, [left, left + cell * cols.length]).padding(0.08);
+    const y = d3.scaleBand(rowsOrder, [top, top + cell * rowsOrder.length]).padding(0.08);
+    const maxN = d3.max(cells, (c) => c.n);
+    const ramp = d3.interpolateRgb(gx.color('--color-panel') || '#eee', dash.colors[0]);
+    const tip = gx.tip(el);
+
+    svg.append('g').selectAll('rect').data(cells.filter((c) => cols.includes(c.biomarker))).join('rect')
+      .attr('x', (c) => x(c.biomarker)).attr('y', (c) => y(c.module_name)).attr('width', x.bandwidth()).attr('height', y.bandwidth())
+      .attr('rx', 3).style('fill', (c) => ramp(0.2 + 0.8 * c.n / maxN)).style('cursor', 'pointer')
+      .on('click', (event, c) => dash.setParams({ biomarker: c.biomarker }))
+      .on('mousemove', (event, c) => tip.show(event, `${c.module_name} → ${c.biomarker}`, [`${c.n} SNP${c.n > 1 ? 's' : ''} (${c.panel})`]))
+      .on('mouseleave', () => tip.hide());
+    svg.append('g').selectAll('text').data(cells.filter((c) => cols.includes(c.biomarker))).join('text')
+      .attr('x', (c) => x(c.biomarker) + x.bandwidth() / 2).attr('y', (c) => y(c.module_name) + y.bandwidth() / 2 + 4)
+      .attr('text-anchor', 'middle').attr('font-size', 11).attr('pointer-events', 'none')
+      .style('fill', (c) => c.n / maxN > 0.5 ? 'var(--color-bg)' : 'var(--color-fg)').text((c) => c.n);
+    if (sel && cols.includes(sel)) {
+      svg.append('rect').attr('x', x(sel) - 2).attr('y', top - 2).attr('width', x.bandwidth() + 4).attr('height', cell * rowsOrder.length + 2)
+        .style('fill', 'none').style('stroke', 'var(--color-fg)').attr('stroke-width', 1.5).attr('rx', 4);
+    }
+    svg.append('g').selectAll('text').data(rowsOrder).join('text')
+      .attr('x', left - 8).attr('y', (n) => y(n) + y.bandwidth() / 2 + 4).attr('text-anchor', 'end').attr('font-size', 12)
+      .style('fill', 'var(--color-fg)').text((n) => n);
+    svg.append('g').selectAll('text').data(cols).join('text')
+      .attr('transform', (b) => `translate(${x(b) + x.bandwidth() / 2},${top - 8}) rotate(-45)`).attr('font-size', 12)
+      .style('fill', (b) => b === sel ? 'var(--color-fg)' : 'var(--color-fg-muted)').attr('font-weight', (b) => b === sel ? 600 : 400)
+      .style('cursor', 'pointer').text((b) => b).on('click', (event, b) => dash.setParams({ biomarker: b }));
+  });
+
+  // SNP table for the selected biomarker
+  dash.draw('bio-rows', (tbody) => {
+    const r = gx.rows('biomarker_snps');
+    tbody.replaceChildren();
+    if (!r) return;
+    const sel = dash.params().biomarker;
+    const rows = r[0].filter((s) => s.biomarker === sel).sort((a, b) => a.p_value - b.p_value);
+    const pfmt = d3.format('.0e'), pct = d3.format('.0%');
+    for (const s of rows) {
+      const tr = document.createElement('tr');
+      tr.dataset.key = encodeURIComponent(s.biomarker) + ',' + encodeURIComponent(s.rsid);
+      const cell = (text, cls) => { const td = document.createElement('td'); td.textContent = text; if (cls) td.className = cls; tr.appendChild(td); };
+      cell(s.rsid); cell(s.genes); cell(s.module_name);
+      cell(s.strand === 'ambiguous' ? `${s.effect_allele} (strand unverified)` : s.effect_allele, s.strand === 'ambiguous' ? 'gx-muted' : null);
+      cell(s.direction, s.direction === 'raises' ? 'gx-up' : 'gx-down');
+      cell(s.eaf_eur == null ? '—' : pct(s.eaf_eur), 'gx-hide-narrow');
+      cell(pfmt(s.p_value)); cell(s.first_author || '—', 'gx-hide-narrow');
+      tbody.appendChild(tr);
+    }
+  });
+</script>
+
+<script>
+  // HP profile: module balance (diverging bars)
+  dash.draw('hp-modules', (el) => {
+    const r = gx.rows('hp_modules');
+    el.replaceChildren();
+    if (!r) { if (gx.failed('hp_modules')) gx.failLine(el); return; }
+    const rows = r[0].map((m) => ({ ...m, risk_load: Number(m.risk_load), strength_load: Number(m.strength_load) }))
+      .sort((a, b) => (b.strength_load - b.risk_load) - (a.strength_load - a.risk_load));
+    const W = Math.max(280, el.clientWidth), rowH = 24;
+    const svg = d3.select(el).append('svg').attr('width', '100%');
+    const probe = svg.append('g').attr('font-size', 12);
+    const left = d3.max(rows, (m) => probe.append('text').text(m.name).node().getComputedTextLength()) + 10;
+    probe.remove();
+    const H = rows.length * rowH + 28;
+    svg.attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img').attr('aria-label', 'Risk and strength load per module');
+    const maxV = d3.max(rows, (m) => Math.max(m.risk_load, m.strength_load)) || 1;
+    const x = d3.scaleLinear([-maxV, maxV], [left, W - 30]).nice();
+    const y = d3.scaleBand(rows.map((m) => m.name), [4, H - 24]).padding(0.25);
+    const tip = gx.tip(el);
+    svg.append('g').attr('transform', `translate(0,${H - 22})`).call(d3.axisBottom(x).ticks(5).tickFormat((v) => Math.abs(v)))
+      .attr('font-size', null).attr('font-family', null).call((a) => a.selectAll('text').style('fill', 'var(--color-fg-muted)'))
+      .call((a) => a.selectAll('line,path').style('stroke', 'var(--cds-chart-axis)'));
+    svg.append('line').attr('x1', x(0)).attr('x2', x(0)).attr('y1', 0).attr('y2', H - 22).style('stroke', 'var(--cds-chart-reference)');
+    const g = svg.append('g').selectAll('g').data(rows).join('g')
+      .on('mousemove', (event, m) => tip.show(event, m.name, [`Risk load ${m.risk_load}: ${m.risk_genes || 'none'}`, `Strength load ${m.strength_load}: ${m.strength_genes || 'none'}`, `${m.compound_links} compound links`]))
+      .on('mouseleave', () => tip.hide());
+    g.append('rect').attr('x', (m) => x(-m.risk_load)).attr('width', (m) => x(0) - x(-m.risk_load)).attr('y', (m) => y(m.name))
+      .attr('height', y.bandwidth()).attr('rx', 3).style('fill', 'var(--cds-chart-status-critical)');
+    g.append('rect').attr('x', x(0)).attr('width', (m) => x(m.strength_load) - x(0)).attr('y', (m) => y(m.name))
+      .attr('height', y.bandwidth()).attr('rx', 3).style('fill', dash.colors[0]);
+    g.append('text').attr('x', left - 8).attr('y', (m) => y(m.name) + y.bandwidth() / 2 + 4).attr('text-anchor', 'end')
+      .attr('font-size', 12).style('fill', 'var(--color-fg)').text((m) => m.name);
+  });
+
+  // HP profile: biomarker tilt (z) as bars from zero
+  dash.draw('hp-tilts', (el) => {
+    const r = gx.rows('hp_tilts');
+    el.replaceChildren();
+    if (!r) { if (gx.failed('hp_tilts')) gx.failLine(el); return; }
+    const rows = r[0].map((t) => ({ ...t, z: Number(t.z) })).sort((a, b) => b.z - a.z);
+    const W = Math.max(280, el.clientWidth), rowH = 20;
+    const svg = d3.select(el).append('svg').attr('width', '100%');
+    const probe = svg.append('g').attr('font-size', 12);
+    const left = d3.max(rows, (t) => probe.append('text').text(t.biomarker).node().getComputedTextLength()) + 10;
+    probe.remove();
+    const H = rows.length * rowH + 28;
+    svg.attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img').attr('aria-label', 'Biomarker tilt scores');
+    const lim = Math.max(3, Math.ceil(d3.max(rows, (t) => Math.abs(t.z))));
+    const x = d3.scaleLinear([-lim, lim], [left, W - 16]);
+    const y = d3.scaleBand(rows.map((t) => t.biomarker), [4, H - 24]).padding(0.25);
+    const tip = gx.tip(el);
+    svg.append('rect').attr('x', x(-1)).attr('width', x(1) - x(-1)).attr('y', 0).attr('height', H - 22)
+      .style('fill', 'var(--cds-chart-grid)');
+    svg.append('g').attr('transform', `translate(0,${H - 22})`).call(d3.axisBottom(x).ticks(Math.min(7, 2 * lim + 1)).tickFormat(d3.format('+')))
+      .attr('font-size', null).attr('font-family', null).call((a) => a.selectAll('text').style('fill', 'var(--color-fg-muted)'))
+      .call((a) => a.selectAll('line,path').style('stroke', 'var(--cds-chart-axis)'));
+    svg.append('line').attr('x1', x(0)).attr('x2', x(0)).attr('y1', 0).attr('y2', H - 22).style('stroke', 'var(--cds-chart-reference)');
+    const g = svg.append('g').selectAll('g').data(rows).join('g')
+      .on('mousemove', (event, t) => tip.show(event, `${t.biomarker} (${t.panel})`, [`z ${d3.format('+.2f')(t.z)} · percentile ${t.percentile}`, `${t.n_snps} SNPs`, `Top drivers: ${t.drivers}`]))
+      .on('mouseleave', () => tip.hide());
+    g.append('rect').attr('x', (t) => Math.min(x(0), x(t.z))).attr('width', (t) => Math.abs(x(t.z) - x(0))).attr('y', (t) => y(t.biomarker))
+      .attr('height', y.bandwidth()).attr('rx', 2)
+      .style('fill', (t) => Math.abs(t.z) >= 1 ? dash.colors[0] : 'var(--cds-chart-muted)');
+    g.append('text').attr('x', left - 8).attr('y', (t) => y(t.biomarker) + y.bandwidth() / 2 + 4).attr('text-anchor', 'end')
+      .attr('font-size', 12).style('fill', 'var(--color-fg)').text((t) => t.biomarker);
+  });
+
+  // Gene lifecycle: gene picker, role switch, gene summary, regulation, node graph, route patterns and step details
+  const LC = { key: null, step: null, wrap: true, drawnKey: null, scroll: 0 };
+  const FN_TEXT = { LoF: 'Less active (LoF)', GoF: 'More active (GoF)', altered: 'Changed, direction unclear', normal: 'Typical function',
+                    unknown: 'Genotype not interpretable' };
+  const FN_CLASS = { LoF: 'lof', GoF: 'gof', altered: 'altered', normal: 'norm', unknown: 'unknown' };
+  // Blue = more active (GoF), green = typical function, red = less active (LoF)
+  const FN_STROKE = { LoF: 'var(--color-bad)', GoF: 'var(--gof)', altered: 'var(--color-fg)', normal: 'var(--typical)',
+                      unknown: 'var(--color-fg-muted)' };
+  const SECTION = { 'upstream-extension': 'Before the pathway', pathway: 'In the pathway', focal: 'This gene', 'downstream-extension': 'After the pathway' };
+  const VERB = /\b(transfers|hydroxylates|oxidi[sz]es|translocates|hydroly[sz]es|deaminates|binds|cleaves|isomeri[sz]es|transports|reduces|transforms|dehydrogenates|condenses|assembles|catalyzes|demethylates|methylates|phosphorylates|ligates|desaturates|monooxygenates|synthesi[sz]es|conjugates|acetylates|glucuronidates|decarboxylates|exports|imports)\b/i;
+  const GLOSSARY = {
+    THF: 'tetrahydrofolate', THFPG: 'tetrahydrofolate polyglutamate', '5-methyl-THF': '5-methyl-tetrahydrofolate, the circulating folate',
+    '5-methyl-THFPG': '5-methyl-tetrahydrofolate polyglutamate', '5,10-methylene-THF': '5,10-methylene-tetrahydrofolate',
+    '5,10-methylene-THFPG': '5,10-methylene-tetrahydrofolate polyglutamate', '5,10-methenyl-THFPG': '5,10-methenyl-tetrahydrofolate polyglutamate',
+    '10-formyl-THFPG': '10-formyl-tetrahydrofolate polyglutamate', '5-formyl-THFPG': '5-formyl-tetrahydrofolate polyglutamate (folinic acid form)',
+    AdoMet: 'S-adenosylmethionine (SAM), the main methyl donor', AdoHcy: 'S-adenosylhomocysteine (SAH)', HCYS: 'homocysteine',
+    'L-Met': 'methionine', 'L-Cys': 'cysteine', 'L-Ser': 'serine', Gly: 'glycine', 'L-Ala': 'alanine', 'L-Glu': 'glutamate',
+    'L-His': 'histidine', 'L-Cystathionine': 'cystathionine', '2OBUTA': '2-oxobutanoate', NH3: 'ammonia',
+    GSH: 'glutathione (reduced)', GSSG: 'glutathione (oxidised)', CysGly: 'cysteinylglycine', gGluCys: 'gamma-glutamylcysteine',
+    H2O2: 'hydrogen peroxide', 'O2.-': 'superoxide', NO: 'nitric oxide', CO: 'carbon monoxide',
+    EtOH: 'ethanol', CH3CHO: 'acetaldehyde', 'CH3COO-': 'acetate', 'Ac-CoA': 'acetyl-CoA', MeOH: 'methanol', CH2O: 'formaldehyde',
+    HCOOH: 'formic acid', '5HT': 'serotonin', '5HIALD': '5-hydroxyindole-acetaldehyde', HIAA: '5-hydroxyindoleacetic acid',
+    DA: 'dopamine', DOPAC: '3,4-dihydroxyphenylacetic acid', HVA: 'homovanillic acid', '3MT': '3-methoxytyramine',
+    Hist: 'histamine', MeHist: 'N-methylhistamine', VD3: 'vitamin D3 (cholecalciferol)', '25(OH)D': '25-hydroxyvitamin D (calcidiol), the blood test form',
+    '1,25(OH)2D': 'calcitriol, the active vitamin D', CHOL: 'cholesterol', '7-dehydroCHOL': '7-dehydrocholesterol, made into vitamin D3 by sunlight',
+    DESMOL: 'desmosterol', LAN: 'lanosterol', ZYMOL: 'zymosterol', PREG: 'pregnenolone', '17aHPREG': '17-hydroxypregnenolone',
+    P4: 'progesterone', '17aHPROG': '17-hydroxyprogesterone', DHEA: 'dehydroepiandrosterone', ANDST: 'androstenedione',
+    TEST: 'testosterone', DHTEST: 'dihydrotestosterone', CORST: 'corticosterone', '11DCORST': '11-deoxycorticosterone',
+    '18HCORST': '18-hydroxycorticosterone', ALDO: 'aldosterone', CORT: 'cortisol', COR: 'cortisone', '11DCORT': '11-deoxycortisol',
+    BIL: 'bilirubin', BV: 'biliverdin', BMG: 'bilirubin monoglucuronide', BDG: 'bilirubin diglucuronide', APAP: 'paracetamol',
+    NAPQI: 'NAPQI, the toxic paracetamol metabolite', atRAL: 'all-trans-retinal', betaC: 'beta-carotene',
+    'UDP-GlcA': 'UDP-glucuronic acid', SeMet: 'selenomethionine', Sec: 'selenocysteine', AA: 'arachidonic acid',
+    DHA: 'docosahexaenoic acid', '6MP': '6-mercaptopurine', '6MMP': '6-methylmercaptopurine', GTN: 'nitroglycerin',
+    'ASA-': 'aspirin (acetylsalicylate)',
+  };
+  const pctFmt = d3.format('.0%');
+  const split = (t) => (t || '').split(', ').filter(Boolean);
+  const full = (m) => GLOSSARY[m] ? `${m}: ${GLOSSARY[m]}` : m;
+  const actionOf = (x) => { const m = (x.reaction || '').match(VERB); return m ? m[1][0].toUpperCase() + m[1].slice(1).toLowerCase() : x.transport ? 'Moves' : 'Converts'; };
+  const pretty = (c) => (c || '').replace(/_variant$/, '').replace(/_/g, ' ');
+  const regName = (n) => { const p = n.split('_'); return p.length > 2 ? `${p[0]} complex (+${p.length - 1})` : p.join('–'); };
+  const make = (parent, tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; parent.appendChild(e); return e; };
+  // GTEx expression for HP's copies of the effect allele, and whether it contradicts the library's activity call
+  const exprShift = (f, gt) => {
+    const net = (gt.copies || 0) * gt.nes, size = Math.abs(net) < 0.1 ? 'slightly' : Math.abs(net) < 0.4 ? 'moderately' : 'strongly';
+    const lead = !gt.copies ? `HP has no ${gt.allele}, so this eQTL leaves HP's ${f.gene} expression at the usual level.`
+      : `HP's ${gt.copies === 2 ? 'two copies' : 'copy'} of ${gt.allele} ${size} ${net > 0 ? 'raise' : 'lower'}${gt.copies === 1 ? 's' : ''} how much ` +
+        `${f.gene} is made (net ${d3.format('+.2f')(net)}).`;
+    const conflict = gt.copies && ((f.function === 'GoF' && net < -0.05) || (f.function === 'LoF' && net > 0.05))
+      ? `This disagrees with the library, which reads HP's genotype as ${f.function === 'GoF' ? 'more' : 'less'} active. Less RNA can still ` +
+        'mean more protein activity, but the library entry is worth checking against the papers.' : null;
+    return { net, lead, conflict };
+  };
+  const openGene = (gene) => { LC.step = null; dash.setParams({ lc_gene: gene, lc_role: 1 }); };
+
+  const lcSel = () => {
+    const r = gx.rows('lifecycle_genes');
+    if (!r) return null;
+    const genes = r[0];
+    const p = dash.params();
+    const gene = genes.some((g) => g.gene === p.lc_gene) ? p.lc_gene : genes[0].gene;
+    const roles = genes.filter((g) => g.gene === gene).sort((a, b) => a.role - b.role);
+    const role = roles.find((g) => g.role === Number(p.lc_role)) || roles[0];
+    const key = gene + '|' + role.role;
+    if (LC.key !== key) { LC.key = key; LC.step = null; }
+    return { genes, gene, roles, role, key };
+  };
+
+  let fnCache = { rows: null, map: new Map() };
+  const lcFn = () => {
+    const r = gx.rows('gene_function');
+    if (!r) return new Map();
+    if (fnCache.rows !== r[0]) fnCache = { rows: r[0], map: new Map(r[0].map((g) => [g.gene, { ...g, ev: JSON.parse(g.evidence || '{}'), lit: JSON.parse(g.literature || '{}'),
+      ladder: JSON.parse(g.ladder || '[]') }])) };
+    return fnCache.map;
+  };
+
+  const lcSteps = (s) => {
+    const st = gx.rows('lifecycle_steps');
+    if (!s || !st) return null;
+    return st[0].filter((x) => x.gene === s.gene && x.role === s.role.role).sort((a, b) => a.order - b.order)
+      .map((x) => ({ ...x, enz: JSON.parse(x.enzymes) }));
+  };
+  const selectedIndex = (steps) => {
+    const i = steps.findIndex((x) => x.order === LC.step);
+    if (i >= 0) return i;
+    const f = steps.findIndex((x) => x.section === 'focal');
+    return f >= 0 ? f : 0;
+  };
+
+  // A neighbouring pair of steps where HP's calls could make a molecule build up or run short
+  const calledFns = (x) => x.enz.filter((g) => g.lib && (g.fn === 'LoF' || g.fn === 'GoF')).map((g) => g.fn);
+  const patternAt = (prev, cur) => {
+    const a = calledFns(prev), b = calledFns(cur), m = prev.outputs || 'the product';
+    const backup = (x) => x.enz.length > 1 ? ' Other enzymes at that step may make up for it.' : '';
+    if (a.includes('GoF') && b.includes('LoF')) return `Possible build-up of ${m}: a more active step feeds a less active one.` + backup(cur);
+    if (a.includes('LoF') && b.includes('LoF')) return `Bottleneck around ${m}: two less active steps in a row.` + backup(prev);
+    if (a.includes('LoF') && b.length) return `Lower supply of ${m}: a less active step feeds the next one.` + backup(prev);
+    return null;
+  };
+
+  const chipLabel = (g) => {
+    if (!g.lib) return g.gene + ' *';
+    if (!g.gt) return g.gene;
+    return `${g.gene} ${g.gt}` + (g.fn && g.fn !== 'normal' && g.dose ? ` ×${g.dose}` : '');
+  };
+
+  dash.draw('lc-gene', (sel) => {
+    const s = lcSel();
+    const names = s ? [...new Set(s.genes.map((g) => g.gene))].sort() : [];
+    sel.replaceChildren(...names.map((n) => new Option(n, n)));
+    if (s) sel.value = s.gene;
+    sel.onchange = () => openGene(sel.value);
+  });
+
+  dash.draw('lc-roles', (el) => {
+    el.replaceChildren();
+    const s = lcSel();
+    if (!s) return;
+    for (const r of s.roles) {
+      const b = make(el, 'button', 'lc-role', `${r.pathway} · ${r.n_steps} steps`);
+      b.type = 'button';
+      b.setAttribute('aria-pressed', String(r.role === s.role.role));
+      b.addEventListener('click', () => dash.setParams({ lc_role: r.role }));
+    }
+  });
+
+  dash.draw('lc-head', (el) => {
+    el.replaceChildren();
+    const s = lcSel();
+    if (!s) { if (gx.failed('lifecycle_genes')) gx.failLine(el); return; }
+    const f = lcFn().get(s.gene) || {};
+    const ev = f.ev || {};
+    const fn = f.genotype ? (f.function || 'unknown') : null;
+    const card = el.closest('.gx-card');
+    if (card) for (const t of ['gof', 'lof', 'norm']) card.classList.toggle('lc-tone-' + t, FN_CLASS[fn] === t);
+
+    const name = make(el, 'div', 'lc-name');
+    make(name, 'h3', null, s.gene);
+    if (fn) make(name, 'span', 'lc-call ' + FN_CLASS[fn], FN_TEXT[fn] + (fn !== 'normal' && f.dose ? ` ×${f.dose}` : ''));
+    else make(name, 'span', 'lc-call unknown', 'Not genotyped');
+
+    const copies = f.dose === 2 ? 'two copies' : 'one copy';
+    let lead;
+    if (!f.genotype) lead = "HP's file has no usable call at this gene's library SNP, so its activity in HP is not known.";
+    else if (fn === 'unknown') lead = `At ${f.rsid} HP is ${f.genotype}, which could not be matched to the alleles Ensembl lists for this SNP.`;
+    else lead = `At ${f.rsid} HP is ${f.genotype}: ` + (f.dose ? `${copies} of the less common ${f.minor} allele. ` : `both copies are the common ${f.common} allele. `) +
+      `The library reads this genotype as ${fn === 'LoF' ? 'less active' : fn === 'GoF' ? 'more active' : fn === 'normal' ? 'typical function'
+        : 'changed, without saying which way activity goes'} ("${f.interpretation}").`;
+    if (f.genotype && f.minor_af >= 0.4) lead += ` Both forms are common in Europeans (${f.minor} ${pctFmt(f.minor_af)}).`;
+    make(el, 'p', 'lc-lead', lead);
+
+    if (!f.genotype) return;
+    const ul = make(el, 'ul', 'lc-ev');
+    const row = (k, v) => { const li = make(ul, 'li'); make(li, 'span', null, k); make(li, 'span', null, v); };
+    row('Best evidence', ev.tier_name || 'No functional evidence collected');
+    row('Library reading', `${f.interpretation} (report score ${f.score}/10${f.n_snps > 1 ? `, strongest of ${f.n_snps} SNPs` : ''})`);
+    if (ev.protein_change || ev.consequence) row('Change', [ev.protein_change, pretty(ev.consequence)].filter(Boolean).join(', '));
+    if (ev.mavedb) {
+      const sc = ev.mavedb.map((m) => m.score), lo = ev.mavedb.reduce((a, b) => (b.score < a.score ? b : a));
+      row('Measured', `${ev.mavedb[0].change} scored ${d3.min(sc)} to ${d3.max(sc)} across ${sc.length} conditions in a deep mutational scan ` +
+        `(MaveDB), lowest in "${lo.conditions}". Each study sets its own scale; in most, 1 is the normal protein. ` +
+        `HP carries ${f.dose} ${f.dose === 1 ? 'copy' : 'copies'} of the less common allele.`);
+    }
+    if (ev.gtex) {
+      const g = ev.gtex, x = exprShift(f, g);
+      row('Expression', `${x.lead} Each ${g.allele} allele ${g.direction} it in ${g.n_tissues} tissues (strongest in ${g.tissue}, ` +
+        `effect ${d3.format('+.2f')(g.nes)} per copy on GTEx's normalised scale).` + (x.conflict ? ` ⚠ ${x.conflict}` : ''));
+    }
+    if (ev.uniprot) row('Curated (UniProt)', ev.uniprot.join('; '));
+    if (ev.predicted) row('Predicted', ev.predicted.join(', '));
+    const pgx = (ev.clinpgx || []).find((x) => x.phenotype);
+    if (pgx) row(`Drugs (ClinPGx ${pgx.level})`, `${pgx.chemicals}: ${pgx.phenotype.length > 260 ? pgx.phenotype.slice(0, 257) + '…' : pgx.phenotype}`);
+  });
+
+  dash.draw('lc-context', (el) => {
+    el.replaceChildren();
+    const s = lcSel();
+    if (!s) { if (gx.failed('lifecycle_genes')) gx.failLine(el); return; }
+    const r = s.role, fns = lcFn();
+    const block = (label) => { const d = make(el, 'div'); make(d, 'span', 'gx-label', label); return d; };
+
+    const pw = block('Pathway');
+    make(pw, 'p', null, `${r.pathway}${r.top_pathway && r.top_pathway !== r.pathway ? ' (' + r.top_pathway + ')' : ''}.` +
+      (r.other_pathways ? ` ${s.gene} also works in ${r.other_pathways} more pathways not drawn here.` : ''));
+    make(pw, 'p', 'gx-muted', `Starts: ${r.start.replace(/^Starts at /, '')}`);
+    make(pw, 'p', 'gx-muted', `Ends: ${r.end}`);
+
+    if (r.cofactors) make(block('Needs'), 'p', null, `${r.cofactors}${r.vitamins ? ' → from ' + r.vitamins : ''}`);
+
+    if (r.regulation) {
+      const d = block('Feedback');
+      const sentences = r.regulation.split(/(?<=\))\.\s+|\.\s+(?=[A-Z])/);
+      if (r.regulation.length <= 200) make(d, 'p', null, r.regulation);
+      else {
+        const det = make(d, 'details');
+        make(det, 'summary', null, sentences[0].slice(0, 180) + (sentences[0].length > 180 ? '…' : '') + ` (${sentences.length} notes)`);
+        make(det, 'p', null, r.regulation);
+      }
+    }
+
+    const regs = JSON.parse(r.regulators || '[]');
+    if (regs.length) {
+      const d = block('Regulated by');
+      const box = make(d, 'div', 'lc-regs');
+      for (const effect of ['activates', 'inhibits', 'acts on']) {
+        const list = regs.filter((x) => x.effect === effect);
+        if (!list.length) continue;
+        const line = make(box, 'div', 'lc-reg-row');
+        make(line, 'span', null, effect === 'acts on' ? 'Acts on it' : effect[0].toUpperCase() + effect.slice(1));
+        for (const x of list) {
+          const f = fns.get(x.gene);
+          const label = regName(x.gene) + (f && f.genotype ? ` ${f.genotype}` : '');
+          const chip = f && f.has_lifecycle ? make(line, 'button', 'gx-chip', label) : make(line, 'span', 'gx-chip', label);
+          chip.title = x.gene.split('_').join(', ') + (x.lib ? ' (in library)' : '');
+          if (f && f.genotype) chip.style.borderColor = FN_STROKE[f.function] || '';
+          if (f && f.has_lifecycle) { chip.type = 'button'; chip.addEventListener('click', () => openGene(x.gene)); }
+        }
+      }
+      make(d, 'p', 'gx-note', 'From OmniPath. Genes with a genotype are in the library; select one to open its lifecycle.');
+    }
+  });
+
+  // Lifecycle as a left-to-right node graph: start, molecule, step, molecule, step, ..., end
+  dash.draw('lc-timeline', (el) => {
+    const s = lcSel();
+    if (LC.drawnKey === (s && s.key)) LC.scroll = el.scrollLeft;
+    el.replaceChildren();
+    const steps = lcSteps(s);
+    if (!s || !steps) { if (gx.failed('lifecycle_steps', 'lifecycle_genes', 'gene_function')) gx.failLine(el); return; }
+    if (!steps.length) return;
+    const fns = lcFn();
+    const sel = selectedIndex(steps);
+    const FS = 12, SMALL = 11, LINE = 15, GAP = 36, TOP = 34;
+
+    const svg = d3.select(el).append('svg').attr('role', 'group').attr('aria-label', `Lifecycle of ${s.gene}: ${s.role.pathway}`);
+    const probe = svg.append('text').style('visibility', 'hidden');
+    const textW = (t, size = FS, weight = 400) => { probe.attr('font-size', size).attr('font-weight', weight).text(t); return probe.node().getComputedTextLength(); };
+    const wrap = (t, maxW, maxLines, size = FS, weight = 400) => {
+      const lines = []; let cur = '';
+      for (const w of String(t || '').split(/\s+/).filter(Boolean)) {
+        const test = cur ? cur + ' ' + w : w;
+        if (textW(test, size, weight) <= maxW || !cur) cur = test; else { lines.push(cur); cur = w; }
+      }
+      if (cur) lines.push(cur);
+      const out = lines.slice(0, maxLines);
+      const fit = (l) => { while (l.length > 1 && textW(l + '…', size, weight) > maxW) l = l.slice(0, -1); return l + '…'; };
+      if (lines.length > maxLines) out[maxLines - 1] = fit(out[maxLines - 1]);
+      return out.map((l) => textW(l, size, weight) > maxW ? fit(l) : l);
+    };
+
+    // 1. Node sequence
+    const nodes = [{ type: 'end', tag: 'Starts', text: s.role.start.replace(/^Starts at /, '') }];
+    steps.forEach((x, i) => {
+      const prev = i > 0 ? steps[i - 1] : null;
+      const molText = prev ? (prev.outputs || '?') : (x.inputs || '?');
+      nodes.push({ type: 'mol', text: molText, warn: prev ? patternAt(prev, x) : null });
+      const carried = new Set(split(molText));
+      nodes.push({ type: 'step', x, i, extra: split(x.inputs).filter((m) => !carried.has(m)) });
+    });
+    nodes.push({ type: 'mol', text: steps[steps.length - 1].outputs || '?' });
+    nodes.push({ type: 'end', tag: 'Ends', text: s.role.end });
+
+    // 2. Measure
+    for (const n of nodes) {
+      if (n.type === 'mol') {
+        n.lines = wrap(n.text, 150, 3, FS, 600);
+        n.w = Math.round(Math.max(64, d3.max(n.lines, (l) => textW(l, FS, 600)) + 28));
+        n.h = n.lines.length * LINE + 18;
+      } else if (n.type === 'end') {
+        n.w = 170;
+        n.lines = wrap(n.text, n.w - 20, 5, SMALL);
+        n.h = (n.lines.length + 1) * LINE + 18;
+      } else {
+        const x = n.x, W = 184, inner = W - 20;
+        n.w = W;
+        n.parts = [{ kind: 'action', text: actionOf(x) }];
+        if (n.extra.length) n.parts.push(...wrap('+ ' + n.extra.join(', '), inner, 2, SMALL).map((t) => ({ kind: 'small', text: t })));
+        if (x.transport) n.parts.push(...wrap(x.move, inner, 2, SMALL).map((t) => ({ kind: 'small', text: t })));
+        n.chips = [];
+        let cx = 0, row = 0;
+        const shown = x.enz.slice(0, 6);
+        for (const g of shown) {
+          const label = chipLabel(g);
+          const w = Math.round(Math.min(inner, textW(label, SMALL) + 14));
+          if (cx && cx + w > inner) { cx = 0; row += 1; }
+          n.chips.push({ g, label, x: cx, row, w });
+          cx += w + 4;
+        }
+        n.more = x.enz.length - shown.length;
+        n.noEnzyme = !x.enz.length ? (x.transport ? 'Carrier not listed' : 'No enzyme listed') : null;
+        n.chipRows = n.chips.length ? row + 1 : 1;
+        n.h = 12 + n.parts.length * LINE + 4 + n.chipRows * 22 + (n.more > 0 ? LINE : 0) + 6;
+      }
+    }
+    probe.remove();
+
+    // 3. Layout: rows that fit the card (wrapped) or one long line, each row with a lane for section labels above
+    const wrapped = LC.wrap && el.clientWidth > 320;
+    const avail = el.clientWidth - 4;
+    const rows = [];
+    let cursor = 16, row = [];
+    for (const n of nodes) {
+      if (wrapped && row.length && cursor + n.w > avail - 8) { rows.push(row); row = []; cursor = 16; }
+      n.left = cursor; row.push(n); cursor += n.w + GAP;
+    }
+    rows.push(row);
+    let y0 = 0;
+    rows.forEach((r, ri) => {
+      r.h = d3.max(r, (n) => n.h);
+      r.lane = y0 + TOP;
+      r.cy = Math.round(r.lane + 18 + r.h / 2);
+      r.bottom = r.cy + r.h / 2;
+      for (const n of r) { n.row = ri; n.cy = r.cy; }
+      y0 = r.bottom + 18;
+    });
+
+    // A route that ends on a molecule it passed earlier is a cycle
+    const molNodes = nodes.filter((n) => n.type === 'mol');
+    const lastMol = molNodes[molNodes.length - 1];
+    const lastSet = split(lastMol.text);
+    let loopTo = molNodes.slice(0, -1).find((n) => n.text === lastMol.text);
+    let loopMol = loopTo ? lastSet[0] : null;
+    if (!loopTo && /^recycled/i.test(s.role.end)) {
+      loopTo = molNodes.slice(0, -1).find((n) => split(n.text).some((m) => lastSet.includes(m)));
+      loopMol = loopTo ? split(loopTo.text).find((m) => lastSet.includes(m)) : null;
+    }
+    const loopArc = loopTo && loopTo.row === lastMol.row;
+    const W = wrapped ? avail : cursor - GAP + 16;
+    const H = rows[rows.length - 1].bottom + (loopArc ? 64 : loopTo ? 30 : 12);
+    svg.attr('viewBox', `0 0 ${W} ${H}`).attr('width', W).attr('height', H);
+    const tip = gx.tip(el);
+
+    const markerId = 'lc-arrow';
+    svg.append('defs').append('marker').attr('id', markerId).attr('viewBox', '0 0 10 10').attr('refX', 9).attr('refY', 5)
+      .attr('markerWidth', 7).attr('markerHeight', 7).attr('orient', 'auto')
+      .append('path').attr('d', 'M0,0 L10,5 L0,10 z').style('fill', 'var(--color-fg-muted)');
+
+    // Section brackets over runs of steps from the same part of the route
+    const runs = [];
+    for (const n of nodes.filter((n) => n.type === 'step')) {
+      const last = runs[runs.length - 1];
+      if (last && last.section === n.x.section && last.to.row === n.row) last.to = n;
+      else runs.push({ section: n.x.section, from: n, to: n, cont: !!last && last.section === n.x.section });
+    }
+    for (const r of runs) {
+      const x0 = r.from.left, x1 = r.to.left + r.to.w, focal = r.section === 'focal', lane = rows[r.from.row].lane;
+      const g = svg.append('g');
+      g.append('path').attr('d', `M${x0},${lane + 6} V${lane} H${x1} V${lane + 6}`).style('fill', 'none')
+        .style('stroke', focal ? 'var(--color-fg)' : 'var(--color-border-line)').attr('stroke-width', focal ? 1.5 : 1);
+      g.append('text').attr('x', x0).attr('y', lane - 8).attr('font-size', SMALL).attr('letter-spacing', '.05em')
+        .attr('font-weight', focal ? 700 : 400).style('fill', focal ? 'var(--color-fg)' : 'var(--color-fg-muted)')
+        .text((SECTION[r.section] || r.section).toUpperCase() + (r.cont ? ' (CONT.)' : ''));
+    }
+
+    // 4. Connectors: straight within a row, down and back to the start of the next row
+    for (let i = 0; i < nodes.length - 1; i++) {
+      const a = nodes[i], b = nodes[i + 1];
+      const dashed = (b.type === 'step' && b.x.transport) || (a.type === 'step' && a.x.transport);
+      const line = a.row === b.row
+        ? `M${a.left + a.w},${a.cy} H${b.left - 2}`
+        : `M${a.left + a.w},${a.cy} H${a.left + a.w + 12} V${rows[a.row].bottom + 9} H${b.left - 10} V${b.cy} H${b.left - 2}`;
+      svg.append('path').attr('d', line).style('fill', 'none')
+        .style('stroke', 'var(--color-fg-muted)').attr('stroke-width', 1.5)
+        .attr('stroke-dasharray', dashed ? '5 4' : null).attr('marker-end', `url(#${markerId})`);
+    }
+    if (loopArc) {
+      const x1 = lastMol.left + lastMol.w / 2, y1 = lastMol.cy + lastMol.h / 2, x2 = loopTo.left + loopTo.w / 2, y2 = loopTo.cy + loopTo.h / 2 + 2;
+      const yb = rows[lastMol.row].bottom + 44;
+      svg.append('path').attr('d', `M${x1},${y1} C${x1},${yb} ${x2},${yb} ${x2},${y2}`).style('fill', 'none')
+        .style('stroke', 'var(--color-fg-muted)').attr('stroke-width', 1.5).attr('stroke-dasharray', '6 4').attr('marker-end', `url(#${markerId})`);
+      svg.append('text').attr('x', (x1 + x2) / 2).attr('y', yb - 4).attr('text-anchor', 'middle').attr('font-size', SMALL)
+        .style('fill', 'var(--color-fg-muted)').text(`↺ ${loopMol} goes back into the route: it is a cycle`);
+    } else if (loopTo) {
+      // Right-aligned to the molecule so the note never runs past the drawing
+      svg.append('text').attr('x', lastMol.left + lastMol.w).attr('y', rows[lastMol.row].bottom + 20).attr('text-anchor', 'end').attr('font-size', SMALL)
+        .style('fill', 'var(--color-fg-muted)').text(`↺ ${loopMol} goes back to an earlier step: the route is a cycle`);
+    }
+
+    // 5. Nodes
+    const stepGroups = [];
+    const select = (i) => {
+      LC.step = steps[i].order;
+      for (const sg of stepGroups) sg.node.classList.toggle('is-selected', sg.i === i);
+      dash.draw('lc-detail');
+    };
+    for (const n of nodes) {
+      const g = svg.append('g').attr('transform', `translate(${Math.round(n.left)},${Math.round(n.cy - n.h / 2)})`);
+      if (n.type === 'mol') {
+        g.append('rect').attr('x', 0.5).attr('y', 0.5).attr('width', n.w - 1).attr('height', n.h - 1).attr('rx', Math.min(n.h / 2, 22))
+          .style('fill', 'var(--color-bg)').style('stroke', 'var(--color-border-line)').attr('stroke-width', 1);
+        n.lines.forEach((l, i) => g.append('text').attr('x', n.w / 2).attr('y', 9 + LINE * (i + 0.8)).attr('text-anchor', 'middle')
+          .attr('font-size', FS).attr('font-weight', 600).style('fill', 'var(--color-fg)').text(l));
+        g.on('mousemove', (event) => tip.show(event, 'Molecule', split(n.text).map(full))).on('mouseleave', () => tip.hide());
+        if (n.warn) {
+          const b = svg.append('g').attr('transform', `translate(${n.left + n.w / 2},${n.cy - n.h / 2 - 13})`).style('cursor', 'help')
+            .on('mousemove', (event) => tip.show(event, 'Pattern in HP', [n.warn])).on('mouseleave', () => tip.hide());
+          b.append('circle').attr('r', 9).style('fill', 'var(--color-bad)');
+          b.append('text').attr('y', 4).attr('text-anchor', 'middle').attr('font-size', FS).attr('font-weight', 700)
+            .style('fill', 'var(--color-bg)').text('!');
+        }
+      } else if (n.type === 'end') {
+        g.append('rect').attr('width', n.w).attr('height', n.h).attr('rx', 6).style('fill', 'none')
+          .style('stroke', 'var(--color-fg-muted)').attr('stroke-dasharray', '4 3');
+        g.append('text').attr('x', 10).attr('y', 9 + LINE * 0.8).attr('font-size', SMALL).attr('letter-spacing', '.05em')
+          .style('fill', 'var(--color-fg-muted)').text(n.tag.toUpperCase());
+        n.lines.forEach((l, i) => g.append('text').attr('x', 10).attr('y', 9 + LINE * (i + 1.8)).attr('font-size', SMALL)
+          .style('fill', 'var(--color-fg)').text(l));
+      } else {
+        const x = n.x, focal = x.section === 'focal';
+        const enzNames = x.enz.map((e) => e.gene).join(', ') || 'no listed enzyme';
+        g.attr('class', 'lc-step' + (n.i === sel ? ' is-selected' : '')).attr('tabindex', 0).attr('role', 'button')
+          .attr('aria-label', `Step ${n.i + 1} of ${steps.length}, ${SECTION[x.section] || x.section}: ${actionOf(x)} by ${enzNames}`)
+          .on('click', () => select(n.i))
+          .on('keydown', (event) => {
+            if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); select(n.i); }
+            if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
+              event.preventDefault();
+              const next = stepGroups[n.i + (event.key === 'ArrowRight' ? 1 : -1)];
+              if (next) next.node.focus();
+            }
+          })
+          .on('mousemove', (event) => tip.show(event, actionOf(x), [x.reaction, 'Select for details']))
+          .on('mouseleave', () => tip.hide());
+        stepGroups.push({ i: n.i, node: g.node() });
+        // Selection ring sits outside the card, so "selected" and "this gene" can be told apart
+        g.append('rect').attr('class', 'lc-sel-ring').attr('x', -6).attr('y', -6).attr('width', n.w + 12).attr('height', n.h + 12).attr('rx', 12);
+        g.append('rect').attr('class', 'lc-card' + (focal ? ' is-focal' : '')).attr('x', focal ? 1 : 0.5).attr('y', focal ? 1 : 0.5)
+          .attr('width', n.w - (focal ? 2 : 1)).attr('height', n.h - (focal ? 2 : 1)).attr('rx', 8);
+        let y = 12;
+        for (const p of n.parts) {
+          g.append('text').attr('x', 10).attr('y', y + 11).attr('font-size', p.kind === 'action' ? FS : SMALL)
+            .attr('font-weight', p.kind === 'action' ? 600 : 400)
+            .style('fill', p.kind === 'action' ? 'var(--color-fg)' : 'var(--color-fg-muted)').text(p.text);
+          y += LINE;
+        }
+        y += 4;
+        if (n.noEnzyme) g.append('text').attr('x', 10).attr('y', y + 13).attr('font-size', SMALL).style('fill', 'var(--color-fg-muted)').text(n.noEnzyme);
+        for (const c of n.chips) {
+          const f = fns.get(c.g.gene);
+          const opens = f && f.has_lifecycle && c.g.gene !== s.gene;
+          const cg = g.append('g').attr('transform', `translate(${10 + c.x},${y + c.row * 22})`).attr('class', opens ? 'lc-enz' : null);
+          const called = c.g.lib && c.g.gt && ['LoF', 'GoF', 'normal'].includes(c.g.fn);
+          const stroke = !c.g.lib ? 'none' : !c.g.gt ? 'var(--color-fg-muted)' : FN_STROKE[c.g.fn] || FN_STROKE.normal;
+          cg.append('rect').attr('width', c.w).attr('height', 18).attr('rx', 9)
+            .style('fill', called ? `color-mix(in srgb, ${FN_STROKE[c.g.fn]} 25%, var(--color-bg))` : 'var(--color-bg)')
+            .style('stroke', stroke).attr('stroke-width', called ? 2 : 1.5)
+            .attr('stroke-dasharray', c.g.lib && !c.g.gt ? '3 2' : c.g.fn === 'altered' ? '1.5 2' : null);
+          cg.append('text').attr('x', c.w / 2).attr('y', 13).attr('text-anchor', 'middle').attr('font-size', SMALL)
+            .attr('text-decoration', opens ? 'underline' : null)
+            .style('fill', !c.g.lib ? 'var(--color-fg-muted)' : 'var(--color-fg)').text(c.label);
+          cg.on('mousemove', (event) => {
+            event.stopPropagation();
+            tip.show(event, c.g.gene, !c.g.lib ? ['Not in the library'] : !f || !f.genotype ? ['In the library, no call in HP'] :
+              [`${FN_TEXT[f.function] || ''}${f.function !== 'normal' && f.dose ? ' ×' + f.dose : ''} · ${f.rsid} ${f.genotype}`, f.interpretation,
+                opens ? 'Select to open its lifecycle' : ''].filter(Boolean));
+          });
+          if (opens) cg.on('click', (event) => { event.stopPropagation(); tip.hide(); openGene(c.g.gene); });
+        }
+        y += n.chipRows * 22;
+        if (n.more > 0) g.append('text').attr('x', 10).attr('y', y + 10).attr('font-size', SMALL).style('fill', 'var(--color-fg-muted)').text(`+${n.more} more enzymes`);
+      }
+    }
+
+    // Open centred on the gene's own step; keep the scroll position while the same chain is redrawn
+    if (LC.drawnKey !== s.key) {
+      const focalNode = nodes.find((n) => n.type === 'step' && n.x.section === 'focal');
+      el.scrollLeft = focalNode ? Math.max(0, focalNode.left + focalNode.w / 2 - el.clientWidth / 2) : 0;
+    } else el.scrollLeft = LC.scroll;
+    LC.drawnKey = s.key;
+  });
+
+  dash.draw('lc-patterns', (el) => {
+    el.replaceChildren();
+    const s = lcSel();
+    const steps = lcSteps(s);
+    if (!steps) return;
+    const fns = lcFn();
+    const lib = new Map();
+    for (const x of steps) for (const g of x.enz) if (g.lib) lib.set(g.gene, fns.get(g.gene) || { gene: g.gene });
+    const groups = [['GoF', 'More active'], ['normal', 'Typical function'], ['LoF', 'Less active'], ['altered', 'Changed, direction unclear']];
+    const p = make(el, 'p');
+    make(p, 'b', null, `${lib.size} library ${lib.size === 1 ? 'gene' : 'genes'} on this route. `);
+    let first = true;
+    for (const [fn, label] of groups) {
+      const gs = [...lib.values()].filter((f) => f.genotype && f.function === fn);
+      if (!gs.length) continue;
+      p.append((first ? '' : ' · ') + label + ': ');
+      first = false;
+      gs.forEach((f, i) => {
+        const t = `${f.gene} ${f.genotype}${fn !== 'normal' && f.dose ? ' ×' + f.dose : ''}`;
+        if (f.has_lifecycle && f.gene !== s.gene) { const b = make(p, 'button', 'lc-link', t); b.type = 'button'; b.addEventListener('click', () => openGene(f.gene)); }
+        else p.append(t);
+        if (i < gs.length - 1) p.append(', ');
+      });
+    }
+    const untyped = [...lib.values()].filter((f) => !f.genotype).map((f) => f.gene);
+    if (untyped.length) p.append(`${first ? '' : ' · '}Not genotyped: ${untyped.join(', ')}`);
+    const warns = steps.slice(1).map((x, i) => patternAt(steps[i], x)).filter(Boolean);
+    if (warns.length) for (const w of warns) make(el, 'p', 'lc-warn', '⚠ ' + w);
+    else make(el, 'p', 'gx-muted', 'No build-up or bottleneck pattern between neighbouring steps in HP.');
+  });
+
+  dash.draw('lc-detail', (el) => {
+    el.replaceChildren();
+    const s = lcSel();
+    const steps = lcSteps(s);
+    if (!steps) { if (gx.failed('lifecycle_steps', 'lifecycle_genes', 'gene_function')) gx.failLine(el); return; }
+    if (!steps.length) return;
+    const fns = lcFn();
+    const i = selectedIndex(steps), x = steps[i];
+
+    make(el, 'h3', null, `Step ${i + 1} of ${steps.length} · ${SECTION[x.section] || x.section} · ${actionOf(x)}`);
+    make(el, 'p', 'lc-rx', x.reaction);
+
+    const flow = make(el, 'div', 'lc-flowline');
+    const mols = (list) => { for (const m of list) { const c = make(flow, 'span', 'lc-mol', m); if (GLOSSARY[m]) make(c, 'small', null, ' ' + GLOSSARY[m]); } };
+    mols(split(x.inputs));
+    make(flow, 'span', 'gx-muted', '→');
+    mols(split(x.outputs));
+    if (x.transport) make(el, 'p', 'gx-note', `Moves between compartments: ${x.move}`);
+    const warn = i > 0 ? patternAt(steps[i - 1], x) : null;
+    if (warn) make(el, 'p', 'lc-warn', '⚠ ' + warn);
+
+    // One card per library enzyme: HP's call, how big the effect is, and where to read more
+    const STEP_TEXT = { LoF: 'less active (LoF)', GoF: 'more active (GoF)', altered: 'changed, direction unclear', normal: 'with typical function',
+                        unknown: 'not interpretable' };
+    const outside = x.enz.filter((g) => !g.lib).map((g) => g.gene);
+    const inLib = x.enz.filter((g) => g.lib);
+    const called = inLib.map((g) => fns.get(g.gene)).filter((f) => f && f.genotype);
+    const sum = make(el, 'p', 'lc-stepsum');
+    sum.textContent = !inLib.length ? 'No library gene works at this step, so HP\'s genotypes say nothing about it.'
+      : `In HP: ${called.length ? called.map((f) => `${f.gene} ${STEP_TEXT[f.function] || ''}` +
+          (f.function !== 'normal' && f.dose ? ` (${f.dose === 2 ? 'two copies' : 'one copy'})` : '')).join(', ') : 'no library enzyme genotyped'}.` +
+        (x.enz.length > 1 ? ` ${x.enz.length} enzymes can do this step, so one changed enzyme may be partly covered by the others.` : '');
+
+    const bar = (parent, cls, lo, hi, min, max, tick) => {
+      const track = make(parent, 'div', 'lc-bar ' + cls);
+      const pos = (v) => `${((Math.max(min, Math.min(max, v)) - min) / (max - min)) * 100}%`;
+      const fill = make(track, 'div', 'lc-bar-fill');
+      fill.style.left = pos(Math.min(lo, hi)); fill.style.width = `calc(${pos(Math.max(lo, hi))} - ${pos(Math.min(lo, hi))})`;
+      if (tick != null) { const t = make(track, 'div', 'lc-bar-tick'); t.style.left = pos(tick); }
+      return track;
+    };
+    const paperLink = (parent, p) => {
+      const a = make(parent, 'a', null, `PMID ${p.pmid}`);
+      a.href = `https://pubmed.ncbi.nlm.nih.gov/${p.pmid}/`; a.target = '_blank'; a.rel = 'noopener';
+      parent.append(` · ${[p.journal, p.year].filter(Boolean).join(' ')}${p.cited ? ` · cited ${p.cited}` : ''}`);
+    };
+
+    for (const g of inLib) {
+      const f = fns.get(g.gene);
+      const card = make(el, 'div', 'lc-enzcard' + (f && f.genotype && FN_CLASS[f.function] ? ' tone-' + FN_CLASS[f.function] : ''));
+      const head = make(card, 'div', 'lc-enzhead');
+      make(head, 'b', null, g.gene);
+      if (!f || !f.genotype) { make(head, 'span', 'lc-call unknown', 'Not genotyped in HP'); continue; }
+      make(head, 'span', 'gx-muted', `${f.rsid} ${f.genotype}`);
+      make(head, 'span', 'lc-call ' + FN_CLASS[f.function], FN_TEXT[f.function] + (f.function !== 'normal' && f.dose ? ` ×${f.dose}` : ''));
+      if (f.has_lifecycle && g.gene !== s.gene) { const b = make(head, 'button', 'lc-btn', 'Open its lifecycle'); b.type = 'button'; b.addEventListener('click', () => openGene(g.gene)); }
+      const ev = f.ev || {}, lit = f.lit || {};
+      make(card, 'p', 'gx-note', [`Library: ${f.interpretation}`, ev.protein_change, pretty(ev.consequence)].filter(Boolean).join(' · '));
+
+      // How much
+      const how = make(card, 'div', 'lc-how');
+      make(how, 'span', 'gx-label', 'How much');
+      let any = false;
+
+      // Capacity: where HP sits against the common form (100%) and the other genotypes at this SNP
+      const ladder = f.ladder || [];
+      const mine = ladder.find((r) => r.genotype === [...f.genotype].sort().join(''));
+      if (ladder.length) {
+        any = true;
+        const row = make(how, 'div', 'lc-howrow');
+        make(row, 'span', 'lc-howkey', 'Capacity in HP');
+        const body = make(row, 'div');
+        const cap = mine && mine.capacity, measured = ladder.some((r) => r.dose > 0 && r.capacity);
+        const pctR = (c) => c[0] === c[1] ? pctFmt(c[0]) : `${pctFmt(c[0])}–${pctFmt(c[1])}`;
+        if (cap) bar(body, 'cap tone-' + FN_CLASS[f.function], 0, cap[1], 0, 1.25, 1);
+        make(body, 'p', null, !f.dose
+          ? `${pctFmt(1)} of the common form. HP has the common form, the baseline every measurement of this SNP is compared with` +
+            (f.function === 'normal' ? '.' : `; the library still reads it as ${f.function === 'LoF' ? 'less' : 'more'} active.`)
+          : cap ? `About ${pctR(cap)} of the common form (${f.dose === 2 ? 'two copies' : 'one copy'} of ${f.minor}).`
+          : f.function === 'normal' ? `Typical function in the library's reading, with ${f.dose === 2 ? 'two copies' : 'one copy'} of ${f.minor}. ` +
+            'No study gives a size for the difference from the common form.'
+          : `${f.function === 'LoF' ? 'Below' : f.function === 'GoF' ? 'Above' : 'Different from'} the common form, with ` +
+            `${f.dose === 2 ? 'two copies' : 'one copy'} of ${f.minor}. No activity scan has measured this change, so ` +
+            ((lit.quotes || []).length ? 'the size comes from the papers quoted under Reported' : 'there is no measured size yet') +
+            (ev.gtex ? '; Expression shows the effect on how much protein is made.' : '.'));
+        const tbl = make(body, 'table', 'gx-table lc-ladder');
+        const hr = make(make(tbl, 'thead'), 'tr');
+        for (const h of ['Genotype', `Copies of ${f.minor}`, measured ? 'Capacity' : null, 'Library reading', 'Score'].filter(Boolean)) make(hr, 'th', null, h);
+        const tb = make(tbl, 'tbody');
+        for (const r of ladder) {
+          const tr = make(tb, 'tr', r === mine ? 'is-hp tone-' + FN_CLASS[f.function] : null);
+          make(tr, 'td', null, r.genotype + (r === mine ? ' · HP' : ''));
+          make(tr, 'td', null, String(r.dose));
+          if (measured) make(tr, 'td', null, r.capacity ? pctR(r.capacity) : '—');
+          make(tr, 'td', null, r.text);
+          make(tr, 'td', null, r.score != null ? `${r.score}/10` : '—');
+        }
+        make(body, 'p', 'gx-note', measured
+          ? 'Capacity is the measured activity of each allele (MaveDB), added up over both copies; ranges cover the assay conditions.'
+          : 'Capacity is relative: the common form is 100% by definition. A size for the other genotypes needs a measurement this SNP lacks.');
+      }
+      if (ev.mavedb) {
+        any = true;
+        const sc = ev.mavedb.map((m) => m.score), row = make(how, 'div', 'lc-howrow');
+        make(row, 'span', 'lc-howkey', 'Measured activity');
+        const body = make(row, 'div');
+        bar(body, 'mave', d3.min(sc), d3.max(sc), 0, Math.max(1.25, d3.max(sc)), 1);
+        make(body, 'p', 'gx-note', `${ev.mavedb[0].change}: ${d3.min(sc)} to ${d3.max(sc)} across ${sc.length} conditions (MaveDB deep mutational scan; ` +
+          `the tick is 1, the normal protein in most studies). HP has ${f.dose} ${f.dose === 1 ? 'copy' : 'copies'} of the less common allele.`);
+      }
+      if (ev.gtex) {
+        any = true;
+        const gt = ev.gtex, x = exprShift(f, gt), row = make(how, 'div', 'lc-howrow');
+        make(row, 'span', 'lc-howkey', 'Expression');
+        const body = make(row, 'div');
+        bar(body, 'gtex ' + (x.net > 0.005 ? 'up' : x.net < -0.005 ? 'down' : ''), 0, x.net, -1, 1, 0);
+        make(body, 'p', null, x.lead);
+        make(body, 'p', 'gx-note', `Each ${gt.allele} allele ${gt.direction} ${g.gene} expression by ${d3.format('.2f')(Math.abs(gt.nes))} ` +
+          `(GTEx, strongest in ${gt.tissue}). This is an effect on GTEx's normalised expression scale, not a percentage: ` +
+          `0.1 per copy is small, 0.5 large.`);
+        if (x.conflict) make(body, 'p', 'lc-warn', '⚠ ' + x.conflict);
+      }
+      if (lit.quotes && lit.quotes.length) {
+        any = true;
+        const row = make(how, 'div', 'lc-howrow');
+        make(row, 'span', 'lc-howkey', 'Reported');
+        const body = make(row, 'div', 'lc-quotes');
+        for (const q of lit.quotes) {
+          const bq = make(body, 'blockquote', null, q.text);
+          paperLink(make(bq, 'cite'), q);
+        }
+        make(body, 'p', 'gx-note', 'Sentences from abstracts that put a number on the effect, picked automatically. Check the paper: a number may ' +
+          'describe a combined genotype or a specific group of people.');
+      }
+      if (ev.predicted) { any = true; const row = make(how, 'div', 'lc-howrow'); make(row, 'span', 'lc-howkey', 'Predicted'); make(row, 'span', null, ev.predicted.join(', ')); }
+      if (!any) make(how, 'p', 'gx-note', 'No measured size found for this SNP. The direction comes from the library' + (ev.uniprot ? ' and UniProt.' : '.'));
+
+      // Research
+      if (lit.papers && lit.papers.length) {
+        const res = make(card, 'div', 'lc-research');
+        make(res, 'span', 'gx-label', 'Research: experimental papers cited by UniProt first, then the most cited');
+        const ol = make(res, 'ol');
+        for (const p of lit.papers) {
+          const li = make(ol, 'li');
+          const a = make(li, 'a', null, p.title);
+          a.href = `https://pubmed.ncbi.nlm.nih.gov/${p.pmid}/`; a.target = '_blank'; a.rel = 'noopener';
+          make(li, 'span', 'gx-muted', ` ${[p.journal, p.year].filter(Boolean).join(' ')}${p.cited ? ` · cited ${p.cited}` : ''}` +
+            (p.source === 'UniProt experimental' ? ' · experimental, cited by UniProt' : ''));
+        }
+      }
+    }
+    if (outside.length) make(el, 'p', 'gx-note', `Also at this step, not in the library: ${outside.join(', ')}.`);
+
+    const alts = (x.alternatives || '').split(' | ').filter(Boolean);
+    make(el, 'span', 'gx-label', 'Other routes at this step');
+    if (alts.length) { const ul = make(el, 'ul', 'lc-alts'); for (const a of alts) make(ul, 'li', null, a); }
+    else make(el, 'p', 'gx-note', 'None in this pathway.');
+    if (x.reaction_id) {
+      const a = make(make(el, 'p', 'gx-note'), 'a', null, `Open ${x.reaction_id} in Reactome`);
+      a.href = `https://reactome.org/content/detail/${x.reaction_id}`; a.target = '_blank'; a.rel = 'noopener';
+    }
+  });
+
+  document.querySelectorAll('#lc-wrap').forEach((b) => b.addEventListener('click', () => {
+    LC.wrap = !LC.wrap;
+    b.setAttribute('aria-pressed', String(LC.wrap));
+    dash.draw('lc-timeline');
+  }));
+  // HP profile: interaction and bridge tables
+  dash.draw('hp-links', (tbody) => {
+    const r = gx.rows('hp_links');
+    tbody.replaceChildren();
+    if (!r) return;
+    const rows = [...r[0]].sort((a, b) => (a.kind === b.kind ? 0 : a.kind === 'compound' ? -1 : 1) || b.string_score - a.string_score);
+    for (const l of rows) {
+      const tr = document.createElement('tr');
+      tr.dataset.key = encodeURIComponent(l.gene_a) + ',' + encodeURIComponent(l.gene_b);
+      const cell = (text, cls) => { const td = document.createElement('td'); td.textContent = text; if (cls) td.className = cls; tr.appendChild(td); };
+      cell(l.kind, l.kind === 'compound' ? 'gx-up' : 'gx-down');
+      cell(l.gene_a); cell(l.gene_b); cell(l.module_name); cell(d3.format('.2f')(l.string_score));
+      tbody.appendChild(tr);
+    }
+  });
+
+  dash.draw('hp-bridges', (tbody) => {
+    const r = gx.rows('hp_bridges');
+    tbody.replaceChildren();
+    if (!r) return;
+    for (const b of r[0]) {
+      const tr = document.createElement('tr');
+      const cell = (text, cls) => { const td = document.createElement('td'); td.textContent = text; if (cls) td.className = cls; tr.appendChild(td); };
+      cell(b.gene); cell(b.module_name); cell(b.reaches); cell(d3.format('.1f')(b.total_weight), 'gx-hide-narrow');
+      tbody.appendChild(tr);
+    }
+  });
+</script>

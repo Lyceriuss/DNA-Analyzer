@@ -1,0 +1,43 @@
+  <section class="gx-page" id="lifecycle" data-page="lifecycle" hidden>
+    <p class="gx-note">One gene's life, read left to right: the building block it starts from, the steps that convert it, the gene's own step,
+      and where the product goes next, until it is excreted, burned for energy or recycled. Steps come from Reactome's curated reactions,
+      extended through shared molecules. At forks the route with the most library genes is shown and the others are listed in the step details.</p>
+    <div class="lc-controls">
+      <label class="gx-label" for="lc-gene">Gene</label>
+      <select id="lc-gene" class="lc-select" data-draw="lc-gene" data-source="lifecycle_genes" aria-label="Gene"></select>
+      <div class="lc-roles" data-draw="lc-roles" data-source="lifecycle_genes" role="group" aria-label="Pathway role"></div>
+    </div>
+    <div class="lc-top">
+      <div class="gx-card" id="lifecycle-head">
+        <span class="gx-label">This gene in HP</span>
+        <div class="lc-head" data-draw="lc-head" data-source="lifecycle_genes gene_function"></div>
+      </div>
+      <div class="gx-card" id="lifecycle-context">
+        <span class="gx-label">What it needs and what controls it</span>
+        <div class="lc-kv" data-draw="lc-context" data-source="lifecycle_genes gene_function"></div>
+      </div>
+    </div>
+    <div class="gx-card" id="lifecycle-timeline">
+      <div class="lc-flow-head">
+        <h2>Lifecycle</h2>
+        <div class="lc-legend" aria-label="Enzyme colours">
+          <span class="lc-chip lc-gof">More active (GoF)</span><span class="lc-chip lc-norm">Typical function</span><span class="lc-chip lc-lof">Less active (LoF)</span>
+          <span class="lc-chip lc-alt">Changed, direction unclear</span>
+          <span class="lc-chip lc-untested">In library, not genotyped</span><span class="lc-chip lc-out">Not in library *</span>
+        </div>
+      </div>
+      <p class="gx-note">Round nodes are molecules and cards are the steps that convert them, with the enzymes that do the work. Each enzyme is
+        compared with the most common European form at its SNP, and ×1 or ×2 is how many copies of the less common allele HP carries. A dashed
+        arrow is a move between compartments and ↺ marks a molecule that goes back into the route. Turn off wrapping to read the chain on one scrolling line. Select a step to see its details; select a
+        gene with its own lifecycle to open it.</p>
+      <div class="lc-controls">
+        <button type="button" class="lc-btn" id="lc-wrap" aria-pressed="true">Wrap to width</button>
+      </div>
+      <div class="lc-graph" data-draw="lc-timeline" data-source="lifecycle_steps lifecycle_genes gene_function"></div>
+      <div class="lc-patterns" data-draw="lc-patterns" data-source="lifecycle_steps lifecycle_genes gene_function"></div>
+    </div>
+    <div class="gx-card" id="lifecycle-step">
+      <span class="gx-label">Selected step</span>
+      <div class="lc-detail" data-draw="lc-detail" data-source="lifecycle_steps lifecycle_genes gene_function"></div>
+    </div>
+  </section>
