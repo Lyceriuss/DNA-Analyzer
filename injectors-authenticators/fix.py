@@ -2,8 +2,8 @@ import re
 import os
 
 # CONFIG
-INPUT_FILE = "MyHeritage_raw_dna_data_HP.csv"
-OUTPUT_FILE = "MyHeritage_raw_dna_data_HP_FIXED.csv"
+INPUT_FILE = "MyHeritage_raw_dna_data_XY.csv"
+OUTPUT_FILE = "MyHeritage_raw_dna_data_XY_FIXED.csv"
 
 def fix_csv():
     print(f"🔧 Fixing whitespace issues in: {INPUT_FILE}...")

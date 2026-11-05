@@ -3,8 +3,8 @@
 API-built theme graphs, independent of the library: which genes act on a theme, through which mechanism, and how
 they connect. A person's DNA file is cross-referenced afterwards, offline.
 
-    python -m cluster_analysis.theme_graph fertility                      # → cluster_analysis/theme_graph_fertility.json
-    python -m cluster_analysis.theme_graph fertility --dna data/input/...  # also → data/output/cluster_analysis/theme_<name>_<theme>.json
+    python -m cluster_analysis.theme_graph fertility_female               # → cluster_analysis/theme_graph_fertility_female.json
+    python -m cluster_analysis.theme_graph cancer --dna data/input/...     # also → data/output/cluster_analysis/theme_<name>_<theme>.json
 
 Genes      Open Targets: a gene joins when its association with any of the theme's diseases or traits scores ≥ 0.5
            overall, or ≥ 0.5 on human genetic evidence. Mouse-only evidence does not count.
@@ -47,7 +47,7 @@ THEMES = {
     "fertility_female": {
         "name": "Female fertility",
         "sex": "XX",
-        "person": "data/input/MyHeritage_raw_dna_data_HJ.csv",
+        "person": "data/input/MyHeritage_raw_dna_data_XX.csv",
         "about": "The XX reproductive system: desire, the hypothalamus–pituitary signals, the ovaries and their eggs and hormones, "
                  "the fallopian tubes, and the uterus that carries a pregnancy. Built from Open Targets disease genetics and Gene "
                  "Ontology, not from the library.",
@@ -104,7 +104,7 @@ THEMES = {
     "fertility_male": {
         "name": "Male fertility",
         "sex": "XY",
-        "person": "data/input/MyHeritage_raw_dna_data_HP.csv",
+        "person": "data/input/MyHeritage_raw_dna_data_XY.csv",
         "about": "The XY reproductive system: desire, the hypothalamus–pituitary signals, the testes and the testosterone and sperm "
                  "they make, sperm maturation and transport, the prostate and seminal vesicles, and erection. Built from Open "
                  "Targets disease genetics and Gene Ontology, not from the library.",
@@ -152,6 +152,78 @@ THEMES = {
             {"id": "erection", "name": "Erection", "go": ["GO:0043084", "GO:0060406"], "orthologs": True, "organ": "penis",
              "about": "Nitric oxide and smooth-muscle signalling for erection."},
         ],
+    },
+    "cancer": {
+        "name": "Cancer and the life of a cell",
+        "person": "data/input/MyHeritage_raw_dna_data_XY.csv",
+        "view": "cell",
+        "about": "Every cell lives through the same stages: it rests or grows, copies its DNA and divides, passes checkpoints, meets "
+                 "toxins and damage, ages, and is meant to die and be cleared. Cancer starts when a cell slips past these controls. "
+                 "Genes are placed on the stage they act in, from Gene Ontology, and kept when Open Targets links them to cancer.",
+        "diseases": {
+            "MONDO_0004992": "cancer", "MONDO_0004989": "breast carcinoma", "MONDO_0005159": "prostate carcinoma",
+            "MONDO_0005575": "colorectal cancer", "MONDO_0005138": "lung carcinoma", "MONDO_0005012": "cutaneous melanoma",
+            "MONDO_0008170": "ovarian cancer", "MONDO_0005192": "exocrine pancreatic carcinoma", "MONDO_0020804": "basal cell carcinoma",
+            "MONDO_0004986": "urinary bladder carcinoma", "MONDO_0005086": "renal cell carcinoma",
+        },
+        # A mechanism gene stays only with a cancer link of this strength; the GO terms alone cover thousands of genes
+        "mechanism_min_disease": 0.3,
+        # Joining on disease alone needs human genetic evidence (germline), since somatic tumour evidence says nothing about a DNA file
+        "disease_join": "genetic",
+        "pathway_terms": r"Cell Cycle|Checkpoint|Mitotic|DNA Replication|DNA Repair|Mismatch|Base Excision|Nucleotide Excision|"
+                         r"Homologous|Double-Strand|Fanconi|TP53|p53|Apoptosis|Apoptotic|Caspase|Senescence|Telomer|Oxidative|"
+                         r"Detoxification|Biological oxidations|Glutathione|Cytochrome P450|RAS|RAF|MAPK|PI3K|AKT|MTOR|"
+                         r"Signaling by (ERBB|EGFR|FGFR|KIT|MET|WNT|Hedgehog|NOTCH|TGF)|Antigen processing|MHC class I",
+        "clinvar_terms": r"cancer|carcinoma|tumou?r|neoplas|melanoma|lymphoma|leukemia|sarcoma|polyposis|lynch|li-fraumeni|"
+                         r"cowden|von hippel|neurofibromatosis|adenoma|blastoma|glioma|myeloma",
+        # Stages of a cell's life, drawn as the cell-cycle diagram; mechanisms place genes on them
+        "organs": [
+            {"id": "lives", "name": "Living and resting", "about": "Most cells rest (G0) or grow (G1). Growth signals from outside decide "
+             "whether a cell starts another round of division, and contact with its neighbours holds it in place."},
+            {"id": "birth", "name": "Copying and dividing", "about": "The cell copies its DNA (S phase), prepares (G2) and splits into two "
+             "daughter cells (mitosis, M). A round takes about a day in fast-dividing tissue."},
+            {"id": "checks", "name": "Checkpoints", "about": "Gates before copying (G1/S), before dividing (G2/M) and during division "
+             "(spindle) stop the cycle when DNA is damaged or chromosomes are not attached, until it is fixed."},
+            {"id": "stress", "name": "Toxins and damage", "about": "Toxins, radiation and the cell's own oxygen use damage DNA. Enzymes "
+             "neutralise toxins and oxidants, and repair systems fix the damage."},
+            {"id": "ages", "name": "Ageing", "about": "Each division shortens the telomeres at the chromosome ends. Short telomeres or "
+             "lasting damage put the cell into senescence: alive, but never dividing again."},
+            {"id": "dies", "name": "Death and clearance", "about": "A cell too damaged to repair kills itself (apoptosis), and the immune "
+             "system finds and kills cells that show abnormal proteins."},
+            {"id": "escape", "name": "Escape: cancer", "about": "A cell that slips past checkpoints, repair, ageing and death keeps dividing. "
+             "To spread it must also break loose from its neighbours and grow its own blood vessels."},
+        ],
+        "disease_organs": {},
+        "mechanisms": [
+            {"id": "growth", "name": "Growth signals", "go": ["GO:0007169", "GO:0007265"], "organ": "lives",
+             "about": "Growth-factor receptors and the RAS–MAPK and PI3K–AKT relays that tell a cell to divide."},
+            {"id": "rest", "name": "Resting and staying in place", "go": ["GO:0044838", "GO:0034332", "GO:0007162"], "organ": "lives",
+             "about": "Quiescence, and the cell–cell junctions and adhesion that hold a cell in its tissue."},
+            {"id": "replication", "name": "Copying the DNA", "go": ["GO:0006260"], "organ": "birth",
+             "about": "DNA replication in S phase."},
+            {"id": "division", "name": "Dividing", "go": ["GO:0140014", "GO:0000281", "GO:0044772"], "organ": "birth",
+             "about": "Moving through the phases, separating the chromosomes and splitting the cell."},
+            {"id": "checkpoints", "name": "Checkpoints", "go": ["GO:0000075"], "organ": "checks",
+             "about": "DNA-damage, replication and spindle checkpoints that pause the cycle."},
+            {"id": "toxins", "name": "Clearing toxins", "go": ["GO:0006805"], "organ": "stress", "min_disease": 0.1,
+             "about": "Phase I and II enzymes that activate and neutralise foreign chemicals: CYPs, GSTs, NAT2, UGTs."},
+            {"id": "oxidative", "name": "Oxidative stress", "go": ["GO:0006979"], "organ": "stress", "min_disease": 0.1,
+             "about": "Neutralising reactive oxygen and the response to it."},
+            {"id": "repair", "name": "DNA repair", "go": ["GO:0006281"], "organ": "stress",
+             "about": "Mismatch, base and nucleotide excision, and double-strand break repair."},
+            {"id": "telomeres", "name": "Telomeres", "go": ["GO:0000723"], "organ": "ages",
+             "about": "Keeping the chromosome ends long: telomerase and the shelterin cap."},
+            {"id": "senescence", "name": "Senescence", "go": ["GO:0090398"], "organ": "ages",
+             "about": "The permanent stop that ageing or damaged cells enter."},
+            {"id": "apoptosis", "name": "Programmed death", "go": ["GO:0097193", "GO:0097191"], "organ": "dies",
+             "about": "The internal (mitochondrial) and external (death receptor) routes to apoptosis."},
+            {"id": "immune", "name": "Immune clearance", "go": ["GO:0002474", "GO:0001913", "GO:0042267"], "organ": "dies",
+             "about": "Showing protein fragments on MHC class I, and the T and NK cells that kill abnormal cells."},
+            {"id": "spread", "name": "Invasion and new blood vessels", "go": ["GO:0001837", "GO:0001525"], "organ": "escape",
+             "about": "Epithelial–mesenchymal transition, which lets a cell break loose, and angiogenesis, which feeds a tumour."},
+        ],
+        "disease_explain": "Open Targets ties these genes to cancer through human genetics (GWAS and inherited variants), but Gene Ontology "
+                           "places them on none of the cell's stages yet. Many are risk loci near a gene whose role is still unclear.",
     },
 }
 
@@ -204,6 +276,49 @@ EXPLAIN = {
                   "ejaculate. Genes here cover the glands' development.",
         "erection": "Erection needs nitric oxide from nerves and the vessel lining (NOS3), cGMP signalling in the smooth muscle (broken down "
                     "by PDE5), and good blood flow. Genes here link to erectile dysfunction, which shares risk with blood vessel health.",
+    },
+    "cancer": {
+        "growth": "Growth factors bind receptors on the surface (EGFR, ERBB2, FGFR, KIT), which pass the signal through RAS, RAF and MAPK, "
+                  "or PI3K, AKT and mTOR, to switch on the genes for division. PTEN and NF1 are brakes on these relays. A relay stuck "
+                  "on (a more active oncogene) or a brake lost (a less active PTEN or NF1) lets a cell divide without being told to.",
+        "rest": "Most cells in an adult are resting, held in their place by junctions with their neighbours (cadherins such as CDH1, "
+                "and catenins). Contact with neighbours also tells a cell to stop dividing. Losing these contacts is an early step "
+                "towards invasion; inherited CDH1 loss causes stomach and breast cancer.",
+        "replication": "In S phase the whole genome is copied once. Polymerases with proofreading (POLE, POLD1) and the licensing system "
+                       "that stops a second round make it accurate. Weaker proofreading leaves more mutations behind in every division.",
+        "division": "Cyclins and CDKs move the cell from phase to phase, and RB1 holds the gate at G1 until the cell is ready. In mitosis "
+                    "the chromosomes are attached to the spindle and pulled apart. Losing RB1 or the CDK inhibitors (CDKN2A) lets cells "
+                    "cycle unchecked; missegregation gives daughter cells the wrong number of chromosomes.",
+        "checkpoints": "ATM and ATR sense broken or stalled DNA and, through CHEK1, CHEK2 and p53 (TP53), stop the cycle until it is "
+                       "repaired, or send the cell to die. The spindle checkpoint (BUB1, MAD2) holds division until every chromosome is "
+                       "attached. These are the guards cancer most often disables: TP53 is mutated in about half of all tumours, and "
+                       "inherited CHEK2 and ATM variants raise breast and prostate cancer risk.",
+        "toxins": "Phase I enzymes (CYP1A1, CYP1B1, CYP2E1) make foreign chemicals easier to remove, but often make them more reactive "
+                  "first; phase II enzymes (GSTM1, GSTP1, NAT2, UGTs) attach a tag that neutralises and clears them. The balance "
+                  "between the two decides how much of a carcinogen from smoke, grilled meat or solvents reaches DNA. Slow NAT2 and "
+                  "missing GSTM1 are the classic examples, raising bladder cancer risk in smokers.",
+        "oxidative": "Using oxygen for energy leaks superoxide and peroxide, which damage DNA, fats and proteins. SOD2, catalase, "
+                     "glutathione peroxidases and NRF2 (NFE2L2) neutralise them. Weaker defences mean more oxidative DNA damage over "
+                     "time.",
+        "repair": "Different systems fix different damage: mismatch repair (MLH1, MSH2, MSH6, PMS2) corrects copying errors, base excision "
+                  "(OGG1, MUTYH) fixes oxidised bases, nucleotide excision (XPC, ERCC2) removes UV and chemical damage, and homologous "
+                  "recombination (BRCA1, BRCA2, PALB2) repairs double-strand breaks. Inherited loss of one copy is the cause of Lynch "
+                  "syndrome and hereditary breast and ovarian cancer; common variants have small effects.",
+        "telomeres": "Telomeres cap the chromosome ends and shorten with each division, which limits how often a cell can divide. "
+                     "Telomerase (TERT, TERC) rebuilds them in stem cells. Cancers switch telomerase back on to divide forever; TERT "
+                     "variants are among the strongest common risk loci for many cancers, and long telomeres raise risk for some.",
+        "senescence": "When telomeres run short or damage persists, p53, p21 (CDKN1A) and p16 (CDKN2A) put the cell into permanent arrest. "
+                      "This is a barrier against cancer, but senescent cells also release inflammatory signals that, over the years, "
+                      "can feed the growth of nearby cells.",
+        "apoptosis": "A cell too damaged to save dismantles itself. In the internal route p53 and BH3 proteins open the mitochondria (BAX, "
+                     "BAK) against the guards BCL2 and MCL1, releasing cytochrome c to start the caspases. In the external route death "
+                     "receptors (FAS, TNFRSF10) start them from outside. Tumours often raise BCL2 or lose BAX to survive.",
+        "immune": "Every cell shows fragments of its proteins on MHC class I (HLA, B2M, TAP1). Cytotoxic T cells recognise abnormal "
+                  "fragments from mutated proteins, and NK cells kill cells that hide their MHC. Tumours escape by losing B2M or HLA, or "
+                  "by raising PD-L1, which is what immunotherapy reverses.",
+        "spread": "To spread, a tumour cell drops its junctions and becomes mobile (epithelial–mesenchymal transition, driven by SNAI1, "
+                  "TWIST1, ZEB1), digests its surroundings (MMPs), and grows its own blood supply (VEGFA and its receptors). These are "
+                  "late steps; variants here matter more for how a cancer behaves than for whether it starts.",
     },
 }
 DISEASE_EXPLAIN = ("Open Targets ties these genes to one of the theme's conditions, mostly through GWAS, but Gene Ontology has no "
@@ -266,16 +381,19 @@ def build(theme_id):
 
     # Open Targets: every association ≥ 0.2 is kept as evidence; the stricter rule decides who joins on disease alone
     assoc, by_disease, disease_ids = defaultdict(dict), defaultdict(set), {}
+    keep = min([0.2] + [m["min_disease"] for m in theme["mechanisms"] if m.get("min_disease")])
     for did, label in theme["diseases"].items():
         t = ot_targets(did)
         disease_ids[did] = [did] + t["descendants"]
         need = 0.8 if label in measured else 0.5
         for r in t["rows"]:
             genetic = r["types"].get("genetic_association", 0)
-            if r["score"] >= 0.2 or genetic >= 0.2:
+            if r["score"] >= keep or genetic >= 0.2:
                 assoc[r["gene"]][label] = {"score": round(r["score"], 3), "genetic": round(genetic, 3),
                                            "types": sorted(k for k, v in r["types"].items() if v >= 0.1)}
-            if r["score"] >= 0.5 or genetic >= need:
+            # Germline themes join on human genetics only; others on the overall score too
+            joins = genetic >= need if theme.get("disease_join") == "genetic" else (r["score"] >= 0.5 or genetic >= need)
+            if joins:
                 by_disease[r["gene"]].add(label)
 
     # Gene Ontology: human or curated annotations always count; ortholog-only ones when the mechanism says so,
@@ -293,9 +411,16 @@ def build(theme_id):
             m = next(x for x in theme["mechanisms"] if x["id"] == mid)
             if best in ("human experiment", "curated") or (best == "from orthologs" and (m.get("orthologs") or assoc.get(sym))):
                 mechanisms[mid] = {"terms": sorted({n for n, _ in terms})[:4], "evidence": best}
+        diseases = assoc.get(sym, {})
+        floor = theme.get("mechanism_min_disease")
+        if floor and sym not in by_disease:
+            # A stage gene needs a link to the theme's diseases too; detox and antioxidant genes, known mostly from
+            # older candidate-gene studies, need a weaker one
+            top = max((d["score"] for d in diseases.values()), default=0)
+            by_id = {m["id"]: m for m in theme["mechanisms"]}
+            mechanisms = {k: v for k, v in mechanisms.items() if top >= by_id[k].get("min_disease", floor)}
         if not mechanisms and sym not in by_disease:
             continue
-        diseases = assoc.get(sym, {})
         best = max(diseases, key=lambda d: diseases[d]["score"]) if diseases else None
         # Organs: from the gene's mechanisms, and from diseases it is strongly linked to
         mech_organ = {m["id"]: m.get("organ") for m in theme["mechanisms"]}
@@ -330,12 +455,15 @@ def build(theme_id):
     edges = sources.string_network(symbols, required_score=400) if len(symbols) <= 2000 else []
     links = list({tuple(sorted((e["preferredName_A"], e["preferredName_B"]))): {"a": e["preferredName_A"], "b": e["preferredName_B"],
                   "score": e["score"]} for e in edges if e["preferredName_A"] in genes and e["preferredName_B"] in genes}.values())
-    return {"theme": theme_id, "name": theme["name"], "about": theme["about"],
-            "rule": "Gene Ontology mechanism genes, plus Open Targets genes scoring ≥ 0.5 (≥ 0.8 genetic for level and timing traits)",
+    rule = ("Gene Ontology mechanism genes, plus Open Targets genes scoring ≥ 0.5 (≥ 0.8 genetic for level and timing traits)"
+            if not theme.get("mechanism_min_disease") else
+            f"Gene Ontology stage genes with an Open Targets cancer score ≥ {theme['mechanism_min_disease']}, plus genes with "
+            "human genetic evidence ≥ 0.5 for a cancer")
+    return {"theme": theme_id, "name": theme["name"], "about": theme["about"], "rule": rule, "view": theme.get("view"),
             "diseases": theme["diseases"], "disease_ids": disease_ids,
             "mechanisms": [{**{k: m.get(k) for k in ("id", "name", "about", "go", "organ")},
                             "explain": EXPLAIN.get(theme_id, {}).get(m["id"])} for m in theme["mechanisms"]],
-            "disease_explain": DISEASE_EXPLAIN,
+            "disease_explain": theme.get("disease_explain", DISEASE_EXPLAIN),
             "organs": theme.get("organs", []), "disease_organs": theme.get("disease_organs", {}), "sex": theme.get("sex"),
             "person": theme.get("person"),
             "genes": dict(sorted(genes.items())), "links": links, "pathways": pathways}
@@ -470,7 +598,7 @@ def cross_reference(graph, dna_path):
                         pathogenic["carried"].append({"gene": s["gene"], "rsid": s["rsid"], "genotype": gt, "condition": c["condition"],
                                                       "copies": copies})
                 else:
-                    continue  # a pathogenic variant HP does not carry is counted, not listed
+                    continue  # a pathogenic variant XY does not carry is counted, not listed
             found.append({"source": "ClinVar", "what": f"{c['significance']}: {c['condition']}", "copies": copies,
                           "allele": ",".join(alts)})
         best = {}

@@ -9,7 +9,7 @@ Groups the genes in the library (`config/snp_traits.json`) into **functional mod
 python -m cluster_analysis.build_modules            # --resolution 2.0 --min-score 400 --no-gwas
 
 # 2. Person → module report (fully offline)
-python -m cluster_analysis.overlay data/input/MyHeritage_raw_dna_data_HP.csv
+python -m cluster_analysis.overlay data/input/MyHeritage_raw_dna_data_XY.csv
 ```
 
 | Output | Contains | In git? |
@@ -79,8 +79,9 @@ Broad mechanisms (growth signals, cell death, oxidative stress, inflammation, en
 ## API-built theme graphs (fertility)
 
 ```bash
-python -m cluster_analysis.theme_graph fertility_female   # HJ's file, from the theme config
-python -m cluster_analysis.theme_graph fertility_male     # HP's file
+python -m cluster_analysis.theme_graph fertility_female   # XX's file, from the theme config
+python -m cluster_analysis.theme_graph fertility_male     # XY's file
+python -m cluster_analysis.theme_graph cancer             # XY's file: the life of a cell
 ```
 
 These themes don't depend on the library: the categories come from the APIs and the DNA file is matched afterwards.
@@ -95,7 +96,9 @@ These themes don't depend on the library: the categories come from the APIs and 
 
   Only theme names, disease IDs and gene symbols go to the APIs.
 
-Themes can be sex-specific and name their own person. `fertility_female` uses HJ's file (XX) and places every gene on an organ through its mechanisms (`organ`) and strongly linked conditions (`disease_organs`): brain, hypothalamus–pituitary, ovaries, fallopian tubes, uterus, and endometrium/placenta. The explorer draws these as a body map, and selecting an organ narrows the page to its genes. `fertility_male` uses HP's file (XY) with brain, hypothalamus–pituitary, testes, epididymis and vas deferens, prostate and seminal vesicles, and penis. Together the two fertility themes replace the mixed library theme. Each mechanism has a written explanation (`EXPLAIN`) for the explorer's in-depth view. Erection, accessory-gland and behaviour biology is mostly known from mouse, so those mechanisms accept ortholog-based GO evidence.
+Themes can be sex-specific and name their own person. `fertility_female` uses the XX file and places every gene on an organ through its mechanisms (`organ`) and strongly linked conditions (`disease_organs`): brain, hypothalamus–pituitary, ovaries, fallopian tubes, uterus, and endometrium/placenta. The explorer draws these as a body map, and selecting an organ narrows the page to its genes. `fertility_male` uses XY's file (XY) with brain, hypothalamus–pituitary, testes, epididymis and vas deferens, prostate and seminal vesicles, and penis. Together the two fertility themes replace the mixed library theme. Each mechanism has a written explanation (`EXPLAIN`) for the explorer's in-depth view. Erection, accessory-gland and behaviour biology is mostly known from mouse, so those mechanisms accept ortholog-based GO evidence.
+
+`cancer` (XY's file) uses the same mechanism → place link, but its places are the stages of a cell's life instead of organs (`"view": "cell"`): living and resting, copying and dividing, checkpoints, toxins and damage, ageing, death and clearance, and escape. A gene on a stage also needs an Open Targets cancer score ≥ 0.3 (≥ 0.1 for toxin clearance and oxidative stress, whose evidence is mostly older candidate-gene studies), and genes join on a cancer alone only with human genetic evidence ≥ 0.5, since somatic tumour evidence says nothing about a DNA file. It replaces the library-built cancer theme.
 
 `theme_graph_<theme>.json` is public data. `data/output/cluster_analysis/theme_<name>_<theme>.json` holds the person's cross-reference and stays out of git. `export_dashboard` uses an API theme in place of the library theme with the same id. It draws the notable genes: those with a library call, a ClinVar entry, a carried finding in a mechanism gene, or an Open Targets score ≥ 0.8.
 
@@ -114,8 +117,8 @@ Themes can be sex-specific and name their own person. `fertility_female` uses HJ
 
 ```bash
 # Lifecycle and gene-function datasets for the explorer, with fresh calls but no new API walks
-python -m cluster_analysis.export_dashboard out/bundle.json --lifecycles data/output/cluster_analysis/lifecycles_HP.json \
-    --dna data/input/MyHeritage_raw_dna_data_HP.csv
+python -m cluster_analysis.export_dashboard out/bundle.json --lifecycles data/output/cluster_analysis/lifecycles_XY.json \
+    --dna data/input/MyHeritage_raw_dna_data_XY.csv
 ```
 
 Papers and quoted effect sizes come from `literature.py`, run once for the whole library:
@@ -126,7 +129,7 @@ python -m cluster_analysis.literature   # → cluster_analysis/literature.json (
 
 For each SNP it lists UniProt's experimental references, then the most cited Europe PMC papers whose title names the gene or variant. It also quotes abstract sentences that put a number on the variant's own activity, expression or level ("53% reduced urate transport rates compared to wild-type"). Older names such as C677T or ALDH2*2 are learned from abstracts that write them next to the rsID. Sentences with association statistics (odds, CI, risk), and sentences that name only other variants, are dropped. 20 of 229 SNPs have such a quote, since most abstracts give no number.
 
-`gene_function.json` adds the function evidence per gene (MaveDB scores, GTEx direction and HP's copies of the effect allele, UniProt, SIFT/PolyPhen, ClinPGx for HP's genotype). It holds personal genotypes, so keep it out of git.
+`gene_function.json` adds the function evidence per gene (MaveDB scores, GTEx direction and XY's copies of the effect allele, UniProt, SIFT/PolyPhen, ClinPGx for XY's genotype). It holds personal genotypes, so keep it out of git.
 
 ## Caveats
 

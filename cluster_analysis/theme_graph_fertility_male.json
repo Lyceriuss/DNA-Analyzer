@@ -593,7 +593,7 @@
   "erectile dysfunction": "penis"
  },
  "sex": "XY",
- "person": "data/input/MyHeritage_raw_dna_data_HP.csv",
+ "person": "data/input/MyHeritage_raw_dna_data_XY.csv",
  "genes": {
   "ABAT": {
    "mechanisms": {

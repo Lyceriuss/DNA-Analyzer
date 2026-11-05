@@ -3,7 +3,7 @@
 Filters a coverage map (coverage_map.py) down to SNPs worth adding to the library: those with
 real evidence of what they do, not merely a mention somewhere. Runs offline on the bulk files.
 
-    python -m cluster_analysis.candidates --name HP
+    python -m cluster_analysis.candidates --name XY
 
 A SNP qualifies (and is not in the library yet) when at least one holds:
   A  protein effect       UniProt humsavar class P, LP or US (not benign)
@@ -139,5 +139,5 @@ def main(name):
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--name", default="HP")
+    ap.add_argument("--name", default="XY")
     main(ap.parse_args().name)

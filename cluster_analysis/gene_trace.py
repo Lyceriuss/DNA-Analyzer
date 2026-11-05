@@ -470,7 +470,7 @@ def to_markdown(t):
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("gene")
-    ap.add_argument("--dna", default="data/input/MyHeritage_raw_dna_data_HP.csv")
+    ap.add_argument("--dna", default="data/input/MyHeritage_raw_dna_data_XY.csv")
     args = ap.parse_args()
     status = person_status(args.dna) if args.dna else {}
     result = trace(args.gene.upper(), status)

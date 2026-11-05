@@ -334,7 +334,7 @@ def to_text(lc):
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("genes", nargs="+")
-    ap.add_argument("--dna", default="data/input/MyHeritage_raw_dna_data_HP.csv")
+    ap.add_argument("--dna", default="data/input/MyHeritage_raw_dna_data_XY.csv")
     ap.add_argument("--out")
     args = ap.parse_args()
     status = person_status(args.dna) if args.dna else {}

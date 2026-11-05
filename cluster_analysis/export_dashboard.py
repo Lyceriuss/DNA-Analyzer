@@ -215,15 +215,15 @@ def api_theme_rows(graph, xref, status, with_lifecycle=(), order=0, person=None)
     tid = graph["theme"]
     xg = (xref or {}).get("genes", {})
     facets = graph["mechanisms"] + [{"id": "disease", "name": "Disease link, mechanism not yet known",
-                                     "about": "Open Targets ties these genes to a fertility condition, but Gene Ontology has no reproductive "
-                                              "mechanism for them yet."}]
+                                     "about": "Open Targets ties these genes to one of the theme's conditions, but Gene Ontology has no "
+                                              "mechanism for them in this theme yet."}]
     with_findings = sum(1 for g in xg.values() if g["findings"])
     stats = {"n_genes": len(graph["genes"]), "n_mechanism": sum(1 for g in graph["genes"].values() if g["mechanisms"]),
              "n_snps": (xref or {}).get("n_snps_in_theme_genes"), "n_genes_with_findings": with_findings,
              "pathogenic_measured": (xref or {}).get("pathogenic", {}).get("measured"),
              "pathogenic_carried": (xref or {}).get("pathogenic", {}).get("carried", []), "rule": graph["rule"],
              "person": person, "sex": graph.get("sex"), "organs": graph.get("organs", []),
-             "disease_organs": graph.get("disease_organs", {})}
+             "disease_organs": graph.get("disease_organs", {}), "view": graph.get("view")}
     meta = [{"theme": tid, "theme_name": graph["name"], "about": graph["about"], "theme_order": order, "facet": f["id"],
              "facet_name": f["name"], "facet_about": f.get("about"), "organ": f.get("organ"),
              "facet_explain": f.get("explain") or (graph.get("disease_explain") if f["id"] == "disease" else None),
@@ -235,7 +235,7 @@ def api_theme_rows(graph, xref, status, with_lifecycle=(), order=0, person=None)
         findings = xg.get(sym, {}).get("findings", [])
         carried = sum(1 for f in findings for it in f["items"] if it["source"] in ("GWAS", "ClinVar") and it.get("copies"))
         clinvar = any(it["source"] == "ClinVar" for f in findings for it in f["items"])
-        # Genes with a reproductive mechanism are drawn when HP carries a finding; disease-only genes (many of them
+        # Genes with a reproductive mechanism are drawn when XY carries a finding; disease-only genes (many of them
         # hormone-level GWAS loci) only with a library call, a ClinVar entry or a very strong disease link
         is_notable = bool(p.get("genotype")) or g["best_score"] >= 0.8 or clinvar or (carried > 0 and bool(g["mechanisms"]))
         if is_notable:
@@ -277,7 +277,7 @@ if __name__ == "__main__":
             lifecycle_genes = {r["gene"] for r in tables[1]}
             tables = list(theme_rows(json.load(open(THEMES_PATH, encoding="utf-8")), status, lifecycle_genes))
             # API-built themes replace the library-built theme of the same name
-            # Each API theme uses its own person when it names one (female fertility: HJ), otherwise --dna
+            # Each API theme uses its own person when it names one (female fertility: XX), otherwise --dna
             statuses = {args.dna: status}
             orders = {r["theme"]: r["theme_order"] for r in tables[0]}
             for path in sorted(glob.glob(os.path.join(os.path.dirname(__file__), "theme_graph_*.json"))):

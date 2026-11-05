@@ -91,3 +91,8 @@
   .th-outline, .th-zoom, .th-shape, .th-leader, .th-context, .th-cy-line, .th-cy-lining, .th-cy-window { vector-effect: non-scaling-stroke; }
   .th-shape { stroke-width: 1.5; }
   .th-cy-band, .th-cy-window { shape-rendering: crispEdges; }
+  .th-escape { stroke-dasharray: 5 4; }
+  .th-cell-path { fill: none; stroke: var(--color-fg-muted); stroke-width: 1.2; vector-effect: non-scaling-stroke; }
+  .th-cell-fail { stroke: var(--color-bad); stroke-dasharray: 5 4; }
+  .th-cell-phase { font-size: 12px; font-weight: 700; fill: var(--color-fg); }
+  .th-body-svg text { pointer-events: none; }

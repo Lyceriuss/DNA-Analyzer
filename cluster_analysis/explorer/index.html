@@ -511,6 +511,11 @@
   .th-outline, .th-zoom, .th-shape, .th-leader, .th-context, .th-cy-line, .th-cy-lining, .th-cy-window { vector-effect: non-scaling-stroke; }
   .th-shape { stroke-width: 1.5; }
   .th-cy-band, .th-cy-window { shape-rendering: crispEdges; }
+  .th-escape { stroke-dasharray: 5 4; }
+  .th-cell-path { fill: none; stroke: var(--color-fg-muted); stroke-width: 1.2; vector-effect: non-scaling-stroke; }
+  .th-cell-fail { stroke: var(--color-bad); stroke-dasharray: 5 4; }
+  .th-cell-phase { font-size: 12px; font-weight: 700; fill: var(--color-fg); }
+  .th-body-svg text { pointer-events: none; }
 </style>
 
 <div class="gx">
@@ -519,20 +524,20 @@
     <p class="gx-lede">The library's genes form <b data-draw="k-modules" data-source="kpis" data-field="modules" data-row="0">—</b> functional modules.
       <b data-draw="k-biomarkers" data-source="kpis" data-field="biomarkers" data-row="0">—</b> standard lab biomarkers tie them together through
       <b data-draw="k-linked" data-source="kpis" data-field="linked_snps" data-row="0">—</b> SNPs with a genome-wide significant GWAS link.
-      The first two tabs are public reference data; the third overlays HP's genome on them.</p>
+      The first two tabs are public reference data; the third overlays XY's genome on them.</p>
   </header>
 
   <nav class="gx-tabs" role="tablist" aria-label="Views">
     <button class="gx-tab" role="tab" data-tab="clusters" aria-selected="true">Clusters</button>
     <button class="gx-tab" role="tab" data-tab="lifecycle" aria-selected="false">Gene lifecycle</button>
     <button class="gx-tab" role="tab" data-tab="biomarkers" aria-selected="false">Biomarkers</button>
-    <button class="gx-tab" role="tab" data-tab="profile" aria-selected="false">HP profile</button>
+    <button class="gx-tab" role="tab" data-tab="profile" aria-selected="false">XY profile</button>
   </nav>
 
   <section class="gx-page" id="clusters" data-page="clusters">
     <p class="gx-note">A theme gathers every library gene with evidence that it bears on one area of health, grouped by the mechanism it acts
       through: repair, growth signals, hormones, the supply of building blocks. Evidence comes from Gene Ontology, Reactome, UniProt and GWAS,
-      and each gene shows why it is included. Colours are the calls for the theme's person (HP; HJ for female fertility): blue more active, green typical function, red less active.</p>
+      and each gene shows why it is included. Colours are the calls for the theme's person (XY; XX for female fertility): blue more active, green typical function, red less active.</p>
     <div class="th-picker" data-draw="th-picker" data-source="theme_meta" role="group" aria-label="Theme"></div>
     <div class="gx-card" id="theme-head">
       <div class="th-head" data-draw="th-head" data-source="theme_meta theme_genes"></div>
@@ -597,7 +602,7 @@
     </div>
     <div class="lc-top">
       <div class="gx-card" id="lifecycle-head">
-        <span class="gx-label">This gene in HP</span>
+        <span class="gx-label">This gene in XY</span>
         <div class="lc-head" data-draw="lc-head" data-source="lifecycle_genes gene_function"></div>
       </div>
       <div class="gx-card" id="lifecycle-context">
@@ -615,7 +620,7 @@
         </div>
       </div>
       <p class="gx-note">Round nodes are molecules and cards are the steps that convert them, with the enzymes that do the work. Each enzyme is
-        compared with the most common European form at its SNP, and ×1 or ×2 is how many copies of the less common allele HP carries. A dashed
+        compared with the most common European form at its SNP, and ×1 or ×2 is how many copies of the less common allele XY carries. A dashed
         arrow is a move between compartments and ↺ marks a molecule that goes back into the route. Turn off wrapping to read the chain on one scrolling line. Select a step to see its details; select a
         gene with its own lifecycle to open it.</p>
       <div class="lc-controls">
@@ -662,7 +667,7 @@
   </section>
 
   <section class="gx-page" id="profile" data-page="profile" hidden>
-    <p class="gx-note gx-sample">HP's own genome (MyHeritage file) scored against the library. <b data-draw="s-top" data-source="hp_modules" data-field="name" data-row="0">—</b>
+    <p class="gx-note gx-sample">XY's own genome (MyHeritage file) scored against the library. <b data-draw="s-top" data-source="hp_modules" data-field="name" data-row="0">—</b>
       carries the largest risk load, with <b data-draw="s-compound" data-source="hp_compound" data-field="n" data-row="0">—</b> compound links across all modules,
       where two interacting genes are both reduced.</p>
     <div class="gx-grid">
@@ -801,8 +806,8 @@
 
   dash.calc('hp_compound', {
     inputs: ['hp_links'],
-    title: 'HP compound links',
-    description: 'Number of interacting gene pairs where both genes are reduced in HP.',
+    title: 'XY compound links',
+    description: 'Number of interacting gene pairs where both genes are reduced in XY.',
     fn: (hp_links) => [{ n: hp_links.filter((l) => l.kind === 'compound').length }],
   });
 
@@ -824,14 +829,14 @@
 </script>
 
 <script>
-  // Theme clusters: picker, HP balance, mechanism map, connection network, gene detail and shared pathways
+  // Theme clusters: picker, XY balance, mechanism map, connection network, gene detail and shared pathways
   const TH_TEXT = { LoF: 'less active', GoF: 'more active', altered: 'changed, direction unclear', normal: 'typical function',
                     variant: 'carries a trait-linked variant' };
   const TH_CLASS = { LoF: 'lof', GoF: 'gof', altered: 'alt', normal: 'norm', variant: 'var' };
   const TH_FILL = { LoF: 'var(--color-bad)', GoF: 'var(--gof)', altered: 'var(--color-fg)', normal: 'var(--typical)',
                     variant: 'var(--color-fg-muted)' };
   const thMake = (parent, tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; parent.appendChild(e); return e; };
-  // Library genes carry a function call; API-theme genes outside the library are marked when HP carries a trait-linked allele
+  // Library genes carry a function call; API-theme genes outside the library are marked when XY carries a trait-linked allele
   const thCall = (g) => g.genotype ? (g.function || 'normal') : g.carried > 0 ? 'variant' : null;
   const thLabel = (g) => g.gene + (g.genotype ? ` ${g.genotype}` : '') + (g.genotype && g.function !== 'normal' && g.dose ? ` ×${g.dose}` : '') +
     (!g.genotype && g.carried > 0 ? ` · ${g.carried}` : '');
@@ -840,7 +845,7 @@
     const a = thMake(parent, 'a', null, 'PubMed');
     a.href = `https://pubmed.ncbi.nlm.nih.gov/${id}/`; a.target = '_blank'; a.rel = 'noopener';
   };
-  const thFinding = (parent, f, it, who = 'HP') => {
+  const thFinding = (parent, f, it, who = 'XY') => {
     const d = thMake(parent, 'div');
     thMake(d, 'span', 'th-src', it.source);
     if (it.source === 'GWAS') {
@@ -872,14 +877,14 @@
     // An API theme lists every gene but draws the notable ones: a library call, a carried finding or a strong disease link
     const shown = (api ? genes.filter((g) => g.notable) : genes).filter(inOrgan);
     const byName = new Map(genes.map((g) => [g.gene, g]));
-    // Default selection: the first changed gene, so the panel opens on something HP carries
+    // Default selection: the first changed gene, so the panel opens on something XY carries
     const order = (g) => (g.primary === 'disease' ? 4 : 0) + (g.function === 'LoF' || g.function === 'GoF' ? 0 : g.carried > 0 ? 1 : g.genotype ? 2 : 3);
     const fallback = [...shown].sort((a, b) => order(a) - order(b) || (b.carried || 0) - (a.carried || 0) || a.gene.localeCompare(b.gene))[0];
     const gene = byName.get(p.th_gene) || fallback;
     return { themes, theme, facets, genes, shown, byName, gene, api, stats, organs, organ, inOrgan };
   };
   const thPick = (gene) => dash.setParams({ th_gene: gene });
-  const thWho = (s) => (s && s.stats && s.stats.person) || 'HP';
+  const thWho = (s) => (s && s.stats && s.stats.person) || 'XY';
 
   const thBalance = (parent, genes, none = 'not genotyped') => {
     const bar = thMake(parent, 'div', 'th-balance');
@@ -932,9 +937,9 @@
     }
     const typed = s.genes.filter((g) => g.genotype);
     const parts = thBalance(el, s.genes);
-    thMake(el, 'p', null, `${s.genes.length} library genes act on ${s.theme.theme_name.toLowerCase()}, and HP has a call at ${typed.length}: ` +
+    thMake(el, 'p', null, `${s.genes.length} library genes act on ${s.theme.theme_name.toLowerCase()}, and XY has a call at ${typed.length}: ` +
       parts.filter((x) => !/not genotyped/.test(x)).join(', ') + '.');
-    // Where HP's changed genes gather
+    // Where XY's changed genes gather
     const lean = s.facets.map((f) => {
       const gs = s.genes.filter((g) => g.fl.includes(f.facet));
       return { f, lof: gs.filter((g) => g.function === 'LoF'), gof: gs.filter((g) => g.function === 'GoF') };
@@ -1054,7 +1059,7 @@
     thMake(head, 'span', 'lc-call ' + (fn ? { LoF: 'lof', GoF: 'gof', altered: 'altered', normal: 'norm', variant: 'var' }[fn] : 'unknown'),
       fn ? TH_TEXT[fn][0].toUpperCase() + TH_TEXT[fn].slice(1) + (fn !== 'normal' && g.dose ? ` ×${g.dose}` : '') : s.api ? `No ${thWho(s)} finding` : 'Not genotyped');
     thMake(el, 'p', null, g.genotype ? `Library: ${g.rsid} ${g.genotype}: ${g.interpretation} (report score ${g.score}/10).`
-      : s.api ? `Not in the library. ${thWho(s)}'s file measures ${g.ev.n_snps || 0} SNPs in or near this gene.` : 'HP has no call at this gene\'s library SNP.');
+      : s.api ? `Not in the library. ${thWho(s)}'s file measures ${g.ev.n_snps || 0} SNPs in or near this gene.` : 'XY has no call at this gene\'s library SNP.');
     if (g.has_lifecycle) {
       const b = thMake(el, 'button', 'lc-btn', 'Open its lifecycle');
       b.type = 'button';
@@ -1062,7 +1067,7 @@
     }
 
     if (s.api) {
-      // HP's variants first, then why the gene belongs to the theme
+      // XY's variants first, then why the gene belongs to the theme
       const fs = (g.ev.findings || []).filter((f) => f.items.length);
       thMake(el, 'span', 'gx-label', `${thWho(s)}'s variants with a known effect (${fs.length})`);
       if (fs.length) {
@@ -1070,7 +1075,7 @@
         const carriedFirst = [...fs].sort((a, b) => Math.max(...b.items.map((i) => i.copies || 0)) - Math.max(...a.items.map((i) => i.copies || 0)));
         for (const f of carriedFirst.slice(0, 12)) { const li = thMake(fl, 'li'); for (const it of f.items.slice(0, 3)) thFinding(li, f, it, thWho(s)); }
         if (fs.length > 12) thMake(el, 'p', 'gx-note', `+${fs.length - 12} more SNPs with a finding.`);
-      } else thMake(el, 'p', 'gx-note', `None of ${thWho(s)}'s SNPs in this gene has a ClinVar, GWAS or library entry for a fertility trait.`);
+      } else thMake(el, 'p', 'gx-note', `None of ${thWho(s)}'s SNPs in this gene has a ClinVar, GWAS or library entry for one of the theme's conditions.`);
       thMake(el, 'span', 'gx-label', `Why it is in ${s.theme.theme_name.toLowerCase()}`);
       const why = thMake(el, 'ul', 'th-why');
       for (const f of s.facets) {
@@ -1353,12 +1358,24 @@
     const s = thSel();
     if (!s) { if (gx.failed('theme_meta', 'theme_genes')) gx.failLine(el); return; }
     if (!s.organs.length) {
-      thMake(el, 'p', 'gx-note', 'This theme has no body map yet. The fertility themes have one: female (HJ) and male (HP).');
+      thMake(el, 'p', 'gx-note', 'This theme has no map yet. The fertility themes have a body map (female XX, male XY) and cancer has the life of a cell.');
       return;
     }
     const who = thWho(s);
     const male = s.stats.sex === 'XY';
-    const SHAPES = male ? XY_SHAPES : XX_SHAPES;
+    const cell = s.stats.view === 'cell';
+    const SHAPES = cell ? CELL_SHAPES() : male ? XY_SHAPES : XX_SHAPES;
+    const unit = cell ? 'stage' : 'organ';
+    const card = el.closest('.gx-card');
+    if (card) {
+      const h = card.querySelector('h2'), note = card.querySelector('.gx-note');
+      if (h) h.textContent = cell ? 'Life of a cell' : 'Body map';
+      if (note) note.textContent = cell
+        ? 'The stages every cell lives through, and where the theme\'s genes act in them. Cancer starts when a cell slips past the ' +
+          'checkpoints, repair, ageing and death. Select a stage to narrow the mechanisms, connections and gene panel to it.'
+        : 'Where in the body the theme\'s genes act. Each gene is placed by its mechanisms and the conditions it is linked to. ' +
+          'Select an organ to narrow the mechanisms, connections and gene panel to it.';
+    }
 
     const per = new Map(s.organs.map((o) => [o.id, { o, all: 0, lof: 0, gof: 0, variant: 0, genes: [] }]));
     for (const g of s.genes) {
@@ -1384,7 +1401,9 @@
       .attr('role', 'group').attr('aria-label', `${s.theme.theme_name}: organs`);
     const tip = gx.tip(box);
 
-    // Body outline and the zoom from the pelvis to the organ view
+    // Body outline and the zoom from the pelvis to the organ view; the cell map draws its paths instead
+    if (cell) drawCellPaths(svg);
+    else {
     svg.append('circle').attr('cx', 120).attr('cy', 62).attr('r', 40).attr('class', 'th-outline');
     svg.append('path').attr('d', male ? XY_BODY : XX_BODY).attr('class', 'th-outline');
     if (male) {
@@ -1398,6 +1417,7 @@
     svg.append('rect').attr('x', 94).attr('y', 268).attr('width', 52).attr('height', 50).attr('rx', 6).attr('class', 'th-zoom');
     svg.append('path').attr('d', 'M146,268 L262,120 M146,318 L262,400').attr('class', 'th-zoom');
     svg.append('text').attr('x', 120).attr('y', 398).attr('text-anchor', 'middle').attr('class', 'th-cap').text(`${s.stats.sex || ''} · ${who}`);
+    }
 
     for (const [id, shape] of Object.entries(SHAPES)) {
       const c = per.get(id);
@@ -1409,7 +1429,7 @@
         .on('click', () => dash.setParams({ th_organ: selected ? null : id, th_gene: null }))
         .on('keydown', (event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); dash.setParams({ th_organ: selected ? null : id, th_gene: null }); } })
         .on('mousemove', (event) => tip.show(event, c.o.name, [c.o.about, `${c.all} genes; ${who}: ${c.lof} less active, ${c.gof} more active, ` +
-          `${c.variant} with a carried variant`, selected ? 'Select again to show all organs' : 'Select to focus the page on this organ']))
+          `${c.variant} with a carried variant`, selected ? `Select again to show all ${unit}s` : `Select to focus the page on this ${unit}`]))
         .on('mouseleave', () => tip.hide());
       for (const sh of shape.shapes) {
         let node;
@@ -1424,11 +1444,11 @@
           g.append('path').attr('d', sh.stroke).attr('class', 'th-hit');
           node = g.append('path').attr('d', sh.stroke).attr('class', 'th-tube').style('stroke', tint(c));
           continue;
-        } else node = g.append('path').attr('d', sh.path);
-        node.attr('class', 'th-shape').style('fill', tint(c)).style('stroke', edge(c));
+        } else node = g.append('path').attr('d', sh.path).attr('transform', sh.at ? `translate(${sh.at})` : null);
+        node.attr('class', 'th-shape' + (sh.cls ? ' ' + sh.cls : '')).style('fill', tint(c)).style('stroke', edge(c));
       }
       const [lx, ly, anchor] = shape.label;
-      svg.append('line').attr('x1', shape.to[0]).attr('y1', shape.to[1])
+      if (shape.to) svg.append('line').attr('x1', shape.to[0]).attr('y1', shape.to[1])
         .attr('x2', anchor === 'start' ? lx - 6 : anchor === 'end' ? lx + 6 : lx).attr('y2', anchor === 'middle' && ly < shape.to[1] ? ly + 20 : ly - 4).attr('class', 'th-leader');
       const t = svg.append('text').attr('x', lx).attr('y', ly).attr('text-anchor', anchor).attr('class', 'th-label' + (selected ? ' is-selected' : ''));
       t.append('tspan').text(c.o.name);
@@ -1439,16 +1459,17 @@
       if (c.variant) sub.append('tspan').text(` · ●${c.variant}`);
     }
 
+    if (cell) drawCellLetters(svg);
     // Female theme: the 28-day cycle sits under the organs
-    if (!male) drawCycle(el, s);
+    if (s.stats.sex === 'XX') drawCycle(el, s);
 
     // Side panel: the selected organ, or how to read the map
     const o = s.organ;
     if (!o) {
-      thMake(info, 'h3', null, 'All organs');
+      thMake(info, 'h3', null, `All ${unit}s`);
       thMake(info, 'p', 'gx-note', `▼ less active and ▲ more active are ${who}'s library calls; ● counts genes where ${who} carries an allele ` +
-        'that a GWAS or ClinVar links to a fertility trait. Shading is stronger where more of these gather, red where less-active genes ' +
-        'lead and blue where more-active ones do. Select an organ to focus the page on it.');
+        `that a GWAS or ClinVar links to one of the theme's conditions. Shading is stronger where more of these gather, red where less-active genes ` +
+        `lead and blue where more-active ones do. Select ${cell ? 'a stage' : 'an organ'} to focus the page on it.`);
       const list = thMake(info, 'div', 'th-genes');
       for (const c of [...per.values()].sort((a, b) => signal(b) - signal(a))) {
         const b = thMake(list, 'button', 'lc-chip th-gene', `${c.o.name} · ${signal(c)}`);
@@ -1474,10 +1495,56 @@
       b.type = 'button';
       b.addEventListener('click', () => thPick(g.gene));
     }
-    const all = thMake(info, 'button', 'lc-btn', 'Show all organs');
+    const all = thMake(info, 'button', 'lc-btn', `Show all ${unit}s`);
     all.type = 'button';
     all.addEventListener('click', () => dash.setParams({ th_organ: null, th_gene: null }));
   });
+
+
+  // Cancer theme: the life of a cell. The cell cycle is a ring (G1, S, G2, M) with its checkpoint gates; resting, stress,
+  // ageing, death and escape sit around it. Each stage is a button that narrows the page, like the organs on the body maps.
+  const CELL_C = [300, 214];
+  const cellPt = (deg, r) => [CELL_C[0] + r * Math.sin(deg * Math.PI / 180), CELL_C[1] - r * Math.cos(deg * Math.PI / 180)];
+  const cellArc = (a, b, r0 = 92, r1 = 128) => ({ path: d3.arc()({ innerRadius: r0, outerRadius: r1, startAngle: a * Math.PI / 180,
+    endAngle: b * Math.PI / 180 }), at: CELL_C });
+  const CELL_SHAPES = () => ({
+    lives: { shapes: [cellArc(200, 340), { ellipse: [78, 214, 76, 34] }], label: [78, 212, 'middle'] },
+    birth: { shapes: [cellArc(340, 440), cellArc(440, 490), cellArc(490, 560)], label: [300, 206, 'middle'] },
+    checks: { shapes: [cellArc(336, 344, 82, 138), cellArc(486, 494, 82, 138), cellArc(521, 529, 82, 138)],
+              label: [206, 46, 'middle'], to: cellPt(340, 138) },
+    stress: { shapes: [{ ellipse: [604, 70, 92, 34] }], label: [604, 68, 'middle'] },
+    ages: { shapes: [{ ellipse: [640, 214, 92, 34] }], label: [640, 212, 'middle'] },
+    dies: { shapes: [{ ellipse: [604, 358, 92, 34] }], label: [604, 356, 'middle'] },
+    escape: { shapes: [{ ellipse: [112, 366, 96, 34], cls: 'th-escape' }], label: [112, 364, 'middle'] },
+  });
+  const drawCellPaths = (svg) => {
+    const defs = svg.append('defs');
+    defs.append('marker').attr('id', 'th-cell-arrow').attr('viewBox', '0 0 10 10').attr('refX', 9).attr('refY', 5)
+      .attr('markerWidth', 7).attr('markerHeight', 7).attr('orient', 'auto')
+      .append('path').attr('d', 'M0,0 L10,5 L0,10 z').style('fill', 'var(--color-fg-muted)');
+    const arrow = (d, text, tx, ty, anchor = 'middle', cls = 'th-cell-path') => {
+      svg.append('path').attr('d', d).attr('class', cls).attr('marker-end', 'url(#th-cell-arrow)');
+      if (text) svg.append('text').attr('x', tx).attr('y', ty).attr('text-anchor', anchor).attr('class', 'th-cap').text(text);
+    };
+    const [sx, sy] = cellPt(30, 132), [ax, ay] = cellPt(90, 132), [dx, dy] = cellPt(150, 132), [ex, ey] = cellPt(222, 132);
+    arrow(`M${sx},${sy} Q470,70 508,72`, 'damage: repair, or stop', 452, 60);
+    arrow(`M${ax},${ay} L544,214`, 'wear', 490, 206);
+    arrow(`M${dx},${dy} Q470,358 508,358`, 'beyond repair', 452, 374);
+    arrow('M640,250 Q646,290 626,322', 'cleared', 650, 290, 'start');
+    arrow('M156,202 L170,202', null);
+    arrow('M170,226 L156,226', null);
+    svg.append('text').attr('x', 160).attr('y', 262).attr('text-anchor', 'middle').attr('class', 'th-cap').text('signals');
+    arrow(`M${ex},${ey} Q190,320 168,334`, null, 0, 0, 'middle', 'th-cell-path th-cell-fail');
+    svg.append('text').attr('x', 112).attr('y', 418).attr('text-anchor', 'middle').attr('class', 'th-cap')
+      .text('when checks, repair and death all fail');
+  };
+  const drawCellLetters = (svg) => {
+    for (const [txt, deg] of [['G1', 270], ['S', 390], ['G2', 465], ['M', 525]]) {
+      const [x, y] = cellPt(deg, 110);
+      svg.append('text').attr('x', x).attr('y', y + 4).attr('text-anchor', 'middle').attr('class', 'th-cell-phase').text(txt);
+    }
+    svg.append('text').attr('x', 300).attr('y', 246).attr('text-anchor', 'middle').attr('class', 'th-cap').text('one turn ≈ a day in fast tissue');
+  };
 
   // Mechanism in depth: what it does, what the person carries in it, and every gene behind it
   const XY_SHAPES = {
@@ -1508,7 +1575,7 @@
     if (!s || !pr) { if (gx.failed('theme_meta', 'theme_genes', 'theme_pathways')) gx.failLine(el); return; }
     const f = s.facets.find((x) => x.facet === dash.params().th_facet);
     if (!f) { thMake(el, 'p', 'gx-note', 'Select a mechanism box above to open it here: what it does, how it works, what the person carries in it, and every gene behind it.'); return; }
-    const who = s.api ? thWho(s) : 'HP';
+    const who = s.api ? thWho(s) : 'XY';
     const genes = s.genes.filter((g) => g.fl.includes(f.facet));
     const head = thMake(el, 'div', 'lc-name');
     thMake(head, 'h3', null, f.facet_name);
@@ -1683,7 +1750,7 @@
 </script>
 
 <script>
-  // HP profile: module balance (diverging bars)
+  // XY profile: module balance (diverging bars)
   dash.draw('hp-modules', (el) => {
     const r = gx.rows('hp_modules');
     el.replaceChildren();
@@ -1716,7 +1783,7 @@
       .attr('font-size', 12).style('fill', 'var(--color-fg)').text((m) => m.name);
   });
 
-  // HP profile: biomarker tilt (z) as bars from zero
+  // XY profile: biomarker tilt (z) as bars from zero
   dash.draw('hp-tilts', (el) => {
     const r = gx.rows('hp_tilts');
     el.replaceChildren();
@@ -1791,14 +1858,14 @@
   const pretty = (c) => (c || '').replace(/_variant$/, '').replace(/_/g, ' ');
   const regName = (n) => { const p = n.split('_'); return p.length > 2 ? `${p[0]} complex (+${p.length - 1})` : p.join('–'); };
   const make = (parent, tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; parent.appendChild(e); return e; };
-  // GTEx expression for HP's copies of the effect allele, and whether it contradicts the library's activity call
+  // GTEx expression for XY's copies of the effect allele, and whether it contradicts the library's activity call
   const exprShift = (f, gt) => {
     const net = (gt.copies || 0) * gt.nes, size = Math.abs(net) < 0.1 ? 'slightly' : Math.abs(net) < 0.4 ? 'moderately' : 'strongly';
-    const lead = !gt.copies ? `HP has no ${gt.allele}, so this eQTL leaves HP's ${f.gene} expression at the usual level.`
-      : `HP's ${gt.copies === 2 ? 'two copies' : 'copy'} of ${gt.allele} ${size} ${net > 0 ? 'raise' : 'lower'}${gt.copies === 1 ? 's' : ''} how much ` +
+    const lead = !gt.copies ? `XY has no ${gt.allele}, so this eQTL leaves XY's ${f.gene} expression at the usual level.`
+      : `XY's ${gt.copies === 2 ? 'two copies' : 'copy'} of ${gt.allele} ${size} ${net > 0 ? 'raise' : 'lower'}${gt.copies === 1 ? 's' : ''} how much ` +
         `${f.gene} is made (net ${d3.format('+.2f')(net)}).`;
     const conflict = gt.copies && ((f.function === 'GoF' && net < -0.05) || (f.function === 'LoF' && net > 0.05))
-      ? `This disagrees with the library, which reads HP's genotype as ${f.function === 'GoF' ? 'more' : 'less'} active. Less RNA can still ` +
+      ? `This disagrees with the library, which reads XY's genotype as ${f.function === 'GoF' ? 'more' : 'less'} active. Less RNA can still ` +
         'mean more protein activity, but the library entry is worth checking against the papers.' : null;
     return { net, lead, conflict };
   };
@@ -1839,7 +1906,7 @@
     return f >= 0 ? f : 0;
   };
 
-  // A neighbouring pair of steps where HP's calls could make a molecule build up or run short
+  // A neighbouring pair of steps where XY's calls could make a molecule build up or run short
   const calledFns = (x) => x.enz.filter((g) => g.lib && (g.fn === 'LoF' || g.fn === 'GoF')).map((g) => g.fn);
   const patternAt = (prev, cur) => {
     const a = calledFns(prev), b = calledFns(cur), m = prev.outputs || 'the product';
@@ -1893,9 +1960,9 @@
 
     const copies = f.dose === 2 ? 'two copies' : 'one copy';
     let lead;
-    if (!f.genotype) lead = "HP's file has no usable call at this gene's library SNP, so its activity in HP is not known.";
-    else if (fn === 'unknown') lead = `At ${f.rsid} HP is ${f.genotype}, which could not be matched to the alleles Ensembl lists for this SNP.`;
-    else lead = `At ${f.rsid} HP is ${f.genotype}: ` + (f.dose ? `${copies} of the less common ${f.minor} allele. ` : `both copies are the common ${f.common} allele. `) +
+    if (!f.genotype) lead = "XY's file has no usable call at this gene's library SNP, so its activity in XY is not known.";
+    else if (fn === 'unknown') lead = `At ${f.rsid} XY is ${f.genotype}, which could not be matched to the alleles Ensembl lists for this SNP.`;
+    else lead = `At ${f.rsid} XY is ${f.genotype}: ` + (f.dose ? `${copies} of the less common ${f.minor} allele. ` : `both copies are the common ${f.common} allele. `) +
       `The library reads this genotype as ${fn === 'LoF' ? 'less active' : fn === 'GoF' ? 'more active' : fn === 'normal' ? 'typical function'
         : 'changed, without saying which way activity goes'} ("${f.interpretation}").`;
     if (f.genotype && f.minor_af >= 0.4) lead += ` Both forms are common in Europeans (${f.minor} ${pctFmt(f.minor_af)}).`;
@@ -1911,7 +1978,7 @@
       const sc = ev.mavedb.map((m) => m.score), lo = ev.mavedb.reduce((a, b) => (b.score < a.score ? b : a));
       row('Measured', `${ev.mavedb[0].change} scored ${d3.min(sc)} to ${d3.max(sc)} across ${sc.length} conditions in a deep mutational scan ` +
         `(MaveDB), lowest in "${lo.conditions}". Each study sets its own scale; in most, 1 is the normal protein. ` +
-        `HP carries ${f.dose} ${f.dose === 1 ? 'copy' : 'copies'} of the less common allele.`);
+        `XY carries ${f.dose} ${f.dose === 1 ? 'copy' : 'copies'} of the less common allele.`);
     }
     if (ev.gtex) {
       const g = ev.gtex, x = exprShift(f, g);
@@ -2145,7 +2212,7 @@
         g.on('mousemove', (event) => tip.show(event, 'Molecule', split(n.text).map(full))).on('mouseleave', () => tip.hide());
         if (n.warn) {
           const b = svg.append('g').attr('transform', `translate(${n.left + n.w / 2},${n.cy - n.h / 2 - 13})`).style('cursor', 'help')
-            .on('mousemove', (event) => tip.show(event, 'Pattern in HP', [n.warn])).on('mouseleave', () => tip.hide());
+            .on('mousemove', (event) => tip.show(event, 'Pattern in XY', [n.warn])).on('mouseleave', () => tip.hide());
           b.append('circle').attr('r', 9).style('fill', 'var(--color-bad)');
           b.append('text').attr('y', 4).attr('text-anchor', 'middle').attr('font-size', FS).attr('font-weight', 700)
             .style('fill', 'var(--color-bg)').text('!');
@@ -2202,7 +2269,7 @@
             .style('fill', !c.g.lib ? 'var(--color-fg-muted)' : 'var(--color-fg)').text(c.label);
           cg.on('mousemove', (event) => {
             event.stopPropagation();
-            tip.show(event, c.g.gene, !c.g.lib ? ['Not in the library'] : !f || !f.genotype ? ['In the library, no call in HP'] :
+            tip.show(event, c.g.gene, !c.g.lib ? ['Not in the library'] : !f || !f.genotype ? ['In the library, no call in XY'] :
               [`${FN_TEXT[f.function] || ''}${f.function !== 'normal' && f.dose ? ' ×' + f.dose : ''} · ${f.rsid} ${f.genotype}`, f.interpretation,
                 opens ? 'Select to open its lifecycle' : ''].filter(Boolean));
           });
@@ -2249,7 +2316,7 @@
     if (untyped.length) p.append(`${first ? '' : ' · '}Not genotyped: ${untyped.join(', ')}`);
     const warns = steps.slice(1).map((x, i) => patternAt(steps[i], x)).filter(Boolean);
     if (warns.length) for (const w of warns) make(el, 'p', 'lc-warn', '⚠ ' + w);
-    else make(el, 'p', 'gx-muted', 'No build-up or bottleneck pattern between neighbouring steps in HP.');
+    else make(el, 'p', 'gx-muted', 'No build-up or bottleneck pattern between neighbouring steps in XY.');
   });
 
   dash.draw('lc-detail', (el) => {
@@ -2273,15 +2340,15 @@
     const warn = i > 0 ? patternAt(steps[i - 1], x) : null;
     if (warn) make(el, 'p', 'lc-warn', '⚠ ' + warn);
 
-    // One card per library enzyme: HP's call, how big the effect is, and where to read more
+    // One card per library enzyme: XY's call, how big the effect is, and where to read more
     const STEP_TEXT = { LoF: 'less active (LoF)', GoF: 'more active (GoF)', altered: 'changed, direction unclear', normal: 'with typical function',
                         unknown: 'not interpretable' };
     const outside = x.enz.filter((g) => !g.lib).map((g) => g.gene);
     const inLib = x.enz.filter((g) => g.lib);
     const called = inLib.map((g) => fns.get(g.gene)).filter((f) => f && f.genotype);
     const sum = make(el, 'p', 'lc-stepsum');
-    sum.textContent = !inLib.length ? 'No library gene works at this step, so HP\'s genotypes say nothing about it.'
-      : `In HP: ${called.length ? called.map((f) => `${f.gene} ${STEP_TEXT[f.function] || ''}` +
+    sum.textContent = !inLib.length ? 'No library gene works at this step, so XY\'s genotypes say nothing about it.'
+      : `In XY: ${called.length ? called.map((f) => `${f.gene} ${STEP_TEXT[f.function] || ''}` +
           (f.function !== 'normal' && f.dose ? ` (${f.dose === 2 ? 'two copies' : 'one copy'})` : '')).join(', ') : 'no library enzyme genotyped'}.` +
         (x.enz.length > 1 ? ` ${x.enz.length} enzymes can do this step, so one changed enzyme may be partly covered by the others.` : '');
 
@@ -2304,7 +2371,7 @@
       const card = make(el, 'div', 'lc-enzcard' + (f && f.genotype && FN_CLASS[f.function] ? ' tone-' + FN_CLASS[f.function] : ''));
       const head = make(card, 'div', 'lc-enzhead');
       make(head, 'b', null, g.gene);
-      if (!f || !f.genotype) { make(head, 'span', 'lc-call unknown', 'Not genotyped in HP'); continue; }
+      if (!f || !f.genotype) { make(head, 'span', 'lc-call unknown', 'Not genotyped in XY'); continue; }
       make(head, 'span', 'gx-muted', `${f.rsid} ${f.genotype}`);
       make(head, 'span', 'lc-call ' + FN_CLASS[f.function], FN_TEXT[f.function] + (f.function !== 'normal' && f.dose ? ` ×${f.dose}` : ''));
       if (f.has_lifecycle && g.gene !== s.gene) { const b = make(head, 'button', 'lc-btn', 'Open its lifecycle'); b.type = 'button'; b.addEventListener('click', () => openGene(g.gene)); }
@@ -2316,19 +2383,19 @@
       make(how, 'span', 'gx-label', 'How much');
       let any = false;
 
-      // Capacity: where HP sits against the common form (100%) and the other genotypes at this SNP
+      // Capacity: where XY sits against the common form (100%) and the other genotypes at this SNP
       const ladder = f.ladder || [];
       const mine = ladder.find((r) => r.genotype === [...f.genotype].sort().join(''));
       if (ladder.length) {
         any = true;
         const row = make(how, 'div', 'lc-howrow');
-        make(row, 'span', 'lc-howkey', 'Capacity in HP');
+        make(row, 'span', 'lc-howkey', 'Capacity in XY');
         const body = make(row, 'div');
         const cap = mine && mine.capacity, measured = ladder.some((r) => r.dose > 0 && r.capacity);
         const pctR = (c) => c[0] === c[1] ? pctFmt(c[0]) : `${pctFmt(c[0])}–${pctFmt(c[1])}`;
         if (cap) bar(body, 'cap tone-' + FN_CLASS[f.function], 0, cap[1], 0, 1.25, 1);
         make(body, 'p', null, !f.dose
-          ? `${pctFmt(1)} of the common form. HP has the common form, the baseline every measurement of this SNP is compared with` +
+          ? `${pctFmt(1)} of the common form. XY has the common form, the baseline every measurement of this SNP is compared with` +
             (f.function === 'normal' ? '.' : `; the library still reads it as ${f.function === 'LoF' ? 'less' : 'more'} active.`)
           : cap ? `About ${pctR(cap)} of the common form (${f.dose === 2 ? 'two copies' : 'one copy'} of ${f.minor}).`
           : f.function === 'normal' ? `Typical function in the library's reading, with ${f.dose === 2 ? 'two copies' : 'one copy'} of ${f.minor}. ` +
@@ -2343,7 +2410,7 @@
         const tb = make(tbl, 'tbody');
         for (const r of ladder) {
           const tr = make(tb, 'tr', r === mine ? 'is-hp tone-' + FN_CLASS[f.function] : null);
-          make(tr, 'td', null, r.genotype + (r === mine ? ' · HP' : ''));
+          make(tr, 'td', null, r.genotype + (r === mine ? ' · XY' : ''));
           make(tr, 'td', null, String(r.dose));
           if (measured) make(tr, 'td', null, r.capacity ? pctR(r.capacity) : '—');
           make(tr, 'td', null, r.text);
@@ -2360,7 +2427,7 @@
         const body = make(row, 'div');
         bar(body, 'mave', d3.min(sc), d3.max(sc), 0, Math.max(1.25, d3.max(sc)), 1);
         make(body, 'p', 'gx-note', `${ev.mavedb[0].change}: ${d3.min(sc)} to ${d3.max(sc)} across ${sc.length} conditions (MaveDB deep mutational scan; ` +
-          `the tick is 1, the normal protein in most studies). HP has ${f.dose} ${f.dose === 1 ? 'copy' : 'copies'} of the less common allele.`);
+          `the tick is 1, the normal protein in most studies). XY has ${f.dose} ${f.dose === 1 ? 'copy' : 'copies'} of the less common allele.`);
       }
       if (ev.gtex) {
         any = true;
@@ -2420,7 +2487,7 @@
     b.setAttribute('aria-pressed', String(LC.wrap));
     dash.draw('lc-timeline');
   }));
-  // HP profile: interaction and bridge tables
+  // XY profile: interaction and bridge tables
   dash.draw('hp-links', (tbody) => {
     const r = gx.rows('hp_links');
     tbody.replaceChildren();

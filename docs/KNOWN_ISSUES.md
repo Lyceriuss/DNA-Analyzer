@@ -5,7 +5,7 @@ Snapshot from a review on 2026-11-04. P0 means fix first. Items that have been f
 ## P0: privacy
 
 - **Personal genotypes are in the public git history.** `genomic_audit_report.csv`, `final_genomic_alignment_check.csv` and `final_hardware_alignment.csv` were committed in `8b3ce28`, `129ded7` and `7c86dfb` (and later deleted). They contain real `RSID → genotype` rows from input files. The GitHub repo is public. Deleting a file doesn't remove it from history. Rewrite history (`git filter-repo`) or make the repo private.
-- Some scripts hardcode file names that carry initials (`MyHeritage_raw_dna_data_GA.csv`, `..._HP.csv`). Take them from CLI args instead.
+- Some scripts hardcode file names that carry initials (`MyHeritage_raw_dna_data_GA.csv`, `..._XY.csv`). Take them from CLI args instead.
 
 ## P0: content says the wrong thing
 
@@ -78,7 +78,7 @@ The library now has **229 traits, 0 errors and 38 warnings**. Remaining work:
 
 ## Fixed (2026-11-04)
 
-- Unsorted genotype keys in `snp_traits.json` dropped heterozygotes. Keys are now normalised in `analyzer.py`, with unit tests. HP: 189 → 194 matched traits.
+- Unsorted genotype keys in `snp_traits.json` dropped heterozygotes. Keys are now normalised in `analyzer.py`, with unit tests. XY: 189 → 194 matched traits.
 - Deep dives were ordered by an alphabetical Impact sort. They now use an explicit rank.
 - `main.py` added a duplicate blank "Key Active Traits" page and built `ReportEngine` twice.
 - A score of 6 ("Normal") received the strength narrative. Thresholds are now `STRENGTH_MIN_SCORE = 7` and `RISK_MAX_SCORE = 4` in `report_engine.py`.

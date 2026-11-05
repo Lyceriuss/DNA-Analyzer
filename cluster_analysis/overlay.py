@@ -2,7 +2,7 @@
 """
 Scores one person's DNA file against the library modules. Runs fully offline.
 
-    python -m cluster_analysis.overlay data/input/MyHeritage_raw_dna_data_HP.csv
+    python -m cluster_analysis.overlay data/input/MyHeritage_raw_dna_data_XY.csv
 
 Writes data/output/cluster_analysis/<name>_clusters.md and .json (git-ignored: personal data).
 """

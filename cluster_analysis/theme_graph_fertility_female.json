@@ -427,7 +427,7 @@
   "uterine fibroids": "uterus"
  },
  "sex": "XX",
- "person": "data/input/MyHeritage_raw_dna_data_HJ.csv",
+ "person": "data/input/MyHeritage_raw_dna_data_XX.csv",
  "genes": {
   "AASDHPPT": {
    "mechanisms": {},

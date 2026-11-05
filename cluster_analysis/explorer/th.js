@@ -1,11 +1,11 @@
-  // Theme clusters: picker, HP balance, mechanism map, connection network, gene detail and shared pathways
+  // Theme clusters: picker, XY balance, mechanism map, connection network, gene detail and shared pathways
   const TH_TEXT = { LoF: 'less active', GoF: 'more active', altered: 'changed, direction unclear', normal: 'typical function',
                     variant: 'carries a trait-linked variant' };
   const TH_CLASS = { LoF: 'lof', GoF: 'gof', altered: 'alt', normal: 'norm', variant: 'var' };
   const TH_FILL = { LoF: 'var(--color-bad)', GoF: 'var(--gof)', altered: 'var(--color-fg)', normal: 'var(--typical)',
                     variant: 'var(--color-fg-muted)' };
   const thMake = (parent, tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; parent.appendChild(e); return e; };
-  // Library genes carry a function call; API-theme genes outside the library are marked when HP carries a trait-linked allele
+  // Library genes carry a function call; API-theme genes outside the library are marked when XY carries a trait-linked allele
   const thCall = (g) => g.genotype ? (g.function || 'normal') : g.carried > 0 ? 'variant' : null;
   const thLabel = (g) => g.gene + (g.genotype ? ` ${g.genotype}` : '') + (g.genotype && g.function !== 'normal' && g.dose ? ` ×${g.dose}` : '') +
     (!g.genotype && g.carried > 0 ? ` · ${g.carried}` : '');
@@ -14,7 +14,7 @@
     const a = thMake(parent, 'a', null, 'PubMed');
     a.href = `https://pubmed.ncbi.nlm.nih.gov/${id}/`; a.target = '_blank'; a.rel = 'noopener';
   };
-  const thFinding = (parent, f, it, who = 'HP') => {
+  const thFinding = (parent, f, it, who = 'XY') => {
     const d = thMake(parent, 'div');
     thMake(d, 'span', 'th-src', it.source);
     if (it.source === 'GWAS') {
@@ -46,14 +46,14 @@
     // An API theme lists every gene but draws the notable ones: a library call, a carried finding or a strong disease link
     const shown = (api ? genes.filter((g) => g.notable) : genes).filter(inOrgan);
     const byName = new Map(genes.map((g) => [g.gene, g]));
-    // Default selection: the first changed gene, so the panel opens on something HP carries
+    // Default selection: the first changed gene, so the panel opens on something XY carries
     const order = (g) => (g.primary === 'disease' ? 4 : 0) + (g.function === 'LoF' || g.function === 'GoF' ? 0 : g.carried > 0 ? 1 : g.genotype ? 2 : 3);
     const fallback = [...shown].sort((a, b) => order(a) - order(b) || (b.carried || 0) - (a.carried || 0) || a.gene.localeCompare(b.gene))[0];
     const gene = byName.get(p.th_gene) || fallback;
     return { themes, theme, facets, genes, shown, byName, gene, api, stats, organs, organ, inOrgan };
   };
   const thPick = (gene) => dash.setParams({ th_gene: gene });
-  const thWho = (s) => (s && s.stats && s.stats.person) || 'HP';
+  const thWho = (s) => (s && s.stats && s.stats.person) || 'XY';
 
   const thBalance = (parent, genes, none = 'not genotyped') => {
     const bar = thMake(parent, 'div', 'th-balance');
@@ -106,9 +106,9 @@
     }
     const typed = s.genes.filter((g) => g.genotype);
     const parts = thBalance(el, s.genes);
-    thMake(el, 'p', null, `${s.genes.length} library genes act on ${s.theme.theme_name.toLowerCase()}, and HP has a call at ${typed.length}: ` +
+    thMake(el, 'p', null, `${s.genes.length} library genes act on ${s.theme.theme_name.toLowerCase()}, and XY has a call at ${typed.length}: ` +
       parts.filter((x) => !/not genotyped/.test(x)).join(', ') + '.');
-    // Where HP's changed genes gather
+    // Where XY's changed genes gather
     const lean = s.facets.map((f) => {
       const gs = s.genes.filter((g) => g.fl.includes(f.facet));
       return { f, lof: gs.filter((g) => g.function === 'LoF'), gof: gs.filter((g) => g.function === 'GoF') };
@@ -228,7 +228,7 @@
     thMake(head, 'span', 'lc-call ' + (fn ? { LoF: 'lof', GoF: 'gof', altered: 'altered', normal: 'norm', variant: 'var' }[fn] : 'unknown'),
       fn ? TH_TEXT[fn][0].toUpperCase() + TH_TEXT[fn].slice(1) + (fn !== 'normal' && g.dose ? ` ×${g.dose}` : '') : s.api ? `No ${thWho(s)} finding` : 'Not genotyped');
     thMake(el, 'p', null, g.genotype ? `Library: ${g.rsid} ${g.genotype}: ${g.interpretation} (report score ${g.score}/10).`
-      : s.api ? `Not in the library. ${thWho(s)}'s file measures ${g.ev.n_snps || 0} SNPs in or near this gene.` : 'HP has no call at this gene\'s library SNP.');
+      : s.api ? `Not in the library. ${thWho(s)}'s file measures ${g.ev.n_snps || 0} SNPs in or near this gene.` : 'XY has no call at this gene\'s library SNP.');
     if (g.has_lifecycle) {
       const b = thMake(el, 'button', 'lc-btn', 'Open its lifecycle');
       b.type = 'button';
@@ -236,7 +236,7 @@
     }
 
     if (s.api) {
-      // HP's variants first, then why the gene belongs to the theme
+      // XY's variants first, then why the gene belongs to the theme
       const fs = (g.ev.findings || []).filter((f) => f.items.length);
       thMake(el, 'span', 'gx-label', `${thWho(s)}'s variants with a known effect (${fs.length})`);
       if (fs.length) {
@@ -244,7 +244,7 @@
         const carriedFirst = [...fs].sort((a, b) => Math.max(...b.items.map((i) => i.copies || 0)) - Math.max(...a.items.map((i) => i.copies || 0)));
         for (const f of carriedFirst.slice(0, 12)) { const li = thMake(fl, 'li'); for (const it of f.items.slice(0, 3)) thFinding(li, f, it, thWho(s)); }
         if (fs.length > 12) thMake(el, 'p', 'gx-note', `+${fs.length - 12} more SNPs with a finding.`);
-      } else thMake(el, 'p', 'gx-note', `None of ${thWho(s)}'s SNPs in this gene has a ClinVar, GWAS or library entry for a fertility trait.`);
+      } else thMake(el, 'p', 'gx-note', `None of ${thWho(s)}'s SNPs in this gene has a ClinVar, GWAS or library entry for one of the theme's conditions.`);
       thMake(el, 'span', 'gx-label', `Why it is in ${s.theme.theme_name.toLowerCase()}`);
       const why = thMake(el, 'ul', 'th-why');
       for (const f of s.facets) {
@@ -527,12 +527,24 @@
     const s = thSel();
     if (!s) { if (gx.failed('theme_meta', 'theme_genes')) gx.failLine(el); return; }
     if (!s.organs.length) {
-      thMake(el, 'p', 'gx-note', 'This theme has no body map yet. The fertility themes have one: female (HJ) and male (HP).');
+      thMake(el, 'p', 'gx-note', 'This theme has no map yet. The fertility themes have a body map (female XX, male XY) and cancer has the life of a cell.');
       return;
     }
     const who = thWho(s);
     const male = s.stats.sex === 'XY';
-    const SHAPES = male ? XY_SHAPES : XX_SHAPES;
+    const cell = s.stats.view === 'cell';
+    const SHAPES = cell ? CELL_SHAPES() : male ? XY_SHAPES : XX_SHAPES;
+    const unit = cell ? 'stage' : 'organ';
+    const card = el.closest('.gx-card');
+    if (card) {
+      const h = card.querySelector('h2'), note = card.querySelector('.gx-note');
+      if (h) h.textContent = cell ? 'Life of a cell' : 'Body map';
+      if (note) note.textContent = cell
+        ? 'The stages every cell lives through, and where the theme\'s genes act in them. Cancer starts when a cell slips past the ' +
+          'checkpoints, repair, ageing and death. Select a stage to narrow the mechanisms, connections and gene panel to it.'
+        : 'Where in the body the theme\'s genes act. Each gene is placed by its mechanisms and the conditions it is linked to. ' +
+          'Select an organ to narrow the mechanisms, connections and gene panel to it.';
+    }
 
     const per = new Map(s.organs.map((o) => [o.id, { o, all: 0, lof: 0, gof: 0, variant: 0, genes: [] }]));
     for (const g of s.genes) {
@@ -558,7 +570,9 @@
       .attr('role', 'group').attr('aria-label', `${s.theme.theme_name}: organs`);
     const tip = gx.tip(box);
 
-    // Body outline and the zoom from the pelvis to the organ view
+    // Body outline and the zoom from the pelvis to the organ view; the cell map draws its paths instead
+    if (cell) drawCellPaths(svg);
+    else {
     svg.append('circle').attr('cx', 120).attr('cy', 62).attr('r', 40).attr('class', 'th-outline');
     svg.append('path').attr('d', male ? XY_BODY : XX_BODY).attr('class', 'th-outline');
     if (male) {
@@ -572,6 +586,7 @@
     svg.append('rect').attr('x', 94).attr('y', 268).attr('width', 52).attr('height', 50).attr('rx', 6).attr('class', 'th-zoom');
     svg.append('path').attr('d', 'M146,268 L262,120 M146,318 L262,400').attr('class', 'th-zoom');
     svg.append('text').attr('x', 120).attr('y', 398).attr('text-anchor', 'middle').attr('class', 'th-cap').text(`${s.stats.sex || ''} · ${who}`);
+    }
 
     for (const [id, shape] of Object.entries(SHAPES)) {
       const c = per.get(id);
@@ -583,7 +598,7 @@
         .on('click', () => dash.setParams({ th_organ: selected ? null : id, th_gene: null }))
         .on('keydown', (event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); dash.setParams({ th_organ: selected ? null : id, th_gene: null }); } })
         .on('mousemove', (event) => tip.show(event, c.o.name, [c.o.about, `${c.all} genes; ${who}: ${c.lof} less active, ${c.gof} more active, ` +
-          `${c.variant} with a carried variant`, selected ? 'Select again to show all organs' : 'Select to focus the page on this organ']))
+          `${c.variant} with a carried variant`, selected ? `Select again to show all ${unit}s` : `Select to focus the page on this ${unit}`]))
         .on('mouseleave', () => tip.hide());
       for (const sh of shape.shapes) {
         let node;
@@ -598,11 +613,11 @@
           g.append('path').attr('d', sh.stroke).attr('class', 'th-hit');
           node = g.append('path').attr('d', sh.stroke).attr('class', 'th-tube').style('stroke', tint(c));
           continue;
-        } else node = g.append('path').attr('d', sh.path);
-        node.attr('class', 'th-shape').style('fill', tint(c)).style('stroke', edge(c));
+        } else node = g.append('path').attr('d', sh.path).attr('transform', sh.at ? `translate(${sh.at})` : null);
+        node.attr('class', 'th-shape' + (sh.cls ? ' ' + sh.cls : '')).style('fill', tint(c)).style('stroke', edge(c));
       }
       const [lx, ly, anchor] = shape.label;
-      svg.append('line').attr('x1', shape.to[0]).attr('y1', shape.to[1])
+      if (shape.to) svg.append('line').attr('x1', shape.to[0]).attr('y1', shape.to[1])
         .attr('x2', anchor === 'start' ? lx - 6 : anchor === 'end' ? lx + 6 : lx).attr('y2', anchor === 'middle' && ly < shape.to[1] ? ly + 20 : ly - 4).attr('class', 'th-leader');
       const t = svg.append('text').attr('x', lx).attr('y', ly).attr('text-anchor', anchor).attr('class', 'th-label' + (selected ? ' is-selected' : ''));
       t.append('tspan').text(c.o.name);
@@ -613,16 +628,17 @@
       if (c.variant) sub.append('tspan').text(` · ●${c.variant}`);
     }
 
+    if (cell) drawCellLetters(svg);
     // Female theme: the 28-day cycle sits under the organs
-    if (!male) drawCycle(el, s);
+    if (s.stats.sex === 'XX') drawCycle(el, s);
 
     // Side panel: the selected organ, or how to read the map
     const o = s.organ;
     if (!o) {
-      thMake(info, 'h3', null, 'All organs');
+      thMake(info, 'h3', null, `All ${unit}s`);
       thMake(info, 'p', 'gx-note', `▼ less active and ▲ more active are ${who}'s library calls; ● counts genes where ${who} carries an allele ` +
-        'that a GWAS or ClinVar links to a fertility trait. Shading is stronger where more of these gather, red where less-active genes ' +
-        'lead and blue where more-active ones do. Select an organ to focus the page on it.');
+        `that a GWAS or ClinVar links to one of the theme's conditions. Shading is stronger where more of these gather, red where less-active genes ` +
+        `lead and blue where more-active ones do. Select ${cell ? 'a stage' : 'an organ'} to focus the page on it.`);
       const list = thMake(info, 'div', 'th-genes');
       for (const c of [...per.values()].sort((a, b) => signal(b) - signal(a))) {
         const b = thMake(list, 'button', 'lc-chip th-gene', `${c.o.name} · ${signal(c)}`);
@@ -648,10 +664,56 @@
       b.type = 'button';
       b.addEventListener('click', () => thPick(g.gene));
     }
-    const all = thMake(info, 'button', 'lc-btn', 'Show all organs');
+    const all = thMake(info, 'button', 'lc-btn', `Show all ${unit}s`);
     all.type = 'button';
     all.addEventListener('click', () => dash.setParams({ th_organ: null, th_gene: null }));
   });
+
+
+  // Cancer theme: the life of a cell. The cell cycle is a ring (G1, S, G2, M) with its checkpoint gates; resting, stress,
+  // ageing, death and escape sit around it. Each stage is a button that narrows the page, like the organs on the body maps.
+  const CELL_C = [300, 214];
+  const cellPt = (deg, r) => [CELL_C[0] + r * Math.sin(deg * Math.PI / 180), CELL_C[1] - r * Math.cos(deg * Math.PI / 180)];
+  const cellArc = (a, b, r0 = 92, r1 = 128) => ({ path: d3.arc()({ innerRadius: r0, outerRadius: r1, startAngle: a * Math.PI / 180,
+    endAngle: b * Math.PI / 180 }), at: CELL_C });
+  const CELL_SHAPES = () => ({
+    lives: { shapes: [cellArc(200, 340), { ellipse: [78, 214, 76, 34] }], label: [78, 212, 'middle'] },
+    birth: { shapes: [cellArc(340, 440), cellArc(440, 490), cellArc(490, 560)], label: [300, 206, 'middle'] },
+    checks: { shapes: [cellArc(336, 344, 82, 138), cellArc(486, 494, 82, 138), cellArc(521, 529, 82, 138)],
+              label: [206, 46, 'middle'], to: cellPt(340, 138) },
+    stress: { shapes: [{ ellipse: [604, 70, 92, 34] }], label: [604, 68, 'middle'] },
+    ages: { shapes: [{ ellipse: [640, 214, 92, 34] }], label: [640, 212, 'middle'] },
+    dies: { shapes: [{ ellipse: [604, 358, 92, 34] }], label: [604, 356, 'middle'] },
+    escape: { shapes: [{ ellipse: [112, 366, 96, 34], cls: 'th-escape' }], label: [112, 364, 'middle'] },
+  });
+  const drawCellPaths = (svg) => {
+    const defs = svg.append('defs');
+    defs.append('marker').attr('id', 'th-cell-arrow').attr('viewBox', '0 0 10 10').attr('refX', 9).attr('refY', 5)
+      .attr('markerWidth', 7).attr('markerHeight', 7).attr('orient', 'auto')
+      .append('path').attr('d', 'M0,0 L10,5 L0,10 z').style('fill', 'var(--color-fg-muted)');
+    const arrow = (d, text, tx, ty, anchor = 'middle', cls = 'th-cell-path') => {
+      svg.append('path').attr('d', d).attr('class', cls).attr('marker-end', 'url(#th-cell-arrow)');
+      if (text) svg.append('text').attr('x', tx).attr('y', ty).attr('text-anchor', anchor).attr('class', 'th-cap').text(text);
+    };
+    const [sx, sy] = cellPt(30, 132), [ax, ay] = cellPt(90, 132), [dx, dy] = cellPt(150, 132), [ex, ey] = cellPt(222, 132);
+    arrow(`M${sx},${sy} Q470,70 508,72`, 'damage: repair, or stop', 452, 60);
+    arrow(`M${ax},${ay} L544,214`, 'wear', 490, 206);
+    arrow(`M${dx},${dy} Q470,358 508,358`, 'beyond repair', 452, 374);
+    arrow('M640,250 Q646,290 626,322', 'cleared', 650, 290, 'start');
+    arrow('M156,202 L170,202', null);
+    arrow('M170,226 L156,226', null);
+    svg.append('text').attr('x', 160).attr('y', 262).attr('text-anchor', 'middle').attr('class', 'th-cap').text('signals');
+    arrow(`M${ex},${ey} Q190,320 168,334`, null, 0, 0, 'middle', 'th-cell-path th-cell-fail');
+    svg.append('text').attr('x', 112).attr('y', 418).attr('text-anchor', 'middle').attr('class', 'th-cap')
+      .text('when checks, repair and death all fail');
+  };
+  const drawCellLetters = (svg) => {
+    for (const [txt, deg] of [['G1', 270], ['S', 390], ['G2', 465], ['M', 525]]) {
+      const [x, y] = cellPt(deg, 110);
+      svg.append('text').attr('x', x).attr('y', y + 4).attr('text-anchor', 'middle').attr('class', 'th-cell-phase').text(txt);
+    }
+    svg.append('text').attr('x', 300).attr('y', 246).attr('text-anchor', 'middle').attr('class', 'th-cap').text('one turn ≈ a day in fast tissue');
+  };
 
   // Mechanism in depth: what it does, what the person carries in it, and every gene behind it
   const XY_SHAPES = {
@@ -682,7 +744,7 @@
     if (!s || !pr) { if (gx.failed('theme_meta', 'theme_genes', 'theme_pathways')) gx.failLine(el); return; }
     const f = s.facets.find((x) => x.facet === dash.params().th_facet);
     if (!f) { thMake(el, 'p', 'gx-note', 'Select a mechanism box above to open it here: what it does, how it works, what the person carries in it, and every gene behind it.'); return; }
-    const who = s.api ? thWho(s) : 'HP';
+    const who = s.api ? thWho(s) : 'XY';
     const genes = s.genes.filter((g) => g.fl.includes(f.facet));
     const head = thMake(el, 'div', 'lc-name');
     thMake(head, 'h3', null, f.facet_name);

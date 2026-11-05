@@ -3,7 +3,7 @@
 How much of a DNA file do the research sources know about? Matches every SNP in the file,
 offline, against bulk downloads: no per-SNP API requests, nothing from the file leaves the machine.
 
-    python -m cluster_analysis.coverage_map data/input/MyHeritage_raw_dna_data_HP.csv
+    python -m cluster_analysis.coverage_map data/input/MyHeritage_raw_dna_data_XY.csv
 
 Reference files in data/reference/ (download once, see docs):
   gwas_associations_ontology.zip   GWAS Catalog, all associations (ontology-annotated)
