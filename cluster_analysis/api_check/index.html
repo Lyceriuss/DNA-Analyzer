@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gene API Checker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* Layout: a lab-bench readout. Query bar, overview table, then one card per data source. */
+  :root {
+    --bg: #f5f6f4; --panel: #ffffff; --fg: #1d2421; --muted: #5d6963; --line: #d9dfdb;
+    --accent: #1f6f5c; --accent-soft: #e2efea; --warn: #9a5b00; --bad: #b3261e; --code-bg: #f0f2f0;
+    --sans: "IBM Plex Sans", system-ui, sans-serif; --mono: "IBM Plex Mono", ui-monospace, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #121614; --panel: #1a201d; --fg: #e3e9e5; --muted: #98a59e; --line: #2e3833;
+            --accent: #6cc3a8; --accent-soft: #1f3a32; --warn: #e3a64a; --bad: #f08a80; --code-bg: #141a17; color-scheme: dark; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.5 var(--sans); }
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 24px max(16px, env(safe-area-inset-left)); display: grid; gap: 20px; }
+  h1 { font-size: 1.6rem; font-weight: 600; margin: 0; letter-spacing: -.01em; }
+  .lede { color: var(--muted); margin: 4px 0 0; max-width: 75ch; }
+  .bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  input { font: 500 1rem var(--mono); padding: 8px 12px; border: 1px solid var(--line); border-radius: 6px; background: var(--panel);
+          color: var(--fg); width: 12rem; text-transform: uppercase; }
+  button { font: inherit; cursor: pointer; border-radius: 6px; }
+  .go { background: var(--accent); color: var(--panel); border: 0; padding: 8px 16px; font-weight: 600; }
+  .ex { background: none; border: 1px solid var(--line); color: var(--fg); padding: 6px 10px; font: 500 .85rem var(--mono); }
+  .ex:hover, .go:hover { filter: brightness(1.08); }
+  button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 16px; min-width: 0; }
+  table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-weight: 500; font-size: .8rem; text-transform: uppercase; letter-spacing: .04em; }
+  td.num { font-family: var(--mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .scroll { overflow-x: auto; }
+  .pill { display: inline-block; font: 500 .75rem var(--mono); padding: 1px 8px; border-radius: 999px; border: 1px solid var(--line); white-space: nowrap; }
+  .pill.yes { background: var(--accent-soft); color: var(--accent); border-color: transparent; }
+  .pill.lic { color: var(--warn); }
+  .ok { color: var(--accent); } .err { color: var(--bad); } .muted { color: var(--muted); }
+  .cards { display: grid; gap: 16px; }
+  .card { display: grid; gap: 10px; }
+  .card h2 { margin: 0; font-size: 1.1rem; font-weight: 600; display: flex; flex-wrap: wrap; gap: 8px; align-items: baseline; }
+  .card .what { margin: 0; color: var(--muted); font-size: .9rem; }
+  .hl { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
+  .hl li { overflow-wrap: anywhere; }
+  .call { font: .8rem var(--mono); color: var(--muted); overflow-wrap: anywhere; }
+  details summary { cursor: pointer; font-size: .85rem; color: var(--accent); }
+  pre { background: var(--code-bg); border: 1px solid var(--line); border-radius: 6px; padding: 12px; margin: 8px 0 0;
+        font: .78rem/1.45 var(--mono); max-height: 28rem; overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere; }
+  .loading { color: var(--muted); font-style: italic; }
+  .label { font-size: .75rem; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Gene API Checker</h1>
+    <p class="lede">Type a gene symbol to see what each research API returns for it. Each card lists the highlights, whether the source knows
+      direction (who acts on whom), its terms of use, and the raw answer. Directional sources are the ones that can trace upstream and downstream.</p>
+  </header>
+
+  <div class="bar">
+    <input id="gene" list="genes" value="MTHFR" aria-label="Gene symbol" autocomplete="off">
+    <datalist id="genes"></datalist>
+    <button class="go" id="run">Fetch all sources</button>
+    <span class="muted">Try:</span>
+    <button class="ex">MTHFR</button><button class="ex">ALDH2</button><button class="ex">ADH1B</button>
+    <button class="ex">SOD2</button><button class="ex">COMT</button><button class="ex">SLC6A4</button>
+  </div>
+
+  <section class="panel">
+    <div class="label">Overview for <span id="ov-gene">—</span></div>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Source</th><th>Status</th><th>Time</th><th>Size</th><th>Direction</th><th>Highlights</th><th>Terms</th></tr></thead>
+        <tbody id="overview"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="cards" id="cards"></div>
+</div>
+
+<script>
+const ORDER = ['uniprot', 'rhea', 'reactome', 'omnipath', 'kegg', 'protvar', 'mavedb', 'gtex', 'clinpgx', 'string', 'mygene', 'ensembl', 'vep', 'gwas'];
+let SOURCES = {};
+const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+const kb = (n) => n > 1024 ? (n / 1024).toFixed(1) + ' KB' : n + ' B';
+
+// --- Per-source highlight extractors: turn raw answers into a few readable facts ---
+const firstBody = (d) => (d.calls.find((c) => c.status === 200) || {}).body;
+const HL = {
+  mygene(d) {
+    const h = (firstBody(d) || {}).hits?.[0]; if (!h) return [];
+    const pw = h.pathway || {};
+    return [
+      `${h.symbol}: ${h.name}`,
+      h.alias ? `Aliases: ${[].concat(h.alias).join(', ')}` : null,
+      h.summary ? `Summary: ${h.summary.slice(0, 320)}${h.summary.length > 320 ? '…' : ''}` : null,
+      `GO biological processes: ${[].concat(h.go?.BP || []).length}`,
+      `Pathway memberships: ` + Object.entries(pw).map(([db, v]) => `${db} ${[].concat(v).length}`).join(', '),
+    ].filter(Boolean);
+  },
+  uniprot(d) {
+    const r = (firstBody(d) || {}).results?.[0]; if (!r) return [];
+    const out = [`${r.primaryAccession}: ${r.proteinDescription?.recommendedName?.fullName?.value || ''}`];
+    for (const c of r.comments || []) {
+      const t = c.commentType;
+      if (t === 'FUNCTION') out.push('Function: ' + c.texts[0].value.slice(0, 300) + (c.texts[0].value.length > 300 ? '…' : ''));
+      if (t === 'CATALYTIC ACTIVITY') {
+        const dir = (c.physiologicalReactions || []).map((p) => p.directionType).join(', ');
+        out.push(`Reaction${dir ? ` (physiological: ${dir})` : ''}: ${c.reaction.name}`);
+      }
+      if (t === 'COFACTOR') out.push('Cofactor: ' + c.cofactors.map((x) => x.name).join(', '));
+      if (t === 'ACTIVITY REGULATION') out.push('Regulation: ' + c.texts[0].value.slice(0, 260));
+      if (t === 'PATHWAY') out.push('Pathway: ' + c.texts[0].value);
+      if (t === 'SUBCELLULAR LOCATION') out.push('Location: ' + (c.subcellularLocations || []).map((s) => s.location.value).join(', '));
+      if (t === 'DISEASE' && c.disease) out.push('Disease: ' + c.disease.diseaseId);
+    }
+    return out;
+  },
+  rhea(d) {
+    const t = firstBody(d); if (typeof t !== 'string') return [];
+    const rows = t.trim().split('\n').slice(1).filter(Boolean).map((l) => l.split('\t'));
+    return rows.length ? rows.map((r) => `${r[0]}: ${r[1]}  [${r[3] || 'no EC'}]`) : ['No reactions in Rhea (not an enzyme, or not curated).'];
+  },
+  reactome(d) {
+    const out = [];
+    for (const c of d.calls) {
+      if (c.status !== 200 || !Array.isArray(c.body)) continue;
+      out.push(`${c.label}: ${c.body.length}`);
+      c.body.slice(0, 8).forEach((x) => out.push(`  ${x.displayName}`));
+    }
+    return out;
+  },
+  omnipath(d) {
+    const b = firstBody(d); if (!Array.isArray(b)) return [];
+    const g = d.gene.toUpperCase();
+    const sign = (x) => x.is_stimulation ? 'activates' : x.is_inhibition ? 'inhibits' : 'acts on';
+    const up = b.filter((x) => x.target_genesymbol.toUpperCase() === g && x.is_directed);
+    const down = b.filter((x) => x.source_genesymbol.toUpperCase() === g && x.is_directed);
+    return [
+      `${b.length} interactions: ${up.length} upstream regulators, ${down.length} downstream targets`,
+      ...up.slice(0, 8).map((x) => `↑ ${x.source_genesymbol} ${sign(x)} ${g}  (${x.type}; ${x.sources.slice(0, 2).join(', ')})`),
+      ...down.slice(0, 8).map((x) => `↓ ${g} ${sign(x)} ${x.target_genesymbol}  (${x.type}; ${x.sources.slice(0, 2).join(', ')})`),
+    ];
+  },
+  string(d) {
+    const b = firstBody(d); if (!Array.isArray(b)) return [];
+    return [`${b.length} partners (no direction):`,
+            b.slice(0, 12).map((x) => `${x.preferredName_B} ${x.score.toFixed(2)}`).join(', ')];
+  },
+  kegg(d) {
+    const t = firstBody(d); if (typeof t !== 'string') return [];
+    const out = []; let section = '';
+    for (const line of t.split('\n')) {
+      const head = line.slice(0, 12).trim();
+      if (head) section = head;
+      if (['NAME', 'ORTHOLOGY', 'PATHWAY', 'NETWORK', 'DISEASE', 'BRITE'].includes(section) && section !== 'BRITE') {
+        const val = line.slice(12).trim();
+        if (val) out.push(`${section}: ${val}`);
+      }
+    }
+    return out.slice(0, 16);
+  },
+  ensembl(d) {
+    const b = firstBody(d); if (!b || !b.seq_region_name) return [];
+    return [`${b.display_name}: chr${b.seq_region_name}:${b.start}-${b.end} (${b.strand > 0 ? '+' : '−'} strand), ${b.biotype}`, b.description];
+  },
+  vep(d) {
+    return d.calls.filter((c) => c.status === 200 && Array.isArray(c.body)).flatMap((c) => c.body
+      .filter((v) => /^([0-9]+|X|Y|MT)$/.test(v.seq_region_name))
+      .map((v) => {
+        const tc = (v.transcript_consequences || []).filter((t) => t.canonical);
+        const aa = tc.map((t) => t.amino_acids ? `${t.gene_symbol} ${t.amino_acids}${t.protein_start} (${t.variant_allele})` : null).filter(Boolean).join('; ');
+        return `${v.id}: chr${v.seq_region_name}:${v.start} ${v.allele_string}, ${v.most_severe_consequence}${aa ? ', ' + aa : ''}`;
+      }));
+  },
+  protvar(d) {
+    const b = firstBody(d); if (!b || !b.features) return [];
+    const out = [b.note];
+    for (const f of b.features.slice(0, 8)) {
+      const rs = (f.xrefs || []).map((x) => x.id).filter((id) => /^rs/.test(id)).join(',');
+      const pred = (f.predictions || []).map((p) => `${p.predAlgorithmNameType} ${p.predictionValType}`).join(', ');
+      const desc = [...(f.descriptions || []).map((x) => x.value), ...(f.association || []).map((a) => a.name)];
+      out.push(`${rs}: ${f.wildType}${f.begin}${f.alternativeSequence || '?'}${pred ? '  [' + pred + ']' : ''}${desc.length ? '  ' + [...new Set(desc)].slice(0, 3).join('; ') : ''}`);
+    }
+    return out;
+  },
+  mavedb(d) {
+    const b = firstBody(d); const sets = Array.isArray(b) ? b : (b?.scoreSets || []);
+    const g = d.gene.toUpperCase();
+    const own = sets.filter((s) => (s.targetGenes || []).some((t) => (t.name || '').toUpperCase().startsWith(g)));
+    return [`${sets.length} score sets matched the search, ${own.length} target ${g}:`, ...own.slice(0, 8).map((s) => `${s.urn}: ${s.title}`)];
+  },
+  gtex(d) {
+    const out = [];
+    for (const c of d.calls) {
+      const rows = c.body?.data || [];
+      const own = rows.filter((r) => r.geneSymbol.toUpperCase() === d.gene.toUpperCase());
+      out.push(`${c.label}: ${rows.length} tissue-gene effects, ${own.length} on ${d.gene}`);
+      (own.length ? own : rows).sort((a, b) => a.pValue - b.pValue).slice(0, 4)
+        .forEach((r) => out.push(`  ${r.geneSymbol} ${r.tissueSiteDetailId}: NES ${r.nes.toFixed(2)} (${r.nes > 0 ? 'raises' : 'lowers'}), p=${r.pValue.toExponential(1)}`));
+    }
+    return out;
+  },
+  clinpgx(d) {
+    const out = [];
+    for (const c of d.calls) {
+      const rows = c.body?.data || [];
+      out.push(`${c.label}: ${rows.length} clinical annotations`);
+      rows.slice(0, 4).forEach((a) => out.push(`  level ${a.levelOfEvidence?.term}: ${(a.relatedChemicals || []).map((x) => x.name).join(', ')}`));
+    }
+    return out;
+  },
+  gwas(d) {
+    const out = [];
+    for (const c of d.calls) {
+      const a = c.body?._embedded?.associations || [];
+      out.push(`${c.label}: ${c.body?.page?.totalElements ?? a.length} associations`);
+      a.slice(0, 5).forEach((x) => out.push(`  ${(x.efo_traits || []).map((t) => t.efo_trait).join(', ')}  p=${x.p_value}  ${(x.snp_effect_allele || []).join(',')}`));
+    }
+    return out;
+  },
+};
+
+function overviewRow(src, d) {
+  const tr = el('tr'); tr.id = 'ov-' + src;
+  const s = SOURCES[src];
+  const name = el('td'); const a = el('a', null, s.name); a.href = '#card-' + src; name.appendChild(a); tr.appendChild(name);
+  if (!d) { const td = el('td', 'loading', 'Fetching…'); td.colSpan = 6; tr.appendChild(td); return tr; }
+  const okCalls = d.calls.filter((c) => c.status === 200).length;
+  tr.appendChild(el('td', okCalls ? 'ok' : 'err', d.calls.length ? `${okCalls}/${d.calls.length} OK` : 'Skipped'));
+  tr.appendChild(el('td', 'num', d.total_ms + ' ms' + (d.cached ? ' (cached)' : '')));
+  tr.appendChild(el('td', 'num', kb(d.calls.reduce((n, c) => n + c.bytes, 0))));
+  const dir = el('td'); dir.appendChild(el('span', 'pill' + (s.directional ? ' yes' : ''), s.directional ? 'directional' : 'no direction')); tr.appendChild(dir);
+  const hl = (HL[src] ? HL[src](d) : []);
+  tr.appendChild(el('td', null, hl.length ? `${hl.length} facts` : (d.note || 'Nothing found')));
+  const lic = el('td'); lic.appendChild(el('span', 'pill' + (/academic|Mixed/.test(s.license) ? ' lic' : ''), s.license)); tr.appendChild(lic);
+  return tr;
+}
+
+function card(src, d) {
+  const s = SOURCES[src];
+  const c = el('section', 'panel card'); c.id = 'card-' + src;
+  const h = el('h2', null, s.name);
+  h.appendChild(el('span', 'pill' + (s.directional ? ' yes' : ''), s.directional ? 'directional' : 'no direction'));
+  h.appendChild(el('span', 'pill' + (/academic|Mixed/.test(s.license) ? ' lic' : ''), s.license));
+  c.appendChild(h);
+  c.appendChild(el('p', 'what', s.what));
+  if (!d) { c.appendChild(el('p', 'loading', 'Fetching…')); return c; }
+  if (d.note) c.appendChild(el('p', 'muted', d.note));
+  const hl = HL[src] ? HL[src](d) : [];
+  if (hl.length) {
+    c.appendChild(el('div', 'label', 'Highlights'));
+    const ul = el('ul', 'hl'); hl.forEach((t) => ul.appendChild(el('li', null, t))); c.appendChild(ul);
+  }
+  for (const call of d.calls) {
+    c.appendChild(el('div', 'call', `${call.label}: ${call.status} · ${call.ms} ms · ${kb(call.bytes)} · ${call.url}`));
+    const det = el('details'); det.appendChild(el('summary', null, `Raw answer (${call.label})`));
+    const text = typeof call.body === 'string' ? call.body : JSON.stringify(call.body, null, 2);
+    det.appendChild(el('pre', null, text.length > 200000 ? text.slice(0, 200000) + '\n… (truncated for display)' : text));
+    c.appendChild(det);
+  }
+  return c;
+}
+
+async function run(gene) {
+  gene = gene.trim().toUpperCase(); if (!gene) return;
+  document.getElementById('gene').value = gene;
+  document.getElementById('ov-gene').textContent = gene;
+  const ov = document.getElementById('overview'), cards = document.getElementById('cards');
+  ov.replaceChildren(...ORDER.map((s) => overviewRow(s)));
+  cards.replaceChildren(...ORDER.map((s) => card(s)));
+  await Promise.all(ORDER.map(async (src) => {
+    let d;
+    try { d = await (await fetch(`/api/${src}?gene=${encodeURIComponent(gene)}`)).json(); }
+    catch (e) { d = { source: src, gene, calls: [], total_ms: 0, note: 'Server did not answer: ' + e.message }; }
+    document.getElementById('ov-' + src).replaceWith(overviewRow(src, d));
+    document.getElementById('card-' + src).replaceWith(card(src, d));
+  }));
+}
+
+(async () => {
+  SOURCES = await (await fetch('/sources')).json();
+  const genes = await (await fetch('/genes')).json();
+  document.getElementById('genes').replaceChildren(...genes.map((g) => { const o = el('option'); o.value = g; return o; }));
+  document.getElementById('run').addEventListener('click', () => run(document.getElementById('gene').value));
+  document.getElementById('gene').addEventListener('keydown', (e) => { if (e.key === 'Enter') run(e.target.value); });
+  document.querySelectorAll('.ex').forEach((b) => b.addEventListener('click', () => run(b.textContent)));
+  run('MTHFR');
+})();
+</script>
+</body>
+</html>
