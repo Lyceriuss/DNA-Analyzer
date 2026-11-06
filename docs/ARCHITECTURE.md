@@ -1,5 +1,8 @@
 # Architecture
 
+This page covers the PDF report. The cluster analysis (imputation, themes, evidence calls, medicines and the Gene
+Cluster Explorer) is described with diagrams in [architecture/](architecture/README.md).
+
 ## Input format
 
 The current MyHeritage exports (`##format=MHv1.0`) come from **low-pass whole-genome sequencing plus imputation**, reported on the **forward (+) strand, GRCh37**:

@@ -24,11 +24,18 @@ import json
 import os
 import re
 import zipfile
-from collections import defaultdict
+from collections import Counter, defaultdict
 
 from src.loader import imputed_path, iter_calls, person_label
 
 REF = "data/reference/clinpgx_clinical_annotations.zip"
+GUIDELINES = "data/reference/clinpgx_guidelines.zip"      # scripts/fetch_pgx_reference.sh
+LABELS = "data/reference/clinpgx_drug_labels.zip"
+CPIC_RECS = "data/reference/cpic_recommendations.json"
+CLINVAR = "data/reference/clinvar_grch37.vcf.gz"
+SITES = "data/reference/imputation/sites.vcf.gz"
+FREQ_CACHE = "data/reference/imputation/pgx_pop_freqs.json"
+POPS = ("AFR", "AMR", "EAS", "EUR", "SAS")                 # 1000 Genomes superpopulations
 LEVELS = ("1A", "1B", "2A", "2B", "3")
 FLIP = str.maketrans("ACGT", "TGCA")
 
@@ -175,16 +182,14 @@ def baseline_genotypes(options):
     return out
 
 
-def major_alleles(where):
-    """{rsid: the allele most Europeans carry} from the 1000 Genomes site list, cached. The typical genotype is two
-    copies of it."""
-    cache = "data/reference/imputation/pgx_major_alleles.json"
-    known = json.load(open(cache)) if os.path.exists(cache) else {}
+def site_freqs(where):
+    """{rsid: {ref, alt, AFR, AMR, EAS, EUR, SAS}} (alt allele frequency per 1000 Genomes superpopulation) for the
+    SNPs at the given GRCh37 positions, looked up once in the site list and cached."""
+    known = json.load(open(FREQ_CACHE)) if os.path.exists(FREQ_CACHE) else {}
     todo = {f"{c}\t{p}": rs for rs, (c, p) in where.items() if rs not in known and p}
-    sites = "data/reference/imputation/sites.vcf.gz"
-    if todo and os.path.exists(sites):
-        print(f"Looking up European allele frequencies for {len(todo)} SNPs (once)...")
-        with gzip.open(sites, "rt") as f:
+    if todo and os.path.exists(SITES):
+        print(f"Looking up allele frequencies across ancestries for {len(todo)} SNPs (once)...")
+        with gzip.open(SITES, "rt") as f:
             for line in f:
                 if line[0] == "#":
                     continue
@@ -192,33 +197,58 @@ def major_alleles(where):
                 rs = todo.get(f"{p[0]}\t{p[1]}")
                 if not rs or len(p[3]) != 1 or len(p[4]) != 1:
                     continue
-                m = re.search(r"(?:^|;)EUR_AF=([\d.e-]+)", p[7])
-                if m:
-                    known[rs] = p[4] if float(m.group(1)) > 0.5 else p[3]
+                af = dict(re.findall(r"(?:^|;)(AFR|AMR|EAS|EUR|SAS)_AF=([\d.e-]+)", p[7]))
+                if len(af) == len(POPS):
+                    known[rs] = {"ref": p[3], "alt": p[4], **{k: float(v) for k, v in af.items()}}
         for rs in todo.values():
             known.setdefault(rs, None)
-        json.dump(known, open(cache, "w"))
-    return {rs: a for rs, a in known.items() if a}
+        json.dump(known, open(FREQ_CACHE, "w"))
+    return {rs: f for rs, f in known.items() if f}
+
+
+def allele_freq(site, allele):
+    """{population: frequency of allele} from a site_freqs entry; the complement is tried for the other strand."""
+    if not site:
+        return None
+    for a in (allele, allele.translate(FLIP)):
+        if a == site["alt"]:
+            return {p: round(site[p], 4) for p in POPS}
+        if a == site["ref"]:
+            return {p: round(1 - site[p], 4) for p in POPS}
+    return None
+
+
+def major_alleles(freqs):
+    """{rsid: the allele most Europeans carry}; the typical genotype is two copies of it."""
+    return {rs: f["alt"] if f["EUR"] > 0.5 else f["ref"] for rs, f in freqs.items()}
 
 
 def build(dna):
     rows, texts = load_annotations(LEVELS)
     rs_wanted = {r["Variant/Haplotypes"] for r in rows if re.fullmatch(r"rs\d+", r["Variant/Haplotypes"])}
     rs_wanted |= {rsid for defs in STAR.values() for _, rsid, _, _ in defs}
+    rs_wanted |= {rs for rs, _ in HLA_TAGS.values()} | set(SNP_GENES.values())
+    clinvar = clinvar_drug_response()
+    rs_wanted |= set(clinvar)
     calls, where = {}, {}
     for rsid, chrom, pos, gt, tier in iter_calls(dna, rs_wanted, confidence=None):
+        where[rsid] = (chrom, pos)  # every tier: the frequencies don't depend on the call
         if tier in ("measured", "high", "not_excluded"):
             calls[rsid] = (gt, tier)
-            where[rsid] = (chrom, pos)
-    major = major_alleles(where)
+    freqs = site_freqs(where)
+    major = major_alleles(freqs)
 
     genes = []
     star = {}
     for gene in STAR:
+        # How common each defining allele is in the five 1000 Genomes ancestries
+        across = [{"allele": name, "rsid": rsid, "variant": alt, "function": fn, "freq": allele_freq(freqs.get(rsid), alt)}
+                  for name, rsid, alt, fn in STAR[gene]]
+        across = json.dumps([a for a in across if a["freq"]])
         d = diplotype(gene, calls)
         if not d:
             genes.append({"gene": gene, "alleles": None, "phenotype": "Not readable from this file", "snps": "[]",
-                          "note": CAVEATS.get(gene), "typical": None})
+                          "note": CAVEATS.get(gene), "typical": None, "ancestry": across})
             continue
         alleles, pheno, snps, note, missing = d
         star[gene] = alleles
@@ -226,7 +256,7 @@ def build(dna):
         genes.append({"gene": gene, "alleles": "/".join(alleles), "phenotype": pheno, "snps": json.dumps(snps),
                       "note": " ".join(x for x in (note, CAVEATS.get(gene),
                                                     f"Not read: {', '.join(missing)}." if missing else None) if x),
-                      "typical": typical, "imputed": any(s["confidence"] == "high" for s in snps)})
+                      "typical": typical, "imputed": any(s["confidence"] == "high" for s in snps), "ancestry": across})
 
     drugs = []
     for r in rows:
@@ -254,7 +284,8 @@ def build(dna):
             else:
                 bl = {g for g in baseline_genotypes(opts) if g[0] == g[1]}
                 status = "unclear" if len(bl) != 1 else "typical" if sort_gt(m["Genotype/Allele"]) in bl else "differs"
-            drugs.append({**base, "genotype": m["Genotype/Allele"], "confidence": conf, "status": status, "text": m["Annotation Text"]})
+            drugs.append({**base, "genotype": m["Genotype/Allele"], "confidence": conf, "status": status,
+                          "text": m["Annotation Text"], "freq": minor_freq(freqs.get(var), major.get(var))})
         elif var in HLA_TAGS:
             rsid, allele = HLA_TAGS[var]
             c = calls.get(rsid)
@@ -285,7 +316,262 @@ def build(dna):
             drugs.append({**base, "genotype": f"{g} {dip}", "confidence": "star", "status": "typical" if typical else "differs",
                           "text": " ".join(h["Annotation Text"] for h in hits),
                           "phenotype": next((x["phenotype"] for x in genes if x["gene"] == g), None)})
-    return genes, drugs
+
+    # ClinVar's drug-response classifications: each names a variant allele and the response it bears on
+    for rsid, entries in clinvar.items():
+        c = calls.get(rsid)
+        if not c:
+            continue
+        gt, conf = c
+        for e in entries:
+            if len(e["alt"]) != 1:
+                continue
+            n = gt.count(e["alt"])
+            if conf == "not_excluded":
+                status = "not_excluded"
+            elif rsid in major:
+                status = "typical" if sort_gt(gt) == major[rsid] * 2 else "differs"
+            else:
+                status = "differs" if n else "typical"
+            drugs.append({"id": f"clinvar:{e['id']}", "drug": e["drug"], "gene": e["gene"], "variant": rsid,
+                          "level": "ClinVar", "expert": e["expert"], "category": "ClinVar drug response",
+                          "condition": e["condition"], "url": f"https://www.ncbi.nlm.nih.gov/clinvar/variation/{e['id']}/",
+                          "pmids": 0, "genotype": gt, "confidence": conf, "status": status,
+                          "text": f"ClinVar classes {e['ref']}>{e['alt']} in {e['gene']} as bearing on {e['condition']} "
+                                  f"({e['review']}). {{who}} carries {n} {'copy' if n == 1 else 'copies'} of {e['alt']}.",
+                          "freq": allele_freq(freqs.get(rsid), e["alt"]) and json.dumps(
+                              {"allele": e["alt"], **allele_freq(freqs.get(rsid), e["alt"])})})
+
+    guidance = build_guidance(person_types(genes, star, calls, major))
+    return genes, drugs, guidance
+
+
+def minor_freq(site, major_allele):
+    """JSON {allele, AFR..SAS} for the allele fewer Europeans carry, or None."""
+    if not site or not major_allele:
+        return None
+    other = site["alt"] if major_allele == site["ref"] else site["ref"]
+    return json.dumps({"allele": other, **allele_freq(site, other)})
+
+
+def clinvar_drug_response():
+    """{rsid: [{id, ref, alt, gene, condition, drug, review, expert}]} for germline ClinVar 'drug response' entries."""
+    out = defaultdict(list)
+    with gzip.open(CLINVAR, "rt", encoding="utf-8", errors="replace") as f:
+        for line in f:
+            if line[0] == "#" or "drug_response" not in line:
+                continue
+            p = line.rstrip("\n").split("\t")
+            info = dict(x.split("=", 1) for x in p[7].split(";") if "=" in x)
+            if "drug_response" not in info.get("CLNSIG", "") or "RS" not in info:
+                continue
+            if not int(info.get("ORIGIN", "1")) & 1:
+                continue  # somatic only: about tumours, not the person's own genome
+            if p[4] not in ("A", "C", "G", "T"):
+                continue
+            names = [n.replace("_", " ").strip() for n in info.get("CLNDN", "").split("|") if n not in ("", "not_provided", "not_specified")]
+            # One entry can list diseases too (F5 Leiden): the drug part is the name with "response" in it
+            drug_names = [n for n in names if re.search(r"response|toxicity", n, re.I)] or names
+            condition = "; ".join(drug_names) or "drug response"
+            m = re.match(r"(.+?)\s+(?:response|toxicity|sensitivity|resistance|dose|metabolism|hypersensitivity)\b",
+                         drug_names[0], re.I) if drug_names else None
+            review = info.get("CLNREVSTAT", "").replace("_", " ")
+            out["rs" + info["RS"]].append({
+                "id": p[2], "ref": p[3], "alt": p[4], "gene": info.get("GENEINFO", "").split(":")[0],
+                "condition": condition, "drug": (m.group(1) if m else condition).lower(),
+                "review": review, "expert": bool(re.search(r"expert panel|practice guideline", review))})
+    return out
+
+
+# Single-SNP genes the guidelines name by genotype (VKORC1 -1639G>A for warfarin)
+SNP_GENES = {"VKORC1": "rs9923231", "ABCG2": "rs2231142"}
+CPIC_WORD = {"Poor": "Poor Metabolizer", "Intermediate": "Intermediate Metabolizer", "Normal": "Normal Metabolizer",
+             "Rapid": "Rapid Metabolizer", "Ultrarapid": "Ultrarapid Metabolizer"}
+ABBR = {"Poor": "PM", "Intermediate": "IM", "Normal": "NM", "Rapid": "RM", "Ultrarapid": "UM"}
+
+
+def person_types(genes, star, calls, major):
+    """{gene: {label, typical, cpic, abbr, score, dip, gt}}: how each guideline gene reads for the person, in the
+    vocabularies the guidelines use (CPIC lookup values, DPWG's PM/IM/NM/UM, activity scores, diplotypes)."""
+    types = {}
+    for g in genes:
+        if not g["alleles"]:
+            continue
+        pheno, word = g["phenotype"], g["phenotype"].split()[0]
+        m = re.search(r"activity score ([\d.]+)", pheno)
+        score = float(m.group(1)) if m else None
+        cpic = CPIC_WORD.get(word)
+        if g["gene"] in ("CYP2C9", "DPYD", "CYP2D6") and score is not None:
+            cpic = f"{score:.2f}".rstrip("0")
+            cpic += "0" if cpic.endswith(".") else ""
+        elif g["gene"] == "NAT2":
+            cpic = {"Slow": "Poor Metabolizer", "Intermediate": "Intermediate Metabolizer", "Rapid": "Rapid Metabolizer"}[word]
+        elif g["gene"] == "SLCO1B1":
+            cpic = pheno.split(" (")[0].title()
+        abbr = ABBR.get(word) or {"Slow": "PM"}.get(word)
+        types[g["gene"]] = {"label": f"{g['gene']} {g['alleles']}: {pheno.split(' (')[0].lower()}", "typical": g["typical"],
+                            "cpic": cpic, "abbr": abbr, "score": score, "dip": g["alleles"], "gt": None}
+    for var, (rsid, allele) in HLA_TAGS.items():
+        c = calls.get(rsid)
+        if c and c[1] != "not_excluded":
+            carried = bool(c[0].count(allele))
+            gene, name = var.split("*")
+            types[gene] = {"label": f"{var} {'likely present' if carried else 'not detected'} (tag SNP {rsid})",
+                           "typical": not carried, "cpic": f"*{name} {'positive' if carried else 'negative'}",
+                           "hla": {name.replace(":", ""): carried}, "abbr": None, "score": None, "dip": None, "gt": None}
+    for gene, rsid in SNP_GENES.items():
+        c = calls.get(rsid)
+        if c and c[1] != "not_excluded":
+            cpic = None
+            if gene == "ABCG2":  # CPIC reads ABCG2 from rs2231142 alone: each T (Gln141Lys) lowers function
+                cpic = ("Normal Function", "Decreased Function", "Poor Function")[c[0].count("T")]
+            types[gene] = {"label": f"{gene} {rsid} {c[0]}", "typical": rsid in major and sort_gt(c[0]) == major[rsid] * 2,
+                           "cpic": cpic, "abbr": None, "score": None, "dip": None, "gt": sort_gt(c[0])}
+    # SLCO1B1 c.521T>C is rs4149056 on the forward strand
+    c = calls.get("rs4149056")
+    if "SLCO1B1" in types and c:
+        types["SLCO1B1"]["gt"] = sort_gt(c[0])
+    return types
+
+
+def _text(html):
+    import html as h
+    return re.sub(r"\s+", " ", h.unescape(re.sub(r"<[^>]+>", " ", html or ""))).strip()
+
+
+def dpwg_tables(html):
+    """[(phenotype cell, description, recommendation)] from the tables in a DPWG guideline annotation."""
+    rows = []
+    for table in re.findall(r"<table.*?</table>", html or "", re.S):
+        head = [_text(x).lower() for x in re.findall(r"<th[^>]*>(.*?)</th>", table, re.S)]
+        rec = next((i for i, h in enumerate(head) if "recommend" in h), len(head) - 1)
+        desc = next((i for i, h in enumerate(head) if "descr" in h or "implic" in h), None)
+        for tr in re.findall(r"<tr>(.*?)</tr>", table, re.S):
+            cells = re.findall(r"<td[^>]*>(.*?)</td>", tr, re.S)
+            if len(cells) > rec:
+                rows.append((_text(cells[0]), _text(cells[desc]) if desc is not None and desc < len(cells) else "", _text(cells[rec])))
+    return rows
+
+
+def dpwg_matches(cell, default_gene, types):
+    """Whether a DPWG table row ("CYP2C19 PM", "Activity Score 1.5", "CYP2C9 *1/*3", "SLCO1B1 521 TC",
+    "VKORC1 -1639 AA", "HLA-B*5701") describes the person. None when the row can't be judged."""
+    if re.search(r"\bother", cell, re.I):
+        return None
+    m = re.match(r"([A-Z][A-Z0-9-]+)(?=[\s*]|$)", cell)
+    looks_gene = m and (m.group(1) in types or re.fullmatch(r"(?:CYP|HLA|SLCO|UGT|NUDT|TPMT|DPYD|VKORC|ABCG|G6PD|NAT)\S*", m.group(1)))
+    gene = m.group(1) if looks_gene else default_gene
+    if not gene:
+        return None
+    rest = cell[len(gene):].strip() if cell.startswith(gene) else cell
+    t = types.get(gene)
+    if gene == "HLA-B":
+        h = re.match(r"\*?(\d\d):?(\d\d)", rest)
+        if not h or not t or (h.group(1) + h.group(2)) not in t.get("hla", {}):
+            return None
+        return t["hla"][h.group(1) + h.group(2)] != bool(re.search(r"negative", rest, re.I))
+    if not t:
+        return None
+    if m2 := re.match(r"(PM|IM|NM|UM|RM)\b", rest):
+        return t["abbr"] == m2.group(1)
+    if m2 := re.match(r"(?:DPD\s+AS|activity score)\s*([\d.]+)", rest, re.I):
+        return t["score"] is not None and abs(t["score"] - float(m2.group(1))) < 1e-9
+    if m2 := re.match(r"(\*\w+)\s*/\s*(\*\w+)", rest):
+        return t["dip"] is not None and sorted(t["dip"].split("/")) == sorted([m2.group(1), m2.group(2)])
+    if gene == "SLCO1B1" and (m2 := re.match(r"521\s*([TC]{2})\b", rest)):
+        return t["gt"] == sort_gt(m2.group(1))
+    if gene == "VKORC1" and (m2 := re.match(r"(?:-1639|rs9923231)\s*([GA]{2})\b", rest)):
+        return t["gt"] == sort_gt(m2.group(1).translate(FLIP))  # gene strand; rs9923231 is reported forward
+    if gene == "ABCG2" and (m2 := re.search(r"\(([GT]{2}) genotype", rest)):
+        return t["gt"] == sort_gt(m2.group(1))
+    if gene == "CYP3A5" and re.search(r"expressor", rest, re.I):
+        return t["abbr"] == ("NM" if re.search(r"homozyg", rest, re.I) else "IM")
+    return None
+
+
+def build_guidance(types):
+    """One row per guideline (CPIC, DPWG, CPNDS, RNPGx ...) and per drug label (FDA, EMA, PMDA, Health Canada,
+    Swissmedic), with what applies to the person's types."""
+    recs = json.load(open(CPIC_RECS, encoding="utf-8"))
+    cpic = defaultdict(list)
+    for r in recs:
+        cpic[r["drug"]["name"].lower()].append(r)
+    rows = []
+    z = zipfile.ZipFile(GUIDELINES)
+    for name in z.namelist():
+        if not name.endswith(".json"):
+            continue
+        g = json.loads(z.read(name))["guideline"]
+        if g.get("cancerGenome"):
+            continue
+        drugs = [c["name"].lower() for c in g.get("relatedChemicals", [])]
+        gl_genes = [x["symbol"] for x in g.get("relatedGenes", [])]
+        text = g["name"] + " " + _text((g.get("summaryMarkdown") or {}).get("html"))
+        # HLA genes count only for the HLA types the file can tag (HLA-B*57:01); *15:02, *58:01 ... need HLA typing
+        known = [x for x in gl_genes if x in types and
+                 (not x.startswith("HLA-") or any(re.search(h[:2] + r":?" + h[2:], text) for h in types[x]["hla"]))]
+        row = {"kind": "guideline", "id": g["id"], "source": g["source"], "drug": ";".join(drugs), "genes": ";".join(gl_genes),
+               "name": g["name"].replace("Annotation of ", ""), "url": f"https://www.clinpgx.org/guidelineAnnotation/{g['id']}",
+               "summary": _text((g.get("summaryMarkdown") or {}).get("html")), "testing": None,
+               "types": "; ".join(types[x]["label"] for x in known), "recs": "[]"}
+        found, tables = [], False
+        if g["source"] == "CPIC":
+            def fits(k, v):
+                if k.startswith("HLA-") and v == "No Result":
+                    return not (k in known and v)  # the guideline's HLA type isn't readable here: CPIC's "no result" row
+                return k in known and types[k]["cpic"] == v
+            for r in (r for d in drugs for r in cpic.get(d, [])):
+                key = r["lookupkey"]
+                if not set(key) <= set(gl_genes):
+                    continue
+                tables = True
+                if all(fits(k, v) for k, v in key.items()):
+                    found.append({"population": r.get("population"), "recommendation": r["drugrecommendation"],
+                                  "implication": "; ".join(f"{k}: {v}" for k, v in (r.get("implications") or {}).items()),
+                                  "strength": r.get("classification"), "for": "; ".join(f"{k} {v}" for k, v in key.items())})
+        elif g["source"] == "DPWG":
+            default = gl_genes[0] if len(gl_genes) == 1 else None
+            judged = False
+            for cell, desc, rec in dpwg_tables((g.get("textMarkdown") or {}).get("html")):
+                tables = True
+                hit = dpwg_matches(cell, default, {k: types[k] for k in known})
+                judged |= hit is not None
+                if hit:
+                    found.append({"population": None, "recommendation": rec, "implication": desc, "strength": None, "for": cell})
+            if not found and judged:
+                found.append({"population": None, "recommendation": "No action: DPWG lists recommendations only for the types "
+                              "that need one, and yours isn't among them.", "implication": "", "strength": None, "for": None})
+        uniq = list({(f["population"], f["recommendation"]): f for f in found}.values())
+        row["recs"] = json.dumps(uniq)
+        if not known:
+            row["status"] = "unreadable"
+        elif not tables:
+            row["status"] = "summary"  # no recommendation per type (other bodies, or "no action needed" guidelines)
+        elif uniq:
+            if all(f["for"] is None for f in uniq) or all(types[x]["typical"] for x in known):
+                row["status"] = "typical"
+            elif all(re.match(r"\s*(no action|none\b|there is no need|initiate therapy with recommended starting dose\.?\s*$)",
+                              f["recommendation"], re.I) for f in uniq):
+                row["status"] = "no_action"  # the type differs, but the guideline changes nothing
+            else:
+                row["status"] = "differs"
+        else:
+            row["status"] = "unclear"  # the person's type isn't one the guideline names, or a gene is only partly read
+        rows.append(row)
+
+    zl = zipfile.ZipFile(LABELS)
+    for r in csv.DictReader(io.TextIOWrapper(zl.open("drugLabels.tsv"), encoding="utf-8"), delimiter="\t"):
+        if r["Cancer Genome"] or r["Testing Level"] in ("", "No Clinical PGx"):
+            continue  # tumour testing, or a label that mentions the gene without clinical consequence
+        lb_genes = [x.strip() for x in r["Genes"].split(";") if x.strip()]
+        known = [x for x in lb_genes if x in types]
+        rows.append({"kind": "label", "id": r["PharmGKB ID"], "source": r["Source"],
+                     "drug": ";".join(x.strip().lower() for x in r["Chemicals"].split(";")), "genes": ";".join(lb_genes),
+                     "name": r["Name"].replace("Annotation of ", ""), "url": f"https://www.clinpgx.org/labelAnnotation/{r['PharmGKB ID']}",
+                     "summary": r["Variants/Haplotypes"], "testing": r["Testing Level"],
+                     "types": "; ".join(types[x]["label"] for x in known), "recs": "[]",
+                     "status": "unreadable" if not known else "typical" if all(types[x]["typical"] for x in known) else "differs"})
+    return rows
 
 
 def main():
@@ -295,12 +581,14 @@ def main():
     ap.add_argument("--out-dir", default="data/output/cluster_analysis")
     args = ap.parse_args()
     dna = args.dna if args.measured_only else imputed_path(args.dna)
-    genes, drugs = build(dna)
+    genes, drugs, guidance = build(dna)
     os.makedirs(args.out_dir, exist_ok=True)
     who = person_label(dna)
-    for row in genes + drugs:
+    for row in genes + drugs + guidance:
         row["person"] = who
-    for name, rows in (("med_genes", genes), ("med_drugs", drugs)):
+        if "text" in row:
+            row["text"] = row["text"].replace("{who}", who)
+    for name, rows in (("med_genes", genes), ("med_drugs", drugs), ("med_guidance", guidance)):
         with open(os.path.join(args.out_dir, name + ".json"), "w", encoding="utf-8") as f:
             json.dump(rows, f, ensure_ascii=False, separators=(",", ":"))
     differs = [d for d in drugs if d["status"] == "differs" and d["level"] in ("1A", "1B")]
@@ -308,6 +596,11 @@ def main():
           f"from the typical case) → {args.out_dir}")
     for g in genes:
         print(f"   {g['gene']:8} {g['alleles'] or '-':14} {g['phenotype']}")
+    gl = [g for g in guidance if g["kind"] == "guideline"]
+    by = Counter((g["source"], g["status"]) for g in gl)
+    print(f"   {len(gl)} guidelines: " + ", ".join(f"{s} {st} {n}" for (s, st), n in sorted(by.items()) if s in ("CPIC", "DPWG")))
+    lb = Counter(g["status"] for g in guidance if g["kind"] == "label")
+    print(f"   {sum(lb.values())} drug labels: {dict(lb)}; ClinVar drug-response rows: {sum(d['level'] == 'ClinVar' for d in drugs)}")
 
 
 if __name__ == "__main__":

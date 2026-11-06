@@ -1,5 +1,7 @@
 # Cluster analysis
 
+Architecture overview with diagrams: [docs/architecture/](../docs/architecture/README.md).
+
 Groups the genes in the library (`config/snp_traits.json`) into **functional modules**, meaning sets of genes whose proteins work together. It then scores a person's results per module. The aim is to see mechanisms rather than isolated SNPs: where several weakened genes sit in the same pathway, and which weakened genes reach into other systems.
 
 ## Two steps
