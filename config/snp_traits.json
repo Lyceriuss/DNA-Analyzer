@@ -45,10 +45,11 @@
             "CC": "Reduced signaling efficiency (Potential for slower labor progression)"
         },
         "scores": {
-            "TT": 10,
-            "TC": 6,
-            "CC": 3
-        }
+            "TT": 5,
+            "TC": 5,
+            "CC": 5
+        },
+        "audit": "No functional evidence and no genome-wide study: neutral scores, texts kept as the library's claim."
     },
     "rs2236225": {
         "gene": "MTHFD1",
@@ -98,8 +99,9 @@
         "scores": {
             "AA": 9,
             "AG": 6,
-            "GG": 3
-        }
+            "GG": 5
+        },
+        "audit": "GG is carried by 27% of Europeans: risk score raised to 5."
     },
     "rs762551": {
         "gene": "CYP1A2",
@@ -125,15 +127,16 @@
         "description": "PON1 breaks down oxidized LDL and supports antioxidant defenses.",
         "impact": "Medium",
         "variants": {
-            "TT": "Higher enzyme activity",
-            "CT": "Intermediate activity",
-            "CC": "Lower enzyme activity"
+            "TT": "Gln/Gln (Q192): lower paraoxonase activity toward paraoxon",
+            "CT": "Gln/Arg: intermediate paraoxonase activity",
+            "CC": "Arg/Arg (R192): higher paraoxonase and arylesterase activity"
         },
         "scores": {
-            "TT": 8,
+            "TT": 5,
             "CT": 5,
-            "CC": 3
-        }
+            "CC": 5
+        },
+        "audit": "C (Arg192) increases activity (UniProt); the library had it as lower. Heart studies are mixed, so neutral scores."
     },
     "rs1695": {
         "gene": "GSTP1",
@@ -253,10 +256,11 @@
             "TT": "Lower LIPC activity, higher HDL-C"
         },
         "scores": {
-            "CC": 3,
+            "CC": 5,
             "CT": 6,
             "TT": 9
-        }
+        },
+        "audit": "CC is carried by 63% of Europeans: risk score raised to 5."
     },
     "rs693": {
         "gene": "APOB",
@@ -429,10 +433,11 @@
             "GG": "Higher SOD2 activity (Ala/Ala: efficient import into mitochondria)"
         },
         "scores": {
-            "AA": 3,
+            "AA": 5,
             "AG": 6,
             "GG": 9
-        }
+        },
+        "audit": "AA is carried by 28% of Europeans: risk score raised to 5."
     },
     "rs1050450": {
         "gene": "GPX1",
@@ -484,8 +489,9 @@
         "scores": {
             "AA": 9,
             "AC": 7,
-            "CC": 4
-        }
+            "CC": 5
+        },
+        "audit": "CC is carried by 34% of Europeans: risk score raised to 5."
     },
     "rs602662": {
         "gene": "FUT2",
@@ -622,8 +628,9 @@
         "scores": {
             "AA": 9,
             "AG": 6,
-            "GG": 4
-        }
+            "GG": 5
+        },
+        "audit": "GG is carried by 33% of Europeans: risk score raised to 5."
     },
     "rs2234693": {
         "gene": "ESR1",
@@ -656,8 +663,9 @@
         "scores": {
             "GG": 8,
             "GA": 6,
-            "AA": 4
-        }
+            "AA": 5
+        },
+        "audit": "AA is carried by 32% of Europeans: risk score raised to 5."
     },
     "rs7799039": {
         "gene": "LEP (Leptin)",
@@ -741,8 +749,9 @@
         "scores": {
             "CC": 9,
             "CG": 6,
-            "GG": 3
-        }
+            "GG": 5
+        },
+        "audit": "GG is carried by 48% of Europeans: risk score raised to 5."
     },
     "rs1815739": {
         "gene": "ACTN3",
@@ -791,11 +800,12 @@
             "TT": "More flexible but injury-prone"
         },
         "scores": {
-            "CC": 7,
-            "CT": 6,
-            "TC": 6,
+            "CC": 5,
+            "CT": 5,
+            "TC": 5,
             "TT": 5
-        }
+        },
+        "audit": "No functional evidence and no genome-wide study: neutral scores, texts kept as the library's claim."
     },
     "rs1800592": {
         "gene": "UCP1",
@@ -809,10 +819,11 @@
             "GG": "Optimal UCP1 activity and thermogenesis."
         },
         "scores": {
-            "AA": 3,
-            "GA": 6,
-            "GG": 9
-        }
+            "AA": 5,
+            "GA": 5,
+            "GG": 5
+        },
+        "audit": "No functional evidence and no genome-wide study: neutral scores, texts kept as the library's claim."
     },
     "rs659366": {
         "gene": "UCP2",
@@ -898,10 +909,11 @@
             "CC": "Lower IL-6 production, reduced inflammatory reactivity"
         },
         "scores": {
-            "GG": 3,
+            "GG": 5,
             "GC": 6,
             "CC": 9
-        }
+        },
+        "audit": "GG is carried by 34% of Europeans: risk score raised to 5."
     },
     "rs2476601": {
         "gene": "PTPN22",
@@ -1071,15 +1083,16 @@
         "description": "SRD5A2 converts testosterone into DHT; affects sex drive, aggression, and hair.",
         "impact": "Medium",
         "variants": {
-            "AA": "Lower DHT conversion",
-            "AG": "Typical DHT levels",
-            "GG": "Higher DHT conversion"
+            "GG": "Typical DHT conversion (Ala/Ala)",
+            "AG": "One Ala49Thr copy: faster testosterone-to-DHT conversion",
+            "AA": "Two Ala49Thr copies: faster testosterone-to-DHT conversion"
         },
         "scores": {
-            "AA": 3,
-            "AG": 6,
-            "GG": 9
-        }
+            "GG": 5,
+            "AG": 5,
+            "AA": 5
+        },
+        "audit": "Thr49 increases Vmax (UniProt); the library had it as lower DHT. Neutral scores."
     },
     "rs2071749": {
         "gene": "HMOX1",
@@ -1093,10 +1106,11 @@
             "GG": "Reduced induction"
         },
         "scores": {
-            "AA": 9,
-            "AG": 7,
-            "GG": 4
-        }
+            "AA": 5,
+            "AG": 5,
+            "GG": 5
+        },
+        "audit": "No functional evidence and no genome-wide study: neutral scores, texts kept as the library's claim."
     },
     "rs1056836": {
         "gene": "CYP1B1",
@@ -1122,15 +1136,16 @@
         "description": "CYP1A1 detoxifies smoke compounds, pollutants, and dioxins.",
         "impact": "High",
         "variants": {
-            "TT": "Higher CYP1A1 activity",
-            "CT": "Typical activity",
-            "CC": "Lower CYP1A1 activity"
+            "TT": "Typical CYP1A1 activity (Ile/Ile)",
+            "CT": "One Ile462Val copy: higher catalytic activity (more reactive intermediates from smoke compounds)",
+            "CC": "Two Ile462Val copies: higher catalytic activity (more reactive intermediates from smoke compounds)"
         },
         "scores": {
-            "TT": 7,
+            "TT": 6,
             "CT": 5,
-            "CC": 3
-        }
+            "CC": 4
+        },
+        "audit": "C (Val462) raises catalytic efficiency 5-12x (UniProt); the library had it as lower activity."
     },
     "rs2740574": {
         "gene": "CYP3A4",
@@ -1144,10 +1159,11 @@
             "CC": "Lower CYP3A4 activity"
         },
         "scores": {
-            "TT": 9,
-            "CT": 6,
-            "CC": 3
-        }
+            "TT": 5,
+            "CT": 5,
+            "CC": 5
+        },
+        "audit": "No functional evidence and no genome-wide study: neutral scores, texts kept as the library's claim."
     },
     "rs1799983": {
         "gene": "NOS3 (Glu298Asp)",
@@ -1184,8 +1200,9 @@
             "AA": 7,
             "AG": 5,
             "GA": 5,
-            "GG": 4
-        }
+            "GG": 5
+        },
+        "audit": "GG is carried by 32% of Europeans: risk score raised to 5."
     },
     "rs11191548": {
         "gene": "CNNM2",
@@ -1218,8 +1235,9 @@
         "scores": {
             "CC": 7,
             "AC": 5,
-            "AA": 3
-        }
+            "AA": 5
+        },
+        "audit": "AA is carried by 32% of Europeans: risk score raised to 5."
     },
     "rs2802292": {
         "gene": "FOXO3",
@@ -1252,8 +1270,9 @@
         "scores": {
             "CC": 9,
             "CT": 6,
-            "TT": 3
-        }
+            "TT": 5
+        },
+        "audit": "TT is carried by 38% of Europeans: risk score raised to 5."
     },
     "rs987237": {
         "gene": "TFAP2B",
@@ -1369,10 +1388,11 @@
             "TT": "Higher adiponectin levels"
         },
         "scores": {
-            "GG": 4,
-            "GT": 7,
-            "TT": 9
-        }
+            "GG": 5,
+            "GT": 5,
+            "TT": 5
+        },
+        "audit": "No functional evidence and no genome-wide study: neutral scores, texts kept as the library's claim."
     },
     "rs1137101": {
         "gene": "LEPR",
@@ -1511,10 +1531,11 @@
             "GG": "Lower"
         },
         "scores": {
-            "CC": 6,
+            "CC": 5,
             "CG": 5,
             "GG": 5
-        }
+        },
+        "audit": "No functional evidence and no genome-wide study: neutral scores, texts kept as the library's claim."
     },
     "rs3731249": {
         "gene": "CDKN2A",
@@ -1600,8 +1621,9 @@
         "scores": {
             "GG": 9,
             "AG": 6,
-            "AA": 3
-        }
+            "AA": 5
+        },
+        "audit": "AA is carried by 39% of Europeans: risk score raised to 5."
     },
     "rs1042522": {
         "gene": "TP53",
@@ -1627,15 +1649,16 @@
         "description": "BRCA1 helps repair double-strand DNA breaks with high fidelity.",
         "impact": "High",
         "variants": {
-            "CC": "Strong BRCA1 function",
-            "CT": "Moderately reduced repair",
-            "TT": "Lower BRCA1 repair efficiency"
+            "TT": "Typical BRCA1 (Gln356)",
+            "CT": "One Gln356Arg copy (no established effect)",
+            "CC": "Two Gln356Arg copies (no established effect)"
         },
         "scores": {
-            "CC": 9,
-            "CT": 6,
-            "TT": 3
-        }
+            "TT": 5,
+            "CT": 5,
+            "CC": 5
+        },
+        "audit": "The library called the 88%-common TT low repair; no evidence for an effect. Neutral scores."
     },
     "rs16942": {
         "gene": "BRCA1",
@@ -1651,8 +1674,9 @@
         "scores": {
             "CC": 9,
             "CT": 6,
-            "TT": 3
-        }
+            "TT": 5
+        },
+        "audit": "TT is carried by 42% of Europeans: risk score raised to 5."
     },
     "rs601338": {
         "gene": "FUT2",
@@ -1661,17 +1685,16 @@
         "description": "Determines whether ABO antigens appear in gut mucosa; major driver of microbiome composition.",
         "impact": "High",
         "variants": {
-            "AA": "Full secretor (supports Bifidobacteria growth)",
-            "AG": "Partial secretor",
-            "GA": "Partial secretor",
-            "GG": "Non-secretor (reduced Bifidobacteria; higher IBS risk)"
+            "GG": "Secretor (supports Bifidobacteria growth)",
+            "AG": "Secretor (one non-secretor copy)",
+            "AA": "Non-secretor (reduced Bifidobacteria; norovirus resistance)"
         },
         "scores": {
-            "AA": 6,
+            "GG": 6,
             "AG": 5,
-            "GA": 5,
-            "GG": 3
-        }
+            "AA": 4
+        },
+        "audit": "A is the W143X stop (non-secretor); the library had AA as full secretor."
     },
     "rs4988235": {
         "gene": "LCT",
@@ -1794,11 +1817,12 @@
             "TT": "Reduced mitochondrial adaptation capacity"
         },
         "scores": {
-            "CC": 8,
-            "CT": 6,
-            "TC": 6,
-            "TT": 4
-        }
+            "CC": 5,
+            "CT": 5,
+            "TC": 5,
+            "TT": 5
+        },
+        "audit": "No functional evidence and no genome-wide study: neutral scores, texts kept as the library's claim."
     },
     "rs1042173": {
         "gene": "SLC6A4",
@@ -1829,10 +1853,11 @@
             "AA": "Reduced thermogenesis / weight regain tendency"
         },
         "scores": {
-            "GG": 7,
+            "GG": 5,
             "AG": 5,
-            "AA": 3
-        }
+            "AA": 5
+        },
+        "audit": "No functional evidence and no genome-wide study: neutral scores, texts kept as the library's claim."
     },
     "rs8192675": {
         "gene": "SLC2A2",
@@ -1892,17 +1917,16 @@
         "description": "SHBG binds testosterone and estrogen, controlling how much is free (active) in the body.",
         "impact": "High",
         "variants": {
-            "CC": "Lower SHBG (higher free testosterone)",
-            "CG": "Moderate SHBG",
-            "GC": "Moderate SHBG",
-            "GG": "Higher SHBG (lower free testosterone)"
+            "GG": "Typical SHBG",
+            "AG": "Higher SHBG (one Asp327Asn copy)",
+            "AA": "Higher SHBG (two Asp327Asn copies)"
         },
         "scores": {
-            "CC": 7,
-            "CG": 5,
-            "GC": 5,
-            "GG": 3
-        }
+            "GG": 5,
+            "AG": 5,
+            "AA": 5
+        },
+        "audit": "A (Asn327) raises SHBG, and the library's C/G keys didn't match this G/A SNP. Neutral scores."
     },
     "rs2486758": {
         "gene": "CYP17A1",
@@ -2035,10 +2059,11 @@
             "AA": "Higher stiffness and lower hypermobility risk"
         },
         "scores": {
-            "CC": 6,
-            "AC": 8,
-            "AA": 9
-        }
+            "CC": 5,
+            "AC": 5,
+            "AA": 5
+        },
+        "audit": "No functional evidence and no genome-wide study: neutral scores, texts kept as the library's claim."
     },
     "rs1800255": {
         "gene": "COL3A1",
@@ -2156,10 +2181,11 @@
             "TT": "Higher vitamin B6 levels"
         },
         "scores": {
-            "CC": 4,
+            "CC": 5,
             "CT": 5,
             "TT": 7
-        }
+        },
+        "audit": "CC is carried by 28% of Europeans: risk score raised to 5."
     },
     "rs12203592": {
         "gene": "IRF4",
@@ -2168,15 +2194,16 @@
         "description": "IRF4 affects pigmentation, UV sensitivity, and wrinkle formation rate.",
         "impact": "High",
         "variants": {
-            "CC": "Higher UV sensitivity, lighter skin",
-            "CT": "Moderate UV sensitivity",
-            "TT": "Lower UV sensitivity, darker skin"
+            "CC": "Typical UV sensitivity",
+            "CT": "Higher UV sensitivity, more freckling",
+            "TT": "High UV sensitivity, lighter skin and freckling"
         },
         "scores": {
-            "CC": 3,
-            "CT": 6,
-            "TT": 9
-        }
+            "CC": 7,
+            "CT": 5,
+            "TT": 3
+        },
+        "audit": "T is the sun-sensitivity and freckling allele; the library had it as darker skin."
     },
     "rs1805007": {
         "gene": "MC1R",
@@ -2202,15 +2229,16 @@
         "description": "Affects eumelanin/pheomelanin balance; higher pheomelanin increases oxidative stress.",
         "impact": "Medium",
         "variants": {
-            "AA": "Higher eumelanin (protective)",
-            "AG": "Balanced",
-            "GG": "Higher pheomelanin (more oxidative stress)"
+            "GG": "Typical MC1R (Arg163)",
+            "AG": "One Arg163Gln copy (weak effect on pigment)",
+            "AA": "Two Arg163Gln copies (weak effect on pigment)"
         },
         "scores": {
-            "AA": 9,
-            "AG": 6,
-            "GG": 3
-        }
+            "GG": 5,
+            "AG": 5,
+            "AA": 5
+        },
+        "audit": "The library scored the 87%-common GG as high pheomelanin; Arg163Gln is a weak MC1R variant. Neutral scores."
     },
     "rs1042602": {
         "gene": "TYR",
@@ -2260,10 +2288,11 @@
             "TT": "Slower remodeling"
         },
         "scores": {
-            "CC": 9,
-            "CT": 6,
-            "TT": 3
-        }
+            "CC": 5,
+            "CT": 5,
+            "TT": 5
+        },
+        "audit": "No functional evidence and no genome-wide study: neutral scores, texts kept as the library's claim."
     },
     "rs174537": {
         "gene": "FADS1",
@@ -2444,8 +2473,9 @@
             "CC": 8,
             "CT": 5,
             "TC": 5,
-            "TT": 2
-        }
+            "TT": 5
+        },
+        "audit": "TT is carried by 50% of Europeans: risk score raised to 5."
     },
     "rs713598": {
         "gene": "TAS2R38",
@@ -2459,10 +2489,11 @@
             "GG": "Super Taster"
         },
         "scores": {
-            "CC": 3,
+            "CC": 5,
             "CG": 6,
             "GG": 9
-        }
+        },
+        "audit": "CC is carried by 33% of Europeans: risk score raised to 5."
     },
     "rs6323": {
         "gene": "MAOA",
@@ -2476,10 +2507,11 @@
             "GG": "High activity - Efficient neurotransmitter breakdown."
         },
         "scores": {
-            "TT": 3,
+            "TT": 5,
             "TG": 5,
             "GG": 8
-        }
+        },
+        "audit": "TT is carried by 51% of Europeans: risk score raised to 5."
     },
     "rs17822931": {
         "gene": "ABCC11",
@@ -2494,11 +2526,12 @@
             "TT": "Dry earwax / No body odor (East Asian trait)"
         },
         "scores": {
-            "CC": 3,
+            "CC": 5,
             "CT": 5,
             "TC": 5,
             "TT": 9
-        }
+        },
+        "audit": "CC is carried by 75% of Europeans: risk score raised to 5."
     },
     "rs5400": {
         "gene": "SLC2A2",
@@ -2624,8 +2657,9 @@
             "CC": 7,
             "CT": 5,
             "TC": 5,
-            "TT": 3
-        }
+            "TT": 5
+        },
+        "audit": "TT is carried by 35% of Europeans: risk score raised to 5."
     },
     "rs4149056": {
         "gene": "SLCO1B1",
@@ -2747,8 +2781,9 @@
         "scores": {
             "TT": 9,
             "TC": 6,
-            "CC": 3
-        }
+            "CC": 5
+        },
+        "audit": "CC is carried by 30% of Europeans: risk score raised to 5."
     },
     "rs1333049": {
         "gene": "CDKN2A/B",
@@ -2757,15 +2792,16 @@
         "description": "The most powerful genetic marker for non-familial coronary artery disease (CAD) risk.",
         "impact": "High",
         "variants": {
-            "CC": "Normal",
-            "CG": "Risk",
-            "GG": "High Risk"
+            "GG": "Typical risk",
+            "CG": "Increased risk (one 9p21 risk copy)",
+            "CC": "Higher risk (two 9p21 risk copies)"
         },
         "scores": {
-            "CC": 9,
+            "GG": 9,
             "CG": 6,
-            "GG": 3
-        }
+            "CC": 3
+        },
+        "audit": "C is the coronary artery disease risk allele in the GWAS Catalog; the library had it as normal."
     },
     "rs174547": {
         "gene": "FADS2",
@@ -2838,8 +2874,9 @@
             "GG": 7,
             "GT": 5,
             "TG": 5,
-            "TT": 3
-        }
+            "TT": 5
+        },
+        "audit": "TT is carried by 49% of Europeans: risk score raised to 5."
     },
     "rs1256335": {
         "gene": "ALPL",
@@ -2981,11 +3018,12 @@
             "TT": "Low synthesis (Susceptibility to mood instability)"
         },
         "scores": {
-            "GG": 8,
+            "GG": 5,
             "GT": 5,
             "TG": 5,
-            "TT": 3
-        }
+            "TT": 5
+        },
+        "audit": "No functional evidence and no genome-wide study: neutral scores, texts kept as the library's claim."
     },
     "rs1360780": {
         "gene": "FKBP5",
@@ -3058,8 +3096,9 @@
         "scores": {
             "GG": 9,
             "AG": 6,
-            "AA": 3
-        }
+            "AA": 5
+        },
+        "audit": "AA is carried by 27% of Europeans: risk score raised to 5."
     },
     "rs11558538": {
         "gene": "HNMT",
@@ -3149,8 +3188,9 @@
             "GG": 7,
             "GA": 5,
             "AG": 5,
-            "AA": 4
-        }
+            "AA": 5
+        },
+        "audit": "AA is carried by 28% of Europeans: risk score raised to 5."
     },
     "rs73598374": {
         "gene": "ADA",
@@ -3234,10 +3274,11 @@
             "TT": "Low sweet sensitivity (May consume more sugar)"
         },
         "scores": {
-            "CC": 9,
-            "CT": 6,
-            "TT": 3
-        }
+            "CC": 5,
+            "CT": 5,
+            "TT": 5
+        },
+        "audit": "No functional evidence and no genome-wide study: neutral scores, texts kept as the library's claim."
     },
     "rs72921001": {
         "gene": "OR6A2",
@@ -3252,11 +3293,12 @@
             "CC": "Likely soapy taste (Hate cilantro)"
         },
         "scores": {
-            "AA": 8,
+            "AA": 5,
             "AC": 5,
             "CA": 5,
-            "CC": 2
-        }
+            "CC": 5
+        },
+        "audit": "A taste trait from a single study: neutral scores."
     },
     "rs10427255": {
         "gene": "ZEB2",
@@ -3284,15 +3326,16 @@
         "description": "Deficiency in this enzyme causes prolonged paralysis after using certain muscle relaxants (like succinylcholine) during surgery.",
         "impact": "High",
         "variants": {
-            "TT": "Normal metabolism",
-            "CT": "Slower metabolism (Tell anesthesiologist)",
-            "CC": "Deficiency (Apnea risk with anesthesia)"
+            "CC": "Typical metabolism",
+            "CT": "One K-variant copy: mildly slower breakdown of succinylcholine",
+            "TT": "Two K-variant copies: about 30% lower activity (tell your anesthesiologist)"
         },
         "scores": {
-            "TT": 8,
-            "CT": 5,
-            "CC": 1
-        }
+            "CC": 8,
+            "CT": 6,
+            "TT": 4
+        },
+        "audit": "T is the K variant; the library called the common CC a deficiency with apnea risk."
     },
     "rs1051266": {
         "gene": "SLC19A1",
@@ -3308,8 +3351,9 @@
         "scores": {
             "TT": 8,
             "CT": 5,
-            "CC": 4
-        }
+            "CC": 5
+        },
+        "audit": "CC is carried by 30% of Europeans: risk score raised to 5."
     },
     "rs40184": {
         "gene": "SLC6A3 (DAT1)",
@@ -3324,11 +3368,12 @@
             "TT": "Low clearance (Higher baseline dopamine)"
         },
         "scores": {
-            "CC": 3,
+            "CC": 5,
             "CT": 5,
             "TC": 5,
             "TT": 7
-        }
+        },
+        "audit": "CC is carried by 27% of Europeans: risk score raised to 5."
     },
     "rs2066853": {
         "gene": "AHR",
@@ -3361,8 +3406,9 @@
         "scores": {
             "CC": 9,
             "CT": 6,
-            "TT": 3
-        }
+            "TT": 5
+        },
+        "audit": "TT is carried by 50% of Europeans: risk score raised to 5."
     },
     "rs7454108": {
         "gene": "HLA-DQ8",
@@ -3371,17 +3417,16 @@
         "description": "Complements the HLA-DQ2.5 marker. You can be negative for DQ2.5 but positive for DQ8 and still have a high risk for Celiac disease.",
         "impact": "High",
         "variants": {
-            "CC": "Low risk (if DQ2.5 also negative)",
-            "CT": "Moderate Celiac risk (DQ8 carrier)",
-            "TC": "Moderate Celiac risk (DQ8 carrier)",
-            "TT": "High Celiac risk"
+            "TT": "Low risk (DQ8 tag absent; if DQ2.5 also negative)",
+            "CT": "Moderate celiac risk (DQ8 carrier)",
+            "CC": "High celiac risk (two DQ8 tag copies)"
         },
         "scores": {
-            "CC": 8,
+            "TT": 8,
             "CT": 5,
-            "TC": 5,
-            "TT": 2
-        }
+            "CC": 2
+        },
+        "audit": "C tags HLA-DQ8; the library scored the common TT (no DQ8) as high risk."
     },
     "rs4588": {
         "gene": "GC",
@@ -3407,15 +3452,16 @@
         "description": "CYP2A6 metabolizes nicotine. Slow metabolizers experience prolonged effects, potentially smoking less but facing harder withdrawals.",
         "impact": "Medium",
         "variants": {
-            "AA": "Slow",
-            "AT": "Intermediate",
-            "TT": "Fast"
+            "AA": "Typical nicotine metabolism",
+            "AT": "One CYP2A6*2 copy: slower nicotine metabolism",
+            "TT": "Two CYP2A6*2 copies: slow nicotine metabolism"
         },
         "scores": {
-            "AA": 3,
-            "AT": 6,
-            "TT": 9
-        }
+            "AA": 5,
+            "AT": 5,
+            "TT": 5
+        },
+        "audit": "T is CYP2A6*2 (slow); the library called the common AA slow. Neutral scores."
     },
     "rs553668": {
         "gene": "ADRA2A",
@@ -3424,15 +3470,16 @@
         "description": "Influences adrenaline's insulin suppression. Risk variants cause excessive insulin shutdown, increasing blood sugar and metabolic risk.",
         "impact": "High",
         "variants": {
-            "AA": "Normal response",
-            "AG": "Altered response",
-            "GG": "Strong insulin suppression (Metabolic risk)"
+            "GG": "Typical response",
+            "AG": "Stronger adrenaline-induced insulin suppression (one A copy)",
+            "AA": "Strong adrenaline-induced insulin suppression (type 2 diabetes risk)"
         },
         "scores": {
-            "AA": 7,
+            "GG": 7,
             "AG": 5,
-            "GG": 3
-        }
+            "AA": 3
+        },
+        "audit": "A is the risk allele (reduced insulin secretion); the library scored the common GG as the risk."
     },
     "rs5370": {
         "gene": "EDN1",
@@ -3503,8 +3550,9 @@
         "scores": {
             "TT": 7,
             "TG": 5,
-            "GG": 4
-        }
+            "GG": 5
+        },
+        "audit": "GG is carried by 33% of Europeans: risk score raised to 5."
     },
     "rs1061170": {
         "gene": "CFH",
@@ -3513,17 +3561,16 @@
         "description": "CFH regulates inflammation in the eye. The 'T' (or H402) variant is a significant risk factor for macular degeneration as you age.",
         "impact": "High",
         "variants": {
-            "CC": "Normal risk (Y402)",
-            "CT": "Increased AMD risk",
-            "TC": "Increased AMD risk",
-            "TT": "High AMD risk (Consider lutein/zeaxanthin)"
+            "TT": "Typical AMD risk (Tyr402/Tyr402)",
+            "CT": "Increased AMD risk (one His402 copy)",
+            "CC": "High AMD risk (His402/His402; consider lutein/zeaxanthin)"
         },
         "scores": {
-            "CC": 8,
+            "TT": 8,
             "CT": 5,
-            "TC": 5,
-            "TT": 2
-        }
+            "CC": 2
+        },
+        "audit": "C (His402) is the AMD risk allele; the library had it as the normal one."
     },
     "rs1052133": {
         "gene": "OGG1",
@@ -3532,15 +3579,16 @@
         "description": "OGG1 repairs oxidative DNA damage. 'C' allele (Ser326Cys) reduces activity, increasing oxidative stress vulnerability.",
         "impact": "High",
         "variants": {
-            "GG": "Efficient repair",
-            "GC": "Reduced repair capacity",
-            "CC": "Low repair capacity (Higher oxidative stress risk)"
+            "CC": "Typical repair (Ser326/Ser326)",
+            "CG": "One Ser326Cys copy: somewhat lower repair capacity",
+            "GG": "Cys326/Cys326: lower repair capacity (higher oxidative-damage risk)"
         },
         "scores": {
-            "GG": 9,
-            "GC": 6,
-            "CC": 3
-        }
+            "CC": 8,
+            "CG": 6,
+            "GG": 4
+        },
+        "audit": "G is Cys326, the lower-activity allele; the library had it as efficient."
     },
     "rs41423247": {
         "gene": "NR3C1",
@@ -3558,8 +3606,9 @@
             "CC": 7,
             "CG": 5,
             "GC": 5,
-            "GG": 3
-        }
+            "GG": 5
+        },
+        "audit": "GG is carried by 38% of Europeans: risk score raised to 5."
     },
     "rs6746030": {
         "gene": "SCN9A",
@@ -3624,10 +3673,11 @@
             "GG": "Normal/Lower aldosterone levels."
         },
         "scores": {
-            "AA": 3,
+            "AA": 5,
             "AG": 6,
             "GG": 9
-        }
+        },
+        "audit": "AA is carried by 26% of Europeans: risk score raised to 5."
     },
     "rs1800849": {
         "gene": "UCP3",
@@ -3751,8 +3801,9 @@
             "CC": 8,
             "CT": 6,
             "TC": 6,
-            "TT": 4
-        }
+            "TT": 5
+        },
+        "audit": "TT is carried by 48% of Europeans: risk score raised to 5."
     },
     "rs1800440": {
         "gene": "CYP1B1",
@@ -3823,8 +3874,9 @@
         "scores": {
             "TT": 7,
             "CT": 5,
-            "CC": 3
-        }
+            "CC": 5
+        },
+        "audit": "CC is carried by 48% of Europeans: risk score raised to 5."
     },
     "rs12778366": {
         "gene": "SIRT1",
@@ -3842,8 +3894,9 @@
             "CC": 8,
             "CT": 6,
             "TC": 6,
-            "TT": 4
-        }
+            "TT": 5
+        },
+        "audit": "TT is carried by 77% of Europeans: risk score raised to 5."
     },
     "rs3813867": {
         "gene": "CYP2E1",
@@ -3875,11 +3928,12 @@
             "TT": "Low ANGPTL3 activity (Optimal triglyceride clearance / Cardio-protective)"
         },
         "scores": {
-            "CC": 3,
+            "CC": 5,
             "CT": 5,
             "TC": 5,
             "TT": 9
-        }
+        },
+        "audit": "CC is carried by 66% of Europeans: risk score raised to 5."
     },
     "rs1054135": {
         "gene": "FABP4 (A-FABP)",
@@ -3893,10 +3947,11 @@
             "CC": "Significantly reduced FABP4 activity; high lipotoxicity risk."
         },
         "scores": {
-            "TT": 8,
+            "TT": 5,
             "TC": 5,
-            "CC": 3
-        }
+            "CC": 5
+        },
+        "audit": "No functional evidence and no genome-wide study: neutral scores, texts kept as the library's claim."
     },
     "rs4402960": {
         "gene": "IGF2BP2",
@@ -3905,17 +3960,16 @@
         "description": "Regulates the development and function of pancreatic beta cells. It is one of the most significant markers for insulin-deficient endotypes.",
         "impact": "High",
         "variants": {
-            "GG": "Reduced beta-cell compensation (Higher risk for insulin deficiency)",
-            "GT": "Moderate insulin secretion",
-            "TG": "Moderate insulin secretion",
-            "TT": "Optimal beta-cell function (Protective against insulin burnout)"
+            "GG": "Typical beta-cell function",
+            "GT": "Slightly higher type 2 diabetes risk (one T copy)",
+            "TT": "Higher type 2 diabetes risk (two T copies)"
         },
         "scores": {
-            "GG": 3,
+            "GG": 8,
             "GT": 5,
-            "TG": 5,
-            "TT": 8
-        }
+            "TT": 3
+        },
+        "audit": "T is the type 2 diabetes risk allele; the library had it as protective."
     },
     "rs7498665": {
         "gene": "SH2B1",

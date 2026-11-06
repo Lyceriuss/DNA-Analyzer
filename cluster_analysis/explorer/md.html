@@ -1,0 +1,19 @@
+  <section class="gx-page" id="medicines" data-page="medicines" hidden>
+    <p class="gx-note">How XY's genes bear on medicines: whether a drug is likely to work as usual, needs a different dose, or carries a
+      higher risk of side effects. Annotations come from ClinPGx (PharmGKB), with CPIC guideline-grade evidence (level 1A) first. Calls are
+      measured or imputed at high confidence; rarer variants imputation can't rule out read "not detected".</p>
+    <div class="gx-card" id="med-summary">
+      <div class="md-summary" data-draw="md-summary" data-source="med_genes med_drugs"></div>
+    </div>
+    <div class="gx-card" id="med-genes">
+      <h2>Drug genes</h2>
+      <p class="gx-note">The genes that clear most medicines. Each is read as two star alleles (*1 is the standard version) and turned
+        into a type with the CPIC rules: poor, intermediate, normal or fast. Select a gene to list the medicines it bears on.</p>
+      <div class="md-genes" data-draw="md-genes" data-source="med_genes med_drugs"></div>
+    </div>
+    <div class="gx-card" id="med-drugs">
+      <h2>Medicines</h2>
+      <div class="md-controls" data-draw="md-controls" data-source="med_drugs"></div>
+      <div class="md-list" data-draw="md-list" data-source="med_drugs med_genes"></div>
+    </div>
+  </section>

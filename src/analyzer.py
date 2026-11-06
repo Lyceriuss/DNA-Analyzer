@@ -6,9 +6,23 @@ from src.normalizer import resolve_genotype, normalize_variant_keys
 from src.domain_mapper import map_system_to_domain
 from src.proxy_handler import apply_proxies
 
+def library_rsids(traits_filepath, proxy_map_path="config/proxies.json"):
+    """The SNPs the analysis reads: the library's, plus the proxies that stand in for missing ones."""
+    wanted = set(json.load(open(traits_filepath, encoding="utf-8")))
+    if os.path.exists(proxy_map_path):
+        for target, config in json.load(open(proxy_map_path, encoding="utf-8")).items():
+            if not target.startswith("_"):
+                wanted |= set(config["proxies"])
+    return wanted
+
+
 def run_analysis(dna_filepath, traits_filepath):
-    # 1. Load DNA
-    dna_data = load_dna_file(dna_filepath)
+    # 1. Load DNA (only the SNPs used, so imputed files with millions of rows stay quick)
+    try:
+        wanted = library_rsids(traits_filepath)
+    except Exception:
+        wanted = None
+    dna_data = load_dna_file(dna_filepath, rsids=wanted)
     if not dna_data: return pd.DataFrame()
 
     # Library SNPs missing from the file, estimated from co-inherited SNPs (config/proxies.json)

@@ -96,3 +96,6 @@
   .th-cell-fail { stroke: var(--color-bad); stroke-dasharray: 5 4; }
   .th-cell-phase { font-size: 12px; font-weight: 700; fill: var(--color-fg); }
   .th-body-svg text { pointer-events: none; }
+  .th-imp { display: inline-block; margin: 0 6px 0 0; padding: 0 6px; border-radius: 8px; font-size: 11px; border: 1px dashed var(--color-fg-muted); color: var(--color-fg-muted); }
+  .th-imp-medium { border-color: var(--color-warn, #b8860b); color: var(--color-warn, #b8860b); }
+  .th-b-untested { background: var(--color-fg-muted); opacity: 0.35; }

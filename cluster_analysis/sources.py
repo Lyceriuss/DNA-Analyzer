@@ -124,20 +124,33 @@ def ensembl_vep(rsids, batch_size=150):
         for v in _cached("ensembl_vep", "\n".join(batch), fetch):
             if v["seq_region_name"] not in PRIMARY_CHROMOSOMES or v["id"] in out:
                 continue  # skip alt-haplotype contigs (HSCHR...)
-            genes = {}
+            genes, by_allele = {}, {}
             for t in v.get("transcript_consequences", []):
                 symbol = t.get("gene_symbol") or t["gene_id"]
                 genes[symbol] = min(genes.get(symbol, 10**9), t.get("distance", 0))
+                if t.get("variant_allele"):
+                    by_allele.setdefault(t["variant_allele"], set()).update(t.get("consequence_terms", []))
             colocated = [c for c in v.get("colocated_variants", []) if c.get("id") == v["id"]]
             freqs = (colocated[0].get("frequencies") or {}) if colocated else {}
             out[v["id"]] = {
                 "chrom": v["seq_region_name"], "pos": v["start"],
                 "alleles": v["allele_string"].split("/"),
                 "consequence": v["most_severe_consequence"],
+                # Per alternative allele: one position can hold a common missense change and a rare stop (ADRB2 rs1042714)
+                "allele_consequences": {a: sorted(c) for a, c in by_allele.items()},
                 "genes": genes,
                 "eur_af": {a: f["eur"] for a, f in freqs.items() if "eur" in f},
             }
     return out
+
+
+def ensembl_ld(rsid, r2=0.6):
+    """{partner rsid: r²} for SNPs inherited together with rsid in Europeans (1000 Genomes phase 3, Ensembl, 500 kb)."""
+    def fetch():
+        return _request("GET", f"{ENSEMBL_API}/ld/human/{rsid}/1000GENOMES:phase_3:EUR", params={"r2": r2}, ok_404=True,
+                        headers={"Content-Type": "application/json"}, timeout=120) or []
+    rows = _cached("ensembl_ld", f"{rsid}_{r2}", fetch)
+    return {x["variation2"]: float(x["r2"]) for x in rows if x.get("variation2", "").startswith("rs")}
 
 
 def ensembl_genes_near(chrom, pos, window=250_000):

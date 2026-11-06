@@ -17,6 +17,7 @@ every SNP in the file that falls inside a theme gene, marked with what is known 
 IDs and gene symbols are sent to the APIs, never anything from the DNA file.
 """
 import argparse
+import bisect
 import csv
 import gzip
 import io
@@ -27,6 +28,7 @@ import zipfile
 from collections import defaultdict
 
 from cluster_analysis import sources
+from src.loader import imputed_path, iter_calls, person_label
 
 OT_API = "https://api.platform.opentargets.org/api/v4/graphql"
 QUICKGO = "https://www.ebi.ac.uk/QuickGO/services/annotation/downloadSearch"
@@ -505,14 +507,36 @@ def clinvar_index(rsids):
     return out
 
 
-def gwas_index(rsids, trait_ids):
-    """{rsid: [{trait, risk_allele, p, pubmed}]} for associations of the given rsIDs with the theme's traits."""
+def gwas_index(rsids, trait_ids, known=None):
+    """{rsid: [{trait, risk_allele, p, pubmed}]} for associations of the given rsIDs with the theme's traits.
+
+    known, when given, is filled with {rsid: [{allele, trait, direction}]} from every genome-wide significant study of
+    those SNPs that names its allele, whatever the trait: it explains associations whose study left the allele out."""
     out = defaultdict(list)
     with zipfile.ZipFile(f"{REF}/gwas_associations_ontology.zip") as z:
         name = next(n for n in z.namelist() if n.endswith((".tsv", ".txt")))
         with z.open(name) as f:
             for row in csv.DictReader(io.TextIOWrapper(f, encoding="utf-8", errors="replace"), delimiter="\t"):
                 uris = {u.rsplit("/", 1)[-1] for u in (row.get("MAPPED_TRAIT_URI") or "").split(",")}
+                if known is not None and not uris & trait_ids:
+                    allele = (row.get("STRONGEST SNP-RISK ALLELE") or "").split("-")[-1].strip()
+                    hits = [rs for rs in re.findall(r"rs\d+", row.get("SNPS", "")) if rs in rsids]
+                    if hits and len(allele) == 1 and allele in "ACGT":
+                        try:
+                            ok = float(row.get("P-VALUE") or 1) <= 5e-8
+                        except ValueError:
+                            ok = False
+                        ci = (row.get("95% CI (TEXT)") or "").lower()
+                        try:
+                            effect = float(row.get("OR or BETA") or "nan")
+                        except ValueError:
+                            effect = float("nan")
+                        direction = "raises" if "increase" in ci else "lowers" if "decrease" in ci else \
+                            ("raises" if effect > 1 else "lowers" if effect < 1 else None) if effect == effect and effect > 0 else None
+                        if ok and direction:
+                            for rs in hits:
+                                known[rs].append({"allele": allele, "trait": row.get("MAPPED_TRAIT") or row.get("DISEASE/TRAIT"),
+                                                  "direction": direction})
                 if not uris & trait_ids:
                     continue
                 for rs in re.findall(r"rs\d+", row.get("SNPS", "")):
@@ -539,42 +563,69 @@ def gwas_index(rsids, trait_ids):
     return out
 
 
-def load_dna(path):
-    """[(rsid, chrom, pos, genotype)] from a MyHeritage CSV."""
-    rows = []
-    with open(path, encoding="utf-8", errors="replace") as f:
-        for line in f:
-            if line.startswith(("#", "RSID", '"RSID')):
-                continue
-            p = [x.strip().strip('"') for x in line.split(",")]
-            if len(p) >= 4 and p[0].startswith("rs") and p[2].isdigit():
-                rows.append((p[0], p[1], int(p[2]), p[3]))
-    return rows
+# Imputed calls (src/impute.py) carry a confidence tier. Findings use the trustworthy ones; a pathogenic variant
+# counts as carried only when measured or imputed at high confidence, and weaker carrier calls are listed as possible.
+FINDING_TIERS = {"measured", "high", "medium"}
+CARRIED_TIERS = {"measured", "high"}
+
+
+def in_regions(regions):
+    """A lookup chrom, pos -> [gene symbols] over gene_regions(), by binary search."""
+    index = {}
+    for chrom, spans in regions.items():
+        spans = sorted(spans)
+        index[chrom] = ([s for s, _, _ in spans], spans, max(e - s for s, e, _ in spans))
+
+    def genes_at(chrom, pos):
+        if chrom not in index:
+            return ()
+        starts, spans, longest = index[chrom]
+        hi = bisect.bisect_right(starts, pos)
+        lo = bisect.bisect_left(starts, pos - longest)
+        return [sym for s, e, sym in spans[lo:hi] if e >= pos]
+    return genes_at
 
 
 FLIP = str.maketrans("ACGT", "TGCA")
 
 
+def clinvar_copies(gt, ref, alts):
+    """Copies of a ClinVar record's alternative allele(s) in a forward-strand genotype.
+
+    One position often has several ClinVar records, one per possible change (APC rs2229992: T>C benign, T>G
+    pathogenic). The ClinVar VCF and the DNA files (MyHeritage, src/impute.py) are both on the GRCh37 forward strand,
+    so alleles are compared as they are: TC holds no G. Reading the genotype from the other strand would turn TC into
+    AG and count a pathogenic G that isn't there."""
+    return sum(gt.count(a) for a in alts if len(a) == 1)
+
+
 def cross_reference(graph, dna_path):
-    """Every SNP of the file inside a theme gene, with what ClinVar, the GWAS Catalog and the library say about it."""
+    """Every SNP of the file inside a theme gene, with what ClinVar, the GWAS Catalog and the library say about it.
+
+    Streams the file, so an imputed one with ~28 million calls works too; each finding keeps its call's confidence."""
     traits = json.load(open(TRAITS_PATH, encoding="utf-8"))
-    regions = gene_regions(set(graph["genes"]))
+    genes_at = in_regions(gene_regions(set(graph["genes"])))
     snps = []
-    for rsid, chrom, pos, gt in load_dna(dna_path):
-        for start, end, sym in regions.get(chrom, ()):
-            if start <= pos <= end:
-                snps.append({"rsid": rsid, "gene": sym, "genotype": gt, "chrom": chrom, "pos": pos})
+    for rsid, chrom, pos, gt, tier in iter_calls(dna_path, confidence=None):
+        if not rsid.startswith("rs") or pos is None:
+            continue
+        for sym in genes_at(chrom, pos):
+            snps.append({"rsid": rsid, "gene": sym, "genotype": gt, "chrom": chrom, "pos": pos, "confidence": tier})
     rsids = {s["rsid"] for s in snps}
     trait_ids = {x for ids in graph["disease_ids"].values() for x in ids}
-    clinvar, gwas = clinvar_index(rsids), gwas_index(rsids, trait_ids)
+    clinvar = clinvar_index(rsids)
+    known = defaultdict(list)
+    gwas = gwas_index({s["rsid"] for s in snps if s["confidence"] in FINDING_TIERS}, trait_ids, known)
 
     on_theme = re.compile(THEMES[graph["theme"]]["clinvar_terms"], re.I)
-    per_gene = defaultdict(lambda: {"n_snps": 0, "findings": []})
-    pathogenic = {"measured": 0, "carried": []}
+    per_gene = defaultdict(lambda: {"n_snps": 0, "by_confidence": defaultdict(int), "findings": []})
+    pathogenic = {"measured": 0, "not_excluded": 0, "carried": [], "possible": []}
     for s in snps:
         g = per_gene[s["gene"]]
-        g["n_snps"] += 1
-        gt = s["genotype"]
+        gt, tier = s["genotype"], s["confidence"]
+        g["by_confidence"][tier] += 1
+        if tier in FINDING_TIERS:
+            g["n_snps"] += 1
         found = []
         for c in clinvar.get(s["rsid"], []):
             sig = c["significance"].lower()
@@ -585,46 +636,68 @@ def cross_reference(graph, dna_path):
             if not is_path and not on_theme.search(c["condition"]):
                 continue
             alts = c["alt"].split(",")
-            copies = sum(gt.count(a) for a in alts if len(a) == 1) if set(gt) <= set(c["ref"] + "".join(alts)) else \
-                sum(gt.translate(FLIP).count(a) for a in alts if len(a) == 1)
+            copies = clinvar_copies(gt, c["ref"], alts)
             if is_path:
-                pathogenic["measured"] += 1
-                if copies:
-                    hit = next((x for x in pathogenic["carried"] if x["rsid"] == s["rsid"]), None)
-                    if hit:  # ClinVar lists one variant once per submitted condition
-                        if c["condition"] not in hit["condition"]:
-                            hit["condition"] += "; " + c["condition"]
-                    else:
-                        pathogenic["carried"].append({"gene": s["gene"], "rsid": s["rsid"], "genotype": gt, "condition": c["condition"],
-                                                      "copies": copies})
+                if not copies:
+                    # a pathogenic variant the person does not carry is counted, not listed; only confident calls rule it out
+                    pathogenic["measured" if tier in CARRIED_TIERS else "not_excluded"] += 1
+                    continue
+                if tier in CARRIED_TIERS:
+                    pathogenic["measured"] += 1
+                bucket = pathogenic["carried" if tier in CARRIED_TIERS else "possible"]
+                hit = next((x for x in bucket if x["rsid"] == s["rsid"]), None)
+                if hit:  # ClinVar lists one variant once per submitted condition
+                    if c["condition"] not in hit["condition"]:
+                        hit["condition"] += "; " + c["condition"]
                 else:
-                    continue  # a pathogenic variant XY does not carry is counted, not listed
+                    bucket.append({"gene": s["gene"], "rsid": s["rsid"], "genotype": gt, "condition": c["condition"],
+                                   "copies": copies, "confidence": tier})
+                if tier not in CARRIED_TIERS:
+                    continue
+            elif tier not in FINDING_TIERS:
+                continue
             found.append({"source": "ClinVar", "what": f"{c['significance']}: {c['condition']}", "copies": copies,
                           "allele": ",".join(alts)})
-        best = {}
-        for a in gwas.get(s["rsid"], []):  # one association per trait: the strongest
-            if a["trait"] not in best or a["p"] < best[a["trait"]]["p"]:
-                best[a["trait"]] = a
-        for a in best.values():
-            risk = a["risk_allele"]
-            copies = gt.count(risk) if len(risk) == 1 and risk in "ACGT" else None
-            found.append({"source": "GWAS", "what": a["trait"], "study": a["study"], "copies": copies, "allele": risk, "p": a["p"],
-                          "pubmed": a["pubmed"], "direction": a["direction"], "effect": a["effect"], "kind": a["kind"]})
-        if s["rsid"] in traits:
+        if tier in FINDING_TIERS:
+            best = {}
+            for a in gwas.get(s["rsid"], []):  # one association per trait: the strongest
+                if a["trait"] not in best or a["p"] < best[a["trait"]]["p"]:
+                    best[a["trait"]] = a
+            for a in best.values():
+                risk = a["risk_allele"]
+                copies = gt.count(risk) if len(risk) == 1 and risk in "ACGT" else None
+                item = {"source": "GWAS", "what": a["trait"], "study": a["study"], "copies": copies, "allele": risk, "p": a["p"],
+                        "pubmed": a["pubmed"], "direction": a["direction"], "effect": a["effect"], "kind": a["kind"]}
+                if not (len(risk) == 1 and risk in "ACGT"):
+                    # The study left the allele out: what other studies of this SNP say, one line per trait
+                    seen, related = set(), []
+                    for k in known.get(s["rsid"], []):
+                        if k["trait"] not in seen and k["trait"] != a["trait"]:
+                            seen.add(k["trait"])
+                            related.append({**k, "copies": gt.count(k["allele"])})
+                    if related:
+                        item["related"] = related[:3]
+                found.append(item)
+        if s["rsid"] in traits and tier in CARRIED_TIERS:
             t = traits[s["rsid"]]
             key = "".join(sorted(gt))
             text = next((v for k, v in t["variants"].items() if "".join(sorted(k)) == key), None)
             found.append({"source": "Library", "what": f"{t.get('trait')}: {text or 'genotype not in library'}", "copies": None})
         if found:
-            g["findings"].append({"rsid": s["rsid"], "genotype": gt, "items": found})
-    return {"dna_file": os.path.basename(dna_path), "n_snps_in_theme_genes": len(snps), "pathogenic": pathogenic,
-            "genes": dict(per_gene)}
+            g["findings"].append({"rsid": s["rsid"], "genotype": gt, "confidence": tier, "items": found})
+    by_conf = defaultdict(int)
+    for s in snps:
+        by_conf[s["confidence"]] += 1
+    return {"dna_file": os.path.basename(dna_path), "n_snps_in_theme_genes": sum(by_conf[t] for t in FINDING_TIERS),
+            "by_confidence": dict(by_conf), "pathogenic": pathogenic,
+            "genes": {k: {**v, "by_confidence": dict(v["by_confidence"])} for k, v in per_gene.items()}}
 
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("theme", choices=sorted(THEMES))
     ap.add_argument("--dna", help="DNA file to cross-reference (default: the theme's own person, if it names one)")
+    ap.add_argument("--measured-only", action="store_true", help="use the raw file even when an imputed one exists")
     args = ap.parse_args()
     graph = build(args.theme)
     path = os.path.join(os.path.dirname(__file__), f"theme_graph_{args.theme}.json")
@@ -633,12 +706,18 @@ if __name__ == "__main__":
     print(f"✅ {graph['name']}: {len(graph['genes'])} genes, {len(graph['links'])} links, "
           f"{sum(1 for g in graph['genes'].values() if not g['mechanisms'])} without a GO mechanism | {by_mech} → {path}")
     dna = args.dna or THEMES[args.theme].get("person")
+    if dna and not args.measured_only:
+        dna = imputed_path(dna)  # the imputed calls when src/impute.py has run for this person
     if dna:
         xref = cross_reference(graph, dna)
-        name = re.sub(r"^MyHeritage_raw_dna_data_|\.csv$", "", os.path.basename(dna))
+        name = person_label(dna)
         os.makedirs(OUTPUT_DIR, exist_ok=True)
         out = os.path.join(OUTPUT_DIR, f"theme_{name}_{args.theme}.json")
         json.dump(xref, open(out, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
         n_find = sum(len(g["findings"]) for g in xref["genes"].values())
         print(f"✅ {xref['n_snps_in_theme_genes']} SNPs of the file fall in theme genes; {n_find} have a ClinVar, GWAS or library "
               f"finding, in {sum(1 for g in xref['genes'].values() if g['findings'])} genes → {out}")
+        pa = xref["pathogenic"]
+        print(f"   calls by confidence: {xref['by_confidence']}\n   pathogenic: {len(pa['carried'])} carried, "
+              f"{len(pa['possible'])} possible (weaker imputed calls), {pa['measured']} ruled out or carried confidently, "
+              f"{pa['not_excluded']} not detected but not excluded")

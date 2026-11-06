@@ -1,9 +1,16 @@
   // Theme clusters: picker, XY balance, mechanism map, connection network, gene detail and shared pathways
   const TH_TEXT = { LoF: 'less active', GoF: 'more active', altered: 'changed, direction unclear', normal: 'typical function',
                     variant: 'carries a trait-linked variant' };
-  const TH_CLASS = { LoF: 'lof', GoF: 'gof', altered: 'alt', normal: 'norm', variant: 'var' };
+  const TH_CLASS = { LoF: 'lof', GoF: 'gof', altered: 'alt', normal: 'norm', variant: 'var', unknown: 'untested' };
+  TH_TEXT.unknown = 'no known effect on the gene';
+  // Labels come from evidence about the variant (evidence_call.py); the wording follows what kind of evidence it is
+  const TH_BASIS = { cpic: 'CPIC allele function', measured: 'measured protein function, MaveDB', curated: 'curated protein effect, UniProt',
+    truncating: 'the change cuts the protein short', predicted: 'predicted damage, SIFT and PolyPhen', expression: 'gene expression, GTEx',
+    none: 'no evidence about function' };
+  const thFnText = (g, fn) => g && g.basis === 'expression' && (fn === 'GoF' || fn === 'LoF') ? (fn === 'GoF' ? 'more expressed' : 'less expressed')
+    : g && g.basis === 'predicted' && fn === 'LoF' ? 'likely less active' : TH_TEXT[fn];
   const TH_FILL = { LoF: 'var(--color-bad)', GoF: 'var(--gof)', altered: 'var(--color-fg)', normal: 'var(--typical)',
-                    variant: 'var(--color-fg-muted)' };
+                    variant: 'var(--color-fg-muted)', unknown: 'var(--color-panel)' };
   const thMake = (parent, tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; parent.appendChild(e); return e; };
   // Library genes carry a function call; API-theme genes outside the library are marked when XY carries a trait-linked allele
   const thCall = (g) => g.genotype ? (g.function || 'normal') : g.carried > 0 ? 'variant' : null;
@@ -14,14 +21,34 @@
     const a = thMake(parent, 'a', null, 'PubMed');
     a.href = `https://pubmed.ncbi.nlm.nih.gov/${id}/`; a.target = '_blank'; a.rel = 'noopener';
   };
+  const TH_CONF = { high: 'imputed, high confidence', medium: 'imputed, medium confidence' };
+  // GWAS effects per copy in plain words. Betas for levels are mostly in standard deviations of the trait.
+  const thSize = (it) => {
+    if (it.effect == null) return '';
+    if (it.kind === 'beta') {
+      const b = Math.abs(it.effect);
+      return b < 0.05 ? 'a very small shift' : b < 0.15 ? 'a small shift' : b < 0.4 ? 'a moderate shift' : 'a large shift';
+    }
+    const r = it.effect >= 1 ? it.effect : 1 / it.effect;
+    return r < 1.1 ? 'a very small effect' : r < 1.3 ? 'a small effect' : r < 2 ? 'a moderate effect' : 'a large effect';
+  };
   const thFinding = (parent, f, it, who = 'XY') => {
     const d = thMake(parent, 'div');
     thMake(d, 'span', 'th-src', it.source);
+    if (TH_CONF[f.confidence]) {
+      const c = thMake(d, 'span', 'th-imp th-imp-' + f.confidence, TH_CONF[f.confidence]);
+      c.title = f.confidence === 'high'
+        ? 'Not measured: inferred from the surrounding SNPs. Calls like this were right at least 98% of the time when some of the file\'s own SNPs were hidden and re-imputed.'
+        : 'Not measured: inferred from the surrounding SNPs. Calls like this were right 90 to 98% of the time in the check; good for patterns, not for single conclusions.';
+    }
     if (it.source === 'GWAS') {
       const known = /^[ACGT]$/.test(it.allele || '');
       const copies = !known ? 'the study did not report which allele' : it.copies == null ? 'strand unclear' : `${it.copies} ${it.copies === 1 ? 'copy' : 'copies'} of ${it.allele}`;
-      const size = it.effect != null ? ` (${it.kind === 'beta' ? 'β' : 'OR'} ${d3.format('.3~g')(it.effect)} per copy, p ${d3.format('.0e')(it.p)})` : '';
+      const size = it.effect != null ? ` (${it.kind === 'beta' ? 'β' : 'OR'} ${d3.format('.3~g')(it.effect)} per copy: ${thSize(it)}; p ${d3.format('.0e')(it.p)})` : '';
       d.append(`${f.rsid} ${f.genotype}: ${copies}. ${known ? it.allele + ' ' : 'The SNP '}${known && it.direction ? it.direction : 'is linked to'} ${known && it.direction && it.kind === 'odds ratio' ? 'the risk of ' : ''}${it.what}${size}. `);
+      if (!known && it.related && it.related.length) {
+        d.append(`Other studies of this SNP name the allele: ` + it.related.map((k) => `${k.allele} ${k.direction} ${k.trait} (${who} has ${k.copies})`).join('; ') + '. ');
+      }
       thPubmed(d, it.pubmed);
     } else if (it.source === 'ClinVar') {
       d.append(`${f.rsid} ${f.genotype}: ${it.what}; ${who} has ${it.copies} ${it.copies === 1 ? 'copy' : 'copies'} of ${it.allele}.`);
@@ -58,7 +85,7 @@
   const thBalance = (parent, genes, none = 'not genotyped') => {
     const bar = thMake(parent, 'div', 'th-balance');
     bar.setAttribute('role', 'img');
-    const parts = [['GoF', 'gof'], ['normal', 'norm'], ['LoF', 'lof'], ['altered', 'alt'], ['variant', 'var'], [null, 'none']];
+    const parts = [['GoF', 'gof'], ['normal', 'norm'], ['LoF', 'lof'], ['altered', 'alt'], ['unknown', 'untested'], ['variant', 'var'], [null, 'none']];
     const label = [];
     for (const [fn, cls] of parts) {
       const n = genes.filter((g) => thCall(g) === fn).length;
@@ -93,13 +120,22 @@
     if (s.api && s.stats) {
       const st = s.stats, fmt = d3.format(','), who = thWho(s);
       const parts = thBalance(el, s.shown);
+      const bc = st.by_confidence || {}, imputed = (bc.high || 0) + (bc.medium || 0);
+      const snps = imputed
+        ? `${who}'s file measures ${fmt(bc.measured || 0)} SNPs inside them, and imputation adds ${fmt(imputed)} more it can call with high or ` +
+          `medium confidence (findings from them are marked)`
+        : `${who}'s file measures ${fmt(st.n_snps)} SNPs inside them`;
       thMake(el, 'p', null, `${fmt(st.n_genes)} genes act on ${s.theme.theme_name.toLowerCase()}, ${fmt(st.n_mechanism)} of them through a known ` +
-        `mechanism. ${who}'s file measures ${fmt(st.n_snps)} SNPs inside them, and ${st.n_genes_with_findings} genes have a SNP with something ` +
+        `mechanism. ${snps}, and ${st.n_genes_with_findings} genes have a SNP with something ` +
         `known about it. The ${s.shown.length} drawn here are the notable ones: ${parts.filter((x) => !/not genotyped/.test(x)).join(', ')}.`);
-      const carried = st.pathogenic_carried || [];
-      thMake(el, 'p', carried.length ? 'lc-warn' : 'gx-note', carried.length
-        ? `${who} carries ${carried.length} ClinVar pathogenic ${carried.length === 1 ? 'allele' : 'alleles'}: ` + carried.map((c) => `${c.gene} ${c.rsid} (${c.condition})`).join('; ') + '.'
-        : `ClinVar pathogenic variants: the file measures ${st.pathogenic_measured} in these genes, and ${who} carries none of them.`);
+      const carried = st.pathogenic_carried || [], possible = st.pathogenic_possible || [];
+      const src = (c) => c.confidence && c.confidence !== 'measured' ? `, imputed ${c.confidence}` : '';
+      thMake(el, 'p', carried.length ? 'lc-warn' : 'gx-note', (carried.length
+        ? `${who} carries ${carried.length} ClinVar pathogenic ${carried.length === 1 ? 'allele' : 'alleles'}: ` + carried.map((c) => `${c.gene} ${c.rsid} (${c.condition}${src(c)})`).join('; ') + '.'
+        : `ClinVar pathogenic variants: ${fmt(st.pathogenic_measured)} in these genes are measured or confidently imputed, and ${who} carries none of them.`) +
+        (st.pathogenic_not_excluded ? ` ${fmt(st.pathogenic_not_excluded)} more are too rare for imputation to rule out: not detected, but not excluded.` : ''));
+      if (possible.length) thMake(el, 'p', 'gx-note', `Possible, from weaker imputed calls (confirm with a test before acting): ` +
+        possible.map((c) => `${c.gene} ${c.rsid} ${c.genotype} (${c.condition}, ${c.confidence})`).join('; ') + '.');
       thMake(el, 'p', 'gx-note', `Genes: ${st.rule}. This theme is built from Open Targets and Gene Ontology, not from the library; ` +
         `${who}'s SNPs are matched offline against ClinVar and the GWAS Catalog.`);
       return;
@@ -225,10 +261,12 @@
     const g = s.gene, fn = thCall(g);
     const head = thMake(el, 'div', 'lc-name');
     thMake(head, 'h3', null, g.gene);
-    thMake(head, 'span', 'lc-call ' + (fn ? { LoF: 'lof', GoF: 'gof', altered: 'altered', normal: 'norm', variant: 'var' }[fn] : 'unknown'),
-      fn ? TH_TEXT[fn][0].toUpperCase() + TH_TEXT[fn].slice(1) + (fn !== 'normal' && g.dose ? ` ×${g.dose}` : '') : s.api ? `No ${thWho(s)} finding` : 'Not genotyped');
-    thMake(el, 'p', null, g.genotype ? `Library: ${g.rsid} ${g.genotype}: ${g.interpretation} (report score ${g.score}/10).`
-      : s.api ? `Not in the library. ${thWho(s)}'s file measures ${g.ev.n_snps || 0} SNPs in or near this gene.` : 'XY has no call at this gene\'s library SNP.');
+    const fnText = fn ? thFnText(g, fn) : null;
+    thMake(head, 'span', 'lc-call ' + (fn ? { LoF: 'lof', GoF: 'gof', altered: 'altered', normal: 'norm', variant: 'var', unknown: 'unknown' }[fn] : 'unknown'),
+      fn ? fnText[0].toUpperCase() + fnText.slice(1) + (fn !== 'normal' && fn !== 'unknown' && g.dose ? ` ×${g.dose}` : '') : s.api ? `No ${thWho(s)} finding` : 'Not genotyped');
+    if (g.genotype) thMake(el, 'p', null, `Effect on the gene: ${g.fn_evidence || 'no evidence collected'} (${TH_BASIS[g.basis] || TH_BASIS.none}).`);
+    thMake(el, 'p', g.genotype ? 'gx-note' : null, g.genotype ? `Library note for ${g.rsid} ${g.genotype}: ${g.interpretation} (library rating ${g.score}/10, where 5 is neutral; 4 or lower counts as a risk in the PDF report, 7 or higher as a strength). The notes were written with an LLM and are being checked against the evidence; the label above comes from the evidence, not the note.`
+      : s.api ? `Not in the library. ${thWho(s)}'s file ${s.stats && (s.stats.by_confidence || {}).high ? 'measures or confidently imputes' : 'measures'} ${g.ev.n_snps || 0} SNPs in or near this gene.` : 'XY has no call at this gene\'s library SNP.');
     if (g.has_lifecycle) {
       const b = thMake(el, 'button', 'lc-btn', 'Open its lifecycle');
       b.type = 'button';

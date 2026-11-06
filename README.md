@@ -53,6 +53,23 @@ tests/                    Unit tests (python -m unittest discover tests)
 
 The tooling scripts are described in [docs/CONTENT_TOOLING.md](docs/CONTENT_TOOLING.md).
 
+## Imputation
+
+`src/impute.py` fills in the ~28 million common and rare variants the raw file doesn't contain. It runs locally with Beagle 5.5 and the 1000 Genomes phase 3 panel, so the genome never leaves the machine. It needs Java 11+ and the reference files fetched by `scripts/fetch_imputation_reference.sh` (about 5 GB).
+
+```bash
+python -m src.impute data/input/MyHeritage_raw_dna_data_XY.csv --validate 10   # accuracy check -> calibration.json
+python -m src.impute data/input/MyHeritage_raw_dna_data_XY.csv                 # impute, then grade every call
+```
+
+Every imputed call gets a confidence tier, measured on the person's own file. The validation run hides 1 in 10 of their measured SNPs, re-imputes them, and records how often calls like each one came back right. "Like it" means the same allele frequency band, the same genotype-probability band, and the same direction (carrier or not).
+- **high:** ≥ 98% right.
+- **medium:** ≥ 90% right.
+- **low**, **untested**: below that, or too few test SNPs to tell.
+- **not_excluded:** a "doesn't carry it" call in a band where imputation misses too many real carriers, which applies to rare variants. It means "not detected", never "not a carrier".
+
+The loaders (`src/loader.py`) pick tiers by use. Single-SNP conclusions (the library, drug response, pathogenic variants) take measured and high calls; theme statistics also take medium. The output goes to `data/output/imputation/<person>/`, which git ignores like all genotype data.
+
 ## Requirements
 
 - Python 3.10+

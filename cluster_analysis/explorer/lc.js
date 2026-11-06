@@ -1,7 +1,12 @@
   // Gene lifecycle: gene picker, role switch, gene summary, regulation, node graph, route patterns and step details
   const LC = { key: null, step: null, wrap: true, drawnKey: null, scroll: 0 };
   const FN_TEXT = { LoF: 'Less active (LoF)', GoF: 'More active (GoF)', altered: 'Changed, direction unclear', normal: 'Typical function',
-                    unknown: 'Genotype not interpretable' };
+                    unknown: 'No known effect on the gene' };
+  const LC_BASIS = { cpic: 'CPIC allele function', measured: 'measured protein function, MaveDB', curated: 'curated protein effect, UniProt',
+    truncating: 'the change cuts the protein short', predicted: 'predicted damage, SIFT and PolyPhen', expression: 'gene expression, GTEx',
+    none: 'no evidence about function' };
+  const lcFnText = (f, fn) => f && f.basis === 'expression' && (fn === 'GoF' || fn === 'LoF') ? (fn === 'GoF' ? 'More expressed' : 'Less expressed')
+    : f && f.basis === 'predicted' && fn === 'LoF' ? 'Likely less active (predicted)' : FN_TEXT[fn];
   const FN_CLASS = { LoF: 'lof', GoF: 'gof', altered: 'altered', normal: 'norm', unknown: 'unknown' };
   // Blue = more active (GoF), green = typical function, red = less active (LoF)
   const FN_STROKE = { LoF: 'var(--color-bad)', GoF: 'var(--gof)', altered: 'var(--color-fg)', normal: 'var(--typical)',
@@ -137,16 +142,16 @@
 
     const name = make(el, 'div', 'lc-name');
     make(name, 'h3', null, s.gene);
-    if (fn) make(name, 'span', 'lc-call ' + FN_CLASS[fn], FN_TEXT[fn] + (fn !== 'normal' && f.dose ? ` ×${f.dose}` : ''));
+    if (fn) make(name, 'span', 'lc-call ' + FN_CLASS[fn], lcFnText(f, fn) + (fn !== 'normal' && fn !== 'unknown' && f.dose ? ` ×${f.dose}` : ''));
     else make(name, 'span', 'lc-call unknown', 'Not genotyped');
 
     const copies = f.dose === 2 ? 'two copies' : 'one copy';
     let lead;
     if (!f.genotype) lead = "XY's file has no usable call at this gene's library SNP, so its activity in XY is not known.";
-    else if (fn === 'unknown') lead = `At ${f.rsid} XY is ${f.genotype}, which could not be matched to the alleles Ensembl lists for this SNP.`;
     else lead = `At ${f.rsid} XY is ${f.genotype}: ` + (f.dose ? `${copies} of the less common ${f.minor} allele. ` : `both copies are the common ${f.common} allele. `) +
-      `The library reads this genotype as ${fn === 'LoF' ? 'less active' : fn === 'GoF' ? 'more active' : fn === 'normal' ? 'typical function'
-        : 'changed, without saying which way activity goes'} ("${f.interpretation}").`;
+      (fn === 'unknown' ? 'No measured, curated or expression evidence shows this SNP changing the gene, so no effect on its activity is claimed. '
+        : `By the evidence (${LC_BASIS[f.basis] || LC_BASIS.none}) this reads as ${lcFnText(f, fn).replace(/ \((LoF|GoF)\)/, '').toLowerCase()}: ${f.fn_evidence}. `) +
+      `The library's note, written with an LLM and not itself evidence: "${f.interpretation}".`;
     if (f.genotype && f.minor_af >= 0.4) lead += ` Both forms are common in Europeans (${f.minor} ${pctFmt(f.minor_af)}).`;
     make(el, 'p', 'lc-lead', lead);
 
@@ -154,7 +159,7 @@
     const ul = make(el, 'ul', 'lc-ev');
     const row = (k, v) => { const li = make(ul, 'li'); make(li, 'span', null, k); make(li, 'span', null, v); };
     row('Best evidence', ev.tier_name || 'No functional evidence collected');
-    row('Library reading', `${f.interpretation} (report score ${f.score}/10${f.n_snps > 1 ? `, strongest of ${f.n_snps} SNPs` : ''})`);
+    row('Library reading', `${f.interpretation} (library rating ${f.score}/10, where 5 is neutral and 4 or lower counts as a risk${f.n_snps > 1 ? `; strongest of ${f.n_snps} SNPs` : ''})`);
     if (ev.protein_change || ev.consequence) row('Change', [ev.protein_change, pretty(ev.consequence)].filter(Boolean).join(', '));
     if (ev.mavedb) {
       const sc = ev.mavedb.map((m) => m.score), lo = ev.mavedb.reduce((a, b) => (b.score < a.score ? b : a));
@@ -578,9 +583,9 @@
         if (cap) bar(body, 'cap tone-' + FN_CLASS[f.function], 0, cap[1], 0, 1.25, 1);
         make(body, 'p', null, !f.dose
           ? `${pctFmt(1)} of the common form. XY has the common form, the baseline every measurement of this SNP is compared with` +
-            (f.function === 'normal' ? '.' : `; the library still reads it as ${f.function === 'LoF' ? 'less' : 'more'} active.`)
+            (f.function === 'normal' || f.function === 'unknown' ? '.' : `; the evidence still reads it as ${f.function === 'LoF' ? 'less' : 'more'} active.`)
           : cap ? `About ${pctR(cap)} of the common form (${f.dose === 2 ? 'two copies' : 'one copy'} of ${f.minor}).`
-          : f.function === 'normal' ? `Typical function in the library's reading, with ${f.dose === 2 ? 'two copies' : 'one copy'} of ${f.minor}. ` +
+          : f.function === 'normal' || f.function === 'unknown' ? `${f.function === 'normal' ? 'Typical function by the evidence' : 'No known effect on the gene'}, with ${f.dose === 2 ? 'two copies' : 'one copy'} of ${f.minor}. ` +
             'No study gives a size for the difference from the common form.'
           : `${f.function === 'LoF' ? 'Below' : f.function === 'GoF' ? 'Above' : 'Different from'} the common form, with ` +
             `${f.dose === 2 ? 'two copies' : 'one copy'} of ${f.minor}. No activity scan has measured this change, so ` +

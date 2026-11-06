@@ -3,6 +3,7 @@
  "name": "Female fertility",
  "about": "The XX reproductive system: desire, the hypothalamus–pituitary signals, the ovaries and their eggs and hormones, the fallopian tubes, and the uterus that carries a pregnancy. Built from Open Targets disease genetics and Gene Ontology, not from the library.",
  "rule": "Gene Ontology mechanism genes, plus Open Targets genes scoring ≥ 0.5 (≥ 0.8 genetic for level and timing traits)",
+ "view": null,
  "diseases": {
   "MONDO_0021124": "female infertility",
   "MONDO_0005387": "primary ovarian failure",

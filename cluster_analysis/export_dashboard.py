@@ -16,6 +16,7 @@ from collections import defaultdict
 
 from cluster_analysis.biomarkers import BIOMARKERS_PATH
 from cluster_analysis.build_modules import MODULES_PATH
+from src.loader import imputed_path, person_label
 
 TRAITS_PATH = "config/snp_traits.json"
 NAMES_PATH = os.path.join(os.path.dirname(__file__), "module_names.json")
@@ -175,6 +176,7 @@ def lifecycle_rows(lifecycles, status=None):
         ev = evidence.get(p.get("rsid"), {}) if p else {}
         function.append({"gene": name, "has_lifecycle": name in with_lifecycle, "rsid": p.get("rsid"),
                          "genotype": p.get("genotype"), "function": p.get("function"), "dose": p.get("dose"),
+                         "basis": p.get("basis"), "fn_evidence": p.get("evidence"), "library_function": p.get("library_function"),
                          "common": p.get("common"), "minor": p.get("minor"), "minor_af": p.get("minor_af"),
                          "score": p.get("score"), "interpretation": p.get("interpretation"), "n_snps": p.get("n_snps"),
                          "evidence": json.dumps(evidence_summary(ev, p.get("genotype")) if ev else {}),
@@ -200,6 +202,7 @@ def theme_rows(themes, status, with_lifecycle=()):
             genes.append({"theme": tid, "gene": g, "primary": m["primary"], "facets": json.dumps(list(m["facets"])),
                           "evidence": json.dumps(m["facets"]), "rsid": p.get("rsid"), "genotype": p.get("genotype"),
                           "function": p.get("function") if p.get("genotype") else None, "dose": p.get("dose"),
+                          "basis": p.get("basis"), "fn_evidence": p.get("evidence"),
                           "minor": p.get("minor"), "interpretation": p.get("interpretation"), "score": p.get("score"),
                           "has_lifecycle": g in with_lifecycle})
         links += [{"theme": tid, **l} for l in t["links"]]
@@ -221,7 +224,10 @@ def api_theme_rows(graph, xref, status, with_lifecycle=(), order=0, person=None)
     stats = {"n_genes": len(graph["genes"]), "n_mechanism": sum(1 for g in graph["genes"].values() if g["mechanisms"]),
              "n_snps": (xref or {}).get("n_snps_in_theme_genes"), "n_genes_with_findings": with_findings,
              "pathogenic_measured": (xref or {}).get("pathogenic", {}).get("measured"),
-             "pathogenic_carried": (xref or {}).get("pathogenic", {}).get("carried", []), "rule": graph["rule"],
+             "pathogenic_carried": (xref or {}).get("pathogenic", {}).get("carried", []),
+             "pathogenic_possible": (xref or {}).get("pathogenic", {}).get("possible", []),
+             "pathogenic_not_excluded": (xref or {}).get("pathogenic", {}).get("not_excluded", 0),
+             "by_confidence": (xref or {}).get("by_confidence"), "rule": graph["rule"],
              "person": person, "sex": graph.get("sex"), "organs": graph.get("organs", []),
              "disease_organs": graph.get("disease_organs", {}), "view": graph.get("view")}
     meta = [{"theme": tid, "theme_name": graph["name"], "about": graph["about"], "theme_order": order, "facet": f["id"],
@@ -247,6 +253,7 @@ def api_theme_rows(graph, xref, status, with_lifecycle=(), order=0, person=None)
                                               "findings": findings, "n_snps": xg.get(sym, {}).get("n_snps", 0),
                                               "organs": g.get("organs", [])}),
                       "rsid": p.get("rsid"), "genotype": p.get("genotype"), "function": p.get("function") if p.get("genotype") else None,
+                      "basis": p.get("basis"), "fn_evidence": p.get("evidence"),
                       "dose": p.get("dose"), "minor": p.get("minor"), "interpretation": p.get("interpretation"), "score": p.get("score"),
                       "has_lifecycle": sym in with_lifecycle, "source": "api", "notable": is_notable, "carried": carried,
                       "best_score": g["best_score"]})
@@ -263,9 +270,12 @@ if __name__ == "__main__":
     ap.add_argument("--lifecycles", help="lifecycle.py output: also write lifecycle_steps, lifecycle_genes and "
                                          "gene_function JSON next to out")
     ap.add_argument("--dna", help="with --lifecycles: recompute the genotype calls from this DNA file")
+    ap.add_argument("--measured-only", action="store_true", help="use the raw files even when imputed ones exist")
     args = ap.parse_args()
     if args.lifecycles:
         from cluster_analysis.gene_trace import person_status, summarize
+        if args.dna and not args.measured_only:
+            args.dna = imputed_path(args.dna)  # imputed calls when src/impute.py has run for this person
         status = {g: summarize(v) for g, v in person_status(args.dna).items()} if args.dna else {}
         tables = lifecycle_rows(json.load(open(args.lifecycles, encoding="utf-8")), status)
         out_dir = os.path.dirname(args.out) or "."
@@ -283,16 +293,18 @@ if __name__ == "__main__":
             for path in sorted(glob.glob(os.path.join(os.path.dirname(__file__), "theme_graph_*.json"))):
                 graph = json.load(open(path, encoding="utf-8"))
                 dna = graph.get("person") or args.dna
+                if dna and not args.measured_only:
+                    dna = imputed_path(dna)  # imputed calls when src/impute.py has run for this person
                 if dna not in statuses:
                     statuses[dna] = {g: summarize(v) for g, v in person_status(dna).items()}
-                person = re.sub(r"^MyHeritage_raw_dna_data_|\.csv$", "", os.path.basename(dna or ""))
+                person = person_label(dna)
                 xpath = os.path.join("data/output/cluster_analysis", f"theme_{person}_{graph['theme']}.json")
                 xref = json.load(open(xpath, encoding="utf-8")) if os.path.exists(xpath) else None
                 order = orders.get(graph["theme"], orders.get(graph["theme"].split("_")[0], len(orders)) + 0.5)
                 # An API theme replaces the library theme of the same id, and fertility_female/_male replace "fertility"
                 tables = [[r for r in t if r["theme"] not in (graph["theme"], graph["theme"].split("_")[0])] for t in tables]
                 # Lifecycles are built for --dna's person only, so other people's genes do not link to them
-                own = lifecycle_genes if dna == args.dna else set()
+                own = lifecycle_genes if person_label(dna) == person_label(args.dna) else set()
                 for t, extra in zip(tables, api_theme_rows(graph, xref, statuses[dna], own, order, person)):
                     t.extend(extra)
             for name, rows in zip(("theme_meta", "theme_genes", "theme_links", "theme_pathways"), tables):

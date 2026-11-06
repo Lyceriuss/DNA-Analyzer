@@ -16,6 +16,7 @@ import re
 from collections import defaultdict
 
 from cluster_analysis import sources
+from cluster_analysis.evidence_call import evidence_call, load_evidence
 from cluster_analysis.biomarkers import BIOMARKERS_PATH
 
 TRAITS_PATH = "config/snp_traits.json"
@@ -265,21 +266,31 @@ def person_status(dna_path):
     lib = json.load(open("cluster_analysis/modules.json", encoding="utf-8"))
     traits = json.load(open(TRAITS_PATH, encoding="utf-8"))
     vep = sources.ensembl_vep(sorted(df["RSID"]))
+    evidence = load_evidence()
     status = defaultdict(list)
     for _, r in df.iterrows():
         for g in lib["rsids"].get(r["RSID"], {}).get("genes", []):
+            # The library's wording gives library_function; the call itself comes from evidence about the variant
+            fc = function_call(r["RSID"], r["Result"], traits[r["RSID"]]["variants"], vep)
+            ec = evidence_call(r["RSID"], r["Result"], evidence.get(r["RSID"]), vep.get(r["RSID"]))
             status[g].append({"rsid": r["RSID"], "genotype": r["Result"], "score": float(r["Score"]),
-                              "interpretation": r["Interpretation"],
-                              **function_call(r["RSID"], r["Result"], traits[r["RSID"]]["variants"], vep),
+                              "interpretation": r["Interpretation"], **fc,
+                              "library_function": fc["function"], "function": ec["function"], "basis": ec["basis"],
+                              "evidence": ec["detail"],
                               "health": "risk" if r["Score"] <= RISK_MAX_SCORE else "strength" if r["Score"] >= STRENGTH_MIN_SCORE else "neutral"})
     return status
 
 
+BASIS_RANK = {"cpic": 0, "measured": 1, "curated": 2, "truncating": 3, "predicted": 4, "expression": 5, "none": 6}
+
+
 def summarize(entries):
-    """One call per gene: the SNP furthest from neutral decides."""
+    """One call per gene: a SNP with an evidence-backed effect first (strongest evidence), then one with evidence of
+    typical function, then the library SNP furthest from neutral."""
     if not entries:
         return None
-    e = max(entries, key=lambda x: abs(x["score"] - 5))
+    e = min(entries, key=lambda x: (0 if x.get("function") in ("GoF", "LoF", "altered") else 1 if x.get("function") == "normal" else 2,
+                                     BASIS_RANK.get(x.get("basis"), 6), -abs(x["score"] - 5)))
     return {**e, "n_snps": len(entries)}
 
 

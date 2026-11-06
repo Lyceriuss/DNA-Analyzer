@@ -95,6 +95,7 @@ These themes don't depend on the library: the categories come from the APIs and 
   - The library.
 
   Only theme names, disease IDs and gene symbols go to the APIs.
+- **Imputed calls:** when `src/impute.py` has run for the theme's person, the cross-reference reads the imputed file instead of the raw one (`--measured-only` keeps the raw file). Findings use measured, high and medium calls, and each finding records its confidence. A pathogenic variant counts as carried only when measured or imputed at high confidence. Weaker carrier calls are listed as possible, and rare variants imputation can't rule out are counted as not excluded. ClinVar alleles are compared on the forward strand without flipping, because one position often has a benign and a pathogenic change (APC rs2229992: T>C benign, T>G pathogenic). `export_dashboard.py` picks up the imputed file the same way.
 
 Themes can be sex-specific and name their own person. `fertility_female` uses the XX file and places every gene on an organ through its mechanisms (`organ`) and strongly linked conditions (`disease_organs`): brain, hypothalamus–pituitary, ovaries, fallopian tubes, uterus, and endometrium/placenta. The explorer draws these as a body map, and selecting an organ narrows the page to its genes. `fertility_male` uses XY's file (XY) with brain, hypothalamus–pituitary, testes, epididymis and vas deferens, prostate and seminal vesicles, and penis. Together the two fertility themes replace the mixed library theme. Each mechanism has a written explanation (`EXPLAIN`) for the explorer's in-depth view. Erection, accessory-gland and behaviour biology is mostly known from mouse, so those mechanisms accept ortholog-based GO evidence.
 
@@ -104,7 +105,34 @@ Themes can be sex-specific and name their own person. `fertility_female` uses th
 
 ## Gene function calls (GoF / LoF)
 
-`gene_trace.function_call` reports what the library says about the person's own genotype:
+The library's genotype texts were written with an LLM, so the calls the explorer shows come from evidence about the
+variant, not from those texts. `evidence_call.py` reads `function_evidence.json` and decides, strongest evidence first:
+
+| Basis | Evidence | Call |
+|---|---|---|
+| `cpic` | CPIC allele function (CYP2C19*2 no function, NAT2*6 slow …) | GoF / LoF / normal |
+| `measured` | MaveDB scan of the protein change against wild type (below 80% less active, above 125% more) | GoF / LoF / normal |
+| `curated` | UniProt's curated effect, read only from the parts about function ("low enzyme activity", "55% of wild type") | GoF / LoF |
+| `truncating` | the allele people carry stops the protein early (per allele: a rare stop at the same position doesn't count) | LoF |
+| `curated` | a curated effect without a direction | altered |
+| `predicted` | SIFT (not low confidence) and PolyPhen both call it damaging | LoF, worded "likely" |
+| `expression` | GTEx: the allele raises or lowers the gene's expression, same sign in its strongest tissues | worded "more / less expressed" |
+| `none` | nothing | unknown: "no known effect on the gene" |
+
+Protein effects count the person's copies of the changed allele (COMT Met is the low-activity allele however common);
+expression effects are relative to the genotype most Europeans carry. Each call keeps `basis` and `evidence` (the
+sentence shown in the explorer), and `library_function` keeps the wording-based call below for comparison.
+
+`library_audit.py` checks every library SNP against the same evidence and the GWAS Catalog (counting lead SNPs inherited
+with it, r² ≥ 0.6 in Europeans, via Ensembl) and writes `docs/LIBRARY_AUDIT.md` for review: contradictions, claims with
+no support, and common genotypes scored as a risk. It changes nothing in the library. Corrections made after review are
+listed in `docs/LIBRARY_CHANGES.md`, and each corrected entry in `snp_traits.json` carries an `audit` field with the reason.
+
+```bash
+python -m cluster_analysis.library_audit
+```
+
+`gene_trace.function_call` (the earlier call, now `library_function`) reports what the library says about the person's own genotype:
 
 | Call | When the library text for the genotype… |
 |---|---|

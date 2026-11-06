@@ -3,6 +3,7 @@
  "name": "Male fertility",
  "about": "The XY reproductive system: desire, the hypothalamus–pituitary signals, the testes and the testosterone and sperm they make, sperm maturation and transport, the prostate and seminal vesicles, and erection. Built from Open Targets disease genetics and Gene Ontology, not from the library.",
  "rule": "Gene Ontology mechanism genes, plus Open Targets genes scoring ≥ 0.5 (≥ 0.8 genetic for level and timing traits)",
+ "view": null,
  "diseases": {
   "MONDO_0005372": "male infertility",
   "MONDO_0004983": "spermatogenic failure",
