@@ -56,8 +56,8 @@ flowchart TB
 | Reactome | REST API + `Ensembl2Reactome.txt` | Pathways, ordered reactions, inputs and outputs | `theme_graph.py`, `lifecycle.py`, `gene_trace.py` |
 | MyGene.info | REST API | Gene summaries, GO and Reactome per gene | `themes.py`, `sources.py` |
 | Ensembl GTF (GRCh37) | Bulk file | Gene start and end, to place SNPs in genes | `theme_graph.py` |
-| ClinVar (GRCh37) | Bulk VCF | Pathogenic variants, risk factors, drug response | `theme_graph.py`, `medicines.py` |
-| GWAS Catalog | Bulk zip (+ REST API per rsID) | Genome-wide significant associations, effect allele, OR/beta and direction | `theme_graph.py`, `library_audit.py`, `biomarkers.py` |
+| ClinVar (GRCh37) | Bulk VCF | Pathogenic variants, risk factors, drug response | `theme_graph.py`, `medicines.py`, `nutrition.py` |
+| GWAS Catalog | Bulk zip (+ REST API per rsID) | Genome-wide significant associations, effect allele, OR/beta and direction | `theme_graph.py`, `library_audit.py`, `biomarkers.py`, `nutrition.py` |
 | Ensembl VEP | REST API | Forward-strand alleles, consequence per allele, European frequency, SIFT/PolyPhen | `sources.py`, `function_evidence.py` |
 | Ensembl LD | REST API | Partner SNPs (r² ≥ 0.6, Europeans) so a GWAS lead SNP can support a library SNP | `library_audit.py` |
 | UniProt | REST API + `humsavar.txt` | Curated variant effects, protein function, cofactors | `function_evidence.py`, `gene_trace.py` |
@@ -68,7 +68,10 @@ flowchart TB
 | Europe PMC | REST API | Papers naming a SNP, quoted effect sizes | `literature.py` |
 | ClinPGx (PharmGKB) | Bulk zips + REST API | Clinical annotations, guideline annotations, drug labels | `medicines.py`, `function_evidence.py` |
 | CPIC | REST API, saved as JSON | Recommendation per metaboliser type or activity score | `medicines.py` |
-| 1000 Genomes | Bulk panel + site list | Imputation; allele frequencies in five ancestries | `src/impute.py`, `medicines.py` |
+| 1000 Genomes | Bulk panel + site list | Imputation; allele frequencies in five ancestries | `src/impute.py`, `medicines.py`, `nutrition.py` |
+| PGS Catalog | REST API + harmonised scoring files (GRCh37) | Polygenic scores for blood levels (vitamin D, omega-3, DHA) | `nutrition.py` |
+| Livsmedelsverket: NNR 2023 summary | PDF, parsed to `nnr_2023.json` | Recommended and adequate intakes, upper limits, reference energy, fat targets | `nutrition.py` |
+| Livsmedelsverket: Livsmedelsdatabasen | REST API (CC BY 4.0), saved as JSON | 2,606 foods: nutrients per 100 g, Swedish and English names, food group | `nutrition.py` |
 
 Downloads: `scripts/fetch_imputation_reference.sh` (imputation) and `scripts/fetch_pgx_reference.sh` (medicines).
 

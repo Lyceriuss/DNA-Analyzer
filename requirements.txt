@@ -3,6 +3,7 @@ numpy
 plotly
 fpdf
 kaleido
+pdfplumber   # nutrition reference: reads the NNR 2023 tables from Livsmedelsverket's PDF
 
 # Content tooling only (LLM pipelines, UniProt prototype)
 google-genai

@@ -13,6 +13,7 @@ flowchart LR
         L["Lifecycle<br/>lc.*"]
         C["Clusters<br/>th.*"]
         M["Medicines<br/>md.*"]
+        N["Nutrition<br/>nt.*"]
     end
     HM["hp_modules, hp_links,<br/>hp_bridges, hp_tilts, kpis"] --> P
     BS["biomarker_snps, bio_reach,<br/>module_biomarker"] --> B
@@ -28,6 +29,7 @@ flowchart LR
     MD["med_drugs"] --> M
     MGU["med_guidance"] --> M
     MN["med_names"] --> M
+    NN["nut_nutrients, nut_findings,<br/>nut_genes, nut_foods"] --> N
 ```
 
 ## Producing the datasets
@@ -44,6 +46,7 @@ flowchart TB
     E --> D1["lifecycle_steps, lifecycle_genes,<br/>gene_function"]
     E --> D2["theme_meta, theme_genes,<br/>theme_links, theme_pathways"]
     MP["medicines.py"] --> D3["med_genes, med_drugs,<br/>med_guidance, med_names"]
+    NP["nutrition.py"] --> D4["nut_nutrients, nut_findings,<br/>nut_genes, nut_foods"]
 ```
 
 ```bash
@@ -51,6 +54,7 @@ python -m cluster_analysis.theme_graph fertility_female
 python -m cluster_analysis.theme_graph fertility_male
 python -m cluster_analysis.theme_graph cancer
 python -m cluster_analysis.medicines
+python -m cluster_analysis.nutrition
 python -m cluster_analysis.overlay data/input/MyHeritage_raw_dna_data_XY.csv --dashboard out   # Profile tab datasets
 python -m cluster_analysis.export_dashboard out/bundle.json \
     --lifecycles data/output/cluster_analysis/lifecycles_XY.json --dna data/input/MyHeritage_raw_dna_data_XY.csv

@@ -65,6 +65,16 @@ The library now has **229 traits, 0 errors and 38 warnings**. Remaining work:
 - `impact` has 4 non-standard values ("Beneficial", "Altered DHT levels", …). They now sort as Medium.
 - **15 orphan deep dives** have narratives but no `snp_traits.json` entry, so they never render: rs1143627, rs11568820, rs12255372, rs17616434, rs1799990, rs1800796, rs1800797, rs1801131 (MTHFR A1298C), rs2228570, rs2854464, rs3025039, rs6269, rs731236 (VDR TaqI), rs7412 (APOE, needed with rs429358 for e2/e3/e4), rs8111989. Add trait entries (and validate them) to activate them. 1 trait has no evidence entry.
 
+## P1: nutrition module
+
+- Driver labels count the study's effect allele (`SLC23A1 1×C`), which reads backwards when the point is the rare
+  allele the person carries. Show the genotype (`SLC23A1 TC ▼`) instead, and the expected shift in blood units
+  (≈ −0.25 SD) next to the percentile.
+- No note on cards where a variant moves the test rather than the body (TCN1 and total B12).
+- No tolerances yet (lactase persistence, coeliac HLA-DQ2.5, alcohol and caffeine metabolism), and no fertility
+  link (folate, choline, iron, DHA for XX).
+- Not in the PDF report yet.
+
 ## P2: engineering hygiene
 
 - Test coverage is still thin (`tests/` covers only the normalizer and genotype personalisation). Add `domain_mapper` and `inheritance` next.

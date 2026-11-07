@@ -1,0 +1,645 @@
+{
+  "source": "Livsmedelsverket (2023, reviderad juni 2025). Referensvärden för energi och näringsämnen. En sammanfattning av de nordiska näringsrekommendationerna, NNR 2023. Tabell 7–10 och 16. Errata september 2025 tillämpad.",
+  "url": "https://www.livsmedelsverket.se/globalassets/publikationsdatabas/broschyrer-foldrar/slutleverans_nordiska-naringsrekommendationer-2023.pdf",
+  "definitions": {
+    "RI": "RI (recommended intake) för vitaminer och mineraler baseras på AR och en marginal som ska täcka behovet hos praktiskt taget alla individer i en definierad grupp (utifrån kön, ålder, graviditet, amning) i den allmänna befolkningen.",
+    "AI": "AI förväntas motsvara eller överstiga behovet hos de flesta individer i en definierad grupp.",
+    "UL": "UL (upper intake level) anger den högsta mängden av ett näringsämne som kan intas under lång tid utan att sannolikt ge negativa hälsoeffekter."
+  },
+  "statements": {
+    "supplements": "Bland friska personer som äter en varierad och energimässigt tillräcklig kost har långvarigt intag av näringsämnen från kosttillskott generellt inte visats vara hälsofrämjande eller kunnat kopplas till minskad risk för sjukdomar relaterade till levnadsvanor.",
+    "b12_vegan": "Tillskott av vitamin B12 är exempelvis nödvändigt om animaliska livsmedel helt utesluts från kosten.",
+    "vitd_75": "Tillskott av vitamin D rekommenderas till spädbarn och kan även behövas för kvinnor som försöker att bli gravida, är gravida eller ammar samt kvinnor och män över 75 år."
+  },
+  "energy_mj": {
+    "women": {
+      "18–24 år": {
+        "weight_kg": 64.2,
+        "ree": 5.9,
+        "low": 8.3,
+        "medium": 9.4,
+        "active": 10.6
+      },
+      "25–50 år": {
+        "weight_kg": 64.1,
+        "ree": 5.7,
+        "low": 8.0,
+        "medium": 9.0,
+        "active": 10.2
+      },
+      "51–70 år": {
+        "weight_kg": 62.5,
+        "ree": 5.2,
+        "low": 7.2,
+        "medium": 8.3,
+        "active": 9.3
+      },
+      "> 70 år": {
+        "weight_kg": 60.6,
+        "ree": 5.1,
+        "low": 7.1,
+        "medium": 8.2,
+        "active": 9.2
+      }
+    },
+    "men": {
+      "18–24 år": {
+        "weight_kg": 75.2,
+        "ree": 7.4,
+        "low": 10.4,
+        "medium": 11.8,
+        "active": 13.2
+      },
+      "25–50 år": {
+        "weight_kg": 74.8,
+        "ree": 7.1,
+        "low": 9.9,
+        "medium": 11.3,
+        "active": 12.7
+      },
+      "51–70 år": {
+        "weight_kg": 73.0,
+        "ree": 6.4,
+        "low": 9.0,
+        "medium": 10.3,
+        "active": 11.6
+      },
+      "> 70 år": {
+        "weight_kg": 70.6,
+        "ree": 6.3,
+        "low": 8.8,
+        "medium": 10.1,
+        "active": 11.3
+      }
+    }
+  },
+  "fats_energy_percent": {
+    "n-3": {
+      "min_e": 1.0,
+      "quote": "Intaget av cis-fleromättade fettsyror bör vara 5–10 E%, varav n-3-fettsyror bör bidra med minst 1 E%."
+    },
+    "ALA": {
+      "min_e": 0.5,
+      "quote": "Linolsyra (n-6) och alfa-linolensyra (n-3) är essentiella fettsyror och bör bidra med minst 3 E%, varav minst 0,5 E% som alfa-linolensyra."
+    }
+  },
+  "kj_per_g_fat": 37,
+  "nutrients": {
+    "Vitamin A": {
+      "kind": "RI",
+      "unit": "µg RE",
+      "table": 7,
+      "women": {
+        "18–24 år": 700.0,
+        "25–50 år": 700.0,
+        "51–70 år": 700.0,
+        "> 70 år": 650.0
+      },
+      "men": {
+        "18–24 år": 800.0,
+        "25–50 år": 800.0,
+        "51–70 år": 800.0,
+        "> 70 år": 750.0
+      },
+      "ul": {
+        "value": 3000,
+        "unit": "µg RE/d",
+        "note": "Retinol och retinylestrar.",
+        "applies_to_food": true
+      }
+    },
+    "Vitamin D": {
+      "kind": "RI",
+      "unit": "µg",
+      "table": 7,
+      "women": {
+        "18–24 år": 10.0,
+        "25–50 år": 10.0,
+        "51–70 år": 10.0,
+        "> 70 år": 20.0
+      },
+      "men": {
+        "18–24 år": 10.0,
+        "25–50 år": 10.0,
+        "51–70 år": 10.0,
+        "> 70 år": 20.0
+      },
+      "ul": {
+        "value": 100,
+        "unit": "µg/d",
+        "note": null,
+        "applies_to_food": true
+      },
+      "notes": [
+        {
+          "applies": "all",
+          "text": "För personer med lite eller ingen solexponering rekommenderas 20 μg per dag."
+        },
+        {
+          "applies": "> 70 år",
+          "text": "20 µg gäller för åldergruppen 75 år och äldre."
+        }
+      ]
+    },
+    "Tiamin": {
+      "kind": "RI",
+      "unit": "mg/MJ",
+      "table": 7,
+      "women": {
+        "18–24 år": 0.1,
+        "25–50 år": 0.1,
+        "51–70 år": 0.1,
+        "> 70 år": 0.1
+      },
+      "men": {
+        "18–24 år": 0.1,
+        "25–50 år": 0.1,
+        "51–70 år": 0.1,
+        "> 70 år": 0.1
+      }
+    },
+    "Riboflavin": {
+      "kind": "RI",
+      "unit": "mg",
+      "table": 7,
+      "women": {
+        "18–24 år": 1.6,
+        "25–50 år": 1.6,
+        "51–70 år": 1.6,
+        "> 70 år": 1.6
+      },
+      "men": {
+        "18–24 år": 1.6,
+        "25–50 år": 1.6,
+        "51–70 år": 1.6,
+        "> 70 år": 1.6
+      }
+    },
+    "Niacin": {
+      "kind": "RI",
+      "unit": "NE/MJ",
+      "table": 7,
+      "women": {
+        "18–24 år": 1.6,
+        "25–50 år": 1.6,
+        "51–70 år": 1.6,
+        "> 70 år": 1.6
+      },
+      "men": {
+        "18–24 år": 1.6,
+        "25–50 år": 1.6,
+        "51–70 år": 1.6,
+        "> 70 år": 1.6
+      }
+    },
+    "Vitamin B6": {
+      "kind": "RI",
+      "unit": "mg",
+      "table": 7,
+      "women": {
+        "18–24 år": 1.6,
+        "25–50 år": 1.6,
+        "51–70 år": 1.6,
+        "> 70 år": 1.6
+      },
+      "men": {
+        "18–24 år": 1.8,
+        "25–50 år": 1.8,
+        "51–70 år": 1.8,
+        "> 70 år": 1.7
+      },
+      "ul": {
+        "value": 12,
+        "unit": "mg/d",
+        "note": null,
+        "applies_to_food": true
+      }
+    },
+    "Folat": {
+      "kind": "RI",
+      "unit": "µg",
+      "table": 7,
+      "women": {
+        "18–24 år": 330.0,
+        "25–50 år": 330.0,
+        "51–70 år": 330.0,
+        "> 70 år": 330.0
+      },
+      "men": {
+        "18–24 år": 330.0,
+        "25–50 år": 330.0,
+        "51–70 år": 330.0,
+        "> 70 år": 330.0
+      },
+      "ul": {
+        "value": 1000,
+        "unit": "µg/d",
+        "note": "Syntetisk folsyra (tillskott, berikning).",
+        "applies_to_food": false
+      },
+      "notes": [
+        {
+          "applies": "women",
+          "text": "De flesta nationella myndigheter i de nordiska och baltiska länderna rekommenderar kosttillskott på 400 μg utöver intaget från kosten för kvinnor i fertil ålder från att graviditet planeras till och med graviditetens första trimester."
+        }
+      ]
+    },
+    "Vitamin C": {
+      "kind": "RI",
+      "unit": "mg",
+      "table": 7,
+      "women": {
+        "18–24 år": 95.0,
+        "25–50 år": 95.0,
+        "51–70 år": 95.0,
+        "> 70 år": 95.0
+      },
+      "men": {
+        "18–24 år": 110.0,
+        "25–50 år": 110.0,
+        "51–70 år": 110.0,
+        "> 70 år": 110.0
+      }
+    },
+    "Vitamin E": {
+      "kind": "AI",
+      "unit": "mg α-TE",
+      "table": 8,
+      "women": {
+        "18–24 år": 10.0,
+        "25–50 år": 10.0,
+        "51–70 år": 9.0,
+        "> 70 år": 9.0
+      },
+      "men": {
+        "18–24 år": 11.0,
+        "25–50 år": 11.0,
+        "51–70 år": 11.0,
+        "> 70 år": 11.0
+      },
+      "ul": {
+        "value": 300,
+        "unit": "mg/d",
+        "note": null,
+        "applies_to_food": true
+      }
+    },
+    "Vitamin K": {
+      "kind": "AI",
+      "unit": "µg",
+      "table": 8,
+      "women": {
+        "18–24 år": 65.0,
+        "25–50 år": 65.0,
+        "51–70 år": 60.0,
+        "> 70 år": 60.0
+      },
+      "men": {
+        "18–24 år": 75.0,
+        "25–50 år": 75.0,
+        "51–70 år": 70.0,
+        "> 70 år": 70.0
+      }
+    },
+    "Pantotensyra": {
+      "kind": "AI",
+      "unit": "mg",
+      "table": 8,
+      "women": {
+        "18–24 år": 5.0,
+        "25–50 år": 5.0,
+        "51–70 år": 5.0,
+        "> 70 år": 5.0
+      },
+      "men": {
+        "18–24 år": 5.0,
+        "25–50 år": 5.0,
+        "51–70 år": 5.0,
+        "> 70 år": 5.0
+      }
+    },
+    "Biotin": {
+      "kind": "AI",
+      "unit": "µg",
+      "table": 8,
+      "women": {
+        "18–24 år": 40.0,
+        "25–50 år": 40.0,
+        "51–70 år": 40.0,
+        "> 70 år": 40.0
+      },
+      "men": {
+        "18–24 år": 40.0,
+        "25–50 år": 40.0,
+        "51–70 år": 40.0,
+        "> 70 år": 40.0
+      }
+    },
+    "Vitamin B12": {
+      "kind": "AI",
+      "unit": "µg",
+      "table": 8,
+      "women": {
+        "18–24 år": 4.0,
+        "25–50 år": 4.0,
+        "51–70 år": 4.0,
+        "> 70 år": 4.0
+      },
+      "men": {
+        "18–24 år": 4.0,
+        "25–50 år": 4.0,
+        "51–70 år": 4.0,
+        "> 70 år": 4.0
+      }
+    },
+    "Kolin": {
+      "kind": "AI",
+      "unit": "mg",
+      "table": 8,
+      "women": {
+        "18–24 år": 400.0,
+        "25–50 år": 400.0,
+        "51–70 år": 400.0,
+        "> 70 år": 400.0
+      },
+      "men": {
+        "18–24 år": 400.0,
+        "25–50 år": 400.0,
+        "51–70 år": 400.0,
+        "> 70 år": 400.0
+      }
+    },
+    "Kalcium": {
+      "kind": "RI",
+      "unit": "mg",
+      "table": 9,
+      "women": {
+        "18–24 år": 1000.0,
+        "25–50 år": 950.0,
+        "51–70 år": 950.0,
+        "> 70 år": 950.0
+      },
+      "men": {
+        "18–24 år": 1000.0,
+        "25–50 år": 950.0,
+        "51–70 år": 950.0,
+        "> 70 år": 950.0
+      },
+      "ul": {
+        "value": 2500,
+        "unit": "mg/d",
+        "note": null,
+        "applies_to_food": true
+      }
+    },
+    "Järn": {
+      "kind": "RI",
+      "unit": "mg",
+      "table": 9,
+      "women": {
+        "18–24 år": 15.0,
+        "25–50 år": 15.0,
+        "51–70 år": 8.0,
+        "> 70 år": 7.0
+      },
+      "men": {
+        "18–24 år": 9.0,
+        "25–50 år": 9.0,
+        "51–70 år": 9.0,
+        "> 70 år": 9.0
+      },
+      "ul": {
+        "value": 60,
+        "unit": "mg/d",
+        "note": null,
+        "applies_to_food": true
+      },
+      "notes": [
+        {
+          "applies": "women",
+          "text": "15 mg för de som menstruerar."
+        },
+        {
+          "applies": "women",
+          "text": "Vid kraftiga menstruationsblödningar rekommenderas undersökning av järnstatus och intag av tillskott vid behov."
+        },
+        {
+          "applies": "all",
+          "text": "Beräknat utifrån en blandkost med animalier och vegetabilier och intag av fytinsyra på omkring 600 mg/d."
+        }
+      ]
+    },
+    "Zink": {
+      "kind": "RI",
+      "unit": "mg",
+      "table": 9,
+      "women": {
+        "18–24 år": 9.7,
+        "25–50 år": 9.7,
+        "51–70 år": 9.5,
+        "> 70 år": 9.3
+      },
+      "men": {
+        "18–24 år": 12.7,
+        "25–50 år": 12.7,
+        "51–70 år": 12.4,
+        "> 70 år": 12.1
+      },
+      "ul": {
+        "value": 25,
+        "unit": "mg/d",
+        "note": null,
+        "applies_to_food": true
+      },
+      "notes": [
+        {
+          "applies": "all",
+          "text": "Beräknat utifrån en blandkost med animalier och vegetabilier och intag av fytinsyra på omkring 600 mg/d."
+        }
+      ]
+    },
+    "Koppar": {
+      "kind": "RI",
+      "unit": "µg",
+      "table": 9,
+      "women": {
+        "18–24 år": 900.0,
+        "25–50 år": 900.0,
+        "51–70 år": 900.0,
+        "> 70 år": 900.0
+      },
+      "men": {
+        "18–24 år": 900.0,
+        "25–50 år": 900.0,
+        "51–70 år": 900.0,
+        "> 70 år": 900.0
+      },
+      "ul": {
+        "value": 5,
+        "unit": "mg/d",
+        "note": null,
+        "applies_to_food": true
+      }
+    },
+    "Fosfor": {
+      "kind": "AI",
+      "unit": "mg",
+      "table": 10,
+      "women": {
+        "18–24 år": 550.0,
+        "25–50 år": 520.0,
+        "51–70 år": 520.0,
+        "> 70 år": 520.0
+      },
+      "men": {
+        "18–24 år": 550.0,
+        "25–50 år": 520.0,
+        "51–70 år": 520.0,
+        "> 70 år": 520.0
+      },
+      "ul": {
+        "value": 3000,
+        "unit": "mg/d",
+        "note": null,
+        "applies_to_food": true
+      }
+    },
+    "Kalium": {
+      "kind": "AI",
+      "unit": "mg",
+      "table": 10,
+      "women": {
+        "18–24 år": 3500.0,
+        "25–50 år": 3500.0,
+        "51–70 år": 3500.0,
+        "> 70 år": 3500.0
+      },
+      "men": {
+        "18–24 år": 3500.0,
+        "25–50 år": 3500.0,
+        "51–70 år": 3500.0,
+        "> 70 år": 3500.0
+      }
+    },
+    "Magnesium": {
+      "kind": "AI",
+      "unit": "mg",
+      "table": 10,
+      "women": {
+        "18–24 år": 300.0,
+        "25–50 år": 300.0,
+        "51–70 år": 300.0,
+        "> 70 år": 300.0
+      },
+      "men": {
+        "18–24 år": 350.0,
+        "25–50 år": 350.0,
+        "51–70 år": 350.0,
+        "> 70 år": 350.0
+      },
+      "ul": {
+        "value": 250,
+        "unit": "mg/d",
+        "note": "Gäller magnesiumsalter och föreningar i kosttillskott, vatten eller tillsatser, inte magnesium som förekommer naturligt i mat och dryck.",
+        "applies_to_food": false
+      }
+    },
+    "Jod": {
+      "kind": "AI",
+      "unit": "µg",
+      "table": 10,
+      "women": {
+        "18–24 år": 150.0,
+        "25–50 år": 150.0,
+        "51–70 år": 150.0,
+        "> 70 år": 150.0
+      },
+      "men": {
+        "18–24 år": 150.0,
+        "25–50 år": 150.0,
+        "51–70 år": 150.0,
+        "> 70 år": 150.0
+      },
+      "ul": {
+        "value": 600,
+        "unit": "µg/d",
+        "note": null,
+        "applies_to_food": true
+      }
+    },
+    "Selen": {
+      "kind": "AI",
+      "unit": "µg",
+      "table": 10,
+      "women": {
+        "18–24 år": 75.0,
+        "25–50 år": 75.0,
+        "51–70 år": 75.0,
+        "> 70 år": 75.0
+      },
+      "men": {
+        "18–24 år": 90.0,
+        "25–50 år": 90.0,
+        "51–70 år": 90.0,
+        "> 70 år": 85.0
+      },
+      "ul": {
+        "value": 255,
+        "unit": "µg/d",
+        "note": null,
+        "applies_to_food": true
+      }
+    },
+    "Fluor": {
+      "kind": "AI",
+      "unit": "mg",
+      "table": 10,
+      "women": {
+        "18–24 år": 3.2,
+        "25–50 år": 3.2,
+        "51–70 år": 3.1,
+        "> 70 år": 3.0
+      },
+      "men": {
+        "18–24 år": 3.8,
+        "25–50 år": 3.7,
+        "51–70 år": 3.7,
+        "> 70 år": 3.5
+      }
+    },
+    "Mangan": {
+      "kind": "AI",
+      "unit": "mg",
+      "table": 10,
+      "women": {
+        "18–24 år": 3.0,
+        "25–50 år": 3.0,
+        "51–70 år": 3.0,
+        "> 70 år": 3.0
+      },
+      "men": {
+        "18–24 år": 3.0,
+        "25–50 år": 3.0,
+        "51–70 år": 3.0,
+        "> 70 år": 3.0
+      }
+    },
+    "Molybden": {
+      "kind": "AI",
+      "unit": "µg",
+      "table": 10,
+      "women": {
+        "18–24 år": 65.0,
+        "25–50 år": 65.0,
+        "51–70 år": 65.0,
+        "> 70 år": 65.0
+      },
+      "men": {
+        "18–24 år": 65.0,
+        "25–50 år": 65.0,
+        "51–70 år": 65.0,
+        "> 70 år": 65.0
+      }
+    }
+  }
+}

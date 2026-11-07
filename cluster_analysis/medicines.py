@@ -33,6 +33,9 @@ import re
 import zipfile
 from collections import Counter, defaultdict
 
+import sys
+if not __package__:  # run as a file (python cluster_analysis/medicines.py, an editor's Run button): import from the repo root
+    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from src.loader import imputed_path, iter_calls, person_label
 
 REF = "data/reference/clinpgx_clinical_annotations.zip"
