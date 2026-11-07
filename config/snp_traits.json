@@ -10,11 +10,16 @@
             "GA": "Moderately reduced enzyme activity",
             "AA": "Strongly reduced MTHFR activity"
         },
-        "scores": {
-            "GG": 9,
-            "GA": 6,
-            "AA": 2
-        }
+        "function": {
+            "GG": "normal",
+            "GA": "LoF",
+            "AA": "LoF"
+        },
+        "function_basis": "measured",
+        "polarity": {
+            "LoF": "negative"
+        },
+        "polarity_source": "library wording"
     },
     "rs1042838": {
         "gene": "PGR",
@@ -27,11 +32,14 @@
             "GA": "Moderate signaling efficiency",
             "AA": "Reduced signaling efficiency (Associated with 'Progesterone Resistance')"
         },
-        "scores": {
-            "GG": 10,
-            "GA": 6,
-            "AA": 3
-        }
+        "function": {
+            "GG": "normal",
+            "GA": "GoF",
+            "AA": "GoF"
+        },
+        "function_basis": "expression",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs2268491": {
         "gene": "OXTR",
@@ -44,12 +52,15 @@
             "TC": "Moderate signaling efficiency",
             "CC": "Reduced signaling efficiency (Potential for slower labor progression)"
         },
-        "scores": {
-            "TT": 5,
-            "TC": 5,
-            "CC": 5
+        "audit": "No functional evidence and no genome-wide study: neutral scores, texts kept as the library's claim.",
+        "function": {
+            "TT": "unknown",
+            "TC": "unknown",
+            "CC": "unknown"
         },
-        "audit": "No functional evidence and no genome-wide study: neutral scores, texts kept as the library's claim."
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs2236225": {
         "gene": "MTHFD1",
@@ -62,11 +73,16 @@
             "AG": "Slightly reduced efficiency",
             "AA": "More reduced efficiency"
         },
-        "scores": {
-            "GG": 9,
-            "AG": 6,
-            "AA": 3
-        }
+        "function": {
+            "GG": "normal",
+            "AG": "LoF",
+            "AA": "LoF"
+        },
+        "function_basis": "curated",
+        "polarity": {
+            "LoF": "negative"
+        },
+        "polarity_source": "library wording"
     },
     "rs1805087": {
         "gene": "MTR",
@@ -79,11 +95,16 @@
             "AG": "Increased MTR activity",
             "GG": "Optimal MTR activity"
         },
-        "scores": {
-            "AA": 6,
-            "AG": 8,
-            "GG": 9
-        }
+        "function": {
+            "AA": "normal",
+            "AG": "altered",
+            "GG": "altered"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "altered": "positive"
+        },
+        "polarity_source": "library ratings"
     },
     "rs1801394": {
         "gene": "MTRR",
@@ -96,12 +117,17 @@
             "AG": "Moderately reduced recycling",
             "GG": "Low B12 recycling"
         },
-        "scores": {
-            "AA": 9,
-            "AG": 6,
-            "GG": 5
+        "audit": "GG is carried by 27% of Europeans: risk score raised to 5.",
+        "function": {
+            "AA": "normal",
+            "AG": "altered",
+            "GG": "altered"
         },
-        "audit": "GG is carried by 27% of Europeans: risk score raised to 5."
+        "function_basis": "curated",
+        "polarity": {
+            "altered": "negative"
+        },
+        "polarity_source": "library ratings"
     },
     "rs762551": {
         "gene": "CYP1A2",
@@ -114,11 +140,14 @@
             "AC": "Intermediate caffeine metabolizer",
             "AA": "Fast caffeine metabolizer"
         },
-        "scores": {
-            "CC": 3,
-            "AC": 6,
-            "AA": 9
-        }
+        "function": {
+            "CC": "unknown",
+            "AC": "unknown",
+            "AA": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs662": {
         "gene": "PON1",
@@ -131,12 +160,17 @@
             "CT": "Gln/Arg: intermediate paraoxonase activity",
             "CC": "Arg/Arg (R192): higher paraoxonase and arylesterase activity"
         },
-        "scores": {
-            "TT": 5,
-            "CT": 5,
-            "CC": 5
+        "audit": "C (Arg192) increases activity (UniProt); the library had it as lower. Heart studies are mixed, so neutral scores.",
+        "function": {
+            "TT": "normal",
+            "CT": "GoF",
+            "CC": "GoF"
         },
-        "audit": "C (Arg192) increases activity (UniProt); the library had it as lower. Heart studies are mixed, so neutral scores."
+        "function_basis": "curated",
+        "polarity": {
+            "GoF": "neutral"
+        },
+        "polarity_source": "library wording"
     },
     "rs1695": {
         "gene": "GSTP1",
@@ -150,12 +184,17 @@
             "GA": "Moderately reduced detox",
             "GG": "Reduced detox capacity"
         },
-        "scores": {
-            "AA": 7,
-            "AG": 5,
-            "GA": 5,
-            "GG": 3
-        }
+        "function": {
+            "AA": "normal",
+            "AG": "altered",
+            "GA": "altered",
+            "GG": "altered"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "altered": "negative"
+        },
+        "polarity_source": "library ratings"
     },
     "rs1051740": {
         "gene": "EPHX1",
@@ -169,12 +208,17 @@
             "CT": "Slightly reduced detox",
             "CC": "Reduced detox function"
         },
-        "scores": {
-            "TT": 6,
-            "TC": 5,
-            "CT": 5,
-            "CC": 4
-        }
+        "function": {
+            "TT": "normal",
+            "TC": "LoF",
+            "CT": "LoF",
+            "CC": "LoF"
+        },
+        "function_basis": "curated",
+        "polarity": {
+            "LoF": "negative"
+        },
+        "polarity_source": "library wording"
     },
     "rs1800566": {
         "gene": "NQO1",
@@ -187,11 +231,16 @@
             "AG": "Moderately reduced activity",
             "AA": "Significantly reduced activity"
         },
-        "scores": {
-            "GG": 9,
-            "AG": 6,
-            "AA": 3
-        }
+        "function": {
+            "GG": "normal",
+            "AG": "LoF",
+            "AA": "LoF"
+        },
+        "function_basis": "curated",
+        "polarity": {
+            "LoF": "negative"
+        },
+        "polarity_source": "library wording"
     },
     "rs5082": {
         "gene": "APOA2",
@@ -204,11 +253,14 @@
             "AG": "Higher sensitivity to saturated fat",
             "GG": "Highest sensitivity to saturated fat"
         },
-        "scores": {
-            "AA": 6,
-            "AG": 4,
-            "GG": 2
-        }
+        "function": {
+            "AA": "unknown",
+            "AG": "unknown",
+            "GG": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs328": {
         "gene": "LPL",
@@ -221,11 +273,16 @@
             "CG": "Enhanced LPL activity",
             "GG": "Optimal LPL activity"
         },
-        "scores": {
-            "CC": 6,
-            "CG": 8,
-            "GG": 9
-        }
+        "function": {
+            "CC": "normal",
+            "CG": "LoF",
+            "GG": "LoF"
+        },
+        "function_basis": "truncating",
+        "polarity": {
+            "LoF": "positive"
+        },
+        "polarity_source": "library ratings"
     },
     "rs662799": {
         "gene": "APOA5",
@@ -238,11 +295,14 @@
             "AG": "Typical triglyceride levels",
             "GG": "Higher triglyceride tendency"
         },
-        "scores": {
-            "AA": 7,
-            "AG": 5,
-            "GG": 3
-        }
+        "function": {
+            "AA": "unknown",
+            "AG": "unknown",
+            "GG": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs1800588": {
         "gene": "LIPC",
@@ -255,12 +315,17 @@
             "CT": "Typical LIPC activity, intermediate HDL-C",
             "TT": "Lower LIPC activity, higher HDL-C"
         },
-        "scores": {
-            "CC": 5,
-            "CT": 6,
-            "TT": 9
+        "audit": "CC is carried by 63% of Europeans: risk score raised to 5.",
+        "function": {
+            "CC": "normal",
+            "CT": "LoF",
+            "TT": "LoF"
         },
-        "audit": "CC is carried by 63% of Europeans: risk score raised to 5."
+        "function_basis": "expression",
+        "polarity": {
+            "LoF": "positive"
+        },
+        "polarity_source": "library wording"
     },
     "rs693": {
         "gene": "APOB",
@@ -273,11 +338,16 @@
             "AG": "Associated with typical LDL particle production",
             "AA": "Associated with higher LDL particle production"
         },
-        "scores": {
-            "GG": 9,
-            "AG": 6,
-            "AA": 3
-        }
+        "function": {
+            "GG": "normal",
+            "AG": "altered",
+            "AA": "altered"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "altered": "negative"
+        },
+        "polarity_source": "library ratings"
     },
     "rs9939609": {
         "gene": "FTO",
@@ -290,11 +360,16 @@
             "AT": "Intermediate",
             "TT": "Strong Signal"
         },
-        "scores": {
-            "AA": 3,
-            "AT": 6,
-            "TT": 9
-        }
+        "function": {
+            "AA": "GoF",
+            "AT": "GoF",
+            "TT": "normal"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "GoF": "negative"
+        },
+        "polarity_source": "library ratings"
     },
     "rs6232": {
         "gene": "PCSK1",
@@ -307,11 +382,16 @@
             "CT": "Typical satiety",
             "CC": "Reduced satiety signaling"
         },
-        "scores": {
-            "TT": 6,
-            "CT": 5,
-            "CC": 4
-        }
+        "function": {
+            "TT": "normal",
+            "CT": "LoF",
+            "CC": "LoF"
+        },
+        "function_basis": "curated",
+        "polarity": {
+            "LoF": "negative"
+        },
+        "polarity_source": "library wording"
     },
     "rs17782313": {
         "gene": "MC4R",
@@ -325,12 +405,17 @@
             "CT": "Moderately higher appetite",
             "CC": "Higher appetite drive / weight gain tendency"
         },
-        "scores": {
-            "TT": 7,
-            "TC": 6,
-            "CT": 6,
-            "CC": 4
-        }
+        "function": {
+            "TT": "normal",
+            "TC": "GoF",
+            "CT": "GoF",
+            "CC": "GoF"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "GoF": "negative"
+        },
+        "polarity_source": "library ratings"
     },
     "rs7903146": {
         "gene": "TCF7L2 (Diabetes Risk)",
@@ -344,12 +429,17 @@
             "TC": "Reduced secretion robustness",
             "TT": "Higher T2D risk / fragile glucose handling"
         },
-        "scores": {
-            "CC": 8,
-            "CT": 5,
-            "TC": 5,
-            "TT": 2
-        }
+        "function": {
+            "CC": "normal",
+            "CT": "LoF",
+            "TC": "LoF",
+            "TT": "LoF"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "LoF": "negative"
+        },
+        "polarity_source": "library ratings"
     },
     "rs1260326": {
         "gene": "GCKR",
@@ -362,11 +452,16 @@
             "CT": "Intermediate fasting glucose/triglycerides.",
             "TT": "Lower fasting glucose, higher triglycerides."
         },
-        "scores": {
-            "CC": 5,
-            "CT": 6,
-            "TT": 7
-        }
+        "function": {
+            "CC": "normal",
+            "CT": "altered",
+            "TT": "altered"
+        },
+        "function_basis": "curated",
+        "polarity": {
+            "altered": "positive"
+        },
+        "polarity_source": "library ratings"
     },
     "rs13266634": {
         "gene": "SLC30A8",
@@ -380,12 +475,17 @@
             "TC": "Typical secretion",
             "TT": "Lower secretion"
         },
-        "scores": {
-            "CC": 6,
-            "CT": 5,
-            "TC": 5,
-            "TT": 4
-        }
+        "function": {
+            "CC": "normal",
+            "CT": "LoF",
+            "TC": "LoF",
+            "TT": "LoF"
+        },
+        "function_basis": "curated",
+        "polarity": {
+            "LoF": "negative"
+        },
+        "polarity_source": "library wording"
     },
     "rs7754840": {
         "gene": "CDKAL1",
@@ -398,11 +498,14 @@
             "CG": "Risk",
             "GG": "High Risk"
         },
-        "scores": {
-            "CC": 5,
-            "CG": 5,
-            "GG": 5
-        }
+        "function": {
+            "CC": "unknown",
+            "CG": "unknown",
+            "GG": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs10830963": {
         "gene": "MTNR1B",
@@ -415,11 +518,14 @@
             "CG": "Higher",
             "GG": "High"
         },
-        "scores": {
-            "CC": 7,
-            "CG": 5,
-            "GG": 5
-        }
+        "function": {
+            "CC": "unknown",
+            "CG": "unknown",
+            "GG": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs4880": {
         "gene": "SOD2",
@@ -432,12 +538,17 @@
             "AG": "Typical activity (Ala/Val)",
             "GG": "Higher SOD2 activity (Ala/Ala: efficient import into mitochondria)"
         },
-        "scores": {
-            "AA": 5,
-            "AG": 6,
-            "GG": 9
+        "audit": "AA is carried by 28% of Europeans: risk score raised to 5.",
+        "function": {
+            "AA": "normal",
+            "AG": "altered",
+            "GG": "altered"
         },
-        "audit": "AA is carried by 28% of Europeans: risk score raised to 5."
+        "function_basis": "curated",
+        "polarity": {
+            "altered": "positive"
+        },
+        "polarity_source": "library ratings"
     },
     "rs1050450": {
         "gene": "GPX1",
@@ -450,11 +561,16 @@
             "AG": "Typical GPX1 activity",
             "AA": "Lower GPX1 activity"
         },
-        "scores": {
-            "GG": 9,
-            "AG": 6,
-            "AA": 3
-        }
+        "function": {
+            "GG": "normal",
+            "AG": "altered",
+            "AA": "altered"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "altered": "negative"
+        },
+        "polarity_source": "library ratings"
     },
     "rs10741657": {
         "gene": "CYP2R1",
@@ -468,12 +584,17 @@
             "AG": "Typical activation",
             "AA": "Lower vitamin D activation"
         },
-        "scores": {
-            "GG": 9,
-            "GA": 7,
-            "AG": 7,
-            "AA": 4
-        }
+        "function": {
+            "GG": "normal",
+            "GA": "LoF",
+            "AG": "LoF",
+            "AA": "LoF"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "LoF": "negative"
+        },
+        "polarity_source": "library wording"
     },
     "rs7041": {
         "gene": "GC",
@@ -486,12 +607,15 @@
             "AC": "Typical binding",
             "CC": "Lower vitamin D binding"
         },
-        "scores": {
-            "AA": 9,
-            "AC": 7,
-            "CC": 5
+        "audit": "CC is carried by 34% of Europeans: risk score raised to 5.",
+        "function": {
+            "AA": "unknown",
+            "AC": "unknown",
+            "CC": "unknown"
         },
-        "audit": "CC is carried by 34% of Europeans: risk score raised to 5."
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs602662": {
         "gene": "FUT2",
@@ -504,11 +628,16 @@
             "AG": "Secretor (typical B12 absorption, diverse microbiome)",
             "AA": "Non-secretor (lower B12 absorption, altered microbiome)"
         },
-        "scores": {
-            "GG": 9,
-            "AG": 8,
-            "AA": 3
-        }
+        "function": {
+            "GG": "normal",
+            "AG": "LoF",
+            "AA": "LoF"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "LoF": "negative"
+        },
+        "polarity_source": "library wording"
     },
     "rs1801198": {
         "gene": "TCN2",
@@ -521,11 +650,16 @@
             "CG": "Reduced",
             "GG": "Lower"
         },
-        "scores": {
-            "CC": 9,
-            "CG": 6,
-            "GG": 3
-        }
+        "function": {
+            "CC": "normal",
+            "CG": "LoF",
+            "GG": "LoF"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "LoF": "negative"
+        },
+        "polarity_source": "library wording"
     },
     "rs11645428": {
         "gene": "BCMO1",
@@ -539,12 +673,15 @@
             "AG": "Typical conversion",
             "AA": "Reduced conversion efficiency"
         },
-        "scores": {
-            "GG": 7,
-            "GA": 5,
-            "AG": 5,
-            "AA": 3
-        }
+        "function": {
+            "GG": "unknown",
+            "GA": "unknown",
+            "AG": "unknown",
+            "AA": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs1799945": {
         "gene": "HFE",
@@ -557,11 +694,16 @@
             "CG": "Slightly Increased",
             "GG": "High"
         },
-        "scores": {
-            "CC": 7,
-            "CG": 5,
-            "GG": 5
-        }
+        "function": {
+            "CC": "normal",
+            "CG": "altered",
+            "GG": "altered"
+        },
+        "function_basis": "curated",
+        "polarity": {
+            "altered": "negative"
+        },
+        "polarity_source": "library ratings"
     },
     "rs4680": {
         "gene": "COMT (Val158Met)",
@@ -574,11 +716,16 @@
             "AG": "Balanced dopamine breakdown",
             "AA": "Slow dopamine breakdown (more intensity)"
         },
-        "scores": {
-            "GG": 9,
-            "AG": 6,
-            "AA": 3
-        }
+        "function": {
+            "GG": "normal",
+            "AG": "LoF",
+            "AA": "LoF"
+        },
+        "function_basis": "curated",
+        "polarity": {
+            "LoF": "negative"
+        },
+        "polarity_source": "library wording"
     },
     "rs6265": {
         "gene": "BDNF",
@@ -591,11 +738,16 @@
             "CT": "Typical BDNF function",
             "TT": "Lower BDNF expression"
         },
-        "scores": {
-            "CC": 6,
-            "CT": 5,
-            "TT": 4
-        }
+        "function": {
+            "CC": "normal",
+            "CT": "altered",
+            "TT": "altered"
+        },
+        "function_basis": "curated",
+        "polarity": {
+            "altered": "negative"
+        },
+        "polarity_source": "library ratings"
     },
     "rs6214": {
         "gene": "IGF1",
@@ -608,11 +760,14 @@
             "CT": "Moderate circulating IGF-1",
             "TT": "Lower circulating IGF-1 (Reduced recovery potential)"
         },
-        "scores": {
-            "CC": 9,
-            "CT": 6,
-            "TT": 4
-        }
+        "function": {
+            "CC": "unknown",
+            "CT": "unknown",
+            "TT": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs2229765": {
         "gene": "IGF1R",
@@ -625,12 +780,17 @@
             "AG": "Moderate receptor sensitivity",
             "GG": "Lower receptor sensitivity (Anabolic resistance risk)"
         },
-        "scores": {
-            "AA": 9,
-            "AG": 6,
-            "GG": 5
+        "audit": "GG is carried by 33% of Europeans: risk score raised to 5.",
+        "function": {
+            "AA": "GoF",
+            "AG": "GoF",
+            "GG": "normal"
         },
-        "audit": "GG is carried by 33% of Europeans: risk score raised to 5."
+        "function_basis": "expression",
+        "polarity": {
+            "GoF": "positive"
+        },
+        "polarity_source": "library wording"
     },
     "rs2234693": {
         "gene": "ESR1",
@@ -643,11 +803,14 @@
             "TC": "Moderate signaling efficiency",
             "CC": "Reduced signaling efficiency (Increased tendon injury risk)"
         },
-        "scores": {
-            "TT": 8,
-            "TC": 6,
-            "CC": 4
-        }
+        "function": {
+            "TT": "normal",
+            "TC": "GoF",
+            "CC": "GoF"
+        },
+        "function_basis": "expression",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs1256031": {
         "gene": "ESR2",
@@ -660,12 +823,17 @@
             "GA": "Moderate signaling efficiency",
             "AA": "Reduced signaling efficiency (Potential for lower ovarian sensitivity)"
         },
-        "scores": {
-            "GG": 8,
-            "GA": 6,
-            "AA": 5
+        "audit": "AA is carried by 32% of Europeans: risk score raised to 5.",
+        "function": {
+            "GG": "GoF",
+            "GA": "GoF",
+            "AA": "normal"
         },
-        "audit": "AA is carried by 32% of Europeans: risk score raised to 5."
+        "function_basis": "expression",
+        "polarity": {
+            "GoF": "positive"
+        },
+        "polarity_source": "library ratings"
     },
     "rs7799039": {
         "gene": "LEP (Leptin)",
@@ -678,11 +846,14 @@
             "GA": "Moderate leptin production",
             "AA": "Low leptin production (Constant hunger / 'Thrifty' phenotype)"
         },
-        "scores": {
-            "GG": 8,
-            "GA": 6,
-            "AA": 3
-        }
+        "function": {
+            "GG": "normal",
+            "GA": "GoF",
+            "AA": "GoF"
+        },
+        "function_basis": "expression",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs1800497": {
         "gene": "ANKK1 (Taq1A)",
@@ -695,11 +866,16 @@
             "AG": "Lower D2 receptor availability",
             "AA": "Lowest D2 receptor availability"
         },
-        "scores": {
-            "GG": 9,
-            "AG": 6,
-            "AA": 3
-        }
+        "function": {
+            "GG": "normal",
+            "AG": "LoF",
+            "AA": "LoF"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "LoF": "negative"
+        },
+        "polarity_source": "library ratings"
     },
     "rs1042713": {
         "gene": "ADRB2",
@@ -712,11 +888,14 @@
             "AG": "Intermediate receptor response; moderate downregulation.",
             "AA": "Reduced receptor response; increased downregulation."
         },
-        "scores": {
-            "GG": 9,
-            "AG": 6,
-            "AA": 3
-        }
+        "function": {
+            "GG": "unknown",
+            "AG": "unknown",
+            "AA": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs1042714": {
         "gene": "ADRB2",
@@ -729,11 +908,14 @@
             "CG": "Intermediate Receptor Downregulation",
             "GG": "Slower Receptor Downregulation"
         },
-        "scores": {
-            "CC": 6,
-            "CG": 7,
-            "GG": 9
-        }
+        "function": {
+            "CC": "unknown",
+            "CG": "unknown",
+            "GG": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs2010963": {
         "gene": "VEGFA (Secretion)",
@@ -746,12 +928,15 @@
             "CG": "Intermediate",
             "GG": "Reduced"
         },
-        "scores": {
-            "CC": 9,
-            "CG": 6,
-            "GG": 5
+        "audit": "GG is carried by 48% of Europeans: risk score raised to 5.",
+        "function": {
+            "CC": "unknown",
+            "CG": "unknown",
+            "GG": "unknown"
         },
-        "audit": "GG is carried by 48% of Europeans: risk score raised to 5."
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs1815739": {
         "gene": "ACTN3",
@@ -764,11 +949,16 @@
             "CT": "Mixed power/endurance",
             "TT": "Endurance-leaning muscle profile"
         },
-        "scores": {
-            "CC": 9,
-            "CT": 6,
-            "TT": 3
-        }
+        "function": {
+            "CC": "normal",
+            "CT": "LoF",
+            "TT": "LoF"
+        },
+        "function_basis": "curated",
+        "polarity": {
+            "LoF": "negative"
+        },
+        "polarity_source": "library ratings"
     },
     "rs17602729": {
         "gene": "AMPD1",
@@ -781,11 +971,16 @@
             "AG": "Moderate resistance",
             "AA": "Lower fatigue resistance"
         },
-        "scores": {
-            "GG": 6,
-            "AG": 5,
-            "AA": 3
-        }
+        "function": {
+            "GG": "normal",
+            "AG": "LoF",
+            "AA": "LoF"
+        },
+        "function_basis": "truncating",
+        "polarity": {
+            "LoF": "negative"
+        },
+        "polarity_source": "library wording"
     },
     "rs12722": {
         "gene": "COL5A1",
@@ -799,13 +994,16 @@
             "TC": "Balanced structure",
             "TT": "More flexible but injury-prone"
         },
-        "scores": {
-            "CC": 5,
-            "CT": 5,
-            "TC": 5,
-            "TT": 5
+        "audit": "No functional evidence and no genome-wide study: neutral scores, texts kept as the library's claim.",
+        "function": {
+            "CC": "unknown",
+            "CT": "unknown",
+            "TC": "unknown",
+            "TT": "unknown"
         },
-        "audit": "No functional evidence and no genome-wide study: neutral scores, texts kept as the library's claim."
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs1800592": {
         "gene": "UCP1",
@@ -818,12 +1016,15 @@
             "GA": "Intermediate UCP1 activity and thermogenesis.",
             "GG": "Optimal UCP1 activity and thermogenesis."
         },
-        "scores": {
-            "AA": 5,
-            "GA": 5,
-            "GG": 5
+        "audit": "No functional evidence and no genome-wide study: neutral scores, texts kept as the library's claim.",
+        "function": {
+            "AA": "unknown",
+            "GA": "unknown",
+            "GG": "unknown"
         },
-        "audit": "No functional evidence and no genome-wide study: neutral scores, texts kept as the library's claim."
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs659366": {
         "gene": "UCP2",
@@ -837,12 +1038,17 @@
             "TC": "Balanced mitochondrial efficiency",
             "TT": "Higher uncoupling / higher baseline burn"
         },
-        "scores": {
-            "CC": 5,
-            "CT": 6,
-            "TC": 6,
-            "TT": 7
-        }
+        "function": {
+            "CC": "normal",
+            "CT": "GoF",
+            "TC": "GoF",
+            "TT": "GoF"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "GoF": "positive"
+        },
+        "polarity_source": "library wording"
     },
     "rs1801260": {
         "gene": "CLOCK",
@@ -855,11 +1061,16 @@
             "AG": "Balanced rhythm",
             "GG": "More irregular rhythm tendency"
         },
-        "scores": {
-            "AA": 7,
-            "AG": 5,
-            "GG": 3
-        }
+        "function": {
+            "AA": "normal",
+            "AG": "LoF",
+            "GG": "LoF"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "LoF": "negative"
+        },
+        "polarity_source": "library ratings"
     },
     "rs2304672": {
         "gene": "PER2",
@@ -872,11 +1083,16 @@
             "CG": "Leaning towards morning preference",
             "CC": "Morning type (earlier clock)"
         },
-        "scores": {
-            "GG": 5,
-            "CG": 6,
-            "CC": 7
-        }
+        "function": {
+            "GG": "normal",
+            "CG": "GoF",
+            "CC": "GoF"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "GoF": "positive"
+        },
+        "polarity_source": "library ratings"
     },
     "rs1800629": {
         "gene": "TNF-alpha",
@@ -890,12 +1106,15 @@
             "AG": "Moderate inflammation tendency",
             "AA": "Higher TNF expression"
         },
-        "scores": {
-            "GG": 7,
-            "GA": 5,
-            "AG": 5,
-            "AA": 3
-        }
+        "function": {
+            "GG": "unknown",
+            "GA": "unknown",
+            "AG": "unknown",
+            "AA": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs1800795": {
         "gene": "IL6 (Promoter)",
@@ -908,12 +1127,15 @@
             "GC": "Intermediate IL-6 production, moderate inflammatory reactivity",
             "CC": "Lower IL-6 production, reduced inflammatory reactivity"
         },
-        "scores": {
-            "GG": 5,
-            "GC": 6,
-            "CC": 9
+        "audit": "GG is carried by 34% of Europeans: risk score raised to 5.",
+        "function": {
+            "GG": "normal",
+            "GC": "GoF",
+            "CC": "GoF"
         },
-        "audit": "GG is carried by 34% of Europeans: risk score raised to 5."
+        "function_basis": "expression",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs2476601": {
         "gene": "PTPN22",
@@ -926,11 +1148,16 @@
             "AG": "Higher autoimmune sensitivity",
             "AA": "Strongly increased autoimmune reactivity"
         },
-        "scores": {
-            "GG": 6,
-            "AG": 4,
-            "AA": 2
-        }
+        "function": {
+            "GG": "normal",
+            "AG": "altered",
+            "AA": "altered"
+        },
+        "function_basis": "curated",
+        "polarity": {
+            "altered": "negative"
+        },
+        "polarity_source": "library ratings"
     },
     "rs3024493": {
         "gene": "IL10",
@@ -943,11 +1170,14 @@
             "AC": "Normal",
             "CC": "High"
         },
-        "scores": {
-            "AA": 2,
-            "AC": 6,
-            "CC": 9
-        }
+        "function": {
+            "AA": "unknown",
+            "AC": "unknown",
+            "CC": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs429358": {
         "gene": "APOE",
@@ -960,11 +1190,14 @@
             "CT": "One ε4 allele",
             "CC": "Two ε4 alleles"
         },
-        "scores": {
-            "TT": 7,
-            "CT": 4,
-            "CC": 2
-        }
+        "function": {
+            "TT": "unknown",
+            "CT": "unknown",
+            "CC": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs699": {
         "gene": "AGT",
@@ -977,11 +1210,16 @@
             "AG": "Typical BP regulation",
             "GG": "Higher BP / salt-sensitive hypertension"
         },
-        "scores": {
-            "AA": 9,
-            "AG": 6,
-            "GG": 3
-        }
+        "function": {
+            "AA": "normal",
+            "AG": "altered",
+            "GG": "altered"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "altered": "negative"
+        },
+        "polarity_source": "library ratings"
     },
     "rs1799752": {
         "gene": "ACE",
@@ -994,11 +1232,14 @@
             "ID": "Balanced ACE activity",
             "DD": "Higher ACE activity / higher BP risk"
         },
-        "scores": {
-            "II": 9,
-            "ID": 6,
-            "DD": 3
-        }
+        "function": {
+            "II": "unknown",
+            "ID": "unknown",
+            "DD": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs5186": {
         "gene": "AGTR1",
@@ -1012,12 +1253,15 @@
             "CA": "Typical receptor response",
             "CC": "Higher vascular sensitivity"
         },
-        "scores": {
-            "AA": 6,
-            "AC": 5,
-            "CA": 5,
-            "CC": 4
-        }
+        "function": {
+            "AA": "unknown",
+            "AC": "unknown",
+            "CA": "unknown",
+            "CC": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs2235544": {
         "gene": "DIO1",
@@ -1031,12 +1275,15 @@
             "CA": "Typical conversion",
             "CC": "Lower conversion (sluggish metabolism tendency)"
         },
-        "scores": {
-            "AA": 7,
-            "AC": 5,
-            "CA": 5,
-            "CC": 3
-        }
+        "function": {
+            "AA": "unknown",
+            "AC": "unknown",
+            "CA": "unknown",
+            "CC": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs225014": {
         "gene": "DIO2",
@@ -1050,12 +1297,17 @@
             "CT": "Slightly reduced activation",
             "CC": "Reduced activation (fatigue tendency)"
         },
-        "scores": {
-            "TT": 6,
-            "TC": 5,
-            "CT": 5,
-            "CC": 4
-        }
+        "function": {
+            "TT": "normal",
+            "TC": "LoF",
+            "CT": "LoF",
+            "CC": "LoF"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "LoF": "negative"
+        },
+        "polarity_source": "library wording"
     },
     "rs9340799": {
         "gene": "ESR1",
@@ -1069,12 +1321,15 @@
             "GA": "Balanced sensitivity",
             "GG": "Lower receptor sensitivity"
         },
-        "scores": {
-            "AA": 6,
-            "AG": 5,
-            "GA": 5,
-            "GG": 4
-        }
+        "function": {
+            "AA": "unknown",
+            "AG": "unknown",
+            "GA": "unknown",
+            "GG": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs9282858": {
         "gene": "SRD5A2",
@@ -1087,12 +1342,17 @@
             "AG": "One Ala49Thr copy: faster testosterone-to-DHT conversion",
             "AA": "Two Ala49Thr copies: faster testosterone-to-DHT conversion"
         },
-        "scores": {
-            "GG": 5,
-            "AG": 5,
-            "AA": 5
+        "audit": "Thr49 increases Vmax (UniProt); the library had it as lower DHT. Neutral scores.",
+        "function": {
+            "GG": "normal",
+            "AG": "GoF",
+            "AA": "GoF"
         },
-        "audit": "Thr49 increases Vmax (UniProt); the library had it as lower DHT. Neutral scores."
+        "function_basis": "curated",
+        "polarity": {
+            "GoF": "neutral"
+        },
+        "polarity_source": "library wording"
     },
     "rs2071749": {
         "gene": "HMOX1",
@@ -1105,12 +1365,15 @@
             "AG": "Typical induction",
             "GG": "Reduced induction"
         },
-        "scores": {
-            "AA": 5,
-            "AG": 5,
-            "GG": 5
+        "audit": "No functional evidence and no genome-wide study: neutral scores, texts kept as the library's claim.",
+        "function": {
+            "AA": "unknown",
+            "AG": "unknown",
+            "GG": "unknown"
         },
-        "audit": "No functional evidence and no genome-wide study: neutral scores, texts kept as the library's claim."
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs1056836": {
         "gene": "CYP1B1",
@@ -1123,11 +1386,16 @@
             "CG": "Intermediate",
             "GG": "Lower"
         },
-        "scores": {
-            "CC": 7,
-            "CG": 5,
-            "GG": 5
-        }
+        "function": {
+            "CC": "altered",
+            "CG": "altered",
+            "GG": "normal"
+        },
+        "function_basis": "curated",
+        "polarity": {
+            "altered": "negative"
+        },
+        "polarity_source": "reviewed"
     },
     "rs1048943": {
         "gene": "CYP1A1",
@@ -1140,12 +1408,17 @@
             "CT": "One Ile462Val copy: higher catalytic activity (more reactive intermediates from smoke compounds)",
             "CC": "Two Ile462Val copies: higher catalytic activity (more reactive intermediates from smoke compounds)"
         },
-        "scores": {
-            "TT": 6,
-            "CT": 5,
-            "CC": 4
+        "audit": "C (Val462) raises catalytic efficiency 5-12x (UniProt); the library had it as lower activity.",
+        "function": {
+            "TT": "normal",
+            "CT": "GoF",
+            "CC": "GoF"
         },
-        "audit": "C (Val462) raises catalytic efficiency 5-12x (UniProt); the library had it as lower activity."
+        "function_basis": "curated",
+        "polarity": {
+            "GoF": "negative"
+        },
+        "polarity_source": "library wording"
     },
     "rs2740574": {
         "gene": "CYP3A4",
@@ -1158,12 +1431,15 @@
             "CT": "Intermediate activity",
             "CC": "Lower CYP3A4 activity"
         },
-        "scores": {
-            "TT": 5,
-            "CT": 5,
-            "CC": 5
+        "audit": "No functional evidence and no genome-wide study: neutral scores, texts kept as the library's claim.",
+        "function": {
+            "TT": "unknown",
+            "CT": "unknown",
+            "CC": "unknown"
         },
-        "audit": "No functional evidence and no genome-wide study: neutral scores, texts kept as the library's claim."
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs1799983": {
         "gene": "NOS3 (Glu298Asp)",
@@ -1177,12 +1453,15 @@
             "TG": "Moderate production",
             "TT": "Low NO / higher BP sensitivity"
         },
-        "scores": {
-            "GG": 7,
-            "GT": 5,
-            "TG": 5,
-            "TT": 3
-        }
+        "function": {
+            "GG": "unknown",
+            "GT": "unknown",
+            "TG": "unknown",
+            "TT": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs4343": {
         "gene": "ACE",
@@ -1196,13 +1475,16 @@
             "GA": "Intermediate",
             "GG": "Higher ACE / higher BP tendency"
         },
-        "scores": {
-            "AA": 7,
-            "AG": 5,
-            "GA": 5,
-            "GG": 5
+        "audit": "GG is carried by 32% of Europeans: risk score raised to 5.",
+        "function": {
+            "AA": "unknown",
+            "AG": "unknown",
+            "GA": "unknown",
+            "GG": "unknown"
         },
-        "audit": "GG is carried by 32% of Europeans: risk score raised to 5."
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs11191548": {
         "gene": "CNNM2",
@@ -1215,11 +1497,16 @@
             "CT": "Slightly lower BP tendency",
             "CC": "Lower BP tendency"
         },
-        "scores": {
-            "TT": 5,
-            "CT": 6,
-            "CC": 7
-        }
+        "function": {
+            "TT": "normal",
+            "CT": "altered",
+            "CC": "altered"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "altered": "positive"
+        },
+        "polarity_source": "library ratings"
     },
     "rs3813034": {
         "gene": "SLC6A4",
@@ -1232,12 +1519,15 @@
             "AC": "Balanced",
             "AA": "Lower transport / higher reactivity"
         },
-        "scores": {
-            "CC": 7,
-            "AC": 5,
-            "AA": 5
+        "audit": "AA is carried by 32% of Europeans: risk score raised to 5.",
+        "function": {
+            "CC": "LoF",
+            "AC": "LoF",
+            "AA": "normal"
         },
-        "audit": "AA is carried by 32% of Europeans: risk score raised to 5."
+        "function_basis": "expression",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs2802292": {
         "gene": "FOXO3",
@@ -1250,11 +1540,16 @@
             "GT": "Enhanced stress resistance",
             "GG": "Optimal stress resistance"
         },
-        "scores": {
-            "TT": 6,
-            "GT": 8,
-            "GG": 9
-        }
+        "function": {
+            "TT": "normal",
+            "GT": "GoF",
+            "GG": "GoF"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "GoF": "positive"
+        },
+        "polarity_source": "library ratings"
     },
     "rs1800498": {
         "gene": "DRD2",
@@ -1267,12 +1562,15 @@
             "CT": "Typical D2 receptor density, typical reward sensitivity",
             "TT": "Lower D2 receptor density, lower reward sensitivity"
         },
-        "scores": {
-            "CC": 9,
-            "CT": 6,
-            "TT": 5
+        "audit": "TT is carried by 38% of Europeans: risk score raised to 5.",
+        "function": {
+            "CC": "unknown",
+            "CT": "unknown",
+            "TT": "unknown"
         },
-        "audit": "TT is carried by 38% of Europeans: risk score raised to 5."
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs987237": {
         "gene": "TFAP2B",
@@ -1285,11 +1583,16 @@
             "AG": "Balanced appetite",
             "GG": "Higher appetite"
         },
-        "scores": {
-            "AA": 9,
-            "AG": 6,
-            "GG": 3
-        }
+        "function": {
+            "AA": "normal",
+            "AG": "GoF",
+            "GG": "GoF"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "GoF": "negative"
+        },
+        "polarity_source": "library wording"
     },
     "rs3733890": {
         "gene": "BHMT",
@@ -1302,11 +1605,16 @@
             "AG": "Moderately reduced BHMT activity for homocysteine remethylation",
             "AA": "Significantly reduced BHMT activity for homocysteine remethylation"
         },
-        "scores": {
-            "GG": 9,
-            "AG": 6,
-            "AA": 3
-        }
+        "function": {
+            "GG": "normal",
+            "AG": "altered",
+            "AA": "altered"
+        },
+        "function_basis": "curated",
+        "polarity": {
+            "altered": "negative"
+        },
+        "polarity_source": "library ratings"
     },
     "rs234706": {
         "gene": "CBS",
@@ -1319,11 +1627,14 @@
             "GA": "Increased CBS activity, enhanced homocysteine conversion",
             "AA": "Significantly increased CBS activity, optimal homocysteine conversion"
         },
-        "scores": {
-            "GG": 6,
-            "GA": 8,
-            "AA": 9
-        }
+        "function": {
+            "GG": "unknown",
+            "GA": "unknown",
+            "AA": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs1979277": {
         "gene": "SHMT1",
@@ -1336,11 +1647,16 @@
             "AG": "Typical folate channeling",
             "AA": "Slightly altered folate partitioning"
         },
-        "scores": {
-            "GG": 7,
-            "AG": 5,
-            "AA": 4
-        }
+        "function": {
+            "GG": "normal",
+            "AG": "altered",
+            "AA": "altered"
+        },
+        "function_basis": "curated",
+        "polarity": {
+            "altered": "negative"
+        },
+        "polarity_source": "library ratings"
     },
     "rs5882": {
         "gene": "CETP",
@@ -1353,11 +1669,14 @@
             "AG": "Intermediate CETP activity, moderate HDL-C",
             "AA": "Lower CETP activity, typically higher HDL-C"
         },
-        "scores": {
-            "GG": 3,
-            "AG": 6,
-            "AA": 9
-        }
+        "function": {
+            "GG": "unknown",
+            "AG": "unknown",
+            "AA": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs1801282": {
         "gene": "PPARG",
@@ -1370,11 +1689,16 @@
             "CG": "Improved",
             "GG": "Optimal"
         },
-        "scores": {
-            "CC": 5,
-            "CG": 6,
-            "GG": 6
-        }
+        "function": {
+            "CC": "normal",
+            "CG": "GoF",
+            "GG": "GoF"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "GoF": "neutral"
+        },
+        "polarity_source": "library ratings"
     },
     "rs1501299": {
         "gene": "ADIPOQ",
@@ -1387,12 +1711,15 @@
             "GT": "Typical adiponectin levels",
             "TT": "Higher adiponectin levels"
         },
-        "scores": {
-            "GG": 5,
-            "GT": 5,
-            "TT": 5
+        "audit": "No functional evidence and no genome-wide study: neutral scores, texts kept as the library's claim.",
+        "function": {
+            "GG": "unknown",
+            "GT": "unknown",
+            "TT": "unknown"
         },
-        "audit": "No functional evidence and no genome-wide study: neutral scores, texts kept as the library's claim."
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs1137101": {
         "gene": "LEPR",
@@ -1406,12 +1733,15 @@
             "GA": "Slightly reduced receptor efficiency",
             "GG": "More reduced leptin receptor signaling"
         },
-        "scores": {
-            "AA": 6,
-            "AG": 5,
-            "GA": 5,
-            "GG": 4
-        }
+        "function": {
+            "AA": "unknown",
+            "AG": "unknown",
+            "GA": "unknown",
+            "GG": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs1799883": {
         "gene": "FABP2",
@@ -1425,12 +1755,15 @@
             "AG": "Slightly higher fat absorption",
             "AA": "Higher fat absorption tendency"
         },
-        "scores": {
-            "GG": 5,
-            "GA": 6,
-            "AG": 6,
-            "AA": 7
-        }
+        "function": {
+            "GG": "normal",
+            "GA": "normal",
+            "AG": "normal",
+            "AA": "normal"
+        },
+        "function_basis": "expression",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs1205": {
         "gene": "CRP",
@@ -1443,11 +1776,14 @@
             "CT": "Typical CRP",
             "TT": "Higher baseline CRP tendency"
         },
-        "scores": {
-            "CC": 9,
-            "CT": 6,
-            "TT": 3
-        }
+        "function": {
+            "CC": "unknown",
+            "CT": "unknown",
+            "TT": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs16944": {
         "gene": "IL1B (Promoter)",
@@ -1460,11 +1796,16 @@
             "AG": "Moderate reactivity",
             "AA": "High inflammatory reactivity"
         },
-        "scores": {
-            "GG": 7,
-            "AG": 5,
-            "AA": 3
-        }
+        "function": {
+            "GG": "normal",
+            "AG": "GoF",
+            "AA": "GoF"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "GoF": "negative"
+        },
+        "polarity_source": "library wording"
     },
     "rs2228145": {
         "gene": "IL6R",
@@ -1478,12 +1819,17 @@
             "CA": "Altered IL-6 signaling balance",
             "CC": "More altered IL-6 receptor profile"
         },
-        "scores": {
-            "AA": 5,
-            "AC": 5,
-            "CA": 5,
-            "CC": 4
-        }
+        "function": {
+            "AA": "normal",
+            "AC": "altered",
+            "CA": "altered",
+            "CC": "altered"
+        },
+        "function_basis": "curated",
+        "polarity": {
+            "altered": "neutral"
+        },
+        "polarity_source": "library ratings"
     },
     "rs1544410": {
         "gene": "VDR (BsmI)",
@@ -1496,11 +1842,14 @@
             "CT": "Slightly altered receptor efficiency",
             "TT": "More altered receptor signaling pattern"
         },
-        "scores": {
-            "CC": 6,
-            "CT": 5,
-            "TT": 4
-        }
+        "function": {
+            "CC": "unknown",
+            "CT": "unknown",
+            "TT": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs6311": {
         "gene": "HTR2A",
@@ -1513,11 +1862,16 @@
             "CT": "Altered 5-HT2A receptor expression/signaling",
             "TT": "Reduced 5-HT2A receptor expression/signaling"
         },
-        "scores": {
-            "CC": 7,
-            "CT": 5,
-            "TT": 3
-        }
+        "function": {
+            "CC": "normal",
+            "CT": "altered",
+            "TT": "altered"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "altered": "negative"
+        },
+        "polarity_source": "library ratings"
     },
     "rs6295": {
         "gene": "HTR1A",
@@ -1530,12 +1884,15 @@
             "CG": "Intermediate",
             "GG": "Lower"
         },
-        "scores": {
-            "CC": 5,
-            "CG": 5,
-            "GG": 5
+        "audit": "No functional evidence and no genome-wide study: neutral scores, texts kept as the library's claim.",
+        "function": {
+            "CC": "unknown",
+            "CG": "unknown",
+            "GG": "unknown"
         },
-        "audit": "No functional evidence and no genome-wide study: neutral scores, texts kept as the library's claim."
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs3731249": {
         "gene": "CDKN2A",
@@ -1548,11 +1905,14 @@
             "CT": "Moderately reduced control",
             "TT": "Weaker checkpoint control (higher stress sensitivity)"
         },
-        "scores": {
-            "CC": 9,
-            "CT": 6,
-            "TT": 3
-        }
+        "function": {
+            "CC": "unknown",
+            "CT": "unknown",
+            "TT": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs25487": {
         "gene": "XRCC1",
@@ -1565,11 +1925,16 @@
             "CT": "Moderate repair efficiency",
             "TT": "Reduced repair efficiency"
         },
-        "scores": {
-            "CC": 9,
-            "CT": 6,
-            "TT": 3
-        }
+        "function": {
+            "CC": "normal",
+            "CT": "altered",
+            "TT": "altered"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "altered": "negative"
+        },
+        "polarity_source": "library ratings"
     },
     "rs13181": {
         "gene": "ERCC2",
@@ -1582,11 +1947,16 @@
             "GT": "Intermediate",
             "TT": "Risk"
         },
-        "scores": {
-            "GG": 5,
-            "GT": 5,
-            "TT": 5
-        }
+        "function": {
+            "GG": "LoF",
+            "GT": "LoF",
+            "TT": "normal"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "LoF": "neutral"
+        },
+        "polarity_source": "library ratings"
     },
     "rs1801516": {
         "gene": "ATM",
@@ -1600,12 +1970,17 @@
             "AG": "Moderate signaling",
             "AA": "Reduced ATM activity"
         },
-        "scores": {
-            "GG": 8,
-            "GA": 6,
-            "AG": 6,
-            "AA": 4
-        }
+        "function": {
+            "GG": "normal",
+            "GA": "LoF",
+            "AG": "LoF",
+            "AA": "LoF"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "LoF": "negative"
+        },
+        "polarity_source": "library wording"
     },
     "rs11615": {
         "gene": "ERCC1",
@@ -1618,12 +1993,17 @@
             "AG": "Typical repair capacity",
             "AA": "Reduced ERCC1 activity"
         },
-        "scores": {
-            "GG": 9,
-            "AG": 6,
-            "AA": 5
+        "audit": "AA is carried by 39% of Europeans: risk score raised to 5.",
+        "function": {
+            "GG": "GoF",
+            "AG": "GoF",
+            "AA": "normal"
         },
-        "audit": "AA is carried by 39% of Europeans: risk score raised to 5."
+        "function_basis": "expression",
+        "polarity": {
+            "GoF": "positive"
+        },
+        "polarity_source": "library ratings"
     },
     "rs1042522": {
         "gene": "TP53",
@@ -1636,11 +2016,14 @@
             "CG": "Arg/Pro: balanced response",
             "GG": "Pro/Pro: favours arrest and repair over apoptosis"
         },
-        "scores": {
-            "CC": 7,
-            "CG": 6,
-            "GG": 4
-        }
+        "function": {
+            "CC": "normal",
+            "CG": "normal",
+            "GG": "normal"
+        },
+        "function_basis": "measured",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs1799950": {
         "gene": "BRCA1",
@@ -1653,12 +2036,15 @@
             "CT": "One Gln356Arg copy (no established effect)",
             "CC": "Two Gln356Arg copies (no established effect)"
         },
-        "scores": {
-            "TT": 5,
-            "CT": 5,
-            "CC": 5
+        "audit": "The library called the 88%-common TT low repair; no evidence for an effect. Neutral scores.",
+        "function": {
+            "TT": "unknown",
+            "CT": "unknown",
+            "CC": "unknown"
         },
-        "audit": "The library called the 88%-common TT low repair; no evidence for an effect. Neutral scores."
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs16942": {
         "gene": "BRCA1",
@@ -1671,12 +2057,17 @@
             "CT": "Moderately reduced BRCA1 signaling",
             "TT": "Lower BRCA1 activity"
         },
-        "scores": {
-            "CC": 9,
-            "CT": 6,
-            "TT": 5
+        "audit": "TT is carried by 42% of Europeans: risk score raised to 5.",
+        "function": {
+            "CC": "altered",
+            "CT": "altered",
+            "TT": "normal"
         },
-        "audit": "TT is carried by 42% of Europeans: risk score raised to 5."
+        "function_basis": "expression",
+        "polarity": {
+            "altered": "positive"
+        },
+        "polarity_source": "library ratings"
     },
     "rs601338": {
         "gene": "FUT2",
@@ -1689,12 +2080,17 @@
             "AG": "Secretor (one non-secretor copy)",
             "AA": "Non-secretor (reduced Bifidobacteria; norovirus resistance)"
         },
-        "scores": {
-            "GG": 6,
-            "AG": 5,
-            "AA": 4
+        "audit": "A is the W143X stop (non-secretor); the library had AA as full secretor.",
+        "function": {
+            "GG": "normal",
+            "AG": "LoF",
+            "AA": "LoF"
         },
-        "audit": "A is the W143X stop (non-secretor); the library had AA as full secretor."
+        "function_basis": "truncating",
+        "polarity": {
+            "LoF": "negative"
+        },
+        "polarity_source": "library wording"
     },
     "rs4988235": {
         "gene": "LCT",
@@ -1707,11 +2103,14 @@
             "AG": "Mixed tolerance",
             "AA": "Lactase persistent (tolerant)"
         },
-        "scores": {
-            "GG": 3,
-            "AG": 5,
-            "AA": 8
-        }
+        "function": {
+            "GG": "unknown",
+            "AG": "unknown",
+            "AA": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs1229984": {
         "gene": "ADH1B",
@@ -1725,12 +2124,15 @@
             "TC": "Fast conversion",
             "TT": "Very fast conversion (strong flush + aversion)"
         },
-        "scores": {
-            "CC": 5,
-            "CT": 6,
-            "TC": 6,
-            "TT": 7
-        }
+        "function": {
+            "CC": "unknown",
+            "CT": "unknown",
+            "TC": "unknown",
+            "TT": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs17653216": {
         "gene": "MGAM",
@@ -1744,12 +2146,15 @@
             "TC": "Moderate digestion",
             "TT": "Reduced MGAM activity"
         },
-        "scores": {
-            "CC": 7,
-            "CT": 5,
-            "TC": 5,
-            "TT": 4
-        }
+        "function": {
+            "CC": "unknown",
+            "CT": "unknown",
+            "TC": "unknown",
+            "TT": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs10065172": {
         "gene": "IRGM",
@@ -1763,12 +2168,17 @@
             "TC": "Moderate risk increase",
             "TT": "Higher Crohn's susceptibility"
         },
-        "scores": {
-            "CC": 7,
-            "CT": 5,
-            "TC": 5,
-            "TT": 3
-        }
+        "function": {
+            "CC": "normal",
+            "CT": "GoF",
+            "TC": "GoF",
+            "TT": "GoF"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "GoF": "negative"
+        },
+        "polarity_source": "library ratings"
     },
     "rs2241880": {
         "gene": "ATG16L1",
@@ -1781,11 +2191,16 @@
             "AG": "Mildly reduced bacterial clearance",
             "GG": "Reduced autophagy (Ala/Ala, higher Crohn's risk)"
         },
-        "scores": {
-            "AA": 7,
-            "AG": 5,
-            "GG": 3
-        }
+        "function": {
+            "AA": "normal",
+            "AG": "altered",
+            "GG": "altered"
+        },
+        "function_basis": "curated",
+        "polarity": {
+            "altered": "negative"
+        },
+        "polarity_source": "library ratings"
     },
     "rs660339": {
         "gene": "UCP2",
@@ -1798,11 +2213,16 @@
             "AG": "Balanced coupling",
             "AA": "Higher uncoupling (higher caloric burn, lower efficiency)"
         },
-        "scores": {
-            "GG": 7,
-            "AG": 5,
-            "AA": 3
-        }
+        "function": {
+            "GG": "normal",
+            "AG": "GoF",
+            "AA": "GoF"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "GoF": "negative"
+        },
+        "polarity_source": "library wording"
     },
     "rs8192678": {
         "gene": "PPARGC1A (PGC-1α)",
@@ -1816,13 +2236,16 @@
             "TC": "Moderate",
             "TT": "Reduced mitochondrial adaptation capacity"
         },
-        "scores": {
-            "CC": 5,
-            "CT": 5,
-            "TC": 5,
-            "TT": 5
+        "audit": "No functional evidence and no genome-wide study: neutral scores, texts kept as the library's claim.",
+        "function": {
+            "CC": "unknown",
+            "CT": "unknown",
+            "TC": "unknown",
+            "TT": "unknown"
         },
-        "audit": "No functional evidence and no genome-wide study: neutral scores, texts kept as the library's claim."
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs1042173": {
         "gene": "SLC6A4",
@@ -1835,11 +2258,16 @@
             "AC": "Moderate central fatigue",
             "AA": "Lower central fatigue tendency"
         },
-        "scores": {
-            "CC": 3,
-            "AC": 6,
-            "AA": 9
-        }
+        "function": {
+            "CC": "LoF",
+            "AC": "LoF",
+            "AA": "normal"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "LoF": "negative"
+        },
+        "polarity_source": "library ratings"
     },
     "rs4994": {
         "gene": "ADRB3",
@@ -1852,12 +2280,15 @@
             "AG": "Moderate thermogenesis",
             "AA": "Reduced thermogenesis / weight regain tendency"
         },
-        "scores": {
-            "GG": 5,
-            "AG": 5,
-            "AA": 5
+        "audit": "No functional evidence and no genome-wide study: neutral scores, texts kept as the library's claim.",
+        "function": {
+            "GG": "unknown",
+            "AG": "unknown",
+            "AA": "unknown"
         },
-        "audit": "No functional evidence and no genome-wide study: neutral scores, texts kept as the library's claim."
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs8192675": {
         "gene": "SLC2A2",
@@ -1870,11 +2301,16 @@
             "CT": "Slightly lower GLUT2 expression",
             "CC": "Lower GLUT2 expression (better metformin response)"
         },
-        "scores": {
-            "TT": 6,
-            "CT": 5,
-            "CC": 4
-        }
+        "function": {
+            "TT": "normal",
+            "CT": "LoF",
+            "CC": "LoF"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "LoF": "negative"
+        },
+        "polarity_source": "library wording"
     },
     "rs2070744": {
         "gene": "NOS3",
@@ -1887,11 +2323,14 @@
             "TC": "Moderate eNOS activity, balanced NO production.",
             "CC": "Reduced eNOS activity, impaired NO production."
         },
-        "scores": {
-            "TT": 9,
-            "TC": 6,
-            "CC": 3
-        }
+        "function": {
+            "TT": "unknown",
+            "TC": "unknown",
+            "CC": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs1049434": {
         "gene": "SLC16A1",
@@ -1904,11 +2343,16 @@
             "AT": "Intermediate lactate transport",
             "TT": "Efficient lactate transport (Glu/Glu)"
         },
-        "scores": {
-            "AA": 4,
-            "AT": 5,
-            "TT": 7
-        }
+        "function": {
+            "AA": "normal",
+            "AT": "LoF",
+            "TT": "LoF"
+        },
+        "function_basis": "curated",
+        "polarity": {
+            "LoF": "positive"
+        },
+        "polarity_source": "library ratings"
     },
     "rs6259": {
         "gene": "SHBG",
@@ -1921,12 +2365,15 @@
             "AG": "Higher SHBG (one Asp327Asn copy)",
             "AA": "Higher SHBG (two Asp327Asn copies)"
         },
-        "scores": {
-            "GG": 5,
-            "AG": 5,
-            "AA": 5
+        "audit": "A (Asn327) raises SHBG, and the library's C/G keys didn't match this G/A SNP. Neutral scores.",
+        "function": {
+            "GG": "normal",
+            "AG": "LoF",
+            "AA": "LoF"
         },
-        "audit": "A (Asn327) raises SHBG, and the library's C/G keys didn't match this G/A SNP. Neutral scores."
+        "function_basis": "expression",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs2486758": {
         "gene": "CYP17A1",
@@ -1939,11 +2386,14 @@
             "CT": "Moderate testosterone synthesis capacity",
             "CC": "Higher testosterone synthesis capacity"
         },
-        "scores": {
-            "TT": 6,
-            "CT": 8,
-            "CC": 9
-        }
+        "function": {
+            "TT": "unknown",
+            "CT": "unknown",
+            "CC": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs2293275": {
         "gene": "LHCGR",
@@ -1956,11 +2406,16 @@
             "CT": "Intermediate",
             "TT": "Reduced"
         },
-        "scores": {
-            "CC": 7,
-            "CT": 5,
-            "TT": 3
-        }
+        "function": {
+            "CC": "normal",
+            "CT": "LoF",
+            "TT": "LoF"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "LoF": "negative"
+        },
+        "polarity_source": "library wording"
     },
     "rs6165": {
         "gene": "FSHR",
@@ -1973,11 +2428,14 @@
             "AG": "Moderate FSH receptor sensitivity",
             "GG": "Lower FSH receptor sensitivity"
         },
-        "scores": {
-            "AA": 9,
-            "AG": 6,
-            "GG": 3
-        }
+        "function": {
+            "AA": "normal",
+            "AG": "normal",
+            "GG": "normal"
+        },
+        "function_basis": "expression",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs6166": {
         "gene": "FSHR",
@@ -1990,11 +2448,16 @@
             "CT": "Intermediate",
             "CC": "Reduced receptor signaling"
         },
-        "scores": {
-            "TT": 7,
-            "CT": 5,
-            "CC": 3
-        }
+        "function": {
+            "TT": "normal",
+            "CT": "LoF",
+            "CC": "LoF"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "LoF": "negative"
+        },
+        "polarity_source": "library wording"
     },
     "rs1047303": {
         "gene": "HSD3B1",
@@ -2007,11 +2470,14 @@
             "AC": "One stable copy (1245C)",
             "CC": "Stable enzyme: more DHEA-to-androgen conversion"
         },
-        "scores": {
-            "AA": 6,
-            "AC": 5,
-            "CC": 4
-        }
+        "function": {
+            "AA": "unknown",
+            "AC": "unknown",
+            "CC": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs523349": {
         "gene": "SRD5A2",
@@ -2024,11 +2490,16 @@
             "CG": "Slightly lower DHT conversion",
             "GG": "Lower DHT conversion (Leu/Leu)"
         },
-        "scores": {
-            "CC": 5,
-            "CG": 6,
-            "GG": 7
-        }
+        "function": {
+            "CC": "altered",
+            "CG": "altered",
+            "GG": "normal"
+        },
+        "function_basis": "curated",
+        "polarity": {
+            "altered": "negative"
+        },
+        "polarity_source": "library ratings"
     },
     "rs45446698": {
         "gene": "CYP3A7",
@@ -2041,11 +2512,14 @@
             "GT": "One *1C copy: lower DHEA-S",
             "GG": "Two *1C copies: markedly lower DHEA-S"
         },
-        "scores": {
-            "TT": 6,
-            "GT": 4,
-            "GG": 3
-        }
+        "function": {
+            "TT": "normal",
+            "GT": "GoF",
+            "GG": "GoF"
+        },
+        "function_basis": "expression",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs1800012": {
         "gene": "COL1A1",
@@ -2058,12 +2532,15 @@
             "AC": "Slightly stronger collagen fibers",
             "AA": "Higher stiffness and lower hypermobility risk"
         },
-        "scores": {
-            "CC": 5,
-            "AC": 5,
-            "AA": 5
+        "audit": "No functional evidence and no genome-wide study: neutral scores, texts kept as the library's claim.",
+        "function": {
+            "CC": "unknown",
+            "AC": "unknown",
+            "AA": "unknown"
         },
-        "audit": "No functional evidence and no genome-wide study: neutral scores, texts kept as the library's claim."
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs1800255": {
         "gene": "COL3A1",
@@ -2076,11 +2553,14 @@
             "CT": "Moderately reduced collagen type III strength; increased tissue laxity.",
             "TT": "Significantly reduced collagen type III strength; increased hypermobility and fragility."
         },
-        "scores": {
-            "CC": 9,
-            "CT": 6,
-            "TT": 3
-        }
+        "function": {
+            "CC": "unknown",
+            "CT": "unknown",
+            "TT": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs679620": {
         "gene": "MMP3",
@@ -2093,11 +2573,14 @@
             "CT": "Balanced remodeling",
             "CC": "Faster remodeling and repair"
         },
-        "scores": {
-            "TT": 4,
-            "CT": 5,
-            "CC": 7
-        }
+        "function": {
+            "TT": "unknown",
+            "CT": "unknown",
+            "CC": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs143383": {
         "gene": "GDF5",
@@ -2110,11 +2593,16 @@
             "AG": "Typical cartilage formation",
             "AA": "Higher injury and osteoarthritis risk"
         },
-        "scores": {
-            "GG": 9,
-            "AG": 6,
-            "AA": 3
-        }
+        "function": {
+            "GG": "altered",
+            "AG": "altered",
+            "AA": "normal"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "altered": "positive"
+        },
+        "polarity_source": "library ratings"
     },
     "rs1800790": {
         "gene": "FGB",
@@ -2127,11 +2615,14 @@
             "CT": "Moderately elevated fibrinogen, balanced impact on repair and risk.",
             "TT": "Higher fibrinogen levels, potentially impacting optimal tissue repair and increasing cardiovascular risk."
         },
-        "scores": {
-            "CC": 8,
-            "CT": 6,
-            "TT": 4
-        }
+        "function": {
+            "CC": "normal",
+            "CT": "LoF",
+            "TT": "LoF"
+        },
+        "function_basis": "expression",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs5751876": {
         "gene": "ADORA2A",
@@ -2145,12 +2636,17 @@
             "CT": "Moderate sensitivity",
             "CC": "Low sensitivity / calmer with caffeine"
         },
-        "scores": {
-            "TT": 3,
-            "TC": 5,
-            "CT": 5,
-            "CC": 7
-        }
+        "function": {
+            "TT": "LoF",
+            "TC": "LoF",
+            "CT": "LoF",
+            "CC": "normal"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "LoF": "negative"
+        },
+        "polarity_source": "library ratings"
     },
     "rs738409": {
         "gene": "PNPLA3",
@@ -2163,11 +2659,16 @@
             "CG": "Intermediate",
             "GG": "High"
         },
-        "scores": {
-            "CC": 7,
-            "CG": 5,
-            "GG": 5
-        }
+        "function": {
+            "CC": "normal",
+            "CG": "altered",
+            "GG": "altered"
+        },
+        "function_basis": "curated",
+        "polarity": {
+            "altered": "negative"
+        },
+        "polarity_source": "library ratings"
     },
     "rs4654748": {
         "gene": "ALPL",
@@ -2180,12 +2681,15 @@
             "CT": "Slightly lower vitamin B6",
             "TT": "Higher vitamin B6 levels"
         },
-        "scores": {
-            "CC": 5,
-            "CT": 5,
-            "TT": 7
+        "audit": "CC is carried by 28% of Europeans: risk score raised to 5.",
+        "function": {
+            "CC": "normal",
+            "CT": "LoF",
+            "TT": "LoF"
         },
-        "audit": "CC is carried by 28% of Europeans: risk score raised to 5."
+        "function_basis": "expression",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs12203592": {
         "gene": "IRF4",
@@ -2198,12 +2702,17 @@
             "CT": "Higher UV sensitivity, more freckling",
             "TT": "High UV sensitivity, lighter skin and freckling"
         },
-        "scores": {
-            "CC": 7,
-            "CT": 5,
-            "TT": 3
+        "audit": "T is the sun-sensitivity and freckling allele; the library had it as darker skin.",
+        "function": {
+            "CC": "normal",
+            "CT": "altered",
+            "TT": "altered"
         },
-        "audit": "T is the sun-sensitivity and freckling allele; the library had it as darker skin."
+        "function_basis": "expression",
+        "polarity": {
+            "altered": "negative"
+        },
+        "polarity_source": "library ratings"
     },
     "rs1805007": {
         "gene": "MC1R",
@@ -2216,11 +2725,16 @@
             "CT": "Weaker UV protection",
             "TT": "High sun sensitivity / rapid photoaging"
         },
-        "scores": {
-            "CC": 9,
-            "CT": 6,
-            "TT": 2
-        }
+        "function": {
+            "CC": "normal",
+            "CT": "LoF",
+            "TT": "LoF"
+        },
+        "function_basis": "curated",
+        "polarity": {
+            "LoF": "negative"
+        },
+        "polarity_source": "library ratings"
     },
     "rs885479": {
         "gene": "MC1R",
@@ -2233,12 +2747,17 @@
             "AG": "One Arg163Gln copy (weak effect on pigment)",
             "AA": "Two Arg163Gln copies (weak effect on pigment)"
         },
-        "scores": {
-            "GG": 5,
-            "AG": 5,
-            "AA": 5
+        "audit": "The library scored the 87%-common GG as high pheomelanin; Arg163Gln is a weak MC1R variant. Neutral scores.",
+        "function": {
+            "GG": "normal",
+            "AG": "altered",
+            "AA": "altered"
         },
-        "audit": "The library scored the 87%-common GG as high pheomelanin; Arg163Gln is a weak MC1R variant. Neutral scores."
+        "function_basis": "curated",
+        "polarity": {
+            "altered": "neutral"
+        },
+        "polarity_source": "library ratings"
     },
     "rs1042602": {
         "gene": "TYR",
@@ -2252,12 +2771,15 @@
             "AC": "Moderate UV sensitivity",
             "AA": "Higher UV sensitivity"
         },
-        "scores": {
-            "CC": 7,
-            "CA": 5,
-            "AC": 5,
-            "AA": 3
-        }
+        "function": {
+            "CC": "normal",
+            "CA": "normal",
+            "AC": "normal",
+            "AA": "normal"
+        },
+        "function_basis": "measured",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs1110400": {
         "gene": "MC1R",
@@ -2270,11 +2792,16 @@
             "CT": "Carrier of a strong red-hair variant (I155T)",
             "CC": "Two copies: very fair, UV-sensitive skin"
         },
-        "scores": {
-            "TT": 6,
-            "CT": 4,
-            "CC": 2
-        }
+        "function": {
+            "TT": "normal",
+            "CT": "LoF",
+            "CC": "LoF"
+        },
+        "function_basis": "curated",
+        "polarity": {
+            "LoF": "negative"
+        },
+        "polarity_source": "library ratings"
     },
     "rs559870": {
         "gene": "MMP3",
@@ -2287,12 +2814,15 @@
             "CT": "Balanced remodeling",
             "TT": "Slower remodeling"
         },
-        "scores": {
-            "CC": 5,
-            "CT": 5,
-            "TT": 5
+        "audit": "No functional evidence and no genome-wide study: neutral scores, texts kept as the library's claim.",
+        "function": {
+            "CC": "unknown",
+            "CT": "unknown",
+            "TT": "unknown"
         },
-        "audit": "No functional evidence and no genome-wide study: neutral scores, texts kept as the library's claim."
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs174537": {
         "gene": "FADS1",
@@ -2305,11 +2835,16 @@
             "GT": "Moderate conversion",
             "TT": "Low EPA/DHA conversion (higher inflammation)"
         },
-        "scores": {
-            "GG": 9,
-            "GT": 6,
-            "TT": 3
-        }
+        "function": {
+            "GG": "normal",
+            "GT": "LoF",
+            "TT": "LoF"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "LoF": "negative"
+        },
+        "polarity_source": "library wording"
     },
     "rs10757278": {
         "gene": "CDKN2B-AS1",
@@ -2323,12 +2858,15 @@
             "GA": "Moderate risk",
             "GG": "High CAD susceptibility"
         },
-        "scores": {
-            "AA": 7,
-            "AG": 5,
-            "GA": 5,
-            "GG": 3
-        }
+        "function": {
+            "AA": "unknown",
+            "AG": "unknown",
+            "GA": "unknown",
+            "GG": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs558972": {
         "gene": "GCK",
@@ -2342,12 +2880,15 @@
             "TC": "Typical fasting glucose",
             "TT": "Higher fasting glucose"
         },
-        "scores": {
-            "CC": 7,
-            "CT": 5,
-            "TC": 5,
-            "TT": 4
-        }
+        "function": {
+            "CC": "unknown",
+            "CT": "unknown",
+            "TC": "unknown",
+            "TT": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs5219": {
         "gene": "KCNJ11",
@@ -2361,12 +2902,17 @@
             "TC": "Moderate",
             "TT": "Reduced insulin release"
         },
-        "scores": {
-            "CC": 7,
-            "CT": 5,
-            "TC": 5,
-            "TT": 3
-        }
+        "function": {
+            "CC": "normal",
+            "CT": "LoF",
+            "TC": "LoF",
+            "TT": "LoF"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "LoF": "negative"
+        },
+        "polarity_source": "library wording"
     },
     "rs9923231": {
         "gene": "VKORC1",
@@ -2379,11 +2925,16 @@
             "CT": "Moderate efficiency",
             "TT": "Low recycling (higher calcification risk)"
         },
-        "scores": {
-            "CC": 9,
-            "CT": 6,
-            "TT": 3
-        }
+        "function": {
+            "CC": "normal",
+            "CT": "altered",
+            "TT": "altered"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "altered": "negative"
+        },
+        "polarity_source": "library ratings"
     },
     "rs4253778": {
         "gene": "PPARA",
@@ -2396,11 +2947,14 @@
             "CG": "Intermediate fat oxidation efficiency.",
             "GG": "Efficient fat oxidation, beneficial for endurance."
         },
-        "scores": {
-            "CC": 3,
-            "CG": 6,
-            "GG": 9
-        }
+        "function": {
+            "CC": "unknown",
+            "CG": "unknown",
+            "GG": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs53576": {
         "gene": "OXTR",
@@ -2414,12 +2968,17 @@
             "AG": "Intermediate",
             "AA": "Lower oxytocin sensitivity (More analytical / higher stress response)"
         },
-        "scores": {
-            "GG": 8,
-            "GA": 5,
-            "AG": 5,
-            "AA": 3
-        }
+        "function": {
+            "GG": "normal",
+            "GA": "GoF",
+            "AG": "GoF",
+            "AA": "GoF"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "GoF": "negative"
+        },
+        "polarity_source": "library wording"
     },
     "rs324420": {
         "gene": "FAAH",
@@ -2433,12 +2992,17 @@
             "AC": "Slower breakdown (Higher anandamide / Lower anxiety)",
             "AA": "Slowest breakdown (High pain tolerance / Low anxiety)"
         },
-        "scores": {
-            "CC": 5,
-            "CA": 7,
-            "AC": 7,
-            "AA": 9
-        }
+        "function": {
+            "CC": "normal",
+            "CA": "LoF",
+            "AC": "LoF",
+            "AA": "LoF"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "LoF": "positive"
+        },
+        "polarity_source": "library wording"
     },
     "rs33972313": {
         "gene": "SLC23A1",
@@ -2451,11 +3015,14 @@
             "CT": "Reduced absorption",
             "TT": "Low absorption (Higher Vitamin C requirement)"
         },
-        "scores": {
-            "CC": 9,
-            "CT": 5,
-            "TT": 3
-        }
+        "function": {
+            "CC": "unknown",
+            "CT": "unknown",
+            "TT": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs7946": {
         "gene": "PEMT",
@@ -2469,13 +3036,16 @@
             "TC": "Reduced synthesis (Higher dietary choline need)",
             "TT": "Low synthesis (High risk of deficiency / liver fat)"
         },
-        "scores": {
-            "CC": 8,
-            "CT": 5,
-            "TC": 5,
-            "TT": 5
+        "audit": "TT is carried by 50% of Europeans: risk score raised to 5.",
+        "function": {
+            "CC": "unknown",
+            "CT": "unknown",
+            "TC": "unknown",
+            "TT": "unknown"
         },
-        "audit": "TT is carried by 50% of Europeans: risk score raised to 5."
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs713598": {
         "gene": "TAS2R38",
@@ -2488,12 +3058,15 @@
             "CG": "Intermediate",
             "GG": "Super Taster"
         },
-        "scores": {
-            "CC": 5,
-            "CG": 6,
-            "GG": 9
+        "audit": "CC is carried by 33% of Europeans: risk score raised to 5.",
+        "function": {
+            "CC": "unknown",
+            "CG": "unknown",
+            "GG": "unknown"
         },
-        "audit": "CC is carried by 33% of Europeans: risk score raised to 5."
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs6323": {
         "gene": "MAOA",
@@ -2506,12 +3079,17 @@
             "TG": "Intermediate activity - Balanced neurotransmitter breakdown.",
             "GG": "High activity - Efficient neurotransmitter breakdown."
         },
-        "scores": {
-            "TT": 5,
-            "TG": 5,
-            "GG": 8
+        "audit": "TT is carried by 51% of Europeans: risk score raised to 5.",
+        "function": {
+            "TT": "normal",
+            "TG": "altered",
+            "GG": "altered"
         },
-        "audit": "TT is carried by 51% of Europeans: risk score raised to 5."
+        "function_basis": "expression",
+        "polarity": {
+            "altered": "positive"
+        },
+        "polarity_source": "library ratings"
     },
     "rs17822931": {
         "gene": "ABCC11",
@@ -2525,13 +3103,18 @@
             "TC": "Wet earwax / Moderate body odor",
             "TT": "Dry earwax / No body odor (East Asian trait)"
         },
-        "scores": {
-            "CC": 5,
-            "CT": 5,
-            "TC": 5,
-            "TT": 9
+        "audit": "CC is carried by 75% of Europeans: risk score raised to 5.",
+        "function": {
+            "CC": "normal",
+            "CT": "LoF",
+            "TC": "LoF",
+            "TT": "LoF"
         },
-        "audit": "CC is carried by 75% of Europeans: risk score raised to 5."
+        "function_basis": "curated",
+        "polarity": {
+            "LoF": "positive"
+        },
+        "polarity_source": "library ratings"
     },
     "rs5400": {
         "gene": "SLC2A2",
@@ -2544,11 +3127,14 @@
             "CT": "Moderately impaired glucose sensing",
             "TT": "Significantly impaired glucose sensing, higher sweet tooth"
         },
-        "scores": {
-            "CC": 9,
-            "CT": 6,
-            "TT": 3
-        }
+        "function": {
+            "CC": "normal",
+            "CT": "GoF",
+            "TT": "GoF"
+        },
+        "function_basis": "expression",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs1799971": {
         "gene": "OPRM1",
@@ -2562,12 +3148,17 @@
             "GA": "Higher pain sensitivity / lower opiate response",
             "GG": "Highest pain sensitivity / social distress sensitivity"
         },
-        "scores": {
-            "AA": 7,
-            "AG": 5,
-            "GA": 5,
-            "GG": 3
-        }
+        "function": {
+            "AA": "normal",
+            "AG": "GoF",
+            "GA": "GoF",
+            "GG": "GoF"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "GoF": "negative"
+        },
+        "polarity_source": "library ratings"
     },
     "rs2395185": {
         "gene": "HLA-DQA1",
@@ -2581,12 +3172,17 @@
             "TG": "Increased Celiac risk",
             "TT": "High Celiac risk carrier"
         },
-        "scores": {
-            "GG": 8,
-            "GT": 5,
-            "TG": 5,
-            "TT": 2
-        }
+        "function": {
+            "GG": "normal",
+            "GT": "LoF",
+            "TG": "LoF",
+            "TT": "LoF"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "LoF": "negative"
+        },
+        "polarity_source": "library ratings"
     },
     "rs3749034": {
         "gene": "GAD1",
@@ -2599,11 +3195,16 @@
             "GA": "Moderate GABA production",
             "AA": "Reduced GABA production / higher anxiety tendency"
         },
-        "scores": {
-            "GG": 9,
-            "GA": 6,
-            "AA": 3
-        }
+        "function": {
+            "GG": "normal",
+            "GA": "LoF",
+            "AA": "LoF"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "LoF": "negative"
+        },
+        "polarity_source": "library wording"
     },
     "rs1049353": {
         "gene": "CNR1",
@@ -2616,11 +3217,14 @@
             "CT": "Altered CB1 receptor signaling",
             "TT": "Associated with higher anxiety / abdominal obesity"
         },
-        "scores": {
-            "CC": 7,
-            "CT": 5,
-            "TT": 4
-        }
+        "function": {
+            "CC": "unknown",
+            "CT": "unknown",
+            "TT": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs4961": {
         "gene": "ADD1",
@@ -2634,12 +3238,17 @@
             "TG": "Moderate salt sensitivity",
             "TT": "High salt sensitivity (Sodium retention)"
         },
-        "scores": {
-            "GG": 8,
-            "GT": 5,
-            "TG": 5,
-            "TT": 3
-        }
+        "function": {
+            "GG": "normal",
+            "GT": "LoF",
+            "TG": "LoF",
+            "TT": "LoF"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "LoF": "negative"
+        },
+        "polarity_source": "library ratings"
     },
     "rs1800955": {
         "gene": "DRD4",
@@ -2653,13 +3262,16 @@
             "TC": "Moderate novelty seeking",
             "TT": "High novelty seeking / impulsive tendencies"
         },
-        "scores": {
-            "CC": 7,
-            "CT": 5,
-            "TC": 5,
-            "TT": 5
+        "audit": "TT is carried by 35% of Europeans: risk score raised to 5.",
+        "function": {
+            "CC": "unknown",
+            "CT": "unknown",
+            "TC": "unknown",
+            "TT": "unknown"
         },
-        "audit": "TT is carried by 35% of Europeans: risk score raised to 5."
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs4149056": {
         "gene": "SLCO1B1",
@@ -2672,11 +3284,16 @@
             "TC": "Reduced statin transport; moderate myopathy risk.",
             "CC": "Markedly reduced statin transport; high myopathy risk."
         },
-        "scores": {
-            "TT": 8,
-            "TC": 5,
-            "CC": 2
-        }
+        "function": {
+            "TT": "normal",
+            "TC": "LoF",
+            "CC": "LoF"
+        },
+        "function_basis": "cpic",
+        "polarity": {
+            "LoF": "negative"
+        },
+        "polarity_source": "reviewed"
     },
     "rs16969968": {
         "gene": "CHRNA5",
@@ -2690,12 +3307,17 @@
             "AG": "Moderate risk",
             "AA": "High risk of nicotine dependence"
         },
-        "scores": {
-            "GG": 8,
-            "GA": 5,
-            "AG": 5,
-            "AA": 3
-        }
+        "function": {
+            "GG": "normal",
+            "GA": "altered",
+            "AG": "altered",
+            "AA": "altered"
+        },
+        "function_basis": "curated",
+        "polarity": {
+            "altered": "negative"
+        },
+        "polarity_source": "library ratings"
     },
     "rs838133": {
         "gene": "FGF21",
@@ -2709,12 +3331,15 @@
             "AG": "Higher sweet preference",
             "AA": "Highest sweet preference (Sugar seeker)"
         },
-        "scores": {
-            "GG": 7,
-            "GA": 5,
-            "AG": 5,
-            "AA": 4
-        }
+        "function": {
+            "GG": "unknown",
+            "GA": "unknown",
+            "AG": "unknown",
+            "AA": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs324981": {
         "gene": "NPSR1",
@@ -2727,11 +3352,16 @@
             "AT": "Reduced Need",
             "TT": "Short Sleeper"
         },
-        "scores": {
-            "AA": 5,
-            "AT": 5,
-            "TT": 5
-        }
+        "function": {
+            "AA": "normal",
+            "AT": "GoF",
+            "TT": "GoF"
+        },
+        "function_basis": "curated",
+        "polarity": {
+            "GoF": "neutral"
+        },
+        "polarity_source": "library ratings"
     },
     "rs1801253": {
         "gene": "ADRB1",
@@ -2744,11 +3374,16 @@
             "CG": "Intermediate",
             "GG": "Blunted"
         },
-        "scores": {
-            "CC": 7,
-            "CG": 5,
-            "GG": 5
-        }
+        "function": {
+            "CC": "GoF",
+            "CG": "GoF",
+            "GG": "normal"
+        },
+        "function_basis": "curated",
+        "polarity": {
+            "GoF": "positive"
+        },
+        "polarity_source": "library wording"
     },
     "rs10993994": {
         "gene": "MSMB",
@@ -2761,11 +3396,16 @@
             "AG": "Slightly raised prostate risk",
             "AA": "Raised prostate risk (lower MSMB)"
         },
-        "scores": {
-            "GG": 6,
-            "AG": 5,
-            "AA": 4
-        }
+        "function": {
+            "GG": "normal",
+            "AG": "LoF",
+            "AA": "LoF"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "LoF": "negative"
+        },
+        "polarity_source": "library wording"
     },
     "rs713041": {
         "gene": "GPX4",
@@ -2778,12 +3418,17 @@
             "TC": "Moderate GPX4 activity; balanced protection",
             "CC": "Reduced GPX4 activity; higher oxidative stress risk"
         },
-        "scores": {
-            "TT": 9,
-            "TC": 6,
-            "CC": 5
+        "audit": "CC is carried by 30% of Europeans: risk score raised to 5.",
+        "function": {
+            "TT": "LoF",
+            "TC": "LoF",
+            "CC": "normal"
         },
-        "audit": "CC is carried by 30% of Europeans: risk score raised to 5."
+        "function_basis": "expression",
+        "polarity": {
+            "LoF": "positive"
+        },
+        "polarity_source": "library ratings"
     },
     "rs1333049": {
         "gene": "CDKN2A/B",
@@ -2796,12 +3441,15 @@
             "CG": "Increased risk (one 9p21 risk copy)",
             "CC": "Higher risk (two 9p21 risk copies)"
         },
-        "scores": {
-            "GG": 9,
-            "CG": 6,
-            "CC": 3
+        "audit": "C is the coronary artery disease risk allele in the GWAS Catalog; the library had it as normal.",
+        "function": {
+            "GG": "unknown",
+            "CG": "unknown",
+            "CC": "unknown"
         },
-        "audit": "C is the coronary artery disease risk allele in the GWAS Catalog; the library had it as normal."
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs174547": {
         "gene": "FADS2",
@@ -2815,12 +3463,15 @@
             "CT": "Moderate conversion efficiency",
             "CC": "Low conversion efficiency (High requirement for pre-formed DHA/EPA)"
         },
-        "scores": {
-            "TT": 8,
-            "TC": 5,
-            "CT": 5,
-            "CC": 3
-        }
+        "function": {
+            "TT": "normal",
+            "TC": "GoF",
+            "CT": "GoF",
+            "CC": "GoF"
+        },
+        "function_basis": "expression",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs3827760": {
         "gene": "EDAR",
@@ -2833,11 +3484,16 @@
             "GA": "Increased hair thickness/Asian morphology",
             "AA": "Thick hair / Shovel-shaped teeth"
         },
-        "scores": {
-            "GG": 5,
-            "GA": 6,
-            "AA": 8
-        }
+        "function": {
+            "GG": "GoF",
+            "GA": "GoF",
+            "AA": "normal"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "GoF": "neutral"
+        },
+        "polarity_source": "reviewed"
     },
     "rs1800562": {
         "gene": "HFE",
@@ -2851,12 +3507,17 @@
             "AG": "Carrier (Monitor iron/ferritin)",
             "AA": "High risk of iron overload (Hemochromatosis)"
         },
-        "scores": {
-            "GG": 8,
-            "GA": 5,
-            "AG": 5,
-            "AA": 1
-        }
+        "function": {
+            "GG": "normal",
+            "GA": "altered",
+            "AG": "altered",
+            "AA": "altered"
+        },
+        "function_basis": "curated",
+        "polarity": {
+            "altered": "negative"
+        },
+        "polarity_source": "library ratings"
     },
     "rs12785878": {
         "gene": "DHCR7",
@@ -2870,13 +3531,18 @@
             "TG": "Reduced production efficiency",
             "TT": "Low production from sun (Higher dietary need)"
         },
-        "scores": {
-            "GG": 7,
-            "GT": 5,
-            "TG": 5,
-            "TT": 5
+        "audit": "TT is carried by 49% of Europeans: risk score raised to 5.",
+        "function": {
+            "GG": "altered",
+            "GT": "altered",
+            "TG": "altered",
+            "TT": "normal"
         },
-        "audit": "TT is carried by 49% of Europeans: risk score raised to 5."
+        "function_basis": "expression",
+        "polarity": {
+            "altered": "positive"
+        },
+        "polarity_source": "library ratings"
     },
     "rs1256335": {
         "gene": "ALPL",
@@ -2889,11 +3555,14 @@
             "AG": "Reduced transport efficiency",
             "GG": "Lower B6 levels (May need active P5P form)"
         },
-        "scores": {
-            "AA": 7,
-            "AG": 5,
-            "GG": 3
-        }
+        "function": {
+            "AA": "normal",
+            "AG": "GoF",
+            "GG": "GoF"
+        },
+        "function_basis": "expression",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs2231142": {
         "gene": "ABCG2",
@@ -2907,12 +3576,17 @@
             "TG": "Slower removal (Moderate gout risk)",
             "TT": "Poor removal (High gout/hyperuricemia risk)"
         },
-        "scores": {
-            "GG": 8,
-            "GT": 5,
-            "TG": 5,
-            "TT": 2
-        }
+        "function": {
+            "GG": "normal",
+            "GT": "LoF",
+            "TG": "LoF",
+            "TT": "LoF"
+        },
+        "function_basis": "curated",
+        "polarity": {
+            "LoF": "negative"
+        },
+        "polarity_source": "library wording"
     },
     "rs3736228": {
         "gene": "LRP5",
@@ -2925,11 +3599,14 @@
             "CT": "Slightly reduced bone density potential",
             "TT": "Lower bone density / Higher fracture risk"
         },
-        "scores": {
-            "CC": 9,
-            "CT": 6,
-            "TT": 3
-        }
+        "function": {
+            "CC": "unknown",
+            "CT": "unknown",
+            "TT": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs3923809": {
         "gene": "BTBD9",
@@ -2943,12 +3620,15 @@
             "AG": "Increased RLS risk",
             "AA": "High RLS risk"
         },
-        "scores": {
-            "GG": 8,
-            "GA": 5,
-            "AG": 5,
-            "AA": 3
-        }
+        "function": {
+            "GG": "unknown",
+            "GA": "unknown",
+            "AG": "unknown",
+            "AA": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs12913832": {
         "gene": "HERC2",
@@ -2961,11 +3641,16 @@
             "GA": "Intermediate probability of Hazel/Brown eyes",
             "AA": "Highest probability of Brown eyes"
         },
-        "scores": {
-            "GG": 9,
-            "GA": 6,
-            "AA": 3
-        }
+        "function": {
+            "GG": "normal",
+            "GA": "GoF",
+            "AA": "GoF"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "GoF": "neutral"
+        },
+        "polarity_source": "reviewed"
     },
     "rs6152": {
         "gene": "AR",
@@ -2980,13 +3665,18 @@
             "AG": "Carrier (Women)",
             "GG": "Higher thinning risk (Women)"
         },
-        "scores": {
-            "A": 8,
-            "G": 3,
-            "AA": 8,
-            "AG": 5,
-            "GG": 3
-        }
+        "function": {
+            "A": "LoF",
+            "G": "normal",
+            "AA": "LoF",
+            "AG": "LoF",
+            "GG": "normal"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "LoF": "positive"
+        },
+        "polarity_source": "library ratings"
     },
     "rs1611115": {
         "gene": "DBH",
@@ -2999,11 +3689,16 @@
             "CT": "Reduced conversion (Higher dopamine / Lower norepinephrine)",
             "TT": "Low conversion (High dopamine / Low norepinephrine; 'cold hands', lower stress threshold)"
         },
-        "scores": {
-            "CC": 9,
-            "CT": 6,
-            "TT": 3
-        }
+        "function": {
+            "CC": "normal",
+            "CT": "LoF",
+            "TT": "LoF"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "LoF": "negative"
+        },
+        "polarity_source": "library wording"
     },
     "rs4570625": {
         "gene": "TPH2",
@@ -3017,13 +3712,16 @@
             "TG": "Reduced synthesis (Higher emotional reactivity)",
             "TT": "Low synthesis (Susceptibility to mood instability)"
         },
-        "scores": {
-            "GG": 5,
-            "GT": 5,
-            "TG": 5,
-            "TT": 5
+        "audit": "No functional evidence and no genome-wide study: neutral scores, texts kept as the library's claim.",
+        "function": {
+            "GG": "unknown",
+            "GT": "unknown",
+            "TG": "unknown",
+            "TT": "unknown"
         },
-        "audit": "No functional evidence and no genome-wide study: neutral scores, texts kept as the library's claim."
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs1360780": {
         "gene": "FKBP5",
@@ -3037,12 +3735,15 @@
             "TC": "Slower recovery",
             "TT": "Slow recovery (Prolonged stress response)"
         },
-        "scores": {
-            "CC": 7,
-            "CT": 5,
-            "TC": 5,
-            "TT": 3
-        }
+        "function": {
+            "CC": "unknown",
+            "CT": "unknown",
+            "TC": "unknown",
+            "TT": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs8007267": {
         "gene": "GCH1",
@@ -3056,12 +3757,17 @@
             "TC": "High BH4 (Pain protective)",
             "TT": "Highest BH4 (Reduced pain sensitivity)"
         },
-        "scores": {
-            "CC": 5,
-            "CT": 7,
-            "TC": 7,
-            "TT": 9
-        }
+        "function": {
+            "CC": "normal",
+            "CT": "altered",
+            "TC": "altered",
+            "TT": "altered"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "altered": "positive"
+        },
+        "polarity_source": "library ratings"
     },
     "rs4244285": {
         "gene": "CYP2C19",
@@ -3075,12 +3781,17 @@
             "AG": "Intermediate metabolizer",
             "AA": "Poor metabolizer (Drugs may build up to toxic levels)"
         },
-        "scores": {
-            "GG": 8,
-            "GA": 5,
-            "AG": 5,
-            "AA": 2
-        }
+        "function": {
+            "GG": "normal",
+            "GA": "LoF",
+            "AG": "LoF",
+            "AA": "LoF"
+        },
+        "function_basis": "cpic",
+        "polarity": {
+            "LoF": "negative"
+        },
+        "polarity_source": "library wording"
     },
     "rs1045642": {
         "gene": "ABCB1 (MDR1)",
@@ -3093,12 +3804,15 @@
             "AG": "Moderate activity",
             "AA": "Low pump activity (Higher drug sensitivity)"
         },
-        "scores": {
-            "GG": 9,
-            "AG": 6,
-            "AA": 5
+        "audit": "AA is carried by 27% of Europeans: risk score raised to 5.",
+        "function": {
+            "GG": "LoF",
+            "AG": "LoF",
+            "AA": "normal"
         },
-        "audit": "AA is carried by 27% of Europeans: risk score raised to 5."
+        "function_basis": "expression",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs11558538": {
         "gene": "HNMT",
@@ -3112,12 +3826,17 @@
             "TC": "Moderate breakdown",
             "TT": "Slow breakdown (Histamine accumulation)"
         },
-        "scores": {
-            "CC": 7,
-            "CT": 5,
-            "TC": 5,
-            "TT": 3
-        }
+        "function": {
+            "CC": "normal",
+            "CT": "LoF",
+            "TC": "LoF",
+            "TT": "LoF"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "LoF": "negative"
+        },
+        "polarity_source": "library wording"
     },
     "rs1001179": {
         "gene": "CAT",
@@ -3130,11 +3849,14 @@
             "CT": "Moderate levels",
             "TT": "Low Catalase levels (Higher oxidative stress)"
         },
-        "scores": {
-            "CC": 8,
-            "CT": 5,
-            "TT": 4
-        }
+        "function": {
+            "CC": "normal",
+            "CT": "GoF",
+            "TT": "GoF"
+        },
+        "function_basis": "expression",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs1799930": {
         "gene": "NAT2",
@@ -3147,11 +3869,16 @@
             "GA": "Intermediate acetylator",
             "AA": "Slow acetylator (Chemical sensitivity / higher risk from smoke)"
         },
-        "scores": {
-            "GG": 8,
-            "GA": 5,
-            "AA": 3
-        }
+        "function": {
+            "GG": "normal",
+            "GA": "LoF",
+            "AA": "LoF"
+        },
+        "function_basis": "cpic",
+        "polarity": {
+            "LoF": "negative"
+        },
+        "polarity_source": "library wording"
     },
     "rs17070145": {
         "gene": "KIBRA (WWC1)",
@@ -3165,12 +3892,15 @@
             "TC": "Enhanced episodic memory",
             "TT": "Enhanced episodic memory"
         },
-        "scores": {
-            "CC": 5,
-            "CT": 7,
-            "TC": 7,
-            "TT": 8
-        }
+        "function": {
+            "CC": "unknown",
+            "CT": "unknown",
+            "TC": "unknown",
+            "TT": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs1761667": {
         "gene": "CD36",
@@ -3184,13 +3914,16 @@
             "AG": "Moderate sensitivity",
             "AA": "Low sensitivity (Craves creamy/fatty foods)"
         },
-        "scores": {
-            "GG": 7,
-            "GA": 5,
-            "AG": 5,
-            "AA": 5
+        "audit": "AA is carried by 28% of Europeans: risk score raised to 5.",
+        "function": {
+            "GG": "GoF",
+            "GA": "GoF",
+            "AG": "GoF",
+            "AA": "normal"
         },
-        "audit": "AA is carried by 28% of Europeans: risk score raised to 5."
+        "function_basis": "expression",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs73598374": {
         "gene": "ADA",
@@ -3203,11 +3936,16 @@
             "CT": "Slower breakdown (Deeper sleeper / more sleep inertia)",
             "TT": "Slowest breakdown (Deepest sleep)"
         },
-        "scores": {
-            "CC": 6,
-            "CT": 7,
-            "TT": 9
-        }
+        "function": {
+            "CC": "normal",
+            "CT": "LoF",
+            "TT": "LoF"
+        },
+        "function_basis": "curated",
+        "polarity": {
+            "LoF": "positive"
+        },
+        "polarity_source": "library wording"
     },
     "rs20541": {
         "gene": "IL13",
@@ -3221,12 +3959,17 @@
             "AG": "Higher allergy susceptibility",
             "AA": "High allergy/asthma risk"
         },
-        "scores": {
-            "GG": 8,
-            "GA": 5,
-            "AG": 5,
-            "AA": 3
-        }
+        "function": {
+            "GG": "altered",
+            "GA": "altered",
+            "AG": "altered",
+            "AA": "normal"
+        },
+        "function_basis": "curated",
+        "polarity": {
+            "altered": "positive"
+        },
+        "polarity_source": "library ratings"
     },
     "rs2016520": {
         "gene": "PPARD",
@@ -3239,11 +3982,16 @@
             "TC": "Enhanced fat oxidation",
             "CC": "High endurance potential"
         },
-        "scores": {
-            "TT": 6,
-            "TC": 8,
-            "CC": 10
-        }
+        "function": {
+            "TT": "normal",
+            "TC": "GoF",
+            "CC": "GoF"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "GoF": "positive"
+        },
+        "polarity_source": "library wording"
     },
     "rs1800407": {
         "gene": "OCA2",
@@ -3256,11 +4004,14 @@
             "CT": "Green/Hazel tendency",
             "TT": "Blue/Green tendency"
         },
-        "scores": {
-            "CC": 8,
-            "CT": 5,
-            "TT": 2
-        }
+        "function": {
+            "CC": "unknown",
+            "CT": "unknown",
+            "TT": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs35874116": {
         "gene": "TAS1R2",
@@ -3273,12 +4024,15 @@
             "CT": "Moderate sensitivity",
             "TT": "Low sweet sensitivity (May consume more sugar)"
         },
-        "scores": {
-            "CC": 5,
-            "CT": 5,
-            "TT": 5
+        "audit": "No functional evidence and no genome-wide study: neutral scores, texts kept as the library's claim.",
+        "function": {
+            "CC": "unknown",
+            "CT": "unknown",
+            "TT": "unknown"
         },
-        "audit": "No functional evidence and no genome-wide study: neutral scores, texts kept as the library's claim."
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs72921001": {
         "gene": "OR6A2",
@@ -3292,13 +4046,16 @@
             "CA": "Possibility of soapy taste",
             "CC": "Likely soapy taste (Hate cilantro)"
         },
-        "scores": {
-            "AA": 5,
-            "AC": 5,
-            "CA": 5,
-            "CC": 5
+        "audit": "A taste trait from a single study: neutral scores.",
+        "function": {
+            "AA": "unknown",
+            "AC": "unknown",
+            "CA": "unknown",
+            "CC": "unknown"
         },
-        "audit": "A taste trait from a single study: neutral scores."
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs10427255": {
         "gene": "ZEB2",
@@ -3312,12 +4069,15 @@
             "CT": "Likely to sneeze at sun",
             "CC": "Strong photic sneeze reflex"
         },
-        "scores": {
-            "TT": 5,
-            "TC": 6,
-            "CT": 6,
-            "CC": 8
-        }
+        "function": {
+            "TT": "unknown",
+            "TC": "unknown",
+            "CT": "unknown",
+            "CC": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs1803274": {
         "gene": "BCHE",
@@ -3330,12 +4090,17 @@
             "CT": "One K-variant copy: mildly slower breakdown of succinylcholine",
             "TT": "Two K-variant copies: about 30% lower activity (tell your anesthesiologist)"
         },
-        "scores": {
-            "CC": 8,
-            "CT": 6,
-            "TT": 4
+        "audit": "T is the K variant; the library called the common CC a deficiency with apnea risk.",
+        "function": {
+            "CC": "normal",
+            "CT": "LoF",
+            "TT": "LoF"
         },
-        "audit": "T is the K variant; the library called the common CC a deficiency with apnea risk."
+        "function_basis": "curated",
+        "polarity": {
+            "LoF": "negative"
+        },
+        "polarity_source": "library wording"
     },
     "rs1051266": {
         "gene": "SLC19A1",
@@ -3348,12 +4113,15 @@
             "CT": "Moderate transport",
             "CC": "Reduced folate transport efficiency"
         },
-        "scores": {
-            "TT": 8,
-            "CT": 5,
-            "CC": 5
+        "audit": "CC is carried by 30% of Europeans: risk score raised to 5.",
+        "function": {
+            "TT": "LoF",
+            "CT": "LoF",
+            "CC": "normal"
         },
-        "audit": "CC is carried by 30% of Europeans: risk score raised to 5."
+        "function_basis": "expression",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs40184": {
         "gene": "SLC6A3 (DAT1)",
@@ -3367,13 +4135,16 @@
             "TC": "Balanced clearance",
             "TT": "Low clearance (Higher baseline dopamine)"
         },
-        "scores": {
-            "CC": 5,
-            "CT": 5,
-            "TC": 5,
-            "TT": 7
+        "audit": "CC is carried by 27% of Europeans: risk score raised to 5.",
+        "function": {
+            "CC": "normal",
+            "CT": "GoF",
+            "TC": "GoF",
+            "TT": "GoF"
         },
-        "audit": "CC is carried by 27% of Europeans: risk score raised to 5."
+        "function_basis": "expression",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs2066853": {
         "gene": "AHR",
@@ -3386,11 +4157,16 @@
             "GA": "Reduced efficiency",
             "AA": "Higher sensitivity to environmental toxins"
         },
-        "scores": {
-            "GG": 9,
-            "GA": 6,
-            "AA": 3
-        }
+        "function": {
+            "GG": "normal",
+            "GA": "LoF",
+            "AA": "LoF"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "LoF": "negative"
+        },
+        "polarity_source": "library ratings"
     },
     "rs419598": {
         "gene": "IL1RN",
@@ -3403,12 +4179,17 @@
             "CT": "Reduced IL-1RA production, moderate anti-inflammatory response.",
             "TT": "Low IL-1RA production, increased risk of chronic inflammation."
         },
-        "scores": {
-            "CC": 9,
-            "CT": 6,
-            "TT": 5
+        "audit": "TT is carried by 50% of Europeans: risk score raised to 5.",
+        "function": {
+            "CC": "altered",
+            "CT": "altered",
+            "TT": "normal"
         },
-        "audit": "TT is carried by 50% of Europeans: risk score raised to 5."
+        "function_basis": "expression",
+        "polarity": {
+            "altered": "positive"
+        },
+        "polarity_source": "library ratings"
     },
     "rs7454108": {
         "gene": "HLA-DQ8",
@@ -3421,12 +4202,17 @@
             "CT": "Moderate celiac risk (DQ8 carrier)",
             "CC": "High celiac risk (two DQ8 tag copies)"
         },
-        "scores": {
-            "TT": 8,
-            "CT": 5,
-            "CC": 2
+        "audit": "C tags HLA-DQ8; the library scored the common TT (no DQ8) as high risk.",
+        "function": {
+            "TT": "normal",
+            "CT": "LoF",
+            "CC": "LoF"
         },
-        "audit": "C tags HLA-DQ8; the library scored the common TT (no DQ8) as high risk."
+        "function_basis": "expression",
+        "polarity": {
+            "LoF": "negative"
+        },
+        "polarity_source": "reviewed"
     },
     "rs4588": {
         "gene": "GC",
@@ -3439,11 +4225,14 @@
             "GT": "Intermediate DBP affinity",
             "TT": "Lower DBP affinity, lower total D levels"
         },
-        "scores": {
-            "GG": 9,
-            "GT": 6,
-            "TT": 3
-        }
+        "function": {
+            "GG": "unknown",
+            "GT": "unknown",
+            "TT": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs1801272": {
         "gene": "CYP2A6",
@@ -3456,12 +4245,15 @@
             "AT": "One CYP2A6*2 copy: slower nicotine metabolism",
             "TT": "Two CYP2A6*2 copies: slow nicotine metabolism"
         },
-        "scores": {
-            "AA": 5,
-            "AT": 5,
-            "TT": 5
+        "audit": "T is CYP2A6*2 (slow); the library called the common AA slow. Neutral scores.",
+        "function": {
+            "AA": "unknown",
+            "AT": "unknown",
+            "TT": "unknown"
         },
-        "audit": "T is CYP2A6*2 (slow); the library called the common AA slow. Neutral scores."
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs553668": {
         "gene": "ADRA2A",
@@ -3474,12 +4266,17 @@
             "AG": "Stronger adrenaline-induced insulin suppression (one A copy)",
             "AA": "Strong adrenaline-induced insulin suppression (type 2 diabetes risk)"
         },
-        "scores": {
-            "GG": 7,
-            "AG": 5,
-            "AA": 3
+        "audit": "A is the risk allele (reduced insulin secretion); the library scored the common GG as the risk.",
+        "function": {
+            "GG": "normal",
+            "AG": "GoF",
+            "AA": "GoF"
         },
-        "audit": "A is the risk allele (reduced insulin secretion); the library scored the common GG as the risk."
+        "function_basis": "expression",
+        "polarity": {
+            "GoF": "negative"
+        },
+        "polarity_source": "library ratings"
     },
     "rs5370": {
         "gene": "EDN1",
@@ -3493,12 +4290,17 @@
             "TG": "Higher vasoconstriction tendency",
             "TT": "Highest constriction / BP risk"
         },
-        "scores": {
-            "GG": 7,
-            "GT": 5,
-            "TG": 5,
-            "TT": 3
-        }
+        "function": {
+            "GG": "normal",
+            "GT": "GoF",
+            "TG": "GoF",
+            "TT": "GoF"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "GoF": "negative"
+        },
+        "polarity_source": "library ratings"
     },
     "rs231775": {
         "gene": "CTLA4",
@@ -3512,12 +4314,17 @@
             "GA": "Reduced regulation",
             "GG": "Higher autoimmune risk"
         },
-        "scores": {
-            "AA": 7,
-            "AG": 5,
-            "GA": 5,
-            "GG": 3
-        }
+        "function": {
+            "AA": "normal",
+            "AG": "LoF",
+            "GA": "LoF",
+            "GG": "LoF"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "LoF": "negative"
+        },
+        "polarity_source": "library ratings"
     },
     "rs7501331": {
         "gene": "BCO1",
@@ -3530,11 +4337,14 @@
             "CT": "Reduced beta-carotene to Vitamin A conversion",
             "TT": "Significantly reduced beta-carotene to Vitamin A conversion"
         },
-        "scores": {
-            "CC": 9,
-            "CT": 6,
-            "TT": 3
-        }
+        "function": {
+            "CC": "normal",
+            "CT": "GoF",
+            "TT": "GoF"
+        },
+        "function_basis": "expression",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs1946518": {
         "gene": "IL18",
@@ -3547,12 +4357,15 @@
             "TG": "Associated with moderate IL-18 levels.",
             "GG": "Associated with higher IL-18 levels and increased inflammation risk."
         },
-        "scores": {
-            "TT": 7,
-            "TG": 5,
-            "GG": 5
+        "audit": "GG is carried by 33% of Europeans: risk score raised to 5.",
+        "function": {
+            "TT": "GoF",
+            "TG": "GoF",
+            "GG": "normal"
         },
-        "audit": "GG is carried by 33% of Europeans: risk score raised to 5."
+        "function_basis": "expression",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs1061170": {
         "gene": "CFH",
@@ -3565,12 +4378,17 @@
             "CT": "Increased AMD risk (one His402 copy)",
             "CC": "High AMD risk (His402/His402; consider lutein/zeaxanthin)"
         },
-        "scores": {
-            "TT": 8,
-            "CT": 5,
-            "CC": 2
+        "audit": "C (His402) is the AMD risk allele; the library had it as the normal one.",
+        "function": {
+            "TT": "normal",
+            "CT": "LoF",
+            "CC": "LoF"
         },
-        "audit": "C (His402) is the AMD risk allele; the library had it as the normal one."
+        "function_basis": "expression",
+        "polarity": {
+            "LoF": "negative"
+        },
+        "polarity_source": "library ratings"
     },
     "rs1052133": {
         "gene": "OGG1",
@@ -3583,12 +4401,15 @@
             "CG": "One Ser326Cys copy: somewhat lower repair capacity",
             "GG": "Cys326/Cys326: lower repair capacity (higher oxidative-damage risk)"
         },
-        "scores": {
-            "CC": 8,
-            "CG": 6,
-            "GG": 4
+        "audit": "G is Cys326, the lower-activity allele; the library had it as efficient.",
+        "function": {
+            "CC": "normal",
+            "CG": "GoF",
+            "GG": "GoF"
         },
-        "audit": "G is Cys326, the lower-activity allele; the library had it as efficient."
+        "function_basis": "expression",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs41423247": {
         "gene": "NR3C1",
@@ -3602,13 +4423,18 @@
             "GC": "Higher sensitivity (Stress-induced adiposity)",
             "GG": "High cortisol sensitivity"
         },
-        "scores": {
-            "CC": 7,
-            "CG": 5,
-            "GC": 5,
-            "GG": 5
+        "audit": "GG is carried by 38% of Europeans: risk score raised to 5.",
+        "function": {
+            "CC": "GoF",
+            "CG": "GoF",
+            "GC": "GoF",
+            "GG": "normal"
         },
-        "audit": "GG is carried by 38% of Europeans: risk score raised to 5."
+        "function_basis": "expression",
+        "polarity": {
+            "GoF": "positive"
+        },
+        "polarity_source": "library ratings"
     },
     "rs6746030": {
         "gene": "SCN9A",
@@ -3621,11 +4447,14 @@
             "GA": "Increased pain sensitivity",
             "AA": "High pain sensitivity"
         },
-        "scores": {
-            "GG": 9,
-            "GA": 6,
-            "AA": 3
-        }
+        "function": {
+            "GG": "unknown",
+            "GA": "unknown",
+            "AA": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs12979860": {
         "gene": "IFNL3 (IL28B)",
@@ -3638,11 +4467,14 @@
             "CT": "Moderate clearance",
             "TT": "Reduced viral clearance efficiency"
         },
-        "scores": {
-            "CC": 8,
-            "CT": 5,
-            "TT": 3
-        }
+        "function": {
+            "CC": "unknown",
+            "CT": "unknown",
+            "TT": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs2569190": {
         "gene": "CD14",
@@ -3655,11 +4487,14 @@
             "AG": "Moderate response",
             "AA": "High inflammatory response (Sensitive to gut issues)"
         },
-        "scores": {
-            "GG": 7,
-            "AG": 5,
-            "AA": 3
-        }
+        "function": {
+            "GG": "normal",
+            "AG": "LoF",
+            "AA": "LoF"
+        },
+        "function_basis": "expression",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs1799998": {
         "gene": "CYP11B2",
@@ -3672,12 +4507,15 @@
             "AG": "Intermediate aldosterone levels.",
             "GG": "Normal/Lower aldosterone levels."
         },
-        "scores": {
-            "AA": 5,
-            "AG": 6,
-            "GG": 9
+        "audit": "AA is carried by 26% of Europeans: risk score raised to 5.",
+        "function": {
+            "AA": "unknown",
+            "AG": "unknown",
+            "GG": "unknown"
         },
-        "audit": "AA is carried by 26% of Europeans: risk score raised to 5."
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs1800849": {
         "gene": "UCP3",
@@ -3691,12 +4529,15 @@
             "TC": "Higher metabolic rate",
             "TT": "Highest muscle fat burning potential"
         },
-        "scores": {
-            "CC": 5,
-            "CT": 6,
-            "TC": 6,
-            "TT": 8
-        }
+        "function": {
+            "CC": "unknown",
+            "CT": "unknown",
+            "TC": "unknown",
+            "TT": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs6275": {
         "gene": "DRD2",
@@ -3709,11 +4550,14 @@
             "AG": "Moderate density",
             "AA": "Lower receptor density (Impulsivity risk)"
         },
-        "scores": {
-            "GG": 8,
-            "AG": 5,
-            "AA": 3
-        }
+        "function": {
+            "GG": "unknown",
+            "AG": "unknown",
+            "AA": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs671": {
         "gene": "ALDH2 (Flush)",
@@ -3726,11 +4570,16 @@
             "GA": "Slow metabolism (Flush reaction)",
             "AA": "Very slow metabolism (Severe flush / Toxicity)"
         },
-        "scores": {
-            "GG": 9,
-            "GA": 4,
-            "AA": 1
-        }
+        "function": {
+            "GG": "normal",
+            "GA": "LoF",
+            "AA": "LoF"
+        },
+        "function_basis": "curated",
+        "polarity": {
+            "LoF": "negative"
+        },
+        "polarity_source": "library wording"
     },
     "rs6025": {
         "gene": "F5",
@@ -3744,12 +4593,17 @@
             "TC": "Increased clot risk (Heterozygous Factor V)",
             "TT": "High clot risk (Homozygous Factor V)"
         },
-        "scores": {
-            "CC": 9,
-            "CT": 4,
-            "TC": 4,
-            "TT": 1
-        }
+        "function": {
+            "CC": "normal",
+            "CT": "altered",
+            "TC": "altered",
+            "TT": "altered"
+        },
+        "function_basis": "curated",
+        "polarity": {
+            "altered": "negative"
+        },
+        "polarity_source": "library ratings"
     },
     "rs11209026": {
         "gene": "IL23R",
@@ -3762,11 +4616,16 @@
             "GA": "Protective (Lower IBD risk)",
             "AA": "Highly protective"
         },
-        "scores": {
-            "GG": 5,
-            "GA": 8,
-            "AA": 9
-        }
+        "function": {
+            "GG": "normal",
+            "GA": "altered",
+            "AA": "altered"
+        },
+        "function_basis": "curated",
+        "polarity": {
+            "altered": "positive"
+        },
+        "polarity_source": "library ratings"
     },
     "rs2943641": {
         "gene": "IRS1",
@@ -3779,11 +4638,16 @@
             "CT": "Moderate resistance",
             "TT": "Insulin resistance tendency"
         },
-        "scores": {
-            "CC": 8,
-            "CT": 5,
-            "TT": 3
-        }
+        "function": {
+            "CC": "normal",
+            "CT": "GoF",
+            "TT": "GoF"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "GoF": "negative"
+        },
+        "polarity_source": "library ratings"
     },
     "rs35652124": {
         "gene": "NFE2L2 (NRF2)",
@@ -3797,13 +4661,18 @@
             "TC": "Moderate activation",
             "TT": "Reduced NRF2 response (Lower cellular defense)"
         },
-        "scores": {
-            "CC": 8,
-            "CT": 6,
-            "TC": 6,
-            "TT": 5
+        "audit": "TT is carried by 48% of Europeans: risk score raised to 5.",
+        "function": {
+            "CC": "LoF",
+            "CT": "LoF",
+            "TC": "LoF",
+            "TT": "normal"
         },
-        "audit": "TT is carried by 48% of Europeans: risk score raised to 5."
+        "function_basis": "expression",
+        "polarity": {
+            "LoF": "positive"
+        },
+        "polarity_source": "library ratings"
     },
     "rs1800440": {
         "gene": "CYP1B1",
@@ -3816,11 +4685,14 @@
             "CT": "Intermediate",
             "CC": "Higher activity (Higher 4-OH estrogen load)"
         },
-        "scores": {
-            "TT": 8,
-            "CT": 5,
-            "CC": 3
-        }
+        "function": {
+            "TT": "unknown",
+            "CT": "unknown",
+            "CC": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs9536314": {
         "gene": "KL (Klotho)",
@@ -3834,12 +4706,17 @@
             "TG": "Increased Klotho (Associated with longevity/higher IQ)",
             "TT": "Variant form (Impact depends on Haplotype)"
         },
-        "scores": {
-            "GG": 5,
-            "GT": 8,
-            "TG": 8,
-            "TT": 6
-        }
+        "function": {
+            "GG": "LoF",
+            "GT": "LoF",
+            "TG": "LoF",
+            "TT": "normal"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "LoF": "neutral"
+        },
+        "polarity_source": "library ratings"
     },
     "rs1006737": {
         "gene": "CACNA1C",
@@ -3853,12 +4730,17 @@
             "AG": "Altered excitability (Higher creativity/mood risk)",
             "AA": "Higher risk of mood instability"
         },
-        "scores": {
-            "GG": 8,
-            "GA": 5,
-            "AG": 5,
-            "AA": 3
-        }
+        "function": {
+            "GG": "normal",
+            "GA": "LoF",
+            "AG": "LoF",
+            "AA": "LoF"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "LoF": "negative"
+        },
+        "polarity_source": "library ratings"
     },
     "rs894160": {
         "gene": "PLIN1",
@@ -3871,12 +4753,17 @@
             "CT": "Slightly harder to lose weight",
             "CC": "Resistant to weight loss (Requires strict caloric deficit)"
         },
-        "scores": {
-            "TT": 7,
-            "CT": 5,
-            "CC": 5
+        "audit": "CC is carried by 48% of Europeans: risk score raised to 5.",
+        "function": {
+            "TT": "GoF",
+            "CT": "GoF",
+            "CC": "normal"
         },
-        "audit": "CC is carried by 48% of Europeans: risk score raised to 5."
+        "function_basis": "expression",
+        "polarity": {
+            "GoF": "positive"
+        },
+        "polarity_source": "library ratings"
     },
     "rs12778366": {
         "gene": "SIRT1",
@@ -3890,13 +4777,18 @@
             "TC": "Moderate activity",
             "TT": "Lower activity (Faster metabolic aging)"
         },
-        "scores": {
-            "CC": 8,
-            "CT": 6,
-            "TC": 6,
-            "TT": 5
+        "audit": "TT is carried by 77% of Europeans: risk score raised to 5.",
+        "function": {
+            "CC": "GoF",
+            "CT": "GoF",
+            "TC": "GoF",
+            "TT": "normal"
         },
-        "audit": "TT is carried by 77% of Europeans: risk score raised to 5."
+        "function_basis": "expression",
+        "polarity": {
+            "GoF": "positive"
+        },
+        "polarity_source": "library wording"
     },
     "rs3813867": {
         "gene": "CYP2E1",
@@ -3909,11 +4801,14 @@
             "GC": "Increased",
             "CC": "High"
         },
-        "scores": {
-            "GG": 7,
-            "GC": 5,
-            "CC": 5
-        }
+        "function": {
+            "GG": "normal",
+            "GC": "LoF",
+            "CC": "LoF"
+        },
+        "function_basis": "expression",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs12130333": {
         "gene": "ANGPTL3",
@@ -3927,13 +4822,16 @@
             "TC": "Balanced lipid partitioning",
             "TT": "Low ANGPTL3 activity (Optimal triglyceride clearance / Cardio-protective)"
         },
-        "scores": {
-            "CC": 5,
-            "CT": 5,
-            "TC": 5,
-            "TT": 9
+        "audit": "CC is carried by 66% of Europeans: risk score raised to 5.",
+        "function": {
+            "CC": "unknown",
+            "CT": "unknown",
+            "TC": "unknown",
+            "TT": "unknown"
         },
-        "audit": "CC is carried by 66% of Europeans: risk score raised to 5."
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs1054135": {
         "gene": "FABP4 (A-FABP)",
@@ -3946,12 +4844,15 @@
             "TC": "Moderately reduced FABP4 activity; moderate lipotoxicity risk.",
             "CC": "Significantly reduced FABP4 activity; high lipotoxicity risk."
         },
-        "scores": {
-            "TT": 5,
-            "TC": 5,
-            "CC": 5
+        "audit": "No functional evidence and no genome-wide study: neutral scores, texts kept as the library's claim.",
+        "function": {
+            "TT": "unknown",
+            "TC": "unknown",
+            "CC": "unknown"
         },
-        "audit": "No functional evidence and no genome-wide study: neutral scores, texts kept as the library's claim."
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs4402960": {
         "gene": "IGF2BP2",
@@ -3964,12 +4865,17 @@
             "GT": "Slightly higher type 2 diabetes risk (one T copy)",
             "TT": "Higher type 2 diabetes risk (two T copies)"
         },
-        "scores": {
-            "GG": 8,
-            "GT": 5,
-            "TT": 3
+        "audit": "T is the type 2 diabetes risk allele; the library had it as protective.",
+        "function": {
+            "GG": "normal",
+            "GT": "GoF",
+            "TT": "GoF"
         },
-        "audit": "T is the type 2 diabetes risk allele; the library had it as protective."
+        "function_basis": "expression",
+        "polarity": {
+            "GoF": "negative"
+        },
+        "polarity_source": "library ratings"
     },
     "rs7498665": {
         "gene": "SH2B1",
@@ -3983,12 +4889,15 @@
             "GA": "Reduced signal amplification (Moderate Leptin Resistance)",
             "GG": "High Leptin Resistance (Body brain thinks it is starving despite high fat stores)"
         },
-        "scores": {
-            "AA": 8,
-            "AG": 4,
-            "GA": 4,
-            "GG": 2
-        }
+        "function": {
+            "AA": "normal",
+            "AG": "LoF",
+            "GA": "LoF",
+            "GG": "LoF"
+        },
+        "function_basis": "expression",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs1799963": {
         "gene": "F2",
@@ -4001,11 +4910,14 @@
             "AG": "Raised clotting risk (G20210A carrier)",
             "AA": "High clotting risk (G20210A homozygous, rare)"
         },
-        "scores": {
-            "GG": 9,
-            "AG": 3,
-            "AA": 1
-        }
+        "function": {
+            "GG": "unknown",
+            "AG": "unknown",
+            "AA": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs734553": {
         "gene": "GLUT9 (SLC2A9)",
@@ -4018,11 +4930,16 @@
             "GT": "Intermediate uric acid",
             "TT": "Higher uric acid tendency"
         },
-        "scores": {
-            "GG": 8,
-            "GT": 6,
-            "TT": 4
-        }
+        "function": {
+            "GG": "LoF",
+            "GT": "LoF",
+            "TT": "normal"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "LoF": "positive"
+        },
+        "polarity_source": "library ratings"
     },
     "rs2631367": {
         "gene": "SLC22A5",
@@ -4035,11 +4952,16 @@
             "CG": "Moderately reduced uptake",
             "CC": "Lower OCTN2 expression (-207C/C)"
         },
-        "scores": {
-            "GG": 8,
-            "CG": 6,
-            "CC": 4
-        }
+        "function": {
+            "GG": "normal",
+            "CG": "LoF",
+            "CC": "LoF"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "LoF": "negative"
+        },
+        "polarity_source": "library wording"
     },
     "rs3892097": {
         "gene": "CYP2D6",
@@ -4052,11 +4974,16 @@
             "CT": "One *4 copy: intermediate metabolism",
             "TT": "Two *4 copies: poor metabolizer"
         },
-        "scores": {
-            "CC": 7,
-            "CT": 5,
-            "TT": 2
-        }
+        "function": {
+            "CC": "normal",
+            "CT": "LoF",
+            "TT": "LoF"
+        },
+        "function_basis": "cpic",
+        "polarity": {
+            "LoF": "negative"
+        },
+        "polarity_source": "library wording"
     },
     "rs10156191": {
         "gene": "AOC1 (DAO)",
@@ -4069,11 +4996,16 @@
             "CT": "Moderately reduced DAO activity",
             "TT": "Low DAO activity (higher histamine intolerance risk)"
         },
-        "scores": {
-            "CC": 7,
-            "CT": 5,
-            "TT": 3
-        }
+        "function": {
+            "CC": "normal",
+            "CT": "altered",
+            "TT": "altered"
+        },
+        "function_basis": "expression",
+        "polarity": {
+            "altered": "negative"
+        },
+        "polarity_source": "library ratings"
     },
     "rs1799895": {
         "gene": "SOD3",
@@ -4086,11 +5018,14 @@
             "CG": "R213G carrier: SOD3 shifts from vessel wall to plasma",
             "GG": "R213G homozygous (rare): weak vessel-wall protection"
         },
-        "scores": {
-            "CC": 7,
-            "CG": 4,
-            "GG": 3
-        }
+        "function": {
+            "CC": "unknown",
+            "CG": "unknown",
+            "GG": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs7412": {
         "gene": "APOE",
@@ -4103,11 +5038,14 @@
             "CT": "One ε2 allele: lower LDL, lower Alzheimer's risk",
             "TT": "ε2/ε2: very low LDL, small risk of a remnant-cholesterol disorder"
         },
-        "scores": {
-            "CC": 5,
-            "CT": 7,
-            "TT": 6
-        }
+        "function": {
+            "CC": "unknown",
+            "CT": "unknown",
+            "TT": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs1801131": {
         "gene": "MTHFR",
@@ -4120,11 +5058,14 @@
             "GT": "Mildly reduced activity",
             "TT": "Typical activity (1298 A/A)"
         },
-        "scores": {
-            "GG": 4,
-            "GT": 5,
-            "TT": 6
-        }
+        "function": {
+            "GG": "unknown",
+            "GT": "unknown",
+            "TT": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs2228570": {
         "gene": "VDR",
@@ -4137,11 +5078,14 @@
             "AG": "F/f: intermediate",
             "AA": "f/f: longer, less active receptor"
         },
-        "scores": {
-            "GG": 6,
-            "AG": 5,
-            "AA": 4
-        }
+        "function": {
+            "GG": "unknown",
+            "AG": "unknown",
+            "AA": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs11568820": {
         "gene": "VDR",
@@ -4154,11 +5098,14 @@
             "CT": "Somewhat higher VDR expression",
             "TT": "Higher intestinal VDR expression"
         },
-        "scores": {
-            "CC": 5,
-            "CT": 6,
-            "TT": 7
-        }
+        "function": {
+            "CC": "unknown",
+            "CT": "unknown",
+            "TT": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs12255372": {
         "gene": "TCF7L2",
@@ -4171,11 +5118,14 @@
             "GT": "Somewhat reduced first-phase insulin",
             "TT": "Reduced first-phase insulin; higher type 2 diabetes risk"
         },
-        "scores": {
-            "GG": 6,
-            "GT": 5,
-            "TT": 3
-        }
+        "function": {
+            "GG": "unknown",
+            "GT": "unknown",
+            "TT": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs3025039": {
         "gene": "VEGFA",
@@ -4188,11 +5138,14 @@
             "CT": "Lower VEGF secretion",
             "TT": "Lowest VEGF secretion"
         },
-        "scores": {
-            "CC": 6,
-            "CT": 5,
-            "TT": 4
-        }
+        "function": {
+            "CC": "unknown",
+            "CT": "unknown",
+            "TT": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs2108622": {
         "gene": "CYP4F2",
@@ -4205,11 +5158,14 @@
             "CT": "Slightly slower vitamin K breakdown",
             "TT": "Slower vitamin K breakdown; higher warfarin dose needed"
         },
-        "scores": {
-            "CC": 5,
-            "CT": 5,
-            "TT": 4
-        }
+        "function": {
+            "CC": "unknown",
+            "CT": "unknown",
+            "TT": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs10929302": {
         "gene": "UGT1A1",
@@ -4222,11 +5178,14 @@
             "AG": "Somewhat higher bilirubin",
             "AA": "Higher bilirubin (Gilbert-type); irinotecan caution"
         },
-        "scores": {
-            "GG": 5,
-            "AG": 5,
-            "AA": 4
-        }
+        "function": {
+            "GG": "unknown",
+            "AG": "unknown",
+            "AA": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs147998249": {
         "gene": "GPT",
@@ -4239,11 +5198,14 @@
             "CG": "ALT reads markedly lower than liver status",
             "CC": "ALT reads very low"
         },
-        "scores": {
-            "GG": 5,
-            "CG": 4,
-            "CC": 4
-        }
+        "function": {
+            "GG": "unknown",
+            "CG": "unknown",
+            "CC": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs45551835": {
         "gene": "CUBN",
@@ -4256,11 +5218,14 @@
             "AG": "Higher urine albumin, usually harmless",
             "AA": "Higher urine albumin"
         },
-        "scores": {
-            "GG": 5,
-            "AG": 4,
-            "AA": 4
-        }
+        "function": {
+            "GG": "unknown",
+            "AG": "unknown",
+            "AA": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs61730509": {
         "gene": "ABCB4",
@@ -4273,11 +5238,14 @@
             "CT": "Weaker bile protection; higher ALT",
             "TT": "Weaker bile protection"
         },
-        "scores": {
-            "CC": 5,
-            "CT": 4,
-            "TT": 3
-        }
+        "function": {
+            "CC": "unknown",
+            "CT": "unknown",
+            "TT": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs62483572": {
         "gene": "EPO",
@@ -4290,11 +5258,14 @@
             "AG": "Lower haemoglobin and haematocrit",
             "AA": "Lower haemoglobin and haematocrit"
         },
-        "scores": {
-            "GG": 5,
-            "AG": 4,
-            "AA": 4
-        }
+        "function": {
+            "GG": "unknown",
+            "AG": "unknown",
+            "AA": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs115545701": {
         "gene": "CFTR",
@@ -4313,11 +5284,14 @@
             "CT": "Carrier: one copy",
             "TT": "Two copies"
         },
-        "scores": {
-            "CC": 5,
-            "CT": 5,
-            "TT": 5
-        }
+        "function": {
+            "CC": "unknown",
+            "CT": "unknown",
+            "TT": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs35516286": {
         "gene": "CFTR",
@@ -4336,11 +5310,14 @@
             "CT": "Carrier: one copy",
             "CC": "Two copies"
         },
-        "scores": {
-            "TT": 5,
-            "CT": 5,
-            "CC": 5
-        }
+        "function": {
+            "TT": "unknown",
+            "CT": "unknown",
+            "CC": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs1800100": {
         "gene": "CFTR",
@@ -4359,11 +5336,14 @@
             "CT": "Carrier: one copy",
             "TT": "Two copies"
         },
-        "scores": {
-            "CC": 5,
-            "CT": 5,
-            "TT": 5
-        }
+        "function": {
+            "CC": "unknown",
+            "CT": "unknown",
+            "TT": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs1800111": {
         "gene": "CFTR",
@@ -4382,11 +5362,14 @@
             "CG": "Carrier: one copy",
             "CC": "Two copies"
         },
-        "scores": {
-            "GG": 5,
-            "CG": 5,
-            "CC": 5
-        }
+        "function": {
+            "GG": "unknown",
+            "CG": "unknown",
+            "CC": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs61910685": {
         "gene": "ANO5",
@@ -4405,11 +5388,14 @@
             "CT": "Carrier: one copy",
             "TT": "Two copies"
         },
-        "scores": {
-            "CC": 5,
-            "CT": 5,
-            "TT": 5
-        }
+        "function": {
+            "CC": "unknown",
+            "CT": "unknown",
+            "TT": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     },
     "rs147445322": {
         "gene": "KCNQ1",
@@ -4428,10 +5414,13 @@
             "AG": "Carrier: one copy",
             "AA": "Two copies"
         },
-        "scores": {
-            "GG": 5,
-            "AG": 5,
-            "AA": 5
-        }
+        "function": {
+            "GG": "unknown",
+            "AG": "unknown",
+            "AA": "unknown"
+        },
+        "function_basis": "none",
+        "polarity": {},
+        "polarity_source": null
     }
 }

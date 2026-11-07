@@ -6,6 +6,7 @@ Only public identifiers (gene symbols, rsIDs) are ever sent. Never pass genotype
 or anything derived from a person's DNA file to these functions.
 """
 import hashlib
+from collections import Counter
 import json
 import os
 import time
@@ -124,12 +125,14 @@ def ensembl_vep(rsids, batch_size=150):
         for v in _cached("ensembl_vep", "\n".join(batch), fetch):
             if v["seq_region_name"] not in PRIMARY_CHROMOSOMES or v["id"] in out:
                 continue  # skip alt-haplotype contigs (HSCHR...)
-            genes, by_allele = {}, {}
+            genes, by_allele, aa = {}, {}, {}
             for t in v.get("transcript_consequences", []):
                 symbol = t.get("gene_symbol") or t["gene_id"]
                 genes[symbol] = min(genes.get(symbol, 10**9), t.get("distance", 0))
                 if t.get("variant_allele"):
                     by_allele.setdefault(t["variant_allele"], set()).update(t.get("consequence_terms", []))
+                    if "/" in (t.get("amino_acids") or ""):
+                        aa.setdefault(t["variant_allele"], Counter())[t["amino_acids"]] += 1
             colocated = [c for c in v.get("colocated_variants", []) if c.get("id") == v["id"]]
             freqs = (colocated[0].get("frequencies") or {}) if colocated else {}
             out[v["id"]] = {
@@ -138,6 +141,9 @@ def ensembl_vep(rsids, batch_size=150):
                 "consequence": v["most_severe_consequence"],
                 # Per alternative allele: one position can hold a common missense change and a rare stop (ADRB2 rs1042714)
                 "allele_consequences": {a: sorted(c) for a, c in by_allele.items()},
+                # Per alternative allele: "reference/alternative" amino acid in most transcripts ("W/R" for PTPN22
+                # rs2476601 G, where GRCh38 carries the rarer Trp620)
+                "allele_amino_acids": {a: c.most_common(1)[0][0] for a, c in aa.items()},
                 "genes": genes,
                 "eur_af": {a: f["eur"] for a, f in freqs.items() if "eur" in f},
             }

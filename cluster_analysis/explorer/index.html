@@ -1,7 +1,13 @@
 <meta name="dash-one-writer">
 <style>
   .gx { display: grid; gap: var(--cds-gap-lg); font-family: var(--font-anthropic-sans); }
-  .gx-head { display: grid; gap: var(--cds-gap-xs); }
+  .gx-head { display: grid; gap: var(--cds-gap-xs); grid-template-columns: minmax(0, 1fr) auto; }
+  .gx-head > :not(.gx-lang) { grid-column: 1; }
+  .gx-lang { grid-column: 2; grid-row: 1; align-self: start; display: flex; border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); overflow: hidden; }
+  .gx-lang button { font: inherit; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; padding: 4px 10px; border: 0; background: transparent; color: var(--color-fg-muted); cursor: pointer; }
+  .gx-lang button[aria-pressed="true"] { background: var(--color-fg); color: var(--color-bg); }
+  .gx-lang button:focus-visible { outline: 2px solid var(--color-fg); outline-offset: -2px; }
+  .gx-i18n { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); pointer-events: none; }
   .gx-title { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); margin: 0; text-wrap: balance; }
   .gx-lede { margin: 0; color: var(--color-fg-muted); max-width: 70ch; }
   .gx .gx-lede b, .gx .gx-note b { color: var(--color-fg); font-weight: 600; font-variant-numeric: tabular-nums; }
@@ -558,6 +564,12 @@
 <div class="gx">
   <header class="gx-head">
     <h1 class="gx-title" id="title">Gene Cluster Explorer</h1>
+    <div class="gx-lang" role="group" aria-label="Language">
+      <button type="button" data-lang="en" aria-pressed="true" lang="en">EN</button>
+      <button type="button" data-lang="sv" aria-pressed="false" lang="sv">SV</button>
+      <span class="gx-i18n" data-draw="i18n-load" data-source="i18n_sv" aria-hidden="true"></span>
+      <span class="gx-i18n" data-draw="i18n-terms" data-source="i18n_sv_terms" aria-hidden="true"></span>
+    </div>
     <p class="gx-lede">The library's genes form <b data-draw="k-modules" data-source="kpis" data-field="modules" data-row="0">—</b> functional modules.
       <b data-draw="k-biomarkers" data-source="kpis" data-field="biomarkers" data-row="0">—</b> standard lab biomarkers tie them together through
       <b data-draw="k-linked" data-source="kpis" data-field="linked_snps" data-row="0">—</b> SNPs with a genome-wide significant GWAS link.
@@ -725,14 +737,14 @@
   </section>
 
   <section class="gx-page" id="profile" data-page="profile" hidden>
-    <p class="gx-note gx-sample">XY's own genome (MyHeritage file) scored against the library. <b data-draw="s-top" data-source="hp_modules" data-field="name" data-row="0">—</b>
-      carries the largest risk load, with <b data-draw="s-compound" data-source="hp_compound" data-field="n" data-row="0">—</b> compound links across all modules,
-      where two interacting genes are both reduced.</p>
+    <p class="gx-note gx-sample">XY's own genome (MyHeritage file) read against the library. <b data-draw="s-top" data-source="hp_modules" data-field="name" data-row="0">—</b>
+      has the most genes reading negative, with <b data-draw="s-compound" data-source="hp_compound" data-field="n" data-row="0">—</b> compound links across all modules,
+      where two interacting genes both read negative.</p>
     <div class="gx-grid">
       <div class="gx-card" id="profile-modules">
         <h2>Module balance</h2>
-        <p class="gx-note">Risk load (left) sums how far each risk SNP sits below the neutral score of 5; strength load (right) sums how far each
-          strength SNP sits above it. Hover a bar for the genes.</p>
+        <p class="gx-note">Genes per module where the evidence says XY's genotype changes the gene (GoF or LoF) and that change is bad for
+          XY (negative, left) or good (positive, right). Genes with typical function or no evidence count as neither. Hover a bar for the genes.</p>
         <div class="gx-chart gx-bars" data-draw="hp-modules" data-source="hp_modules"></div>
       </div>
       <div class="gx-card" id="profile-tilts">
@@ -743,13 +755,13 @@
       </div>
       <div class="gx-card" id="profile-links">
         <h2>Gene interactions inside modules</h2>
-        <p class="gx-note">Compound: both interacting genes are reduced, so effects may stack. Buffered: a reduced gene interacts with a strength
-          gene, which may partly compensate. Score is STRING's interaction confidence (0–1).</p>
+        <p class="gx-note">Compound: both interacting genes read negative, so effects may stack. Buffered: a gene reading negative interacts
+          with one reading positive, which may partly compensate. STRING confidence is how sure STRING is of the interaction (0–1).</p>
         <div class="gx-table-box">
           <table class="gx-table" data-source="hp_links" data-row-key="gene_a,gene_b">
             <thead><tr>
               <th data-field="kind">Type</th><th data-field="gene_a">Gene</th><th data-field="gene_b">Partner</th>
-              <th data-field="module_name">Module</th><th data-field="string_score">Score</th>
+              <th data-field="module_name">Module</th><th data-field="string_score">STRING confidence</th>
             </tr></thead>
             <tbody data-draw="hp-links"></tbody>
           </table>
@@ -893,6 +905,9 @@
   const TH_CLASS = { LoF: 'lof', GoF: 'gof', altered: 'alt', normal: 'norm', variant: 'var', unknown: 'untested' };
   TH_TEXT.unknown = 'no known effect on the gene';
   // Labels come from evidence about the variant (evidence_call.py); the wording follows what kind of evidence it is
+  // What the evidence call means for the person (genotype_effects.py): positive / negative from the library's polarity
+  const TH_OUTCOME = { positive: 'positive', negative: 'negative', neutral: 'neither good nor bad',
+    unclear: 'whether this is good or bad is unclear', typical: 'typical', unknown: 'unknown' };
   const TH_BASIS = { cpic: 'CPIC allele function', measured: 'measured protein function, MaveDB', curated: 'curated protein effect, UniProt',
     truncating: 'the change cuts the protein short', predicted: 'predicted damage, SIFT and PolyPhen', expression: 'gene expression, GTEx',
     none: 'no evidence about function' };
@@ -941,7 +956,7 @@
       thPubmed(d, it.pubmed);
     } else if (it.source === 'ClinVar') {
       d.append(`${f.rsid} ${f.genotype}: ${it.what}; ${who} has ${it.copies} ${it.copies === 1 ? 'copy' : 'copies'} of ${it.allele}.`);
-    } else d.append(`${f.rsid} ${f.genotype}: ${it.what}.`);
+    } else d.append(`${f.rsid} ${f.genotype}: ${it.what}${/[.!?]$/.test(it.what) ? "" : "."}`);
   };
 
   const thSel = () => {
@@ -1085,6 +1100,7 @@
     const s = thSel();
     const lr = gx.rows('theme_links');
     if (!s || !lr) { if (gx.failed('theme_meta', 'theme_genes', 'theme_links')) gx.failLine(el); return; }
+    if (!s.gene) { thMake(el, 'p', 'gx-note', 'No genes are drawn for this selection.'); return; }
     const W = Math.max(320, el.clientWidth), H = 580;
     let links = lr[0].filter((l) => l.theme === s.theme.theme && s.byName.has(l.a) && s.byName.has(l.b));
     const strong = links.filter((l) => l.score >= 0.7);
@@ -1147,6 +1163,7 @@
     const s = thSel();
     const r = gx.rows('theme_links', 'theme_pathways');
     if (!s || !r) { if (gx.failed('theme_meta', 'theme_genes', 'theme_links', 'theme_pathways')) gx.failLine(el); return; }
+    if (!s.gene) { thMake(el, 'p', 'gx-note', 'No genes are drawn for this selection.'); return; }
     const g = s.gene, fn = thCall(g);
     const head = thMake(el, 'div', 'lc-name');
     thMake(head, 'h3', null, g.gene);
@@ -1154,7 +1171,8 @@
     thMake(head, 'span', 'lc-call ' + (fn ? { LoF: 'lof', GoF: 'gof', altered: 'altered', normal: 'norm', variant: 'var', unknown: 'unknown' }[fn] : 'unknown'),
       fn ? fnText[0].toUpperCase() + fnText.slice(1) + (fn !== 'normal' && fn !== 'unknown' && g.dose ? ` ×${g.dose}` : '') : s.api ? `No ${thWho(s)} finding` : 'Not genotyped');
     if (g.genotype) thMake(el, 'p', null, `Effect on the gene: ${g.fn_evidence || 'no evidence collected'} (${TH_BASIS[g.basis] || TH_BASIS.none}).`);
-    thMake(el, 'p', g.genotype ? 'gx-note' : null, g.genotype ? `Library note for ${g.rsid} ${g.genotype}: ${g.interpretation} (library rating ${g.score}/10, where 5 is neutral; 4 or lower counts as a risk in the PDF report, 7 or higher as a strength). The notes were written with an LLM and are being checked against the evidence; the label above comes from the evidence, not the note.`
+    if (g.genotype && g.outcome && g.outcome !== 'typical' && g.outcome !== 'unknown') thMake(el, 'p', null, `Effect on ${thWho(s)}: ${TH_OUTCOME[g.outcome] || g.outcome}. Whether a change is good or bad is a best-effort reading of the trait; the change itself comes from the evidence.`);
+    thMake(el, 'p', g.genotype ? 'gx-note' : null, g.genotype ? `Library note for ${g.rsid} ${g.genotype}: ${g.interpretation}. The notes were written with an LLM and are being checked against the evidence; the label above comes from the evidence, not the note.`
       : s.api ? `Not in the library. ${thWho(s)}'s file ${s.stats && (s.stats.by_confidence || {}).high ? 'measures or confidently imputes' : 'measures'} ${g.ev.n_snps || 0} SNPs in or near this gene.` : 'XY has no call at this gene\'s library SNP.');
     if (g.has_lifecycle) {
       const b = thMake(el, 'button', 'lc-btn', 'Open its lifecycle');
@@ -1393,7 +1411,7 @@
       lane.set(d, k + 1);
       const fn = callOf(n), cx = x(d) + (k % 2 ? 9 : 0) * (k ? 1 : 0), cy = T + 12 + k * 15;
       const g = svg.append('g').attr('class', 'th-cy-gene').attr('transform', `translate(${cx},${cy})`).attr('tabindex', 0).attr('role', 'button')
-        .attr('aria-label', `${n}: ${effect(n).join(' ')}`)
+        .attr('aria-label', `${n}: ${effect(n).map((x) => x.replace(/\.$/, '')).join('. ')}.`)
         .on('mousemove', (event) => tip.show(event, `${n} · day ${d}`, effect(n)))
         .on('mouseleave', () => tip.hide())
         .on('click', () => thPick(n));
@@ -1851,29 +1869,29 @@
     const r = gx.rows('hp_modules');
     el.replaceChildren();
     if (!r) { if (gx.failed('hp_modules')) gx.failLine(el); return; }
-    const rows = r[0].map((m) => ({ ...m, risk_load: Number(m.risk_load), strength_load: Number(m.strength_load) }))
-      .sort((a, b) => (b.strength_load - b.risk_load) - (a.strength_load - a.risk_load));
+    const rows = r[0].map((m) => ({ ...m, negative: Number(m.negative), positive: Number(m.positive) }))
+      .sort((a, b) => (b.positive - b.negative) - (a.positive - a.negative) || b.positive - a.positive);
     const W = Math.max(280, el.clientWidth), rowH = 24;
     const svg = d3.select(el).append('svg').attr('width', '100%');
     const probe = svg.append('g').attr('font-size', 12);
     const left = d3.max(rows, (m) => probe.append('text').text(m.name).node().getComputedTextLength()) + 10;
     probe.remove();
     const H = rows.length * rowH + 28;
-    svg.attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img').attr('aria-label', 'Risk and strength load per module');
-    const maxV = d3.max(rows, (m) => Math.max(m.risk_load, m.strength_load)) || 1;
+    svg.attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img').attr('aria-label', 'Genes reading negative and positive per module');
+    const maxV = d3.max(rows, (m) => Math.max(m.negative, m.positive)) || 1;
     const x = d3.scaleLinear([-maxV, maxV], [left, W - 30]).nice();
     const y = d3.scaleBand(rows.map((m) => m.name), [4, H - 24]).padding(0.25);
     const tip = gx.tip(el);
-    svg.append('g').attr('transform', `translate(0,${H - 22})`).call(d3.axisBottom(x).ticks(5).tickFormat((v) => Math.abs(v)))
+    svg.append('g').attr('transform', `translate(0,${H - 22})`).call(d3.axisBottom(x).ticks(Math.min(5, 2 * maxV)).tickFormat((v) => (Number.isInteger(v) ? Math.abs(v) : '')))
       .attr('font-size', null).attr('font-family', null).call((a) => a.selectAll('text').style('fill', 'var(--color-fg-muted)'))
       .call((a) => a.selectAll('line,path').style('stroke', 'var(--cds-chart-axis)'));
     svg.append('line').attr('x1', x(0)).attr('x2', x(0)).attr('y1', 0).attr('y2', H - 22).style('stroke', 'var(--cds-chart-reference)');
     const g = svg.append('g').selectAll('g').data(rows).join('g')
-      .on('mousemove', (event, m) => tip.show(event, m.name, [`Risk load ${m.risk_load}: ${m.risk_genes || 'none'}`, `Strength load ${m.strength_load}: ${m.strength_genes || 'none'}`, `${m.compound_links} compound links`]))
+      .on('mousemove', (event, m) => tip.show(event, m.name, [`Negative ${m.negative}: ${m.negative_genes || 'none'}`, `Positive ${m.positive}: ${m.positive_genes || 'none'}`, `${m.with_evidence} of ${m.tested} tested genes with evidence`, `${m.compound_links} compound links`]))
       .on('mouseleave', () => tip.hide());
-    g.append('rect').attr('x', (m) => x(-m.risk_load)).attr('width', (m) => x(0) - x(-m.risk_load)).attr('y', (m) => y(m.name))
+    g.append('rect').attr('x', (m) => x(-m.negative)).attr('width', (m) => x(0) - x(-m.negative)).attr('y', (m) => y(m.name))
       .attr('height', y.bandwidth()).attr('rx', 3).style('fill', 'var(--cds-chart-status-critical)');
-    g.append('rect').attr('x', x(0)).attr('width', (m) => x(m.strength_load) - x(0)).attr('y', (m) => y(m.name))
+    g.append('rect').attr('x', x(0)).attr('width', (m) => x(m.positive) - x(0)).attr('y', (m) => y(m.name))
       .attr('height', y.bandwidth()).attr('rx', 3).style('fill', dash.colors[0]);
     g.append('text').attr('x', left - 8).attr('y', (m) => y(m.name) + y.bandwidth() / 2 + 4).attr('text-anchor', 'end')
       .attr('font-size', 12).style('fill', 'var(--color-fg)').text((m) => m.name);
@@ -1914,6 +1932,9 @@
 
   // Gene lifecycle: gene picker, role switch, gene summary, regulation, node graph, route patterns and step details
   const LC = { key: null, step: null, wrap: true, drawnKey: null, scroll: 0 };
+  const LC_OUTCOME = { positive: 'Positive for XY', negative: 'Negative for XY', neutral: 'Neither good nor bad', unclear: 'Unclear whether good or bad',
+    typical: 'Typical', unknown: 'Unknown' };
+  const LC_POLARITY = { reviewed: 'reviewed by hand', 'library wording': "drafted from the library's wording", 'library ratings': "drafted from the library's old ratings" };
   const FN_TEXT = { LoF: 'Less active (LoF)', GoF: 'More active (GoF)', altered: 'Changed, direction unclear', normal: 'Typical function',
                     unknown: 'No known effect on the gene' };
   const LC_BASIS = { cpic: 'CPIC allele function', measured: 'measured protein function, MaveDB', curated: 'curated protein effect, UniProt',
@@ -2073,7 +2094,9 @@
     const ul = make(el, 'ul', 'lc-ev');
     const row = (k, v) => { const li = make(ul, 'li'); make(li, 'span', null, k); make(li, 'span', null, v); };
     row('Best evidence', ev.tier_name || 'No functional evidence collected');
-    row('Library reading', `${f.interpretation} (library rating ${f.score}/10, where 5 is neutral and 4 or lower counts as a risk${f.n_snps > 1 ? `; strongest of ${f.n_snps} SNPs` : ''})`);
+    if (f.outcome && f.outcome !== 'typical' && f.outcome !== 'unknown') row('Effect on XY', `${LC_OUTCOME[f.outcome] || f.outcome}` +
+      (f.polarity_source ? ` (whether ${f.function === 'GoF' ? 'more' : f.function === 'LoF' ? 'less' : 'changed'} function is good or bad: ${LC_POLARITY[f.polarity_source] || f.polarity_source}; the ${f.function} call is from the evidence)` : ''));
+    row('Library reading', `${f.interpretation}${f.n_snps > 1 ? ` (strongest of ${f.n_snps} SNPs)` : ''}`);
     if (ev.protein_change || ev.consequence) row('Change', [ev.protein_change, pretty(ev.consequence)].filter(Boolean).join(', '));
     if (ev.mavedb) {
       const sc = ev.mavedb.map((m) => m.score), lo = ev.mavedb.reduce((a, b) => (b.score < a.score ? b : a));
@@ -2438,6 +2461,7 @@
     make(flow, 'span', 'gx-muted', '→');
     mols(split(x.outputs));
     if (x.transport) make(el, 'p', 'gx-note', `Moves between compartments: ${x.move}`);
+    if (/extension/.test(x.section)) make(el, 'p', 'gx-note', "Outside the gene's Reactome pathway: the reaction is Reactome's, but it was joined to this chain because it shares a molecule with the next step. That link is inferred here, not curated by Reactome.");
     const warn = i > 0 ? patternAt(steps[i - 1], x) : null;
     if (warn) make(el, 'p', 'lc-warn', '⚠ ' + warn);
 
@@ -2507,7 +2531,7 @@
             (ev.gtex ? '; Expression shows the effect on how much protein is made.' : '.'));
         const tbl = make(body, 'table', 'gx-table lc-ladder');
         const hr = make(make(tbl, 'thead'), 'tr');
-        for (const h of ['Genotype', `Copies of ${f.minor}`, measured ? 'Capacity' : null, 'Library reading', 'Score'].filter(Boolean)) make(hr, 'th', null, h);
+        for (const h of ['Genotype', `Copies of ${f.minor}`, measured ? 'Capacity' : null, 'Library reading', 'Effect'].filter(Boolean)) make(hr, 'th', null, h);
         const tb = make(tbl, 'tbody');
         for (const r of ladder) {
           const tr = make(tb, 'tr', r === mine ? 'is-hp tone-' + FN_CLASS[f.function] : null);
@@ -2515,7 +2539,8 @@
           make(tr, 'td', null, String(r.dose));
           if (measured) make(tr, 'td', null, r.capacity ? pctR(r.capacity) : '—');
           make(tr, 'td', null, r.text);
-          make(tr, 'td', null, r.score != null ? `${r.score}/10` : '—');
+          make(tr, 'td', null, r.function === 'normal' ? 'Typical' : !r.function || r.function === 'unknown' ? '—'
+            : `${r.function} · ${(LC_OUTCOME[r.outcome] || 'Unknown').replace(' for XY', '').toLowerCase()}`);
         }
         make(body, 'p', 'gx-note', measured
           ? 'Capacity is the measured activity of each allele (MaveDB), added up over both copies; ranges cover the assay conditions.'
@@ -2772,4 +2797,239 @@
       more.addEventListener('click', () => { mdShown += 40; dash.setParams({ md_more: mdShown }); });
     }
   });
+</script>
+
+<script>
+  // Language: the page is written and drawn in English; with Swedish selected, a layer over the DOM swaps each text,
+  // tooltip and placeholder for its Swedish version as it is drawn. The page's wording is explorer/i18n_sv.json (the
+  // i18n_sv dataset, [{en, sv}] rows); the library's texts and disease/trait names are explorer/i18n_sv_terms.json (the
+  // i18n_sv_terms dataset). Both load like the page's other data. Keys are the English text with {} for values that vary
+  // ({0} {1} … in the Swedish to reorder them); a value is translated too when it is itself a key.
+  // Other source text (gene names, UniProt, ClinPGx, Reactome, GO, papers) is left as published.
+  const I18N = (() => {
+
+    // After a count: Swedish adjectives agree in number ("1 mindre aktiv", "5 mindre aktiva")
+    const COUNTED = {
+      'mer aktiv': ['mer aktiv', 'mer aktiva'], 'mindre aktiv': ['mindre aktiv', 'mindre aktiva'],
+      'mer uttryckt': ['mer uttryckt', 'mer uttryckta'], 'mindre uttryckt': ['mindre uttryckt', 'mindre uttryckta'],
+      'förändrad, oklar riktning': ['förändrad, oklar riktning', 'förändrade, oklar riktning'],
+      'typisk funktion': ['med typisk funktion', 'med typisk funktion'], 'ingen känd effekt på genen': ['utan känd effekt på genen', 'utan känd effekt på genen'],
+      'troligen mindre aktiv': ['troligen mindre aktiv', 'troligen mindre aktiva'],
+    };
+    let exact = new Map(), pats = [], upper = new Map();
+    const build = (dict) => {
+      exact = new Map();
+      pats = [];
+      for (const [en, sv] of Object.entries(dict)) {
+        if (!en.includes('{}')) { exact.set(en, sv); continue; }
+        const parts = en.split('{}');
+        // A generic separator ("{} · {}") translates its values only when they are keys themselves
+        pats.push({ parts, sv, weight: parts.join('').length, generic: en === sv, need: parts.filter((x) => x.trim()) });
+      }
+      pats.sort((a, b) => b.weight - a.weight);  // the most specific template first
+      // Labels drawn in capitals ("STARTS") use their key's translation
+      upper = new Map([...exact].filter(([en]) => /[a-z]/.test(en)).map(([en, sv]) => [en.toUpperCase(), sv.toUpperCase()]));
+      memo.clear();
+    };
+    // The values of a template in a text, scanning for each fixed part left to right (each value as short as it can be).
+    // Linear in the text's length: a regex with several lazy groups can backtrack for minutes on a long paragraph.
+    // A fixed part that occurs more than once gives other ways to split ("… (strongest: X) (gene expression, GTEx)" needs
+    // the last " ("): up to 4 occurrences per part and 24 splits in all, the first split first.
+    const balanced = (v) => {
+      let d = 0;
+      for (const c of v) { if (c === '(') d++; else if (c === ')' && --d < 0) return false; }
+      return d === 0;
+    };
+    const match = (parts, t) => {
+      const last = parts.length - 1;
+      if (!t.startsWith(parts[0]) || !t.endsWith(parts[last]) || t.length < parts[0].length + parts[last].length) return [];
+      const end = t.length - parts[last].length, out = [];
+      const walk = (i, pos, caps) => {
+        if (out.length >= 24) return;
+        if (i === last) { if (end > pos) out.push([...caps, t.slice(pos, end)]); return; }
+        if (!parts[i]) return;
+        let j = t.indexOf(parts[i], pos + 1);
+        for (let k = 0; j >= 0 && j < end && k < 4; k++, j = t.indexOf(parts[i], j + 1)) walk(i + 1, j + parts[i].length, [...caps, t.slice(pos, j)]);
+      };
+      walk(1, parts[0].length, []);
+      return out;
+    };
+    // One piece of text: an exact key, else the most specific template. A template's values are translated too
+    // (depth 1: exact, template or list), so "Less active ×2" and "{} carries {} trait-linked {}" read in Swedish.
+    const one = (t, depth) => {
+      const hit = exact.get(t) ?? upper.get(t);  // labels drawn in capitals ("STARTS") use their key's translation
+      if (hit != null) return hit;
+      // A count before a key ("5 less active"): before the templates, so Swedish agreement applies
+      const n0 = t.match(/^([\d,.]+) (.+)$/);
+      const k0 = n0 && exact.get(n0[2]);
+      if (k0 != null) return n0[1] + ' ' + (COUNTED[k0] ? COUNTED[k0][n0[1] === '1' ? 0 : 1] : k0);
+      for (const p of pats) {
+        // Cheap checks first: every fixed part must occur, and the separator-only templates are kept to short labels
+        if (p.generic && t.length > 160) continue;
+        if (!p.need.every((x) => t.includes(x))) continue;
+        let best = null, bestScore = -1;
+        for (const m of match(p.parts, t)) {
+          // A value never spans sentences: if it would, the text is several sentences and is translated one by one
+          if (m.some((v) => /[.!?]\s+[A-Z0-9"]/.test(v))) continue;
+          // ...nor half a bracket: "a (1), b (2)" is a list, not "{} ({})" with "1), b (2" inside
+          if (m.some((v) => !balanced(v))) continue;
+          // A separator-only template ("{} ({})") never spans the items of a "; " list either
+          if (p.generic && m.some((v) => v.includes('; ') && !exact.has(v.trim()) && !exact.has(v.trim().replace(/\.$/, '')))) continue;
+          let i = 0, score = 0;
+          const out = p.sv.replace(/\{(\d*)\}/g, (_, n) => {
+            const v = m[n === '' ? i++ : +n] ?? '';
+            const done = depth > 0 ? value(v, p.generic ? 0 : depth - 1) : (exact.get(v.trim()) ?? v);
+            if (done !== v) score++;
+            return done;
+          });
+          if (out !== t && score > bestScore) { best = out; bestScore = score; }
+          if (bestScore === m.length) break;
+        }
+        if (best != null) return best;
+      }
+      // "1 more active", "Typical function." : a count before a key, or a full stop after one
+      const num = t.match(/^([\d,.]+) (.+)$/);
+      if (num) {
+        const r = exact.get(num[2]) ?? (depth > 0 ? one(num[2], depth - 1) : null);
+        if (r != null) return num[1] + ' ' + (COUNTED[r] ? COUNTED[r][num[1] === '1' ? 0 : 1] : r);
+      }
+      if (/[A-Za-z)]\.$/.test(t)) { const r = exact.get(t.slice(0, -1)) ?? (depth > 0 ? one(t.slice(0, -1), depth - 1) : null); if (r != null) return r + '.'; }
+      return null;
+    };
+    const list = (t, depth, all = false) => {
+      for (const sep of ['; ', ', ']) {
+        if (!t.includes(sep)) continue;
+        // Keys can hold the separator themselves ("2 changed, direction unclear"): neighbours are joined back when together
+        // they translate and apart the first doesn't
+        const raw = t.split(sep), parts = [];
+        for (let i = 0; i < raw.length; i++) {
+          const both = i + 1 < raw.length ? raw[i] + sep + raw[i + 1] : null;
+          if (both && one(raw[i], 0) == null && one(both, 0) != null) { parts.push(both); i++; } else parts.push(raw[i]);
+        }
+        const done = parts.map((x) => one(x, depth));
+        if (all ? done.every((x) => x != null) : done.some((x) => x != null)) return parts.map((x, i) => done[i] ?? x).join(sep);
+      }
+      return null;
+    };
+    const value = (v, depth) => {
+      const t = v.trim();
+      if (!t) return v;
+      // A list whose every item translates ("1 more active, 5 typical function") beats a template that would span items
+      const o = (t.includes(', ') || t.includes('; ') ? list(t, depth, true) : null) ?? one(t, depth) ?? list(t, depth) ?? sentences(t, depth);
+      return o == null ? v : v.replace(t, () => o);
+    };
+    // Several sentences drawn into one node: each is translated on its own
+    // Several sentences drawn into one node: the longest run of up to three sentences that a key covers, then the next
+    const sentences = (t, depth = 1) => {
+      const parts = t.split(/(?<=[.!?])\s+(?=[A-Z0-9"(+·⚠])/);
+      if (parts.length < 2) return null;
+      const out = [];
+      let changed = false;
+      for (let i = 0; i < parts.length;) {
+        let done = null, n = 1;
+        for (let k = Math.min(3, parts.length - i); k >= 1 && done == null; k--) {
+          done = one(parts.slice(i, i + k).join(' '), depth) ?? (k === 1 ? list(parts[i], depth) : null);
+          n = k;
+        }
+        out.push(done ?? parts[i]);
+        changed ||= done != null;
+        i += done == null ? 1 : n;
+      }
+      return changed ? out.join(' ') : null;
+    };
+    const line = (s) => {
+      const t = s.replace(/\s+/g, ' ').trim();
+      if (!t || !/[A-Za-z]/.test(t)) return null;
+      // A whole line that is a list translates only when every item does: half-Swedish source lists read worse
+      const out = one(t, 1) ?? sentences(t) ?? list(t, 1, true);
+      return out == null ? null : (/^\s/.test(s) ? ' ' : '') + out + (/\s$/.test(s) ? ' ' : '');
+    };
+    // Tooltips put one fact per line. Results are remembered: the same gene names and labels are drawn over and over.
+    const memo = new Map();
+    const tr = (text) => {
+      let out = memo.get(text);
+      if (out === undefined) {
+        // A paragraph's own line breaks are layout; a tooltip's are one fact per line, so lines only when the whole fails
+        out = line(text) ?? (text.trim().includes('\n') ? text.split('\n').map((l) => line(l) ?? l).join('\n') : text);
+        if (memo.size > 50000) memo.clear();
+        memo.set(text, out);
+      }
+      return out;
+    };
+
+    // English as drawn, kept per node, so switching back restores it and new drawing is picked up
+    // Only the explorer's own markup (.gx): the dashboard's interface around it is React-drawn and watches its own text and
+    // labels, so translating it would start a tug of war that freezes the page
+    const root = () => document.querySelector('.gx');
+    const EN = new WeakMap(), SHOWN = new WeakMap(), ATTRS = ['title', 'placeholder', 'aria-label'];
+    let lang = 'en', observer = null;
+    try { lang = localStorage.getItem('gx-lang') === 'sv' ? 'sv' : 'en'; } catch (e) { /* storage blocked: English */ }
+    const skip = (el) => !el || el.nodeName === 'SCRIPT' || el.nodeName === 'STYLE' || (el.closest && el.closest('[data-i18n-skip]'));
+    const doText = (n) => {
+      if (skip(n.parentNode)) return;
+      const cur = n.nodeValue;
+      if (!(SHOWN.has(n) && SHOWN.get(n) === cur)) EN.set(n, cur);  // the page wrote new text
+      const en = EN.get(n), want = lang === 'sv' ? tr(en) : en;
+      if (cur !== want) n.nodeValue = want;
+      SHOWN.set(n, want);
+    };
+    const doAttrs = (el) => {
+      if (skip(el)) return;
+      for (const a of ATTRS) {
+        if (!el.hasAttribute(a)) continue;
+        const key = 'i18n' + a.replace('-', ''), cur = el.getAttribute(a);
+        if (el.dataset[key + 'Shown'] !== cur) el.dataset[key] = cur;
+        const en = el.dataset[key], want = lang === 'sv' ? tr(en) : en;
+        if (cur !== want) el.setAttribute(a, want);
+        el.dataset[key + 'Shown'] = want;
+      }
+    };
+    const walk = (root) => {
+      if (!root.isConnected) return;  // drawn and replaced before the observer saw it
+      if (root.nodeType === 3) { doText(root); return; }
+      if (root.nodeType !== 1) return;
+      doAttrs(root);
+      const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT | NodeFilter.SHOW_ELEMENT);
+      let n;
+      while ((n = w.nextNode())) n.nodeType === 3 ? doText(n) : doAttrs(n);
+    };
+    const watch = () => {
+      if (observer) return;
+      observer = new MutationObserver((records) => {
+        for (const r of records) {
+          if (!r.target.isConnected) continue;
+          if (r.type === 'characterData') doText(r.target);
+          else if (r.type === 'attributes') doAttrs(r.target);
+          else r.addedNodes.forEach(walk);
+        }
+      });
+      if (!root()) return;
+      observer.observe(root(), { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ATTRS });
+    };
+    const set = (l) => {
+      lang = l === 'sv' ? 'sv' : 'en';
+      try { localStorage.setItem('gx-lang', lang); } catch (e) { /* not saved */ }
+      if (root()) root().lang = lang;
+      document.querySelectorAll('.gx-lang button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
+      if (root()) walk(root());
+      if (lang === 'sv') watch();  // English needs no watching: new text is drawn in English
+    };
+    // The dictionaries arrive with the page's data, each on its own; text drawn before one arrives is translated then.
+    // The page's wording (i18n_sv) wins over a source term (i18n_sv_terms) with the same English.
+    const sets = {};
+    const load = (name, rows) => {
+      if (sets[name] || !rows || !rows.length) return;
+      sets[name] = Object.fromEntries(rows.map((r) => [r.en, r.sv]));
+      build(Object.assign({}, sets.i18n_sv_terms, sets.i18n_sv));
+      if (lang === 'sv' && root()) walk(root());
+    };
+    return { set, tr, load, get lang() { return lang; } };
+  })();
+
+  document.querySelectorAll('.gx-lang button').forEach((b) => b.addEventListener('click', () => I18N.set(b.dataset.lang)));
+  I18N.set(I18N.lang);
+  if (typeof dash !== 'undefined') {
+    dash.draw('i18n-load', () => { const r = gx.rows('i18n_sv'); if (r) I18N.load('i18n_sv', r[0]); });
+    dash.draw('i18n-terms', () => { const r = gx.rows('i18n_sv_terms'); if (r) I18N.load('i18n_sv_terms', r[0]); });
+  }
 </script>

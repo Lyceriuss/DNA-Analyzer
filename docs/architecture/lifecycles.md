@@ -26,8 +26,14 @@ flowchart TB
     EXP --> D3["gene_function<br/>evidence, genotype ladder, papers"]
 ```
 
+The published set covers every library gene that has Reactome reactions (207 genes, ~500 pathway roles). Use the
+first word of each library `gene` field as the symbol: the rest is an alias in brackets ("AOC1 (DAO)"), and an
+alias on its own can name a different protein (DAO is D-amino acid oxidase). TNF is listed as "TNF-alpha" and needs
+its official symbol. Reactome returns 503s under load; rerun the failed genes and merge.
+
 ```bash
-python -m cluster_analysis.lifecycle MTHFR ALDH2 --dna data/input/MyHeritage_raw_dna_data_XY.csv --out data/output/cluster_analysis/lifecycles_XY.json
+GENES=$(python -c "import json; print(' '.join(sorted({v['gene'].split()[0] for v in json.load(open('config/snp_traits.json', encoding='utf-8')).values()})))")
+python -m cluster_analysis.lifecycle $GENES TNF --dna data/input/MyHeritage_raw_dna_data_XY.csv --out data/output/cluster_analysis/lifecycles_XY_full.json
 python -m cluster_analysis.gene_trace ALDH2 --dna data/input/MyHeritage_raw_dna_data_XY.csv     # upstream / downstream trace of one gene
 ```
 

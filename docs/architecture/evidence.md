@@ -54,17 +54,49 @@ Details that matter:
 The library's wording-based call is kept as `library_function` for comparison, and the explorer marks the library
 sentence as a note written with an LLM.
 
+## From the call to positive or negative
+
+The report and the explorer read each genotype as positive or negative for the person in two steps: the evidence call
+above says what the genotype does to the gene, and the library entry's `polarity` says whether that is good or bad.
+The call is evidence; the polarity is a best-effort reading of the trait.
+
+```mermaid
+flowchart TB
+    EC["evidence_call()<br/>per library genotype"] --> FN["snp_traits.json → function<br/>GoF / LoF / normal / altered / unknown"]
+    OLD["first drafts, 2026-11-07<br/>(library wording, direction of the old ratings)"] --> POL["polarity<br/>{LoF: negative}"]
+    HAND["set by hand<br/>(polarity_source: reviewed)"] --> POL
+    FN -->|"effect without a polarity"| NONE["reads unclear<br/>(listed by genotype_effects.py)"]
+    FN & POL --> OUT["outcome: positive / negative /<br/>neutral / unclear / typical / unknown"]
+```
+
+- The first drafts compared the old rating of the genotype carrying the most copies of the effect with the genotype
+  carrying none: a gap of 2 or more decided the direction, a smaller one made it neutral. Only the direction was used,
+  and the ratings were then removed. New polarities are set by hand.
+- Where the library's wording names a function the evidence reverses (it says more active, the protein evidence says
+  less), the draft kept the library's view of which function is good and flipped the sign. Where the evidence is tissue
+  expression only, neither side was strong enough, and the effect got no polarity: it reads *unclear*.
+- Protein evidence is put on the allele that codes the changed residue. GRCh38 sometimes carries the rarer form
+  (PTPN22 rs2476601 holds Trp620; UniProt's standard protein has Arg620), so the allele is matched by amino acid, not
+  taken to be the genome's alternative allele.
+- A lost start codon is not counted as cutting the protein short: translation can restart at a later ATG (VDR FokI
+  gives a shorter, more active receptor).
+
+```bash
+python -m cluster_analysis.genotype_effects           # calls that would change, and effects without a polarity
+python -m cluster_analysis.genotype_effects --write   # write function / function_basis into the library
+```
+
 ## The library audit
 
 ```mermaid
 flowchart TB
     LIB["snp_traits.json"] --> CLAIM["the wording's claim for the<br/>less common genotype<br/>(more / less active / typical)"]
-    LIB --> SC["scores per genotype"]
+    LIB --> SC["function + polarity<br/>per genotype"]
     EVC["evidence call for the<br/>minor homozygote"] --> CMP
     CLAIM --> CMP{"compare"}
     GW["GWAS Catalog<br/>direct hits"] --> SUP
     LD["Ensembl LD partners<br/>r² ≥ 0.6"] --> SUP["GWAS support"]
-    VEPF["European frequency"] --> COMMON{"common genotype<br/>(≥ 25%) scored ≤ 4?"}
+    VEPF["European frequency"] --> COMMON{"common genotype<br/>(≥ 25%) reads negative?"}
     SC --> COMMON
     CMP & SUP & COMMON --> V["verdict"]
     V --> MD["docs/LIBRARY_AUDIT.md"]
@@ -74,8 +106,9 @@ flowchart TB
 | Verdict | Meaning |
 |---|---|
 | contradicts | The wording's direction is the opposite of the evidence |
-| unsupported | No functional evidence and no genome-wide study, yet scored away from neutral |
-| common genotype scored as risk | Most Europeans carry the genotype scored ≤ 4 |
+| unsupported | No functional evidence and no genome-wide study, yet the wording claims an effect |
+| common genotype reads negative | Most Europeans carry a genotype that reads negative |
+| no polarity | The evidence calls a change but nothing says whether it is good or bad |
 | function claim unsupported | The trait has GWAS support; the activity wording doesn't |
 | agrees / no function claim | Nothing to change |
 

@@ -5,8 +5,9 @@ Checks every SNP in the library (config/snp_traits.json, written with an LLM) ag
   * function: what the library's wording claims for the less common genotype (more / less active), against the
     evidence call (evidence_call.py: CPIC, MaveDB, UniProt, a truncating change, SIFT/PolyPhen, GTEx);
   * trait: whether the GWAS Catalog has any genome-wide significant association for the SNP at all;
-  * scoring: whether the genotype most Europeans carry is scored as a risk (4 or lower), which an LLM easily does
-    and which makes a common, ordinary genotype look like a problem.
+  * reading: whether the genotype most Europeans carry reads negative (an evidence-based change that the library's
+    polarity calls bad), which makes a common, ordinary genotype look like a problem, and which SNPs have a GoF/LoF call
+    but no polarity yet (they read "unclear" in the report).
 
     python -m cluster_analysis.library_audit
 
@@ -25,14 +26,15 @@ from collections import Counter, defaultdict
 from cluster_analysis import sources
 from cluster_analysis.evidence_call import BASIS_TEXT, evidence_call, load_evidence
 from cluster_analysis.gene_trace import NORMAL_WORDS, direction
+from src.analyzer import outcome
 
 TRAITS_PATH = "config/snp_traits.json"
 GWAS_ZIP = "data/reference/gwas_associations_ontology.zip"
 OUT_MD = "docs/LIBRARY_AUDIT.md"
 OUT_JSON = os.path.join(os.path.dirname(__file__), "library_audit.json")
 COMPLEMENT = str.maketrans("ACGT", "TGCA")
-SEVERITY = {"contradicts": 0, "unsupported": 1, "common genotype scored as risk": 2, "function claim unsupported": 3,
-            "agrees": 4, "no function claim": 5}
+SEVERITY = {"contradicts": 0, "unsupported": 1, "common genotype reads negative": 2, "no polarity": 3,
+            "function claim unsupported": 4, "agrees": 5, "no function claim": 6}
 
 
 def gwas_hits(rsids):
@@ -91,7 +93,8 @@ def audit():
     for rs in rsids:
         t = traits[rs]
         v = vep.get(rs)
-        row = {"rsid": rs, "gene": t.get("gene"), "trait": t.get("trait"), "scores": t.get("scores", {}),
+        row = {"rsid": rs, "gene": t.get("gene"), "trait": t.get("trait"), "function": t.get("function", {}),
+               "polarity": t.get("polarity", {}), "polarity_source": t.get("polarity_source"),
                "gwas": [{"trait": tr, "p": p} for p, tr in gwas.get(rs, [])[:4]], "n_gwas": len(gwas.get(rs, [])),
                "gwas_via": {"rsid": via[rs][0], "r2": round(via[rs][1], 2)} if rs in via else None}
         if not v:
@@ -104,7 +107,7 @@ def audit():
         common = max(alleles, key=lambda a: af.get(a, 0))
         minor = max((a for a in alleles if a != common and len(a) == 1), key=lambda a: af.get(a, 0), default=None)
         texts = oriented(t.get("variants", {}), alleles)
-        scores = oriented(t.get("scores", {}), alleles)
+        functions = oriented(t.get("function", {}), alleles)
         hom_common, hom_minor = common * 2, (minor or "") * 2
         lib_text = texts.get("".join(sorted(hom_minor)), "")
         claim = direction(lib_text)
@@ -115,10 +118,11 @@ def audit():
         ev_dir = ev["function"] if ev["function"] in ("GoF", "LoF", "altered") else "normal" if ev["function"] == "normal" else None
         p_common = af.get(common, 0)
         flags = []
-        common_score = scores.get(hom_common)
-        if common_score is not None and common_score <= 4 and p_common ** 2 >= 0.25:
-            flags.append(f"{hom_common} ({p_common ** 2:.0%} of Europeans) scored {common_score:g}")
-        extreme = any(s <= 3 or s >= 8 for s in scores.values())
+        common_reading = outcome(functions.get(hom_common, "unknown"), t.get("polarity"))
+        if common_reading == "negative" and p_common ** 2 >= 0.25:
+            flags.append(f"{hom_common} ({p_common ** 2:.0%} of Europeans) reads negative")
+        effects = {f for f in functions.values() if f in ("GoF", "LoF", "altered")}
+        unpolarised = sorted(f for f in effects if f not in (t.get("polarity") or {}))
 
         if lib_claim in ("GoF", "LoF") and ev_dir in ("GoF", "LoF") and lib_claim != ev_dir:
             verdict = "contradicts"
@@ -128,14 +132,16 @@ def audit():
         elif lib_claim in ("GoF", "LoF") and ev_dir == "normal" and ev["basis"] in ("cpic", "measured"):
             verdict = "contradicts"
             action = f"The wording claims an effect; {BASIS_TEXT[ev['basis']]} finds typical function. Rewrite as typical."
-        elif ev["basis"] == "none" and not row["n_gwas"] and (claim or extreme):
+        elif ev["basis"] == "none" and not row["n_gwas"] and claim:
             verdict = "unsupported"
-            action = ("No functional evidence and no genome-wide GWAS hit. Scores are neutral (5); the wording still claims an effect."
-                      if set(scores.values()) == {5} else
-                      "No functional evidence and no genome-wide GWAS hit: neutralise the scores (5) or drop the SNP.")
+            action = "No functional evidence and no genome-wide GWAS hit, yet the wording claims an effect: drop the claim or the SNP."
         elif flags:
-            verdict = "common genotype scored as risk"
-            action = "Most people carry this genotype: score it 5 unless a study shows harm against the other genotypes."
+            verdict = "common genotype reads negative"
+            action = "Most people carry this genotype: check that the change it carries is really bad for them, or set the polarity to neutral."
+        elif unpolarised:
+            verdict = "no polarity"
+            action = (f"The evidence calls {'/'.join(unpolarised)} but nothing says whether that is good or bad for the person: "
+                      "set the polarity by hand (polarity_source \"reviewed\").")
         elif claim and ev["basis"] == "none":
             verdict = "function claim unsupported"
             action = "Keep the trait wording (GWAS supports the SNP), drop words about activity."
@@ -145,8 +151,8 @@ def audit():
         else:
             verdict = "no function claim"
             action = ""
-        if flags and verdict != "common genotype scored as risk":
-            action += " Also: the common genotype is scored as a risk."
+        if flags and verdict != "common genotype reads negative":
+            action += " Also: the common genotype reads negative."
         row.update(common=common, minor=minor, minor_af=round(af.get(minor, 0), 3) if minor else None,
                    consequence=v.get("consequence"), library_text=lib_text, library_claim=lib_claim,
                    evidence_function=ev["function"], evidence_basis=ev["basis"], evidence=ev["detail"],
@@ -162,7 +168,7 @@ def write(rows):
     word = {"GoF": "more active", "LoF": "less active", "normal": "typical", "altered": "changed", "unknown": "no known effect", None: "-"}
     lines = ["# Library audit", "",
              f"Every SNP in `config/snp_traits.json` ({len(rows)}) checked against evidence by `cluster_analysis/library_audit.py`. "
-             "The library was written with an LLM; this lists where its wording and scores go beyond, or against, the evidence. "
+             "The library was written with an LLM; this lists where its wording and readings go beyond, or against, the evidence. "
              "Corrections already made are listed in [LIBRARY_CHANGES.md](LIBRARY_CHANGES.md); what remains here is for review "
              "(expression-only contradictions were kept, since a study of the protein can outweigh GTEx).", "",
              "- **Function**: what the library's text says the less common genotype does, against the evidence call "
@@ -170,10 +176,12 @@ def write(rows):
              "- **GWAS**: genome-wide significant (p ≤ 5e-8) associations for the SNP in the GWAS Catalog, any trait. The Catalog "
              "lists each study's lead SNP, so a SNP without its own entry is counted through a lead SNP inherited with it "
              "(r² ≥ 0.6 in Europeans, Ensembl).",
-             "- **Common risk**: the genotype most Europeans carry scored 4 or lower (a risk in the PDF report).", "",
+             "- **Reading**: each genotype's evidence call (GoF / LoF / normal) and whether that change is good or bad for the "
+             "person (the library's `polarity`; `polarity_source` says whether it was reviewed or is a draft). Flags the genotype most Europeans carry when it reads negative, "
+             "and SNPs with a call but no polarity.", "",
              "| Verdict | SNPs |", "|---|---|"]
     lines += [f"| {v} | {c[v]} |" for v in SEVERITY if c[v]]
-    lines += ["", "| Verdict | SNP | Gene | Trait | Less common genotype: library says | Evidence | GWAS hits | Scores | Action |",
+    lines += ["", "| Verdict | SNP | Gene | Trait | Less common genotype: library says | Evidence | GWAS hits | Reading | Action |",
               "|---|---|---|---|---|---|---|---|---|"]
     esc = lambda s: (s or "").replace("|", "/").replace("\n", " ")
     for r in rows:
@@ -182,7 +190,8 @@ def write(rows):
         ev = f"{word.get(r.get('evidence_function'))} ({esc(BASIS_TEXT.get(r.get('evidence_basis'), ''))}){': ' + esc(r.get('evidence'))[:110] if r.get('evidence') and r.get('evidence_basis') != 'none' else ''}"
         gw = (f"{r['n_gwas']}" + (f" via {r['gwas_via']['rsid']} (r² {r['gwas_via']['r2']})" if r.get("gwas_via") else "") + ": " +
               "; ".join(esc(g['trait'])[:40] for g in r["gwas"][:2])) if r["n_gwas"] else "none"
-        sc = ", ".join(f"{k} {v:g}" for k, v in r["scores"].items())
+        sc = ", ".join(f"{k} {f}" for k, f in r.get("function", {}).items() if f != "unknown")
+        sc += (" · " + ", ".join(f"{k} {v}" for k, v in r["polarity"].items()) + f" ({r.get('polarity_source')})") if r.get("polarity") else ""
         lines.append(f"| {r['verdict']} | {r['rsid']} | {esc(r['gene'])} | {esc(r['trait'])[:50]} | {lib} | {ev} | {gw} | {sc} | "
                      f"{esc(r.get('action'))}{' Flag: ' + '; '.join(r['flags']) if r.get('flags') else ''} |")
     open(OUT_MD, "w", encoding="utf-8", newline="\n").write("\n".join(lines) + "\n")

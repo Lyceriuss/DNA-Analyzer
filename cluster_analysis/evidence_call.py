@@ -28,7 +28,7 @@ import statistics
 HERE = os.path.dirname(__file__)
 EVIDENCE_PATH = os.path.join(HERE, "function_evidence.json")
 COMPLEMENT = str.maketrans("ACGT", "TGCA")
-TRUNCATING = {"stop_gained", "frameshift_variant", "splice_donor_variant", "splice_acceptor_variant", "start_lost"}
+TRUNCATING = {"stop_gained", "frameshift_variant", "splice_donor_variant", "splice_acceptor_variant"}  # not start_lost: translation can restart at a later ATG (VDR FokI gives a shorter, more active receptor)
 
 BASIS_TEXT = {"cpic": "CPIC allele function", "measured": "measured protein function (MaveDB)",
               "curated": "curated protein effect (UniProt)", "truncating": "the change cuts the protein short",
@@ -78,6 +78,31 @@ def _alleles(vep):
     return alleles[0], alt, common, af
 
 
+AA3 = {"Ala": "A", "Arg": "R", "Asn": "N", "Asp": "D", "Cys": "C", "Gln": "Q", "Glu": "E", "Gly": "G", "His": "H",
+       "Ile": "I", "Leu": "L", "Lys": "K", "Met": "M", "Phe": "F", "Pro": "P", "Ser": "S", "Thr": "T", "Trp": "W",
+       "Tyr": "Y", "Val": "V", "Ter": "*"}
+
+
+def _changed_allele(vep, change, ref, alt):
+    """The DNA allele that codes the changed residue of a protein change ("p.Arg620Trp" → the allele coding Trp).
+    Usually the genome's alternative allele, but GRCh38 sometimes carries the rarer form (PTPN22 rs2476601 holds Trp620,
+    while UniProt's standard protein has Arg620), and then the effect belongs to the reference allele."""
+    m = re.match(r"p\.([A-Z][a-z]{2})\d+([A-Z][a-z]{2})", change or "")
+    if not m:
+        return alt
+    old, new = AA3.get(m.group(1)), AA3.get(m.group(2))
+    af = vep.get("eur_af") or {}
+    hits = []
+    for a, pair in (vep.get("allele_amino_acids") or {}).items():
+        r, x = pair.split("/")[:2]
+        if x == new and r == old:
+            hits.append(a)
+        elif r == new and x == old:
+            return ref
+    # Several alternative alleles can code the same residue (ABCC11 rs17822931 C>G and C>T): the common one counts
+    return max(hits, key=lambda a: af.get(a, 0)) if hits else alt
+
+
 def _star(rsid):
     from cluster_analysis.medicines import STAR
     for gene, defs in STAR.items():
@@ -123,25 +148,27 @@ def evidence_call(rsid, genotype, ev, vep):
             ratio = med / 100 if med > 10 else med  # sets score wild type as 100 or as 1
             sign = -1 if ratio < 0.8 else 1 if ratio > 1.25 else 0
             change = s["mavedb"][0]["change"]
+            changed = _changed_allele(vep, change, ref, alt)
             if sign == 0:
                 out.update(basis="measured", detail=f"{change} works about as well as the common form in MaveDB assays "
-                                                     f"(median {ratio:.0%} of wild type)", dose=sum(1 for a in gt if a != common))
+                                                     f"(median {ratio:.0%} of wild type)", dose=gt.count(changed))
                 out["function"] = "normal"
                 return out
-            return call(alt, sign, "measured", f"{change}: {ratio:.0%} of wild-type function in MaveDB assays (median of {len(scores)})")
+            return call(changed, sign, "measured", f"{change}: {ratio:.0%} of wild-type function in MaveDB assays (median of {len(scores)})")
 
     # Curated text with a clear direction first, then a stop in the allele people carry, then curated text without one.
     # LPL S447X is a stop near the protein's end that raises activity: the curated direction wins there.
     functional = s.get("uniprot", {}).get("functional") or []
     sign = text_direction(functional) if functional else 0
     change = (s.get("uniprot", {}).get("protein_changes") or [""])[0]
+    changed = _changed_allele(vep, change, ref, alt)
     if functional and sign:
-        return call(alt, sign, "curated", f"{change + ': ' if change else ''}{'; '.join(functional)[:220]}")
+        return call(changed, sign, "curated", f"{change + ': ' if change else ''}{'; '.join(functional)[:220]}")
     stops = TRUNCATING & set((vep.get("allele_consequences") or {}).get(alt, []))
     if stops:
         return call(alt, -1, "truncating", f"{change + ': ' if change else ''}{sorted(stops)[0].replace('_', ' ')}, the protein is cut short")
     if functional:
-        return call(alt, 0, "curated", f"{change + ': ' if change else ''}{'; '.join(functional)[:220]}")
+        return call(changed, 0, "curated", f"{change + ': ' if change else ''}{'; '.join(functional)[:220]}")
 
     preds = {p["tool"]: p["call"] for p in s.get("predicted", [])}
     if preds.get("SIFT") == "deleterious" and preds.get("PolyPhen") in ("probably damaging", "possibly damaging"):

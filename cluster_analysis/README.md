@@ -2,7 +2,7 @@
 
 Architecture overview with diagrams: [docs/architecture/](../docs/architecture/README.md).
 
-Groups the genes in the library (`config/snp_traits.json`) into **functional modules**, meaning sets of genes whose proteins work together. It then scores a person's results per module. The aim is to see mechanisms rather than isolated SNPs: where several weakened genes sit in the same pathway, and which weakened genes reach into other systems.
+Groups the genes in the library (`config/snp_traits.json`) into **functional modules**, meaning sets of genes whose proteins work together. It then reads a person's results per module. The aim is to see mechanisms rather than isolated SNPs: where several weakened genes sit in the same pathway, and which weakened genes reach into other systems.
 
 ## Two steps
 
@@ -18,7 +18,7 @@ python -m cluster_analysis.overlay data/input/MyHeritage_raw_dna_data_XY.csv
 |---|---|---|
 | `cluster_analysis/modules.json` | Modules, enrichment, gene summaries, bridge genes, GWAS traits per rsID | yes (no personal data) |
 | `cluster_analysis/cache/` | Raw API responses, so re-runs don't hit the APIs again | no |
-| `data/output/cluster_analysis/<name>_clusters.md` / `.json` | One person's module scores | no (personal) |
+| `data/output/cluster_analysis/<name>_clusters.md` / `.json` | One person's module readings | no (personal) |
 
 ## Library validation
 
@@ -31,7 +31,7 @@ This checks every rsID in `snp_traits.json` against Ensembl (GRCh38) and the GWA
 | Check | Error when | Warning when |
 |---|---|---|
 | Location | the library gene is not within 250 kb of the variant, or the deep-dive/evidence file names another gene | the gene is nearby but not at the site, or the SNP is in a gene desert |
-| Alleles | the genotype letters are impossible for the SNP on either strand | an A/T or C/G SNP, where the strand can't be told and scores may be inverted |
+| Alleles | the genotype letters are impossible for the SNP on either strand | an A/T or C/G SNP, where the strand can't be told and readings may be inverted |
 | Genotypes | — | a genotype is missing, so carriers get no result |
 | Keys | the key has a suffix (`rs328_TIER2`), so it can never match a DNA file | — |
 
@@ -63,10 +63,13 @@ GPX1 and CDKN2B-AS1 (a non-coding RNA) aren't in STRING. ABCC11 and TRPM6 have n
 
 ## Reading the overlay
 
-- **Risk load**: summed `5 − score` over the person's risk SNPs (score ≤ 4) in the module.
-- **Compound link**: two interacting genes that are both reduced, so their effects may stack.
-- **Buffered link**: a reduced gene interacting with a strength gene, so it may be partly compensated.
-- **Reduced bridge gene**: a reduced gene that reaches into other modules, a candidate for cross-system effects.
+- **Negative / positive genes**: genes where the evidence says the person's genotype changes the gene (GoF / LoF) and
+  the library's polarity says that change is bad / good for them (see `genotype_effects.py`). A gene with several SNPs
+  takes its most negative reading. Typical function and genotypes without evidence count as neither.
+- **Compound link**: two interacting genes that both read negative, so their effects may stack.
+- **Buffered link**: a negative gene interacting with a positive one, so it may be partly compensated.
+- **Negative bridge gene**: a negative gene that reaches into other modules, a candidate for cross-system effects.
+- `--dashboard OUT_DIR` writes the explorer's Profile datasets (`hp_modules`, `hp_links`, `hp_bridges`, `hp_tilts`).
 
 ## Theme clusters
 
@@ -127,7 +130,7 @@ sentence shown in the explorer), and `library_function` keeps the wording-based 
 
 `library_audit.py` checks every library SNP against the same evidence and the GWAS Catalog (counting lead SNPs inherited
 with it, r² ≥ 0.6 in Europeans, via Ensembl) and writes `docs/LIBRARY_AUDIT.md` for review: contradictions, claims with
-no support, and common genotypes scored as a risk. It changes nothing in the library. Corrections made after review are
+no support, common genotypes that read negative, and calls without a polarity. It changes nothing in the library. Corrections made after review are
 listed in `docs/LIBRARY_CHANGES.md`, and each corrected entry in `snp_traits.json` carries an `audit` field with the reason.
 
 ```bash

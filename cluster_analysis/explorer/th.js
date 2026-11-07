@@ -4,6 +4,9 @@
   const TH_CLASS = { LoF: 'lof', GoF: 'gof', altered: 'alt', normal: 'norm', variant: 'var', unknown: 'untested' };
   TH_TEXT.unknown = 'no known effect on the gene';
   // Labels come from evidence about the variant (evidence_call.py); the wording follows what kind of evidence it is
+  // What the evidence call means for the person (genotype_effects.py): positive / negative from the library's polarity
+  const TH_OUTCOME = { positive: 'positive', negative: 'negative', neutral: 'neither good nor bad',
+    unclear: 'whether this is good or bad is unclear', typical: 'typical', unknown: 'unknown' };
   const TH_BASIS = { cpic: 'CPIC allele function', measured: 'measured protein function, MaveDB', curated: 'curated protein effect, UniProt',
     truncating: 'the change cuts the protein short', predicted: 'predicted damage, SIFT and PolyPhen', expression: 'gene expression, GTEx',
     none: 'no evidence about function' };
@@ -52,7 +55,7 @@
       thPubmed(d, it.pubmed);
     } else if (it.source === 'ClinVar') {
       d.append(`${f.rsid} ${f.genotype}: ${it.what}; ${who} has ${it.copies} ${it.copies === 1 ? 'copy' : 'copies'} of ${it.allele}.`);
-    } else d.append(`${f.rsid} ${f.genotype}: ${it.what}.`);
+    } else d.append(`${f.rsid} ${f.genotype}: ${it.what}${/[.!?]$/.test(it.what) ? "" : "."}`);
   };
 
   const thSel = () => {
@@ -196,6 +199,7 @@
     const s = thSel();
     const lr = gx.rows('theme_links');
     if (!s || !lr) { if (gx.failed('theme_meta', 'theme_genes', 'theme_links')) gx.failLine(el); return; }
+    if (!s.gene) { thMake(el, 'p', 'gx-note', 'No genes are drawn for this selection.'); return; }
     const W = Math.max(320, el.clientWidth), H = 580;
     let links = lr[0].filter((l) => l.theme === s.theme.theme && s.byName.has(l.a) && s.byName.has(l.b));
     const strong = links.filter((l) => l.score >= 0.7);
@@ -258,6 +262,7 @@
     const s = thSel();
     const r = gx.rows('theme_links', 'theme_pathways');
     if (!s || !r) { if (gx.failed('theme_meta', 'theme_genes', 'theme_links', 'theme_pathways')) gx.failLine(el); return; }
+    if (!s.gene) { thMake(el, 'p', 'gx-note', 'No genes are drawn for this selection.'); return; }
     const g = s.gene, fn = thCall(g);
     const head = thMake(el, 'div', 'lc-name');
     thMake(head, 'h3', null, g.gene);
@@ -265,7 +270,8 @@
     thMake(head, 'span', 'lc-call ' + (fn ? { LoF: 'lof', GoF: 'gof', altered: 'altered', normal: 'norm', variant: 'var', unknown: 'unknown' }[fn] : 'unknown'),
       fn ? fnText[0].toUpperCase() + fnText.slice(1) + (fn !== 'normal' && fn !== 'unknown' && g.dose ? ` ×${g.dose}` : '') : s.api ? `No ${thWho(s)} finding` : 'Not genotyped');
     if (g.genotype) thMake(el, 'p', null, `Effect on the gene: ${g.fn_evidence || 'no evidence collected'} (${TH_BASIS[g.basis] || TH_BASIS.none}).`);
-    thMake(el, 'p', g.genotype ? 'gx-note' : null, g.genotype ? `Library note for ${g.rsid} ${g.genotype}: ${g.interpretation} (library rating ${g.score}/10, where 5 is neutral; 4 or lower counts as a risk in the PDF report, 7 or higher as a strength). The notes were written with an LLM and are being checked against the evidence; the label above comes from the evidence, not the note.`
+    if (g.genotype && g.outcome && g.outcome !== 'typical' && g.outcome !== 'unknown') thMake(el, 'p', null, `Effect on ${thWho(s)}: ${TH_OUTCOME[g.outcome] || g.outcome}. Whether a change is good or bad is a best-effort reading of the trait; the change itself comes from the evidence.`);
+    thMake(el, 'p', g.genotype ? 'gx-note' : null, g.genotype ? `Library note for ${g.rsid} ${g.genotype}: ${g.interpretation}. The notes were written with an LLM and are being checked against the evidence; the label above comes from the evidence, not the note.`
       : s.api ? `Not in the library. ${thWho(s)}'s file ${s.stats && (s.stats.by_confidence || {}).high ? 'measures or confidently imputes' : 'measures'} ${g.ev.n_snps || 0} SNPs in or near this gene.` : 'XY has no call at this gene\'s library SNP.');
     if (g.has_lifecycle) {
       const b = thMake(el, 'button', 'lc-btn', 'Open its lifecycle');
@@ -504,7 +510,7 @@
       lane.set(d, k + 1);
       const fn = callOf(n), cx = x(d) + (k % 2 ? 9 : 0) * (k ? 1 : 0), cy = T + 12 + k * 15;
       const g = svg.append('g').attr('class', 'th-cy-gene').attr('transform', `translate(${cx},${cy})`).attr('tabindex', 0).attr('role', 'button')
-        .attr('aria-label', `${n}: ${effect(n).join(' ')}`)
+        .attr('aria-label', `${n}: ${effect(n).map((x) => x.replace(/\.$/, '')).join('. ')}.`)
         .on('mousemove', (event) => tip.show(event, `${n} · day ${d}`, effect(n)))
         .on('mouseleave', () => tip.hide())
         .on('click', () => thPick(n));

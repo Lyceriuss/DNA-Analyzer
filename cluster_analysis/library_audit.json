@@ -3,11 +3,13 @@
   "rsid": "rs1045642",
   "gene": "ABCB1 (MDR1)",
   "trait": "Blood-Brain Barrier Pump",
-  "scores": {
-   "GG": 9,
-   "AG": 6,
-   "AA": 5
+  "function": {
+   "GG": "LoF",
+   "AG": "LoF",
+   "AA": "normal"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "body height",
@@ -36,11 +38,13 @@
   "rsid": "rs1256335",
   "gene": "ALPL",
   "trait": "Vitamin B6 Transport",
-  "scores": {
-   "AA": 7,
-   "AG": 5,
-   "GG": 3
+  "function": {
+   "AA": "normal",
+   "AG": "GoF",
+   "GG": "GoF"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "choline phosphate measurement",
@@ -78,11 +82,13 @@
   "rsid": "rs4654748",
   "gene": "ALPL",
   "trait": "Vitamin B6 (PLP) blood levels",
-  "scores": {
-   "CC": 5,
-   "CT": 5,
-   "TT": 7
+  "function": {
+   "CC": "normal",
+   "CT": "LoF",
+   "TT": "LoF"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "alkaline phosphatase measurement",
@@ -120,11 +126,13 @@
   "rsid": "rs7501331",
   "gene": "BCO1",
   "trait": "Beta-Carotene Conversion (Secondary)",
-  "scores": {
-   "CC": 9,
-   "CT": 6,
-   "TT": 3
+  "function": {
+   "CC": "normal",
+   "CT": "GoF",
+   "TT": "GoF"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [],
   "n_gwas": 0,
   "gwas_via": null,
@@ -145,11 +153,13 @@
   "rsid": "rs1001179",
   "gene": "CAT",
   "trait": "Hydrogen Peroxide Breakdown (Greying Hair)",
-  "scores": {
-   "CC": 8,
-   "CT": 5,
-   "TT": 4
+  "function": {
+   "CC": "normal",
+   "CT": "GoF",
+   "TT": "GoF"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "protein measurement",
@@ -179,11 +189,13 @@
   "rsid": "rs2569190",
   "gene": "CD14",
   "trait": "Endotoxin (LPS) Sensitivity",
-  "scores": {
-   "GG": 7,
-   "AG": 5,
-   "AA": 3
+  "function": {
+   "GG": "normal",
+   "AG": "LoF",
+   "AA": "LoF"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "pain measurement",
@@ -209,12 +221,14 @@
   "rsid": "rs1761667",
   "gene": "CD36",
   "trait": "Fat Taste Perception (Creamy Craving)",
-  "scores": {
-   "GG": 7,
-   "GA": 5,
-   "AG": 5,
-   "AA": 5
+  "function": {
+   "GG": "GoF",
+   "GA": "GoF",
+   "AG": "GoF",
+   "AA": "normal"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "hematological measurement",
@@ -255,11 +269,13 @@
   "rsid": "rs3813867",
   "gene": "CYP2E1",
   "trait": "Toxin & Solvent Metabolism",
-  "scores": {
-   "GG": 7,
-   "GC": 5,
-   "CC": 5
+  "function": {
+   "GG": "normal",
+   "GC": "LoF",
+   "CC": "LoF"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [],
   "n_gwas": 0,
   "gwas_via": null,
@@ -280,11 +296,13 @@
   "rsid": "rs45446698",
   "gene": "CYP3A7",
   "trait": "DHEA-S clearance (CYP3A7*1C)",
-  "scores": {
-   "TT": 6,
-   "GT": 4,
-   "GG": 3
+  "function": {
+   "TT": "normal",
+   "GT": "GoF",
+   "GG": "GoF"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "androsterone sulfate measurement",
@@ -322,11 +340,13 @@
   "rsid": "rs2234693",
   "gene": "ESR1",
   "trait": "Estrogen Receptor Alpha Sensitivity",
-  "scores": {
-   "TT": 8,
-   "TC": 6,
-   "CC": 4
+  "function": {
+   "TT": "normal",
+   "TC": "GoF",
+   "CC": "GoF"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "bone tissue density",
@@ -356,12 +376,14 @@
   "rsid": "rs174547",
   "gene": "FADS2",
   "trait": "Omega-3 Conversion Efficiency",
-  "scores": {
-   "TT": 8,
-   "TC": 5,
-   "CT": 5,
-   "CC": 3
+  "function": {
+   "TT": "normal",
+   "TC": "GoF",
+   "CT": "GoF",
+   "CC": "GoF"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "omega-6 polyunsaturated fatty acid measurement",
@@ -399,11 +421,13 @@
   "rsid": "rs1800790",
   "gene": "FGB",
   "trait": "Fibrinogen levels, tissue repair quality, and cardiovascular risk",
-  "scores": {
-   "CC": 8,
-   "CT": 6,
-   "TT": 4
+  "function": {
+   "CC": "normal",
+   "CT": "LoF",
+   "TT": "LoF"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "venous thromboembolism, circulating fibrinogen amount",
@@ -444,11 +468,13 @@
   "rsid": "rs1946518",
   "gene": "IL18",
   "trait": "IL-18 Inflammatory Levels",
-  "scores": {
-   "TT": 7,
-   "TG": 5,
-   "GG": 5
+  "function": {
+   "TT": "GoF",
+   "TG": "GoF",
+   "GG": "normal"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [],
   "n_gwas": 0,
   "gwas_via": null,
@@ -469,11 +495,13 @@
   "rsid": "rs1800795",
   "gene": "IL6 (Promoter)",
   "trait": "Inflammatory reactivity (CRP levels)",
-  "scores": {
-   "GG": 5,
-   "GC": 6,
-   "CC": 9
+  "function": {
+   "GG": "normal",
+   "GC": "GoF",
+   "CC": "GoF"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "pulse pressure measurement",
@@ -507,11 +535,13 @@
   "rsid": "rs7799039",
   "gene": "LEP (Leptin)",
   "trait": "Leptin Production & Satiety Signaling",
-  "scores": {
-   "GG": 8,
-   "GA": 6,
-   "AA": 3
+  "function": {
+   "GG": "normal",
+   "GA": "GoF",
+   "AA": "GoF"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "educational attainment",
@@ -540,11 +570,13 @@
   "rsid": "rs1052133",
   "gene": "OGG1",
   "trait": "Oxidative DNA Damage Repair",
-  "scores": {
-   "CC": 8,
-   "CG": 6,
-   "GG": 4
+  "function": {
+   "CC": "normal",
+   "CG": "GoF",
+   "GG": "GoF"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [],
   "n_gwas": 0,
   "gwas_via": null,
@@ -565,11 +597,13 @@
   "rsid": "rs1042838",
   "gene": "PGR",
   "trait": "Progesterone Receptor Efficiency",
-  "scores": {
-   "GG": 10,
-   "GA": 6,
-   "AA": 3
+  "function": {
+   "GG": "normal",
+   "GA": "GoF",
+   "AA": "GoF"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "body height",
@@ -610,12 +644,14 @@
   "rsid": "rs7498665",
   "gene": "SH2B1",
   "trait": "Leptin and Insulin Cross-Talk",
-  "scores": {
-   "AA": 8,
-   "AG": 4,
-   "GA": 4,
-   "GG": 2
+  "function": {
+   "AA": "normal",
+   "AG": "LoF",
+   "GA": "LoF",
+   "GG": "LoF"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "body mass index",
@@ -653,11 +689,13 @@
   "rsid": "rs6259",
   "gene": "SHBG",
   "trait": "Sex hormone binding globulin level",
-  "scores": {
-   "GG": 5,
-   "AG": 5,
-   "AA": 5
+  "function": {
+   "GG": "normal",
+   "AG": "LoF",
+   "AA": "LoF"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "brain attribute, neuroimaging measurement",
@@ -683,11 +721,13 @@
   "rsid": "rs1051266",
   "gene": "SLC19A1",
   "trait": "Folate Absorption (RFC1 Transporter)",
-  "scores": {
-   "TT": 8,
-   "CT": 5,
-   "CC": 5
+  "function": {
+   "TT": "LoF",
+   "CT": "LoF",
+   "CC": "normal"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "amount of collagen alpha-1(XVIII) chain in blood",
@@ -728,11 +768,13 @@
   "rsid": "rs5400",
   "gene": "SLC2A2",
   "trait": "Glucose sensing & Sweet tooth",
-  "scores": {
-   "CC": 9,
-   "CT": 6,
-   "TT": 3
+  "function": {
+   "CC": "normal",
+   "CT": "GoF",
+   "TT": "GoF"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "triglyceride measurement",
@@ -770,12 +812,14 @@
   "rsid": "rs40184",
   "gene": "SLC6A3 (DAT1)",
   "trait": "Dopamine Transporter Density",
-  "scores": {
-   "CC": 5,
-   "CT": 5,
-   "TC": 5,
-   "TT": 7
+  "function": {
+   "CC": "normal",
+   "CT": "GoF",
+   "TC": "GoF",
+   "TT": "GoF"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [],
   "n_gwas": 0,
   "gwas_via": null,
@@ -796,11 +840,13 @@
   "rsid": "rs3813034",
   "gene": "SLC6A4",
   "trait": "Serotonin transporter expression",
-  "scores": {
-   "CC": 7,
-   "AC": 5,
-   "AA": 5
+  "function": {
+   "CC": "LoF",
+   "AC": "LoF",
+   "AA": "normal"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "hematological measurement",
@@ -838,39 +884,16 @@
   "action": "The wording makes CC more active; the evidence says less (expression only: a protein change can still win). Rewrite the genotype texts."
  },
  {
-  "rsid": "rs1799752",
-  "gene": "ACE",
-  "trait": "ACE enzyme levels (BP & endurance)",
-  "scores": {
-   "II": 9,
-   "ID": 6,
-   "DD": 3
-  },
-  "gwas": [],
-  "n_gwas": 0,
-  "gwas_via": null,
-  "common": "-",
-  "minor": null,
-  "minor_af": null,
-  "consequence": "intron_variant",
-  "library_text": "",
-  "library_claim": null,
-  "evidence_function": "unknown",
-  "evidence_basis": "none",
-  "evidence": null,
-  "flags": [],
-  "verdict": "unsupported",
-  "action": "No functional evidence and no genome-wide GWAS hit: neutralise the scores (5) or drop the SNP."
- },
- {
   "rsid": "rs1501299",
   "gene": "ADIPOQ",
   "trait": "Adiponectin level & insulin sensitivity",
-  "scores": {
-   "GG": 5,
-   "GT": 5,
-   "TT": 5
+  "function": {
+   "GG": "unknown",
+   "GT": "unknown",
+   "TT": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [],
   "n_gwas": 0,
   "gwas_via": null,
@@ -885,18 +908,20 @@
   "evidence": "no measured, curated or expression evidence that this SNP changes the gene",
   "flags": [],
   "verdict": "unsupported",
-  "action": "No functional evidence and no genome-wide GWAS hit. Scores are neutral (5); the wording still claims an effect."
+  "action": "No functional evidence and no genome-wide GWAS hit, yet the wording claims an effect: drop the claim or the SNP."
  },
  {
   "rsid": "rs12722",
   "gene": "COL5A1",
   "trait": "Tendon stiffness & injury risk",
-  "scores": {
-   "CC": 5,
-   "CT": 5,
-   "TC": 5,
-   "TT": 5
+  "function": {
+   "CC": "unknown",
+   "CT": "unknown",
+   "TC": "unknown",
+   "TT": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [],
   "n_gwas": 0,
   "gwas_via": null,
@@ -911,17 +936,19 @@
   "evidence": "no measured, curated or expression evidence that this SNP changes the gene",
   "flags": [],
   "verdict": "unsupported",
-  "action": "No functional evidence and no genome-wide GWAS hit. Scores are neutral (5); the wording still claims an effect."
+  "action": "No functional evidence and no genome-wide GWAS hit, yet the wording claims an effect: drop the claim or the SNP."
  },
  {
   "rsid": "rs2740574",
   "gene": "CYP3A4",
   "trait": "Drug metabolism rate",
-  "scores": {
-   "TT": 5,
-   "CT": 5,
-   "CC": 5
+  "function": {
+   "TT": "unknown",
+   "CT": "unknown",
+   "CC": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [],
   "n_gwas": 0,
   "gwas_via": null,
@@ -936,17 +963,19 @@
   "evidence": "no measured, curated or expression evidence that this SNP changes the gene",
   "flags": [],
   "verdict": "unsupported",
-  "action": "No functional evidence and no genome-wide GWAS hit. Scores are neutral (5); the wording still claims an effect."
+  "action": "No functional evidence and no genome-wide GWAS hit, yet the wording claims an effect: drop the claim or the SNP."
  },
  {
   "rsid": "rs2071749",
   "gene": "HMOX1",
   "trait": "Heme breakdown / oxidative stress resistance",
-  "scores": {
-   "AA": 5,
-   "AG": 5,
-   "GG": 5
+  "function": {
+   "AA": "unknown",
+   "AG": "unknown",
+   "GG": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [],
   "n_gwas": 0,
   "gwas_via": null,
@@ -961,17 +990,19 @@
   "evidence": "no measured, curated or expression evidence that this SNP changes the gene",
   "flags": [],
   "verdict": "unsupported",
-  "action": "No functional evidence and no genome-wide GWAS hit. Scores are neutral (5); the wording still claims an effect."
+  "action": "No functional evidence and no genome-wide GWAS hit, yet the wording claims an effect: drop the claim or the SNP."
  },
  {
   "rsid": "rs6295",
   "gene": "HTR1A",
   "trait": "5-HT1A autoreceptor sensitivity",
-  "scores": {
-   "CC": 5,
-   "CG": 5,
-   "GG": 5
+  "function": {
+   "CC": "unknown",
+   "CG": "unknown",
+   "GG": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [],
   "n_gwas": 0,
   "gwas_via": null,
@@ -986,17 +1017,19 @@
   "evidence": "no measured, curated or expression evidence that this SNP changes the gene",
   "flags": [],
   "verdict": "unsupported",
-  "action": "No functional evidence and no genome-wide GWAS hit. Scores are neutral (5); the wording still claims an effect."
+  "action": "No functional evidence and no genome-wide GWAS hit, yet the wording claims an effect: drop the claim or the SNP."
  },
  {
   "rsid": "rs2268491",
   "gene": "OXTR",
   "trait": "Oxytocin Receptor Sensitivity",
-  "scores": {
-   "TT": 5,
-   "TC": 5,
-   "CC": 5
+  "function": {
+   "TT": "unknown",
+   "TC": "unknown",
+   "CC": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [],
   "n_gwas": 0,
   "gwas_via": null,
@@ -1011,18 +1044,20 @@
   "evidence": "no measured, curated or expression evidence that this SNP changes the gene",
   "flags": [],
   "verdict": "unsupported",
-  "action": "No functional evidence and no genome-wide GWAS hit. Scores are neutral (5); the wording still claims an effect."
+  "action": "No functional evidence and no genome-wide GWAS hit, yet the wording claims an effect: drop the claim or the SNP."
  },
  {
   "rsid": "rs8192678",
   "gene": "PPARGC1A (PGC-1α)",
   "trait": "Mitochondrial biogenesis rate",
-  "scores": {
-   "CC": 5,
-   "CT": 5,
-   "TC": 5,
-   "TT": 5
+  "function": {
+   "CC": "unknown",
+   "CT": "unknown",
+   "TC": "unknown",
+   "TT": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [],
   "n_gwas": 0,
   "gwas_via": null,
@@ -1037,17 +1072,19 @@
   "evidence": "no measured, curated or expression evidence that this SNP changes the gene",
   "flags": [],
   "verdict": "unsupported",
-  "action": "No functional evidence and no genome-wide GWAS hit. Scores are neutral (5); the wording still claims an effect."
+  "action": "No functional evidence and no genome-wide GWAS hit, yet the wording claims an effect: drop the claim or the SNP."
  },
  {
   "rsid": "rs35874116",
   "gene": "TAS1R2",
   "trait": "Sweet Taste Sensitivity",
-  "scores": {
-   "CC": 5,
-   "CT": 5,
-   "TT": 5
+  "function": {
+   "CC": "unknown",
+   "CT": "unknown",
+   "TT": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [],
   "n_gwas": 0,
   "gwas_via": null,
@@ -1062,18 +1099,20 @@
   "evidence": "no measured, curated or expression evidence that this SNP changes the gene",
   "flags": [],
   "verdict": "unsupported",
-  "action": "No functional evidence and no genome-wide GWAS hit. Scores are neutral (5); the wording still claims an effect."
+  "action": "No functional evidence and no genome-wide GWAS hit, yet the wording claims an effect: drop the claim or the SNP."
  },
  {
   "rsid": "rs4570625",
   "gene": "TPH2",
   "trait": "Brain Serotonin Synthesis Rate",
-  "scores": {
-   "GG": 5,
-   "GT": 5,
-   "TG": 5,
-   "TT": 5
+  "function": {
+   "GG": "unknown",
+   "GT": "unknown",
+   "TG": "unknown",
+   "TT": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [],
   "n_gwas": 0,
   "gwas_via": null,
@@ -1088,66 +1127,21 @@
   "evidence": "no measured, curated or expression evidence that this SNP changes the gene",
   "flags": [],
   "verdict": "unsupported",
-  "action": "No functional evidence and no genome-wide GWAS hit. Scores are neutral (5); the wording still claims an effect."
- },
- {
-  "rsid": "rs6152",
-  "gene": "AR",
-  "trait": "Male Pattern Baldness (Androgen Receptor)",
-  "scores": {
-   "A": 8,
-   "G": 3,
-   "AA": 8,
-   "AG": 5,
-   "GG": 3
-  },
-  "gwas": [
-   {
-    "trait": "balding measurement",
-    "p": 1e-320
-   },
-   {
-    "trait": "alopecia",
-    "p": 1e-300
-   },
-   {
-    "trait": "androgenetic alopecia",
-    "p": 2e-91
-   },
-   {
-    "trait": "prostate carcinoma",
-    "p": 8e-23
-   }
-  ],
-  "n_gwas": 7,
-  "gwas_via": {
-   "rsid": "rs2497911",
-   "r2": 0.75
-  },
-  "common": "G",
-  "minor": "A",
-  "minor_af": 0.142,
-  "consequence": "missense_variant",
-  "library_text": "Lower risk (Women)",
-  "library_claim": null,
-  "evidence_function": "LoF",
-  "evidence_basis": "expression",
-  "evidence": "A lowers AR expression in 10 tissues (strongest: Brain Nucleus accumbens basal ganglia, Brain Frontal Cortex BA9, Cells Cultured fibroblasts)",
-  "flags": [
-   "GG (74% of Europeans) scored 3"
-  ],
-  "verdict": "common genotype scored as risk",
-  "action": "Most people carry this genotype: score it 5 unless a study shows harm against the other genotypes."
+  "action": "No functional evidence and no genome-wide GWAS hit, yet the wording claims an effect: drop the claim or the SNP."
  },
  {
   "rsid": "rs2241880",
   "gene": "ATG16L1",
   "trait": "Autophagy & gut bacteria clearance",
-  "scores": {
-   "AA": 7,
-   "AG": 5,
-   "GG": 3
+  "function": {
+   "AA": "normal",
+   "AG": "altered",
+   "GG": "altered"
   },
+  "polarity": {
+   "altered": "negative"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "Crohn disease",
@@ -1166,137 +1160,104 @@
   "evidence_basis": "curated",
   "evidence": "p.Thr300Ala: risk factor for IBD10; has no effect on the stability of the protein under normal conditions; enhances the cleavage and the degradation mediated by activated CASP3; results in reduced autophagy and defective clearance of",
   "flags": [
-   "GG (29% of Europeans) scored 3"
+   "GG (29% of Europeans) reads negative"
   ],
-  "verdict": "common genotype scored as risk",
-  "action": "Most people carry this genotype: score it 5 unless a study shows harm against the other genotypes."
+  "verdict": "common genotype reads negative",
+  "action": "Most people carry this genotype: check that the change it carries is really bad for them, or set the polarity to neutral."
  },
  {
-  "rsid": "rs3923809",
-  "gene": "BTBD9",
-  "trait": "Restless Legs Syndrome (RLS)",
-  "scores": {
-   "GG": 8,
-   "GA": 5,
-   "AG": 5,
-   "AA": 3
+  "rsid": "rs1801394",
+  "gene": "MTRR",
+  "trait": "B12 recycling",
+  "function": {
+   "AA": "normal",
+   "AG": "altered",
+   "GG": "altered"
   },
-  "gwas": [
-   {
-    "trait": "restless legs syndrome",
-    "p": 5e-28
-   },
-   {
-    "trait": "insomnia measurement",
-    "p": 2e-08
-   },
-   {
-    "trait": "chronotype measurement",
-    "p": 3e-08
-   }
-  ],
-  "n_gwas": 3,
+  "polarity": {
+   "altered": "negative"
+  },
+  "polarity_source": "library ratings",
+  "gwas": [],
+  "n_gwas": 0,
   "gwas_via": null,
-  "common": "A",
-  "minor": "G",
-  "minor_af": 0.31,
-  "consequence": "intron_variant",
-  "library_text": "Normal risk",
-  "library_claim": "normal",
-  "evidence_function": "unknown",
-  "evidence_basis": "none",
-  "evidence": "no measured, curated or expression evidence that this SNP changes the gene",
+  "common": "G",
+  "minor": "A",
+  "minor_af": 0.477,
+  "consequence": "missense_variant",
+  "library_text": "Efficient recycling",
+  "library_claim": null,
+  "evidence_function": "normal",
+  "evidence_basis": "curated",
+  "evidence": "p.Ile22Met: may increase risk for spina bifida",
   "flags": [
-   "AA (48% of Europeans) scored 3"
+   "GG (27% of Europeans) reads negative"
   ],
-  "verdict": "common genotype scored as risk",
-  "action": "Most people carry this genotype: score it 5 unless a study shows harm against the other genotypes."
+  "verdict": "common genotype reads negative",
+  "action": "Most people carry this genotype: check that the change it carries is really bad for them, or set the polarity to neutral."
  },
  {
-  "rsid": "rs143383",
-  "gene": "GDF5",
-  "trait": "Joint surface resilience and knee injury risk",
-  "scores": {
-   "GG": 9,
-   "AG": 6,
-   "AA": 3
+  "rsid": "rs523349",
+  "gene": "SRD5A2",
+  "trait": "DHT conversion (5-alpha reductase type 2, V89L)",
+  "function": {
+   "CC": "altered",
+   "CG": "altered",
+   "GG": "normal"
   },
+  "polarity": {
+   "altered": "negative"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
+   {
+    "trait": "X-11470 measurement",
+    "p": 9e-17
+   },
+   {
+    "trait": "X-11444 measurement",
+    "p": 4e-13
+   },
+   {
+    "trait": "interleukin 18 measurement",
+    "p": 7e-10
+   },
    {
     "trait": "body height",
-    "p": 9e-78
-   },
-   {
-    "trait": "brain attribute",
-    "p": 1e-23
-   },
-   {
-    "trait": "osteoarthritis, knee",
-    "p": 8e-18
-   },
-   {
-    "trait": "cerebral cortex area attribute",
-    "p": 1e-17
+    "p": 2e-09
    }
   ],
   "n_gwas": 6,
-  "gwas_via": null,
-  "common": "A",
-  "minor": "G",
-  "minor_af": 0.372,
-  "consequence": "5_prime_UTR_variant",
-  "library_text": "Protective cartilage profile",
-  "library_claim": null,
-  "evidence_function": "altered",
-  "evidence_basis": "expression",
-  "evidence": "A raises GDF5 expression in some tissues and lowers it in others (Esophagus Gastroesophageal Junction, Pituitary, Colon Sigmoid)",
-  "flags": [
-   "AA (39% of Europeans) scored 3"
-  ],
-  "verdict": "common genotype scored as risk",
-  "action": "Most people carry this genotype: score it 5 unless a study shows harm against the other genotypes."
- },
- {
-  "rsid": "rs734553",
-  "gene": "GLUT9 (SLC2A9)",
-  "trait": "Uric acid transport (metabolic inflammation)",
-  "scores": {
-   "GG": 8,
-   "GT": 6,
-   "TT": 4
+  "gwas_via": {
+   "rsid": "rs599300",
+   "r2": 0.82
   },
-  "gwas": [
-   {
-    "trait": "uric acid measurement",
-    "p": 1e-192
-   }
-  ],
-  "n_gwas": 1,
-  "gwas_via": null,
-  "common": "T",
+  "common": "C",
   "minor": "G",
-  "minor_af": 0.245,
-  "consequence": "intron_variant",
-  "library_text": "Lower uric acid tendency",
-  "library_claim": null,
-  "evidence_function": "LoF",
-  "evidence_basis": "expression",
-  "evidence": "T raises SLC2A9 expression in 3 tissues (strongest: Artery Tibial, Adipose Visceral Omentum, Adipose Subcutaneous)",
+  "minor_af": 0.279,
+  "consequence": "missense_variant",
+  "library_text": "Lower DHT conversion (Leu/Leu)",
+  "library_claim": "LoF",
+  "evidence_function": "normal",
+  "evidence_basis": "curated",
+  "evidence": "p.Leu89Val: no effect on affinity for testosterone; no effect on affinity for NADPH; increased Vmax",
   "flags": [
-   "TT (57% of Europeans) scored 4"
+   "CC (52% of Europeans) reads negative"
   ],
-  "verdict": "common genotype scored as risk",
-  "action": "Most people carry this genotype: score it 5 unless a study shows harm against the other genotypes."
+  "verdict": "common genotype reads negative",
+  "action": "Most people carry this genotype: check that the change it carries is really bad for them, or set the polarity to neutral."
  },
  {
   "rsid": "rs61730509",
   "gene": "ABCB4",
   "trait": "Bile phospholipid pump (ABCB4 Ala934Thr)",
-  "scores": {
-   "CC": 5,
-   "CT": 4,
-   "TT": 3
+  "function": {
+   "CC": "unknown",
+   "CT": "unknown",
+   "TT": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "serum alanine aminotransferase amount",
@@ -1326,12 +1287,14 @@
   "rsid": "rs4343",
   "gene": "ACE",
   "trait": "ACE enzyme expression",
-  "scores": {
-   "AA": 7,
-   "AG": 5,
-   "GA": 5,
-   "GG": 5
+  "function": {
+   "AA": "unknown",
+   "AG": "unknown",
+   "GA": "unknown",
+   "GG": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "amount of metabolite in blood serum",
@@ -1369,12 +1332,14 @@
   "rsid": "rs1229984",
   "gene": "ADH1B",
   "trait": "Alcohol → acetaldehyde conversion speed",
-  "scores": {
-   "CC": 5,
-   "CT": 6,
-   "TC": 6,
-   "TT": 7
+  "function": {
+   "CC": "unknown",
+   "CT": "unknown",
+   "TC": "unknown",
+   "TT": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "alcohol consumption characteristic",
@@ -1412,11 +1377,13 @@
   "rsid": "rs1042713",
   "gene": "ADRB2",
   "trait": "Beta-2 adrenergic receptor downregulation (Gly16Arg)",
-  "scores": {
-   "GG": 9,
-   "AG": 6,
-   "AA": 3
+  "function": {
+   "GG": "unknown",
+   "AG": "unknown",
+   "AA": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "creatine kinase measurement",
@@ -1442,11 +1409,13 @@
   "rsid": "rs1042714",
   "gene": "ADRB2",
   "trait": "Beta-2 receptor downregulation (Gln27Glu)",
-  "scores": {
-   "CC": 6,
-   "CG": 7,
-   "GG": 9
+  "function": {
+   "CC": "unknown",
+   "CG": "unknown",
+   "GG": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "hematological measurement",
@@ -1472,12 +1441,14 @@
   "rsid": "rs12130333",
   "gene": "ANGPTL3",
   "trait": "Triglyceride Clearance & Lipid Partitioning",
-  "scores": {
-   "CC": 5,
-   "CT": 5,
-   "TC": 5,
-   "TT": 9
+  "function": {
+   "CC": "unknown",
+   "CT": "unknown",
+   "TC": "unknown",
+   "TT": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "triglyceride measurement",
@@ -1515,11 +1486,13 @@
   "rsid": "rs7412",
   "gene": "APOE",
   "trait": "APOE ε2 status (rs7412)",
-  "scores": {
-   "CC": 5,
-   "CT": 7,
-   "TT": 6
+  "function": {
+   "CC": "unknown",
+   "CT": "unknown",
+   "TT": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "low density lipoprotein cholesterol measurement",
@@ -1557,12 +1530,14 @@
   "rsid": "rs11645428",
   "gene": "BCMO1",
   "trait": "Vitamin A conversion (beta-carotene → retinol)",
-  "scores": {
-   "GG": 7,
-   "GA": 5,
-   "AG": 5,
-   "AA": 3
+  "function": {
+   "GG": "unknown",
+   "GA": "unknown",
+   "AG": "unknown",
+   "AA": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "X-23749 measurement",
@@ -1588,11 +1563,13 @@
   "rsid": "rs234706",
   "gene": "CBS",
   "trait": "Homocysteine conversion",
-  "scores": {
-   "GG": 6,
-   "GA": 8,
-   "AA": 9
+  "function": {
+   "GG": "unknown",
+   "GA": "unknown",
+   "AA": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "homocysteine measurement",
@@ -1625,11 +1602,13 @@
   "rsid": "rs3731249",
   "gene": "CDKN2A",
   "trait": "Cell cycle control / tumor suppression",
-  "scores": {
-   "CC": 9,
-   "CT": 6,
-   "TT": 3
+  "function": {
+   "CC": "unknown",
+   "CT": "unknown",
+   "TT": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "B-cell acute lymphoblastic leukemia",
@@ -1663,11 +1642,13 @@
   "rsid": "rs5882",
   "gene": "CETP",
   "trait": "HDL-C levels & remodeling",
-  "scores": {
-   "GG": 3,
-   "AG": 6,
-   "AA": 9
+  "function": {
+   "GG": "unknown",
+   "AG": "unknown",
+   "AA": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "high density lipoprotein cholesterol measurement",
@@ -1705,11 +1686,13 @@
   "rsid": "rs45551835",
   "gene": "CUBN",
   "trait": "Urine albumin (CUBN Ala2914Val)",
-  "scores": {
-   "GG": 5,
-   "AG": 4,
-   "AA": 4
+  "function": {
+   "GG": "unknown",
+   "AG": "unknown",
+   "AA": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "urinary albumin to creatinine ratio",
@@ -1747,11 +1730,13 @@
   "rsid": "rs1799998",
   "gene": "CYP11B2",
   "trait": "Salt Sensitivity (Aldosterone)",
-  "scores": {
-   "AA": 5,
-   "AG": 6,
-   "GG": 9
+  "function": {
+   "AA": "unknown",
+   "AG": "unknown",
+   "GG": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "systolic blood pressure",
@@ -1781,11 +1766,13 @@
   "rsid": "rs2486758",
   "gene": "CYP17A1",
   "trait": "Testosterone synthesis capacity",
-  "scores": {
-   "TT": 6,
-   "CT": 8,
-   "CC": 9
+  "function": {
+   "TT": "unknown",
+   "CT": "unknown",
+   "CC": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "body mass index",
@@ -1811,11 +1798,13 @@
   "rsid": "rs762551",
   "gene": "CYP1A2",
   "trait": "Caffeine metabolism",
-  "scores": {
-   "CC": 3,
-   "AC": 6,
-   "AA": 9
+  "function": {
+   "CC": "unknown",
+   "AC": "unknown",
+   "AA": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "cholesterol to total lipids in very large VLDL percentage",
@@ -1841,11 +1830,13 @@
   "rsid": "rs1800440",
   "gene": "CYP1B1",
   "trait": "Estrogen Detox (4-OH Estrogen)",
-  "scores": {
-   "TT": 8,
-   "CT": 5,
-   "CC": 3
+  "function": {
+   "TT": "unknown",
+   "CT": "unknown",
+   "CC": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "basal cell carcinoma",
@@ -1883,11 +1874,13 @@
   "rsid": "rs1801272",
   "gene": "CYP2A6",
   "trait": "Nicotine Metabolism Speed",
-  "scores": {
-   "AA": 5,
-   "AT": 5,
-   "TT": 5
+  "function": {
+   "AA": "unknown",
+   "AT": "unknown",
+   "TT": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "C-reactive protein measurement",
@@ -1917,11 +1910,13 @@
   "rsid": "rs2108622",
   "gene": "CYP4F2",
   "trait": "Vitamin K breakdown (CYP4F2 Val433Met)",
-  "scores": {
-   "CC": 5,
-   "CT": 5,
-   "TT": 4
+  "function": {
+   "CC": "unknown",
+   "CT": "unknown",
+   "TT": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "hexadecanedioate measurement",
@@ -1959,12 +1954,14 @@
   "rsid": "rs2235544",
   "gene": "DIO1",
   "trait": "T4 → T3 conversion efficiency",
-  "scores": {
-   "AA": 7,
-   "AC": 5,
-   "CA": 5,
-   "CC": 3
+  "function": {
+   "AA": "unknown",
+   "AC": "unknown",
+   "CA": "unknown",
+   "CC": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "amount of thyroxine",
@@ -2002,11 +1999,13 @@
   "rsid": "rs1800498",
   "gene": "DRD2",
   "trait": "Reward system sensitivity",
-  "scores": {
-   "CC": 9,
-   "CT": 6,
-   "TT": 5
+  "function": {
+   "CC": "unknown",
+   "CT": "unknown",
+   "TT": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "substance-related disorder",
@@ -2047,11 +2046,13 @@
   "rsid": "rs6275",
   "gene": "DRD2",
   "trait": "Dopamine D2 Receptor Stability (C957T)",
-  "scores": {
-   "GG": 8,
-   "AG": 5,
-   "AA": 3
+  "function": {
+   "GG": "unknown",
+   "AG": "unknown",
+   "AA": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "substance-related disorder",
@@ -2080,12 +2081,14 @@
   "rsid": "rs1800955",
   "gene": "DRD4",
   "trait": "Novelty Seeking & Impulse Control",
-  "scores": {
-   "CC": 7,
-   "CT": 5,
-   "TC": 5,
-   "TT": 5
+  "function": {
+   "CC": "unknown",
+   "CT": "unknown",
+   "TC": "unknown",
+   "TT": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "internet addiction disorder",
@@ -2111,11 +2114,13 @@
   "rsid": "rs62483572",
   "gene": "EPO",
   "trait": "Red blood cell signal (EPO Asp70Asn)",
-  "scores": {
-   "GG": 5,
-   "AG": 4,
-   "AA": 4
+  "function": {
+   "GG": "unknown",
+   "AG": "unknown",
+   "AA": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "hemoglobin measurement",
@@ -2153,12 +2158,14 @@
   "rsid": "rs9340799",
   "gene": "ESR1",
   "trait": "Estrogen receptor sensitivity",
-  "scores": {
-   "AA": 6,
-   "AG": 5,
-   "GA": 5,
-   "GG": 4
+  "function": {
+   "AA": "unknown",
+   "AG": "unknown",
+   "GA": "unknown",
+   "GG": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "sexual dimorphism measurement",
@@ -2184,12 +2191,14 @@
   "rsid": "rs1360780",
   "gene": "FKBP5",
   "trait": "Cortisol Recovery & PTSD Risk",
-  "scores": {
-   "CC": 7,
-   "CT": 5,
-   "TC": 5,
-   "TT": 3
+  "function": {
+   "CC": "unknown",
+   "CT": "unknown",
+   "TC": "unknown",
+   "TT": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "hematological measurement",
@@ -2230,11 +2239,13 @@
   "rsid": "rs4588",
   "gene": "GC",
   "trait": "Vitamin D Binding Protein",
-  "scores": {
-   "GG": 9,
-   "GT": 6,
-   "TT": 3
+  "function": {
+   "GG": "unknown",
+   "GT": "unknown",
+   "TT": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "amount of vitamin D",
@@ -2272,11 +2283,13 @@
   "rsid": "rs7041",
   "gene": "GC",
   "trait": "Vitamin D transport & availability",
-  "scores": {
-   "AA": 9,
-   "AC": 7,
-   "CC": 5
+  "function": {
+   "AA": "unknown",
+   "AC": "unknown",
+   "CC": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "vitamin D-binding protein measurement",
@@ -2314,11 +2327,13 @@
   "rsid": "rs147998249",
   "gene": "GPT",
   "trait": "ALT liver-test reading (GPT Val452Leu)",
-  "scores": {
-   "GG": 5,
-   "CG": 4,
-   "CC": 4
+  "function": {
+   "GG": "unknown",
+   "CG": "unknown",
+   "CC": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "serum alanine aminotransferase amount",
@@ -2348,11 +2363,13 @@
   "rsid": "rs1047303",
   "gene": "HSD3B1",
   "trait": "Adrenal androgen conversion (HSD3B1 1245C)",
-  "scores": {
-   "AA": 6,
-   "AC": 5,
-   "CC": 4
+  "function": {
+   "AA": "unknown",
+   "AC": "unknown",
+   "CC": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "amount of kallikrein-10 (human) in blood",
@@ -2389,11 +2406,13 @@
   "rsid": "rs12979860",
   "gene": "IFNL3 (IL28B)",
   "trait": "Viral Clearance Capacity",
-  "scores": {
-   "CC": 8,
-   "CT": 5,
-   "TT": 3
+  "function": {
+   "CC": "unknown",
+   "CT": "unknown",
+   "TT": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "chronic hepatitis C virus infection",
@@ -2423,11 +2442,13 @@
   "rsid": "rs6214",
   "gene": "IGF1",
   "trait": "Circulating Growth Factor Levels",
-  "scores": {
-   "CC": 9,
-   "CT": 6,
-   "TT": 4
+  "function": {
+   "CC": "unknown",
+   "CT": "unknown",
+   "TT": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "body height",
@@ -2453,11 +2474,13 @@
   "rsid": "rs3024493",
   "gene": "IL10",
   "trait": "Anti-inflammatory signaling",
-  "scores": {
-   "AA": 2,
-   "AC": 6,
-   "CC": 9
+  "function": {
+   "AA": "unknown",
+   "AC": "unknown",
+   "CC": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "inflammatory bowel disease",
@@ -2495,12 +2518,14 @@
   "rsid": "rs17070145",
   "gene": "KIBRA (WWC1)",
   "trait": "Episodic Memory Performance",
-  "scores": {
-   "CC": 5,
-   "CT": 7,
-   "TC": 7,
-   "TT": 8
+  "function": {
+   "CC": "unknown",
+   "CT": "unknown",
+   "TC": "unknown",
+   "TT": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "educational attainment",
@@ -2541,11 +2566,13 @@
   "rsid": "rs4988235",
   "gene": "LCT",
   "trait": "Lactase persistence (lactose tolerance)",
-  "scores": {
-   "GG": 3,
-   "AG": 5,
-   "AA": 8
+  "function": {
+   "GG": "unknown",
+   "AG": "unknown",
+   "AA": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "lactase-phlorizin hydrolase measurement",
@@ -2583,12 +2610,14 @@
   "rsid": "rs1137101",
   "gene": "LEPR",
   "trait": "Leptin receptor sensitivity",
-  "scores": {
-   "AA": 6,
-   "AG": 5,
-   "GA": 5,
-   "GG": 4
+  "function": {
+   "AA": "unknown",
+   "AG": "unknown",
+   "GA": "unknown",
+   "GG": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "neutrophil percentage of leukocytes",
@@ -2625,11 +2654,13 @@
   "rsid": "rs679620",
   "gene": "MMP3",
   "trait": "Tendon recovery and collagen turnover",
-  "scores": {
-   "TT": 4,
-   "CT": 5,
-   "CC": 7
+  "function": {
+   "TT": "unknown",
+   "CT": "unknown",
+   "CC": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "CD99/MMP3 protein amount ratio in blood",
@@ -2659,11 +2690,13 @@
   "rsid": "rs1801131",
   "gene": "MTHFR",
   "trait": "MTHFR A1298C (Glu429Ala)",
-  "scores": {
-   "GG": 4,
-   "GT": 5,
-   "TT": 6
+  "function": {
+   "GG": "unknown",
+   "GT": "unknown",
+   "TT": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "BMI-adjusted hip circumference",
@@ -2689,11 +2722,13 @@
   "rsid": "rs10830963",
   "gene": "MTNR1B",
   "trait": "Fasting glucose tendency",
-  "scores": {
-   "CC": 7,
-   "CG": 5,
-   "GG": 5
+  "function": {
+   "CC": "unknown",
+   "CG": "unknown",
+   "GG": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "gestational diabetes",
@@ -2731,11 +2766,13 @@
   "rsid": "rs2070744",
   "gene": "NOS3",
   "trait": "Nitric oxide → mitochondrial efficiency",
-  "scores": {
-   "TT": 9,
-   "TC": 6,
-   "CC": 3
+  "function": {
+   "TT": "unknown",
+   "TC": "unknown",
+   "CC": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "body height",
@@ -2776,11 +2813,13 @@
   "rsid": "rs4253778",
   "gene": "PPARA",
   "trait": "Fat metabolism in endurance",
-  "scores": {
-   "CC": 3,
-   "CG": 6,
-   "GG": 9
+  "function": {
+   "CC": "unknown",
+   "CG": "unknown",
+   "GG": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "testosterone measurement",
@@ -2821,11 +2860,13 @@
   "rsid": "rs33972313",
   "gene": "SLC23A1",
   "trait": "Vitamin C absorption efficiency",
-  "scores": {
-   "CC": 9,
-   "CT": 5,
-   "TT": 3
+  "function": {
+   "CC": "unknown",
+   "CT": "unknown",
+   "TT": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "vitamin C measurement",
@@ -2863,11 +2904,13 @@
   "rsid": "rs1799895",
   "gene": "SOD3",
   "trait": "Extracellular Antioxidant Capacity / Collagen Protection",
-  "scores": {
-   "CC": 7,
-   "CG": 4,
-   "GG": 3
+  "function": {
+   "CC": "unknown",
+   "CG": "unknown",
+   "GG": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "protein measurement",
@@ -2905,11 +2948,13 @@
   "rsid": "rs12255372",
   "gene": "TCF7L2",
   "trait": "Insulin secretion (TCF7L2, second marker)",
-  "scores": {
-   "GG": 6,
-   "GT": 5,
-   "TT": 3
+  "function": {
+   "GG": "unknown",
+   "GT": "unknown",
+   "TT": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "type 2 diabetes mellitus",
@@ -2950,12 +2995,14 @@
   "rsid": "rs1800629",
   "gene": "TNF-alpha",
   "trait": "Baseline inflammation tendency",
-  "scores": {
-   "GG": 7,
-   "GA": 5,
-   "AG": 5,
-   "AA": 3
+  "function": {
+   "GG": "unknown",
+   "GA": "unknown",
+   "AG": "unknown",
+   "AA": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "MHC class I polypeptide-related sequence B measurement",
@@ -2993,11 +3040,13 @@
   "rsid": "rs10929302",
   "gene": "UGT1A1",
   "trait": "Bilirubin clearance (UGT1A1 -3156G>A)",
-  "scores": {
-   "GG": 5,
-   "AG": 5,
-   "AA": 4
+  "function": {
+   "GG": "unknown",
+   "AG": "unknown",
+   "AA": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "bilirubin measurement",
@@ -3035,11 +3084,13 @@
   "rsid": "rs11568820",
   "gene": "VDR",
   "trait": "Vitamin D receptor Cdx2 (gut expression)",
-  "scores": {
-   "CC": 5,
-   "CT": 6,
-   "TT": 7
+  "function": {
+   "CC": "unknown",
+   "CT": "unknown",
+   "TT": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "PHF-tau measurement",
@@ -3065,14 +3116,52 @@
   "action": "Keep the trait wording (GWAS supports the SNP), drop words about activity."
  },
  {
+  "rsid": "rs2228570",
+  "gene": "VDR",
+  "trait": "Vitamin D receptor FokI (receptor length)",
+  "function": {
+   "GG": "unknown",
+   "AG": "unknown",
+   "AA": "unknown"
+  },
+  "polarity": {},
+  "polarity_source": null,
+  "gwas": [
+   {
+    "trait": "eosinophil percentage of leukocytes",
+    "p": 1e-09
+   },
+   {
+    "trait": "eosinophil count",
+    "p": 6e-09
+   }
+  ],
+  "n_gwas": 2,
+  "gwas_via": null,
+  "common": "G",
+  "minor": "A",
+  "minor_af": 0.378,
+  "consequence": "start_lost",
+  "library_text": "f/f: longer, less active receptor",
+  "library_claim": "LoF",
+  "evidence_function": "unknown",
+  "evidence_basis": "none",
+  "evidence": "no measured, curated or expression evidence that this SNP changes the gene",
+  "flags": [],
+  "verdict": "function claim unsupported",
+  "action": "Keep the trait wording (GWAS supports the SNP), drop words about activity."
+ },
+ {
   "rsid": "rs1544410",
   "gene": "VDR (BsmI)",
   "trait": "Vitamin D receptor sensitivity (Bsm)",
-  "scores": {
-   "CC": 6,
-   "CT": 5,
-   "TT": 4
+  "function": {
+   "CC": "unknown",
+   "CT": "unknown",
+   "TT": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "interleukin 18 measurement",
@@ -3101,12 +3190,16 @@
   "rsid": "rs2231142",
   "gene": "ABCG2",
   "trait": "Uric Acid Elimination (Gout Risk)",
-  "scores": {
-   "GG": 8,
-   "GT": 5,
-   "TG": 5,
-   "TT": 2
+  "function": {
+   "GG": "normal",
+   "GT": "LoF",
+   "TG": "LoF",
+   "TT": "LoF"
   },
+  "polarity": {
+   "LoF": "negative"
+  },
+  "polarity_source": "library wording",
   "gwas": [
    {
     "trait": "gout",
@@ -3144,11 +3237,15 @@
   "rsid": "rs73598374",
   "gene": "ADA",
   "trait": "Deep Sleep Intensity (Adenosine)",
-  "scores": {
-   "CC": 6,
-   "CT": 7,
-   "TT": 9
+  "function": {
+   "CC": "normal",
+   "CT": "LoF",
+   "TT": "LoF"
   },
+  "polarity": {
+   "LoF": "positive"
+  },
+  "polarity_source": "library wording",
   "gwas": [],
   "n_gwas": 0,
   "gwas_via": null,
@@ -3169,11 +3266,15 @@
   "rsid": "rs1801253",
   "gene": "ADRB1",
   "trait": "Exercise Heart Rate Response",
-  "scores": {
-   "CC": 7,
-   "CG": 5,
-   "GG": 5
+  "function": {
+   "CC": "GoF",
+   "CG": "GoF",
+   "GG": "normal"
   },
+  "polarity": {
+   "GoF": "positive"
+  },
+  "polarity_source": "library wording",
   "gwas": [
    {
     "trait": "triglycerides to total lipids in medium HDL percentage",
@@ -3211,11 +3312,15 @@
   "rsid": "rs671",
   "gene": "ALDH2 (Flush)",
   "trait": "Primary Asian Flush Variant",
-  "scores": {
-   "GG": 9,
-   "GA": 4,
-   "AA": 1
+  "function": {
+   "GG": "normal",
+   "GA": "LoF",
+   "AA": "LoF"
   },
+  "polarity": {
+   "LoF": "negative"
+  },
+  "polarity_source": "library wording",
   "gwas": [
    {
     "trait": "alcohol drinking",
@@ -3253,11 +3358,15 @@
   "rsid": "rs17602729",
   "gene": "AMPD1",
   "trait": "Muscle fatigue resistance",
-  "scores": {
-   "GG": 6,
-   "AG": 5,
-   "AA": 3
+  "function": {
+   "GG": "normal",
+   "AG": "LoF",
+   "AA": "LoF"
   },
+  "polarity": {
+   "LoF": "negative"
+  },
+  "polarity_source": "library wording",
   "gwas": [
    {
     "trait": "glomerular filtration rate",
@@ -3291,11 +3400,15 @@
   "rsid": "rs10156191",
   "gene": "AOC1 (DAO)",
   "trait": "Histamine degradation (DAO enzyme)",
-  "scores": {
-   "CC": 7,
-   "CT": 5,
-   "TT": 3
+  "function": {
+   "CC": "normal",
+   "CT": "altered",
+   "TT": "altered"
   },
+  "polarity": {
+   "altered": "negative"
+  },
+  "polarity_source": "library ratings",
   "gwas": [],
   "n_gwas": 0,
   "gwas_via": null,
@@ -3316,11 +3429,15 @@
   "rsid": "rs693",
   "gene": "APOB",
   "trait": "LDL particle production",
-  "scores": {
-   "GG": 9,
-   "AG": 6,
-   "AA": 3
+  "function": {
+   "GG": "normal",
+   "AG": "altered",
+   "AA": "altered"
   },
+  "polarity": {
+   "altered": "negative"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "cholesteryl esters in small VLDL measurement",
@@ -3358,12 +3475,16 @@
   "rsid": "rs1801516",
   "gene": "ATM",
   "trait": "Double-strand break repair",
-  "scores": {
-   "GG": 8,
-   "GA": 6,
-   "AG": 6,
-   "AA": 4
+  "function": {
+   "GG": "normal",
+   "GA": "LoF",
+   "AG": "LoF",
+   "AA": "LoF"
   },
+  "polarity": {
+   "LoF": "negative"
+  },
+  "polarity_source": "library wording",
   "gwas": [
    {
     "trait": "cutaneous melanoma",
@@ -3401,11 +3522,15 @@
   "rsid": "rs1803274",
   "gene": "BCHE",
   "trait": "Anesthesia Sensitivity (Pseudocholinesterase)",
-  "scores": {
-   "CC": 8,
-   "CT": 6,
-   "TT": 4
+  "function": {
+   "CC": "normal",
+   "CT": "LoF",
+   "TT": "LoF"
   },
+  "polarity": {
+   "LoF": "negative"
+  },
+  "polarity_source": "library wording",
   "gwas": [
    {
     "trait": "butyrylcholinesterase measurement",
@@ -3443,11 +3568,15 @@
   "rsid": "rs6265",
   "gene": "BDNF",
   "trait": "Neuroplasticity & learning",
-  "scores": {
-   "CC": 6,
-   "CT": 5,
-   "TT": 4
+  "function": {
+   "CC": "normal",
+   "CT": "altered",
+   "TT": "altered"
   },
+  "polarity": {
+   "altered": "negative"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "body mass index",
@@ -3485,11 +3614,15 @@
   "rsid": "rs3733890",
   "gene": "BHMT",
   "trait": "Homocysteine remethylation (betaine pathway)",
-  "scores": {
-   "GG": 9,
-   "AG": 6,
-   "AA": 3
+  "function": {
+   "GG": "normal",
+   "AG": "altered",
+   "AA": "altered"
   },
+  "polarity": {
+   "altered": "negative"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "high density lipoprotein cholesterol measurement",
@@ -3515,11 +3648,15 @@
   "rsid": "rs4680",
   "gene": "COMT (Val158Met)",
   "trait": "Dopamine breakdown & stress sensitivity",
-  "scores": {
-   "GG": 9,
-   "AG": 6,
-   "AA": 3
+  "function": {
+   "GG": "normal",
+   "AG": "LoF",
+   "AA": "LoF"
   },
+  "polarity": {
+   "LoF": "negative"
+  },
+  "polarity_source": "library wording",
   "gwas": [
    {
     "trait": "amount of metabolite in blood serum",
@@ -3557,11 +3694,15 @@
   "rsid": "rs1048943",
   "gene": "CYP1A1",
   "trait": "Xenobiotic detoxification",
-  "scores": {
-   "TT": 6,
-   "CT": 5,
-   "CC": 4
+  "function": {
+   "TT": "normal",
+   "CT": "GoF",
+   "CC": "GoF"
   },
+  "polarity": {
+   "GoF": "negative"
+  },
+  "polarity_source": "library wording",
   "gwas": [
    {
     "trait": "body height",
@@ -3602,12 +3743,16 @@
   "rsid": "rs4244285",
   "gene": "CYP2C19",
   "trait": "Metabolism of Antidepressants & PPIs",
-  "scores": {
-   "GG": 8,
-   "GA": 5,
-   "AG": 5,
-   "AA": 2
+  "function": {
+   "GG": "normal",
+   "GA": "LoF",
+   "AG": "LoF",
+   "AA": "LoF"
   },
+  "polarity": {
+   "LoF": "negative"
+  },
+  "polarity_source": "library wording",
   "gwas": [
    {
     "trait": "eicosanoids measurement",
@@ -3648,11 +3793,15 @@
   "rsid": "rs3892097",
   "gene": "CYP2D6",
   "trait": "CYP2D6 metabolic speed",
-  "scores": {
-   "CC": 7,
-   "CT": 5,
-   "TT": 2
+  "function": {
+   "CC": "normal",
+   "CT": "LoF",
+   "TT": "LoF"
   },
+  "polarity": {
+   "LoF": "negative"
+  },
+  "polarity_source": "library wording",
   "gwas": [
    {
     "trait": "solanidine measurement",
@@ -3686,12 +3835,16 @@
   "rsid": "rs10741657",
   "gene": "CYP2R1",
   "trait": "Vitamin D activation",
-  "scores": {
-   "GG": 9,
-   "GA": 7,
-   "AG": 7,
-   "AA": 4
+  "function": {
+   "GG": "normal",
+   "GA": "LoF",
+   "AG": "LoF",
+   "AA": "LoF"
   },
+  "polarity": {
+   "LoF": "negative"
+  },
+  "polarity_source": "library wording",
   "gwas": [
    {
     "trait": "amount of vitamin D",
@@ -3725,11 +3878,15 @@
   "rsid": "rs1611115",
   "gene": "DBH",
   "trait": "Dopamine → Adrenaline Conversion",
-  "scores": {
-   "CC": 9,
-   "CT": 6,
-   "TT": 3
+  "function": {
+   "CC": "normal",
+   "CT": "LoF",
+   "TT": "LoF"
   },
+  "polarity": {
+   "LoF": "negative"
+  },
+  "polarity_source": "library wording",
   "gwas": [
    {
     "trait": "blood protein amount",
@@ -3767,12 +3924,16 @@
   "rsid": "rs225014",
   "gene": "DIO2",
   "trait": "Local tissue T3 activation",
-  "scores": {
-   "TT": 6,
-   "TC": 5,
-   "CT": 5,
-   "CC": 4
+  "function": {
+   "TT": "normal",
+   "TC": "LoF",
+   "CT": "LoF",
+   "CC": "LoF"
   },
+  "polarity": {
+   "LoF": "negative"
+  },
+  "polarity_source": "library wording",
   "gwas": [
    {
     "trait": "amount of thyroxine",
@@ -3798,12 +3959,16 @@
   "rsid": "rs1051740",
   "gene": "EPHX1",
   "trait": "Epoxide hydrolase activity",
-  "scores": {
-   "TT": 6,
-   "TC": 5,
-   "CT": 5,
-   "CC": 4
+  "function": {
+   "TT": "normal",
+   "TC": "LoF",
+   "CT": "LoF",
+   "CC": "LoF"
   },
+  "polarity": {
+   "LoF": "negative"
+  },
+  "polarity_source": "library wording",
   "gwas": [],
   "n_gwas": 0,
   "gwas_via": null,
@@ -3824,12 +3989,16 @@
   "rsid": "rs324420",
   "gene": "FAAH",
   "trait": "Anandamide breakdown (Pain/Anxiety)",
-  "scores": {
-   "CC": 5,
-   "CA": 7,
-   "AC": 7,
-   "AA": 9
+  "function": {
+   "CC": "normal",
+   "CA": "LoF",
+   "AC": "LoF",
+   "AA": "LoF"
   },
+  "polarity": {
+   "LoF": "positive"
+  },
+  "polarity_source": "library wording",
   "gwas": [
    {
     "trait": "N-palmitoylglycine measurement",
@@ -3867,11 +4036,15 @@
   "rsid": "rs174537",
   "gene": "FADS1",
   "trait": "Omega-3 & omega-6 fatty acid conversion",
-  "scores": {
-   "GG": 9,
-   "GT": 6,
-   "TT": 3
+  "function": {
+   "GG": "normal",
+   "GT": "LoF",
+   "TT": "LoF"
   },
+  "polarity": {
+   "LoF": "negative"
+  },
+  "polarity_source": "library wording",
   "gwas": [
    {
     "trait": "amount of Phosphatidylcholine (18:0_20:4) in blood serum",
@@ -3909,11 +4082,15 @@
   "rsid": "rs6166",
   "gene": "FSHR",
   "trait": "FSH receptor signaling strength (Ser680Asn)",
-  "scores": {
-   "TT": 7,
-   "CT": 5,
-   "CC": 3
+  "function": {
+   "TT": "normal",
+   "CT": "LoF",
+   "CC": "LoF"
   },
+  "polarity": {
+   "LoF": "negative"
+  },
+  "polarity_source": "library wording",
   "gwas": [
    {
     "trait": "body height",
@@ -3946,11 +4123,15 @@
   "rsid": "rs601338",
   "gene": "FUT2",
   "trait": "Secretor status (major SNP)",
-  "scores": {
-   "GG": 6,
-   "AG": 5,
-   "AA": 4
+  "function": {
+   "GG": "normal",
+   "AG": "LoF",
+   "AA": "LoF"
   },
+  "polarity": {
+   "LoF": "negative"
+  },
+  "polarity_source": "library wording",
   "gwas": [
    {
     "trait": "serine protease 27 measurement",
@@ -3988,11 +4169,15 @@
   "rsid": "rs602662",
   "gene": "FUT2",
   "trait": "B12 absorption & microbiome",
-  "scores": {
-   "GG": 9,
-   "AG": 8,
-   "AA": 3
+  "function": {
+   "GG": "normal",
+   "AG": "LoF",
+   "AA": "LoF"
   },
+  "polarity": {
+   "LoF": "negative"
+  },
+  "polarity_source": "library wording",
   "gwas": [
    {
     "trait": "milk amount",
@@ -4030,11 +4215,15 @@
   "rsid": "rs3749034",
   "gene": "GAD1",
   "trait": "GABA production (Anxiety)",
-  "scores": {
-   "GG": 9,
-   "GA": 6,
-   "AA": 3
+  "function": {
+   "GG": "normal",
+   "GA": "LoF",
+   "AA": "LoF"
   },
+  "polarity": {
+   "LoF": "negative"
+  },
+  "polarity_source": "library wording",
   "gwas": [
    {
     "trait": "intelligence",
@@ -4064,11 +4253,15 @@
   "rsid": "rs1260326",
   "gene": "GCKR",
   "trait": "Liver glucose handling",
-  "scores": {
-   "CC": 5,
-   "CT": 6,
-   "TT": 7
+  "function": {
+   "CC": "normal",
+   "CT": "altered",
+   "TT": "altered"
   },
+  "polarity": {
+   "altered": "positive"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "triglyceride measurement",
@@ -4095,7 +4288,7 @@
   "consequence": "missense_variant",
   "library_text": "Lower fasting glucose, higher triglycerides.",
   "library_claim": "LoF",
-  "evidence_function": "normal",
+  "evidence_function": "altered",
   "evidence_basis": "curated",
   "evidence": "p.Pro446Leu: protective factor against diabetes type 2; correlated with high triglyceride levels and low fasting plasma glucose levels; the mutant protein is less efficiently regulated by physiological concentrations of fructose-6 ph",
   "flags": [],
@@ -4106,11 +4299,15 @@
   "rsid": "rs1050450",
   "gene": "GPX1",
   "trait": "Glutathione peroxidase activity",
-  "scores": {
-   "GG": 9,
-   "AG": 6,
-   "AA": 3
+  "function": {
+   "GG": "normal",
+   "AG": "altered",
+   "AA": "altered"
   },
+  "polarity": {
+   "altered": "negative"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "hemoglobin measurement",
@@ -4136,12 +4333,16 @@
   "rsid": "rs1695",
   "gene": "GSTP1",
   "trait": "Phase II glutathione detox",
-  "scores": {
-   "AA": 7,
-   "AG": 5,
-   "GA": 5,
-   "GG": 3
+  "function": {
+   "AA": "normal",
+   "AG": "altered",
+   "GA": "altered",
+   "GG": "altered"
   },
+  "polarity": {
+   "altered": "negative"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "protein measurement",
@@ -4179,11 +4380,15 @@
   "rsid": "rs1799945",
   "gene": "HFE",
   "trait": "Iron absorption regulation",
-  "scores": {
-   "CC": 7,
-   "CG": 5,
-   "GG": 5
+  "function": {
+   "CC": "normal",
+   "CG": "altered",
+   "GG": "altered"
   },
+  "polarity": {
+   "altered": "negative"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "mean corpuscular hemoglobin concentration",
@@ -4221,12 +4426,16 @@
   "rsid": "rs11558538",
   "gene": "HNMT",
   "trait": "Intracellular Histamine Breakdown",
-  "scores": {
-   "CC": 7,
-   "CT": 5,
-   "TC": 5,
-   "TT": 3
+  "function": {
+   "CC": "normal",
+   "CT": "LoF",
+   "TC": "LoF",
+   "TT": "LoF"
   },
+  "polarity": {
+   "LoF": "negative"
+  },
+  "polarity_source": "library wording",
   "gwas": [
    {
     "trait": "amount of histamine N-methyltransferase in blood",
@@ -4260,11 +4469,15 @@
   "rsid": "rs6311",
   "gene": "HTR2A",
   "trait": "5-HT2A receptor expression & signaling",
-  "scores": {
-   "CC": 7,
-   "CT": 5,
-   "TT": 3
+  "function": {
+   "CC": "normal",
+   "CT": "altered",
+   "TT": "altered"
   },
+  "polarity": {
+   "altered": "negative"
+  },
+  "polarity_source": "library ratings",
   "gwas": [],
   "n_gwas": 0,
   "gwas_via": null,
@@ -4285,11 +4498,15 @@
   "rsid": "rs2229765",
   "gene": "IGF1R",
   "trait": "Growth Factor Receptor Sensitivity",
-  "scores": {
-   "AA": 9,
-   "AG": 6,
-   "GG": 5
+  "function": {
+   "AA": "GoF",
+   "AG": "GoF",
+   "GG": "normal"
   },
+  "polarity": {
+   "GoF": "positive"
+  },
+  "polarity_source": "library wording",
   "gwas": [
    {
     "trait": "metabolic syndrome",
@@ -4318,11 +4535,15 @@
   "rsid": "rs16944",
   "gene": "IL1B (Promoter)",
   "trait": "IL-1β inflammation intensity",
-  "scores": {
-   "GG": 7,
-   "AG": 5,
-   "AA": 3
+  "function": {
+   "GG": "normal",
+   "AG": "GoF",
+   "AA": "GoF"
   },
+  "polarity": {
+   "GoF": "negative"
+  },
+  "polarity_source": "library wording",
   "gwas": [
    {
     "trait": "interleukin-1 beta measurement",
@@ -4348,12 +4569,16 @@
   "rsid": "rs2228145",
   "gene": "IL6R",
   "trait": "IL-6 receptor signaling tone",
-  "scores": {
-   "AA": 5,
-   "AC": 5,
-   "CA": 5,
-   "CC": 4
+  "function": {
+   "AA": "normal",
+   "AC": "altered",
+   "CA": "altered",
+   "CC": "altered"
   },
+  "polarity": {
+   "altered": "neutral"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "blood protein amount",
@@ -4391,12 +4616,16 @@
   "rsid": "rs5219",
   "gene": "KCNJ11",
   "trait": "Insulin release sensitivity",
-  "scores": {
-   "CC": 7,
-   "CT": 5,
-   "TC": 5,
-   "TT": 3
+  "function": {
+   "CC": "normal",
+   "CT": "LoF",
+   "TC": "LoF",
+   "TT": "LoF"
   },
+  "polarity": {
+   "LoF": "negative"
+  },
+  "polarity_source": "library wording",
   "gwas": [
    {
     "trait": "HbA1c measurement",
@@ -4434,11 +4663,15 @@
   "rsid": "rs2293275",
   "gene": "LHCGR",
   "trait": "LH receptor sensitivity",
-  "scores": {
-   "CC": 7,
-   "CT": 5,
-   "TT": 3
+  "function": {
+   "CC": "normal",
+   "CT": "LoF",
+   "TT": "LoF"
   },
+  "polarity": {
+   "LoF": "negative"
+  },
+  "polarity_source": "library wording",
   "gwas": [
    {
     "trait": "testosterone measurement",
@@ -4467,11 +4700,15 @@
   "rsid": "rs1800588",
   "gene": "LIPC",
   "trait": "HDL cholesterol control",
-  "scores": {
-   "CC": 5,
-   "CT": 6,
-   "TT": 9
+  "function": {
+   "CC": "normal",
+   "CT": "LoF",
+   "TT": "LoF"
   },
+  "polarity": {
+   "LoF": "positive"
+  },
+  "polarity_source": "library wording",
   "gwas": [
    {
     "trait": "high density lipoprotein cholesterol measurement",
@@ -4509,11 +4746,15 @@
   "rsid": "rs6323",
   "gene": "MAOA",
   "trait": "Monoamine Oxidase A Activity",
-  "scores": {
-   "TT": 5,
-   "TG": 5,
-   "GG": 8
+  "function": {
+   "TT": "normal",
+   "TG": "altered",
+   "GG": "altered"
   },
+  "polarity": {
+   "altered": "positive"
+  },
+  "polarity_source": "library ratings",
   "gwas": [],
   "n_gwas": 0,
   "gwas_via": null,
@@ -4534,11 +4775,15 @@
   "rsid": "rs885479",
   "gene": "MC1R",
   "trait": "Melanin type (pheomelanin ratio)",
-  "scores": {
-   "GG": 5,
-   "AG": 5,
-   "AA": 5
+  "function": {
+   "GG": "normal",
+   "AG": "altered",
+   "AA": "altered"
   },
+  "polarity": {
+   "altered": "neutral"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "skin pigmentation",
@@ -4568,11 +4813,15 @@
   "rsid": "rs10993994",
   "gene": "MSMB",
   "trait": "Prostate cancer susceptibility (MSMB)",
-  "scores": {
-   "GG": 6,
-   "AG": 5,
-   "AA": 4
+  "function": {
+   "GG": "normal",
+   "AG": "LoF",
+   "AA": "LoF"
   },
+  "polarity": {
+   "LoF": "negative"
+  },
+  "polarity_source": "library wording",
   "gwas": [
    {
     "trait": "prostate specific antigen amount",
@@ -4610,11 +4859,15 @@
   "rsid": "rs2236225",
   "gene": "MTHFD1",
   "trait": "Folate metabolism",
-  "scores": {
-   "GG": 9,
-   "AG": 6,
-   "AA": 3
+  "function": {
+   "GG": "normal",
+   "AG": "LoF",
+   "AA": "LoF"
   },
+  "polarity": {
+   "LoF": "negative"
+  },
+  "polarity_source": "library wording",
   "gwas": [
    {
     "trait": "chromosome, telomeric region length",
@@ -4651,11 +4904,15 @@
   "rsid": "rs1801133",
   "gene": "MTHFR",
   "trait": "Folate → active methylfolate conversion",
-  "scores": {
-   "GG": 9,
-   "GA": 6,
-   "AA": 2
+  "function": {
+   "GG": "normal",
+   "GA": "LoF",
+   "AA": "LoF"
   },
+  "polarity": {
+   "LoF": "negative"
+  },
+  "polarity_source": "library wording",
   "gwas": [
    {
     "trait": "homocysteine measurement",
@@ -4693,11 +4950,15 @@
   "rsid": "rs1799930",
   "gene": "NAT2",
   "trait": "Acetylation Rate (Toxin/Drug Clearance)",
-  "scores": {
-   "GG": 8,
-   "GA": 5,
-   "AA": 3
+  "function": {
+   "GG": "normal",
+   "GA": "LoF",
+   "AA": "LoF"
   },
+  "polarity": {
+   "LoF": "negative"
+  },
+  "polarity_source": "library wording",
   "gwas": [
    {
     "trait": "5-acetylamino-6-formylamino-3-methyluracil measurement",
@@ -4738,11 +4999,15 @@
   "rsid": "rs1800566",
   "gene": "NQO1",
   "trait": "Quinone detox & antioxidant recycling",
-  "scores": {
-   "GG": 9,
-   "AG": 6,
-   "AA": 3
+  "function": {
+   "GG": "normal",
+   "AG": "LoF",
+   "AA": "LoF"
   },
+  "polarity": {
+   "LoF": "negative"
+  },
+  "polarity_source": "library wording",
   "gwas": [
    {
     "trait": "amount of NAD(P)H dehydrogenase [quinone] 1 in blood serum",
@@ -4780,12 +5045,16 @@
   "rsid": "rs53576",
   "gene": "OXTR",
   "trait": "Oxytocin receptor sensitivity (Empathy/Stress)",
-  "scores": {
-   "GG": 8,
-   "GA": 5,
-   "AG": 5,
-   "AA": 3
+  "function": {
+   "GG": "normal",
+   "GA": "GoF",
+   "AG": "GoF",
+   "AA": "GoF"
   },
+  "polarity": {
+   "GoF": "negative"
+  },
+  "polarity_source": "library wording",
   "gwas": [],
   "n_gwas": 0,
   "gwas_via": null,
@@ -4806,11 +5075,15 @@
   "rsid": "rs6232",
   "gene": "PCSK1",
   "trait": "Satiety signaling",
-  "scores": {
-   "TT": 6,
-   "CT": 5,
-   "CC": 4
+  "function": {
+   "TT": "normal",
+   "CT": "LoF",
+   "CC": "LoF"
   },
+  "polarity": {
+   "LoF": "negative"
+  },
+  "polarity_source": "library wording",
   "gwas": [
    {
     "trait": "body mass index",
@@ -4836,11 +5109,15 @@
   "rsid": "rs738409",
   "gene": "PNPLA3",
   "trait": "Liver fat accumulation (NAFLD risk)",
-  "scores": {
-   "CC": 7,
-   "CG": 5,
-   "GG": 5
+  "function": {
+   "CC": "normal",
+   "CG": "altered",
+   "GG": "altered"
   },
+  "polarity": {
+   "altered": "negative"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "serum alanine aminotransferase amount",
@@ -4878,11 +5155,15 @@
   "rsid": "rs662",
   "gene": "PON1",
   "trait": "Detoxification of oxidized lipids",
-  "scores": {
-   "TT": 5,
-   "CT": 5,
-   "CC": 5
+  "function": {
+   "TT": "normal",
+   "CT": "GoF",
+   "CC": "GoF"
   },
+  "polarity": {
+   "GoF": "neutral"
+  },
+  "polarity_source": "library wording",
   "gwas": [
    {
     "trait": "testis-expressed sequence 29 protein measurement",
@@ -4920,11 +5201,15 @@
   "rsid": "rs2016520",
   "gene": "PPARD",
   "trait": "Fat Burning for Endurance",
-  "scores": {
-   "TT": 6,
-   "TC": 8,
-   "CC": 10
+  "function": {
+   "TT": "normal",
+   "TC": "GoF",
+   "CC": "GoF"
   },
+  "polarity": {
+   "GoF": "positive"
+  },
+  "polarity_source": "library wording",
   "gwas": [
    {
     "trait": "body height",
@@ -4965,11 +5250,15 @@
   "rsid": "rs2476601",
   "gene": "PTPN22",
   "trait": "Autoimmune reactivity",
-  "scores": {
-   "GG": 6,
-   "AG": 4,
-   "AA": 2
+  "function": {
+   "GG": "normal",
+   "AG": "altered",
+   "AA": "altered"
   },
+  "polarity": {
+   "altered": "negative"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "autoimmune thyroid disease",
@@ -4996,7 +5285,7 @@
   "consequence": "missense_variant",
   "library_text": "Strongly increased autoimmune reactivity",
   "library_claim": "GoF",
-  "evidence_function": "normal",
+  "evidence_function": "altered",
   "evidence_basis": "curated",
   "evidence": "p.Arg620Trp: risk factor for T1D; risk factor for RA; risk factor for SLE; risk factor for VTLG; probable protective factor against Crohn disease; also found in patients with Graves disease, Hashimoto thyroiditis and Addison disease;",
   "flags": [],
@@ -5007,12 +5296,16 @@
   "rsid": "rs12778366",
   "gene": "SIRT1",
   "trait": "Metabolic Aging Clock",
-  "scores": {
-   "CC": 8,
-   "CT": 6,
-   "TC": 6,
-   "TT": 5
+  "function": {
+   "CC": "GoF",
+   "CT": "GoF",
+   "TC": "GoF",
+   "TT": "normal"
   },
+  "polarity": {
+   "GoF": "positive"
+  },
+  "polarity_source": "library wording",
   "gwas": [],
   "n_gwas": 0,
   "gwas_via": null,
@@ -5033,11 +5326,15 @@
   "rsid": "rs1049434",
   "gene": "SLC16A1",
   "trait": "Lactate clearance (MCT1 transporter)",
-  "scores": {
-   "AA": 4,
-   "AT": 5,
-   "TT": 7
+  "function": {
+   "AA": "normal",
+   "AT": "LoF",
+   "TT": "LoF"
   },
+  "polarity": {
+   "LoF": "positive"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "diastolic blood pressure",
@@ -5074,11 +5371,15 @@
   "rsid": "rs2631367",
   "gene": "SLC22A5",
   "trait": "Carnitine absorption (fat oxidation)",
-  "scores": {
-   "GG": 8,
-   "CG": 6,
-   "CC": 4
+  "function": {
+   "GG": "normal",
+   "CG": "LoF",
+   "CC": "LoF"
   },
+  "polarity": {
+   "LoF": "negative"
+  },
+  "polarity_source": "library wording",
   "gwas": [
    {
     "trait": "platelet volume",
@@ -5116,11 +5417,15 @@
   "rsid": "rs8192675",
   "gene": "SLC2A2",
   "trait": "GLUT2 glucose sensing (liver & pancreas)",
-  "scores": {
-   "TT": 6,
-   "CT": 5,
-   "CC": 4
+  "function": {
+   "TT": "normal",
+   "CT": "LoF",
+   "CC": "LoF"
   },
+  "polarity": {
+   "LoF": "negative"
+  },
+  "polarity_source": "library wording",
   "gwas": [
    {
     "trait": "amount of hepatocyte growth factor receptor (human) in blood",
@@ -5158,12 +5463,16 @@
   "rsid": "rs13266634",
   "gene": "SLC30A8",
   "trait": "Insulin secretion capacity",
-  "scores": {
-   "CC": 6,
-   "CT": 5,
-   "TC": 5,
-   "TT": 4
+  "function": {
+   "CC": "normal",
+   "CT": "LoF",
+   "TC": "LoF",
+   "TT": "LoF"
   },
+  "polarity": {
+   "LoF": "negative"
+  },
+  "polarity_source": "library wording",
   "gwas": [
    {
     "trait": "blood glucose amount",
@@ -5201,11 +5510,15 @@
   "rsid": "rs4149056",
   "gene": "SLCO1B1",
   "trait": "Statin Safety (Muscle Pain Risk)",
-  "scores": {
-   "TT": 8,
-   "TC": 5,
-   "CC": 2
+  "function": {
+   "TT": "normal",
+   "TC": "LoF",
+   "CC": "LoF"
   },
+  "polarity": {
+   "LoF": "negative"
+  },
+  "polarity_source": "reviewed",
   "gwas": [
    {
     "trait": "isoleucine-to-X-11529 ratio",
@@ -5243,11 +5556,15 @@
   "rsid": "rs4880",
   "gene": "SOD2",
   "trait": "Mitochondrial antioxidant defense",
-  "scores": {
-   "AA": 5,
-   "AG": 6,
-   "GG": 9
+  "function": {
+   "AA": "normal",
+   "AG": "altered",
+   "GG": "altered"
   },
+  "polarity": {
+   "altered": "positive"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "lipoprotein A measurement",
@@ -5273,59 +5590,18 @@
   "action": ""
  },
  {
-  "rsid": "rs523349",
-  "gene": "SRD5A2",
-  "trait": "DHT conversion (5-alpha reductase type 2, V89L)",
-  "scores": {
-   "CC": 5,
-   "CG": 6,
-   "GG": 7
-  },
-  "gwas": [
-   {
-    "trait": "X-11470 measurement",
-    "p": 9e-17
-   },
-   {
-    "trait": "X-11444 measurement",
-    "p": 4e-13
-   },
-   {
-    "trait": "interleukin 18 measurement",
-    "p": 7e-10
-   },
-   {
-    "trait": "body height",
-    "p": 2e-09
-   }
-  ],
-  "n_gwas": 6,
-  "gwas_via": {
-   "rsid": "rs599300",
-   "r2": 0.82
-  },
-  "common": "C",
-  "minor": "G",
-  "minor_af": 0.279,
-  "consequence": "missense_variant",
-  "library_text": "Lower DHT conversion (Leu/Leu)",
-  "library_claim": "LoF",
-  "evidence_function": "normal",
-  "evidence_basis": "curated",
-  "evidence": "p.Leu89Val: no effect on affinity for testosterone; no effect on affinity for NADPH; increased Vmax",
-  "flags": [],
-  "verdict": "agrees",
-  "action": ""
- },
- {
   "rsid": "rs9282858",
   "gene": "SRD5A2",
   "trait": "DHT conversion rate",
-  "scores": {
-   "GG": 5,
-   "AG": 5,
-   "AA": 5
+  "function": {
+   "GG": "normal",
+   "AG": "GoF",
+   "AA": "GoF"
   },
+  "polarity": {
+   "GoF": "neutral"
+  },
+  "polarity_source": "library wording",
   "gwas": [
    {
     "trait": "bone tissue density",
@@ -5363,11 +5639,15 @@
   "rsid": "rs1801198",
   "gene": "TCN2",
   "trait": "B12 transport in blood",
-  "scores": {
-   "CC": 9,
-   "CG": 6,
-   "GG": 3
+  "function": {
+   "CC": "normal",
+   "CG": "LoF",
+   "GG": "LoF"
   },
+  "polarity": {
+   "LoF": "negative"
+  },
+  "polarity_source": "library wording",
   "gwas": [
    {
     "trait": "protein measurement",
@@ -5393,11 +5673,15 @@
   "rsid": "rs987237",
   "gene": "TFAP2B",
   "trait": "Hunger / meal size regulation",
-  "scores": {
-   "AA": 9,
-   "AG": 6,
-   "GG": 3
+  "function": {
+   "AA": "normal",
+   "AG": "GoF",
+   "GG": "GoF"
   },
+  "polarity": {
+   "GoF": "negative"
+  },
+  "polarity_source": "library wording",
   "gwas": [
    {
     "trait": "body mass index",
@@ -5435,12 +5719,16 @@
   "rsid": "rs659366",
   "gene": "UCP2",
   "trait": "Basal metabolic energy leak",
-  "scores": {
-   "CC": 5,
-   "CT": 6,
-   "TC": 6,
-   "TT": 7
+  "function": {
+   "CC": "normal",
+   "CT": "GoF",
+   "TC": "GoF",
+   "TT": "GoF"
   },
+  "polarity": {
+   "GoF": "positive"
+  },
+  "polarity_source": "library wording",
   "gwas": [
    {
     "trait": "platelet volume",
@@ -5469,11 +5757,15 @@
   "rsid": "rs660339",
   "gene": "UCP2",
   "trait": "Mitochondrial coupling efficiency",
-  "scores": {
-   "GG": 7,
-   "AG": 5,
-   "AA": 3
+  "function": {
+   "GG": "normal",
+   "AG": "GoF",
+   "AA": "GoF"
   },
+  "polarity": {
+   "GoF": "negative"
+  },
+  "polarity_source": "library wording",
   "gwas": [
    {
     "trait": "platelet volume",
@@ -5499,48 +5791,18 @@
   "action": ""
  },
  {
-  "rsid": "rs2228570",
-  "gene": "VDR",
-  "trait": "Vitamin D receptor FokI (receptor length)",
-  "scores": {
-   "GG": 6,
-   "AG": 5,
-   "AA": 4
-  },
-  "gwas": [
-   {
-    "trait": "eosinophil percentage of leukocytes",
-    "p": 1e-09
-   },
-   {
-    "trait": "eosinophil count",
-    "p": 6e-09
-   }
-  ],
-  "n_gwas": 2,
-  "gwas_via": null,
-  "common": "G",
-  "minor": "A",
-  "minor_af": 0.378,
-  "consequence": "start_lost",
-  "library_text": "f/f: longer, less active receptor",
-  "library_claim": "LoF",
-  "evidence_function": "normal",
-  "evidence_basis": "truncating",
-  "evidence": "start lost, the protein is cut short",
-  "flags": [],
-  "verdict": "agrees",
-  "action": ""
- },
- {
   "rsid": "rs9923231",
   "gene": "VKORC1",
   "trait": "Vitamin K recycling efficiency",
-  "scores": {
-   "CC": 9,
-   "CT": 6,
-   "TT": 3
+  "function": {
+   "CC": "normal",
+   "CT": "altered",
+   "TT": "altered"
   },
+  "polarity": {
+   "altered": "negative"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "response to anticoagulant",
@@ -5570,11 +5832,15 @@
   "rsid": "rs25487",
   "gene": "XRCC1",
   "trait": "Base excision repair efficiency",
-  "scores": {
-   "CC": 9,
-   "CT": 6,
-   "TT": 3
+  "function": {
+   "CC": "normal",
+   "CT": "altered",
+   "TT": "altered"
   },
+  "polarity": {
+   "altered": "negative"
+  },
+  "polarity_source": "library ratings",
   "gwas": [],
   "n_gwas": 0,
   "gwas_via": null,
@@ -5595,12 +5861,16 @@
   "rsid": "rs17822931",
   "gene": "ABCC11",
   "trait": "Earwax type & Axillary Osmidrosis",
-  "scores": {
-   "CC": 5,
-   "CT": 5,
-   "TC": 5,
-   "TT": 9
+  "function": {
+   "CC": "normal",
+   "CT": "LoF",
+   "TC": "LoF",
+   "TT": "LoF"
   },
+  "polarity": {
+   "LoF": "positive"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "breast fibrocystic disease",
@@ -5623,14 +5893,45 @@
   "action": ""
  },
  {
+  "rsid": "rs1799752",
+  "gene": "ACE",
+  "trait": "ACE enzyme levels (BP & endurance)",
+  "function": {
+   "II": "unknown",
+   "ID": "unknown",
+   "DD": "unknown"
+  },
+  "polarity": {},
+  "polarity_source": null,
+  "gwas": [],
+  "n_gwas": 0,
+  "gwas_via": null,
+  "common": "-",
+  "minor": null,
+  "minor_af": null,
+  "consequence": "intron_variant",
+  "library_text": "",
+  "library_claim": null,
+  "evidence_function": "unknown",
+  "evidence_basis": "none",
+  "evidence": null,
+  "flags": [],
+  "verdict": "no function claim",
+  "action": ""
+ },
+ {
   "rsid": "rs1815739",
   "gene": "ACTN3",
   "trait": "Fast-twitch muscle fiber power",
-  "scores": {
-   "CC": 9,
-   "CT": 6,
-   "TT": 3
+  "function": {
+   "CC": "normal",
+   "CT": "LoF",
+   "TT": "LoF"
   },
+  "polarity": {
+   "LoF": "negative"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "MSTN/RGMA protein amount ratio in blood",
@@ -5668,12 +5969,16 @@
   "rsid": "rs4961",
   "gene": "ADD1",
   "trait": "Salt-sensitive hypertension",
-  "scores": {
-   "GG": 8,
-   "GT": 5,
-   "TG": 5,
-   "TT": 3
+  "function": {
+   "GG": "normal",
+   "GT": "LoF",
+   "TG": "LoF",
+   "TT": "LoF"
   },
+  "polarity": {
+   "LoF": "negative"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "amount of alpha-adducin in blood",
@@ -5710,12 +6015,16 @@
   "rsid": "rs5751876",
   "gene": "ADORA2A",
   "trait": "Caffeine-induced anxiety & sleep disruption",
-  "scores": {
-   "TT": 3,
-   "TC": 5,
-   "CT": 5,
-   "CC": 7
+  "function": {
+   "TT": "LoF",
+   "TC": "LoF",
+   "CT": "LoF",
+   "CC": "normal"
   },
+  "polarity": {
+   "LoF": "negative"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "Sushi domain-containing protein 2 measurement",
@@ -5756,11 +6065,15 @@
   "rsid": "rs553668",
   "gene": "ADRA2A",
   "trait": "Adrenaline-Induced Insulin Resistance",
-  "scores": {
-   "GG": 7,
-   "AG": 5,
-   "AA": 3
+  "function": {
+   "GG": "normal",
+   "AG": "GoF",
+   "AA": "GoF"
   },
+  "polarity": {
+   "GoF": "negative"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "diet measurement",
@@ -5789,11 +6102,13 @@
   "rsid": "rs4994",
   "gene": "ADRB3",
   "trait": "Brown fat activation & weight regulation",
-  "scores": {
-   "GG": 5,
-   "AG": 5,
-   "AA": 5
+  "function": {
+   "GG": "unknown",
+   "AG": "unknown",
+   "AA": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [],
   "n_gwas": 0,
   "gwas_via": null,
@@ -5814,11 +6129,15 @@
   "rsid": "rs699",
   "gene": "AGT",
   "trait": "Baseline blood pressure regulation",
-  "scores": {
-   "AA": 9,
-   "AG": 6,
-   "GG": 3
+  "function": {
+   "AA": "normal",
+   "AG": "altered",
+   "GG": "altered"
   },
+  "polarity": {
+   "altered": "negative"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "diastolic blood pressure",
@@ -5856,12 +6175,14 @@
   "rsid": "rs5186",
   "gene": "AGTR1",
   "trait": "Angiotensin II receptor sensitivity",
-  "scores": {
-   "AA": 6,
-   "AC": 5,
-   "CA": 5,
-   "CC": 4
+  "function": {
+   "AA": "unknown",
+   "AC": "unknown",
+   "CA": "unknown",
+   "CC": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [],
   "n_gwas": 0,
   "gwas_via": null,
@@ -5882,11 +6203,15 @@
   "rsid": "rs2066853",
   "gene": "AHR",
   "trait": "Toxin Sensitivity (Pesticides/PCBs)",
-  "scores": {
-   "GG": 9,
-   "GA": 6,
-   "AA": 3
+  "function": {
+   "GG": "normal",
+   "GA": "LoF",
+   "AA": "LoF"
   },
+  "polarity": {
+   "LoF": "negative"
+  },
+  "polarity_source": "library ratings",
   "gwas": [],
   "n_gwas": 0,
   "gwas_via": null,
@@ -5907,11 +6232,15 @@
   "rsid": "rs1800497",
   "gene": "ANKK1 (Taq1A)",
   "trait": "D2 dopamine receptor availability",
-  "scores": {
-   "GG": 9,
-   "AG": 6,
-   "AA": 3
+  "function": {
+   "GG": "normal",
+   "AG": "LoF",
+   "AA": "LoF"
   },
+  "polarity": {
+   "LoF": "negative"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "substance-related disorder",
@@ -5952,11 +6281,13 @@
   "rsid": "rs61910685",
   "gene": "ANO5",
   "trait": "Carrier status: ANO5 p.Ser796Leu",
-  "scores": {
-   "CC": 5,
-   "CT": 5,
-   "TT": 5
+  "function": {
+   "CC": "unknown",
+   "CT": "unknown",
+   "TT": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "amount of myomesin-3 in blood serum",
@@ -5994,11 +6325,13 @@
   "rsid": "rs5082",
   "gene": "APOA2",
   "trait": "Saturated fat sensitivity",
-  "scores": {
-   "AA": 6,
-   "AG": 4,
-   "GG": 2
+  "function": {
+   "AA": "unknown",
+   "AG": "unknown",
+   "GG": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "concentration of large HDL particles measurement",
@@ -6036,11 +6369,13 @@
   "rsid": "rs662799",
   "gene": "APOA5",
   "trait": "Triglyceride regulation",
-  "scores": {
-   "AA": 7,
-   "AG": 5,
-   "GG": 3
+  "function": {
+   "AA": "unknown",
+   "AG": "unknown",
+   "GG": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "triglyceride measurement",
@@ -6078,11 +6413,13 @@
   "rsid": "rs429358",
   "gene": "APOE",
   "trait": "APOE ε4 status (rs429358)",
-  "scores": {
-   "TT": 7,
-   "CT": 4,
-   "CC": 2
+  "function": {
+   "TT": "unknown",
+   "CT": "unknown",
+   "CC": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "high density lipoprotein cholesterol measurement",
@@ -6117,14 +6454,69 @@
   "action": ""
  },
  {
+  "rsid": "rs6152",
+  "gene": "AR",
+  "trait": "Male Pattern Baldness (Androgen Receptor)",
+  "function": {
+   "A": "LoF",
+   "G": "normal",
+   "AA": "LoF",
+   "AG": "LoF",
+   "GG": "normal"
+  },
+  "polarity": {
+   "LoF": "positive"
+  },
+  "polarity_source": "library ratings",
+  "gwas": [
+   {
+    "trait": "balding measurement",
+    "p": 1e-320
+   },
+   {
+    "trait": "alopecia",
+    "p": 1e-300
+   },
+   {
+    "trait": "androgenetic alopecia",
+    "p": 2e-91
+   },
+   {
+    "trait": "prostate carcinoma",
+    "p": 8e-23
+   }
+  ],
+  "n_gwas": 7,
+  "gwas_via": {
+   "rsid": "rs2497911",
+   "r2": 0.75
+  },
+  "common": "G",
+  "minor": "A",
+  "minor_af": 0.142,
+  "consequence": "missense_variant",
+  "library_text": "Lower risk (Women)",
+  "library_claim": null,
+  "evidence_function": "LoF",
+  "evidence_basis": "expression",
+  "evidence": "A lowers AR expression in 10 tissues (strongest: Brain Nucleus accumbens basal ganglia, Brain Frontal Cortex BA9, Cells Cultured fibroblasts)",
+  "flags": [],
+  "verdict": "no function claim",
+  "action": ""
+ },
+ {
   "rsid": "rs16942",
   "gene": "BRCA1",
   "trait": "BRCA1 expression / repair rate",
-  "scores": {
-   "CC": 9,
-   "CT": 6,
-   "TT": 5
+  "function": {
+   "CC": "altered",
+   "CT": "altered",
+   "TT": "normal"
   },
+  "polarity": {
+   "altered": "positive"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "aspartate aminotransferase measurement",
@@ -6150,11 +6542,13 @@
   "rsid": "rs1799950",
   "gene": "BRCA1",
   "trait": "Homologous recombination repair",
-  "scores": {
-   "TT": 5,
-   "CT": 5,
-   "CC": 5
+  "function": {
+   "TT": "unknown",
+   "CT": "unknown",
+   "CC": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [],
   "n_gwas": 0,
   "gwas_via": null,
@@ -6172,15 +6566,60 @@
   "action": ""
  },
  {
+  "rsid": "rs3923809",
+  "gene": "BTBD9",
+  "trait": "Restless Legs Syndrome (RLS)",
+  "function": {
+   "GG": "unknown",
+   "GA": "unknown",
+   "AG": "unknown",
+   "AA": "unknown"
+  },
+  "polarity": {},
+  "polarity_source": null,
+  "gwas": [
+   {
+    "trait": "restless legs syndrome",
+    "p": 5e-28
+   },
+   {
+    "trait": "insomnia measurement",
+    "p": 2e-08
+   },
+   {
+    "trait": "chronotype measurement",
+    "p": 3e-08
+   }
+  ],
+  "n_gwas": 3,
+  "gwas_via": null,
+  "common": "A",
+  "minor": "G",
+  "minor_af": 0.31,
+  "consequence": "intron_variant",
+  "library_text": "Normal risk",
+  "library_claim": "normal",
+  "evidence_function": "unknown",
+  "evidence_basis": "none",
+  "evidence": "no measured, curated or expression evidence that this SNP changes the gene",
+  "flags": [],
+  "verdict": "no function claim",
+  "action": ""
+ },
+ {
   "rsid": "rs1006737",
   "gene": "CACNA1C",
   "trait": "Mood Regulation & Creativity",
-  "scores": {
-   "GG": 8,
-   "GA": 5,
-   "AG": 5,
-   "AA": 3
+  "function": {
+   "GG": "normal",
+   "GA": "LoF",
+   "AG": "LoF",
+   "AA": "LoF"
   },
+  "polarity": {
+   "LoF": "negative"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "bipolar disorder, schizophrenia",
@@ -6218,11 +6657,13 @@
   "rsid": "rs7754840",
   "gene": "CDKAL1",
   "trait": "Insulin release strength",
-  "scores": {
-   "CC": 5,
-   "CG": 5,
-   "GG": 5
+  "function": {
+   "CC": "unknown",
+   "CG": "unknown",
+   "GG": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "type 2 diabetes mellitus",
@@ -6260,11 +6701,13 @@
   "rsid": "rs1333049",
   "gene": "CDKN2A/B",
   "trait": "Coronary Artery Disease Risk (9p21 locus)",
-  "scores": {
-   "GG": 9,
-   "CG": 6,
-   "CC": 3
+  "function": {
+   "GG": "unknown",
+   "CG": "unknown",
+   "CC": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "coronary artery disorder",
@@ -6302,12 +6745,14 @@
   "rsid": "rs10757278",
   "gene": "CDKN2B-AS1",
   "trait": "Coronary artery disease risk (9p21 locus)",
-  "scores": {
-   "AA": 7,
-   "AG": 5,
-   "GA": 5,
-   "GG": 3
+  "function": {
+   "AA": "unknown",
+   "AG": "unknown",
+   "GA": "unknown",
+   "GG": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "aneurysm",
@@ -6341,11 +6786,15 @@
   "rsid": "rs1061170",
   "gene": "CFH",
   "trait": "Age-Related Macular Degeneration (AMD)",
-  "scores": {
-   "TT": 8,
-   "CT": 5,
-   "CC": 2
+  "function": {
+   "TT": "normal",
+   "CT": "LoF",
+   "CC": "LoF"
   },
+  "polarity": {
+   "LoF": "negative"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "age-related macular degeneration",
@@ -6383,11 +6832,13 @@
   "rsid": "rs115545701",
   "gene": "CFTR",
   "trait": "Carrier status: CFTR p.Arg74Trp",
-  "scores": {
-   "CC": 5,
-   "CT": 5,
-   "TT": 5
+  "function": {
+   "CC": "unknown",
+   "CT": "unknown",
+   "TT": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [],
   "n_gwas": 0,
   "gwas_via": null,
@@ -6408,11 +6859,13 @@
   "rsid": "rs1800100",
   "gene": "CFTR",
   "trait": "Carrier status: CFTR p.Arg668Cys",
-  "scores": {
-   "CC": 5,
-   "CT": 5,
-   "TT": 5
+  "function": {
+   "CC": "unknown",
+   "CT": "unknown",
+   "TT": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "amount of carboxypeptidase B (human) in blood",
@@ -6442,11 +6895,13 @@
   "rsid": "rs1800111",
   "gene": "CFTR",
   "trait": "Carrier status: CFTR p.Leu997Phe",
-  "scores": {
-   "GG": 5,
-   "CG": 5,
-   "CC": 5
+  "function": {
+   "GG": "unknown",
+   "CG": "unknown",
+   "CC": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [],
   "n_gwas": 0,
   "gwas_via": null,
@@ -6467,11 +6922,13 @@
   "rsid": "rs35516286",
   "gene": "CFTR",
   "trait": "Carrier status: CFTR p.Ile148Thr",
-  "scores": {
-   "TT": 5,
-   "CT": 5,
-   "CC": 5
+  "function": {
+   "TT": "unknown",
+   "CT": "unknown",
+   "CC": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [],
   "n_gwas": 0,
   "gwas_via": null,
@@ -6492,12 +6949,16 @@
   "rsid": "rs16969968",
   "gene": "CHRNA5",
   "trait": "Nicotine Dependence Risk",
-  "scores": {
-   "GG": 8,
-   "GA": 5,
-   "AG": 5,
-   "AA": 3
+  "function": {
+   "GG": "normal",
+   "GA": "altered",
+   "AG": "altered",
+   "AA": "altered"
   },
+  "polarity": {
+   "altered": "negative"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "cigarettes per day measurement",
@@ -6535,11 +6996,15 @@
   "rsid": "rs1801260",
   "gene": "CLOCK",
   "trait": "Sleep duration & circadian alignment",
-  "scores": {
-   "AA": 7,
-   "AG": 5,
-   "GG": 3
+  "function": {
+   "AA": "normal",
+   "AG": "LoF",
+   "GG": "LoF"
   },
+  "polarity": {
+   "LoF": "negative"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "BMI-adjusted waist-hip ratio",
@@ -6580,11 +7045,15 @@
   "rsid": "rs11191548",
   "gene": "CNNM2",
   "trait": "Blood pressure regulation (CNNM2 locus)",
-  "scores": {
-   "TT": 5,
-   "CT": 6,
-   "CC": 7
+  "function": {
+   "TT": "normal",
+   "CT": "altered",
+   "CC": "altered"
   },
+  "polarity": {
+   "altered": "positive"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "smoking status measurement, systolic blood pressure",
@@ -6622,11 +7091,13 @@
   "rsid": "rs1049353",
   "gene": "CNR1",
   "trait": "CB1 Receptor Sensitivity",
-  "scores": {
-   "CC": 7,
-   "CT": 5,
-   "TT": 4
+  "function": {
+   "CC": "unknown",
+   "CT": "unknown",
+   "TT": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [],
   "n_gwas": 0,
   "gwas_via": null,
@@ -6647,11 +7118,13 @@
   "rsid": "rs1800012",
   "gene": "COL1A1",
   "trait": "Collagen type I stability (bone & tendons)",
-  "scores": {
-   "CC": 5,
-   "AC": 5,
-   "AA": 5
+  "function": {
+   "CC": "unknown",
+   "AC": "unknown",
+   "AA": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [],
   "n_gwas": 0,
   "gwas_via": null,
@@ -6672,11 +7145,13 @@
   "rsid": "rs1800255",
   "gene": "COL3A1",
   "trait": "Collagen type III strength and tissue integrity",
-  "scores": {
-   "CC": 9,
-   "CT": 6,
-   "TT": 3
+  "function": {
+   "CC": "unknown",
+   "CT": "unknown",
+   "TT": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "body height",
@@ -6717,11 +7192,13 @@
   "rsid": "rs1205",
   "gene": "CRP",
   "trait": "Baseline CRP level tendency",
-  "scores": {
-   "CC": 9,
-   "CT": 6,
-   "TT": 3
+  "function": {
+   "CC": "unknown",
+   "CT": "unknown",
+   "TT": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "low density lipoprotein cholesterol measurement",
@@ -6755,12 +7232,16 @@
   "rsid": "rs231775",
   "gene": "CTLA4",
   "trait": "T-Cell Regulation (Autoimmune Risk)",
-  "scores": {
-   "AA": 7,
-   "AG": 5,
-   "GA": 5,
-   "GG": 3
+  "function": {
+   "AA": "normal",
+   "AG": "LoF",
+   "GA": "LoF",
+   "GG": "LoF"
   },
+  "polarity": {
+   "LoF": "negative"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "autoimmune thyroid disease",
@@ -6794,11 +7275,15 @@
   "rsid": "rs1056836",
   "gene": "CYP1B1",
   "trait": "Hormone & toxin hydroxylation",
-  "scores": {
-   "CC": 7,
-   "CG": 5,
-   "GG": 5
+  "function": {
+   "CC": "altered",
+   "CG": "altered",
+   "GG": "normal"
   },
+  "polarity": {
+   "altered": "negative"
+  },
+  "polarity_source": "reviewed",
   "gwas": [
    {
     "trait": "cutaneous melanoma, nevus count",
@@ -6839,12 +7324,16 @@
   "rsid": "rs12785878",
   "gene": "DHCR7",
   "trait": "Vitamin D Synthesis from Sun",
-  "scores": {
-   "GG": 7,
-   "GT": 5,
-   "TG": 5,
-   "TT": 5
+  "function": {
+   "GG": "altered",
+   "GT": "altered",
+   "TG": "altered",
+   "TT": "normal"
   },
+  "polarity": {
+   "altered": "positive"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "amount of vitamin D",
@@ -6874,11 +7363,15 @@
   "rsid": "rs3827760",
   "gene": "EDAR",
   "trait": "Hair Thickness and Teeth Morphology",
-  "scores": {
-   "GG": 5,
-   "GA": 6,
-   "AA": 8
+  "function": {
+   "GG": "GoF",
+   "GA": "GoF",
+   "AA": "normal"
   },
+  "polarity": {
+   "GoF": "neutral"
+  },
+  "polarity_source": "reviewed",
   "gwas": [
    {
     "trait": "strand of hair shape",
@@ -6916,12 +7409,16 @@
   "rsid": "rs5370",
   "gene": "EDN1",
   "trait": "Vasoconstriction (Endothelin-1)",
-  "scores": {
-   "GG": 7,
-   "GT": 5,
-   "TG": 5,
-   "TT": 3
+  "function": {
+   "GG": "normal",
+   "GT": "GoF",
+   "TG": "GoF",
+   "TT": "GoF"
   },
+  "polarity": {
+   "GoF": "negative"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "amount of endothelin-1 in blood serum",
@@ -6959,11 +7456,15 @@
   "rsid": "rs11615",
   "gene": "ERCC1",
   "trait": "Cisplatin sensitivity / nucleotide repair",
-  "scores": {
-   "GG": 9,
-   "AG": 6,
-   "AA": 5
+  "function": {
+   "GG": "GoF",
+   "AG": "GoF",
+   "AA": "normal"
   },
+  "polarity": {
+   "GoF": "positive"
+  },
+  "polarity_source": "library ratings",
   "gwas": [],
   "n_gwas": 0,
   "gwas_via": null,
@@ -6984,11 +7485,15 @@
   "rsid": "rs13181",
   "gene": "ERCC2",
   "trait": "Nucleotide excision repair",
-  "scores": {
-   "GG": 5,
-   "GT": 5,
-   "TT": 5
+  "function": {
+   "GG": "LoF",
+   "GT": "LoF",
+   "TT": "normal"
   },
+  "polarity": {
+   "LoF": "neutral"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "Alzheimer disease, polygenic risk score",
@@ -7029,11 +7534,15 @@
   "rsid": "rs1256031",
   "gene": "ESR2",
   "trait": "Estrogen Receptor Beta Sensitivity",
-  "scores": {
-   "GG": 8,
-   "GA": 6,
-   "AA": 5
+  "function": {
+   "GG": "GoF",
+   "GA": "GoF",
+   "AA": "normal"
   },
+  "polarity": {
+   "GoF": "positive"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "hemoglobin measurement",
@@ -7074,11 +7583,13 @@
   "rsid": "rs1799963",
   "gene": "F2",
   "trait": "Thrombophilia (Factor II Prothrombin)",
-  "scores": {
-   "GG": 9,
-   "AG": 3,
-   "AA": 1
+  "function": {
+   "GG": "unknown",
+   "AG": "unknown",
+   "AA": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "venous thromboembolism",
@@ -7116,12 +7627,16 @@
   "rsid": "rs6025",
   "gene": "F5",
   "trait": "Factor V Leiden (Primary Mutation)",
-  "scores": {
-   "CC": 9,
-   "CT": 4,
-   "TC": 4,
-   "TT": 1
+  "function": {
+   "CC": "normal",
+   "CT": "altered",
+   "TC": "altered",
+   "TT": "altered"
   },
+  "polarity": {
+   "altered": "negative"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "venous thromboembolism",
@@ -7159,12 +7674,14 @@
   "rsid": "rs1799883",
   "gene": "FABP2",
   "trait": "Fat absorption & post-meal lipids",
-  "scores": {
-   "GG": 5,
-   "GA": 6,
-   "AG": 6,
-   "AA": 7
+  "function": {
+   "GG": "normal",
+   "GA": "normal",
+   "AG": "normal",
+   "AA": "normal"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "pulmonary embolism",
@@ -7190,11 +7707,13 @@
   "rsid": "rs1054135",
   "gene": "FABP4 (A-FABP)",
   "trait": "Fatty Acid Transport & Lipotoxicity Risk",
-  "scores": {
-   "TT": 5,
-   "TC": 5,
-   "CC": 5
+  "function": {
+   "TT": "unknown",
+   "TC": "unknown",
+   "CC": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [],
   "n_gwas": 0,
   "gwas_via": null,
@@ -7215,12 +7734,14 @@
   "rsid": "rs838133",
   "gene": "FGF21",
   "trait": "Sweet Tooth (Hormonal)",
-  "scores": {
-   "GG": 7,
-   "GA": 5,
-   "AG": 5,
-   "AA": 4
+  "function": {
+   "GG": "unknown",
+   "GA": "unknown",
+   "AG": "unknown",
+   "AA": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "serum urea amount",
@@ -7258,11 +7779,15 @@
   "rsid": "rs2802292",
   "gene": "FOXO3",
   "trait": "Cellular stress resistance & Longevity",
-  "scores": {
-   "TT": 6,
-   "GT": 8,
-   "GG": 9
+  "function": {
+   "TT": "normal",
+   "GT": "GoF",
+   "GG": "GoF"
   },
+  "polarity": {
+   "GoF": "positive"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "platelet component distribution width",
@@ -7288,11 +7813,13 @@
   "rsid": "rs6165",
   "gene": "FSHR",
   "trait": "FSH receptor sensitivity (Ala307Thr)",
-  "scores": {
-   "AA": 9,
-   "AG": 6,
-   "GG": 3
+  "function": {
+   "AA": "normal",
+   "AG": "normal",
+   "GG": "normal"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "body height",
@@ -7318,11 +7845,15 @@
   "rsid": "rs9939609",
   "gene": "FTO",
   "trait": "Appetite regulation",
-  "scores": {
-   "AA": 3,
-   "AT": 6,
-   "TT": 9
+  "function": {
+   "AA": "GoF",
+   "AT": "GoF",
+   "TT": "normal"
   },
+  "polarity": {
+   "GoF": "negative"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "body mass index",
@@ -7360,12 +7891,16 @@
   "rsid": "rs8007267",
   "gene": "GCH1",
   "trait": "BH4 Synthesis (Natural Pain Relief)",
-  "scores": {
-   "CC": 5,
-   "CT": 7,
-   "TC": 7,
-   "TT": 9
+  "function": {
+   "CC": "normal",
+   "CT": "altered",
+   "TC": "altered",
+   "TT": "altered"
   },
+  "polarity": {
+   "altered": "positive"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "body height",
@@ -7402,12 +7937,14 @@
   "rsid": "rs558972",
   "gene": "GCK",
   "trait": "Fasting glucose baseline",
-  "scores": {
-   "CC": 7,
-   "CT": 5,
-   "TC": 5,
-   "TT": 4
+  "function": {
+   "CC": "unknown",
+   "CT": "unknown",
+   "TC": "unknown",
+   "TT": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [],
   "n_gwas": 0,
   "gwas_via": null,
@@ -7425,14 +7962,98 @@
   "action": ""
  },
  {
+  "rsid": "rs143383",
+  "gene": "GDF5",
+  "trait": "Joint surface resilience and knee injury risk",
+  "function": {
+   "GG": "altered",
+   "AG": "altered",
+   "AA": "normal"
+  },
+  "polarity": {
+   "altered": "positive"
+  },
+  "polarity_source": "library ratings",
+  "gwas": [
+   {
+    "trait": "body height",
+    "p": 9e-78
+   },
+   {
+    "trait": "brain attribute",
+    "p": 1e-23
+   },
+   {
+    "trait": "osteoarthritis, knee",
+    "p": 8e-18
+   },
+   {
+    "trait": "cerebral cortex area attribute",
+    "p": 1e-17
+   }
+  ],
+  "n_gwas": 6,
+  "gwas_via": null,
+  "common": "A",
+  "minor": "G",
+  "minor_af": 0.372,
+  "consequence": "5_prime_UTR_variant",
+  "library_text": "Protective cartilage profile",
+  "library_claim": null,
+  "evidence_function": "altered",
+  "evidence_basis": "expression",
+  "evidence": "A raises GDF5 expression in some tissues and lowers it in others (Esophagus Gastroesophageal Junction, Pituitary, Colon Sigmoid)",
+  "flags": [],
+  "verdict": "no function claim",
+  "action": ""
+ },
+ {
+  "rsid": "rs734553",
+  "gene": "GLUT9 (SLC2A9)",
+  "trait": "Uric acid transport (metabolic inflammation)",
+  "function": {
+   "GG": "LoF",
+   "GT": "LoF",
+   "TT": "normal"
+  },
+  "polarity": {
+   "LoF": "positive"
+  },
+  "polarity_source": "library ratings",
+  "gwas": [
+   {
+    "trait": "uric acid measurement",
+    "p": 1e-192
+   }
+  ],
+  "n_gwas": 1,
+  "gwas_via": null,
+  "common": "T",
+  "minor": "G",
+  "minor_af": 0.245,
+  "consequence": "intron_variant",
+  "library_text": "Lower uric acid tendency",
+  "library_claim": null,
+  "evidence_function": "LoF",
+  "evidence_basis": "expression",
+  "evidence": "T raises SLC2A9 expression in 3 tissues (strongest: Artery Tibial, Adipose Visceral Omentum, Adipose Subcutaneous)",
+  "flags": [],
+  "verdict": "no function claim",
+  "action": ""
+ },
+ {
   "rsid": "rs713041",
   "gene": "GPX4",
   "trait": "Lipid Peroxidation Defense",
-  "scores": {
-   "TT": 9,
-   "TC": 6,
-   "CC": 5
+  "function": {
+   "TT": "LoF",
+   "TC": "LoF",
+   "CC": "normal"
   },
+  "polarity": {
+   "LoF": "positive"
+  },
+  "polarity_source": "library ratings",
   "gwas": [],
   "n_gwas": 0,
   "gwas_via": null,
@@ -7453,11 +8074,15 @@
   "rsid": "rs12913832",
   "gene": "HERC2",
   "trait": "Eye Color Probability",
-  "scores": {
-   "GG": 9,
-   "GA": 6,
-   "AA": 3
+  "function": {
+   "GG": "normal",
+   "GA": "GoF",
+   "AA": "GoF"
   },
+  "polarity": {
+   "GoF": "neutral"
+  },
+  "polarity_source": "reviewed",
   "gwas": [
    {
     "trait": "cutaneous melanoma, hair color",
@@ -7495,12 +8120,16 @@
   "rsid": "rs1800562",
   "gene": "HFE",
   "trait": "Hemochromatosis (C282Y Mutation)",
-  "scores": {
-   "GG": 8,
-   "GA": 5,
-   "AG": 5,
-   "AA": 1
+  "function": {
+   "GG": "normal",
+   "GA": "altered",
+   "AG": "altered",
+   "AA": "altered"
   },
+  "polarity": {
+   "altered": "negative"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "mean corpuscular hemoglobin",
@@ -7538,11 +8167,15 @@
   "rsid": "rs7454108",
   "gene": "HLA-DQ8",
   "trait": "Celiac Disease Risk (HLA-DQ8)",
-  "scores": {
-   "TT": 8,
-   "CT": 5,
-   "CC": 2
+  "function": {
+   "TT": "normal",
+   "CT": "LoF",
+   "CC": "LoF"
   },
+  "polarity": {
+   "LoF": "negative"
+  },
+  "polarity_source": "reviewed",
   "gwas": [
    {
     "trait": "anti-neutrophil antibody associated vasculitis",
@@ -7576,12 +8209,16 @@
   "rsid": "rs2395185",
   "gene": "HLA-DQA1",
   "trait": "Celiac disease susceptibility (HLA-DQ2.5)",
-  "scores": {
-   "GG": 8,
-   "GT": 5,
-   "TG": 5,
-   "TT": 2
+  "function": {
+   "GG": "normal",
+   "GT": "LoF",
+   "TG": "LoF",
+   "TT": "LoF"
   },
+  "polarity": {
+   "LoF": "negative"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "Hodgkins lymphoma",
@@ -7619,11 +8256,15 @@
   "rsid": "rs4402960",
   "gene": "IGF2BP2",
   "trait": "First-Phase Insulin Secretion",
-  "scores": {
-   "GG": 8,
-   "GT": 5,
-   "TT": 3
+  "function": {
+   "GG": "normal",
+   "GT": "GoF",
+   "TT": "GoF"
   },
+  "polarity": {
+   "GoF": "negative"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "type 2 diabetes mellitus",
@@ -7653,12 +8294,16 @@
   "rsid": "rs20541",
   "gene": "IL13",
   "trait": "Allergy & Asthma Susceptibility",
-  "scores": {
-   "GG": 8,
-   "GA": 5,
-   "AG": 5,
-   "AA": 3
+  "function": {
+   "GG": "altered",
+   "GA": "altered",
+   "AG": "altered",
+   "AA": "normal"
   },
+  "polarity": {
+   "altered": "positive"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "atopic eczema",
@@ -7696,11 +8341,15 @@
   "rsid": "rs419598",
   "gene": "IL1RN",
   "trait": "Inflammation Resolution (IL-1RA)",
-  "scores": {
-   "CC": 9,
-   "CT": 6,
-   "TT": 5
+  "function": {
+   "CC": "altered",
+   "CT": "altered",
+   "TT": "normal"
   },
+  "polarity": {
+   "altered": "positive"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "mitochondrial heteroplasmy measurement",
@@ -7737,11 +8386,15 @@
   "rsid": "rs11209026",
   "gene": "IL23R",
   "trait": "Protection Against IBD/Crohn's",
-  "scores": {
-   "GG": 5,
-   "GA": 8,
-   "AA": 9
+  "function": {
+   "GG": "normal",
+   "GA": "altered",
+   "AA": "altered"
   },
+  "polarity": {
+   "altered": "positive"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "inflammatory bowel disease",
@@ -7779,11 +8432,15 @@
   "rsid": "rs12203592",
   "gene": "IRF4",
   "trait": "UV sensitivity & pigmentation aging",
-  "scores": {
-   "CC": 7,
-   "CT": 5,
-   "TT": 3
+  "function": {
+   "CC": "normal",
+   "CT": "altered",
+   "TT": "altered"
   },
+  "polarity": {
+   "altered": "negative"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "suntan",
@@ -7821,12 +8478,16 @@
   "rsid": "rs10065172",
   "gene": "IRGM",
   "trait": "Autophagy & Crohn’s disease susceptibility",
-  "scores": {
-   "CC": 7,
-   "CT": 5,
-   "TC": 5,
-   "TT": 3
+  "function": {
+   "CC": "normal",
+   "CT": "GoF",
+   "TC": "GoF",
+   "TT": "GoF"
   },
+  "polarity": {
+   "GoF": "negative"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "Crohn disease",
@@ -7867,11 +8528,15 @@
   "rsid": "rs2943641",
   "gene": "IRS1",
   "trait": "Insulin Resistance & Type 2 Diabetes",
-  "scores": {
-   "CC": 8,
-   "CT": 5,
-   "TT": 3
+  "function": {
+   "CC": "normal",
+   "CT": "GoF",
+   "TT": "GoF"
   },
+  "polarity": {
+   "GoF": "negative"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "sex hormone-binding globulin measurement",
@@ -7909,11 +8574,13 @@
   "rsid": "rs147445322",
   "gene": "KCNQ1",
   "trait": "Carrier status: KCNQ1 p.Asp611Asn",
-  "scores": {
-   "GG": 5,
-   "AG": 5,
-   "AA": 5
+  "function": {
+   "GG": "unknown",
+   "AG": "unknown",
+   "AA": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "uric acid measurement",
@@ -7943,12 +8610,16 @@
   "rsid": "rs9536314",
   "gene": "KL (Klotho)",
   "trait": "The Klotho Longevity Factor",
-  "scores": {
-   "GG": 5,
-   "GT": 8,
-   "TG": 8,
-   "TT": 6
+  "function": {
+   "GG": "LoF",
+   "GT": "LoF",
+   "TG": "LoF",
+   "TT": "normal"
   },
+  "polarity": {
+   "LoF": "neutral"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "protein measurement",
@@ -7981,11 +8652,15 @@
   "rsid": "rs328",
   "gene": "LPL",
   "trait": "Post-meal triglyceride clearance",
-  "scores": {
-   "CC": 6,
-   "CG": 8,
-   "GG": 9
+  "function": {
+   "CC": "normal",
+   "CG": "LoF",
+   "GG": "LoF"
   },
+  "polarity": {
+   "LoF": "positive"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "triglyceride measurement",
@@ -8023,11 +8698,13 @@
   "rsid": "rs3736228",
   "gene": "LRP5",
   "trait": "Bone Mineral Density & Fracture Risk",
-  "scores": {
-   "CC": 9,
-   "CT": 6,
-   "TT": 3
+  "function": {
+   "CC": "unknown",
+   "CT": "unknown",
+   "TT": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "bone tissue density",
@@ -8065,11 +8742,15 @@
   "rsid": "rs1110400",
   "gene": "MC1R",
   "trait": "Pigment switching & UV sensitivity (I155T)",
-  "scores": {
-   "TT": 6,
-   "CT": 4,
-   "CC": 2
+  "function": {
+   "TT": "normal",
+   "CT": "LoF",
+   "CC": "LoF"
   },
+  "polarity": {
+   "LoF": "negative"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "hair color",
@@ -8099,11 +8780,15 @@
   "rsid": "rs1805007",
   "gene": "MC1R",
   "trait": "Sun sensitivity & photoaging",
-  "scores": {
-   "CC": 9,
-   "CT": 6,
-   "TT": 2
+  "function": {
+   "CC": "normal",
+   "CT": "LoF",
+   "TT": "LoF"
   },
+  "polarity": {
+   "LoF": "negative"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "skin cancer",
@@ -8141,12 +8826,16 @@
   "rsid": "rs17782313",
   "gene": "MC4R",
   "trait": "Weight set point & appetite",
-  "scores": {
-   "TT": 7,
-   "TC": 6,
-   "CT": 6,
-   "CC": 4
+  "function": {
+   "TT": "normal",
+   "TC": "GoF",
+   "CT": "GoF",
+   "CC": "GoF"
   },
+  "polarity": {
+   "GoF": "negative"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "diet measurement",
@@ -8184,12 +8873,14 @@
   "rsid": "rs17653216",
   "gene": "MGAM",
   "trait": "Maltase-glucoamylase activity",
-  "scores": {
-   "CC": 7,
-   "CT": 5,
-   "TC": 5,
-   "TT": 4
+  "function": {
+   "CC": "unknown",
+   "CT": "unknown",
+   "TC": "unknown",
+   "TT": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "intelligence, self reported educational attainment",
@@ -8226,11 +8917,13 @@
   "rsid": "rs559870",
   "gene": "MMP3",
   "trait": "Collagen remodeling efficiency",
-  "scores": {
-   "CC": 5,
-   "CT": 5,
-   "TT": 5
+  "function": {
+   "CC": "unknown",
+   "CT": "unknown",
+   "TT": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [],
   "n_gwas": 0,
   "gwas_via": null,
@@ -8251,11 +8944,15 @@
   "rsid": "rs1805087",
   "gene": "MTR",
   "trait": "Homocysteine → methionine conversion",
-  "scores": {
-   "AA": 6,
-   "AG": 8,
-   "GG": 9
+  "function": {
+   "AA": "normal",
+   "AG": "altered",
+   "GG": "altered"
   },
+  "polarity": {
+   "altered": "positive"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "homocysteine measurement",
@@ -8281,40 +8978,19 @@
   "action": ""
  },
  {
-  "rsid": "rs1801394",
-  "gene": "MTRR",
-  "trait": "B12 recycling",
-  "scores": {
-   "AA": 9,
-   "AG": 6,
-   "GG": 5
-  },
-  "gwas": [],
-  "n_gwas": 0,
-  "gwas_via": null,
-  "common": "G",
-  "minor": "A",
-  "minor_af": 0.477,
-  "consequence": "missense_variant",
-  "library_text": "Efficient recycling",
-  "library_claim": null,
-  "evidence_function": "normal",
-  "evidence_basis": "curated",
-  "evidence": "p.Ile22Met: may increase risk for spina bifida",
-  "flags": [],
-  "verdict": "no function claim",
-  "action": ""
- },
- {
   "rsid": "rs35652124",
   "gene": "NFE2L2 (NRF2)",
   "trait": "Master Antioxidant Switch (NRF2)",
-  "scores": {
-   "CC": 8,
-   "CT": 6,
-   "TC": 6,
-   "TT": 5
+  "function": {
+   "CC": "LoF",
+   "CT": "LoF",
+   "TC": "LoF",
+   "TT": "normal"
   },
+  "polarity": {
+   "LoF": "positive"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "serum creatinine amount",
@@ -8355,12 +9031,14 @@
   "rsid": "rs1799983",
   "gene": "NOS3 (Glu298Asp)",
   "trait": "Endothelial nitric oxide production",
-  "scores": {
-   "GG": 7,
-   "GT": 5,
-   "TG": 5,
-   "TT": 3
+  "function": {
+   "GG": "unknown",
+   "GT": "unknown",
+   "TG": "unknown",
+   "TT": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "stroke disorder",
@@ -8390,11 +9068,15 @@
   "rsid": "rs324981",
   "gene": "NPSR1",
   "trait": "Natural Short Sleeper",
-  "scores": {
-   "AA": 5,
-   "AT": 5,
-   "TT": 5
+  "function": {
+   "AA": "normal",
+   "AT": "GoF",
+   "TT": "GoF"
   },
+  "polarity": {
+   "GoF": "neutral"
+  },
+  "polarity_source": "library ratings",
   "gwas": [],
   "n_gwas": 0,
   "gwas_via": null,
@@ -8415,12 +9097,16 @@
   "rsid": "rs41423247",
   "gene": "NR3C1",
   "trait": "Cortisol Receptor Sensitivity (BclI)",
-  "scores": {
-   "CC": 7,
-   "CG": 5,
-   "GC": 5,
-   "GG": 5
+  "function": {
+   "CC": "GoF",
+   "CG": "GoF",
+   "GC": "GoF",
+   "GG": "normal"
   },
+  "polarity": {
+   "GoF": "positive"
+  },
+  "polarity_source": "library ratings",
   "gwas": [],
   "n_gwas": 0,
   "gwas_via": null,
@@ -8441,11 +9127,13 @@
   "rsid": "rs1800407",
   "gene": "OCA2",
   "trait": "Eye Color (Green/Hazel vs Brown)",
-  "scores": {
-   "CC": 8,
-   "CT": 5,
-   "TT": 2
+  "function": {
+   "CC": "unknown",
+   "CT": "unknown",
+   "TT": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "hair color",
@@ -8483,12 +9171,16 @@
   "rsid": "rs1799971",
   "gene": "OPRM1",
   "trait": "Mu-opioid receptor sensitivity",
-  "scores": {
-   "AA": 7,
-   "AG": 5,
-   "GA": 5,
-   "GG": 3
+  "function": {
+   "AA": "normal",
+   "AG": "GoF",
+   "GA": "GoF",
+   "GG": "GoF"
   },
+  "polarity": {
+   "GoF": "negative"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "substance-related disorder",
@@ -8518,12 +9210,14 @@
   "rsid": "rs72921001",
   "gene": "OR6A2",
   "trait": "Cilantro Taste (Soapy vs Herb)",
-  "scores": {
-   "AA": 5,
-   "AC": 5,
-   "CA": 5,
-   "CC": 5
+  "function": {
+   "AA": "unknown",
+   "AC": "unknown",
+   "CA": "unknown",
+   "CC": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [],
   "n_gwas": 0,
   "gwas_via": null,
@@ -8544,12 +9238,14 @@
   "rsid": "rs7946",
   "gene": "PEMT",
   "trait": "Choline synthesis (Liver health)",
-  "scores": {
-   "CC": 8,
-   "CT": 5,
-   "TC": 5,
-   "TT": 5
+  "function": {
+   "CC": "unknown",
+   "CT": "unknown",
+   "TC": "unknown",
+   "TT": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "triglyceride measurement",
@@ -8587,11 +9283,15 @@
   "rsid": "rs2304672",
   "gene": "PER2",
   "trait": "Chronotype (PER2 C111G)",
-  "scores": {
-   "GG": 5,
-   "CG": 6,
-   "CC": 7
+  "function": {
+   "GG": "normal",
+   "CG": "GoF",
+   "CC": "GoF"
   },
+  "polarity": {
+   "GoF": "positive"
+  },
+  "polarity_source": "library ratings",
   "gwas": [],
   "n_gwas": 0,
   "gwas_via": null,
@@ -8612,11 +9312,15 @@
   "rsid": "rs894160",
   "gene": "PLIN1",
   "trait": "Weight Loss Resistance (Perilipin)",
-  "scores": {
-   "TT": 7,
-   "CT": 5,
-   "CC": 5
+  "function": {
+   "TT": "GoF",
+   "CT": "GoF",
+   "CC": "normal"
   },
+  "polarity": {
+   "GoF": "positive"
+  },
+  "polarity_source": "library ratings",
   "gwas": [],
   "n_gwas": 0,
   "gwas_via": null,
@@ -8637,11 +9341,15 @@
   "rsid": "rs1801282",
   "gene": "PPARG",
   "trait": "Insulin sensitivity & fat storage pattern",
-  "scores": {
-   "CC": 5,
-   "CG": 6,
-   "GG": 6
+  "function": {
+   "CC": "normal",
+   "CG": "GoF",
+   "GG": "GoF"
   },
+  "polarity": {
+   "GoF": "neutral"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "sex hormone-binding globulin measurement",
@@ -8679,11 +9387,13 @@
   "rsid": "rs6746030",
   "gene": "SCN9A",
   "trait": "Pain Sensitivity Threshold",
-  "scores": {
-   "GG": 9,
-   "GA": 6,
-   "AA": 3
+  "function": {
+   "GG": "unknown",
+   "GA": "unknown",
+   "AA": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "acute myeloid leukemia",
@@ -8712,11 +9422,15 @@
   "rsid": "rs1979277",
   "gene": "SHMT1",
   "trait": "Serine ↔ glycine / folate channeling",
-  "scores": {
-   "GG": 7,
-   "AG": 5,
-   "AA": 4
+  "function": {
+   "GG": "normal",
+   "AG": "altered",
+   "AA": "altered"
   },
+  "polarity": {
+   "altered": "negative"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "amount of serine hydroxymethyltransferase, cytosolic (human) in cerebrospinal fluid",
@@ -8757,11 +9471,15 @@
   "rsid": "rs1042173",
   "gene": "SLC6A4",
   "trait": "Central fatigue sensitivity & mood regulation",
-  "scores": {
-   "CC": 3,
-   "AC": 6,
-   "AA": 9
+  "function": {
+   "CC": "LoF",
+   "AC": "LoF",
+   "AA": "normal"
   },
+  "polarity": {
+   "LoF": "negative"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "hematological measurement",
@@ -8802,11 +9520,13 @@
   "rsid": "rs713598",
   "gene": "TAS2R38",
   "trait": "Bitter taste perception",
-  "scores": {
-   "CC": 5,
-   "CG": 6,
-   "GG": 9
+  "function": {
+   "CC": "unknown",
+   "CG": "unknown",
+   "GG": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "sensory perception of bitter taste",
@@ -8844,12 +9564,16 @@
   "rsid": "rs7903146",
   "gene": "TCF7L2 (Diabetes Risk)",
   "trait": "Blood sugar control",
-  "scores": {
-   "CC": 8,
-   "CT": 5,
-   "TC": 5,
-   "TT": 2
+  "function": {
+   "CC": "normal",
+   "CT": "LoF",
+   "TC": "LoF",
+   "TT": "LoF"
   },
+  "polarity": {
+   "LoF": "negative"
+  },
+  "polarity_source": "library ratings",
   "gwas": [
    {
     "trait": "type 2 diabetes mellitus",
@@ -8887,11 +9611,13 @@
   "rsid": "rs1042522",
   "gene": "TP53",
   "trait": "p53 damage response efficiency",
-  "scores": {
-   "CC": 7,
-   "CG": 6,
-   "GG": 4
+  "function": {
+   "CC": "normal",
+   "CG": "normal",
+   "GG": "normal"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "sex hormone-binding globulin measurement",
@@ -8929,12 +9655,14 @@
   "rsid": "rs1042602",
   "gene": "TYR",
   "trait": "Phototype / pigmentation stability",
-  "scores": {
-   "CC": 7,
-   "CA": 5,
-   "AC": 5,
-   "AA": 3
+  "function": {
+   "CC": "normal",
+   "CA": "normal",
+   "AC": "normal",
+   "AA": "normal"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "strand of hair color",
@@ -8972,11 +9700,13 @@
   "rsid": "rs1800592",
   "gene": "UCP1",
   "trait": "Brown fat thermogenesis",
-  "scores": {
-   "AA": 5,
-   "GA": 5,
-   "GG": 5
+  "function": {
+   "AA": "unknown",
+   "GA": "unknown",
+   "GG": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [],
   "n_gwas": 0,
   "gwas_via": null,
@@ -8997,12 +9727,14 @@
   "rsid": "rs1800849",
   "gene": "UCP3",
   "trait": "Muscle Fat Oxidation",
-  "scores": {
-   "CC": 5,
-   "CT": 6,
-   "TC": 6,
-   "TT": 8
+  "function": {
+   "CC": "unknown",
+   "CT": "unknown",
+   "TC": "unknown",
+   "TT": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "tumor necrosis factor receptor superfamily member 19L amount",
@@ -9035,11 +9767,13 @@
   "rsid": "rs3025039",
   "gene": "VEGFA",
   "trait": "VEGF secretion (+936 C>T)",
-  "scores": {
-   "CC": 6,
-   "CT": 5,
-   "TT": 4
+  "function": {
+   "CC": "unknown",
+   "CT": "unknown",
+   "TT": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "body height",
@@ -9072,11 +9806,13 @@
   "rsid": "rs2010963",
   "gene": "VEGFA (Secretion)",
   "trait": "Blood vessel growth (angiogenesis)",
-  "scores": {
-   "CC": 9,
-   "CG": 6,
-   "GG": 5
+  "function": {
+   "CC": "unknown",
+   "CG": "unknown",
+   "GG": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "amount of vascular endothelial growth factor receptor 1 in blood serum",
@@ -9113,12 +9849,14 @@
   "rsid": "rs10427255",
   "gene": "ZEB2",
   "trait": "Photic Sneeze Reflex (Sun Sneezing)",
-  "scores": {
-   "TT": 5,
-   "TC": 6,
-   "CT": 6,
-   "CC": 8
+  "function": {
+   "TT": "unknown",
+   "TC": "unknown",
+   "CT": "unknown",
+   "CC": "unknown"
   },
+  "polarity": {},
+  "polarity_source": null,
   "gwas": [
    {
     "trait": "smoking initiation",

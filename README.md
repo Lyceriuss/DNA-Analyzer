@@ -23,7 +23,7 @@ Output goes to `data/output/<file>_<Language>_Report.pdf`, together with the int
 
 `data/input/` and `data/output/` are git-ignored. **Never commit raw DNA files or anything derived from them.**
 
-Run the tests with `python -m unittest discover tests`. Check content consistency with `python injectors-authenticators/validate.py`.
+Run the tests with `python -m unittest discover tests`. Check the library with `python -m cluster_analysis.validate_library` and content coverage with `python scripts/library_coverage.py`.
 
 On Windows, set `PYTHONIOENCODING=utf-8` if the console crashes when it prints emoji.
 
@@ -32,8 +32,8 @@ On Windows, set `PYTHONIOENCODING=utf-8` if the console crashes when it prints e
 | Section | Source |
 |---|---|
 | 4-page introduction (GoF/LoF, upstream/downstream, etc.) | `config/ui_labels.json` → `introduction_education` |
-| Dashboard: per-domain positive/baseline/negative counts and a polar chart | computed from `snp_traits.json` scores |
-| Key active traits: increased and decreased function tables | `snp_traits.json` |
+| Dashboard: per-domain positive/baseline/negative counts and a polar chart | computed from each genotype's evidence call (GoF/LoF) and polarity in `snp_traits.json` |
+| Key active traits: gain-of-function (GoF) and loss-of-function (LoF) tables | `snp_traits.json` |
 | Section 3, Strengths: one deep-dive page per strength SNP, then a summary | `deep_dive_content.json` + `evidence_db.json` |
 | Section 4, Risks: one deep-dive page per risk SNP, then a summary | same |
 | Heritage (optional): donut chart and per-relative match tables | `src/inheritance.py` |
@@ -44,10 +44,9 @@ On Windows, set `PYTHONIOENCODING=utf-8` if the console crashes when it prints e
 main.py                   Interactive entry point; builds the whole PDF
 src/                      Analysis pipeline and PDF rendering (see docs/ARCHITECTURE.md)
 config/                   The knowledge base: traits, narratives, evidence, UI labels (see docs/DATA_MODEL.md)
-config/backup/            Backup of entries changed by the 2026-11 library corrections
 assets/                   Images used by reference-PDF tooling
 cluster_analysis/         Research-API clients, functional modules, library validation
-injectors-authenticators/ Content tooling: LLM translation/generation/audit, injectors, validators
+scripts/                  Reference downloads and the content coverage check
 tests/                    Unit tests (python -m unittest discover tests)
 ```
 

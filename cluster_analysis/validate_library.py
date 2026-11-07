@@ -165,7 +165,7 @@ def validate():
             allele["status"] = "forward (verified)"
             row["strand_note"] = STRAND_VERIFIED[rsid]
         elif allele["status"] == "ambiguous":
-            row["issues"].append(f"A/T or C/G SNP ({'/'.join(v['alleles'])}): confirm the scores are written on the "
+            row["issues"].append(f"A/T or C/G SNP ({'/'.join(v['alleles'])}): confirm the genotype texts and calls are written on the "
                                  "forward strand, otherwise results are silently inverted")
             if row["severity"] == "ok": row["severity"] = "warn"
         if allele["missing_genotypes"]:

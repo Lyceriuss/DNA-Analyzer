@@ -1,5 +1,8 @@
   // Gene lifecycle: gene picker, role switch, gene summary, regulation, node graph, route patterns and step details
   const LC = { key: null, step: null, wrap: true, drawnKey: null, scroll: 0 };
+  const LC_OUTCOME = { positive: 'Positive for XY', negative: 'Negative for XY', neutral: 'Neither good nor bad', unclear: 'Unclear whether good or bad',
+    typical: 'Typical', unknown: 'Unknown' };
+  const LC_POLARITY = { reviewed: 'reviewed by hand', 'library wording': "drafted from the library's wording", 'library ratings': "drafted from the library's old ratings" };
   const FN_TEXT = { LoF: 'Less active (LoF)', GoF: 'More active (GoF)', altered: 'Changed, direction unclear', normal: 'Typical function',
                     unknown: 'No known effect on the gene' };
   const LC_BASIS = { cpic: 'CPIC allele function', measured: 'measured protein function, MaveDB', curated: 'curated protein effect, UniProt',
@@ -159,7 +162,9 @@
     const ul = make(el, 'ul', 'lc-ev');
     const row = (k, v) => { const li = make(ul, 'li'); make(li, 'span', null, k); make(li, 'span', null, v); };
     row('Best evidence', ev.tier_name || 'No functional evidence collected');
-    row('Library reading', `${f.interpretation} (library rating ${f.score}/10, where 5 is neutral and 4 or lower counts as a risk${f.n_snps > 1 ? `; strongest of ${f.n_snps} SNPs` : ''})`);
+    if (f.outcome && f.outcome !== 'typical' && f.outcome !== 'unknown') row('Effect on XY', `${LC_OUTCOME[f.outcome] || f.outcome}` +
+      (f.polarity_source ? ` (whether ${f.function === 'GoF' ? 'more' : f.function === 'LoF' ? 'less' : 'changed'} function is good or bad: ${LC_POLARITY[f.polarity_source] || f.polarity_source}; the ${f.function} call is from the evidence)` : ''));
+    row('Library reading', `${f.interpretation}${f.n_snps > 1 ? ` (strongest of ${f.n_snps} SNPs)` : ''}`);
     if (ev.protein_change || ev.consequence) row('Change', [ev.protein_change, pretty(ev.consequence)].filter(Boolean).join(', '));
     if (ev.mavedb) {
       const sc = ev.mavedb.map((m) => m.score), lo = ev.mavedb.reduce((a, b) => (b.score < a.score ? b : a));
@@ -524,6 +529,7 @@
     make(flow, 'span', 'gx-muted', '→');
     mols(split(x.outputs));
     if (x.transport) make(el, 'p', 'gx-note', `Moves between compartments: ${x.move}`);
+    if (/extension/.test(x.section)) make(el, 'p', 'gx-note', "Outside the gene's Reactome pathway: the reaction is Reactome's, but it was joined to this chain because it shares a molecule with the next step. That link is inferred here, not curated by Reactome.");
     const warn = i > 0 ? patternAt(steps[i - 1], x) : null;
     if (warn) make(el, 'p', 'lc-warn', '⚠ ' + warn);
 
@@ -593,7 +599,7 @@
             (ev.gtex ? '; Expression shows the effect on how much protein is made.' : '.'));
         const tbl = make(body, 'table', 'gx-table lc-ladder');
         const hr = make(make(tbl, 'thead'), 'tr');
-        for (const h of ['Genotype', `Copies of ${f.minor}`, measured ? 'Capacity' : null, 'Library reading', 'Score'].filter(Boolean)) make(hr, 'th', null, h);
+        for (const h of ['Genotype', `Copies of ${f.minor}`, measured ? 'Capacity' : null, 'Library reading', 'Effect'].filter(Boolean)) make(hr, 'th', null, h);
         const tb = make(tbl, 'tbody');
         for (const r of ladder) {
           const tr = make(tb, 'tr', r === mine ? 'is-hp tone-' + FN_CLASS[f.function] : null);
@@ -601,7 +607,8 @@
           make(tr, 'td', null, String(r.dose));
           if (measured) make(tr, 'td', null, r.capacity ? pctR(r.capacity) : '—');
           make(tr, 'td', null, r.text);
-          make(tr, 'td', null, r.score != null ? `${r.score}/10` : '—');
+          make(tr, 'td', null, r.function === 'normal' ? 'Typical' : !r.function || r.function === 'unknown' ? '—'
+            : `${r.function} · ${(LC_OUTCOME[r.outcome] || 'Unknown').replace(' for XY', '').toLowerCase()}`);
         }
         make(body, 'p', 'gx-note', measured
           ? 'Capacity is the measured activity of each allele (MaveDB), added up over both copies; ranges cover the assay conditions.'

@@ -9,12 +9,12 @@ Snapshot from a review on 2026-11-04. P0 means fix first. Items that have been f
 
 ## P0: content says the wrong thing
 
-**Library validation (2026-11-04):** `python -m cluster_analysis.validate_library` checked all 282 entries against Ensembl and the GWAS Catalog and found 73 errors. They were corrected the same day with `injectors-authenticators/corrections_2026_11/apply.py`:
+**Library validation (2026-11-04):** `python -m cluster_analysis.validate_library` checked all 282 entries against Ensembl and the GWAS Catalog and found 73 errors. They were corrected the same day with a one-off script (`injectors-authenticators/corrections_2026_11/`, removed 2026-11-07; see git history):
 
 - 13 entries were rewritten for the gene actually at the site: ATG16L1, SLC2A2, MC1R, MCT1, PER2, CYP3A7*1C, ALPL, CNNM2, MSMB, HSD3B1, SRD5A2, plus the TP53 deep dive and the LEP evidence.
 - 6 entries were moved to the correct standard SNP: F2, SLC2A9, SLC22A5, CYP2D6*4, AOC1/DAO, SOD3.
 - The FOXO3 allele letters were fixed.
-- 53 entries were removed, with each reason recorded in `config/backup/library_corrections_2026-11-04.json`.
+- 53 entries were removed. Each reason was recorded in `config/backup/library_corrections_2026-11-04.json` (in git history up to commit `71d7068`).
 
 Two entries were scored on the wrong strand: **TP53 rs1042522**, and **ATG16L1 rs2241880**, whose scores were inverted.
 
@@ -23,7 +23,7 @@ The library now has **229 traits, 0 errors and 38 warnings**. Remaining work:
 - **23 A/T or C/G SNPs** still need their strand checked. TP53 proved these can be silently inverted. Use Ensembl's per-allele amino acids, then add each one to `STRAND_VERIFIED` in `validate_library.py`.
 - Some evidence texts in rewritten entries came out 20–30 % shorter than the originals. This is mostly the methodology fields and the LEP evidence.
 
-- **Evidence/deep-dive entries describe a different gene than the trait.** `python injectors-authenticators/validate.py` lists them. Aliases such as BCMO1/BCO1, TNF-alpha/TNF and HLA-DQ8/HLA-DQB1 can be ignored. The real conflicts are:
+- **Evidence/deep-dive entries describe a different gene than the trait.** `python scripts/library_coverage.py` lists them. Aliases such as BCMO1/BCO1, TNF-alpha/TNF and HLA-DQ8/HLA-DQB1 can be ignored. The real conflicts are:
 
   | RSID | snp_traits | evidence / deep dive |
   |---|---|---|
@@ -34,7 +34,7 @@ The library now has **229 traits, 0 errors and 38 warnings**. Remaining work:
   | rs1110400 | SOD1 | MC1R |
 
 - **Narrative and evidence can contradict each other.** CYP1A1 rs1048943 `TT` gets the "Balanced Detoxifier" strength page, while its own research section says the hyper-active variant raises lung-cancer risk in smokers.
-- Narratives are written per *direction* (strength/risk), not per genotype. Since 2026-11-04 only scores ≥ 7 / ≤ 4 get a deep dive, and self-references ("Your AG genotype") are rewritten to the reader's genotype at render time. Text that describes a specific allele in other words still needs a content pass.
+- Narratives are written per *direction* (strength/risk), not per genotype. Only a positive or negative reading gets a deep dive, and self-references ("Your AG genotype") are rewritten to the reader's genotype at render time. Text that describes a specific allele in other words still needs a content pass.
 
 ## P0: correctness
 
@@ -61,7 +61,7 @@ The library now has **229 traits, 0 errors and 38 warnings**. Remaining work:
 
 ## P1: content quality
 
-- Most narrative and evidence text was written or translated by an LLM. The audit (`audit_deep_dives.py`) flagged **120 RSIDs** in `rewrite_needed.json`. Many of those failures are structural (a missing `risks` list), but some are factual: `rs429358` (APOE) was flagged as logically inverted relative to its scores.
+- Most narrative and evidence text was written or translated by an LLM. An LLM audit in 2026-11 flagged 120 RSIDs (many structural, such as a missing `risks` list). The evidence-based check is now `python -m cluster_analysis.library_audit` ([LIBRARY_AUDIT.md](LIBRARY_AUDIT.md)).
 - `impact` has 4 non-standard values ("Beneficial", "Altered DHT levels", …). They now sort as Medium.
 - **15 orphan deep dives** have narratives but no `snp_traits.json` entry, so they never render: rs1143627, rs11568820, rs12255372, rs17616434, rs1799990, rs1800796, rs1800797, rs1801131 (MTHFR A1298C), rs2228570, rs2854464, rs3025039, rs6269, rs731236 (VDR TaqI), rs7412 (APOE, needed with rs429358 for e2/e3/e4), rs8111989. Add trait entries (and validate them) to activate them. 1 trait has no evidence entry.
 
@@ -70,7 +70,6 @@ The library now has **229 traits, 0 errors and 38 warnings**. Remaining work:
 - Test coverage is still thin (`tests/` covers only the normalizer and genotype personalisation). Add `domain_mapper` and `inheritance` next.
 - Nothing in `requirements.txt` is pinned. `fpdf` is the unmaintained 1.7 line. `fpdf2` adds Unicode TTF fonts, which would remove the Latin-1 `clean_text` downgrade.
 - `domain_mapper` uses substring keywords, and the first match wins ("cell", "dna" and "eye" are broad). A `domain` field in `snp_traits.json` would be explicit.
-- Tooling scripts hardcode paths and overwrite config files in place without backups. Add CLI args and write to a temp file before an atomic rename.
 - Bare `except:` clauses hide errors in `report_engine.py`.
 - Emoji `print`s crash on a cp1252 Windows console unless `PYTHONIOENCODING=utf-8` is set.
 - The interactive-only CLI makes batch runs and testing hard. Add `argparse` (`--input`, `--mom`, `--dad`, `--lang`) and keep the menu as the fallback.
@@ -81,11 +80,20 @@ The library now has **229 traits, 0 errors and 38 warnings**. Remaining work:
 - Unsorted genotype keys in `snp_traits.json` dropped heterozygotes. Keys are now normalised in `analyzer.py`, with unit tests. XY: 189 → 194 matched traits.
 - Deep dives were ordered by an alphabetical Impact sort. They now use an explicit rank.
 - `main.py` added a duplicate blank "Key Active Traits" page and built `ReportEngine` twice.
-- A score of 6 ("Normal") received the strength narrative. Thresholds are now `STRENGTH_MIN_SCORE = 7` and `RISK_MAX_SCORE = 4` in `report_engine.py`.
+- A score of 6 ("Normal") received the strength narrative. Fixed for good on 2026-11-07: the ratings are gone, and only a positive or negative reading of an evidence-based GoF/LoF call gets a deep dive.
 - Hardcoded genotypes in narratives ("Your AG genotype") are now rewritten to the reader's genotype.
 - Deep dives spilled onto a second page, and evidence was silently dropped past y = 225. Layout is now measured first, the font shrinks in steps, and clipping is a last resort. The methodology audit is clipped to the panel box.
 - Tables were 190mm wide on a 178mm printable width. Columns now scale to fit, and cell text is cut off with "..." by measured width.
 - The footer label key was wrong, so Swedish showed "Page". It now shows "Sida".
 - Zebra striping used the DataFrame index.
 - Tooling dependencies were added to `requirements.txt`.
-- `validate.py` now checks that the gene symbol for each RSID agrees across all three files.
+- `scripts/library_coverage.py` checks that the gene symbol for each RSID agrees across all three files.
+
+## Removed (2026-11-07)
+
+- The LLM content tooling in `injectors-authenticators/` (generation, translation, audit, sanitiser, injectors, one-off
+  fixers and prototypes), the applied 2026-11 correction and addition scripts, `config/backup/`,
+  `config/rewrite_needed.json`, `config/muscle_logic_gates_db.json` (superseded by the muscle theme in
+  `cluster_analysis/themes.json`) and the temporary `cluster_analysis/api_check/` page. All are in git history up to
+  commit `71d7068`.
+- The unused `introduction` block in `ui_labels.json` (the report uses `introduction_education`).

@@ -4,16 +4,13 @@ All files are UTF-8 JSON keyed by rsID unless noted otherwise. The counts are fr
 
 | File | Entries | Used by | Role |
 |---|---|---|---|
-| `snp_traits.json` | 247 | analyzer (runtime) | **Ground truth**: genotype → score / interpretation |
+| `snp_traits.json` | 247 | analyzer (runtime) | **Ground truth**: genotype → interpretation, evidence call and polarity |
 | `deep_dive_content.json` | 246 | report (EN) | Narrative for strength and risk deep-dive pages |
 | `SV_deep_dive_content.json` | 243 | report (SV) | Swedish translation of the above |
 | `evidence_db.json` | 231 | report (EN) | Research/evidence panel and confidence metrics |
 | `SV_evidence_db.json` | 228 | report (SV) | Swedish translation of the above |
 | `ui_labels.json` | 2 langs | report | All PDF chrome strings and the intro text |
 | `proxies.json` | 2 | proxy_handler | Proxy SNP → target SNP genotype translation |
-| `muscle_logic_gates_db.json` | 6 stations | cluster_checker.py | Experimental multi-SNP rule sets |
-| `rewrite_needed.json` | 120 (list) | written by `audit_deep_dives.py` | RSIDs whose narrative failed the LLM audit |
-| `backup/` | — | — | Manual dated snapshots |
 
 ## `snp_traits.json`
 
@@ -25,19 +22,26 @@ All files are UTF-8 JSON keyed by rsID unless noted otherwise. The counts are fr
   "description": "...",
   "impact": "High",                   // High | Medium | Low (a few entries hold other text)
   "variants": { "GG": "Optimal ...", "GA": "...", "AA": "..." },
-  "scores":   { "GG": 9, "GA": 6, "AA": 2 }   // 0–10, 5 = baseline; keys must match `variants`
+  "function": { "GG": "normal", "GA": "LoF", "AA": "LoF" },  // evidence call per genotype; keys match `variants`
+  "function_basis": "measured",       // cpic | measured | curated | truncating | predicted | expression | none
+  "polarity": { "LoF": "negative" },  // what that effect means for the person: positive | negative | neutral
+  "polarity_source": "library wording" // library wording | library ratings (drafts) | reviewed (set by hand)
 }
 ```
 
 Rules:
-- The `variants` and `scores` keys must be identical (they currently are).
+- The `variants` and `function` keys must be identical. `function` and `function_basis` are written by
+  `python -m cluster_analysis.genotype_effects --write`, which never changes a polarity.
+- `polarity` is set by hand (`"polarity_source": "reviewed"`). The others are first drafts made on 2026-11-07 from the
+  library's wording and the direction of the old 1–10 ratings, which were then removed (they remain in git history, up
+  to commit `71d7068`). An effect without a polarity reads *unclear*; `genotype_effects.py` lists them.
 - **Write genotype keys in sorted order** (`AG`, not `GA`), or list both orders. The matcher only sorts the user side.
 - Keys are on the strand the matcher should *prefer*. The complement is tried as a fallback.
 
 ### Carrier and rare-variant entries
 
 Entries with `"category": "carrier"` (recessive conditions) or `"category": "rare_variant"` (a rare variant of uncertain
-significance in a dominant-disease gene) are never scored: `main.py` keeps them out of the dashboard, strengths and risks, and
+significance in a dominant-disease gene) are never counted: `main.py` keeps them out of the dashboard, strengths and risks, and
 lists them on a separate **Carrier findings** page, only when the person carries a variant copy.
 
 ```json
@@ -47,8 +51,7 @@ lists them on a separate **Carrier findings** page, only when the person carries
   "condition": "Congenital absence of the vas deferens (CBAVD) and mild CFTR conditions",
   "condition_sv": "Medfödd avsaknad av sädesledare (CBAVD) och milda CFTR-tillstånd",
   "inheritance": "recessive",
-  "variants": { "CC": "Not a carrier", "CT": "Carrier: one copy", "TT": "Two copies" },
-  "scores":   { "CC": 5, "CT": 5, "TT": 5 }
+  "variants": { "CC": "Not a carrier", "CT": "Carrier: one copy", "TT": "Two copies" }
 }
 ```
 
@@ -58,7 +61,7 @@ The page wording lives in `ui_labels.json` (`carrier_*` keys, English and Swedis
 
 ```json
 "rs35652124": {
-  "risk_genotypes":     ["TT", "AA", "TA", "AT"],   // informational; the runtime uses the score instead
+  "risk_genotypes":     ["TT", "AA", "TA", "AT"],   // informational; the runtime uses the outcome instead
   "strength_genotypes": ["CC", "GG"],
   "data_risk": {
     "gene": "NFE2L2",
@@ -131,10 +134,6 @@ Estimates a library SNP that MyHeritage does not measure from a co-inherited SNP
 
 - `map` keys are sorted forward-strand proxy genotypes. A proxy genotype not in the map (no-call, unexpected allele) is skipped, never guessed.
 - Pairings and `concordance_eur` come from 1000 Genomes phase 3 individual genotypes (503 Europeans).
-- `uncertain_if` lets a second marker overrule a reassuring result. An uncertain row gets score 5 and its note as the interpretation, so it is reported but not scored.
-- Other estimated rows keep their score, get " (estimated)" on the interpretation, and print the note (with "via <proxy>") under "Your Result" on the deep dive.
+- `uncertain_if` lets a second marker overrule a reassuring result. An uncertain row gets function "unknown" and its note as the interpretation, so it is reported but not counted.
+- Other estimated rows keep their call, get " (estimated)" on the interpretation, and print the note (with "via <proxy>") under "Your Result" on the deep dive.
 - Current entries: APOE e4 (rs429358 via rs769449, checked against rs4420638) and ACTN3 R577X (rs1815739 via rs540874, 99.2%).
-
-## `muscle_logic_gates_db.json`
-
-Groups of named rules whose `logic` is a string such as `"rs7903146 == 'TT'"`. `injectors-authenticators/cluster_checker.py` evaluates them with regex substitution. The main report doesn't use them.

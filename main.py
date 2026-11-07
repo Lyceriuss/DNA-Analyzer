@@ -4,7 +4,7 @@ import json
 import pandas as pd
 from src.analyzer import run_analysis
 from src.visualizer import create_polar_chart, create_heritage_pie_chart
-from src.report_engine import PDFReport, ReportEngine, clean_text, STRENGTH_MIN_SCORE, RISK_MAX_SCORE
+from src.report_engine import PDFReport, ReportEngine, clean_text, READING_MARK
 from src.inheritance import analyze_inheritance  # NEW DEPENDENCY
 
 # CONFIG
@@ -190,15 +190,17 @@ def main():
     df = clean_domain_names(df)
 
     # Carrier and rare-variant entries describe inheritance, not the person's own function:
-    # keep them out of every score and give them their own page
+    # keep them out of every count and give them their own page
     carriers = df[df["Category"].isin(["carrier", "rare_variant"])]
     df = df[~df["Category"].isin(["carrier", "rare_variant"])]
 
     # 4. DASHBOARD DATA AGGREGATION
+    # Positive / negative: an evidence-based gain or loss of function that is good / bad for the person;
+    # baseline: everything else (typical function, no known effect, or an effect of unclear meaning)
     summary = df.groupby("Domain").agg(
-        Positive=("Score", lambda x: (x > 5).sum()),
-        Negative=("Score", lambda x: (x < 5).sum()),
-        Baseline=("Score", lambda x: (x == 5).sum())
+        Positive=("Outcome", lambda x: (x == "positive").sum()),
+        Negative=("Outcome", lambda x: (x == "negative").sum()),
+        Baseline=("Outcome", lambda x: (~x.isin(["positive", "negative"])).sum())
     ).reset_index()
     summary["Net"] = summary["Positive"] - summary["Negative"]
     summary = summary.sort_values(by="Net", ascending=False)
@@ -231,6 +233,11 @@ def main():
     summary_pdf = summary[["Domain", "Positive", "Baseline", "Negative", "Net"]].copy()
     summary_pdf.columns = L['cols_dash']
     pdf.draw_table(summary_pdf, [70, 25, 25, 25, 25], highlight_net=True)
+    pdf.ln(4)
+    pdf.set_font('Arial', '', 9)
+    pdf.set_text_color(90)
+    pdf.multi_cell(0, 4.5, clean_text(L.get('reading_note', '')))
+    pdf.set_text_color(0)
     
     if os.path.exists(os.path.join(OUTPUT_DIR, "polar_chart.png")):
         pdf.ln(10)
@@ -241,25 +248,29 @@ def main():
     pdf.chapter_title(L['active_title'])
     unique_df = df.drop_duplicates(subset=['Gene'], keep='first')
     
-    # A. Increased Function Table
-    inc_df = unique_df[unique_df["Score"] > 5][["Domain", "Trait", "Gene", "Impact", "Result", "Score", "Interpretation"]].copy()
+    unique_df = unique_df.assign(Reading=unique_df["Outcome"].map(READING_MARK).fillna("?"))
+    active_cols = ["Domain", "Trait", "Gene", "Impact", "Result", "Reading", "Interpretation"]
+    active_widths = [25, 42, 25, 15, 12, 13, 58]
+
+    # A. Gain of function (evidence-based)
+    inc_df = unique_df[unique_df["Function"] == "GoF"][active_cols].copy()
     if not inc_df.empty:
         pdf.ln(5)
         pdf.set_font('Arial', 'B', 12)
         pdf.set_text_color(39, 174, 96)
         pdf.cell(0, 10, f"{L['inc_fn']}: {len(inc_df)}", 0, 1)
         inc_df.columns = L['cols_active'] # Localize Headers
-        pdf.draw_table(inc_df, [25, 45, 25, 15, 12, 10, 58])
+        pdf.draw_table(inc_df, active_widths)
 
-    # B. Decreased Function Table
-    dec_df = unique_df[unique_df["Score"] < 5][["Domain", "Trait", "Gene", "Impact", "Result", "Score", "Interpretation"]].copy()
+    # B. Loss of function (evidence-based)
+    dec_df = unique_df[unique_df["Function"] == "LoF"][active_cols].copy()
     if not dec_df.empty:
         pdf.ln(10)
         pdf.set_font('Arial', 'B', 12)
         pdf.set_text_color(231, 76, 60)
         pdf.cell(0, 10, f"{L['dec_fn']}: {len(dec_df)}", 0, 1)
         dec_df.columns = L['cols_active'] # Localize Headers
-        pdf.draw_table(dec_df, [25, 45, 25, 15, 12, 10, 58])
+        pdf.draw_table(dec_df, active_widths)
 
     # --- DEEP DIVES & SUMMARIES ---
     print(f"📘 Generating {language} Deep Dives...")
@@ -282,16 +293,16 @@ def main():
 
     for _, row in prioritized_traits.iterrows():
         rsid = row['RSID']
-        content = engine.get_content_for_rsid(rsid, row['Score'])
+        content = engine.get_content_for_rsid(rsid, row['Outcome'])
         
         if content and content['badge_type'] == 'STRENGTH':
             evidence = engine.get_evidence_for_rsid(rsid)
-            pdf.add_deep_dive_page(row['Result'], content, row['Score_Map'], row['Variant_Map'], evidence, note=row.get('Estimated_SV' if language == 'Swedish' else 'Estimated'))
+            pdf.add_deep_dive_page(row['Result'], content, row['Function_Map'], row['Polarity'], row['Variant_Map'], evidence, note=row.get('Estimated_SV' if language == 'Swedish' else 'Estimated'))
             processed_rsids.append(rsid)
             
     # Strength Summary Fallback
     leftover_strengths = unique_df[
-        (unique_df["Score"] >= STRENGTH_MIN_SCORE) &
+        (unique_df["Outcome"] == "positive") &
         (~unique_df["RSID"].isin(processed_rsids))
     ].head(12)
     if not leftover_strengths.empty:
@@ -309,16 +320,16 @@ def main():
 
     for _, row in prioritized_traits.iterrows():
         rsid = row['RSID']
-        content = engine.get_content_for_rsid(rsid, row['Score'])
+        content = engine.get_content_for_rsid(rsid, row['Outcome'])
         
         if content and content['badge_type'] == 'RISK':
             evidence = engine.get_evidence_for_rsid(rsid)
-            pdf.add_deep_dive_page(row['Result'], content, row['Score_Map'], row['Variant_Map'], evidence, note=row.get('Estimated_SV' if language == 'Swedish' else 'Estimated'))
+            pdf.add_deep_dive_page(row['Result'], content, row['Function_Map'], row['Polarity'], row['Variant_Map'], evidence, note=row.get('Estimated_SV' if language == 'Swedish' else 'Estimated'))
             processed_rsids.append(rsid)
 
     # Risk Summary Fallback
     leftover_risks = unique_df[
-        (unique_df["Score"] <= RISK_MAX_SCORE) &
+        (unique_df["Outcome"] == "negative") &
         (~unique_df["RSID"].isin(processed_rsids))
     ].head(12)
     if not leftover_risks.empty:

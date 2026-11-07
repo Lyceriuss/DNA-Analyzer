@@ -12,7 +12,7 @@ data/output/*
 # Cluster analysis API cache
 cluster_analysis/cache/
 
-# Tool logs (audit_deep_dives.py)
+# Tool logs
 *.log
 
 # Bulk reference downloads (cluster_analysis/coverage_map.py)

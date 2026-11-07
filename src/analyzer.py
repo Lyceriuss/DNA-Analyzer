@@ -6,6 +6,19 @@ from src.normalizer import resolve_genotype, normalize_variant_keys
 from src.domain_mapper import map_system_to_domain
 from src.proxy_handler import apply_proxies
 
+# What a genotype means for the person, from the library's evidence call (function) and its polarity
+OUTCOMES = ("positive", "negative", "neutral", "typical", "unclear", "unknown")
+EFFECTS = ("GoF", "LoF", "altered")
+
+
+def outcome(function, polarity):
+    """positive | negative | neutral | typical | unclear | unknown for one evidence call (see genotype_effects.py)."""
+    if function == "normal":
+        return "typical"
+    if function in EFFECTS:
+        return (polarity or {}).get(function, "unclear")
+    return "unknown"
+
 def library_rsids(traits_filepath, proxy_map_path="config/proxies.json"):
     """The SNPs the analysis reads: the library's, plus the proxies that stand in for missing ones."""
     wanted = set(json.load(open(traits_filepath, encoding="utf-8")))
@@ -48,16 +61,17 @@ def run_analysis(dna_filepath, traits_filepath):
         # Normalize both sides: the user genotype is sorted inside resolve_genotype,
         # so the JSON keys must be sorted too ("GA" in the DB would never match otherwise)
         variants = normalize_variant_keys(info['variants'])
-        scores = normalize_variant_keys(info['scores'])
+        functions = normalize_variant_keys(info.get('function', {}))
+        polarity = info.get('polarity', {})
         matched_gt, _ = resolve_genotype(user_gt, variants)
 
         if matched_gt:
-            score = scores.get(matched_gt, 5)
+            function = functions.get(matched_gt, "unknown")
             impact = info.get('impact', 'Medium')
             interpretation = variants.get(matched_gt, "Unknown")
             est = estimated.get(rsid)
             if est and est["uncertain"]:
-                score, interpretation = 5, est["note"]  # markers disagree: report it, do not score it
+                function, interpretation = "unknown", est["note"]  # markers disagree: report it, do not read it
             elif est:
                 interpretation = f"{interpretation} (estimated)"
 
@@ -70,15 +84,19 @@ def run_analysis(dna_filepath, traits_filepath):
                 "Impact": impact,
                 "Result": matched_gt,      
                 "User_Genotype": user_gt,
-                "Score": float(score),
+                # Evidence call for the gene (GoF / LoF / normal / altered / unknown) and what it means for the person
+                "Function": function,
+                "Outcome": outcome(function, polarity),
+                "Basis": info.get('function_basis', 'none'),
                 "Interpretation": interpretation,
-                # "carrier" / "rare_variant" entries are reported on their own page, not scored
+                # "carrier" / "rare_variant" entries are reported on their own page, not counted
                 "Category": info.get("category", "trait"),
                 # Set when the genotype was estimated from a co-inherited SNP rather than measured
                 "Estimated": est["note"] if est else "",
                 "Estimated_SV": est["note_sv"] if est else "",
                 # --- NEW: Preserve Context for the Report ---
-                "Score_Map": scores,      # { "CC": 9, "CT": 5, "TT": 2 }
+                "Function_Map": functions,  # { "CC": "normal", "CT": "LoF", "TT": "LoF" }
+                "Polarity": polarity,       # { "LoF": "negative" }
                 "Variant_Map": variants   # { "CC": "Good", "TT": "Bad" }
             })
 
@@ -88,13 +106,13 @@ def run_analysis(dna_filepath, traits_filepath):
     if not df.empty:
         impact_map = {"High": 0, "Medium": 1, "Low": 2}
         df['_impact_rank'] = df['Impact'].map(impact_map).fillna(1)
-        df['_score_dist'] = abs(df['Score'] - 5)
-        
+        # Positive and negative readings first, then the rest
+        df['_reading'] = df['Outcome'].map({"negative": 0, "positive": 0, "neutral": 1, "unclear": 1}).fillna(2)
         df = df.sort_values(
-            by=['Domain', '_impact_rank', '_score_dist'], 
-            ascending=[True, True, False]
+            by=['Domain', '_impact_rank', '_reading'],
+            ascending=[True, True, True]
         )
-        df = df.drop(columns=['_impact_rank', '_score_dist'])
+        df = df.drop(columns=['_impact_rank', '_reading'])
         
         print(f"✅ Analysis Complete: {len(df)} active traits found.")
         

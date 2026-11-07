@@ -61,7 +61,7 @@ NORMAL_WORDS = r"\bnormal|typical|\bstandard|baseline"
 SOFT_NORMAL_WORDS = (r"balanced|intermediate|moderate|average|mixed|efficient|optimal|optimi[sz]ed|robust|\bgood\b|"
                      r"\bstrong\b|stable")
 COMPLEMENT = str.maketrans("ACGT", "TGCA")
-TRUNCATING = {"stop_gained", "frameshift_variant", "splice_acceptor_variant", "splice_donor_variant", "start_lost"}
+TRUNCATING = {"stop_gained", "frameshift_variant", "splice_acceptor_variant", "splice_donor_variant"}  # not start_lost: translation can restart at a later ATG (VDR FokI gives a shorter, more active receptor)
 
 
 # --- Reactome -------------------------------------------------------------------------------
@@ -260,8 +260,7 @@ def function_call(rsid, genotype, variants, vep):
 
 
 def person_status(dna_path):
-    from src.analyzer import run_analysis
-    from src.report_engine import RISK_MAX_SCORE, STRENGTH_MIN_SCORE
+    from src.analyzer import run_analysis, outcome
     df = run_analysis(dna_path, TRAITS_PATH)
     lib = json.load(open("cluster_analysis/modules.json", encoding="utf-8"))
     traits = json.load(open(TRAITS_PATH, encoding="utf-8"))
@@ -273,11 +272,13 @@ def person_status(dna_path):
             # The library's wording gives library_function; the call itself comes from evidence about the variant
             fc = function_call(r["RSID"], r["Result"], traits[r["RSID"]]["variants"], vep)
             ec = evidence_call(r["RSID"], r["Result"], evidence.get(r["RSID"]), vep.get(r["RSID"]))
-            status[g].append({"rsid": r["RSID"], "genotype": r["Result"], "score": float(r["Score"]),
+            # outcome: what the evidence call means for the person (positive / negative / neutral / typical /
+            # unclear / unknown), from the library's polarity (genotype_effects.py)
+            status[g].append({"rsid": r["RSID"], "genotype": r["Result"],
                               "interpretation": r["Interpretation"], **fc,
                               "library_function": fc["function"], "function": ec["function"], "basis": ec["basis"],
                               "evidence": ec["detail"],
-                              "health": "risk" if r["Score"] <= RISK_MAX_SCORE else "strength" if r["Score"] >= STRENGTH_MIN_SCORE else "neutral"})
+                              "outcome": outcome(ec["function"], traits[r["RSID"]].get("polarity"))})
     return status
 
 
@@ -286,11 +287,11 @@ BASIS_RANK = {"cpic": 0, "measured": 1, "curated": 2, "truncating": 3, "predicte
 
 def summarize(entries):
     """One call per gene: a SNP with an evidence-backed effect first (strongest evidence), then one with evidence of
-    typical function, then the library SNP furthest from neutral."""
+    typical function, then one whose effect has a positive or negative reading."""
     if not entries:
         return None
     e = min(entries, key=lambda x: (0 if x.get("function") in ("GoF", "LoF", "altered") else 1 if x.get("function") == "normal" else 2,
-                                     BASIS_RANK.get(x.get("basis"), 6), -abs(x["score"] - 5)))
+                                     BASIS_RANK.get(x.get("basis"), 6), 0 if x.get("outcome") in ("positive", "negative") else 1))
     return {**e, "n_snps": len(entries)}
 
 
@@ -432,7 +433,7 @@ def to_markdown(t):
         p = g.get("person")
         if not p:
             return g["gene"] + ("" if g["in_library"] else "*")
-        return f"{g['gene']} [{p['function']}, {p['genotype']}, score {p['score']:.0f}]"
+        return f"{g['gene']} [{p['function']}, {p['genotype']}, {p.get('outcome', 'unknown')}]"
     f = t["focal"].get("person")
     lines = [f"# Gene trace: {t['gene']} ({t['accession']})", "",
              f"Your result: {tag(t['focal'])}" + (f": {f['interpretation']}" if f else " (not tested)"), "",

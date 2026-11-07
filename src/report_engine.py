@@ -9,10 +9,11 @@ DEEP_DIVE_PATH = "config/deep_dive_content.json"
 EVIDENCE_PATH = "config/evidence_db.json"
 UI_LABELS_PATH = "config/ui_labels.json" # New config for modularity
 
-# Scores are 0-10 with 5 as baseline. Only clear deviations get a deep dive / summary row,
-# otherwise a "Normal" (6) result would receive the narrative written for the strong variant.
-STRENGTH_MIN_SCORE = 7
-RISK_MAX_SCORE = 4
+# Each result is read from the library's evidence call (GoF / LoF, see cluster_analysis/genotype_effects.py) and
+# whether that effect is good or bad for the person. Only positive and negative readings get a deep dive / summary row.
+READING_MARK = {"positive": "+", "negative": "-", "neutral": "0", "typical": "0", "unclear": "?", "unknown": "?"}
+OUTCOME_RGB = {"positive": (39, 174, 96), "negative": (231, 76, 60)}
+GREY_RGB = (149, 165, 166)
 
 # Deep-dive one-page fitting: (body font size, line height) tried largest first
 FIT_STEPS = [(10, 5.0), (9.5, 4.6), (9, 4.3), (8.5, 4.0), (8, 3.8)]
@@ -124,14 +125,14 @@ class ReportEngine:
                 return data
         return None
 
-    def get_content_for_rsid(self, rsid, score):
+    def get_content_for_rsid(self, rsid, outcome):
         if rsid not in self.deep_dive_data: return None
         entry = self.deep_dive_data[rsid]
         
-        if score <= RISK_MAX_SCORE:
+        if outcome == "negative":
             content = entry.get('data_risk')
             badge = "RISK"
-        elif score >= STRENGTH_MIN_SCORE:
+        elif outcome == "positive":
             content = entry.get('data_strength')
             badge = "STRENGTH"
         else: return None 
@@ -225,22 +226,27 @@ class PDFReport(FPDF):
                 self.cell(col_widths[i], 7, txt, 0, 0, 'C', fill)
             self.ln()
 
-    def draw_genotype_spectrum(self, user_gt, score_map, variant_map):
+    def draw_genotype_spectrum(self, user_gt, function_map, polarity, variant_map):
         self.ln(-3)
         self.set_font('Arial', 'B', 10)
         self.set_text_color(44, 62, 80)
         # Pull localized spectrum title
         
-        spectrum_txt = self.labels.get('genotype_spectrum_title', "Genotype Possibilities (Best to Worst):")
+        from src.analyzer import outcome
+        spectrum_txt = self.labels.get('genotype_spectrum_title', "Genotypes and their effect:")
         self.cell(0, 8, clean_text(spectrum_txt), 0, 1)
-        
-        sorted_gts = sorted(score_map.items(), key=lambda x: x[1], reverse=True)
-        
-        for gt, score in sorted_gts:
+
+        # Positive first, then typical and the rest, negative last
+        order = {"positive": 0, "typical": 1, "neutral": 1, "unclear": 2, "unknown": 2, "negative": 3}
+        reading = {gt: outcome(function_map.get(gt, "unknown"), polarity) for gt in variant_map}
+        effect_txt = self.labels.get('effect_words', {})
+        for gt in sorted(variant_map, key=lambda g: order[reading[g]]):
             desc = variant_map.get(gt, "")
-            if score >= 7: r,g,b = 39, 174, 96 
-            elif score >= 5: r,g,b = 149, 165, 166
-            else: r,g,b = 231, 76, 60 
+            fn = function_map.get(gt, "unknown")
+            tag = effect_txt.get(fn, fn)
+            if tag:
+                desc = f"[{tag}] {desc}"
+            r, g, b = OUTCOME_RGB.get(reading[gt], GREY_RGB)
             
             is_user = (gt == user_gt)
             self.set_fill_color(r, g, b)
@@ -508,10 +514,7 @@ class PDFReport(FPDF):
             self.set_font('Arial', 'I', 9)
             self.set_text_color(100)
             self.cell(0, 8, clean_text(f"  Domain: {row['Domain']}"), 0, 1)
-            desc = row['Interpretation']
-            if row['Score'] >= 8 and "Normal" in desc:
-                desc = desc.replace("Normal", "Optimal")
-                desc = f"+ {desc}"
+            desc = f"+ {row['Interpretation']}"
             self.set_font('Arial', '', 10)
             self.set_text_color(0)
             self.set_xy(12, self.get_y())
@@ -545,7 +548,7 @@ class PDFReport(FPDF):
             self.ln(4)
             if self.get_y() > 260: self.add_page()
 
-    def add_deep_dive_page(self, genotype, data, score_map, variant_map, evidence=None, note=None):
+    def add_deep_dive_page(self, genotype, data, function_map, polarity, variant_map, evidence=None, note=None):
         self.add_page()
         prefix = self.labels.get('deep_dive_prefix', "Deep Dive:")
         self.chapter_title(f"{prefix} {data['title']}")
@@ -583,8 +586,8 @@ class PDFReport(FPDF):
         self.cell(50, 8, clean_text(f" {badge_txt} "), 0, 1, 'C', 1)
         self.ln(10)
 
-        if score_map and variant_map:
-            self.draw_genotype_spectrum(genotype, score_map, variant_map)
+        if variant_map:
+            self.draw_genotype_spectrum(genotype, function_map or {}, polarity or {}, variant_map)
             self.ln(5)
 
         # --- Measure first: everything below must end above the confidence panel ---
@@ -757,7 +760,7 @@ class PDFReport(FPDF):
                 fill = (row_no % 2 == 1)
                 self.set_text_color(0)
                 
-                c_score = row.get('Child_Score', 5)
+                c_outcome = row.get('Child_Outcome', 'unknown')
                 gene_txt = self._truncate(str(row.get('Gene', '')), 12)
                 trait_txt = self._truncate(str(row.get('Trait', '')), 35)
                 interp_txt = self._truncate(str(row.get('Interpretation', '')), 45)
@@ -768,9 +771,7 @@ class PDFReport(FPDF):
                 self.cell(col_widths[0], 7, clean_text(gene_txt), 0, 0, 'C', fill)
                 self.cell(col_widths[1], 7, clean_text(trait_txt), 0, 0, 'C', fill)
                 
-                if c_score >= 7: self.set_text_color(39, 174, 96) 
-                elif c_score <= 4: self.set_text_color(231, 76, 60) 
-                else: self.set_text_color(0)
+                self.set_text_color(*OUTCOME_RGB.get(c_outcome, (0, 0, 0)))
                 
                 self.set_font('Arial', 'B', 8)
                 self.cell(col_widths[2], 7, clean_text(c_res), 0, 0, 'C', fill)

@@ -49,9 +49,14 @@ python -m cluster_analysis.theme_graph fertility_female
 python -m cluster_analysis.theme_graph fertility_male
 python -m cluster_analysis.theme_graph cancer
 python -m cluster_analysis.medicines
+python -m cluster_analysis.overlay data/input/MyHeritage_raw_dna_data_XY.csv --dashboard out   # Profile tab datasets
 python -m cluster_analysis.export_dashboard out/bundle.json \
     --lifecycles data/output/cluster_analysis/lifecycles_XY.json --dna data/input/MyHeritage_raw_dna_data_XY.csv
 ```
+
+Gene rows carry the evidence call (`function`: GoF / LoF / normal / altered / unknown) and what it means for the
+person (`outcome`: positive / negative / neutral / unclear / typical / unknown; see
+[evidence.md](evidence.md#from-the-call-to-positive-or-negative)). The library's old 1–10 ratings are not shown.
 
 Each dataset is a flat list of rows. Nested data (evidence, SNP lists, frequencies) is stored as a JSON string in a
 field and parsed by the page.
@@ -75,6 +80,38 @@ sequenceDiagram
 
 Only changed datasets need uploading; the others keep their asset. Every write is pinned to the version last read, so
 a concurrent change is never overwritten.
+
+## Language (English / Swedish)
+
+The page is drawn in English. A translation layer (`i18n.js`, the page's last script) follows what is drawn and, with
+Swedish selected, shows each text in Swedish. The drawing code doesn't change, and English stays the fallback.
+
+```mermaid
+flowchart LR
+    DRAW["dash.draw<br/>writes English text"] --> MO["MutationObserver<br/>(only while SV is on)"]
+    MO --> KEEP["keep the English per node"]
+    KEEP --> TR{"translate"}
+    TR -->|"exact key"| SV["Swedish text"]
+    TR -->|"template with {} values"| SV
+    TR -->|"several sentences, a list,<br/>tooltip lines"| PARTS["each part on its own"] --> SV
+    TR -->|"no key (source text)"| EN["English as drawn"]
+    BTN["EN / SV buttons"] --> SET["walk the page:<br/>show Swedish, or restore English"]
+    SET --> LS["localStorage<br/>per viewer"]
+```
+
+Two dictionaries arrive with the page's other data; text drawn before one arrives is translated when it does:
+
+| Dataset | File | Holds |
+|---|---|---|
+| `i18n_sv` | `explorer/i18n_sv.json` (~830 entries) | The page's own wording, with `{}` templates |
+| `i18n_sv_terms` | `explorer/i18n_sv_terms.json` (~1,600) | Source terms: the library's traits, systems and genotype readings, module names, disease and trait names from Open Targets, the GWAS Catalog and ClinVar |
+
+`explorer/i18n_terms.py` lists which source terms the datasets and the library contain and which still lack Swedish.
+Long source texts stay English: UniProt and ClinPGx/CPIC texts, Reactome and GO names, paper titles. A dosing
+recommendation is safer read in its original wording than in a translation.
+
+Templates are matched by scanning for their fixed parts, not with regular expressions: a regex with several open
+values can backtrack for minutes on a long paragraph. Results are remembered per text, so the cost is paid once.
 
 ## Page parts
 

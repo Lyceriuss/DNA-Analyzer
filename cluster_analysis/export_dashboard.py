@@ -103,9 +103,11 @@ def evidence_summary(ev, genotype):
 
 
 def genotype_ladder(rsid, common, minor, traits, ev):
-    """Every library genotype at a SNP, from the common homozygote to the less common one: library reading, report
-    score and, where MaveDB measured the protein change, an activity estimate as a share of the common form. The
-    estimate is additive: each allele contributes half, the common allele 1 and the variant its measured score."""
+    """Every library genotype at a SNP, from the common homozygote to the less common one: library reading, the
+    evidence call (GoF / LoF / normal ...) and what it means for the person (outcome), and, where MaveDB measured the
+    protein change, an activity estimate as a share of the common form. The estimate is additive: each allele
+    contributes half, the common allele 1 and the variant its measured score."""
+    from src.analyzer import outcome
     entry = traits.get(rsid)
     if not entry or not common or not minor:
         return []
@@ -116,7 +118,9 @@ def genotype_ladder(rsid, common, minor, traits, ev):
         oriented = gt if set(gt) <= {common, minor} else gt.translate(flip)
         if not set(oriented) <= {common, minor} or gt in rows:
             continue
-        rows[gt] = {"genotype": gt, "dose": oriented.count(minor), "text": text, "score": entry["scores"].get(key)}
+        fn = (entry.get("function") or {}).get(key, "unknown")
+        rows[gt] = {"genotype": gt, "dose": oriented.count(minor), "text": text, "function": fn,
+                    "outcome": outcome(fn, entry.get("polarity"))}
     mave = [m["score"] for m in (ev.get("mavedb") or [])]
     for r in rows.values():
         if mave:
@@ -140,7 +144,7 @@ def lifecycle_rows(lifecycles, status=None):
     def chip(g):
         p = person(g)
         return {"gene": g["gene"], "lib": g["in_library"], "gt": p.get("genotype"), "fn": p.get("function"),
-                "dose": p.get("dose"), "score": p.get("score")}
+                "dose": p.get("dose"), "outcome": p.get("outcome")}
 
     steps, genes, seen = [], [], {}
     with_lifecycle = {lc["gene"] for lc in lifecycles if lc.get("roles")}
@@ -152,7 +156,7 @@ def lifecycle_rows(lifecycles, status=None):
                 "gene": lc["gene"], "role": ri, "pathway": (role.get("pathway") or {}).get("name", "Unmapped"),
                 "top_pathway": (role.get("pathway") or {}).get("top", ""), "n_steps": len(role["steps"]),
                 "start": role["start"], "end": role["end"], "genotype": fp.get("genotype"), "function": fp.get("function"),
-                "score": fp.get("score"), "interpretation": fp.get("interpretation"),
+                "outcome": fp.get("outcome"), "interpretation": fp.get("interpretation"),
                 "cofactors": ", ".join(lc.get("cofactors") or []), "vitamins": ", ".join(lc.get("cofactor_vitamins") or []),
                 "regulation": lc.get("regulation") or "",
                 "regulators": json.dumps([{"gene": r["gene"], "effect": r["effect"], "lib": r["in_library"]}
@@ -178,7 +182,8 @@ def lifecycle_rows(lifecycles, status=None):
                          "genotype": p.get("genotype"), "function": p.get("function"), "dose": p.get("dose"),
                          "basis": p.get("basis"), "fn_evidence": p.get("evidence"), "library_function": p.get("library_function"),
                          "common": p.get("common"), "minor": p.get("minor"), "minor_af": p.get("minor_af"),
-                         "score": p.get("score"), "interpretation": p.get("interpretation"), "n_snps": p.get("n_snps"),
+                         "outcome": p.get("outcome"), "polarity_source": (traits.get(p.get("rsid")) or {}).get("polarity_source"),
+                         "interpretation": p.get("interpretation"), "n_snps": p.get("n_snps"),
                          "evidence": json.dumps(evidence_summary(ev, p.get("genotype")) if ev else {}),
                          "ladder": json.dumps(genotype_ladder(p.get("rsid"), p.get("common"), p.get("minor"), traits,
                                                               evidence_summary(ev, p.get("genotype")) if ev else {})),
@@ -203,7 +208,7 @@ def theme_rows(themes, status, with_lifecycle=()):
                           "evidence": json.dumps(m["facets"]), "rsid": p.get("rsid"), "genotype": p.get("genotype"),
                           "function": p.get("function") if p.get("genotype") else None, "dose": p.get("dose"),
                           "basis": p.get("basis"), "fn_evidence": p.get("evidence"),
-                          "minor": p.get("minor"), "interpretation": p.get("interpretation"), "score": p.get("score"),
+                          "minor": p.get("minor"), "interpretation": p.get("interpretation"), "outcome": p.get("outcome"),
                           "has_lifecycle": g in with_lifecycle})
         links += [{"theme": tid, **l} for l in t["links"]]
         pathways += [{"theme": tid, "pathway": x["pathway"], "genes": json.dumps(x["genes"]), "n": len(x["genes"]),
@@ -254,7 +259,7 @@ def api_theme_rows(graph, xref, status, with_lifecycle=(), order=0, person=None)
                                               "organs": g.get("organs", [])}),
                       "rsid": p.get("rsid"), "genotype": p.get("genotype"), "function": p.get("function") if p.get("genotype") else None,
                       "basis": p.get("basis"), "fn_evidence": p.get("evidence"),
-                      "dose": p.get("dose"), "minor": p.get("minor"), "interpretation": p.get("interpretation"), "score": p.get("score"),
+                      "dose": p.get("dose"), "minor": p.get("minor"), "interpretation": p.get("interpretation"), "outcome": p.get("outcome"),
                       "has_lifecycle": sym in with_lifecycle, "source": "api", "notable": is_notable, "carried": carried,
                       "best_score": g["best_score"]})
     links = [{"theme": tid, **l} for l in graph["links"] if l["a"] in notable and l["b"] in notable]
@@ -312,6 +317,22 @@ if __name__ == "__main__":
                     json.dump(rows, f, ensure_ascii=False, separators=(",", ":"))
                 print(f"✅ Wrote {name}.json ({len(rows)} rows)")
     data = bundle()
+    # The explorer's public reference datasets, flattened from the bundle
+    names = {m["id"]: m["name"] for m in data["modules"]}
+    public = {
+        "modules": [{"id": m["id"], "name": m["name"], "size": m["size"], "hubs": ", ".join(m["hubs"]),
+                     "enrichment": "; ".join(m["enrichment"][:3]), "genes": ", ".join(sorted(m["genes"]))} for m in data["modules"]],
+        "module_links": [{**l, "a_name": names.get(l["a"], l["a"]), "b_name": names.get(l["b"], l["b"])} for l in data["module_links"]],
+        "biomarker_snps": [{"biomarker": b["biomarker"], "panel": b["panel"], "rsid": s["rsid"], "genes": ", ".join(s["genes"]),
+                            "module": (s["modules"] or [None])[0], "module_name": names.get((s["modules"] or [None])[0], ""),
+                            "effect_allele": s["effect_allele"], "direction": "raises" if s["direction"] == "+" else "lowers",
+                            "strand": s["strand"], "eaf_eur": round(s["eaf_eur"], 3) if s["eaf_eur"] is not None else None,
+                            "p_value": s["p_value"], "pubmed_id": s["pubmed_id"], "first_author": s["first_author"]}
+                           for b in data["biomarkers"] for s in b["snps"]],
+    }
+    for name, rows in public.items():
+        with open(os.path.join(os.path.dirname(args.out) or ".", name + ".json"), "w", encoding="utf-8") as f:
+            json.dump(rows, f, ensure_ascii=False, separators=(",", ":"))
     if args.person:
         p = json.load(open(args.person, encoding="utf-8"))
         data["person"] = {k: p[k] for k in ("source_file", "modules", "bridges", "biomarker_tilts")}
