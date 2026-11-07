@@ -26,6 +26,8 @@ flowchart LR
     TP["theme_pathways"] --> C
     MG["med_genes"] --> M
     MD["med_drugs"] --> M
+    MGU["med_guidance"] --> M
+    MN["med_names"] --> M
 ```
 
 ## Producing the datasets
@@ -41,7 +43,7 @@ flowchart TB
     EVJ["function_evidence.json,<br/>literature.json"] --> E
     E --> D1["lifecycle_steps, lifecycle_genes,<br/>gene_function"]
     E --> D2["theme_meta, theme_genes,<br/>theme_links, theme_pathways"]
-    MP["medicines.py"] --> D3["med_genes, med_drugs, med_guidance"]
+    MP["medicines.py"] --> D3["med_genes, med_drugs,<br/>med_guidance, med_names"]
 ```
 
 ```bash

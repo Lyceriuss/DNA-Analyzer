@@ -4,7 +4,7 @@
 ClinPGx (formerly PharmGKB), CPIC, ClinVar and 1000 Genomes.
 
 ```bash
-bash scripts/fetch_pgx_reference.sh          # ClinPGx annotations, guidelines, labels; CPIC recommendations
+bash scripts/fetch_pgx_reference.sh          # ClinPGx annotations, guidelines, labels, drug names; CPIC recommendations; WHO ATC names
 python -m cluster_analysis.medicines         # XY, imputed file when there is one
 ```
 
@@ -31,7 +31,66 @@ flowchart TB
     FREQ --> GENES["med_genes<br/>alleles, type, SNPs,<br/>allele frequency by ancestry"]
     STAR --> GENES
     FREQ --> DRUGS
+
+    DN["ClinPGx drug names<br/>generic, trade, ATC codes"] --> NAMES["med_names<br/>every name a medicine goes by"]
+    ATC["WHO ATC names and classes<br/>(ChEMBL)"] --> NAMES
 ```
+
+## Finding a medicine
+
+ClinPGx files medicines under their US generic names (acetaminophen, rifampin, albuterol). `med_names` holds every
+other name per medicine, so the Medicines tab finds it by any of them:
+
+| Search | Finds | From |
+|---|---|---|
+| paracetamol, rifampicin, salbutamol | acetaminophen, rifampin, albuterol | WHO ATC name (the international name used in Europe) |
+| Alvedon, Panadol, Tylenol | acetaminophen | ClinPGx trade names |
+| N02BE01, N02BE | acetaminophen | ATC code |
+| analgesics, beta blocking agents | every medicine in that ATC group | ATC class names |
+
+An annotation naming several medicines ("acetaminophen; aspirin; diclofenac") is listed under each of them.
+
+## Reading a finding
+
+Each single-SNP finding in `med_drugs` carries, besides ClinPGx's text for the person's genotype:
+
+| Field | Example (rs10929303, acetaminophen) | Shown as |
+|---|---|---|
+| `genotype` | CT | the person's result, highlighted (amber when it differs from the typical genotype) |
+| `variant_allele`, `copies` | T, 1 | "one copy of T, the less common allele (23% of alleles in Europeans)" |
+| `effect` | decreased risk of liver failure due to unintentional acetaminophen overdose | the effect line under the result |
+| `others` | CC: increased risk …; TT: decreased risk … | what the other genotypes would mean |
+
+`effect` is the phrase after "may have / require / experience …" in ClinPGx's text; the full text stays one click
+away. The medicines a study names are tags on the finding, each a search away. The search box suggests medicines,
+international names, drug classes and brands as you type.
+
+## Dose and study size
+
+- **Dose line** (guidance cards): `dose_line()` reads the dose a CPIC or DPWG recommendation states for the person's
+  type: "Adjusted dose: decreased dose of 400 mg/day", "Standard dose: 75 mg/day", "Standard dose", or "Use an
+  alternative medicine first". Adjusted or standard follows the guideline's status for the person, not the wording.
+  About a quarter of CPIC's recommendations state a number; the rest say standard dosing, an alternative, or titration.
+- **Study line** (findings): the studies behind each ClinPGx annotation (`clinpgx_variant_annotations.zip`, linked
+  through `clinical_ann_evidence.tsv`): how many, n (people or samples, each study's largest analysis), the smallest
+  p-value, and the odds, hazard or risk ratio with its 95% CI where reported (about half of findings).
+- Not shown: the dose used in each trial. Only about 12% of findings have a study that states one (9% at grade C),
+  usually in passing, so it can't put the weaker findings into dose terms.
+
+## Evidence grades
+
+Nothing is filtered out by evidence: every finding is shown with a grade, the strongest first.
+
+| Grade | ClinPGx annotation | ClinVar | Guideline / drug label |
+|---|---|---|---|
+| **A+** | level 1A | | every dosing guideline (CPIC, DPWG …); label "testing required" |
+| **A** | level 1B | reviewed by an expert panel | label "testing recommended" or "actionable" |
+| **B** | level 2A, 2B | | label "informative" |
+| **C** | level 3 (one study, or studies that disagree) | other submissions | |
+
+A medicine's status (typical / differs) comes from its strongest evidence; when only weaker findings differ, the card
+says so beside it ("Weaker evidence (C) differs"). Each medicine shows its dosing guidance first (the recommendation for
+the person's type), then every finding with the person's genotype.
 
 ## From SNPs to a metaboliser type
 

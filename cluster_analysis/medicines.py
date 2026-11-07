@@ -12,9 +12,16 @@ Two kinds of annotation:
 Only calls that are measured or imputed at high confidence count (src/loader.py). A rare variant that imputation
 can't rule out reads "not detected, not excluded".
 
-Writes med_genes.json (one row per drug gene: alleles, phenotype, the SNPs behind them) and med_drugs.json (one row
-per annotation: drug, gene, level, category, the person's genotype or alleles, ClinPGx's text for them, and whether
-the person is the typical case) for the explorer's Medicines tab. Both hold the person's genotypes: keep them out of git.
+Writes, for the explorer's Medicines tab:
+  med_genes.json     one row per drug gene: alleles, phenotype, the SNPs behind them
+  med_drugs.json     one row per annotation: drug, gene, level, category, the person's genotype or alleles, ClinPGx's
+                     text for them, and whether the person is the typical case
+  med_guidance.json  one row per dosing guideline (CPIC, DPWG ...) and drug label (FDA, EMA ...), with the
+                     recommendation for the person's type
+  med_names.json     per drug its WHO name, ATC codes and classes, generic and trade names, for search (paracetamol and
+                     Alvedon find acetaminophen)
+Every annotation, guideline and label carries a grade: A+ (guideline-grade) ... C (a single study or mixed results).
+The first three hold the person's genotypes: keep them out of git.
 """
 import argparse
 import csv
@@ -31,7 +38,10 @@ from src.loader import imputed_path, iter_calls, person_label
 REF = "data/reference/clinpgx_clinical_annotations.zip"
 GUIDELINES = "data/reference/clinpgx_guidelines.zip"      # scripts/fetch_pgx_reference.sh
 LABELS = "data/reference/clinpgx_drug_labels.zip"
+DRUG_NAMES = "data/reference/clinpgx_drugs.zip"            # generic and trade names, ATC codes
+ATC = "data/reference/chembl_atc.json"                      # WHO ATC names and classes (ChEMBL)
 CPIC_RECS = "data/reference/cpic_recommendations.json"
+STUDIES = "data/reference/clinpgx_variant_annotations.zip"  # the studies behind each annotation: size, p, ratios
 CLINVAR = "data/reference/clinvar_grch37.vcf.gz"
 SITES = "data/reference/imputation/sites.vcf.gz"
 FREQ_CACHE = "data/reference/imputation/pgx_pop_freqs.json"
@@ -157,6 +167,103 @@ def load_annotations(levels):
     return rows, texts
 
 
+EFFECT = re.compile(r"\bmay ((?:have|experience|require|be|develop|respond|need|show|benefit)\b.+?)"
+                    r"(?: (?:as )?compared (?:to|with)| than patients|\. |\.$| \d\) |$)", re.I)
+
+
+def effect(text):
+    """The short effect a ClinPGx genotype text states: "decreased risk of liver failure ...", "require decreased dose"."""
+    m = EFFECT.search(text or "")
+    if not m:
+        return None
+    e = re.sub(r"^have (?:an? )?", "", m.group(1).strip().rstrip(",;"))
+    return e if len(e) <= 160 else e[:157].rsplit(" ", 1)[0] + "…"
+
+
+def variant_copies(gt, freq):
+    """(allele, copies) of the less common allele in a ClinPGx genotype, on the genotype's own strand."""
+    if not freq:
+        return None
+    allele = json.loads(freq)["allele"]
+    if allele not in gt and allele.translate(FLIP) in gt:
+        allele = allele.translate(FLIP)
+    return allele, gt.count(allele)
+
+
+# The dose a recommendation states, as a short phrase: "25% reduction of recommended starting dose", "400 mg/day"
+_NUM = r"\d+(?:\.\d+)?"
+_RANGE = rf"{_NUM}(?:\s*(?:-|–|to)\s*{_NUM})?"
+_UNIT = r"(?:mg|mcg|µg|g|IU|units?)(?:\s*/\s*(?:kg|m2|m²|day|d|week|dose))*(?![A-Za-z/])"
+DOSE_PATTERNS = [
+    rf"{_RANGE}\s*%\s+of\s+(?:the\s+)?(?:\w+\s+){{0,4}}dose",
+    rf"(?:reduc|decreas|increas|lower)\w*\s+(?:the\s+)?(?:\w+\s+){{0,3}}(?:dose|dosage)\s+by\s+{_RANGE}\s*%",
+    rf"{_RANGE}\s*%\s+(?:reduction|decrease|increase)\s+(?:of|in)\s+(?:the\s+)?(?:\w+\s+){{0,3}}dose",
+    rf"(?:(?:decreased|reduced|increased|higher|lower)\s+dose\s+of\s+)?[≤≥<>]?\s*{_RANGE}\s*{_UNIT}",
+    r"double the (?:\w+\s+)?dose|half (?:of )?the (?:\w+\s+)?dose",
+]
+STANDARD_DOSE = re.compile(r"standard of care dosing|(standard|recommended|normal|usual|desired|label[- ]recommended)\s+(starting\s+)?(daily\s+)?"
+                           r"dos(e|ing|age)|per standard dosing|no action|no dose adjustment", re.I)
+CHANGE = re.compile(r"reduc|decreas|increas|altern|avoid|lower|higher|titrat\w* to a higher", re.I)
+AVOID = re.compile(r"^\s*(avoid|consider an? (?:alternative|clinically appropriate)|select alternative|use an alternative|"
+                   r"choose an alternative|not recommended|contraindicated)", re.I)
+
+
+def dose_line(text):
+    """{kind, dose} for a recommendation: the dose phrase it states, and kind 'adjusted' / 'standard' (a guess that
+    build_guidance settles from whether the person's type is typical), 'avoid' (an alternative medicine first), or None
+    when it states none of these."""
+    t = " ".join((text or "").split())
+    for pat in DOSE_PATTERNS:
+        m = re.search(pat, t, re.I)
+        if m:
+            phrase = m.group(0).strip()
+            # "standard of care dosing (tamoxifen 20 mg/day)": a number given with standard dosing is the standard dose
+            kind = "standard" if STANDARD_DOSE.search(t) and not CHANGE.search(t) else "adjusted"
+            return {"kind": kind, "dose": phrase}
+    if AVOID.search(t):
+        return {"kind": "avoid", "dose": None}
+    if STANDARD_DOSE.search(t) and not CHANGE.search(t):
+        return {"kind": "standard", "dose": None}
+    return None
+
+
+def load_studies():
+    """{clinical annotation id: {studies, n, p, ratios}}: the studies (ClinPGx variant annotations) behind each
+    clinical annotation, with the number of people or samples, the smallest p-value and the reported ratios."""
+    if not os.path.exists(STUDIES):
+        print(f"   {STUDIES} missing (scripts/fetch_pgx_reference.sh): findings show no study sizes")
+        return {}
+    csv.field_size_limit(2**31 - 1)
+    links = defaultdict(list)
+    for r in csv.DictReader(io.TextIOWrapper(zipfile.ZipFile(REF).open("clinical_ann_evidence.tsv"), encoding="utf-8"), delimiter="\t"):
+        if "Variant" in r["Evidence Type"]:
+            links[r["Clinical Annotation ID"]].append((r["Evidence ID"], r["PMID"]))
+    params = defaultdict(list)
+    for r in csv.DictReader(io.TextIOWrapper(zipfile.ZipFile(STUDIES).open("study_parameters.tsv"), encoding="utf-8"), delimiter="\t"):
+        params[r["Variant Annotation ID"]].append(r)
+    num = lambda v: float(v) if re.fullmatch(r"\d+(?:\.\d+)?(?:[eE]-?\d+)?", (v or "").strip()) else None
+    out = {}
+    for cid, studies in links.items():
+        people, ps, ratios = 0, [], []
+        for vid, pmid in studies:
+            # A study can report several analyses (subgroups): count its largest one
+            sizes = [(num(x["Study Cases"]) or 0) + (num(x["Study Controls"]) or 0) for x in params.get(vid, [])]
+            people += int(max(sizes, default=0))
+            for x in params.get(vid, []):
+                pv = (x["P Value"] or "").strip()
+                m = re.match(r"([<=])\s*(\d+(?:\.\d+)?(?:[eE]-?\d+)?)", pv)
+                if m:
+                    ps.append((float(m.group(2)), f"{'<' if m.group(1) == '<' else '='} {m.group(2)}"))
+                val = num(x["Ratio Stat"])
+                if val is not None and x["Ratio Stat Type"] in ("OR", "HR", "RR"):
+                    ratios.append({"type": x["Ratio Stat Type"], "value": val, "lo": num(x["Confidence Interval Start"]),
+                                   "hi": num(x["Confidence Interval Stop"]), "n": int((num(x["Study Cases"]) or 0) + (num(x["Study Controls"]) or 0)) or None,
+                                   "pmid": pmid})
+        ratios.sort(key=lambda r: -(r["n"] or 0))
+        out[cid] = {"studies": len(studies), "n": people or None, "p": min(ps)[1] if ps else None, "ratios": ratios[:4]}
+    return out
+
+
 def sort_gt(gt):
     return "".join(sorted(gt))
 
@@ -259,12 +366,14 @@ def build(dna):
                       "typical": typical, "imputed": any(s["confidence"] == "high" for s in snps), "ancestry": across})
 
     drugs = []
+    studies = load_studies()
     for r in rows:
         var, gene = r["Variant/Haplotypes"], r["Gene"]
         opts = texts.get(r["Clinical Annotation ID"], [])
         base = {"id": r["Clinical Annotation ID"], "drug": r["Drug(s)"], "gene": gene, "variant": var,
                 "level": r["Level of Evidence"], "category": r["Phenotype Category"], "condition": r["Phenotype(s)"],
-                "url": r["URL"], "pmids": int(r["PMID Count"] or 0)}
+                "url": r["URL"], "pmids": int(r["PMID Count"] or 0),
+                "studies": json.dumps(studies.get(r["Clinical Annotation ID"]), separators=(",", ":"))}
         if re.fullmatch(r"rs\d+", var):
             c = calls.get(var)
             if not c:
@@ -284,8 +393,14 @@ def build(dna):
             else:
                 bl = {g for g in baseline_genotypes(opts) if g[0] == g[1]}
                 status = "unclear" if len(bl) != 1 else "typical" if sort_gt(m["Genotype/Allele"]) in bl else "differs"
+            freq = minor_freq(freqs.get(var), major.get(var))
+            vc = variant_copies(m["Genotype/Allele"], freq)
+            others = [{"gt": o["Genotype/Allele"], "effect": effect(o["Annotation Text"])} for o in opts
+                      if o is not m and re.fullmatch(r"[ACGT]{2}|del[ACGT]|[ACGT]del", o["Genotype/Allele"] or "")]
             drugs.append({**base, "genotype": m["Genotype/Allele"], "confidence": conf, "status": status,
-                          "text": m["Annotation Text"], "freq": minor_freq(freqs.get(var), major.get(var))})
+                          "text": m["Annotation Text"], "freq": freq, "effect": effect(m["Annotation Text"]),
+                          "variant_allele": vc[0] if vc else None, "copies": vc[1] if vc else None,
+                          "others": json.dumps(others, separators=(",", ":"))})
         elif var in HLA_TAGS:
             rsid, allele = HLA_TAGS[var]
             c = calls.get(rsid)
@@ -343,7 +458,63 @@ def build(dna):
                               {"allele": e["alt"], **allele_freq(freqs.get(rsid), e["alt"])})})
 
     guidance = build_guidance(person_types(genes, star, calls, major))
+    for row in drugs + guidance:
+        row["grade"] = grade(row)
     return genes, drugs, guidance
+
+
+# Evidence grade shown on every finding: A+ guideline-grade ... C a single study or mixed results
+GRADES = ("A+", "A", "B", "C")
+LEVEL_GRADE = {"1A": "A+", "1B": "A", "2A": "B", "2B": "B", "3": "C"}
+LABEL_GRADE = {"Testing Required": "A+", "Testing Recommended": "A", "Actionable PGx": "A", "Informative PGx": "B"}
+
+
+def grade(row):
+    """A+ | A | B | C for a ClinPGx annotation, a ClinVar entry, a guideline or a drug label."""
+    if row.get("kind") == "guideline":
+        return "A+"
+    if row.get("kind") == "label":
+        return LABEL_GRADE.get(row.get("testing"), "C")
+    if row.get("level") == "ClinVar":
+        return "A" if row.get("expert") else "C"
+    return LEVEL_GRADE.get(row.get("level"), "C")
+
+
+def drug_names(used):
+    """[{drug, aka, classes, generic, trade, atc, type}] for the ClinPGx drug names in `used`, so a medicine can be found
+    by its international name (paracetamol), a trade name (Alvedon), its ATC code (N02BE01) or class (analgesics).
+    aka: the WHO ATC names where they differ from ClinPGx's (US) name; classes: the ATC groups it belongs to."""
+    if not os.path.exists(DRUG_NAMES):
+        print(f"   {DRUG_NAMES} missing (scripts/fetch_pgx_reference.sh): medicines are searchable by ClinPGx name only")
+        return []
+    who, groups = {}, {}
+    if os.path.exists(ATC):
+        for a in json.load(open(ATC, encoding="utf-8")):
+            who[a["level5"]] = a["who_name"]
+            for lv in (1, 2, 3, 4):
+                groups[a[f"level{lv}"]] = a[f"level{lv}_description"]
+    csv.field_size_limit(2**31 - 1)
+    split = lambda v: [x.strip().strip('"') for x in re.split(r",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", v or "") if x.strip()]
+    rows = []
+    for r in csv.DictReader(io.TextIOWrapper(zipfile.ZipFile(DRUG_NAMES).open("drugs.tsv"), encoding="utf-8"), delimiter="\t"):
+        name = r["Name"].lower()
+        if name not in used:
+            continue
+        codes = split(r["ATC Identifiers"])
+        aka = list(dict.fromkeys(who[c] for c in codes if c in who and who[c].lower() != name))
+        # The groups each code sits in, the therapeutic one (2nd level) first: "analgesics", "beta blocking agents"
+        classes = []
+        for c in codes:
+            for n in (3, 4, 5, 1):
+                if len(c) >= n and c[:n] in groups and c[:n] != c:
+                    classes.append(groups[c[:n]].capitalize())
+            if c in groups:
+                classes.append(groups[c].capitalize())  # the code is a group itself (a drug class)
+        rows.append({"drug": name, "aka": "; ".join(aka), "classes": "; ".join(dict.fromkeys(classes)),
+                     "generic": "; ".join(x for x in split(r["Generic Names"]) if x.lower() != name),
+                     "trade": "; ".join(x for x in split(r["Trade Names"]) if x.lower() != name),
+                     "atc": "; ".join(codes), "type": r["Type"]})
+    return rows
 
 
 def minor_freq(site, major_allele):
@@ -542,6 +713,8 @@ def build_guidance(types):
                 found.append({"population": None, "recommendation": "No action: DPWG lists recommendations only for the types "
                               "that need one, and yours isn't among them.", "implication": "", "strength": None, "for": None})
         uniq = list({(f["population"], f["recommendation"]): f for f in found}.values())
+        for f in uniq:
+            f["dose"] = dose_line(f["recommendation"])
         row["recs"] = json.dumps(uniq)
         if not known:
             row["status"] = "unreadable"
@@ -557,6 +730,12 @@ def build_guidance(types):
                 row["status"] = "differs"
         else:
             row["status"] = "unclear"  # the person's type isn't one the guideline names, or a gene is only partly read
+        # A stated dose for a typical type is the standard dose; for a type that differs it is the adjusted one
+        if row["status"] in ("typical", "no_action", "differs"):
+            for f in uniq:
+                if f["dose"] and f["dose"]["dose"]:
+                    f["dose"]["kind"] = "adjusted" if row["status"] == "differs" else "standard"
+            row["recs"] = json.dumps(uniq)
         rows.append(row)
 
     zl = zipfile.ZipFile(LABELS)
@@ -588,7 +767,9 @@ def main():
         row["person"] = who
         if "text" in row:
             row["text"] = row["text"].replace("{who}", who)
-    for name, rows in (("med_genes", genes), ("med_drugs", drugs), ("med_guidance", guidance)):
+    used = {x for row in drugs + guidance for x in row["drug"].split(";") if x}
+    names = drug_names(used)
+    for name, rows in (("med_genes", genes), ("med_drugs", drugs), ("med_guidance", guidance), ("med_names", names)):
         with open(os.path.join(args.out_dir, name + ".json"), "w", encoding="utf-8") as f:
             json.dump(rows, f, ensure_ascii=False, separators=(",", ":"))
     differs = [d for d in drugs if d["status"] == "differs" and d["level"] in ("1A", "1B")]

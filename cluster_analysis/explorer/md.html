@@ -1,7 +1,9 @@
   <section class="gx-page" id="medicines" data-page="medicines" hidden>
     <p class="gx-note">How XY's genes bear on medicines: whether a drug is likely to work as usual, needs a different dose, or carries a
-      higher risk of side effects. Annotations come from ClinPGx (PharmGKB), with CPIC guideline-grade evidence (level 1A) first. Calls are
-      measured or imputed at high confidence; rarer variants imputation can't rule out read "not detected".</p>
+      higher risk of side effects. Search a medicine by any of its names (paracetamol, Alvedon or N02BE01 all find acetaminophen) to see
+      the dosing guidelines and drug labels that apply, then every study finding with XY's genotype. Each carries an evidence grade, from
+      A+ (guideline-grade) to C (one study or mixed results). Sources: ClinPGx (PharmGKB), CPIC, DPWG and ClinVar. Calls are measured or
+      imputed at high confidence; rarer variants imputation can't rule out read "not detected".</p>
     <div class="gx-card" id="med-summary">
       <div class="md-summary" data-draw="md-summary" data-source="med_genes med_drugs"></div>
     </div>
@@ -13,7 +15,7 @@
     </div>
     <div class="gx-card" id="med-drugs">
       <h2>Medicines</h2>
-      <div class="md-controls" data-draw="md-controls" data-source="med_drugs"></div>
-      <div class="md-list" data-draw="md-list" data-source="med_drugs med_genes"></div>
+      <div class="md-controls" data-draw="md-controls" data-source="med_drugs med_guidance med_names"></div>
+      <div class="md-list" data-draw="md-list" data-source="med_drugs med_genes med_guidance med_names"></div>
     </div>
   </section>
