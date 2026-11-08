@@ -1,4 +1,4 @@
-"""Nutrition: how a person's genome bears on the nutrients they need, and which foods supply them.
+"""Nutrition: where a person's genes act on how the body takes up, carries and converts each nutrient.
 
     python -m cluster_analysis.nutrition                                  # XY (imputed file when there is one)
     python -m cluster_analysis.nutrition --dna data/input/X.csv --sex women --age "25–50 år" --activity medium
@@ -16,16 +16,18 @@ Per nutrient (cluster_analysis/nutrients.json maps each one to the sources' iden
           the nutrient's markers in 2+ publications, all in the same direction
       B   ClinVar with one submitter's criteria, or a GWAS variant from one publication
       C   ClinPGx (PharmGKB) gene x nutrient annotations (level 3: single studies)
-  * Genes: the nutrient's Reactome pathways (uptake, transport, activation ...).
-  * Intake: NNR 2023 RI or AI, and UL, for the person's sex and age (cluster_analysis/nnr_2023.json).
-  * Foods: the richest foods in Livsmedelsverket's food database, per 100 g and as a share of the intake target.
+  * Mechanism (nutrient_steps.py): the nutrient's Reactome pathways as ordered steps (uptake, transport,
+    activation, use), where each happens, and each finding pinned to the step whose gene it acts on, with how:
+    a protein change (Ensembl VEP), a change in how much of the gene is made (GTEx), or in the gene, effect unknown.
+  * Intake: NNR 2023 RI or AI, and UL, for the person's sex and age (cluster_analysis/nnr_2023.json), as context.
 
 Writes to data/output/cluster_analysis/ (personal: keep out of git):
   nut_nutrients.json  one row per nutrient: intake target, the markers' scores, the blood test, counts
-  nut_findings.json   one row per finding: grade, gene, variant, the person's genotype and what it does
-  nut_genes.json      one row per pathway gene: pathway, the findings in it
-  nut_foods.json      one row per food and nutrient: amount per 100 g, share of the target, food group
-Reference data: python -m cluster_analysis.nutrition_reference foods | nnr | pgs (once).
+  nut_findings.json   one row per finding: grade, gene, variant, the person's genotype, which way it moves the
+                      level for them, and its mechanism and step gene
+  nut_steps.json      one row per conversion step: pathway, order, name, where in the cell, genes and where in the
+                      body they are made
+Reference data: python -m cluster_analysis.nutrition_reference nnr | pgs (once).
 """
 import argparse
 import csv
@@ -47,7 +49,6 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 CONFIG = os.path.join(HERE, "nutrients.json")
 NNR = os.path.join(HERE, "nnr_2023.json")
 REF = "data/reference"
-FOODS = f"{REF}/nutrition/livsmedel.json"
 PGS_DIR = f"{REF}/nutrition/pgs"
 GWAS = f"{REF}/gwas_associations_ontology.zip"
 CLINVAR = f"{REF}/clinvar_grch37.vcf.gz"
@@ -64,13 +65,6 @@ FINDING_TIERS = ("measured", "high")
 FLIP = str.maketrans("ACGT", "TGCA")
 STARS = {"practice_guideline": 4, "reviewed_by_expert_panel": 3, "criteria_provided,_multiple_submitters,_no_conflicts": 2,
          "criteria_provided,_single_submitter": 1}
-# Food groups (LanguaL A, Livsmedelsverket) left out of the food lists: mixed dishes, sweets, spices, drinks with alcohol
-NOT_FOODS = re.compile(r"rätt|Soppa|Sås i maträtt|Matpaj|Cerealierätter|Kryddning|^Krydda|Likör|Vin |Öl|Färdigsallad|"
-                       r"Smaksättare|Dessert|Konfekt|Choklad|Bageriprodukter|Glass|Snacks|Pannkaka|Sylt|Dressing|"
-                       # used by the pinch, or not food: baking powder, yeast, spices, coffee and tea powder, supplements
-                       r"Baknings|Kosttillskott|Smakämne|Övriga livsmedel|Kaffe, te", re.I)
-
-
 def is_palindromic(a, b):
     return {a, b} in ({"A", "T"}, {"C", "G"})
 
@@ -334,47 +328,6 @@ def target_for(nnr, key, sex, age, activity):
     return {"kind": d["kind"], "value": d[sex][age], "unit": d["unit"], "ul": d.get("ul"), "notes": notes}
 
 
-def n_ul(ul, amount, unit):
-    """Whether 100 g holds more than the upper intake level (units compared after mg/µg conversion)."""
-    scale = {"mg": 1000, "µg": 1, "g": 1_000_000}
-    a = scale.get(unit.replace("RE/", "").split("/")[0].strip())
-    u = scale.get(ul["unit"].split("/")[0].split()[0])
-    return a is not None and u is not None and amount * a > ul["value"] * u
-
-
-def food_rows(cfg, nnr_target, foods, units, per_nutrient=15):
-    """The richest foods for a nutrient (one per first word of the name, so lax and sill don't crowd out the rest)."""
-    codes = cfg["foods"]
-    if not codes:
-        return []
-    rows, seen = [], set()
-    ranked = []
-    for f in foods:
-        if any(NOT_FOODS.search(g) for g in f["group"]):
-            continue
-        v = f["per100g"]
-        if any(c not in v or v[c] is None for c in codes):
-            continue
-        ranked.append((sum(v[c] for c in codes), f))
-    ranked.sort(key=lambda x: -x[0])
-    for amount, f in ranked:
-        stem = re.split(r"[ ,]", f["sv"].lower())[0]
-        if stem in seen or amount <= 0:
-            continue
-        seen.add(stem)
-        extra = {k: round(sum(f["per100g"].get(c) or 0 for c in cs), 3) for k, cs in (cfg.get("foods_extra") or {}).items()}
-        unit = units.get(codes[0], "")
-        rows.append({"nutrient": cfg["id"], "rank": len(rows) + 1, "food": f["sv"], "food_en": f.get("en"), "nummer": f["nummer"],
-                     "amount": round(amount, 3), "unit": unit,
-                     "share": round(100 * amount / nnr_target["value"]) if nnr_target and nnr_target.get("value") and
-                     unit.replace("RE/", "") in nnr_target["unit"] else None,
-                     "over_ul": bool(nnr_target and nnr_target.get("ul") and nnr_target["ul"].get("applies_to_food") and n_ul(nnr_target["ul"], amount, unit)),
-                     "kcal": f["per100g"].get("ENERC_KCAL"), "group": ", ".join(f["group"]), "extra": json.dumps(extra) if extra else None})
-        if len(rows) >= per_nutrient:
-            break
-    return rows
-
-
 def build(dna, sex, age, activity):
     cfg = json.load(open(CONFIG, encoding="utf-8"))["nutrients"]
     nnr = json.load(open(NNR, encoding="utf-8"))
@@ -407,8 +360,7 @@ def build(dna, sex, age, activity):
             for r in rows:
                 r["gene"] = r["gene"] or names.get((r["chrom"], r["pos"]), "")
 
-    nutrients, findings, genes, foods_out = [], [], [], []
-    food_db = json.load(open(FOODS, encoding="utf-8"))
+    nutrients, findings = [], []
     for n in cfg:
         target = target_for(nnr, n["nnr"], sex, age, activity)
         markers = []
@@ -489,6 +441,22 @@ def build(dna, sex, age, activity):
                     "p": lead["p"], "publications": len(pubs), "agree": len(agree), "against": len(against),
                     "pmid": lead["pmid"], "study": f"{lead['author']} {lead['year']}", "text": None})
 
+        # The variants that drive each score, where the findings lack them (a PGS weights variants the GWAS lead list
+        # doesn't name: the rare FADS2 variants behind the omega-3 score)
+        have = {f["rsid"] for f in findings if f["nutrient"] == n["id"]}
+        for mk in markers:
+            for t in (mk["score"] or {}).get("top", []):
+                if t["rsid"] in have:
+                    continue
+                have.add(t["rsid"])
+                call, src = calls.get(t["rsid"]), mk["source"]
+                findings.append({
+                    "nutrient": n["id"], "marker": mk["id"], "marker_name": mk["name"], "higher": mk["higher"], "kind": "Score",
+                    "grade": "B", "gene": t["gene"], "rsid": t["rsid"], "genotype": call[0] if call else None,
+                    "confidence": call[1] if call else None, "allele": t["allele"], "allele_freq": t["freq"], "copies": t["copies"],
+                    "direction": "raises" if t["raises"] else "lowers", "beta": None, "p": None, "publications": 1,
+                    "agree": 0, "against": 0, "pmid": src.get("pmid"), "study": f"{src.get('author')} {src.get('year')}", "text": None})
+
         # ClinVar in the nutrient's genes, for its conditions
         cond = re.compile(n["clinvar"], re.I) if n["clinvar"] else None
         merged = {}
@@ -530,25 +498,49 @@ def build(dna, sex, age, activity):
                              "text": o["Annotation Text"] if o else None, "url": r["URL"],
                              "pmids": int(r["PMID Count"] or 0)})
 
-        # Pathway genes and the findings in them
         mine = [f for f in findings if f["nutrient"] == n["id"]]
-        for pid in n["reactome"]:
-            if pid not in pathways:
-                continue
-            pname, syms = pathways[pid]
-            for g in syms:
-                hits = [f for f in mine if f["gene"] and g in re.split(r"[ ,;-]+", f["gene"])]
-                genes.append({"nutrient": n["id"], "pathway": pname, "pathway_id": pid, "gene": g, "findings": len(hits),
-                              "best": min((f["grade"] for f in hits), key=["A+", "A", "B", "C"].index) if hits else None})
-
-        foods_out += food_rows(n, target, food_db["foods"], food_db["units"])
         nutrients.append({"id": n["id"], "name": n["name"], "sv": n["sv"], "target": json.dumps(target, ensure_ascii=False),
                           "markers": json.dumps(markers, ensure_ascii=False), "test": n["test"] or None,
                           "findings": len(mine), "strong": sum(f["grade"] in ("A+", "A") for f in mine),
                           "genes": len(genes_of[n["id"]])})
-    meta = {"person": person_label(dna), "sex": sex, "age": age, "activity": activity,
-            "nnr": nnr["source"], "foods": food_db["source"], "foods_fetched": food_db["fetched"]}
-    return nutrients, findings, genes, foods_out, meta
+    # Which way each GWAS finding moves the level for this person, against the European average:
+    # (copies - 2p) of the effect allele, signed by its direction
+    for f in findings:
+        if f["kind"] in ("GWAS", "Score") and f["copies"] is not None:
+            d = (f["copies"] - 2 * f["allele_freq"]) * (1 if f["direction"] == "raises" else -1)
+            f["shift"] = round(d, 2)
+            f["xy"] = "raises" if d >= 0.5 else "lowers" if d <= -0.5 else "typical"
+        elif f["kind"] == "ClinVar":
+            f["xy"] = "carried"
+
+    # Mechanism: the conversion steps, and each finding pinned to the step gene it acts on
+    print("Conversion steps (Reactome) ...")
+    from cluster_analysis import nutrient_steps
+    steps = nutrient_steps.build_steps(cfg, {pid: name for pid, (name, _) in pathways.items()})
+    nutrient_steps.annotate(findings, steps, where)
+    tissue = nutrient_steps.tissues({g for st in steps.values() for s in st for g in s["genes"]})
+    step_rows = []
+    for nid, st in steps.items():
+        for s in st:
+            step_rows.append({"nutrient": nid, **{k: v for k, v in s.items() if k not in ("where", "genes", "inputs", "outputs")},
+                              "where": ", ".join(s["where"]), "genes": " ".join(s["genes"]),
+                              "inputs": "; ".join(s["inputs"]), "outputs": "; ".join(s["outputs"]),
+                              "tissues": json.dumps({g: tissue.get(g) for g in s["genes"]}, ensure_ascii=False),
+                              "summary": nutrient_steps.summary(s["step"])})
+    # The mechanism in writing: Reactome's summary of each pathway, UniProt's account of each protein a variant acts on
+    print("Pathway summaries (Reactome) and protein functions (UniProt) ...")
+    proteins = nutrient_steps.protein_function({f["step_gene"] for f in findings if f.get("step_gene")})
+    for row in nutrients:
+        cfg_n = next(n for n in cfg if n["id"] == row["id"])
+        row["pathways"] = json.dumps([{"id": pid, "name": pathways[pid][0], "summary": nutrient_steps.summary(pid)}
+                                      for pid in cfg_n["reactome"] if pid in pathways], ensure_ascii=False)
+        row["proteins"] = json.dumps({g: proteins[g] for g in sorted({f["step_gene"] for f in findings
+                                      if f["nutrient"] == row["id"] and f.get("step_gene")}) if g in proteins}, ensure_ascii=False)
+    for f in findings:
+        if f.get("detail") is not None:
+            f["detail"] = json.dumps(f["detail"], ensure_ascii=False)
+    meta = {"person": person_label(dna), "sex": sex, "age": age, "activity": activity, "nnr": nnr["source"]}
+    return nutrients, findings, step_rows, meta
 
 
 def main():
@@ -562,9 +554,9 @@ def main():
     ap.add_argument("--out-dir", default=OUT)
     a = ap.parse_args()
     dna = imputed_path(a.dna)
-    nutrients, findings, genes, foods, meta = build(dna, a.sex, a.age, a.activity)
+    nutrients, findings, steps, meta = build(dna, a.sex, a.age, a.activity)
     os.makedirs(a.out_dir, exist_ok=True)
-    for name, rows in (("nut_nutrients", nutrients), ("nut_findings", findings), ("nut_genes", genes), ("nut_foods", foods)):
+    for name, rows in (("nut_nutrients", nutrients), ("nut_findings", findings), ("nut_steps", steps)):
         for r in rows:
             r.setdefault("person", meta["person"])
             if name == "nut_nutrients":

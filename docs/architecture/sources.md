@@ -53,16 +53,16 @@ flowchart TB
 | Open Targets | GraphQL API | Genes associated with a disease, with overall and genetic scores | `theme_graph.py` |
 | QuickGO | REST API | Genes with experimental or curated GO annotations to a mechanism | `theme_graph.py` |
 | STRING | REST API | Protein–protein interactions (confidence ≥ 0.4), enrichment | `theme_graph.py`, `themes.py`, `build_modules.py` |
-| Reactome | REST API + `Ensembl2Reactome.txt` | Pathways, ordered reactions, inputs and outputs | `theme_graph.py`, `lifecycle.py`, `gene_trace.py` |
+| Reactome | REST API + `Ensembl2Reactome.txt` | Pathways, ordered reactions, inputs and outputs, curated summaries | `theme_graph.py`, `lifecycle.py`, `gene_trace.py`, `nutrient_steps.py` |
 | MyGene.info | REST API | Gene summaries, GO and Reactome per gene | `themes.py`, `sources.py` |
 | Ensembl GTF (GRCh37) | Bulk file | Gene start and end, to place SNPs in genes | `theme_graph.py` |
 | ClinVar (GRCh37) | Bulk VCF | Pathogenic variants, risk factors, drug response | `theme_graph.py`, `medicines.py`, `nutrition.py` |
 | GWAS Catalog | Bulk zip (+ REST API per rsID) | Genome-wide significant associations, effect allele, OR/beta and direction | `theme_graph.py`, `library_audit.py`, `biomarkers.py`, `nutrition.py` |
-| Ensembl VEP | REST API | Forward-strand alleles, consequence per allele, European frequency, SIFT/PolyPhen | `sources.py`, `function_evidence.py` |
+| Ensembl VEP | REST API | Forward-strand alleles, consequence per allele, European frequency, SIFT/PolyPhen, amino acid change | `sources.py`, `function_evidence.py`, `nutrient_steps.py` |
 | Ensembl LD | REST API | Partner SNPs (r² ≥ 0.6, Europeans) so a GWAS lead SNP can support a library SNP | `library_audit.py` |
-| UniProt | REST API + `humsavar.txt` | Curated variant effects, protein function, cofactors | `function_evidence.py`, `gene_trace.py` |
+| UniProt | REST API + `humsavar.txt` | Curated variant effects, protein name and function, cofactors | `function_evidence.py`, `gene_trace.py`, `nutrient_steps.py` |
 | MaveDB | REST API | Deep mutational scan scores per protein change | `function_evidence.py` |
-| GTEx v8 | REST API | eQTLs: which allele raises or lowers expression, per tissue | `function_evidence.py` |
+| GTEx v8 | REST API | eQTLs: which allele raises or lowers expression, per tissue | `function_evidence.py`, `nutrient_steps.py` |
 | Rhea | REST API | Chemical reactions of an enzyme | `gene_trace.py` |
 | OmniPath | REST API | Directed, signed regulators of a gene | `gene_trace.py`, `lifecycle.py` |
 | Europe PMC | REST API | Papers naming a SNP, quoted effect sizes | `literature.py` |
@@ -70,8 +70,8 @@ flowchart TB
 | CPIC | REST API, saved as JSON | Recommendation per metaboliser type or activity score | `medicines.py` |
 | 1000 Genomes | Bulk panel + site list | Imputation; allele frequencies in five ancestries | `src/impute.py`, `medicines.py`, `nutrition.py` |
 | PGS Catalog | REST API + harmonised scoring files (GRCh37) | Polygenic scores for blood levels (vitamin D, omega-3, DHA) | `nutrition.py` |
-| Livsmedelsverket: NNR 2023 summary | PDF, parsed to `nnr_2023.json` | Recommended and adequate intakes, upper limits, reference energy, fat targets | `nutrition.py` |
-| Livsmedelsverket: Livsmedelsdatabasen | REST API (CC BY 4.0), saved as JSON | 2,606 foods: nutrients per 100 g, Swedish and English names, food group | `nutrition.py` |
+| Livsmedelsverket: NNR 2023 summary | PDF, parsed to `nnr_2023.json` | Recommended and adequate intakes, upper limits, reference energy, fat targets (the intake line) | `nutrition.py` |
+| Human Protein Atlas | REST API (`search_download.php`) | RNA tissue specificity: where in the body a gene is mostly made | `nutrient_steps.py` |
 
 Downloads: `scripts/fetch_imputation_reference.sh` (imputation) and `scripts/fetch_pgx_reference.sh` (medicines).
 

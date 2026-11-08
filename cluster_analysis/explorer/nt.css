@@ -14,17 +14,26 @@
   .nt-tile .nt-bar { height: 5px; margin: 2px 0; }
   .nt-tile .nt-bar i { top: -3px; height: 11px; }
   .nt-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; }
-  .nt-target { font-size: 15px; font-weight: 700; }
   .nt-block { margin-top: var(--cds-gap-md); }
   .nt-marker { padding: 8px 0; border-top: 1px solid var(--color-border-line); }
-  .nt-read { margin: 4px 0; }
-  .nt-drivers { display: flex; flex-wrap: wrap; gap: 4px 10px; font-size: 12px; font-variant-numeric: tabular-nums; }
-  .nt-up { color: var(--color-ok); } .nt-down { color: var(--color-warn); }
-  .nt-foods td:nth-child(n+2) { text-align: right; white-space: nowrap; }
-  .nt-ul { margin-left: 6px; font-size: 11px; font-weight: 700; color: var(--color-warn); border: 1px solid var(--color-warn); border-radius: 4px; padding: 0 4px; }
-  .nt-find { display: grid; grid-template-columns: auto 1fr; gap: 2px 8px; padding: 6px 0; border-top: 1px solid var(--color-border-line); }
-  .nt-find > :not(.md-grade) { grid-column: 2; }
-  .nt-genes { display: flex; flex-wrap: wrap; gap: 4px; margin: 4px 0 8px; }
-  .nt-gene { font-size: 12px; border: 1px solid var(--color-border-line); border-radius: 10px; padding: 0 7px; }
-  .nt-gene.nt-hit { border-color: var(--color-fg); font-weight: 700; }
   .nt-test { padding: 8px 10px; border-left: 3px solid var(--color-fg); background: var(--color-panel); }
+  .nt-pw { margin: 12px 0 4px; font-weight: 700; }
+  .nt-why { margin: 4px 0; font-size: 13px; line-height: 1.5; max-width: 80ch; }
+  .nt-why-head { display: block; font-size: 13px; margin-top: 4px; }
+  .nt-mech { margin: 10px 0; padding: 4px 0 4px 12px; border-left: 3px solid var(--color-border-line); }
+  .nt-mech-bad { border-left-color: var(--color-warn); }
+  .nt-mech h4 { margin: 0 0 2px; font-size: 15px; }
+  .nt-quote { color: var(--color-fg-muted); }
+  .nt-more { font: inherit; font-size: 12px; margin-left: 6px; padding: 0 6px; border: 1px solid var(--color-border-line); border-radius: 10px;
+    background: none; color: var(--color-fg-muted); cursor: pointer; }
+  .nt-step-name { font-size: 12px; line-height: 1.3; }
+  .nt-step-hit .nt-step-name { font-weight: 700; }
+  .nt-genes { display: flex; flex-wrap: wrap; gap: 4px; margin: 3px 0; }
+  .nt-chip { font-size: 11px; border-radius: 4px; padding: 0 5px; background: var(--color-panel); color: var(--color-fg-muted); }
+  .nt-chip-move { border: 1px dashed var(--color-fg-muted); }
+  .nt-gene { font-size: 12px; border: 1px solid var(--color-border-line); border-radius: 10px; padding: 0 7px; cursor: help; }
+  .nt-gene.nt-hit { border-color: var(--color-fg); font-weight: 700; color: var(--color-fg); }
+  .nt-find { display: grid; grid-template-columns: auto 1fr; gap: 2px 8px; padding: 6px 8px; margin: 4px 0; border-radius: 6px;
+    background: var(--color-panel); color: var(--color-fg); }
+  .nt-find-bad { box-shadow: inset 3px 0 0 var(--color-warn); }
+  .nt-find > :not(.md-grade) { grid-column: 2; }

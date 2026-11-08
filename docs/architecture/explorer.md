@@ -29,7 +29,7 @@ flowchart LR
     MD["med_drugs"] --> M
     MGU["med_guidance"] --> M
     MN["med_names"] --> M
-    NN["nut_nutrients, nut_findings,<br/>nut_genes, nut_foods"] --> N
+    NN["nut_nutrients, nut_findings,<br/>nut_steps"] --> N
 ```
 
 ## Producing the datasets
@@ -46,7 +46,7 @@ flowchart TB
     E --> D1["lifecycle_steps, lifecycle_genes,<br/>gene_function"]
     E --> D2["theme_meta, theme_genes,<br/>theme_links, theme_pathways"]
     MP["medicines.py"] --> D3["med_genes, med_drugs,<br/>med_guidance, med_names"]
-    NP["nutrition.py"] --> D4["nut_nutrients, nut_findings,<br/>nut_genes, nut_foods"]
+    NP["nutrition.py"] --> D4["nut_nutrients, nut_findings,<br/>nut_steps"]
 ```
 
 ```bash

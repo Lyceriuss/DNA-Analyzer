@@ -10,7 +10,7 @@ https://claude.ai/artifact/Rsz3RYugnZyvWnixS9168o
 | `lc.html`, `lc.css`, `lc.js` | Gene lifecycle tab: gene summary, node graph, step details with capacity, evidence and papers |
 | `th.html`, `th.css`, `th.js` | Clusters tab: theme picker, body maps, 28-day cycle and the life of a cell, mechanisms and their in-depth view, network, pathways |
 | `md.html`, `md.css`, `md.js` | Medicines tab: drug genes (star alleles and CPIC type), and per medicine (searchable by any name, brand, ATC code or class) its dosing guidance and every finding with the person's reading, each with an evidence grade A+ to C |
-| `nt.html`, `nt.css`, `nt.js` | Nutrition tab: per nutrient the genetic blood level among Europeans, the NNR 2023 intake target, the richest foods (Livsmedelsverket), the blood test, graded findings and pathway genes |
+| `nt.html`, `nt.css`, `nt.js` | Nutrition tab: per nutrient the net effect on the blood level, then the mechanism in writing: Reactome's account of each pathway, and for each gene a variant is pinned to, the step (Reactome), the protein (UniProt) and what the person's variants change; the intake target as one line |
 | `i18n.js` | English / Swedish switch (the EN/SV buttons in the header; the page's last script) |
 | `i18n_sv.json` | The Swedish dictionary for the page's own wording, published as the `i18n_sv` dataset (`[{en, sv}]` rows) |
 | `i18n_sv_terms.json` | Swedish for source terms: the library's traits, systems and genotype readings, module names, and disease/trait names (Open Targets, GWAS Catalog, ClinVar); published as the `i18n_sv_terms` dataset |
@@ -54,13 +54,13 @@ python -m cluster_analysis.theme_graph fertility_female    # XX's cross-referenc
 python -m cluster_analysis.theme_graph fertility_male      # XY's cross-reference
 python -m cluster_analysis.theme_graph cancer              # XY's cross-reference, cell-life stages
 python -m cluster_analysis.medicines                       # XY's drug genes and medicines -> med_genes, med_drugs, med_guidance, med_names
-python -m cluster_analysis.nutrition                       # XY's nutrients -> nut_nutrients, nut_findings, nut_genes, nut_foods
+python -m cluster_analysis.nutrition                       # XY's nutrients -> nut_nutrients, nut_findings, nut_steps
 python -m cluster_analysis.overlay data/input/MyHeritage_raw_dna_data_XY.csv --dashboard out   # Profile: hp_modules, hp_links, hp_bridges, hp_tilts
 python -m cluster_analysis.export_dashboard out/bundle.json \
     --lifecycles data/output/cluster_analysis/lifecycles_XY.json --dna data/input/MyHeritage_raw_dna_data_XY.csv
 ```
 
-That writes `lifecycle_steps`, `lifecycle_genes`, `gene_function`, `theme_meta`, `theme_genes`, `theme_links` and `theme_pathways` next to `out/bundle.json`; `medicines.py` writes `med_genes`, `med_drugs`, `med_guidance` and `med_names`, and `nutrition.py` writes `nut_nutrients`, `nut_findings`, `nut_genes` and `nut_foods`, to `data/output/cluster_analysis/`. All but `med_names` and `nut_foods` contain XY's genotypes, and the theme datasets XX's, so keep them out of git.
+That writes `lifecycle_steps`, `lifecycle_genes`, `gene_function`, `theme_meta`, `theme_genes`, `theme_links` and `theme_pathways` next to `out/bundle.json`; `medicines.py` writes `med_genes`, `med_drugs`, `med_guidance` and `med_names`, and `nutrition.py` writes `nut_nutrients`, `nut_findings` and `nut_steps`, to `data/output/cluster_analysis/`. All but `med_names` and `nut_steps` contain XY's genotypes, and the theme datasets XX's, so keep them out of git.
 
 Publishing goes through the artifact's database:
 - Each dataset file is uploaded as an asset, and its `datasets/<name>` document points at the asset URL.

@@ -11,7 +11,7 @@ data, to the Gene Cluster Explorer. The PDF report has its own page, [../ARCHITE
 | [evidence.md](evidence.md) | Gene function calls from evidence (GoF / LoF), the library audit and its corrections |
 | [lifecycles.md](lifecycles.md) | A gene's chemical lifecycle: Reactome steps, cofactors, regulators and papers |
 | [medicines.md](medicines.md) | Drug genes, star alleles, ClinPGx annotations, guidelines, drug labels and ClinVar drug response |
-| [nutrition.md](nutrition.md) | Per nutrient: genetic blood level (PGS / GWAS scores), NNR 2023 intake, Livsmedelsverket foods, graded findings |
+| [nutrition.md](nutrition.md) | Per nutrient: the uptake and conversion steps, where the person's variants act on them and how, and the net effect on the blood level |
 | [explorer.md](explorer.md) | The datasets the explorer reads, its tabs, and how a new version is published |
 
 ## The whole system

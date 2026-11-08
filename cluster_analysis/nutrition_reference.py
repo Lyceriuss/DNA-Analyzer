@@ -1,13 +1,9 @@
 """Reference data for the nutrition module, from official sources. Holds no genotypes.
 
-    python -m cluster_analysis.nutrition_reference foods     # Swedish Food Agency food database (API, ~5,200 calls, once)
     python -m cluster_analysis.nutrition_reference nnr       # NNR 2023 intake values from the Swedish Food Agency's summary
     python -m cluster_analysis.nutrition_reference pgs       # PGS Catalog scoring files named in nutrients.json
 
 Sources
-  foods  Livsmedelsdatabasen, Livsmedelsverket (Swedish Food Agency), CC BY 4.0:
-         https://dataportal.livsmedelsverket.se/livsmedel/  -> data/reference/nutrition/livsmedel.json
-         Per food: Swedish and English name, food group (LanguaL A), and nutrients per 100 g edible part.
   nnr    "Referensvärden för energi och näringsämnen. En sammanfattning av de nordiska näringsrekommendationerna,
          NNR 2023" (Livsmedelsverket, revised June 2025, errata September 2025 applied), tables 7-10 (RI, AI) and 16 (UL).
          scripts/fetch_nutrition_reference.sh downloads the PDF; this parses it into cluster_analysis/nnr_2023.json
@@ -22,15 +18,12 @@ import re
 import sys
 import time
 import urllib.request
-from concurrent.futures import ThreadPoolExecutor
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = "data/reference/nutrition"
-FOODS = f"{OUT}/livsmedel.json"
 NNR_PDF = f"{OUT}/snr_2023.pdf"
 NNR_JSON = os.path.join(HERE, "nnr_2023.json")
 NUTRIENTS = os.path.join(HERE, "nutrients.json")
-API = "https://dataportal.livsmedelsverket.se/livsmedel/api/v1"
 PGS_FTP = "https://ftp.ebi.ac.uk/pub/databases/spot/pgs/scores/{id}/ScoringFiles/Harmonized/{id}_hmPOS_GRCh37.txt.gz"
 PGS_API = "https://www.pgscatalog.org/rest/score/{id}"
 
@@ -44,42 +37,6 @@ def _get(url, tries=4):
             if i == tries - 1:
                 raise
             time.sleep(2 * (i + 1))
-
-
-# --- Livsmedelsdatabasen --------------------------------------------------------------------------------------------
-
-def fetch_foods():
-    names = {}
-    for lang in (1, 2):  # 1 Swedish, 2 English
-        d = _get(f"{API}/livsmedel?offset=0&limit=5000&sprak={lang}")
-        for x in d["livsmedel"]:
-            names.setdefault(x["nummer"], {"nummer": x["nummer"], "type": x.get("livsmedelsTyp")})
-            names[x["nummer"]]["sv" if lang == 1 else "en"] = x["namn"]
-    print(f"{len(names)} foods; fetching nutrients and food groups...")
-
-    def one(n):
-        vals = _get(f"{API}/livsmedel/{n}/naringsvarden?sprak=1")
-        cls = _get(f"{API}/livsmedel/{n}/klassificeringar?sprak=1")
-        out = {}
-        for v in vals:
-            code = v["euroFIRkod"] + ("_KCAL" if v["euroFIRkod"] == "ENERC" and v["enhet"] == "kcal" else "")
-            out[code] = v["varde"]
-        group = [c["namn"] for c in cls if c.get("fasett", "").startswith("A ")]
-        return n, out, group
-
-    with ThreadPoolExecutor(4) as ex:
-        for i, (n, vals, group) in enumerate(ex.map(one, sorted(names))):
-            names[n]["per100g"] = vals
-            names[n]["group"] = group
-            if i % 250 == 0:
-                print(f"  {i}/{len(names)}")
-    units = {v["euroFIRkod"] + ("_KCAL" if v["euroFIRkod"] == "ENERC" and v["enhet"] == "kcal" else ""): v["enhet"]
-             for v in _get(f"{API}/livsmedel/1/naringsvarden?sprak=1")}
-    os.makedirs(OUT, exist_ok=True)
-    json.dump({"source": "Livsmedelsdatabasen, Livsmedelsverket (CC BY 4.0), " + API,
-               "fetched": time.strftime("%Y-%m-%d"), "units": units, "foods": list(names.values())},
-              open(FOODS, "w", encoding="utf-8"), ensure_ascii=False)
-    print(f"wrote {FOODS}")
 
 
 # --- NNR 2023 (Livsmedelsverket's summary) --------------------------------------------------------------------------
@@ -263,6 +220,6 @@ def fetch_pgs():
 if __name__ == "__main__":
     sys.stdout.reconfigure(encoding="utf-8")
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("what", choices=("foods", "nnr", "pgs"))
+    ap.add_argument("what", choices=("nnr", "pgs"))
     a = ap.parse_args()
-    {"foods": fetch_foods, "nnr": build_nnr, "pgs": fetch_pgs}[a.what]()
+    {"nnr": build_nnr, "pgs": fetch_pgs}[a.what]()

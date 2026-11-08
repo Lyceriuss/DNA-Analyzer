@@ -67,10 +67,17 @@ The library now has **229 traits, 0 errors and 38 warnings**. Remaining work:
 
 ## P1: nutrition module
 
-- Driver labels count the study's effect allele (`SLC23A1 1×C`), which reads backwards when the point is the rare
-  allele the person carries. Show the genotype (`SLC23A1 TC ▼`) instead, and the expected shift in blood units
-  (≈ −0.25 SD) next to the percentile.
+- The expected shift in blood units (Σ β(copies − 2p), ≈ −0.25 SD) isn't shown next to the percentile.
 - No note on cards where a variant moves the test rather than the body (TCN1 and total B12).
+- An expression effect is the most significant GTEx tissue, which can be far from where the step runs (testis for a
+  liver enzyme). Prefer the tissues the Protein Atlas names for the gene.
+- Reactome and UniProt text is English on the Swedish page (source text, like the other sources). UniProt's
+  function text can name roles unrelated to the nutrient (CD320 in B-cell responses).
+- Magnesium, calcium and iodine are mapped to no Reactome pathway, so their cards have no mechanism section.
+- "Outside the conversion steps" lists every lead variant (123 for B12), many in non-coding genes; it should lead
+  with the variants that move the person's level or are grade A.
+- The Nutrition tab overflows a phone-width screen.
+- The food lists (Livsmedelsverket) were removed on 2026-11-08: the module explains mechanism, it doesn't plan meals.
 - No tolerances yet (lactase persistence, coeliac HLA-DQ2.5, alcohol and caffeine metabolism), and no fertility
   link (folate, choline, iron, DHA for XX).
 - Not in the PDF report yet.

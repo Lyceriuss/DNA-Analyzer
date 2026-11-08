@@ -1,13 +1,13 @@
   <section class="gx-page" id="nutrition" data-page="nutrition" hidden>
-    <p class="gx-note">What XY's genes say about the nutrients XY needs, and which foods supply them. Per nutrient: where XY's genes put
-      its blood level among Europeans (scores from the PGS Catalog and the GWAS Catalog), the intake to aim for (Nordic Nutrition
-      Recommendations 2023, Livsmedelsverket), the richest foods (Livsmedelsverket's food database), the blood test that shows the actual
-      level, and every finding with an evidence grade from A+ (ClinVar, expert-reviewed) to C (a single study). Genes only tilt a level;
-      what XY eats, and the test, settle it.</p>
+    <p class="gx-note">How XY's genes act on the way the body takes up, carries and converts each nutrient, written out from curated sources.
+      Per nutrient: the net effect of XY's variants on the blood level (PGS Catalog, GWAS Catalog); how the nutrient is taken up and
+      converted (Reactome); and for each gene where XY has a variant, the step it does, what its protein is (UniProt) and what the
+      variant changes: the protein (Ensembl VEP) or how much of it is made (GTEx). Every finding carries an evidence grade from A+
+      (ClinVar, expert-reviewed) to C (a single study).</p>
     <div class="gx-card">
-      <div class="nt-overview" data-draw="nt-overview" data-source="nut_nutrients"></div>
+      <div class="nt-overview" data-draw="nt-overview" data-source="nut_nutrients nut_steps"></div>
     </div>
     <div class="gx-card" id="nt-detail">
-      <div class="nt-detail" data-draw="nt-detail" data-source="nut_nutrients nut_findings nut_genes nut_foods"></div>
+      <div class="nt-detail" data-draw="nt-detail" data-source="nut_nutrients nut_findings nut_steps"></div>
     </div>
   </section>
