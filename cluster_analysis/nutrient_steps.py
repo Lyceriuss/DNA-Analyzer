@@ -19,7 +19,7 @@ from collections import defaultdict
 from cluster_analysis import sources
 from cluster_analysis.function_evidence import gtex_eqtl, vep_amino_acids
 from cluster_analysis.gene_trace import genes_for_accessions
-from cluster_analysis.lifecycle import links_between, pathway_events
+from cluster_analysis.lifecycle import _get, event, links_between, pathway_events
 
 GTF = "data/reference/ensembl_grch37_genes.gtf.gz"
 # Genes renamed since GRCh37's annotation and GTEx v8, which still use the old symbol
@@ -50,8 +50,28 @@ def ordered(events):
     return out
 
 
-def pathway_steps(pathway_id, pathway_name):
-    events = ordered(pathway_events(pathway_id))
+def molecule_events(pathway_id, molecules):
+    """The pathway's reactions that take in or give out one of the molecules, common ions included (Mg2+ is a
+    "currency" molecule elsewhere, so pathway_events leaves out reactions that only move it)."""
+    rows = sources._cached("lc_contained", pathway_id, lambda: _get(f"/data/pathway/{pathway_id}/containedEvents") or [])
+    out = []
+    for r in rows:
+        e = event(r["dbId"] if isinstance(r, dict) else r)
+        if not e["schemaClass"] or "Pathway" in e["schemaClass"]:
+            continue
+        io = [x for x in e.get("all_io", []) if x["base"] in molecules]
+        if not io:
+            continue
+        side = lambda s: [{"base": x["base"], "compartment": x["compartment"], "pe": f'{x["base"]} [{x["compartment"]}]'}
+                          for x in io if x["side"] == s]
+        e = dict(e, inputs=side("in"), outputs=side("out"),
+                 transport={x["compartment"] for x in io if x["side"] == "in"} != {x["compartment"] for x in io if x["side"] == "out"})
+        out.append(e)
+    return out
+
+
+def pathway_steps(pathway_id, pathway_name, molecules=None):
+    events = ordered(molecule_events(pathway_id, set(molecules)) if molecules else pathway_events(pathway_id))
     accs = sorted({a for e in events for a in e["catalysts"]})
     symbol = genes_for_accessions(accs) if accs else {}
     steps = []
@@ -162,7 +182,7 @@ def build_steps(cfg, pathway_names):
         rows = []
         for pid in n["reactome"]:
             if pid in pathway_names:
-                rows += pathway_steps(pid, pathway_names[pid])
+                rows += pathway_steps(pid, pathway_names[pid], n.get("molecules"))
         out[n["id"]] = rows
     return out
 

@@ -185,7 +185,20 @@
       const hb = ntMake(el, 'div', 'nt-block');
       ntMake(hb, 'span', 'gx-label', 'How it is taken up and converted (Reactome)');
       ntMake(hb, 'div', 'nt-sub', ntT(pws.length === 1 ? '{} steps found, in 1 pathway.' : '{} steps found, in {} pathways.', st.length, pws.length));
+      const seen = new Set();
       for (const p of pws) {
+        if (p.filtered) {
+          // A broad pathway kept only for the steps that move this nutrient: those steps say more than its summary
+          for (const x of st.filter((y) => y.pathway_id === p.id)) {
+            const w = ntMake(hb, 'p', 'nt-why');
+            ntMake(w, 'b', null, x.name + '. ');
+            // Reactome opens related steps with the same sentences: show only what is new for each step
+            const fresh = (x.summary || '').split(/(?<=[a-z0-9)\]]\.)\s+(?=[A-Z])/).filter((z) => !seen.has(z));
+            fresh.forEach((z) => seen.add(z));
+            if (fresh.length) ntQuote(w, fresh.join(' '), 200);
+          }
+          continue;
+        }
         const w = ntMake(hb, 'p', 'nt-why');
         ntMake(w, 'b', null, p.name + '. ');
         ntQuote(w, p.summary);
@@ -227,9 +240,15 @@
     const ob = out.length ? ntMake(el, 'div', 'nt-block') : null;
     if (ob) ntMake(ob, 'span', 'gx-label', ntT(st.length ? 'Outside the conversion steps ({})' : 'Variants found ({})', out.length));
     if (ob && st.length) ntMake(ob, 'div', 'nt-sub', 'Genes that move the blood level without being part of these steps: transport in the blood, other pathways, or a gene not yet known.');
-    for (const f of ntAll ? out : out.slice(0, 8)) ntVariant(ob, f, who);
-    if (out.length > 8) {
-      const b = ntMake(ob, 'button', 'md-pill', ntAll ? 'Show fewer' : `Show all (${out.length - 8} more)`);
+    // Lead with the variants whose copies move the person's level (or that they carry, ClinVar); the ones where they
+    // have the usual copies come after, under Show all
+    const moving = out.filter((f) => f.xy && f.xy !== 'typical'), quiet = out.filter((f) => !(f.xy && f.xy !== 'typical'));
+    if (ob) ntMake(ob, 'div', 'nt-sub', ntT(moving.length === 1 ? `${who}'s copies move the level for 1 of them; the others are under Show all.`
+      : `${who}'s copies move the level for {} of them; the others are under Show all.`, moving.length));
+    const shown = ntAll ? [...moving, ...quiet] : moving.slice(0, 8);
+    for (const f of shown) ntVariant(ob, f, who);
+    if (out.length > shown.length || ntAll) {
+      const b = ntMake(ob, 'button', 'md-pill', ntAll ? 'Show fewer' : `Show all (${out.length - shown.length} more)`);
       b.type = 'button';
       b.addEventListener('click', () => { ntAll = !ntAll; dash.setParams({ nt_all: ntAll }); });
     }

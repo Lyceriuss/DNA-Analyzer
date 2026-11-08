@@ -216,11 +216,27 @@ def theme_rows(themes, status, with_lifecycle=()):
     return meta, genes, links, pathways
 
 
-def api_theme_rows(graph, xref, status, with_lifecycle=(), order=0, person=None):
+EFFECTS = ("GoF", "LoF", "altered")
+
+
+def gene_status(lib, api):
+    """One gene's call for the explorer: the per-gene call from the person's own variants (gene_calls.py) when it finds
+    an effect or the library has nothing; the library's per-SNP call otherwise (and always for CPIC pharmacogenes)."""
+    lib, api = lib or {}, api or {}
+    use_api = api.get("function") in EFFECTS and lib.get("basis") != "cpic" or         (not lib.get("genotype") and api.get("function") == "normal")
+    if not use_api:
+        return lib
+    return {"rsid": api.get("rsid"), "genotype": api.get("genotype"), "function": api["function"], "dose": api.get("dose"),
+            "basis": api.get("basis"), "evidence": api.get("detail"), "minor": None, "interpretation": None, "outcome": None,
+            "source": "api"}
+
+
+def api_theme_rows(graph, xref, status, with_lifecycle=(), order=0, person=None, calls=None):
     """theme_graph.py output plus a person's cross-reference → the same four theme datasets. Every gene is listed;
-    notable ones (a library call, a finding where the person carries the allele, or an Open Targets score ≥ 0.8)
-    are the ones the explorer draws."""
+    notable ones (a call with an effect, a library call, a finding where the person carries the allele, or an Open
+    Targets score ≥ 0.8) are the ones the explorer draws. calls: gene_calls.py output for the person."""
     tid = graph["theme"]
+    calls = calls or {}
     xg = (xref or {}).get("genes", {})
     facets = graph["mechanisms"] + [{"id": "disease", "name": "Disease link, mechanism not yet known",
                                      "about": "Open Targets ties these genes to one of the theme's conditions, but Gene Ontology has no "
@@ -242,13 +258,13 @@ def api_theme_rows(graph, xref, status, with_lifecycle=(), order=0, person=None)
              "stats": json.dumps(stats)} for i, f in enumerate(facets)]
     genes, notable = [], set()
     for sym, g in graph["genes"].items():
-        p = status.get(sym) or {}
+        p = gene_status(status.get(sym), calls.get(sym))
         findings = xg.get(sym, {}).get("findings", [])
         carried = sum(1 for f in findings for it in f["items"] if it["source"] in ("GWAS", "ClinVar") and it.get("copies"))
         clinvar = any(it["source"] == "ClinVar" for f in findings for it in f["items"])
         # Genes with a reproductive mechanism are drawn when XY carries a finding; disease-only genes (many of them
         # hormone-level GWAS loci) only with a library call, a ClinVar entry or a very strong disease link
-        is_notable = bool(p.get("genotype")) or g["best_score"] >= 0.8 or clinvar or (carried > 0 and bool(g["mechanisms"]))
+        is_notable = (bool(p.get("genotype")) and p.get("source") != "api") or p.get("function") in EFFECTS or             g["best_score"] >= 0.8 or clinvar or (carried > 0 and bool(g["mechanisms"]))
         if is_notable:
             notable.add(sym)
         top = sorted(g["diseases"].items(), key=lambda kv: -kv[1]["score"])[:5]
@@ -257,8 +273,9 @@ def api_theme_rows(graph, xref, status, with_lifecycle=(), order=0, person=None)
                       "evidence": json.dumps({"mechanisms": g["mechanisms"], "diseases": dict(top), "joined_by": g["joined_by"],
                                               "findings": findings, "n_snps": xg.get(sym, {}).get("n_snps", 0),
                                               "organs": g.get("organs", [])}),
-                      "rsid": p.get("rsid"), "genotype": p.get("genotype"), "function": p.get("function") if p.get("genotype") else None,
-                      "basis": p.get("basis"), "fn_evidence": p.get("evidence"),
+                      "rsid": p.get("rsid"), "genotype": p.get("genotype"),
+                      "function": p.get("function") if p.get("genotype") or p.get("source") == "api" else None,
+                      "basis": p.get("basis"), "fn_evidence": p.get("evidence"), "call_source": p.get("source") or ("library" if p else None),
                       "dose": p.get("dose"), "minor": p.get("minor"), "interpretation": p.get("interpretation"), "outcome": p.get("outcome"),
                       "has_lifecycle": sym in with_lifecycle, "source": "api", "notable": is_notable, "carried": carried,
                       "best_score": g["best_score"]})
@@ -310,7 +327,9 @@ if __name__ == "__main__":
                 tables = [[r for r in t if r["theme"] not in (graph["theme"], graph["theme"].split("_")[0])] for t in tables]
                 # Lifecycles are built for --dna's person only, so other people's genes do not link to them
                 own = lifecycle_genes if person_label(dna) == person_label(args.dna) else set()
-                for t, extra in zip(tables, api_theme_rows(graph, xref, statuses[dna], own, order, person)):
+                cpath = os.path.join("data/output/cluster_analysis", f"gene_calls_{person}.json")
+                calls = json.load(open(cpath, encoding="utf-8")) if os.path.exists(cpath) else None
+                for t, extra in zip(tables, api_theme_rows(graph, xref, statuses[dna], own, order, person, calls)):
                     t.extend(extra)
             for name, rows in zip(("theme_meta", "theme_genes", "theme_links", "theme_pathways"), tables):
                 with open(os.path.join(out_dir, name + ".json"), "w", encoding="utf-8") as f:

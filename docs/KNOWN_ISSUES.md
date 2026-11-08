@@ -73,9 +73,8 @@ The library now has **229 traits, 0 errors and 38 warnings**. Remaining work:
   liver enzyme). Prefer the tissues the Protein Atlas names for the gene.
 - Reactome and UniProt text is English on the Swedish page (source text, like the other sources). UniProt's
   function text can name roles unrelated to the nutrient (CD320 in B-cell responses).
-- Magnesium, calcium and iodine are mapped to no Reactome pathway, so their cards have no mechanism section.
-- "Outside the conversion steps" lists every lead variant (123 for B12), many in non-coding genes; it should lead
-  with the variants that move the person's level or are grade A.
+- Calcium has no Reactome steps (Reactome has no dietary calcium uptake). Iodine's steps follow Reactome's order,
+  which puts iodide uptake 8th of 11.
 - The Nutrition tab overflows a phone-width screen.
 - The food lists (Livsmedelsverket) were removed on 2026-11-08: the module explains mechanism, it doesn't plan meals.
 - No tolerances yet (lactase persistence, coeliac HLA-DQ2.5, alcohol and caffeine metabolism), and no fertility

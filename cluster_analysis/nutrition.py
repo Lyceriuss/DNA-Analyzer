@@ -532,8 +532,10 @@ def build(dna, sex, age, activity):
     proteins = nutrient_steps.protein_function({f["step_gene"] for f in findings if f.get("step_gene")})
     for row in nutrients:
         cfg_n = next(n for n in cfg if n["id"] == row["id"])
-        row["pathways"] = json.dumps([{"id": pid, "name": pathways[pid][0], "summary": nutrient_steps.summary(pid)}
-                                      for pid in cfg_n["reactome"] if pid in pathways], ensure_ascii=False)
+        row["pathways"] = json.dumps([{"id": pid, "name": pathways[pid][0], "summary": nutrient_steps.summary(pid),
+                                       "filtered": bool(cfg_n.get("molecules"))}
+                                      for pid in cfg_n["reactome"] if pid in pathways
+                                      and any(x["pathway_id"] == pid for x in steps[row["id"]])], ensure_ascii=False)
         row["proteins"] = json.dumps({g: proteins[g] for g in sorted({f["step_gene"] for f in findings
                                       if f["nutrient"] == row["id"] and f.get("step_gene")}) if g in proteins}, ensure_ascii=False)
     for f in findings:

@@ -39,11 +39,20 @@ def _cached(namespace, key, fetch):
 def _request(method, url, retries=4, ok_404=False, **kwargs):
     """HTTP with retry/backoff: Ensembl and STRING return 429/503 under load."""
     kwargs.setdefault("timeout", 60)
-    for attempt in range(retries):
+    waited = 0
+    attempt = 0
+    while attempt < retries:
         try:
             r = requests.request(method, url, **kwargs)
             if ok_404 and r.status_code == 404:
                 return None
+            if r.status_code == 429 and waited < 600:
+                # Rate limited: wait as long as the server asks (UniProt says 60 s), without spending a retry
+                ra = r.headers.get("Retry-After") or ""
+                pause = min(int(ra) if ra.isdigit() else 30, 120)
+                waited += pause
+                time.sleep(pause)
+                continue
             r.raise_for_status()
             return r.json()
         except requests.RequestException as e:
@@ -52,6 +61,7 @@ def _request(method, url, retries=4, ok_404=False, **kwargs):
                 raise  # out of retries, or a bad request that will not succeed on retry
             print(f"   [!] {url.split('?')[0]} failed ({e.__class__.__name__}), retrying...")
             time.sleep(3 * (attempt + 1))
+            attempt += 1
 
 
 def _post(url, data, timeout=60):

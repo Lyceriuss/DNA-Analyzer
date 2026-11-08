@@ -56,6 +56,7 @@ python -m cluster_analysis.theme_graph cancer              # XY's cross-referenc
 python -m cluster_analysis.medicines                       # XY's drug genes and medicines -> med_genes, med_drugs, med_guidance, med_names
 python -m cluster_analysis.nutrition                       # XY's nutrients -> nut_nutrients, nut_findings, nut_steps
 python -m cluster_analysis.overlay data/input/MyHeritage_raw_dna_data_XY.csv --dashboard out   # Profile: hp_modules, hp_links, hp_bridges, hp_tilts
+python -m cluster_analysis.gene_calls                      # per-gene calls from each theme person's own variants -> gene_calls_<person>
 python -m cluster_analysis.export_dashboard out/bundle.json \
     --lifecycles data/output/cluster_analysis/lifecycles_XY.json --dna data/input/MyHeritage_raw_dna_data_XY.csv
 ```

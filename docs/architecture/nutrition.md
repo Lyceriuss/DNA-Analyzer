@@ -46,6 +46,10 @@ for example, has three: *Uptake of dietary cobalamins into enterocytes*, *Transp
   Ties keep Reactome's order; a cycle is broken at the earliest-listed step.
 - **Per step**: its name, where in the cell it happens (Reactome compartments: extracellular region, lysosomal lumen,
   mitochondrial matrix ...), whether it moves the molecule across a membrane (transport), and the proteins that do it.
+- **A nutrient that is a common ion** (magnesium): Reactome's broad transporter pathways (*Metal ion SLC transporters*,
+  *Miscellaneous transport and binding events*) are mapped, and `molecules` in `nutrients.json` keeps only the
+  reactions that move it (Mg2+: SLC41A1/2, MAGT1, NIPA, TUSC3, MRS2, MMGT1). Such ions count as "currency" elsewhere,
+  so the participants are read in full (`all_io` in `lifecycle.event`).
 - **Where in the body**: the Human Protein Atlas's RNA tissue specificity per gene (TCN1: salivary gland; GC and MMUT:
   liver; CYP27B1: kidney), or "made in most tissues".
 
@@ -162,10 +166,12 @@ All in `data/output/cluster_analysis/`, personal except `nut_steps`:
 
 ## Limits
 
-- Reactome has few or no steps for magnesium, calcium, iodine and vitamin E, and no score exists for zinc, iodine
-  or calcium: those cards show little.
+- Reactome has no dietary calcium uptake (only calcium signalling inside cells), so calcium has no steps; iodine's
+  steps are thyroxine synthesis, and Reactome's order puts iodide uptake late. No score exists for zinc, iodine or
+  calcium.
 - Steps cover what Reactome curates. Some genes that set a level act outside them (FUT2 for B12, lipid genes for
-  omega-3); they are listed as "outside the conversion steps", not forced onto a step.
+  omega-3); they are listed as "outside the conversion steps", not forced onto a step. The ones whose copies move
+  the person's level come first; those where the person has the usual copies are under Show all.
 - An intergenic GWAS variant is pinned only through an expression effect on a step gene; without one it stays
   outside, even when the nearest gene is a step gene.
 - B12 and folate scores use the largest study with signed betas, which is South Asian (Jacobs 2024).

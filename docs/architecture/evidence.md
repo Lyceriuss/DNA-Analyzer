@@ -86,6 +86,35 @@ python -m cluster_analysis.genotype_effects           # calls that would change,
 python -m cluster_analysis.genotype_effects --write   # write function / function_basis into the library
 ```
 
+## Per-gene calls from the person's own variants
+
+The library covers 247 SNPs, so most theme genes (about 3,000 across cancer and fertility) had no call. The library is
+being phased out: `gene_calls.py` calls every theme gene from the person's own variants with the same evidence ladder,
+and the explorer uses that call wherever it finds an effect or the library has none (CPIC pharmacogene calls stay).
+
+```mermaid
+flowchart TB
+    G["theme genes<br/>(each theme's person: XY, XX)"] --> UPV["UniProt variation<br/>every missense / stop change<br/>with its dbSNP id and DNA letter"]
+    G --> GT["GTEx v8 independent eQTLs<br/>strongest (rank 1, lowest p),<br/>leading in 2+ tissues"]
+    DNA["the person's calls<br/>measured or high-confidence imputed"] --> M["match by rsid and DNA letter"]
+    UPV --> M
+    GT --> M
+    M --> P{"carries a protein change<br/>with evidence?"}
+    P -->|"MaveDB / UniProt curated /<br/>stop / SIFT+PolyPhen"| PC["GoF / LoF (protein)"]
+    P -->|no| E{"eQTL genotype"}
+    E -->|"carries the allele that differs<br/>from the common European one"| EC2["more / less expressed"]
+    E -->|"usual genotype"| N["typical function"]
+    E -->|"not read, but protein<br/>variants were"| N2["typical: no carried change<br/>with known effect"]
+```
+
+- Matching is by DNA letter: one rsid can make several protein changes (rs1801133 G>A is A222V, G>C another), and
+  only the one the person's allele codes counts.
+- A carried change without evidence is named in the gene's text ("also carries D301Y, no known effect") and doesn't
+  make a call by itself.
+- Writes `data/output/cluster_analysis/gene_calls_<person>.json`; `export_dashboard.py` reads it per theme person.
+- Limits: UniProt lists the changes it has curated or imported, not every missense variant (SLC23A1 V264M is missing),
+  and an eQTL from GTEx's mostly European donors is one variant per gene.
+
 ## The library audit
 
 ```mermaid

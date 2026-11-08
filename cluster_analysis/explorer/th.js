@@ -16,7 +16,9 @@
                     variant: 'var(--color-fg-muted)', unknown: 'var(--color-panel)' };
   const thMake = (parent, tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; parent.appendChild(e); return e; };
   // Library genes carry a function call; API-theme genes outside the library are marked when XY carries a trait-linked allele
-  const thCall = (g) => g.genotype ? (g.function || 'normal') : g.carried > 0 ? 'variant' : null;
+  // A gene's call: the library's at its SNP, or gene_calls.py's from the person's own variants (call_source 'api')
+  const thCall = (g) => g.genotype || (g.call_source === 'api' && g.function) ? (g.function || 'normal') : g.carried > 0 ? 'variant' : null;
+  const thNote = (g) => g && (g.interpretation || g.fn_evidence);
   const thLabel = (g) => g.gene + (g.genotype ? ` ${g.genotype}` : '') + (g.genotype && g.function !== 'normal' && g.dose ? ` ×${g.dose}` : '') +
     (!g.genotype && g.carried > 0 ? ` · ${g.carried}` : '');
   const thPubmed = (parent, id) => {
@@ -73,7 +75,7 @@
     const organs = (stats && stats.organs) || [];
     const organ = organs.find((o) => o.id === p.th_organ) || null;
     const inOrgan = (g) => !organ || (g.ev.organs || []).includes(organ.id);
-    // An API theme lists every gene but draws the notable ones: a library call, a carried finding or a strong disease link
+    // An API theme lists every gene but draws the notable ones: a call with an effect or a library call, a carried finding or a strong disease link
     const shown = (api ? genes.filter((g) => g.notable) : genes).filter(inOrgan);
     const byName = new Map(genes.map((g) => [g.gene, g]));
     // Default selection: the first changed gene, so the panel opens on something XY carries
@@ -187,7 +189,7 @@
         const fn = thCall(g);
         const b = thMake(chips, 'button', 'lc-chip th-gene ' + (fn ? 'lc-' + TH_CLASS[fn] : 'lc-untested') + (g.gene === s.gene.gene ? ' is-selected' : ''), thLabel(g));
         b.type = 'button';
-        b.title = g.interpretation || (g.carried ? `${thWho(s)} carries ${g.carried} trait-linked ${g.carried === 1 ? 'allele' : 'alleles'}` : `No ${thWho(s)} finding`);
+        b.title = thNote(g) || (g.carried ? `${thWho(s)} carries ${g.carried} trait-linked ${g.carried === 1 ? 'allele' : 'alleles'}` : `No ${thWho(s)} finding`);
         b.addEventListener('click', () => thPick(g.gene));
       }
       if (s.api && all.length > gs.length) thMake(box, 'span', 'th-tag', `+${all.length - gs.length} more with no ${thWho(s)} finding and a weaker disease link`);
@@ -247,7 +249,7 @@
       .on('click', (event, n) => thPick(n.id))
       .on('keydown', (event, n) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); thPick(n.id); } })
       .on('mousemove', (event, n) => tip.show(event, n.id, [n.g.genotype ? `${n.g.rsid} ${n.g.genotype} · ${TH_TEXT[thCall(n.g)]}` +
-        (n.g.function !== 'normal' && n.g.dose ? ` ×${n.g.dose}` : '') : `Not genotyped in ${thWho(s)}`, n.g.interpretation || '']))
+        (n.g.function !== 'normal' && n.g.dose ? ` ×${n.g.dose}` : '') : `Not genotyped in ${thWho(s)}`, thNote(n.g) || '']))
       .on('mouseleave', () => tip.hide());
     node.append('circle').attr('r', (n) => n.id === sel ? 10 : 7)
       .style('fill', (n) => thCall(n.g) ? TH_FILL[thCall(n.g)] : 'var(--color-panel)')
@@ -269,9 +271,10 @@
     const fnText = fn ? thFnText(g, fn) : null;
     thMake(head, 'span', 'lc-call ' + (fn ? { LoF: 'lof', GoF: 'gof', altered: 'altered', normal: 'norm', variant: 'var', unknown: 'unknown' }[fn] : 'unknown'),
       fn ? fnText[0].toUpperCase() + fnText.slice(1) + (fn !== 'normal' && fn !== 'unknown' && g.dose ? ` ×${g.dose}` : '') : s.api ? `No ${thWho(s)} finding` : 'Not genotyped');
-    if (g.genotype) thMake(el, 'p', null, `Effect on the gene: ${g.fn_evidence || 'no evidence collected'} (${TH_BASIS[g.basis] || TH_BASIS.none}).`);
+    if (g.genotype || g.call_source === 'api') thMake(el, 'p', null, `Effect on the gene: ${g.fn_evidence || 'no evidence collected'} (${TH_BASIS[g.basis] || TH_BASIS.none}).`);
     if (g.genotype && g.outcome && g.outcome !== 'typical' && g.outcome !== 'unknown') thMake(el, 'p', null, `Effect on ${thWho(s)}: ${TH_OUTCOME[g.outcome] || g.outcome}. Whether a change is good or bad is a best-effort reading of the trait; the change itself comes from the evidence.`);
-    thMake(el, 'p', g.genotype ? 'gx-note' : null, g.genotype ? `Library note for ${g.rsid} ${g.genotype}: ${g.interpretation}. The notes were written with an LLM and are being checked against the evidence; the label above comes from the evidence, not the note.`
+    if (g.call_source === 'api') thMake(el, 'p', 'gx-note', `Called from ${thWho(s)}'s own variants in the gene: protein changes (UniProt, MaveDB, SIFT/PolyPhen) and the gene's strongest expression variant (GTEx).`);
+    else thMake(el, 'p', g.genotype ? 'gx-note' : null, g.genotype ? `Library note for ${g.rsid} ${g.genotype}: ${g.interpretation}. The notes were written with an LLM and are being checked against the evidence; the label above comes from the evidence, not the note.`
       : s.api ? `Not in the library. ${thWho(s)}'s file ${s.stats && (s.stats.by_confidence || {}).high ? 'measures or confidently imputes' : 'measures'} ${g.ev.n_snps || 0} SNPs in or near this gene.` : 'XY has no call at this gene\'s library SNP.');
     if (g.has_lifecycle) {
       const b = thMake(el, 'button', 'lc-btn', 'Open its lifecycle');
@@ -456,7 +459,7 @@
     const effect = (name) => {
       const info = CYCLE_GENES[name] || {}, g = s.byName.get(name), fn = g && thCall(g);
       const lines = [info.role || ''];
-      if (g && g.genotype) lines.push(`${who}: ${g.genotype}, ${TH_TEXT[fn]}${g.dose && fn !== 'normal' ? ` ×${g.dose}` : ''} (${g.interpretation})`);
+      if (g && g.genotype) lines.push(`${who}: ${g.genotype}, ${TH_TEXT[fn]}${g.dose && fn !== 'normal' ? ` ×${g.dose}` : ''} (${thNote(g)})`);
       else if (g && g.carried) lines.push(`${who} carries ${g.carried} trait-linked ${g.carried === 1 ? 'allele' : 'alleles'} here`);
       else lines.push(`No ${who} call at this gene`);
       if (fn === 'LoF' && info.LoF) lines.push('What it can mean: ' + info.LoF);
@@ -533,7 +536,7 @@
         const g = s.byName.get(n), fn = g && thCall(g);
         const b = thMake(chips, 'button', 'lc-chip th-gene ' + (fn ? 'lc-' + TH_CLASS[fn] : 'lc-untested'), g ? thLabel(g) : n);
         b.type = 'button';
-        b.addEventListener('mousemove', (event) => tip.show(event, n, CYCLE_GENES[n] ? effect(n) : [g && g.interpretation ? `${who}: ${g.interpretation}` : `No ${who} call here`]));
+        b.addEventListener('mousemove', (event) => tip.show(event, n, CYCLE_GENES[n] ? effect(n) : [thNote(g) ? `${who}: ${thNote(g)}` : `No ${who} call here`]));
         b.addEventListener('mouseleave', () => tip.hide());
         b.addEventListener('click', () => thPick(n));
       }
@@ -680,7 +683,7 @@
     const o = s.organ;
     if (!o) {
       thMake(info, 'h3', null, `All ${unit}s`);
-      thMake(info, 'p', 'gx-note', `▼ less active and ▲ more active are ${who}'s library calls; ● counts genes where ${who} carries an allele ` +
+      thMake(info, 'p', 'gx-note', `▼ less active and ▲ more active are ${who}'s gene calls; ● counts genes where ${who} carries an allele ` +
         `that a GWAS or ClinVar links to one of the theme's conditions. Shading is stronger where more of these gather, red where less-active genes ` +
         `lead and blue where more-active ones do. Select ${cell ? 'a stage' : 'an organ'} to focus the page on it.`);
       const list = thMake(info, 'div', 'th-genes');
@@ -817,7 +820,7 @@
         const li = thMake(ul, 'li');
         const b = thMake(li, 'button', 'lc-link', g.gene);
         b.type = 'button'; b.addEventListener('click', () => thPick(g.gene));
-        li.append(` ${g.genotype}: ${TH_TEXT[thCall(g)]}${g.dose && g.function !== 'normal' ? ` ×${g.dose}` : ''}. ${g.interpretation || ''}`);
+        li.append(` ${g.genotype}: ${TH_TEXT[thCall(g)]}${g.dose && g.function !== 'normal' ? ` ×${g.dose}` : ''}. ${thNote(g) || ''}`);
       }
     }
     if (carriers.length) {
@@ -825,7 +828,7 @@
         carriers.sort((a, b) => b.carried - a.carried).slice(0, 12).map((g) => `${g.gene} (${g.carried})`).join(', ') +
         (carriers.length > 12 ? ', …' : '') + '. Select one to see the variants.');
     }
-    if (!changed.length && !carriers.length) thMake(el, 'p', 'gx-note', `${who} has no library call and no carried trait-linked allele in this mechanism's genes.`);
+    if (!changed.length && !carriers.length) thMake(el, 'p', 'gx-note', `${who} has no gene call with an effect and no carried trait-linked allele in this mechanism's genes.`);
 
     // Conditions, evidence strength and pathways (API themes)
     if (s.api) {

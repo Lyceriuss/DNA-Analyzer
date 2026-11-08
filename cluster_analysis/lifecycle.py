@@ -76,6 +76,9 @@ def event(ref):
     return {"stId": raw["stId"], "dbId": raw["dbId"], "name": raw["name"], "schemaClass": raw["schemaClass"],
             "preceding": raw["preceding"],
             "inputs": main(ins), "outputs": main(outs), "catalysts": catalysts,
+            # every participant, common ions and cofactors included (a nutrient such as Mg2+ can be one)
+            "all_io": [{"base": x["base"], "compartment": x["compartment"], "side": side}
+                       for side, xs in (("in", ins), ("out", outs)) for x in xs],
             "transport": bool(ins) and {x["base"] for x in main(ins)} == {x["base"] for x in main(outs)}
                          and {x["compartment"] for x in main(ins)} != {x["compartment"] for x in main(outs)}}
 

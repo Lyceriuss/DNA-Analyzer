@@ -144,7 +144,7 @@
 "All stages": "Alla stadier",
 "Show all organs": "Visa alla organ",
 "Show all stages": "Visa alla stadier",
-"▼ less active and ▲ more active are {}'s library calls; ● counts genes where {} carries an allele that a GWAS or ClinVar links to one of the theme's conditions. Shading is stronger where more of these gather, red where less-active genes lead and blue where more-active ones do. Select {} to focus the page on it.": "▼ mindre aktiv och ▲ mer aktiv är {}:s biblioteksanrop; ● räknar gener där {} bär en allel som GWAS eller ClinVar kopplar till något av temats tillstånd. Skuggningen är starkare där fler samlas, röd där mindre aktiva gener dominerar och blå där mer aktiva gör det. Välj {} för att fokusera sidan på det.",
+"▼ less active and ▲ more active are {}'s gene calls; ● counts genes where {} carries an allele that a GWAS or ClinVar links to one of the theme's conditions. Shading is stronger where more of these gather, red where less-active genes lead and blue where more-active ones do. Select {} to focus the page on it.": "▼ mindre aktiv och ▲ mer aktiv är {}:s genanrop; ● räknar gener där {} bär en allel som GWAS eller ClinVar kopplar till något av temats tillstånd. Skuggningen är starkare där fler samlas, röd där mindre aktiva gener dominerar och blå där mer aktiva gör det. Välj {} för att fokusera sidan på det.",
 "{} genes act here. {}: {} less active, {} more active, {} with a carried trait-linked variant.": "{} gener verkar här. {}: {} mindre aktiva, {} mer aktiva, {} med en buren egenskapskopplad variant.",
 "Mechanisms": "Mekanismer",
 "Conditions": "Tillstånd",
@@ -258,7 +258,7 @@
 "{} genes. {}.": "{} gener. {}.",
 "{} carries trait-linked alleles in {} more {} here:": "{} bär egenskapskopplade alleler i {} {} till här:",
 ". Select one to see the variants.": ". Välj en för att se varianterna.",
-"{} has no library call and no carried trait-linked allele in this mechanism's genes.": "{} har inget biblioteksanrop och ingen buren egenskapskopplad allel i mekanismens gener.",
+"{} has no gene call with an effect and no carried trait-linked allele in this mechanism's genes.": "{} har inget genanrop med effekt och ingen buren egenskapskopplad allel i mekanismens gener.",
 "Conditions its genes are linked to": "Tillstånd som dess gener kopplas till",
 "How we know (Gene Ontology evidence)": "Hur vi vet (belägg från Gene Ontology)",
 "Pathways it runs through": "Signalvägar den går genom",
@@ -1027,6 +1027,9 @@
 "For {}: raises the level. {} has one copy of the lowering allele, where most Europeans have two.": "För {}: höjer halten. {} har en kopia av den sänkande allelen, där de flesta européer har två.",
 "For {}: raises the level. {} carries one copy of the raising allele.": "För {}: höjer halten. {} bär en kopia av den höjande allelen.",
 "For {}: raises the level. {} carries two copies of the raising allele.": "För {}: höjer halten. {} bär två kopior av den höjande allelen.",
+"{}'s copies move the level for 1 of them; the others are under Show all.": "{}:s kopior påverkar halten för 1 av dem; de övriga finns under Visa alla.",
+"{}'s copies move the level for {} of them; the others are under Show all.": "{}:s kopior påverkar halten för {} av dem; de övriga finns under Visa alla.",
+"Called from {}'s own variants in the gene: protein changes (UniProt, MaveDB, SIFT/PolyPhen) and the gene's strongest expression variant (GTEx).": "Bedömt utifrån {}:s egna varianter i genen: proteinförändringar (UniProt, MaveDB, SIFT/PolyPhen) och genens starkaste uttrycksvariant (GTEx).",
 "More": "Mer",
 "Less": "Mindre"
 }

@@ -1,5 +1,5 @@
 {
-  "about": "The nutrition module's nutrients, each mapped to the identifiers of official sources: GWAS Catalog traits (EFO/OBA) for the blood markers that show its level, an optional PGS Catalog score for a marker, Reactome pathways for its conversion steps, and the NNR 2023 key (cluster_analysis/nnr_2023.json) for intake. higher: whether a higher marker is the good direction ('better'), the bad one ('worse'). clinvar: conditions that make a ClinVar variant in the nutrient's genes count. clinpgx: ClinPGx chemical names for gene x nutrient annotations.",
+  "about": "The nutrition module's nutrients, each mapped to the identifiers of official sources: GWAS Catalog traits (EFO/OBA) for the blood markers that show its level, an optional PGS Catalog score for a marker, Reactome pathways for its conversion steps, and the NNR 2023 key (cluster_analysis/nnr_2023.json) for intake. higher: whether a higher marker is the good direction ('better'), the bad one ('worse'). clinvar: conditions that make a ClinVar variant in the nutrient's genes count. clinpgx: ClinPGx chemical names for gene x nutrient annotations. molecules: when the pathways are broad (metal ion transporters), only the steps that move one of these Reactome molecules are kept.",
   "nutrients": [
     {"id": "vitamin_d", "name": "Vitamin D", "sv": "D-vitamin", "nnr": "Vitamin D",
      "reactome": ["R-HSA-196791"],
@@ -48,7 +48,7 @@
      "markers": [{"id": "b6", "name": "Blood vitamin B6", "traits": ["EFO_0004621"], "higher": "better"}],
      "test": "P-pyridoxal 5'-phosphate", "clinvar": "pyridox", "clinpgx": []},
     {"id": "magnesium", "name": "Magnesium", "sv": "Magnesium", "nnr": "Magnesium",
-     "reactome": [],
+     "reactome": ["R-HSA-425410", "R-HSA-5223345"], "molecules": ["Mg2+"],
      "markers": [{"id": "mg", "name": "Blood magnesium", "traits": ["EFO_0004845"], "higher": "neutral"}],
      "test": "S-magnesium", "clinvar": "hypomagnes|magnesium", "clinpgx": []},
     {"id": "selenium", "name": "Selenium", "sv": "Selen", "nnr": "Selen",
@@ -64,7 +64,7 @@
      "markers": [],
      "test": "", "clinvar": "", "clinpgx": ["calcium"]},
     {"id": "iodine", "name": "Iodine", "sv": "Jod", "nnr": "Jod",
-     "reactome": [],
+     "reactome": ["R-HSA-209968"],
      "markers": [],
      "test": "", "clinvar": "iodide|iodotyrosine|thyroid dyshormonogenesis", "clinpgx": []}
   ]
