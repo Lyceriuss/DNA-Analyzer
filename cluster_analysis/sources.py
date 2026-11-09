@@ -126,13 +126,27 @@ def ensembl_vep(rsids, batch_size=150):
     Genes are those overlapping or within 5 kb.
     """
     out = {}
-    for i in range(0, len(rsids), batch_size):
-        batch = sorted(rsids[i:i + batch_size])
+
+    def records(batch):
+        """VEP records for a batch. Ensembl answers 500 for a whole batch when one id in it breaks the server: the batch
+        is then split in halves until the bad id is alone, and that id is skipped."""
         def fetch():
             return _request("POST", f"{ENSEMBL_API}/vep/human/id", params={"distance": 5000},
                             json={"ids": batch}, timeout=300,
                             headers={"Content-Type": "application/json", "Accept": "application/json"})
-        for v in _cached("ensembl_vep", "\n".join(batch), fetch):
+        try:
+            return _cached("ensembl_vep", "\n".join(batch), fetch)
+        except requests.HTTPError as e:
+            if getattr(e.response, "status_code", None) != 500:
+                raise
+            if len(batch) == 1:
+                print(f"   [!] Ensembl VEP can't process {batch[0]}: skipped")
+                return []
+            half = len(batch) // 2
+            return records(batch[:half]) + records(batch[half:])
+
+    for i in range(0, len(rsids), batch_size):
+        for v in records(sorted(rsids[i:i + batch_size])):
             if v["seq_region_name"] not in PRIMARY_CHROMOSOMES or v["id"] in out:
                 continue  # skip alt-haplotype contigs (HSCHR...)
             genes, by_allele, aa = {}, {}, {}

@@ -2,7 +2,12 @@
 <style>
   .gx { display: grid; gap: var(--cds-gap-lg); font-family: var(--font-anthropic-sans); }
   .gx-head { display: grid; gap: var(--cds-gap-xs); grid-template-columns: minmax(0, 1fr) auto; }
-  .gx-head > :not(.gx-lang) { grid-column: 1; }
+  .gx-head > :not(.gx-lang):not(.gx-profile) { grid-column: 1; }
+  .gx-profile { grid-column: 2; grid-row: 2; justify-self: end; align-self: start; display: flex; gap: 6px; align-items: center; font-size: 12px; color: var(--color-fg-muted); }
+  .gx-profile-set { display: flex; border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); overflow: hidden; }
+  .gx-profile button { font: inherit; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; padding: 4px 10px; border: 0; background: transparent; color: var(--color-fg-muted); cursor: pointer; }
+  .gx-profile button[aria-pressed="true"] { background: var(--color-fg); color: var(--color-bg); }
+  .gx-profile button:focus-visible { outline: 2px solid var(--color-fg); outline-offset: -2px; }
   .gx-lang { grid-column: 2; grid-row: 1; align-self: start; display: flex; border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); overflow: hidden; }
   .gx-lang button { font: inherit; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; padding: 4px 10px; border: 0; background: transparent; color: var(--color-fg-muted); cursor: pointer; }
   .gx-lang button[aria-pressed="true"] { background: var(--color-fg); color: var(--color-bg); }
@@ -667,10 +672,11 @@
       <span class="gx-i18n" data-draw="i18n-load" data-source="i18n_sv" aria-hidden="true"></span>
       <span class="gx-i18n" data-draw="i18n-terms" data-source="i18n_sv_terms" aria-hidden="true"></span>
     </div>
+    <div class="gx-profile" data-draw="gx-profile" data-source="profiles" role="group" aria-label="Profile"></div>
     <p class="gx-lede">The library's genes form <b data-draw="k-modules" data-source="kpis" data-field="modules" data-row="0">—</b> functional modules.
       <b data-draw="k-biomarkers" data-source="kpis" data-field="biomarkers" data-row="0">—</b> standard lab biomarkers tie them together through
       <b data-draw="k-linked" data-source="kpis" data-field="linked_snps" data-row="0">—</b> SNPs with a genome-wide significant GWAS link.
-      The first two tabs are public reference data; the third overlays XY's genome on them.</p>
+      Clusters, Medicines, Nutrition, Gene lifecycle and Profile read the selected person's genome; Biomarkers is public reference data.</p>
   </header>
 
   <nav class="gx-tabs" role="tablist" aria-label="Views">
@@ -679,13 +685,13 @@
     <button class="gx-tab" role="tab" data-tab="nutrition" aria-selected="false">Nutrition</button>
     <button class="gx-tab" role="tab" data-tab="lifecycle" aria-selected="false">Gene lifecycle</button>
     <button class="gx-tab" role="tab" data-tab="biomarkers" aria-selected="false">Biomarkers</button>
-    <button class="gx-tab" role="tab" data-tab="profile" aria-selected="false">XY profile</button>
+    <button class="gx-tab" role="tab" data-tab="profile" aria-selected="false">Profile</button>
   </nav>
 
   <section class="gx-page" id="clusters" data-page="clusters">
     <p class="gx-note">A theme gathers every library gene with evidence that it bears on one area of health, grouped by the mechanism it acts
       through: repair, growth signals, hormones, the supply of building blocks. Evidence comes from Gene Ontology, Reactome, UniProt and GWAS,
-      and each gene shows why it is included. Colours are the calls for the theme's person (XY; XX for female fertility): blue more active, green typical function, red less active.</p>
+      and each gene shows why it is included. Colours are the selected profile's calls: blue more active, green typical function, red less active. Female fertility is shown for female profiles, male fertility for male ones.</p>
     <div class="th-picker" data-draw="th-picker" data-source="theme_meta" role="group" aria-label="Theme"></div>
     <div class="gx-card" id="theme-head">
       <div class="th-head" data-draw="th-head" data-source="theme_meta theme_genes"></div>
@@ -740,7 +746,7 @@
   </section>
 
   <section class="gx-page" id="medicines" data-page="medicines" hidden>
-    <p class="gx-note">How XY's genes bear on medicines: whether a drug is likely to work as usual, needs a different dose, or carries a
+    <p class="gx-note" data-who>How XY's genes bear on medicines: whether a drug is likely to work as usual, needs a different dose, or carries a
       higher risk of side effects. Search a medicine by any of its names (paracetamol, Alvedon or N02BE01 all find acetaminophen) to see
       the dosing guidelines and drug labels that apply, then every study finding with XY's genotype. Each carries an evidence grade, from
       A+ (guideline-grade) to C (one study or mixed results). Sources: ClinPGx (PharmGKB), CPIC, DPWG and ClinVar. Calls are measured or
@@ -761,7 +767,7 @@
     </div>
   </section>
   <section class="gx-page" id="nutrition" data-page="nutrition" hidden>
-    <p class="gx-note">How XY's genes act on the way the body takes up, carries and converts each nutrient, written out from curated sources.
+    <p class="gx-note" data-who>How XY's genes act on the way the body takes up, carries and converts each nutrient, written out from curated sources.
       Per nutrient: the net effect of XY's variants on the blood level (PGS Catalog, GWAS Catalog); how the nutrient is taken up and
       converted (Reactome); and for each gene where XY has a variant, the step it does, what its protein is (UniProt) and what the
       variant changes: the protein (Ensembl VEP) or how much of it is made (GTEx). Every finding carries an evidence grade from A+
@@ -785,7 +791,7 @@
     </div>
     <div class="lc-top">
       <div class="gx-card" id="lifecycle-head">
-        <span class="gx-label">This gene in XY</span>
+        <span class="gx-label" data-who>This gene in XY</span>
         <div class="lc-head" data-draw="lc-head" data-source="lifecycle_genes gene_function"></div>
       </div>
       <div class="gx-card" id="lifecycle-context">
@@ -802,7 +808,7 @@
           <span class="lc-chip lc-untested">In library, not genotyped</span><span class="lc-chip lc-out">Not in library *</span>
         </div>
       </div>
-      <p class="gx-note">Round nodes are molecules and cards are the steps that convert them, with the enzymes that do the work. Each enzyme is
+      <p class="gx-note" data-who>Round nodes are molecules and cards are the steps that convert them, with the enzymes that do the work. Each enzyme is
         compared with the most common European form at its SNP, and ×1 or ×2 is how many copies of the less common allele XY carries. A dashed
         arrow is a move between compartments and ↺ marks a molecule that goes back into the route. Turn off wrapping to read the chain on one scrolling line. Select a step to see its details; select a
         gene with its own lifecycle to open it.</p>
@@ -850,13 +856,13 @@
   </section>
 
   <section class="gx-page" id="profile" data-page="profile" hidden>
-    <p class="gx-note gx-sample">XY's own genome (MyHeritage file) read against the library. <b data-draw="s-top" data-source="hp_modules" data-field="name" data-row="0">—</b>
+    <p class="gx-note gx-sample" data-who>XY's own genome (MyHeritage file) read against the library. <b data-draw="s-top" data-source="hp_modules" data-field="name" data-row="0">—</b>
       has the most genes reading negative, with <b data-draw="s-compound" data-source="hp_compound" data-field="n" data-row="0">—</b> compound links across all modules,
       where two interacting genes both read negative.</p>
     <div class="gx-grid">
       <div class="gx-card" id="profile-modules">
         <h2>Module balance</h2>
-        <p class="gx-note">Genes per module where the evidence says XY's genotype changes the gene (GoF or LoF) and that change is bad for
+        <p class="gx-note" data-who>Genes per module where the evidence says XY's genotype changes the gene (GoF or LoF) and that change is bad for
           XY (negative, left) or good (positive, right). Genes with typical function or no evidence count as neither. Hover a bar for the genes.</p>
         <div class="gx-chart gx-bars" data-draw="hp-modules" data-source="hp_modules"></div>
       </div>
@@ -948,10 +954,30 @@
   });
 
   // Shared helpers
+  // Profiles: each personal dataset holds every person's rows, tagged with `person`; gx.rows hands a draw only the
+  // selected person's (memoised per array and person, so caches keyed on the array stay valid).
+  const PERSON_ROWS = new WeakMap();
+  const forPerson = (arr, who) => {
+    if (!Array.isArray(arr) || !arr.length || !('person' in arr[0])) return arr;
+    let m = PERSON_ROWS.get(arr);
+    if (!m) { m = new Map(); PERSON_ROWS.set(arr, m); }
+    if (!m.has(who)) m.set(who, arr.filter((r) => !r.person || r.person === who));
+    return m.get(who);
+  };
+  let savedWho = null;
+  try { savedWho = localStorage.getItem('gx-person'); } catch (e) { /* storage blocked: the first profile */ }
   window.gx = {
+    who() {
+      const d = dash.data('profiles');
+      const ids = d.status === 'ok' ? d.data.map((p) => p.id) : [];
+      const want = dash.params().person || savedWho;
+      return ids.includes(want) ? want : ids[0] || want || 'XY';
+    },
     rows(...ids) {
       const all = ids.map((id) => dash.data(id));
-      return all.every((d) => d.status === 'ok') ? all.map((d) => d.data) : null;
+      if (!all.every((d) => d.status === 'ok')) return null;
+      const who = gx.who();
+      return all.map((d) => forPerson(d.data, who));
     },
     failed(...ids) { return ids.some((id) => dash.data(id).status === 'error'); },
     color(name) { return getComputedStyle(document.documentElement).getPropertyValue(name).trim() || null; },
@@ -984,14 +1010,61 @@
   };
 
   document.querySelectorAll('.gx-tab').forEach((b) => b.addEventListener('click', () => gx.show(b.dataset.tab)));
+
+  // Static texts marked data-who name the selected person: each text node keeps its original (English, "XY") as a
+  // template, and is rewritten only when the person changes, so the translation layer then translates it again
+  const WHO_TPL = new WeakMap();
+  let shownWho = null;
+  const applyWho = (who) => {
+    if (who === shownWho) return;
+    shownWho = who;
+    document.querySelectorAll('[data-who]').forEach((el) => {
+      const w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+      let n;
+      while ((n = w.nextNode())) {
+        if (!WHO_TPL.has(n)) WHO_TPL.set(n, n.nodeValue);
+        const t = WHO_TPL.get(n);
+        if (/\bXY\b/.test(t)) n.nodeValue = t.replace(/\bXY\b/g, who);
+      }
+    });
+  };
+  document.querySelectorAll('[data-who]').forEach((el) => {
+    const w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+    let n;
+    while ((n = w.nextNode())) WHO_TPL.set(n, n.nodeValue);
+  });
+  dash.draw('gx-profile', (el) => {
+    const d = dash.data('profiles');
+    if (d.status !== 'ok') return;
+    const who = gx.who();
+    el.replaceChildren();
+    const lab = document.createElement('span'); lab.textContent = 'Profile'; el.appendChild(lab);
+    const set = document.createElement('div'); set.className = 'gx-profile-set'; el.appendChild(set);
+    for (const p of d.data) {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = p.id;
+      b.title = p.sex === 'female' ? 'Female' : p.sex === 'male' ? 'Male' : '';
+      b.setAttribute('aria-pressed', String(p.id === who));
+      b.addEventListener('click', () => {
+        try { localStorage.setItem('gx-person', p.id); } catch (e) { /* storage blocked: kept for this visit only */ }
+        savedWho = p.id;
+        // A gene or theme picked for one person may not exist for the other
+        dash.setParams({ person: p.id, th_gene: null, th_organ: null, th_facet: null });
+      });
+      set.appendChild(b);
+    }
+    applyWho(who);
+  });
   const linked = location.hash.slice(1);
   if (['clusters', 'medicines', 'nutrition', 'lifecycle', 'biomarkers', 'profile'].includes(linked)) gx.show(linked);
 
   dash.calc('hp_compound', {
     inputs: ['hp_links'],
-    title: 'XY compound links',
-    description: 'Number of interacting gene pairs where both genes are reduced in XY.',
-    fn: (hp_links) => [{ n: hp_links.filter((l) => l.kind === 'compound').length }],
+    title: 'Compound links',
+    description: 'Number of interacting gene pairs where both genes are reduced, per person.',
+    fn: (hp_links) => [...new Set(hp_links.map((l) => l.person))].map((person) =>
+      ({ person, n: hp_links.filter((l) => l.person === person && l.kind === 'compound').length })),
   });
 
   // Simple number drawings
@@ -1051,7 +1124,7 @@
     const r = it.effect >= 1 ? it.effect : 1 / it.effect;
     return r < 1.1 ? 'a very small effect' : r < 1.3 ? 'a small effect' : r < 2 ? 'a moderate effect' : 'a large effect';
   };
-  const thFinding = (parent, f, it, who = 'XY') => {
+  const thFinding = (parent, f, it, who = gx.who()) => {
     const d = thMake(parent, 'div');
     thMake(d, 'span', 'th-src', it.source);
     if (TH_CONF[f.confidence]) {
@@ -1099,7 +1172,7 @@
     return { themes, theme, facets, genes, shown, byName, gene, api, stats, organs, organ, inOrgan };
   };
   const thPick = (gene) => dash.setParams({ th_gene: gene });
-  const thWho = (s) => (s && s.stats && s.stats.person) || 'XY';
+  const thWho = (s) => (s && s.stats && s.stats.person) || gx.who();
 
   const thBalance = (parent, genes, none = 'not genotyped') => {
     const bar = thMake(parent, 'div', 'th-balance');
@@ -1122,8 +1195,8 @@
     const s = thSel();
     if (!s) { if (gx.failed('theme_meta')) gx.failLine(el); return; }
     for (const t of s.themes) {
-      const who = t.stats ? JSON.parse(t.stats).person : null;
-      const b = thMake(el, 'button', 'th-pick', t.theme_name + (who ? ` · ${who}` : ''));
+      // The profile switcher picks the person, so a theme no longer names it
+      const b = thMake(el, 'button', 'th-pick', t.theme_name);
       b.type = 'button';
       b.setAttribute('aria-pressed', String(t.theme === s.theme.theme));
       b.addEventListener('click', () => dash.setParams({ theme: t.theme, th_gene: null, th_organ: null, th_facet: null }));
@@ -1161,7 +1234,7 @@
     }
     const typed = s.genes.filter((g) => g.genotype);
     const parts = thBalance(el, s.genes);
-    thMake(el, 'p', null, `${s.genes.length} library genes act on ${s.theme.theme_name.toLowerCase()}, and XY has a call at ${typed.length}: ` +
+    thMake(el, 'p', null, `${s.genes.length} library genes act on ${s.theme.theme_name.toLowerCase()}, and ${thWho(s)} has a call at ${typed.length}: ` +
       parts.filter((x) => !/not genotyped/.test(x)).join(', ') + '.');
     // Where XY's changed genes gather
     const lean = s.facets.map((f) => {
@@ -1289,7 +1362,7 @@
     if (g.genotype && g.outcome && g.outcome !== 'typical' && g.outcome !== 'unknown') thMake(el, 'p', null, `Effect on ${thWho(s)}: ${TH_OUTCOME[g.outcome] || g.outcome}. Whether a change is good or bad is a best-effort reading of the trait; the change itself comes from the evidence.`);
     if (g.call_source === 'api') thMake(el, 'p', 'gx-note', `Called from ${thWho(s)}'s own variants in the gene: protein changes (UniProt, MaveDB, SIFT/PolyPhen) and the gene's strongest expression variant (GTEx).`);
     else thMake(el, 'p', g.genotype ? 'gx-note' : null, g.genotype ? `Library note for ${g.rsid} ${g.genotype}: ${g.interpretation}. The notes were written with an LLM and are being checked against the evidence; the label above comes from the evidence, not the note.`
-      : s.api ? `Not in the library. ${thWho(s)}'s file ${s.stats && (s.stats.by_confidence || {}).high ? 'measures or confidently imputes' : 'measures'} ${g.ev.n_snps || 0} SNPs in or near this gene.` : 'XY has no call at this gene\'s library SNP.');
+      : s.api ? `Not in the library. ${thWho(s)}'s file ${s.stats && (s.stats.by_confidence || {}).high ? 'measures or confidently imputes' : 'measures'} ${g.ev.n_snps || 0} SNPs in or near this gene.` : `${thWho(s)} has no call at this gene's library SNP.`);
     if (g.has_lifecycle) {
       const b = thMake(el, 'button', 'lc-btn', 'Open its lifecycle');
       b.type = 'button';
@@ -1805,7 +1878,7 @@
     if (!s || !pr) { if (gx.failed('theme_meta', 'theme_genes', 'theme_pathways')) gx.failLine(el); return; }
     const f = s.facets.find((x) => x.facet === dash.params().th_facet);
     if (!f) { thMake(el, 'p', 'gx-note', 'Select a mechanism box above to open it here: what it does, how it works, what the person carries in it, and every gene behind it.'); return; }
-    const who = s.api ? thWho(s) : 'XY';
+    const who = thWho(s);
     const genes = s.genes.filter((g) => g.fl.includes(f.facet));
     const head = thMake(el, 'div', 'lc-name');
     thMake(head, 'h3', null, f.facet_name);
@@ -2048,7 +2121,7 @@
 
   // Gene lifecycle: gene picker, role switch, gene summary, regulation, node graph, route patterns and step details
   const LC = { key: null, step: null, wrap: true, drawnKey: null, scroll: 0 };
-  const LC_OUTCOME = { positive: 'Positive for XY', negative: 'Negative for XY', neutral: 'Neither good nor bad', unclear: 'Unclear whether good or bad',
+  const LC_OUTCOME = { positive: 'Positive for {who}', negative: 'Negative for {who}', neutral: 'Neither good nor bad', unclear: 'Unclear whether good or bad',
     typical: 'Typical', unknown: 'Unknown' };
   const LC_POLARITY = { reviewed: 'reviewed by hand', 'library wording': "drafted from the library's wording", 'library ratings': "drafted from the library's old ratings" };
   const FN_TEXT = { LoF: 'Less active (LoF)', GoF: 'More active (GoF)', altered: 'Changed, direction unclear', normal: 'Typical function',
@@ -2099,11 +2172,11 @@
   // GTEx expression for XY's copies of the effect allele, and whether it contradicts the library's activity call
   const exprShift = (f, gt) => {
     const net = (gt.copies || 0) * gt.nes, size = Math.abs(net) < 0.1 ? 'slightly' : Math.abs(net) < 0.4 ? 'moderately' : 'strongly';
-    const lead = !gt.copies ? `XY has no ${gt.allele}, so this eQTL leaves XY's ${f.gene} expression at the usual level.`
-      : `XY's ${gt.copies === 2 ? 'two copies' : 'copy'} of ${gt.allele} ${size} ${net > 0 ? 'raise' : 'lower'}${gt.copies === 1 ? 's' : ''} how much ` +
+    const lead = !gt.copies ? `${gx.who()} has no ${gt.allele}, so this eQTL leaves ${gx.who()}'s ${f.gene} expression at the usual level.`
+      : `${gx.who()}'s ${gt.copies === 2 ? 'two copies' : 'copy'} of ${gt.allele} ${size} ${net > 0 ? 'raise' : 'lower'}${gt.copies === 1 ? 's' : ''} how much ` +
         `${f.gene} is made (net ${d3.format('+.2f')(net)}).`;
     const conflict = gt.copies && ((f.function === 'GoF' && net < -0.05) || (f.function === 'LoF' && net > 0.05))
-      ? `This disagrees with the library, which reads XY's genotype as ${f.function === 'GoF' ? 'more' : 'less'} active. Less RNA can still ` +
+      ? `This disagrees with the library, which reads ${gx.who()}'s genotype as ${f.function === 'GoF' ? 'more' : 'less'} active. Less RNA can still ` +
         'mean more protein activity, but the library entry is worth checking against the papers.' : null;
     return { net, lead, conflict };
   };
@@ -2198,8 +2271,8 @@
 
     const copies = f.dose === 2 ? 'two copies' : 'one copy';
     let lead;
-    if (!f.genotype) lead = "XY's file has no usable call at this gene's library SNP, so its activity in XY is not known.";
-    else lead = `At ${f.rsid} XY is ${f.genotype}: ` + (f.dose ? `${copies} of the less common ${f.minor} allele. ` : `both copies are the common ${f.common} allele. `) +
+    if (!f.genotype) lead = `${gx.who()}'s file has no usable call at this gene's library SNP, so its activity in ${gx.who()} is not known.`;
+    else lead = `At ${f.rsid} ${gx.who()} is ${f.genotype}: ` + (f.dose ? `${copies} of the less common ${f.minor} allele. ` : `both copies are the common ${f.common} allele. `) +
       (fn === 'unknown' ? 'No measured, curated or expression evidence shows this SNP changing the gene, so no effect on its activity is claimed. '
         : `By the evidence (${LC_BASIS[f.basis] || LC_BASIS.none}) this reads as ${lcFnText(f, fn).replace(/ \((LoF|GoF)\)/, '').toLowerCase()}: ${f.fn_evidence}. `) +
       `The library's note, written with an LLM and not itself evidence: "${f.interpretation}".`;
@@ -2210,7 +2283,7 @@
     const ul = make(el, 'ul', 'lc-ev');
     const row = (k, v) => { const li = make(ul, 'li'); make(li, 'span', null, k); make(li, 'span', null, v); };
     row('Best evidence', ev.tier_name || 'No functional evidence collected');
-    if (f.outcome && f.outcome !== 'typical' && f.outcome !== 'unknown') row('Effect on XY', `${LC_OUTCOME[f.outcome] || f.outcome}` +
+    if (f.outcome && f.outcome !== 'typical' && f.outcome !== 'unknown') row(`Effect on ${gx.who()}`, `${(LC_OUTCOME[f.outcome] || f.outcome).replace('{who}', gx.who())}` +
       (f.polarity_source ? ` (whether ${f.function === 'GoF' ? 'more' : f.function === 'LoF' ? 'less' : 'changed'} function is good or bad: ${LC_POLARITY[f.polarity_source] || f.polarity_source}; the ${f.function} call is from the evidence)` : ''));
     row('Library reading', `${f.interpretation}${f.n_snps > 1 ? ` (strongest of ${f.n_snps} SNPs)` : ''}`);
     if (ev.protein_change || ev.consequence) row('Change', [ev.protein_change, pretty(ev.consequence)].filter(Boolean).join(', '));
@@ -2218,7 +2291,7 @@
       const sc = ev.mavedb.map((m) => m.score), lo = ev.mavedb.reduce((a, b) => (b.score < a.score ? b : a));
       row('Measured', `${ev.mavedb[0].change} scored ${d3.min(sc)} to ${d3.max(sc)} across ${sc.length} conditions in a deep mutational scan ` +
         `(MaveDB), lowest in "${lo.conditions}". Each study sets its own scale; in most, 1 is the normal protein. ` +
-        `XY carries ${f.dose} ${f.dose === 1 ? 'copy' : 'copies'} of the less common allele.`);
+        `${gx.who()} carries ${f.dose} ${f.dose === 1 ? 'copy' : 'copies'} of the less common allele.`);
     }
     if (ev.gtex) {
       const g = ev.gtex, x = exprShift(f, g);
@@ -2452,7 +2525,7 @@
         g.on('mousemove', (event) => tip.show(event, 'Molecule', split(n.text).map(full))).on('mouseleave', () => tip.hide());
         if (n.warn) {
           const b = svg.append('g').attr('transform', `translate(${n.left + n.w / 2},${n.cy - n.h / 2 - 13})`).style('cursor', 'help')
-            .on('mousemove', (event) => tip.show(event, 'Pattern in XY', [n.warn])).on('mouseleave', () => tip.hide());
+            .on('mousemove', (event) => tip.show(event, `Pattern in ${gx.who()}`, [n.warn])).on('mouseleave', () => tip.hide());
           b.append('circle').attr('r', 9).style('fill', 'var(--color-bad)');
           b.append('text').attr('y', 4).attr('text-anchor', 'middle').attr('font-size', FS).attr('font-weight', 700)
             .style('fill', 'var(--color-bg)').text('!');
@@ -2509,7 +2582,7 @@
             .style('fill', !c.g.lib ? 'var(--color-fg-muted)' : 'var(--color-fg)').text(c.label);
           cg.on('mousemove', (event) => {
             event.stopPropagation();
-            tip.show(event, c.g.gene, !c.g.lib ? ['Not in the library'] : !f || !f.genotype ? ['In the library, no call in XY'] :
+            tip.show(event, c.g.gene, !c.g.lib ? ['Not in the library'] : !f || !f.genotype ? [`In the library, no call in ${gx.who()}`] :
               [`${FN_TEXT[f.function] || ''}${f.function !== 'normal' && f.dose ? ' ×' + f.dose : ''} · ${f.rsid} ${f.genotype}`, f.interpretation,
                 opens ? 'Select to open its lifecycle' : ''].filter(Boolean));
           });
@@ -2556,7 +2629,7 @@
     if (untyped.length) p.append(`${first ? '' : ' · '}Not genotyped: ${untyped.join(', ')}`);
     const warns = steps.slice(1).map((x, i) => patternAt(steps[i], x)).filter(Boolean);
     if (warns.length) for (const w of warns) make(el, 'p', 'lc-warn', '⚠ ' + w);
-    else make(el, 'p', 'gx-muted', 'No build-up or bottleneck pattern between neighbouring steps in XY.');
+    else make(el, 'p', 'gx-muted', `No build-up or bottleneck pattern between neighbouring steps in ${gx.who()}.`);
   });
 
   dash.draw('lc-detail', (el) => {
@@ -2588,8 +2661,8 @@
     const inLib = x.enz.filter((g) => g.lib);
     const called = inLib.map((g) => fns.get(g.gene)).filter((f) => f && f.genotype);
     const sum = make(el, 'p', 'lc-stepsum');
-    sum.textContent = !inLib.length ? 'No library gene works at this step, so XY\'s genotypes say nothing about it.'
-      : `In XY: ${called.length ? called.map((f) => `${f.gene} ${STEP_TEXT[f.function] || ''}` +
+    sum.textContent = !inLib.length ? `No library gene works at this step, so ${gx.who()}'s genotypes say nothing about it.`
+      : `In ${gx.who()}: ${called.length ? called.map((f) => `${f.gene} ${STEP_TEXT[f.function] || ''}` +
           (f.function !== 'normal' && f.dose ? ` (${f.dose === 2 ? 'two copies' : 'one copy'})` : '')).join(', ') : 'no library enzyme genotyped'}.` +
         (x.enz.length > 1 ? ` ${x.enz.length} enzymes can do this step, so one changed enzyme may be partly covered by the others.` : '');
 
@@ -2612,7 +2685,7 @@
       const card = make(el, 'div', 'lc-enzcard' + (f && f.genotype && FN_CLASS[f.function] ? ' tone-' + FN_CLASS[f.function] : ''));
       const head = make(card, 'div', 'lc-enzhead');
       make(head, 'b', null, g.gene);
-      if (!f || !f.genotype) { make(head, 'span', 'lc-call unknown', 'Not genotyped in XY'); continue; }
+      if (!f || !f.genotype) { make(head, 'span', 'lc-call unknown', `Not genotyped in ${gx.who()}`); continue; }
       make(head, 'span', 'gx-muted', `${f.rsid} ${f.genotype}`);
       make(head, 'span', 'lc-call ' + FN_CLASS[f.function], FN_TEXT[f.function] + (f.function !== 'normal' && f.dose ? ` ×${f.dose}` : ''));
       if (f.has_lifecycle && g.gene !== s.gene) { const b = make(head, 'button', 'lc-btn', 'Open its lifecycle'); b.type = 'button'; b.addEventListener('click', () => openGene(g.gene)); }
@@ -2630,13 +2703,13 @@
       if (ladder.length) {
         any = true;
         const row = make(how, 'div', 'lc-howrow');
-        make(row, 'span', 'lc-howkey', 'Capacity in XY');
+        make(row, 'span', 'lc-howkey', `Capacity in ${gx.who()}`);
         const body = make(row, 'div');
         const cap = mine && mine.capacity, measured = ladder.some((r) => r.dose > 0 && r.capacity);
         const pctR = (c) => c[0] === c[1] ? pctFmt(c[0]) : `${pctFmt(c[0])}–${pctFmt(c[1])}`;
         if (cap) bar(body, 'cap tone-' + FN_CLASS[f.function], 0, cap[1], 0, 1.25, 1);
         make(body, 'p', null, !f.dose
-          ? `${pctFmt(1)} of the common form. XY has the common form, the baseline every measurement of this SNP is compared with` +
+          ? `${pctFmt(1)} of the common form. ${gx.who()} has the common form, the baseline every measurement of this SNP is compared with` +
             (f.function === 'normal' || f.function === 'unknown' ? '.' : `; the evidence still reads it as ${f.function === 'LoF' ? 'less' : 'more'} active.`)
           : cap ? `About ${pctR(cap)} of the common form (${f.dose === 2 ? 'two copies' : 'one copy'} of ${f.minor}).`
           : f.function === 'normal' || f.function === 'unknown' ? `${f.function === 'normal' ? 'Typical function by the evidence' : 'No known effect on the gene'}, with ${f.dose === 2 ? 'two copies' : 'one copy'} of ${f.minor}. ` +
@@ -2651,12 +2724,12 @@
         const tb = make(tbl, 'tbody');
         for (const r of ladder) {
           const tr = make(tb, 'tr', r === mine ? 'is-hp tone-' + FN_CLASS[f.function] : null);
-          make(tr, 'td', null, r.genotype + (r === mine ? ' · XY' : ''));
+          make(tr, 'td', null, r.genotype + (r === mine ? ` · ${gx.who()}` : ''));
           make(tr, 'td', null, String(r.dose));
           if (measured) make(tr, 'td', null, r.capacity ? pctR(r.capacity) : '—');
           make(tr, 'td', null, r.text);
           make(tr, 'td', null, r.function === 'normal' ? 'Typical' : !r.function || r.function === 'unknown' ? '—'
-            : `${r.function} · ${(LC_OUTCOME[r.outcome] || 'Unknown').replace(' for XY', '').toLowerCase()}`);
+            : `${r.function} · ${(LC_OUTCOME[r.outcome] || 'Unknown').replace(' for {who}', '').toLowerCase()}`);
         }
         make(body, 'p', 'gx-note', measured
           ? 'Capacity is the measured activity of each allele (MaveDB), added up over both copies; ranges cover the assay conditions.'
@@ -2669,7 +2742,7 @@
         const body = make(row, 'div');
         bar(body, 'mave', d3.min(sc), d3.max(sc), 0, Math.max(1.25, d3.max(sc)), 1);
         make(body, 'p', 'gx-note', `${ev.mavedb[0].change}: ${d3.min(sc)} to ${d3.max(sc)} across ${sc.length} conditions (MaveDB deep mutational scan; ` +
-          `the tick is 1, the normal protein in most studies). XY has ${f.dose} ${f.dose === 1 ? 'copy' : 'copies'} of the less common allele.`);
+          `the tick is 1, the normal protein in most studies). ${gx.who()} has ${f.dose} ${f.dose === 1 ? 'copy' : 'copies'} of the less common allele.`);
       }
       if (ev.gtex) {
         any = true;
@@ -2773,7 +2846,7 @@
     return { q: p.md_q || '', cat: p.md_cat || 'all', diff: p.md_diff === true || p.md_diff === 'true', gene: p.md_gene || '',
       open: new Set(String(p.md_open || '').split('|').filter(Boolean)) };
   };
-  const mdWho = (rows) => (rows.find((r) => r.person) || {}).person || 'XY';
+  const mdWho = (rows) => (rows.find((r) => r.person) || {}).person || gx.who();
   let mdShown = 40;
   const mdSet = (p) => { mdShown = 40; dash.setParams(p); };
   const mdGradeRank = (g) => { const i = MD_GRADES.indexOf(g); return i < 0 ? MD_GRADES.length : i; };
@@ -3169,7 +3242,7 @@
   const NT_GRADES = ['A+', 'A', 'B', 'C'];
   const NT_GRADE_NOTE = { 'A+': 'expert-reviewed (ClinVar 3–4 stars)', A: 'replicated, or ClinVar 2 stars', B: 'one publication, or ClinVar 1 star', C: 'a single study (ClinPGx)' };
   const ntMake = (parent, tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; parent.appendChild(e); return e; };
-  const ntWho = (rows) => (rows.find((r) => r.person) || {}).person || 'XY';
+  const ntWho = (rows) => (rows.find((r) => r.person) || {}).person || gx.who();
   const ntRank = (g) => { const i = NT_GRADES.indexOf(g); return i < 0 ? NT_GRADES.length : i; };
   const ntTag = (parent, g) => { ntMake(parent, 'span', 'md-grade md-grade-' + (g === 'A+' ? 'ap' : String(g).toLowerCase()), g).title = `Evidence grade ${g}: ${NT_GRADE_NOTE[g] || ''}`; };
   const ntJ = (s) => { try { return s ? JSON.parse(s) : null; } catch (e) { return null; } };

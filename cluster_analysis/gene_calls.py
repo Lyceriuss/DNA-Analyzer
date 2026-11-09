@@ -4,6 +4,7 @@ A call per gene (more active, typical, less active) from the person's own varian
 It replaces the library's per-SNP calls: any gene, any variant the person carries, not only the curated 247 SNPs.
 
     python -m cluster_analysis.gene_calls                       # the theme genes, for each theme's person
+    python -m cluster_analysis.gene_calls --person XX           # one theme person only (XX: female fertility genes)
     python -m cluster_analysis.gene_calls --dna data/input/X.csv --genes MTHFR CYP2C19
 
 For each gene, strongest evidence first (the same order as evidence_call.py):
@@ -245,12 +246,14 @@ def run(dna, genes):
 
 
 def theme_people():
-    """{dna path: genes} from the theme graphs: each theme's own person (female fertility: XX)."""
+    """{dna path: genes}: each profile (profiles.json) with the genes of the themes for its sex."""
+    from cluster_analysis import profiles
     out = defaultdict(set)
-    for p in glob.glob(os.path.join(HERE, "theme_graph_*.json")):
-        g = json.load(open(p, encoding="utf-8"))
-        if g.get("person"):
-            out[g["person"]] |= set(g["genes"])
+    graphs = profiles.theme_graphs()
+    for p in profiles.load():
+        for g in graphs:
+            if profiles.applies(g.get("sex"), p["sex"]):
+                out[p["dna"]] |= set(g["genes"])
     return out
 
 
@@ -258,9 +261,14 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--dna")
     ap.add_argument("--genes", nargs="*")
+    ap.add_argument("--person", help="only this theme person (XY, XX), with all of their theme genes")
     ap.add_argument("--measured-only", action="store_true", help="use the raw file even when an imputed one exists")
     args = ap.parse_args()
     jobs = {args.dna: set(args.genes or [])} if args.dna else theme_people()
+    if args.person:
+        jobs = {d: g for d, g in jobs.items() if person_label(d) == args.person}
+        if not jobs:
+            raise SystemExit(f"No theme names {args.person} as its person")
     for dna, genes in jobs.items():
         if not genes:
             genes = set().union(*theme_people().values())

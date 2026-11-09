@@ -291,50 +291,68 @@ if __name__ == "__main__":
     ap.add_argument("--person")
     ap.add_argument("--lifecycles", help="lifecycle.py output: also write lifecycle_steps, lifecycle_genes and "
                                          "gene_function JSON next to out")
-    ap.add_argument("--dna", help="with --lifecycles: recompute the genotype calls from this DNA file")
+    ap.add_argument("--dna", help="with --lifecycles: only this person (default: every profile in profiles.json)")
     ap.add_argument("--measured-only", action="store_true", help="use the raw files even when imputed ones exist")
     args = ap.parse_args()
     if args.lifecycles:
+        from cluster_analysis import profiles as prof
         from cluster_analysis.gene_trace import person_status, summarize
-        if args.dna and not args.measured_only:
-            args.dna = imputed_path(args.dna)  # imputed calls when src/impute.py has run for this person
-        status = {g: summarize(v) for g, v in person_status(args.dna).items()} if args.dna else {}
-        tables = lifecycle_rows(json.load(open(args.lifecycles, encoding="utf-8")), status)
+        people = prof.load()
+        if args.dna:
+            people = [p for p in people if p["id"] == person_label(args.dna)] or [{"id": person_label(args.dna), "sex": None, "dna": args.dna}]
+        lifecycles = json.load(open(args.lifecycles, encoding="utf-8"))
+        graphs = prof.theme_graphs()
         out_dir = os.path.dirname(args.out) or "."
-        for name, rows in zip(("lifecycle_steps", "lifecycle_genes", "gene_function"), tables):
-            with open(os.path.join(out_dir, name + ".json"), "w", encoding="utf-8") as f:
-                json.dump(rows, f, ensure_ascii=False, separators=(",", ":"))
-            print(f"✅ Wrote {name}.json ({len(rows)} rows)")
-        if os.path.exists(THEMES_PATH):
-            lifecycle_genes = {r["gene"] for r in tables[1]}
-            tables = list(theme_rows(json.load(open(THEMES_PATH, encoding="utf-8")), status, lifecycle_genes))
-            # API-built themes replace the library-built theme of the same name
-            # Each API theme uses its own person when it names one (female fertility: XX), otherwise --dna
-            statuses = {args.dna: status}
+        merged = {n: [] for n in ("lifecycle_steps", "lifecycle_genes", "gene_function",
+                                  "theme_meta", "theme_genes", "theme_links", "theme_pathways")}
+        tag = lambda rows, pid: [{**r, "person": pid} for r in rows]
+        for p in people:
+            pid = p["id"]
+            dna = p["dna"] if args.measured_only else imputed_path(p["dna"])  # imputed calls when src/impute.py has run
+            print(f"== {pid} ({os.path.basename(dna)})")
+            status = {g: summarize(v) for g, v in person_status(dna).items()}
+            lc = lifecycle_rows(lifecycles, status)
+            for name, rows in zip(("lifecycle_steps", "lifecycle_genes", "gene_function"), lc):
+                merged[name] += tag(rows, pid)
+            lifecycle_genes = {r["gene"] for r in lc[1]}
+            tables = list(theme_rows(json.load(open(THEMES_PATH, encoding="utf-8")), status, lifecycle_genes))                 if os.path.exists(THEMES_PATH) else [[], [], [], []]
             orders = {r["theme"]: r["theme_order"] for r in tables[0]}
-            for path in sorted(glob.glob(os.path.join(os.path.dirname(__file__), "theme_graph_*.json"))):
-                graph = json.load(open(path, encoding="utf-8"))
-                dna = graph.get("person") or args.dna
-                if dna and not args.measured_only:
-                    dna = imputed_path(dna)  # imputed calls when src/impute.py has run for this person
-                if dna not in statuses:
-                    statuses[dna] = {g: summarize(v) for g, v in person_status(dna).items()}
-                person = person_label(dna)
-                xpath = os.path.join("data/output/cluster_analysis", f"theme_{person}_{graph['theme']}.json")
+            cpath = os.path.join("data/output/cluster_analysis", f"gene_calls_{pid}.json")
+            calls = json.load(open(cpath, encoding="utf-8")) if os.path.exists(cpath) else None
+            for graph in graphs:
+                # Themes for the profile's sex only: female fertility for women, male fertility for men
+                if not prof.applies(graph.get("sex"), p.get("sex")):
+                    continue
+                xpath = os.path.join("data/output/cluster_analysis", f"theme_{pid}_{graph['theme']}.json")
                 xref = json.load(open(xpath, encoding="utf-8")) if os.path.exists(xpath) else None
                 order = orders.get(graph["theme"], orders.get(graph["theme"].split("_")[0], len(orders)) + 0.5)
                 # An API theme replaces the library theme of the same id, and fertility_female/_male replace "fertility"
                 tables = [[r for r in t if r["theme"] not in (graph["theme"], graph["theme"].split("_")[0])] for t in tables]
-                # Lifecycles are built for --dna's person only, so other people's genes do not link to them
-                own = lifecycle_genes if person_label(dna) == person_label(args.dna) else set()
-                cpath = os.path.join("data/output/cluster_analysis", f"gene_calls_{person}.json")
-                calls = json.load(open(cpath, encoding="utf-8")) if os.path.exists(cpath) else None
-                for t, extra in zip(tables, api_theme_rows(graph, xref, statuses[dna], own, order, person, calls)):
+                for t, extra in zip(tables, api_theme_rows(graph, xref, status, lifecycle_genes, order, pid, calls)):
                     t.extend(extra)
             for name, rows in zip(("theme_meta", "theme_genes", "theme_links", "theme_pathways"), tables):
-                with open(os.path.join(out_dir, name + ".json"), "w", encoding="utf-8") as f:
-                    json.dump(rows, f, ensure_ascii=False, separators=(",", ":"))
-                print(f"✅ Wrote {name}.json ({len(rows)} rows)")
+                merged[name] += tag(rows, pid)
+        # Medicines, nutrition and the Profile tab, run per profile into data/output/cluster_analysis/profiles/<id>/
+        # (profiles.py run): one dataset each, rows tagged with their person. The public ones are taken once.
+        for name in ("med_genes", "med_drugs", "med_guidance", "nut_nutrients", "nut_findings",
+                     "hp_modules", "hp_links", "hp_bridges", "hp_tilts"):
+            merged[name] = []
+            for p in people:
+                f = os.path.join(prof.PROFILE_DIR, p["id"], name + ".json")
+                if os.path.exists(f):
+                    merged[name] += tag(json.load(open(f, encoding="utf-8")), p["id"])
+        for name in ("med_names", "nut_steps"):
+            f = next((os.path.join(prof.PROFILE_DIR, p["id"], name + ".json") for p in people
+                      if os.path.exists(os.path.join(prof.PROFILE_DIR, p["id"], name + ".json"))), None)
+            if f:  # public: the same for everyone, so no person (the page would show it to that person only)
+                merged[name] = [{k: v for k, v in r.items() if k != "person"} for r in json.load(open(f, encoding="utf-8"))]
+        merged["profiles"] = [{"id": p["id"], "sex": p.get("sex")} for p in people]
+        for name, rows in merged.items():
+            if not rows and name not in ("profiles",):
+                continue
+            with open(os.path.join(out_dir, name + ".json"), "w", encoding="utf-8") as f:
+                json.dump(rows, f, ensure_ascii=False, separators=(",", ":"))
+            print(f"✅ Wrote {name}.json ({len(rows)} rows)")
     data = bundle()
     # The explorer's public reference datasets, flattened from the bundle
     names = {m["id"]: m["name"] for m in data["modules"]}

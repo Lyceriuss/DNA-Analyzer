@@ -1,6 +1,6 @@
   // Gene lifecycle: gene picker, role switch, gene summary, regulation, node graph, route patterns and step details
   const LC = { key: null, step: null, wrap: true, drawnKey: null, scroll: 0 };
-  const LC_OUTCOME = { positive: 'Positive for XY', negative: 'Negative for XY', neutral: 'Neither good nor bad', unclear: 'Unclear whether good or bad',
+  const LC_OUTCOME = { positive: 'Positive for {who}', negative: 'Negative for {who}', neutral: 'Neither good nor bad', unclear: 'Unclear whether good or bad',
     typical: 'Typical', unknown: 'Unknown' };
   const LC_POLARITY = { reviewed: 'reviewed by hand', 'library wording': "drafted from the library's wording", 'library ratings': "drafted from the library's old ratings" };
   const FN_TEXT = { LoF: 'Less active (LoF)', GoF: 'More active (GoF)', altered: 'Changed, direction unclear', normal: 'Typical function',
@@ -51,11 +51,11 @@
   // GTEx expression for XY's copies of the effect allele, and whether it contradicts the library's activity call
   const exprShift = (f, gt) => {
     const net = (gt.copies || 0) * gt.nes, size = Math.abs(net) < 0.1 ? 'slightly' : Math.abs(net) < 0.4 ? 'moderately' : 'strongly';
-    const lead = !gt.copies ? `XY has no ${gt.allele}, so this eQTL leaves XY's ${f.gene} expression at the usual level.`
-      : `XY's ${gt.copies === 2 ? 'two copies' : 'copy'} of ${gt.allele} ${size} ${net > 0 ? 'raise' : 'lower'}${gt.copies === 1 ? 's' : ''} how much ` +
+    const lead = !gt.copies ? `${gx.who()} has no ${gt.allele}, so this eQTL leaves ${gx.who()}'s ${f.gene} expression at the usual level.`
+      : `${gx.who()}'s ${gt.copies === 2 ? 'two copies' : 'copy'} of ${gt.allele} ${size} ${net > 0 ? 'raise' : 'lower'}${gt.copies === 1 ? 's' : ''} how much ` +
         `${f.gene} is made (net ${d3.format('+.2f')(net)}).`;
     const conflict = gt.copies && ((f.function === 'GoF' && net < -0.05) || (f.function === 'LoF' && net > 0.05))
-      ? `This disagrees with the library, which reads XY's genotype as ${f.function === 'GoF' ? 'more' : 'less'} active. Less RNA can still ` +
+      ? `This disagrees with the library, which reads ${gx.who()}'s genotype as ${f.function === 'GoF' ? 'more' : 'less'} active. Less RNA can still ` +
         'mean more protein activity, but the library entry is worth checking against the papers.' : null;
     return { net, lead, conflict };
   };
@@ -150,8 +150,8 @@
 
     const copies = f.dose === 2 ? 'two copies' : 'one copy';
     let lead;
-    if (!f.genotype) lead = "XY's file has no usable call at this gene's library SNP, so its activity in XY is not known.";
-    else lead = `At ${f.rsid} XY is ${f.genotype}: ` + (f.dose ? `${copies} of the less common ${f.minor} allele. ` : `both copies are the common ${f.common} allele. `) +
+    if (!f.genotype) lead = `${gx.who()}'s file has no usable call at this gene's library SNP, so its activity in ${gx.who()} is not known.`;
+    else lead = `At ${f.rsid} ${gx.who()} is ${f.genotype}: ` + (f.dose ? `${copies} of the less common ${f.minor} allele. ` : `both copies are the common ${f.common} allele. `) +
       (fn === 'unknown' ? 'No measured, curated or expression evidence shows this SNP changing the gene, so no effect on its activity is claimed. '
         : `By the evidence (${LC_BASIS[f.basis] || LC_BASIS.none}) this reads as ${lcFnText(f, fn).replace(/ \((LoF|GoF)\)/, '').toLowerCase()}: ${f.fn_evidence}. `) +
       `The library's note, written with an LLM and not itself evidence: "${f.interpretation}".`;
@@ -162,7 +162,7 @@
     const ul = make(el, 'ul', 'lc-ev');
     const row = (k, v) => { const li = make(ul, 'li'); make(li, 'span', null, k); make(li, 'span', null, v); };
     row('Best evidence', ev.tier_name || 'No functional evidence collected');
-    if (f.outcome && f.outcome !== 'typical' && f.outcome !== 'unknown') row('Effect on XY', `${LC_OUTCOME[f.outcome] || f.outcome}` +
+    if (f.outcome && f.outcome !== 'typical' && f.outcome !== 'unknown') row(`Effect on ${gx.who()}`, `${(LC_OUTCOME[f.outcome] || f.outcome).replace('{who}', gx.who())}` +
       (f.polarity_source ? ` (whether ${f.function === 'GoF' ? 'more' : f.function === 'LoF' ? 'less' : 'changed'} function is good or bad: ${LC_POLARITY[f.polarity_source] || f.polarity_source}; the ${f.function} call is from the evidence)` : ''));
     row('Library reading', `${f.interpretation}${f.n_snps > 1 ? ` (strongest of ${f.n_snps} SNPs)` : ''}`);
     if (ev.protein_change || ev.consequence) row('Change', [ev.protein_change, pretty(ev.consequence)].filter(Boolean).join(', '));
@@ -170,7 +170,7 @@
       const sc = ev.mavedb.map((m) => m.score), lo = ev.mavedb.reduce((a, b) => (b.score < a.score ? b : a));
       row('Measured', `${ev.mavedb[0].change} scored ${d3.min(sc)} to ${d3.max(sc)} across ${sc.length} conditions in a deep mutational scan ` +
         `(MaveDB), lowest in "${lo.conditions}". Each study sets its own scale; in most, 1 is the normal protein. ` +
-        `XY carries ${f.dose} ${f.dose === 1 ? 'copy' : 'copies'} of the less common allele.`);
+        `${gx.who()} carries ${f.dose} ${f.dose === 1 ? 'copy' : 'copies'} of the less common allele.`);
     }
     if (ev.gtex) {
       const g = ev.gtex, x = exprShift(f, g);
@@ -404,7 +404,7 @@
         g.on('mousemove', (event) => tip.show(event, 'Molecule', split(n.text).map(full))).on('mouseleave', () => tip.hide());
         if (n.warn) {
           const b = svg.append('g').attr('transform', `translate(${n.left + n.w / 2},${n.cy - n.h / 2 - 13})`).style('cursor', 'help')
-            .on('mousemove', (event) => tip.show(event, 'Pattern in XY', [n.warn])).on('mouseleave', () => tip.hide());
+            .on('mousemove', (event) => tip.show(event, `Pattern in ${gx.who()}`, [n.warn])).on('mouseleave', () => tip.hide());
           b.append('circle').attr('r', 9).style('fill', 'var(--color-bad)');
           b.append('text').attr('y', 4).attr('text-anchor', 'middle').attr('font-size', FS).attr('font-weight', 700)
             .style('fill', 'var(--color-bg)').text('!');
@@ -461,7 +461,7 @@
             .style('fill', !c.g.lib ? 'var(--color-fg-muted)' : 'var(--color-fg)').text(c.label);
           cg.on('mousemove', (event) => {
             event.stopPropagation();
-            tip.show(event, c.g.gene, !c.g.lib ? ['Not in the library'] : !f || !f.genotype ? ['In the library, no call in XY'] :
+            tip.show(event, c.g.gene, !c.g.lib ? ['Not in the library'] : !f || !f.genotype ? [`In the library, no call in ${gx.who()}`] :
               [`${FN_TEXT[f.function] || ''}${f.function !== 'normal' && f.dose ? ' ×' + f.dose : ''} · ${f.rsid} ${f.genotype}`, f.interpretation,
                 opens ? 'Select to open its lifecycle' : ''].filter(Boolean));
           });
@@ -508,7 +508,7 @@
     if (untyped.length) p.append(`${first ? '' : ' · '}Not genotyped: ${untyped.join(', ')}`);
     const warns = steps.slice(1).map((x, i) => patternAt(steps[i], x)).filter(Boolean);
     if (warns.length) for (const w of warns) make(el, 'p', 'lc-warn', '⚠ ' + w);
-    else make(el, 'p', 'gx-muted', 'No build-up or bottleneck pattern between neighbouring steps in XY.');
+    else make(el, 'p', 'gx-muted', `No build-up or bottleneck pattern between neighbouring steps in ${gx.who()}.`);
   });
 
   dash.draw('lc-detail', (el) => {
@@ -540,8 +540,8 @@
     const inLib = x.enz.filter((g) => g.lib);
     const called = inLib.map((g) => fns.get(g.gene)).filter((f) => f && f.genotype);
     const sum = make(el, 'p', 'lc-stepsum');
-    sum.textContent = !inLib.length ? 'No library gene works at this step, so XY\'s genotypes say nothing about it.'
-      : `In XY: ${called.length ? called.map((f) => `${f.gene} ${STEP_TEXT[f.function] || ''}` +
+    sum.textContent = !inLib.length ? `No library gene works at this step, so ${gx.who()}'s genotypes say nothing about it.`
+      : `In ${gx.who()}: ${called.length ? called.map((f) => `${f.gene} ${STEP_TEXT[f.function] || ''}` +
           (f.function !== 'normal' && f.dose ? ` (${f.dose === 2 ? 'two copies' : 'one copy'})` : '')).join(', ') : 'no library enzyme genotyped'}.` +
         (x.enz.length > 1 ? ` ${x.enz.length} enzymes can do this step, so one changed enzyme may be partly covered by the others.` : '');
 
@@ -564,7 +564,7 @@
       const card = make(el, 'div', 'lc-enzcard' + (f && f.genotype && FN_CLASS[f.function] ? ' tone-' + FN_CLASS[f.function] : ''));
       const head = make(card, 'div', 'lc-enzhead');
       make(head, 'b', null, g.gene);
-      if (!f || !f.genotype) { make(head, 'span', 'lc-call unknown', 'Not genotyped in XY'); continue; }
+      if (!f || !f.genotype) { make(head, 'span', 'lc-call unknown', `Not genotyped in ${gx.who()}`); continue; }
       make(head, 'span', 'gx-muted', `${f.rsid} ${f.genotype}`);
       make(head, 'span', 'lc-call ' + FN_CLASS[f.function], FN_TEXT[f.function] + (f.function !== 'normal' && f.dose ? ` ×${f.dose}` : ''));
       if (f.has_lifecycle && g.gene !== s.gene) { const b = make(head, 'button', 'lc-btn', 'Open its lifecycle'); b.type = 'button'; b.addEventListener('click', () => openGene(g.gene)); }
@@ -582,13 +582,13 @@
       if (ladder.length) {
         any = true;
         const row = make(how, 'div', 'lc-howrow');
-        make(row, 'span', 'lc-howkey', 'Capacity in XY');
+        make(row, 'span', 'lc-howkey', `Capacity in ${gx.who()}`);
         const body = make(row, 'div');
         const cap = mine && mine.capacity, measured = ladder.some((r) => r.dose > 0 && r.capacity);
         const pctR = (c) => c[0] === c[1] ? pctFmt(c[0]) : `${pctFmt(c[0])}–${pctFmt(c[1])}`;
         if (cap) bar(body, 'cap tone-' + FN_CLASS[f.function], 0, cap[1], 0, 1.25, 1);
         make(body, 'p', null, !f.dose
-          ? `${pctFmt(1)} of the common form. XY has the common form, the baseline every measurement of this SNP is compared with` +
+          ? `${pctFmt(1)} of the common form. ${gx.who()} has the common form, the baseline every measurement of this SNP is compared with` +
             (f.function === 'normal' || f.function === 'unknown' ? '.' : `; the evidence still reads it as ${f.function === 'LoF' ? 'less' : 'more'} active.`)
           : cap ? `About ${pctR(cap)} of the common form (${f.dose === 2 ? 'two copies' : 'one copy'} of ${f.minor}).`
           : f.function === 'normal' || f.function === 'unknown' ? `${f.function === 'normal' ? 'Typical function by the evidence' : 'No known effect on the gene'}, with ${f.dose === 2 ? 'two copies' : 'one copy'} of ${f.minor}. ` +
@@ -603,12 +603,12 @@
         const tb = make(tbl, 'tbody');
         for (const r of ladder) {
           const tr = make(tb, 'tr', r === mine ? 'is-hp tone-' + FN_CLASS[f.function] : null);
-          make(tr, 'td', null, r.genotype + (r === mine ? ' · XY' : ''));
+          make(tr, 'td', null, r.genotype + (r === mine ? ` · ${gx.who()}` : ''));
           make(tr, 'td', null, String(r.dose));
           if (measured) make(tr, 'td', null, r.capacity ? pctR(r.capacity) : '—');
           make(tr, 'td', null, r.text);
           make(tr, 'td', null, r.function === 'normal' ? 'Typical' : !r.function || r.function === 'unknown' ? '—'
-            : `${r.function} · ${(LC_OUTCOME[r.outcome] || 'Unknown').replace(' for XY', '').toLowerCase()}`);
+            : `${r.function} · ${(LC_OUTCOME[r.outcome] || 'Unknown').replace(' for {who}', '').toLowerCase()}`);
         }
         make(body, 'p', 'gx-note', measured
           ? 'Capacity is the measured activity of each allele (MaveDB), added up over both copies; ranges cover the assay conditions.'
@@ -621,7 +621,7 @@
         const body = make(row, 'div');
         bar(body, 'mave', d3.min(sc), d3.max(sc), 0, Math.max(1.25, d3.max(sc)), 1);
         make(body, 'p', 'gx-note', `${ev.mavedb[0].change}: ${d3.min(sc)} to ${d3.max(sc)} across ${sc.length} conditions (MaveDB deep mutational scan; ` +
-          `the tick is 1, the normal protein in most studies). XY has ${f.dose} ${f.dose === 1 ? 'copy' : 'copies'} of the less common allele.`);
+          `the tick is 1, the normal protein in most studies). ${gx.who()} has ${f.dose} ${f.dose === 1 ? 'copy' : 'copies'} of the less common allele.`);
       }
       if (ev.gtex) {
         any = true;

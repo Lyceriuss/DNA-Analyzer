@@ -5,7 +5,7 @@
   const NT_GRADES = ['A+', 'A', 'B', 'C'];
   const NT_GRADE_NOTE = { 'A+': 'expert-reviewed (ClinVar 3–4 stars)', A: 'replicated, or ClinVar 2 stars', B: 'one publication, or ClinVar 1 star', C: 'a single study (ClinPGx)' };
   const ntMake = (parent, tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; parent.appendChild(e); return e; };
-  const ntWho = (rows) => (rows.find((r) => r.person) || {}).person || 'XY';
+  const ntWho = (rows) => (rows.find((r) => r.person) || {}).person || gx.who();
   const ntRank = (g) => { const i = NT_GRADES.indexOf(g); return i < 0 ? NT_GRADES.length : i; };
   const ntTag = (parent, g) => { ntMake(parent, 'span', 'md-grade md-grade-' + (g === 'A+' ? 'ap' : String(g).toLowerCase()), g).title = `Evidence grade ${g}: ${NT_GRADE_NOTE[g] || ''}`; };
   const ntJ = (s) => { try { return s ? JSON.parse(s) : null; } catch (e) { return null; } };

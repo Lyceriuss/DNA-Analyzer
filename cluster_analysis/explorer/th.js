@@ -37,7 +37,7 @@
     const r = it.effect >= 1 ? it.effect : 1 / it.effect;
     return r < 1.1 ? 'a very small effect' : r < 1.3 ? 'a small effect' : r < 2 ? 'a moderate effect' : 'a large effect';
   };
-  const thFinding = (parent, f, it, who = 'XY') => {
+  const thFinding = (parent, f, it, who = gx.who()) => {
     const d = thMake(parent, 'div');
     thMake(d, 'span', 'th-src', it.source);
     if (TH_CONF[f.confidence]) {
@@ -85,7 +85,7 @@
     return { themes, theme, facets, genes, shown, byName, gene, api, stats, organs, organ, inOrgan };
   };
   const thPick = (gene) => dash.setParams({ th_gene: gene });
-  const thWho = (s) => (s && s.stats && s.stats.person) || 'XY';
+  const thWho = (s) => (s && s.stats && s.stats.person) || gx.who();
 
   const thBalance = (parent, genes, none = 'not genotyped') => {
     const bar = thMake(parent, 'div', 'th-balance');
@@ -108,8 +108,8 @@
     const s = thSel();
     if (!s) { if (gx.failed('theme_meta')) gx.failLine(el); return; }
     for (const t of s.themes) {
-      const who = t.stats ? JSON.parse(t.stats).person : null;
-      const b = thMake(el, 'button', 'th-pick', t.theme_name + (who ? ` · ${who}` : ''));
+      // The profile switcher picks the person, so a theme no longer names it
+      const b = thMake(el, 'button', 'th-pick', t.theme_name);
       b.type = 'button';
       b.setAttribute('aria-pressed', String(t.theme === s.theme.theme));
       b.addEventListener('click', () => dash.setParams({ theme: t.theme, th_gene: null, th_organ: null, th_facet: null }));
@@ -147,7 +147,7 @@
     }
     const typed = s.genes.filter((g) => g.genotype);
     const parts = thBalance(el, s.genes);
-    thMake(el, 'p', null, `${s.genes.length} library genes act on ${s.theme.theme_name.toLowerCase()}, and XY has a call at ${typed.length}: ` +
+    thMake(el, 'p', null, `${s.genes.length} library genes act on ${s.theme.theme_name.toLowerCase()}, and ${thWho(s)} has a call at ${typed.length}: ` +
       parts.filter((x) => !/not genotyped/.test(x)).join(', ') + '.');
     // Where XY's changed genes gather
     const lean = s.facets.map((f) => {
@@ -275,7 +275,7 @@
     if (g.genotype && g.outcome && g.outcome !== 'typical' && g.outcome !== 'unknown') thMake(el, 'p', null, `Effect on ${thWho(s)}: ${TH_OUTCOME[g.outcome] || g.outcome}. Whether a change is good or bad is a best-effort reading of the trait; the change itself comes from the evidence.`);
     if (g.call_source === 'api') thMake(el, 'p', 'gx-note', `Called from ${thWho(s)}'s own variants in the gene: protein changes (UniProt, MaveDB, SIFT/PolyPhen) and the gene's strongest expression variant (GTEx).`);
     else thMake(el, 'p', g.genotype ? 'gx-note' : null, g.genotype ? `Library note for ${g.rsid} ${g.genotype}: ${g.interpretation}. The notes were written with an LLM and are being checked against the evidence; the label above comes from the evidence, not the note.`
-      : s.api ? `Not in the library. ${thWho(s)}'s file ${s.stats && (s.stats.by_confidence || {}).high ? 'measures or confidently imputes' : 'measures'} ${g.ev.n_snps || 0} SNPs in or near this gene.` : 'XY has no call at this gene\'s library SNP.');
+      : s.api ? `Not in the library. ${thWho(s)}'s file ${s.stats && (s.stats.by_confidence || {}).high ? 'measures or confidently imputes' : 'measures'} ${g.ev.n_snps || 0} SNPs in or near this gene.` : `${thWho(s)} has no call at this gene's library SNP.`);
     if (g.has_lifecycle) {
       const b = thMake(el, 'button', 'lc-btn', 'Open its lifecycle');
       b.type = 'button';
@@ -791,7 +791,7 @@
     if (!s || !pr) { if (gx.failed('theme_meta', 'theme_genes', 'theme_pathways')) gx.failLine(el); return; }
     const f = s.facets.find((x) => x.facet === dash.params().th_facet);
     if (!f) { thMake(el, 'p', 'gx-note', 'Select a mechanism box above to open it here: what it does, how it works, what the person carries in it, and every gene behind it.'); return; }
-    const who = s.api ? thWho(s) : 'XY';
+    const who = thWho(s);
     const genes = s.genes.filter((g) => g.fl.includes(f.facet));
     const head = thMake(el, 'div', 'lc-name');
     thMake(head, 'h3', null, f.facet_name);

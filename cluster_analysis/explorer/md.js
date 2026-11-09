@@ -12,7 +12,7 @@
     return { q: p.md_q || '', cat: p.md_cat || 'all', diff: p.md_diff === true || p.md_diff === 'true', gene: p.md_gene || '',
       open: new Set(String(p.md_open || '').split('|').filter(Boolean)) };
   };
-  const mdWho = (rows) => (rows.find((r) => r.person) || {}).person || 'XY';
+  const mdWho = (rows) => (rows.find((r) => r.person) || {}).person || gx.who();
   let mdShown = 40;
   const mdSet = (p) => { mdShown = 40; dash.setParams(p); };
   const mdGradeRank = (g) => { const i = MD_GRADES.indexOf(g); return i < 0 ? MD_GRADES.length : i; };

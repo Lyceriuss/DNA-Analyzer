@@ -47,21 +47,30 @@ is kept per viewer in the browser (`localStorage`), English when it can't be rea
 - The layer only reads and writes inside `.gx` (the explorer's own markup). The dashboard's interface around the page
   is React-drawn and watches its own text and labels; translating it fights React and froze the page.
 
-The page holds no genotypes. Its data comes from datasets uploaded next to it in the artifact, written by:
+The page holds no genotypes. Its data comes from datasets uploaded next to it in the artifact.
+
+## Profiles
+
+Every personal analysis runs per profile (`cluster_analysis/profiles.json`: id, sex, DNA file), and the header's
+**Profile** switch picks whose results the page shows. Each personal dataset holds every profile's rows, tagged with
+`person`; `gx.rows()` hands a draw only the selected person's rows, so the tabs don't filter themselves. `gx.who()` is
+the selected id (the `person` param, remembered in the browser). Themes follow the profile's sex: female fertility
+exists only for female profiles, male fertility only for male ones, cancer for everyone. Static texts that name the
+person carry `data-who`: their "XY" is rewritten to the selected id, and the Swedish keys are `{}` templates.
 
 ```bash
-python -m cluster_analysis.theme_graph fertility_female    # XX's cross-reference
-python -m cluster_analysis.theme_graph fertility_male      # XY's cross-reference
-python -m cluster_analysis.theme_graph cancer              # XY's cross-reference, cell-life stages
-python -m cluster_analysis.medicines                       # XY's drug genes and medicines -> med_genes, med_drugs, med_guidance, med_names
-python -m cluster_analysis.nutrition                       # XY's nutrients -> nut_nutrients, nut_findings, nut_steps
-python -m cluster_analysis.overlay data/input/MyHeritage_raw_dna_data_XY.csv --dashboard out   # Profile: hp_modules, hp_links, hp_bridges, hp_tilts
-python -m cluster_analysis.gene_calls                      # per-gene calls from each theme person's own variants -> gene_calls_<person>
-python -m cluster_analysis.export_dashboard out/bundle.json \
-    --lifecycles data/output/cluster_analysis/lifecycles_XY.json --dna data/input/MyHeritage_raw_dna_data_XY.csv
+python -m cluster_analysis.profiles check                  # sex from the DNA (X heterozygosity) against profiles.json
+python -m cluster_analysis.profiles run                    # per profile: theme cross-references, gene calls, medicines,
+                                                           # nutrition (with the profile's sex), Profile tab overlay
+python -m cluster_analysis.export_dashboard out/bundle.json --lifecycles data/output/cluster_analysis/lifecycles_XY.json
 ```
 
-That writes `lifecycle_steps`, `lifecycle_genes`, `gene_function`, `theme_meta`, `theme_genes`, `theme_links` and `theme_pathways` next to `out/bundle.json`; `medicines.py` writes `med_genes`, `med_drugs`, `med_guidance` and `med_names`, and `nutrition.py` writes `nut_nutrients`, `nut_findings` and `nut_steps`, to `data/output/cluster_analysis/`. All but `med_names` and `nut_steps` contain XY's genotypes, and the theme datasets XX's, so keep them out of git.
+`profiles run` writes medicines, nutrition and the overlay to `data/output/cluster_analysis/profiles/<id>/`, the theme
+cross-references and gene calls to `data/output/cluster_analysis/`. `export_dashboard` then writes every dataset next
+to `out/bundle.json` for all profiles at once: `lifecycle_steps`, `lifecycle_genes`, `gene_function`, the four
+`theme_*`, `med_genes`, `med_drugs`, `med_guidance`, `nut_nutrients`, `nut_findings`, the four `hp_*` (person-tagged),
+`med_names` and `nut_steps` (public), and `profiles` (ids and sex). The lifecycles are walked once; each profile's
+calls are laid over them. All but `med_names`, `nut_steps` and `profiles` contain genotypes, so keep them out of git.
 
 Publishing goes through the artifact's database:
 - Each dataset file is uploaded as an asset, and its `datasets/<name>` document points at the asset URL.
