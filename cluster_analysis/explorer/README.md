@@ -3,10 +3,42 @@
 The interactive explorer published as a private claude.ai Dashboard artifact:
 https://claude.ai/artifact/Rsz3RYugnZyvWnixS9168o
 
-`index.html` is the complete page as published. The other files are its parts, the ones edited in this round:
+## Running it
+
+```bash
+python -m cluster_analysis.explorer serve     # localhost: export if needed, build, serve on http://127.0.0.1:8000
+python -m cluster_analysis.explorer check     # every tab x profile x language in headless Chrome; fails on script errors
+python -m cluster_analysis.explorer export    # refresh the datasets (data/output/explorer/datasets/) after a pipeline run
+python -m cluster_analysis.explorer publish   # for the agent: what changed since the artifact's last publish
+```
+
+The same page and datasets serve both: localhost through the standalone runtime, the claude.ai artifact through the
+agent (steps in [CLAUDE.md](../../CLAUDE.md)). `publish` writes `data/output/explorer/publish/` (the minified page,
+every dataset, `manifest.json` marking what changed) and `data/output/explorer/published.json` remembers what is live.
+
+## Building
+
+`page.html` is the page's shell (header, tab sections, shared helpers) with an include marker where each part goes.
+`build.py` assembles it into `index.html`, the complete page, and a minified copy for publishing. **Edit the parts and
+`page.html`, never `index.html`**, then rebuild:
+
+```bash
+python cluster_analysis/explorer/build.py                  # index.html + build/publish.json (size-checked)
+python cluster_analysis/explorer/build.py --standalone DATASET_DIR data/output/explorer_site
+python -m http.server -d data/output/explorer_site 8000   # the same page, self-hosted, on http://localhost:8000
+```
+
+`--standalone` writes the page as a static site with its own runtime (`runtime/dash.js`, `runtime/tokens.css`) in
+place of claude.ai's, and copies the datasets from an export folder (`python -m cluster_analysis.explorer export`) next to it. Those datasets hold
+genotypes: keep the site under `data/output` (ignored by git) and don't serve it beyond your own machine. Why and
+where this is heading: [docs/architecture/migration.md](../../docs/architecture/migration.md).
 
 | File | Part |
 |---|---|
+| `page.html` | The shell: header (language and profile switches), tab sections, shared helpers (`gx.*`) |
+| `build.py` | Assembles the page; minifies the published copy; writes the standalone site |
+| `runtime/dash.js`, `runtime/tokens.css` | The standalone runtime and design tokens (claude.ai provides both on the artifact) |
+
 | `lc.html`, `lc.css`, `lc.js` | Gene lifecycle tab: gene summary, node graph, step details with capacity, evidence and papers |
 | `th.html`, `th.css`, `th.js` | Clusters tab: theme picker, body maps, 28-day cycle and the life of a cell, mechanisms and their in-depth view, network, pathways |
 | `md.html`, `md.css`, `md.js` | Medicines tab: drug genes (star alleles and CPIC type), and per medicine (searchable by any name, brand, ATC code or class) its dosing guidance and every finding with the person's reading, each with an evidence grade A+ to C |
@@ -42,7 +74,7 @@ is kept per viewer in the browser (`localStorage`), English when it can't be rea
   python cluster_analysis/explorer/i18n_terms.py DATASET_DIR --todo todo.json # the missing terms, to translate
   python cluster_analysis/explorer/i18n_terms.py --publish i18n_sv_terms.json # the dataset's [{en, sv}] rows
   ```
-- After editing `i18n.js`, copy it into `index.html`'s last `<script>` block, as with the other parts.
+- After editing `i18n.js`, rebuild with `build.py`, as with the other parts.
 - The dictionaries are loaded by empty `data-draw="i18n-load"` / `"i18n-terms"` spans in the header. Don't give them
   the `hidden` attribute: the Dashboard runtime never runs a draw inside `[hidden]`, so nothing would load (they are
   kept out of sight with the `.gx-i18n` class instead).
@@ -64,7 +96,7 @@ person carry `data-who`: their "XY" is rewritten to the selected id, and the Swe
 python -m cluster_analysis.profiles check                  # sex from the DNA (X heterozygosity) against profiles.json
 python -m cluster_analysis.profiles run                    # per profile: theme cross-references, gene calls, medicines,
                                                            # nutrition (with the profile's sex), Profile tab overlay
-python -m cluster_analysis.export_dashboard out/bundle.json --lifecycles data/output/cluster_analysis/lifecycles_XY_full.json
+python -m cluster_analysis.explorer.export out/bundle.json --lifecycles data/output/cluster_analysis/lifecycles_XY_full.json
 ```
 
 `profiles run` writes medicines, nutrition and the overlay to `data/output/cluster_analysis/profiles/<id>/`, the theme
@@ -76,10 +108,12 @@ calls are laid over them. All but `med_names`, `nut_steps` and `profiles` contai
 
 Publishing goes through the artifact's database:
 - Each dataset file is uploaded as an asset, and its `datasets/<name>` document points at the asset URL.
-- The page is the `text` field of the `files/index.html` document.
+- The page is the `text` field of the `files/index.html` document: `build/publish.json` as written by `build.py`.
 - Shared filter defaults (theme, gene) are in `dash/params`.
 
-The page runs on the Dashboard runtime (`dash.draw`, `dash.params`, `gx.*` helpers), so it doesn't open as a plain local HTML file.
+On the artifact the page runs on claude.ai's Dashboard runtime (`dash.draw`, `dash.params`, `gx.*` helpers); `build.py
+--standalone` gives it its own (`runtime/dash.js`), so it also runs from any web server. It still doesn't open from
+`file://`: browsers block `fetch` of the datasets there.
 
 The runtime runs **each `<script>` in its own scope**: a `const` in `md.js` is not visible from `nt.js`. What scripts
 share goes on `window` (as `gx` and `I18N` do); anything else a part needs, it defines itself (`nt.js` has its own

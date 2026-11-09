@@ -1,0 +1,670 @@
+<meta name="dash-one-writer">
+<style>
+  .gx { display: grid; gap: var(--cds-gap-lg); font-family: var(--font-anthropic-sans); }
+  .gx-head { display: grid; gap: var(--cds-gap-xs); grid-template-columns: minmax(0, 1fr) auto; }
+  .gx-head > :not(.gx-lang):not(.gx-profile) { grid-column: 1; }
+  .gx-profile { grid-column: 2; grid-row: 2; justify-self: end; align-self: start; display: flex; gap: 6px; align-items: center; font-size: 12px; color: var(--color-fg-muted); }
+  .gx-profile-set { display: flex; border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); overflow: hidden; }
+  .gx-profile button { font: inherit; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; padding: 4px 10px; border: 0; background: transparent; color: var(--color-fg-muted); cursor: pointer; }
+  .gx-profile button[aria-pressed="true"] { background: var(--color-fg); color: var(--color-bg); }
+  .gx-profile button:focus-visible { outline: 2px solid var(--color-fg); outline-offset: -2px; }
+  .gx-lang { grid-column: 2; grid-row: 1; align-self: start; display: flex; border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); overflow: hidden; }
+  .gx-lang button { font: inherit; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; padding: 4px 10px; border: 0; background: transparent; color: var(--color-fg-muted); cursor: pointer; }
+  .gx-lang button[aria-pressed="true"] { background: var(--color-fg); color: var(--color-bg); }
+  .gx-lang button:focus-visible { outline: 2px solid var(--color-fg); outline-offset: -2px; }
+  .gx-i18n { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); pointer-events: none; }
+  .gx-title { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); margin: 0; text-wrap: balance; }
+  .gx-lede { margin: 0; color: var(--color-fg-muted); max-width: 70ch; }
+  .gx .gx-lede b, .gx .gx-note b { color: var(--color-fg); font-weight: 600; font-variant-numeric: tabular-nums; }
+  .gx-tabs { display: flex; flex-wrap: wrap; gap: var(--cds-gap-xs); border-bottom: 1px solid var(--color-border-line); }
+  .gx-tab { font: inherit; background: none; border: 0; border-bottom: 2px solid transparent; color: var(--color-fg-muted);
+            padding: var(--cds-pad-sm) var(--cds-pad-md); cursor: pointer; margin-bottom: -1px; }
+  .gx-tab[aria-selected="true"] { color: var(--color-fg); border-bottom-color: var(--color-fg); }
+  .gx-tab:focus-visible, .gx-chip:focus-visible { outline: 2px solid var(--color-fg); outline-offset: 2px; }
+  .gx-page { display: grid; gap: var(--cds-gap-md); }
+  .gx-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr)); gap: var(--cds-gap-md); }
+  .gx-kpi { display: grid; gap: var(--cds-gap-xs); }
+  .gx-kpi-label { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+  .gx-kpi-value { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); font-variant-numeric: tabular-nums; }
+  .gx-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: var(--cds-gap-md); }
+  .gx-wide { grid-column: 1 / -1; }
+  .gx-card { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius);
+             padding: var(--cds-pad-lg); display: grid; gap: var(--cds-gap-sm); align-content: start; min-width: 0; }
+  .gx-card h2, .gx-card h3 { font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); margin: 0; }
+  .gx-note { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); margin: 0; max-width: 75ch; }
+  .gx-sample { border-left: 3px solid var(--color-warn); padding-left: var(--cds-pad-sm); }
+  .gx-chart { position: relative; min-width: 0; }
+  .gx-net { min-height: 460px; }
+  .gx-heat { min-height: 420px; overflow-x: auto; }
+  .gx-bars { min-height: 380px; }
+  .gx-chart svg { display: block; }
+  .gx-tip { position: absolute; pointer-events: none; background: var(--cds-surface-popover); border: 1px solid var(--cds-border);
+            border-radius: var(--cds-radius); box-shadow: var(--cds-shadow-popover); padding: var(--cds-pad-xs) var(--cds-pad-sm);
+            font-size: var(--cds-font-size-caption); max-width: 18rem; z-index: 2; }
+  .gx-tip-head { color: var(--cds-text-secondary); }
+  .gx-detail { display: grid; gap: var(--cds-gap-sm); min-height: 300px; align-content: start; }
+  .gx-detail h3 { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); }
+  .gx-label { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); text-transform: uppercase; letter-spacing: .04em; }
+  .gx-chips { display: flex; flex-wrap: wrap; gap: var(--cds-gap-xs); }
+  .gx-chip { font: inherit; font-size: var(--cds-font-size-caption); border: 1px solid var(--color-border-line); background: var(--color-bg);
+             color: var(--color-fg); border-radius: 999px; padding: 2px var(--cds-pad-sm); }
+  button.gx-chip { cursor: pointer; }
+  button.gx-chip:hover { border-color: var(--color-fg-muted); }
+  .gx-table-box { max-height: 26rem; overflow: auto; }
+  .gx-table { width: 100%; border-collapse: collapse; font-size: var(--cds-font-size-caption); font-variant-numeric: tabular-nums; }
+  .gx-table th { position: sticky; top: 0; background: var(--color-panel); text-align: left; font-weight: var(--cds-font-weight-medium);
+                 color: var(--color-fg-muted); padding: var(--cds-pad-xs) var(--cds-pad-sm); border-bottom: 1px solid var(--color-border-line); }
+  .gx-table td { padding: var(--cds-pad-xs) var(--cds-pad-sm); border-bottom: 1px solid var(--color-border-line); vertical-align: top; }
+  .gx-up { color: var(--color-bad); }
+  .gx-down { color: var(--color-ok); }
+  .gx-muted { color: var(--color-fg-muted); }
+  .gx [data-dash-source-state=empty] { color: transparent; }
+  .gx [data-dash-source-state=refreshing] { opacity: .5; transition: opacity var(--cds-dur-slow); }
+  @media (max-width: 40rem) { .gx-hide-narrow { display: none; } }
+  .gx { --typical: color-mix(in srgb, var(--color-ok) 38%, var(--color-fg-muted)); }
+  /* Call scale: blue = more active (GoF), green = typical function, red = less active (LoF). The blue leans towards the
+     text colour, so it lightens in dark mode and deepens in light mode like the theme tokens do. */
+  .gx { --gof: color-mix(in srgb, #3b82f6 82%, var(--color-fg)); --typical: var(--color-ok); }
+  /* Call scale: blue = more active (GoF), green = typical function, red = less active (LoF). The blue leans towards the
+     text colour, so it lightens in dark mode and deepens in light mode like the theme tokens do. */
+  .gx { --gof: color-mix(in srgb, #3b82f6 82%, var(--color-fg)); --typical: var(--color-ok); }
+  /* Call scale: blue = more active (GoF), green = typical function, red = less active (LoF). The blue leans towards the
+     text colour, so it lightens in dark mode and deepens in light mode like the theme tokens do. */
+  .gx { --gof: color-mix(in srgb, #3b82f6 82%, var(--color-fg)); --typical: var(--color-ok); }
+  /* @include lc.css */
+  .lc-step.is-selected .lc-card { fill: color-mix(in srgb, var(--color-fg) 9%, var(--color-panel)); }
+  .lc-sel-ring { fill: none; stroke: var(--color-fg); stroke-width: 1; stroke-dasharray: 5 4; display: none; }
+  .lc-step.is-selected .lc-sel-ring { display: block; }
+  .lc-step:focus-visible .lc-sel-ring { display: block; stroke: var(--color-fg-muted); }
+  .lc-bar.gtex.up .lc-bar-fill { background: var(--gof); }
+  .lc-bar.gtex.down .lc-bar-fill { background: var(--color-bad); }
+  /* Crisp vector drawing: curves keep full precision, text keeps its hinting */
+  .lc-graph svg, .th-net svg, .th-body-svg svg, .th-cycle-svg svg { shape-rendering: geometricPrecision; text-rendering: optimizeLegibility; }
+  .lc-step.is-selected .lc-card { fill: color-mix(in srgb, var(--color-fg) 9%, var(--color-panel)); }
+  .lc-sel-ring { fill: none; stroke: var(--color-fg); stroke-width: 1.5; stroke-dasharray: 5 4; display: none; }
+  .lc-step.is-selected .lc-sel-ring { display: block; }
+  .lc-step:focus-visible .lc-sel-ring { display: block; stroke: var(--color-fg-muted); }
+  .lc-bar.gtex.up .lc-bar-fill { background: var(--gof); }
+  .lc-bar.gtex.down .lc-bar-fill { background: var(--color-bad); }
+  .lc-step.is-selected .lc-card { fill: color-mix(in srgb, var(--color-fg) 9%, var(--color-panel)); }
+  .lc-sel-ring { fill: none; stroke: var(--color-fg); stroke-width: 1.5; stroke-dasharray: 5 4; display: none; }
+  .lc-step.is-selected .lc-sel-ring { display: block; }
+  .lc-step:focus-visible .lc-sel-ring { display: block; stroke: var(--color-fg-muted); }
+  .lc-bar.gtex.up .lc-bar-fill { background: var(--gof); }
+  .lc-bar.gtex.down .lc-bar-fill { background: var(--color-bad); }
+  .lc-step.is-selected .lc-card { fill: color-mix(in srgb, var(--color-fg) 9%, var(--color-panel)); }
+  .lc-sel-ring { fill: none; stroke: var(--color-fg); stroke-width: 1.5; stroke-dasharray: 5 4; display: none; }
+  .lc-step.is-selected .lc-sel-ring { display: block; }
+  .lc-step:focus-visible .lc-sel-ring { display: block; stroke: var(--color-fg-muted); }
+  .lc-bar.gtex.up .lc-bar-fill { background: var(--color-ok); }
+  .lc-bar.gtex.down .lc-bar-fill { background: var(--color-bad); }
+  .lc-step.is-selected .lc-card { fill: color-mix(in srgb, var(--color-fg) 9%, var(--color-panel)); }
+  .lc-sel-ring { fill: none; stroke: var(--color-fg); stroke-width: 1.5; stroke-dasharray: 5 4; display: none; }
+  .lc-step.is-selected .lc-sel-ring { display: block; }
+  .lc-step:focus-visible .lc-sel-ring { display: block; stroke: var(--color-fg-muted); }
+  .lc-bar.gtex.up .lc-bar-fill { background: var(--color-ok); }
+  .lc-bar.gtex.down .lc-bar-fill { background: var(--color-bad); }
+  .lc-step.is-selected .lc-card { fill: color-mix(in srgb, var(--color-fg) 9%, var(--color-panel)); }
+  .lc-sel-ring { fill: none; stroke: var(--color-fg); stroke-width: 1.5; stroke-dasharray: 5 4; display: none; }
+  .lc-step.is-selected .lc-sel-ring { display: block; }
+  .lc-step:focus-visible .lc-sel-ring { display: block; stroke: var(--color-fg-muted); }
+  .lc-bar.gtex.up .lc-bar-fill { background: var(--color-ok); }
+  .lc-bar.gtex.down .lc-bar-fill { background: var(--color-bad); }
+  .lc-step.is-selected .lc-card { fill: color-mix(in srgb, var(--color-fg) 9%, var(--color-panel)); }
+  .lc-sel-ring { fill: none; stroke: var(--color-fg); stroke-width: 1.5; stroke-dasharray: 5 4; display: none; }
+  .lc-step.is-selected .lc-sel-ring { display: block; }
+  .lc-step:focus-visible .lc-sel-ring { display: block; stroke: var(--color-fg-muted); }
+  .lc-bar.gtex.up .lc-bar-fill { background: var(--color-ok); }
+  .lc-bar.gtex.down .lc-bar-fill { background: var(--color-bad); }
+  .lc-step:focus-visible rect.lc-card { stroke: var(--color-fg); stroke-dasharray: 4 3; }
+  .lc-step.is-selected rect.lc-card { stroke: var(--color-fg); fill: var(--color-bg); }
+  .lc-enz { cursor: pointer; }
+  .lc-patterns { display: grid; gap: var(--cds-gap-xs); }
+  .lc-patterns p { margin: 0; font-size: var(--cds-font-size-caption); }
+  .lc-warn { color: var(--color-bad); }
+  .lc-detail { display: grid; gap: var(--cds-gap-sm); }
+  .lc-detail h3 { font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); margin: 0; }
+  .lc-detail .lc-rx { margin: 0; font-family: var(--font-anthropic-serif); font-size: var(--cds-font-size-heading); max-width: 80ch; }
+  .lc-flowline { display: flex; flex-wrap: wrap; gap: var(--cds-gap-xs); align-items: center; font-size: var(--cds-font-size-caption); }
+  .lc-mol { border: 1px solid var(--color-border-line); border-radius: 999px; padding: 1px var(--cds-pad-sm); background: var(--color-bg); }
+  .lc-mol small { color: var(--color-fg-muted); }
+  .lc-alts { margin: 0; padding-left: 1.1rem; font-size: var(--cds-font-size-caption); }
+  .lc-detail a { color: var(--color-fg); text-underline-offset: 2px; }
+  .lc-stepsum { margin: 0; max-width: 80ch; }
+  .lc-enzcard { display: grid; gap: var(--cds-gap-sm); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius);
+                padding: var(--cds-pad-md); background: var(--color-bg); }
+  .lc-enzcard.tone-gof { box-shadow: inset 4px 0 0 var(--color-ok); }
+  .lc-enzcard.tone-lof { box-shadow: inset 4px 0 0 var(--color-bad); }
+  .lc-enzcard.tone-norm { box-shadow: inset 4px 0 0 var(--color-warn); }
+  .lc-enzhead { display: flex; flex-wrap: wrap; gap: var(--cds-gap-sm); align-items: center; }
+  .lc-enzhead .lc-btn { margin-left: auto; }
+  .lc-how, .lc-research { display: grid; gap: var(--cds-gap-xs); }
+  .lc-howrow { display: grid; grid-template-columns: 8rem minmax(0, 1fr); gap: var(--cds-gap-sm); font-size: var(--cds-font-size-caption);
+               padding-top: var(--cds-gap-xs); border-top: 1px solid var(--color-border-line); }
+  @media (max-width: 40rem) { .lc-howrow { grid-template-columns: minmax(0, 1fr); gap: 2px; } }
+  .lc-howkey { color: var(--color-fg-muted); }
+  .lc-bar { position: relative; height: 10px; max-width: 18rem; border-radius: 5px; background: var(--color-panel);
+            border: 1px solid var(--color-border-line); margin: 3px 0; }
+  .lc-bar-fill { position: absolute; top: 0; bottom: 0; border-radius: 5px; background: var(--color-fg-muted); min-width: 3px; }
+  .lc-bar-tick { position: absolute; top: -3px; bottom: -3px; width: 2px; margin-left: -1px; background: var(--color-fg); }
+  .lc-quotes { display: grid; gap: var(--cds-gap-xs); }
+  .lc-quotes blockquote { margin: 0; padding-left: var(--cds-pad-sm); border-left: 2px solid var(--color-border-line); }
+  .lc-quotes cite { display: block; font-style: normal; color: var(--color-fg-muted); }
+  .lc-research ol { margin: 0; padding-left: 1.2rem; font-size: var(--cds-font-size-caption); display: grid; gap: 2px; }
+  .lc-enzcard a, .lc-research a { color: var(--color-fg); text-underline-offset: 2px; }
+  .lc-bar.cap.tone-norm .lc-bar-fill { background: var(--color-warn); }
+  .lc-bar.cap.tone-lof .lc-bar-fill { background: var(--color-bad); }
+  .lc-bar.cap.tone-gof .lc-bar-fill { background: var(--color-ok); }
+  .lc-ladder { margin-top: var(--cds-gap-xs); max-width: 44rem; }
+  .lc-ladder tr.is-hp td { font-weight: var(--cds-font-weight-medium); color: var(--color-fg); }
+  .lc-ladder tr.is-hp td:first-child { box-shadow: inset 3px 0 0 var(--color-fg-muted); }
+  .lc-ladder tr.is-hp.tone-norm td:first-child { box-shadow: inset 3px 0 0 var(--color-warn); }
+  .lc-ladder tr.is-hp.tone-lof td:first-child { box-shadow: inset 3px 0 0 var(--color-bad); }
+  .lc-ladder tr.is-hp.tone-gof td:first-child { box-shadow: inset 3px 0 0 var(--color-ok); }
+  .lc-step:focus-visible rect.lc-card { stroke: var(--color-fg); stroke-dasharray: 4 3; }
+  .lc-step.is-selected rect.lc-card { stroke: var(--color-fg); fill: var(--color-bg); }
+  .lc-enz { cursor: pointer; }
+  .lc-patterns { display: grid; gap: var(--cds-gap-xs); }
+  .lc-patterns p { margin: 0; font-size: var(--cds-font-size-caption); }
+  .lc-warn { color: var(--color-bad); }
+  .lc-detail { display: grid; gap: var(--cds-gap-sm); }
+  .lc-detail h3 { font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); margin: 0; }
+  .lc-detail .lc-rx { margin: 0; font-family: var(--font-anthropic-serif); font-size: var(--cds-font-size-heading); max-width: 80ch; }
+  .lc-flowline { display: flex; flex-wrap: wrap; gap: var(--cds-gap-xs); align-items: center; font-size: var(--cds-font-size-caption); }
+  .lc-mol { border: 1px solid var(--color-border-line); border-radius: 999px; padding: 1px var(--cds-pad-sm); background: var(--color-bg); }
+  .lc-mol small { color: var(--color-fg-muted); }
+  .lc-alts { margin: 0; padding-left: 1.1rem; font-size: var(--cds-font-size-caption); }
+  .lc-detail a { color: var(--color-fg); text-underline-offset: 2px; }
+  .lc-stepsum { margin: 0; max-width: 80ch; }
+  .lc-enzcard { display: grid; gap: var(--cds-gap-sm); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius);
+                padding: var(--cds-pad-md); background: var(--color-bg); }
+  .lc-enzcard.tone-gof { box-shadow: inset 4px 0 0 var(--color-ok); }
+  .lc-enzcard.tone-lof { box-shadow: inset 4px 0 0 var(--color-bad); }
+  .lc-enzcard.tone-norm { box-shadow: inset 4px 0 0 var(--color-warn); }
+  .lc-enzhead { display: flex; flex-wrap: wrap; gap: var(--cds-gap-sm); align-items: center; }
+  .lc-enzhead .lc-btn { margin-left: auto; }
+  .lc-how, .lc-research { display: grid; gap: var(--cds-gap-xs); }
+  .lc-howrow { display: grid; grid-template-columns: 8rem minmax(0, 1fr); gap: var(--cds-gap-sm); font-size: var(--cds-font-size-caption);
+               padding-top: var(--cds-gap-xs); border-top: 1px solid var(--color-border-line); }
+  @media (max-width: 40rem) { .lc-howrow { grid-template-columns: minmax(0, 1fr); gap: 2px; } }
+  .lc-howkey { color: var(--color-fg-muted); }
+  .lc-bar { position: relative; height: 10px; max-width: 18rem; border-radius: 5px; background: var(--color-panel);
+            border: 1px solid var(--color-border-line); margin: 3px 0; }
+  .lc-bar-fill { position: absolute; top: 0; bottom: 0; border-radius: 5px; background: var(--color-fg-muted); min-width: 3px; }
+  .lc-bar-tick { position: absolute; top: -3px; bottom: -3px; width: 2px; margin-left: -1px; background: var(--color-fg); }
+  .lc-quotes { display: grid; gap: var(--cds-gap-xs); }
+  .lc-quotes blockquote { margin: 0; padding-left: var(--cds-pad-sm); border-left: 2px solid var(--color-border-line); }
+  .lc-quotes cite { display: block; font-style: normal; color: var(--color-fg-muted); }
+  .lc-research ol { margin: 0; padding-left: 1.2rem; font-size: var(--cds-font-size-caption); display: grid; gap: 2px; }
+  .lc-enzcard a, .lc-research a { color: var(--color-fg); text-underline-offset: 2px; }
+  .lc-bar.cap.tone-norm .lc-bar-fill { background: var(--color-warn); }
+  .lc-bar.cap.tone-lof .lc-bar-fill { background: var(--color-bad); }
+  .lc-bar.cap.tone-gof .lc-bar-fill { background: var(--color-ok); }
+  .lc-ladder { margin-top: var(--cds-gap-xs); max-width: 44rem; }
+  .lc-ladder tr.is-hp td { font-weight: var(--cds-font-weight-medium); color: var(--color-fg); }
+  .lc-ladder tr.is-hp td:first-child { box-shadow: inset 3px 0 0 var(--color-fg-muted); }
+  .lc-ladder tr.is-hp.tone-norm td:first-child { box-shadow: inset 3px 0 0 var(--color-warn); }
+  .lc-ladder tr.is-hp.tone-lof td:first-child { box-shadow: inset 3px 0 0 var(--color-bad); }
+  .lc-ladder tr.is-hp.tone-gof td:first-child { box-shadow: inset 3px 0 0 var(--color-ok); }
+  .lc-step:focus-visible rect.lc-card { stroke: var(--color-fg); stroke-dasharray: 4 3; }
+  .lc-step.is-selected rect.lc-card { stroke: var(--color-fg); fill: var(--color-bg); }
+  .lc-enz { cursor: pointer; }
+  .lc-patterns { display: grid; gap: var(--cds-gap-xs); }
+  .lc-patterns p { margin: 0; font-size: var(--cds-font-size-caption); }
+  .lc-warn { color: var(--color-bad); }
+  .lc-detail { display: grid; gap: var(--cds-gap-sm); }
+  .lc-detail h3 { font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); margin: 0; }
+  .lc-detail .lc-rx { margin: 0; font-family: var(--font-anthropic-serif); font-size: var(--cds-font-size-heading); max-width: 80ch; }
+  .lc-flowline { display: flex; flex-wrap: wrap; gap: var(--cds-gap-xs); align-items: center; font-size: var(--cds-font-size-caption); }
+  .lc-mol { border: 1px solid var(--color-border-line); border-radius: 999px; padding: 1px var(--cds-pad-sm); background: var(--color-bg); }
+  .lc-mol small { color: var(--color-fg-muted); }
+  .lc-alts { margin: 0; padding-left: 1.1rem; font-size: var(--cds-font-size-caption); }
+  .lc-detail a { color: var(--color-fg); text-underline-offset: 2px; }
+  .lc-stepsum { margin: 0; max-width: 80ch; }
+  .lc-enzcard { display: grid; gap: var(--cds-gap-sm); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius);
+                padding: var(--cds-pad-md); background: var(--color-bg); }
+  .lc-enzcard.tone-gof { box-shadow: inset 4px 0 0 var(--color-ok); }
+  .lc-enzcard.tone-lof { box-shadow: inset 4px 0 0 var(--color-bad); }
+  .lc-enzcard.tone-norm { box-shadow: inset 4px 0 0 var(--color-warn); }
+  .lc-enzhead { display: flex; flex-wrap: wrap; gap: var(--cds-gap-sm); align-items: center; }
+  .lc-enzhead .lc-btn { margin-left: auto; }
+  .lc-how, .lc-research { display: grid; gap: var(--cds-gap-xs); }
+  .lc-howrow { display: grid; grid-template-columns: 8rem minmax(0, 1fr); gap: var(--cds-gap-sm); font-size: var(--cds-font-size-caption);
+               padding-top: var(--cds-gap-xs); border-top: 1px solid var(--color-border-line); }
+  @media (max-width: 40rem) { .lc-howrow { grid-template-columns: minmax(0, 1fr); gap: 2px; } }
+  .lc-howkey { color: var(--color-fg-muted); }
+  .lc-bar { position: relative; height: 10px; max-width: 18rem; border-radius: 5px; background: var(--color-panel);
+            border: 1px solid var(--color-border-line); margin: 3px 0; }
+  .lc-bar-fill { position: absolute; top: 0; bottom: 0; border-radius: 5px; background: var(--color-fg-muted); min-width: 3px; }
+  .lc-bar-tick { position: absolute; top: -3px; bottom: -3px; width: 2px; margin-left: -1px; background: var(--color-fg); }
+  .lc-quotes { display: grid; gap: var(--cds-gap-xs); }
+  .lc-quotes blockquote { margin: 0; padding-left: var(--cds-pad-sm); border-left: 2px solid var(--color-border-line); }
+  .lc-quotes cite { display: block; font-style: normal; color: var(--color-fg-muted); }
+  .lc-research ol { margin: 0; padding-left: 1.2rem; font-size: var(--cds-font-size-caption); display: grid; gap: 2px; }
+  .lc-enzcard a, .lc-research a { color: var(--color-fg); text-underline-offset: 2px; }
+  .lc-bar.cap.tone-norm .lc-bar-fill { background: var(--color-warn); }
+  .lc-bar.cap.tone-lof .lc-bar-fill { background: var(--color-bad); }
+  .lc-bar.cap.tone-gof .lc-bar-fill { background: var(--color-ok); }
+  .lc-ladder { margin-top: var(--cds-gap-xs); max-width: 44rem; }
+  .lc-ladder tr.is-hp td { font-weight: var(--cds-font-weight-medium); color: var(--color-fg); }
+  .lc-ladder tr.is-hp td:first-child { box-shadow: inset 3px 0 0 var(--color-fg-muted); }
+  .lc-ladder tr.is-hp.tone-norm td:first-child { box-shadow: inset 3px 0 0 var(--color-warn); }
+  .lc-ladder tr.is-hp.tone-lof td:first-child { box-shadow: inset 3px 0 0 var(--color-bad); }
+  .lc-ladder tr.is-hp.tone-gof td:first-child { box-shadow: inset 3px 0 0 var(--color-ok); }
+  .lc-step:focus-visible rect.lc-card { stroke: var(--color-fg); stroke-dasharray: 4 3; }
+  .lc-step.is-selected rect.lc-card { stroke: var(--color-fg); fill: var(--color-bg); }
+  .lc-enz { cursor: pointer; }
+  .lc-patterns { display: grid; gap: var(--cds-gap-xs); }
+  .lc-patterns p { margin: 0; font-size: var(--cds-font-size-caption); }
+  .lc-warn { color: var(--color-bad); }
+  .lc-detail { display: grid; gap: var(--cds-gap-sm); }
+  .lc-detail h3 { font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); margin: 0; }
+  .lc-detail .lc-rx { margin: 0; font-family: var(--font-anthropic-serif); font-size: var(--cds-font-size-heading); max-width: 80ch; }
+  .lc-flowline { display: flex; flex-wrap: wrap; gap: var(--cds-gap-xs); align-items: center; font-size: var(--cds-font-size-caption); }
+  .lc-mol { border: 1px solid var(--color-border-line); border-radius: 999px; padding: 1px var(--cds-pad-sm); background: var(--color-bg); }
+  .lc-mol small { color: var(--color-fg-muted); }
+  .lc-alts { margin: 0; padding-left: 1.1rem; font-size: var(--cds-font-size-caption); }
+  .lc-detail a { color: var(--color-fg); text-underline-offset: 2px; }
+  .lc-stepsum { margin: 0; max-width: 80ch; }
+  .lc-enzcard { display: grid; gap: var(--cds-gap-sm); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius);
+                padding: var(--cds-pad-md); background: var(--color-bg); }
+  .lc-enzcard.tone-gof { box-shadow: inset 4px 0 0 var(--color-ok); }
+  .lc-enzcard.tone-lof { box-shadow: inset 4px 0 0 var(--color-bad); }
+  .lc-enzcard.tone-norm { box-shadow: inset 4px 0 0 var(--color-warn); }
+  .lc-enzhead { display: flex; flex-wrap: wrap; gap: var(--cds-gap-sm); align-items: center; }
+  .lc-enzhead .lc-btn { margin-left: auto; }
+  .lc-how, .lc-research { display: grid; gap: var(--cds-gap-xs); }
+  .lc-howrow { display: grid; grid-template-columns: 8rem minmax(0, 1fr); gap: var(--cds-gap-sm); font-size: var(--cds-font-size-caption);
+               padding-top: var(--cds-gap-xs); border-top: 1px solid var(--color-border-line); }
+  @media (max-width: 40rem) { .lc-howrow { grid-template-columns: minmax(0, 1fr); gap: 2px; } }
+  .lc-howkey { color: var(--color-fg-muted); }
+  .lc-bar { position: relative; height: 10px; max-width: 18rem; border-radius: 5px; background: var(--color-panel);
+            border: 1px solid var(--color-border-line); margin: 3px 0; }
+  .lc-bar-fill { position: absolute; top: 0; bottom: 0; border-radius: 5px; background: var(--color-fg-muted); min-width: 3px; }
+  .lc-bar-tick { position: absolute; top: -3px; bottom: -3px; width: 2px; margin-left: -1px; background: var(--color-fg); }
+  .lc-quotes { display: grid; gap: var(--cds-gap-xs); }
+  .lc-quotes blockquote { margin: 0; padding-left: var(--cds-pad-sm); border-left: 2px solid var(--color-border-line); }
+  .lc-quotes cite { display: block; font-style: normal; color: var(--color-fg-muted); }
+  .lc-research ol { margin: 0; padding-left: 1.2rem; font-size: var(--cds-font-size-caption); display: grid; gap: 2px; }
+  .lc-enzcard a, .lc-research a { color: var(--color-fg); text-underline-offset: 2px; }
+  .lc-step:focus-visible rect.lc-card { stroke: var(--color-fg); stroke-dasharray: 4 3; }
+  .lc-step.is-selected rect.lc-card { stroke: var(--color-fg); fill: var(--color-bg); }
+  .lc-enz { cursor: pointer; }
+  .lc-patterns { display: grid; gap: var(--cds-gap-xs); }
+  .lc-patterns p { margin: 0; font-size: var(--cds-font-size-caption); }
+  .lc-warn { color: var(--color-bad); }
+  .lc-detail { display: grid; gap: var(--cds-gap-sm); }
+  .lc-detail h3 { font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); margin: 0; }
+  .lc-detail .lc-rx { margin: 0; font-family: var(--font-anthropic-serif); font-size: var(--cds-font-size-heading); max-width: 80ch; }
+  .lc-flowline { display: flex; flex-wrap: wrap; gap: var(--cds-gap-xs); align-items: center; font-size: var(--cds-font-size-caption); }
+  .lc-mol { border: 1px solid var(--color-border-line); border-radius: 999px; padding: 1px var(--cds-pad-sm); background: var(--color-bg); }
+  .lc-mol small { color: var(--color-fg-muted); }
+  .lc-alts { margin: 0; padding-left: 1.1rem; font-size: var(--cds-font-size-caption); }
+  .lc-detail a { color: var(--color-fg); text-underline-offset: 2px; }
+  .lc-step:focus-visible rect.lc-card { stroke: var(--color-fg); stroke-dasharray: 4 3; }
+  .lc-step.is-selected rect.lc-card { stroke: var(--color-fg); fill: var(--color-bg); }
+  .lc-enz { cursor: pointer; }
+  .lc-patterns { display: grid; gap: var(--cds-gap-xs); }
+  .lc-patterns p { margin: 0; font-size: var(--cds-font-size-caption); }
+  .lc-warn { color: var(--color-warn); }
+  .lc-detail { display: grid; gap: var(--cds-gap-sm); }
+  .lc-detail h3 { font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); margin: 0; }
+  .lc-detail .lc-rx { margin: 0; font-family: var(--font-anthropic-serif); font-size: var(--cds-font-size-heading); max-width: 80ch; }
+  .lc-flowline { display: flex; flex-wrap: wrap; gap: var(--cds-gap-xs); align-items: center; font-size: var(--cds-font-size-caption); }
+  .lc-mol { border: 1px solid var(--color-border-line); border-radius: 999px; padding: 1px var(--cds-pad-sm); background: var(--color-bg); }
+  .lc-mol small { color: var(--color-fg-muted); }
+  .lc-alts { margin: 0; padding-left: 1.1rem; font-size: var(--cds-font-size-caption); }
+  .lc-detail a { color: var(--color-fg); text-underline-offset: 2px; }
+  /* @include th.css */
+  /* @include md.css */
+  /* @include nt.css */
+  .th-b-untested { background: var(--color-fg-muted); opacity: 0.35; }
+</style>
+
+<div class="gx">
+  <header class="gx-head">
+    <h1 class="gx-title" id="title">Gene Cluster Explorer</h1>
+    <div class="gx-lang" role="group" aria-label="Language">
+      <button type="button" data-lang="en" aria-pressed="true" lang="en">EN</button>
+      <button type="button" data-lang="sv" aria-pressed="false" lang="sv">SV</button>
+      <span class="gx-i18n" data-draw="i18n-load" data-source="i18n_sv" aria-hidden="true"></span>
+      <span class="gx-i18n" data-draw="i18n-terms" data-source="i18n_sv_terms" aria-hidden="true"></span>
+    </div>
+    <div class="gx-profile" data-draw="gx-profile" data-source="profiles" role="group" aria-label="Profile"></div>
+    <p class="gx-lede">Every tab reads the selected person's genome through public research sources: Clusters, Medicines, Nutrition,
+      Biomarkers, Gene lifecycle and Profile.</p>
+  </header>
+
+  <nav class="gx-tabs" role="tablist" aria-label="Views">
+    <button class="gx-tab" role="tab" data-tab="clusters" aria-selected="true">Clusters</button>
+    <button class="gx-tab" role="tab" data-tab="medicines" aria-selected="false">Medicines</button>
+    <button class="gx-tab" role="tab" data-tab="nutrition" aria-selected="false">Nutrition</button>
+    <button class="gx-tab" role="tab" data-tab="lifecycle" aria-selected="false">Gene lifecycle</button>
+    <button class="gx-tab" role="tab" data-tab="biomarkers" aria-selected="false">Biomarkers</button>
+    <button class="gx-tab" role="tab" data-tab="profile" aria-selected="false">Profile</button>
+  </nav>
+
+  <!-- @include th.html -->
+
+  <!-- @include md.html -->
+  <!-- @include nt.html -->
+
+  <!-- @include lc.html -->
+
+  <section class="gx-page" id="biomarkers" data-page="biomarkers" hidden>
+    <p class="gx-note" data-who>Common lab tests read through XY's genes. Per test: where XY's genes put the value among Europeans (PGS Catalog,
+      GWAS Catalog), the genes known to move the test, and whether XY's own variants move it: some shift the value without the body being
+      affected ("your normal may differ"), others are real and worth following up. Then how the value is made and regulated (Reactome) and
+      what XY's variants change there (Ensembl VEP, GTEx, UniProt). Every finding carries an evidence grade from A+ to C.</p>
+    <div class="gx-card">
+      <div class="nt-overview" data-draw="lb-overview" data-source="lab_tests lab_steps"></div>
+    </div>
+    <div class="gx-card" id="lb-detail">
+      <div class="nt-detail" data-draw="lb-detail" data-source="lab_tests lab_findings lab_steps"></div>
+    </div>
+  </section>
+
+  <section class="gx-page" id="profile" data-page="profile" hidden>
+    <p class="gx-note gx-sample" data-who>XY's own genome (MyHeritage file) read against the library. <b data-draw="s-top" data-source="hp_modules" data-field="name" data-row="0">—</b>
+      has the most genes reading negative, with <b data-draw="s-compound" data-source="hp_compound" data-field="n" data-row="0">—</b> compound links across all modules,
+      where two interacting genes both read negative.</p>
+    <div class="gx-grid">
+      <div class="gx-card" id="profile-modules">
+        <h2>Module balance</h2>
+        <p class="gx-note" data-who>Genes per module where the evidence says XY's genotype changes the gene (GoF or LoF) and that change is bad for
+          XY (negative, left) or good (positive, right). Genes with typical function or no evidence count as neither. Hover a bar for the genes.</p>
+        <div class="gx-chart gx-bars" data-draw="hp-modules" data-source="hp_modules"></div>
+      </div>
+      <div class="gx-card" id="profile-tilts">
+        <h2>Biomarker tilt</h2>
+        <p class="gx-note">Standardised genetic score per lab test against European allele frequencies (0 = average). The band marks ±1.
+          Only biomarkers with 3 or more scoreable SNPs are shown. It suggests what is worth measuring; it does not predict the value.</p>
+        <div class="gx-chart gx-bars" data-draw="hp-tilts" data-source="hp_tilts"></div>
+      </div>
+      <div class="gx-card" id="profile-links">
+        <h2>Gene interactions inside modules</h2>
+        <p class="gx-note">Compound: both interacting genes read negative, so effects may stack. Buffered: a gene reading negative interacts
+          with one reading positive, which may partly compensate. STRING confidence is how sure STRING is of the interaction (0–1).</p>
+        <div class="gx-table-box">
+          <table class="gx-table" data-source="hp_links" data-row-key="gene_a,gene_b">
+            <thead><tr>
+              <th data-field="kind">Type</th><th data-field="gene_a">Gene</th><th data-field="gene_b">Partner</th>
+              <th data-field="module_name">Module</th><th data-field="string_score">STRING confidence</th>
+            </tr></thead>
+            <tbody data-draw="hp-links"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="gx-card" id="profile-bridges">
+        <h2>Reduced bridge genes</h2>
+        <p class="gx-note">Reduced genes with strong interactions into other modules: candidates for effects that cross systems.</p>
+        <div class="gx-table-box">
+          <table class="gx-table" data-source="hp_bridges" data-row-key="gene">
+            <thead><tr>
+              <th data-field="gene">Gene</th><th data-field="module_name">Home module</th>
+              <th data-field="reaches">Reaches into</th><th data-field="total_weight" class="gx-hide-narrow">Weight</th>
+            </tr></thead>
+            <tbody data-draw="hp-bridges"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+  // Calculations from the attached datasets
+  dash.calc('kpis', {
+    inputs: ['modules', 'module_links', 'biomarker_snps'],
+    title: 'Library totals',
+    description: 'Counts of modules, genes in modules, module links, biomarkers and SNPs with a biomarker link.',
+    fn: (modules, module_links, biomarker_snps) => [{
+      modules: modules.length,
+      genes: modules.reduce((s, m) => s + Number(m.size), 0),
+      links: module_links.length,
+      biomarkers: new Set(biomarker_snps.map((r) => r.biomarker)).size,
+      linked_snps: new Set(biomarker_snps.map((r) => r.rsid)).size,
+    }],
+  });
+
+  // Shared helpers
+  // Profiles: each personal dataset holds every person's rows, tagged with `person`; gx.rows hands a draw only the
+  // selected person's (memoised per array and person, so caches keyed on the array stay valid).
+  const PERSON_ROWS = new WeakMap();
+  const forPerson = (arr, who) => {
+    if (!Array.isArray(arr) || !arr.length || !('person' in arr[0])) return arr;
+    let m = PERSON_ROWS.get(arr);
+    if (!m) { m = new Map(); PERSON_ROWS.set(arr, m); }
+    if (!m.has(who)) m.set(who, arr.filter((r) => !r.person || r.person === who));
+    return m.get(who);
+  };
+  let savedWho = null;
+  try { savedWho = localStorage.getItem('gx-person'); } catch (e) { /* storage blocked: the first profile */ }
+  window.gx = {
+    who() {
+      const d = dash.data('profiles');
+      const ids = d.status === 'ok' ? d.data.map((p) => p.id) : [];
+      const want = dash.params().person || savedWho;
+      return ids.includes(want) ? want : ids[0] || want || 'XY';
+    },
+    rows(...ids) {
+      const all = ids.map((id) => dash.data(id));
+      if (!all.every((d) => d.status === 'ok')) return null;
+      const who = gx.who();
+      return all.map((d) => forPerson(d.data, who));
+    },
+    failed(...ids) { return ids.some((id) => dash.data(id).status === 'error'); },
+    color(name) { return getComputedStyle(document.documentElement).getPropertyValue(name).trim() || null; },
+    show(tab) {
+      document.querySelectorAll('.gx-page').forEach((p) => { p.hidden = p.dataset.page !== tab; });
+      document.querySelectorAll('.gx-tab').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.tab === tab)));
+      dash.setLink(tab);
+    },
+    tip(box) {
+      let t = box.querySelector('.gx-tip');
+      if (!t) { t = document.createElement('div'); t.className = 'gx-tip'; t.hidden = true; box.appendChild(t); }
+      return {
+        show(event, head, lines) {
+          t.replaceChildren();
+          const h = document.createElement('div'); h.className = 'gx-tip-head'; h.textContent = head; t.appendChild(h);
+          for (const l of lines) { const d = document.createElement('div'); d.textContent = l; t.appendChild(d); }
+          t.hidden = false;
+          const b = box.getBoundingClientRect();
+          let x = event.clientX - b.left + 12, y = event.clientY - b.top + 12;
+          x = Math.min(x, box.clientWidth - t.offsetWidth - 4);
+          t.style.left = Math.max(0, x) + 'px'; t.style.top = y + 'px';
+        },
+        hide() { t.hidden = true; },
+      };
+    },
+    failLine(el) {
+      el.replaceChildren();
+      const p = document.createElement('p'); p.className = 'gx-note'; p.textContent = 'Failed to load'; el.appendChild(p);
+    },
+  };
+
+  document.querySelectorAll('.gx-tab').forEach((b) => b.addEventListener('click', () => gx.show(b.dataset.tab)));
+
+  // Static texts marked data-who name the selected person: each text node keeps its original (English, "XY") as a
+  // template, and is rewritten only when the person changes, so the translation layer then translates it again
+  const WHO_TPL = new WeakMap();
+  let shownWho = null;
+  const applyWho = (who) => {
+    if (who === shownWho) return;
+    shownWho = who;
+    document.querySelectorAll('[data-who]').forEach((el) => {
+      const w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+      let n;
+      while ((n = w.nextNode())) {
+        if (!WHO_TPL.has(n)) WHO_TPL.set(n, n.nodeValue);
+        const t = WHO_TPL.get(n);
+        if (/\bXY\b/.test(t)) n.nodeValue = t.replace(/\bXY\b/g, who);
+      }
+    });
+  };
+  document.querySelectorAll('[data-who]').forEach((el) => {
+    const w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+    let n;
+    while ((n = w.nextNode())) WHO_TPL.set(n, n.nodeValue);
+  });
+  dash.draw('gx-profile', (el) => {
+    const d = dash.data('profiles');
+    if (d.status !== 'ok') return;
+    const who = gx.who();
+    el.replaceChildren();
+    const lab = document.createElement('span'); lab.textContent = 'Profile'; el.appendChild(lab);
+    const set = document.createElement('div'); set.className = 'gx-profile-set'; el.appendChild(set);
+    for (const p of d.data) {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = p.id;
+      b.title = p.sex === 'female' ? 'Female' : p.sex === 'male' ? 'Male' : '';
+      b.setAttribute('aria-pressed', String(p.id === who));
+      b.addEventListener('click', () => {
+        try { localStorage.setItem('gx-person', p.id); } catch (e) { /* storage blocked: kept for this visit only */ }
+        savedWho = p.id;
+        // A gene or theme picked for one person may not exist for the other
+        dash.setParams({ person: p.id, th_gene: null, th_organ: null, th_facet: null });
+      });
+      set.appendChild(b);
+    }
+    // After the draw: the runtime counts a draw's writes outside its own element as stray
+    setTimeout(() => applyWho(who), 0);
+  });
+  const linked = location.hash.slice(1);
+  if (['clusters', 'medicines', 'nutrition', 'lifecycle', 'biomarkers', 'profile'].includes(linked)) gx.show(linked);
+
+  dash.calc('hp_compound', {
+    inputs: ['hp_links'],
+    title: 'Compound links',
+    description: 'Number of interacting gene pairs where both genes are reduced, per person.',
+    fn: (hp_links) => [...new Set(hp_links.map((l) => l.person))].map((person) =>
+      ({ person, n: hp_links.filter((l) => l.person === person && l.kind === 'compound').length })),
+  });
+
+  // Simple number drawings
+  const fmt = d3.format(',');
+  const numberDraw = (name, field) => dash.draw(name, (el) => {
+    const r = gx.rows('kpis');
+    el.textContent = r ? fmt(r[0][0][field]) : '—';
+  });
+  [['k-modules', 'modules'], ['k-biomarkers', 'biomarkers'], ['k-linked', 'linked_snps'],
+   ['t-modules', 'modules'], ['t-genes', 'genes'], ['t-links', 'links'], ['t-biomarkers', 'biomarkers']]
+    .forEach(([n, f]) => numberDraw(n, f));
+
+  dash.draw('s-top', (el) => { const r = gx.rows('hp_modules'); el.textContent = r ? r[0][0].name : '—'; });
+  dash.draw('s-compound', (el) => { const r = gx.rows('hp_compound'); el.textContent = r ? fmt(r[0][0].n) : '—'; });
+</script>
+
+<script>
+  // @include th.js
+</script>
+
+<script>
+  // XY profile: module balance (diverging bars)
+  dash.draw('hp-modules', (el) => {
+    const r = gx.rows('hp_modules');
+    el.replaceChildren();
+    if (!r) { if (gx.failed('hp_modules')) gx.failLine(el); return; }
+    const rows = r[0].map((m) => ({ ...m, negative: Number(m.negative), positive: Number(m.positive) }))
+      .sort((a, b) => (b.positive - b.negative) - (a.positive - a.negative) || b.positive - a.positive);
+    const W = Math.max(280, el.clientWidth), rowH = 24;
+    const svg = d3.select(el).append('svg').attr('width', '100%');
+    const probe = svg.append('g').attr('font-size', 12);
+    const left = d3.max(rows, (m) => probe.append('text').text(m.name).node().getComputedTextLength()) + 10;
+    probe.remove();
+    const H = rows.length * rowH + 28;
+    svg.attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img').attr('aria-label', 'Genes reading negative and positive per module');
+    const maxV = d3.max(rows, (m) => Math.max(m.negative, m.positive)) || 1;
+    const x = d3.scaleLinear([-maxV, maxV], [left, W - 30]).nice();
+    const y = d3.scaleBand(rows.map((m) => m.name), [4, H - 24]).padding(0.25);
+    const tip = gx.tip(el);
+    svg.append('g').attr('transform', `translate(0,${H - 22})`).call(d3.axisBottom(x).ticks(Math.min(5, 2 * maxV)).tickFormat((v) => (Number.isInteger(v) ? Math.abs(v) : '')))
+      .attr('font-size', null).attr('font-family', null).call((a) => a.selectAll('text').style('fill', 'var(--color-fg-muted)'))
+      .call((a) => a.selectAll('line,path').style('stroke', 'var(--cds-chart-axis)'));
+    svg.append('line').attr('x1', x(0)).attr('x2', x(0)).attr('y1', 0).attr('y2', H - 22).style('stroke', 'var(--cds-chart-reference)');
+    const g = svg.append('g').selectAll('g').data(rows).join('g')
+      .on('mousemove', (event, m) => tip.show(event, m.name, [`Negative ${m.negative}: ${m.negative_genes || 'none'}`, `Positive ${m.positive}: ${m.positive_genes || 'none'}`, `${m.with_evidence} of ${m.tested} tested genes with evidence`, `${m.compound_links} compound links`]))
+      .on('mouseleave', () => tip.hide());
+    g.append('rect').attr('x', (m) => x(-m.negative)).attr('width', (m) => x(0) - x(-m.negative)).attr('y', (m) => y(m.name))
+      .attr('height', y.bandwidth()).attr('rx', 3).style('fill', 'var(--cds-chart-status-critical)');
+    g.append('rect').attr('x', x(0)).attr('width', (m) => x(m.positive) - x(0)).attr('y', (m) => y(m.name))
+      .attr('height', y.bandwidth()).attr('rx', 3).style('fill', dash.colors[0]);
+    g.append('text').attr('x', left - 8).attr('y', (m) => y(m.name) + y.bandwidth() / 2 + 4).attr('text-anchor', 'end')
+      .attr('font-size', 12).style('fill', 'var(--color-fg)').text((m) => m.name);
+  });
+
+  // XY profile: biomarker tilt (z) as bars from zero
+  dash.draw('hp-tilts', (el) => {
+    const r = gx.rows('hp_tilts');
+    el.replaceChildren();
+    if (!r) { if (gx.failed('hp_tilts')) gx.failLine(el); return; }
+    const rows = r[0].map((t) => ({ ...t, z: Number(t.z) })).sort((a, b) => b.z - a.z);
+    const W = Math.max(280, el.clientWidth), rowH = 20;
+    const svg = d3.select(el).append('svg').attr('width', '100%');
+    const probe = svg.append('g').attr('font-size', 12);
+    const left = d3.max(rows, (t) => probe.append('text').text(t.biomarker).node().getComputedTextLength()) + 10;
+    probe.remove();
+    const H = rows.length * rowH + 28;
+    svg.attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img').attr('aria-label', 'Biomarker tilt scores');
+    const lim = Math.max(3, Math.ceil(d3.max(rows, (t) => Math.abs(t.z))));
+    const x = d3.scaleLinear([-lim, lim], [left, W - 16]);
+    const y = d3.scaleBand(rows.map((t) => t.biomarker), [4, H - 24]).padding(0.25);
+    const tip = gx.tip(el);
+    svg.append('rect').attr('x', x(-1)).attr('width', x(1) - x(-1)).attr('y', 0).attr('height', H - 22)
+      .style('fill', 'var(--cds-chart-grid)');
+    svg.append('g').attr('transform', `translate(0,${H - 22})`).call(d3.axisBottom(x).ticks(Math.min(7, 2 * lim + 1)).tickFormat(d3.format('+')))
+      .attr('font-size', null).attr('font-family', null).call((a) => a.selectAll('text').style('fill', 'var(--color-fg-muted)'))
+      .call((a) => a.selectAll('line,path').style('stroke', 'var(--cds-chart-axis)'));
+    svg.append('line').attr('x1', x(0)).attr('x2', x(0)).attr('y1', 0).attr('y2', H - 22).style('stroke', 'var(--cds-chart-reference)');
+    const g = svg.append('g').selectAll('g').data(rows).join('g')
+      .on('mousemove', (event, t) => tip.show(event, `${t.biomarker} (${t.panel})`, [`z ${d3.format('+.2f')(t.z)} · percentile ${t.percentile}`, `${t.n_snps} SNPs`, `Top drivers: ${t.drivers}`]))
+      .on('mouseleave', () => tip.hide());
+    g.append('rect').attr('x', (t) => Math.min(x(0), x(t.z))).attr('width', (t) => Math.abs(x(t.z) - x(0))).attr('y', (t) => y(t.biomarker))
+      .attr('height', y.bandwidth()).attr('rx', 2)
+      .style('fill', (t) => Math.abs(t.z) >= 1 ? dash.colors[0] : 'var(--cds-chart-muted)');
+    g.append('text').attr('x', left - 8).attr('y', (t) => y(t.biomarker) + y.bandwidth() / 2 + 4).attr('text-anchor', 'end')
+      .attr('font-size', 12).style('fill', 'var(--color-fg)').text((t) => t.biomarker);
+  });
+
+  // @include lc.js
+  // XY profile: interaction and bridge tables
+  dash.draw('hp-links', (tbody) => {
+    const r = gx.rows('hp_links');
+    tbody.replaceChildren();
+    if (!r) return;
+    const rows = [...r[0]].sort((a, b) => (a.kind === b.kind ? 0 : a.kind === 'compound' ? -1 : 1) || b.string_score - a.string_score);
+    for (const l of rows) {
+      const tr = document.createElement('tr');
+      tr.dataset.key = encodeURIComponent(l.gene_a) + ',' + encodeURIComponent(l.gene_b);
+      const cell = (text, cls) => { const td = document.createElement('td'); td.textContent = text; if (cls) td.className = cls; tr.appendChild(td); };
+      cell(l.kind, l.kind === 'compound' ? 'gx-up' : 'gx-down');
+      cell(l.gene_a); cell(l.gene_b); cell(l.module_name); cell(d3.format('.2f')(l.string_score));
+      tbody.appendChild(tr);
+    }
+  });
+
+  dash.draw('hp-bridges', (tbody) => {
+    const r = gx.rows('hp_bridges');
+    tbody.replaceChildren();
+    if (!r) return;
+    for (const b of r[0]) {
+      const tr = document.createElement('tr');
+      const cell = (text, cls) => { const td = document.createElement('td'); td.textContent = text; if (cls) td.className = cls; tr.appendChild(td); };
+      cell(b.gene); cell(b.module_name); cell(b.reaches); cell(d3.format('.1f')(b.total_weight), 'gx-hide-narrow');
+      tbody.appendChild(tr);
+    }
+  });
+</script>
+
+<script>
+  // @include md.js
+</script>
+
+<script>
+  // @include nt.js
+</script>
+
+<script>
+  // @include i18n.js
+</script>

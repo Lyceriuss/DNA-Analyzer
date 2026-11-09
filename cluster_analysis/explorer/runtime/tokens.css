@@ -1,0 +1,44 @@
+/* Design tokens for the standalone explorer. On claude.ai the Dashboard runtime provides these (--color-*, --cds-*,
+   --font-*); a self-hosted page has to define them itself. Dark follows the system setting unless data-theme on <html>
+   says otherwise. */
+:root {
+  --font-anthropic-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-anthropic-serif: Georgia, "Times New Roman", serif;
+  --cds-font-size-caption: 12px; --cds-font-size-body: 14px; --cds-font-size-heading: 16px; --cds-font-size-title: 26px;
+  --cds-font-weight-medium: 600;
+  --cds-gap-xs: 4px; --cds-gap-sm: 8px; --cds-gap-md: 16px; --cds-gap-lg: 24px;
+  --cds-pad-xs: 4px; --cds-pad-sm: 8px; --cds-pad-md: 12px; --cds-pad-lg: 16px;
+  --cds-radius: 8px; --cds-dur-slow: 300ms;
+
+  --color-bg: #faf9f5; --color-panel: #f0eee6; --color-fg: #1f1e1d; --color-fg-muted: #6b6a65;
+  --color-border-line: #dcd9cf; --color-ok: #2f7d4a; --color-warn: #b5651d; --color-bad: #b83a2b;
+  --cds-surface-popover: #ffffff; --cds-border: #d4d1c7; --cds-text-secondary: #6b6a65;
+  --cds-shadow-popover: 0 4px 16px rgba(0, 0, 0, 0.12);
+  --cds-chart-axis: #8a8880; --cds-chart-grid: #e6e3da; --cds-chart-muted: #c9c6bc; --cds-chart-reference: #8a8880;
+  --cds-chart-status-critical: #b83a2b;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-bg: #1a1a19; --color-panel: #232322; --color-fg: #ecebe6; --color-fg-muted: #a3a29c;
+    --color-border-line: #3a3936; --color-ok: #5fb37a; --color-warn: #e0a34a; --color-bad: #e06c5a;
+    --cds-surface-popover: #2c2c2a; --cds-border: #444340; --cds-text-secondary: #a3a29c;
+    --cds-shadow-popover: 0 4px 16px rgba(0, 0, 0, 0.5);
+    --cds-chart-axis: #8f8e88; --cds-chart-grid: #2f2e2c; --cds-chart-muted: #55544f; --cds-chart-reference: #8f8e88;
+    --cds-chart-status-critical: #e06c5a;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --color-bg: #1a1a19; --color-panel: #232322; --color-fg: #ecebe6; --color-fg-muted: #a3a29c;
+  --color-border-line: #3a3936; --color-ok: #5fb37a; --color-warn: #e0a34a; --color-bad: #e06c5a;
+  --cds-surface-popover: #2c2c2a; --cds-border: #444340; --cds-text-secondary: #a3a29c;
+  --cds-shadow-popover: 0 4px 16px rgba(0, 0, 0, 0.5);
+  --cds-chart-axis: #8f8e88; --cds-chart-grid: #2f2e2c; --cds-chart-muted: #55544f; --cds-chart-reference: #8f8e88;
+  --cds-chart-status-critical: #e06c5a;
+  color-scheme: dark;
+}
+[hidden] { display: none !important; }
+body { margin: 0; padding: 16px; background: var(--color-bg); color: var(--color-fg);
+  font-family: var(--font-anthropic-sans); font-size: var(--cds-font-size-body); line-height: 1.45; }
+body > .gx { max-width: 1200px; margin: 0 auto; }

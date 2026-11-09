@@ -82,8 +82,8 @@ flowchart TB
   gives a shorter, more active receptor).
 
 ```bash
-python -m cluster_analysis.genotype_effects           # calls that would change, and effects without a polarity
-python -m cluster_analysis.genotype_effects --write   # write function / function_basis into the library
+python -m cluster_analysis.library.genotype_effects           # calls that would change, and effects without a polarity
+python -m cluster_analysis.library.genotype_effects --write   # write function / function_basis into the library
 ```
 
 ## Per-gene calls from the person's own variants
@@ -142,8 +142,8 @@ flowchart TB
 | agrees / no function claim | Nothing to change |
 
 ```bash
-python -m cluster_analysis.function_evidence    # gather (API, cached)
-python -m cluster_analysis.library_audit        # → docs/LIBRARY_AUDIT.md, library_audit.json
+python -m cluster_analysis.evidence.function_evidence    # gather (API, cached)
+python -m cluster_analysis.library.library_audit        # → docs/LIBRARY_AUDIT.md, library_audit.json
 ```
 
 The audit never edits the library. Corrections are made after review and listed in `docs/LIBRARY_CHANGES.md`; the

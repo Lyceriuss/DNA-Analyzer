@@ -15,5 +15,8 @@ cluster_analysis/cache/
 # Tool logs
 *.log
 
-# Bulk reference downloads (cluster_analysis/coverage_map.py)
+# Bulk reference downloads (cluster_analysis/library/coverage_map.py)
 data/reference/
+
+# Explorer build output (cluster_analysis/explorer/build.py)
+cluster_analysis/explorer/build/

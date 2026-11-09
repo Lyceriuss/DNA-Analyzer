@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Downloads what src/impute.py needs into data/reference/imputation (about 5 GB): Beagle 5.5, the GRCh37 genetic
+# Downloads what genome/impute.py needs into data/reference/imputation (about 5 GB): Beagle 5.5, the GRCh37 genetic
 # maps, the 1000 Genomes phase 3 haplotype panels (one per chromosome, Beagle's bref3 format) and the 1000 Genomes
 # site list (allele frequencies). Files already there are skipped.
 set -e

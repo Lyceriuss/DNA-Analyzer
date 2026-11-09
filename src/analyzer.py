@@ -1,7 +1,7 @@
 import json
 import os
 import pandas as pd
-from src.loader import load_dna_file
+from genome.loader import load_dna_file
 from src.normalizer import resolve_genotype, normalize_variant_keys
 from src.domain_mapper import map_system_to_domain
 from src.proxy_handler import apply_proxies

@@ -9,7 +9,7 @@ DEEP_DIVE_PATH = "config/deep_dive_content.json"
 EVIDENCE_PATH = "config/evidence_db.json"
 UI_LABELS_PATH = "config/ui_labels.json" # New config for modularity
 
-# Each result is read from the library's evidence call (GoF / LoF, see cluster_analysis/genotype_effects.py) and
+# Each result is read from the library's evidence call (GoF / LoF, see cluster_analysis/library/genotype_effects.py) and
 # whether that effect is good or bad for the person. Only positive and negative readings get a deep dive / summary row.
 READING_MARK = {"positive": "+", "negative": "-", "neutral": "0", "typical": "0", "unclear": "?", "unknown": "?"}
 OUTCOME_RGB = {"positive": (39, 174, 96), "negative": (231, 76, 60)}

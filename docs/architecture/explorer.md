@@ -40,7 +40,7 @@ flowchart TB
     T2["theme_graph.py fertility_male"] --> X2["theme_XY_fertility_male.json"]
     T3["theme_graph.py cancer"] --> X3["theme_XY_cancer.json"]
     LC["lifecycles_XY_full.json"] --> E
-    X1 & X2 & X3 --> E["export_dashboard.py out/bundle.json<br/>--lifecycles … --dna …"]
+    X1 & X2 & X3 --> E["explorer/export.py out/bundle.json<br/>--lifecycles … --dna …"]
     TH["themes.json (muscle)"] --> E
     EVJ["function_evidence.json,<br/>literature.json"] --> E
     E --> D1["lifecycle_steps, lifecycle_genes,<br/>gene_function"]
@@ -50,13 +50,13 @@ flowchart TB
 ```
 
 ```bash
-python -m cluster_analysis.theme_graph fertility_female
-python -m cluster_analysis.theme_graph fertility_male
-python -m cluster_analysis.theme_graph cancer
-python -m cluster_analysis.medicines
-python -m cluster_analysis.nutrition
-python -m cluster_analysis.overlay data/input/MyHeritage_raw_dna_data_XY.csv --dashboard out   # Profile tab datasets
-python -m cluster_analysis.export_dashboard out/bundle.json \
+python -m cluster_analysis.themes.theme_graph fertility_female
+python -m cluster_analysis.themes.theme_graph fertility_male
+python -m cluster_analysis.themes.theme_graph cancer
+python -m cluster_analysis.medicines.medicines
+python -m cluster_analysis.nutrition.nutrition
+python -m cluster_analysis.library.overlay data/input/MyHeritage_raw_dna_data_XY.csv --dashboard out   # Profile tab datasets
+python -m cluster_analysis.explorer.export out/bundle.json \
     --lifecycles data/output/cluster_analysis/lifecycles_XY_full.json      # every profile; the 207-gene walk
 ```
 
@@ -121,7 +121,8 @@ values can backtrack for minutes on a long paragraph. Results are remembered per
 
 ## Page parts
 
-`index.html` is the complete page as published. `lc.*`, `th.*` and `md.*` are its parts for editing; after a change,
-the same edit goes into `index.html`. Colours are CSS tokens with light and dark values; the page runs on the
-Dashboard runtime, so it doesn't open as a plain local file. Local checks use a harness that loads the datasets from
-disk and renders with headless Chrome.
+`page.html` is the shell and `th.*`, `lc.*`, `md.*`, `nt.*` and `i18n.js` are the parts; `build.py` assembles them into
+`index.html` and the minified copy that is published (`build/publish.json`, checked against the artifact's 256 KiB
+document limit). Colours are CSS tokens with light and dark values. `build.py --standalone` writes the same page as a
+static site with its own runtime (`runtime/dash.js`) and tokens (`runtime/tokens.css`), so it runs without claude.ai;
+see [migration.md](migration.md).

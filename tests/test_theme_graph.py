@@ -1,7 +1,7 @@
 # Run with: python -m unittest discover tests
 import unittest
 
-from cluster_analysis.theme_graph import clinvar_copies, in_regions
+from cluster_analysis.themes.theme_graph import clinvar_copies, in_regions
 
 
 class TestClinvarCopies(unittest.TestCase):

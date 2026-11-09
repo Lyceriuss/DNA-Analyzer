@@ -73,8 +73,8 @@ def disease_terms(dataset_dir):
             if isinstance(v, str) and '"condition"' in v:
                 for m in re.finditer(r'"condition":\s*"((?:[^"\\]|\\.)*)"', v):
                     out.add(json.loads('"' + m.group(1) + '"'))
-    # The library's module names (cluster_analysis/module_names.json) head the Profile and Biomarkers tabs
-    names = json.load(open(os.path.join(ROOT, "cluster_analysis", "module_names.json"), encoding="utf-8"))
+    # The library's module names (cluster_analysis/library/module_names.json) head the Profile and Biomarkers tabs
+    names = json.load(open(os.path.join(ROOT, "cluster_analysis", "library", "module_names.json"), encoding="utf-8"))
     out.update(t for k, v in names.items() if not k.startswith("_") for t in (k, v))   # enrichment label and name
     return {t for t in out if re.search(r"[A-Za-z]{3}", t)}
 

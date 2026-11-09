@@ -1,6 +1,6 @@
 # Imputation and confidence tiers
 
-`src/impute.py` fills in the SNPs MyHeritage didn't report, by comparing the person's measured SNPs with the
+`genome/impute.py` fills in the SNPs MyHeritage didn't report, by comparing the person's measured SNPs with the
 haplotypes of the 2,504 people in 1000 Genomes. It takes a file from ~600k SNPs to ~28 million calls. Each new call
 gets a confidence tier, so later steps can decide which calls to trust.
 
@@ -20,8 +20,8 @@ flowchart TB
 
 ```bash
 bash scripts/fetch_imputation_reference.sh                      # Beagle, panels, maps, site list (~5 GB)
-python -m src.impute data/input/MyHeritage_raw_dna_data_XY.csv     # impute, then finalize
-python -m src.impute data/input/... --validate 10                 # hide every 10th measured SNP and score the guesses
+python -m genome.impute data/input/MyHeritage_raw_dna_data_XY.csv     # impute, then finalize
+python -m genome.impute data/input/... --validate 10                 # hide every 10th measured SNP and score the guesses
 ```
 
 Output columns: `RSID, CHROMOSOME, POSITION, RESULT, SOURCE, GP, EUR_AF, CONFIDENCE`.
@@ -67,7 +67,7 @@ flowchart TB
 | untested | Fewer than 100 validation calls in its band | Counted, not used |
 | not_excluded | "Doesn't carry it" for a rare variant imputation often misses | Shown as "not detected, not excluded" |
 
-`src/loader.py` applies the policy: `CONFIDENT = ("measured", "high")` is the default for single-SNP conclusions
+`genome/loader.py` applies the policy: `CONFIDENT = ("measured", "high")` is the default for single-SNP conclusions
 (library, medicines, pathogenic carrier status). `theme_graph.py` uses `FINDING_TIERS = measured, high, medium` for
 findings and `CARRIED_TIERS = measured, high` for pathogenic variants.
 
@@ -76,7 +76,7 @@ findings and `CARRIED_TIERS = measured, high` for pathogenic variants.
 ```mermaid
 sequenceDiagram
     participant Caller as theme_graph / medicines / analyzer
-    participant L as src/loader.py
+    participant L as genome/loader.py
     participant F as imputed CSV
     Caller->>L: iter_calls(path, rsids, confidence)
     loop each line

@@ -31,7 +31,7 @@ All files are UTF-8 JSON keyed by rsID unless noted otherwise. The counts are fr
 
 Rules:
 - The `variants` and `function` keys must be identical. `function` and `function_basis` are written by
-  `python -m cluster_analysis.genotype_effects --write`, which never changes a polarity.
+  `python -m cluster_analysis.library.genotype_effects --write`, which never changes a polarity.
 - `polarity` is set by hand (`"polarity_source": "reviewed"`). The others are first drafts made on 2026-11-07 from the
   library's wording and the direction of the old 1–10 ratings, which were then removed (they remain in git history, up
   to commit `71d7068`). An effect without a polarity reads *unclear*; `genotype_effects.py` lists them.

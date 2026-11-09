@@ -1,7 +1,7 @@
 # Run with: python -m unittest discover tests
 import unittest
 
-from src.impute import calibrate, carries_minor, freq_band, harmonize, is_male, person_of, tier
+from genome.impute import calibrate, carries_minor, freq_band, harmonize, is_male, person_of, tier
 
 
 class TestConfidence(unittest.TestCase):

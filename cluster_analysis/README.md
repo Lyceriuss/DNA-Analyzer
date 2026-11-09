@@ -2,28 +2,46 @@
 
 Architecture overview with diagrams: [docs/architecture/](../docs/architecture/README.md).
 
+## Layout
+
+| Folder | What it does |
+|---|---|
+| `sources.py` | Clients for the public APIs, with the on-disk cache in `cache/` |
+| `profiles.py`, `profiles.json` | Who is analysed (id, sex, DNA file) and the per-profile pipeline (`python -m cluster_analysis.profiles run`) |
+| `themes/` | Theme graphs for the Clusters tab (cancer, female and male fertility) and their DNA cross-reference |
+| `evidence/` | How a variant changes its gene: function evidence, per-person gene calls, literature |
+| `lifecycle/` | A gene's chemical lifecycle (Gene lifecycle tab) and gene traces |
+| `medicines/` | Drug genes, star alleles and guidelines (Medicines tab) |
+| `nutrition/` | Nutrients (Nutrition tab) and lab tests (Biomarkers tab): `nutrients.json`, `labtests.json`, NNR 2023 |
+| `explorer/` | The explorer page, its dataset export, the build, and the localhost / agent commands |
+| `library/` | The old 247-SNP library (`config/snp_traits.json`) and its tools: modules, biomarkers, audits. Being phased out in favour of the API-based packages above |
+
+Reading a DNA file and imputing it live in `genome/` at the repo root, shared with the PDF report.
+
+The rest of this page describes the library modules (`library/`).
+
 Groups the genes in the library (`config/snp_traits.json`) into **functional modules**, meaning sets of genes whose proteins work together. It then reads a person's results per module. The aim is to see mechanisms rather than isolated SNPs: where several weakened genes sit in the same pathway, and which weakened genes reach into other systems.
 
 ## Two steps
 
 ```bash
 # 1. Library → modules (public data only; run again when snp_traits.json changes)
-python -m cluster_analysis.build_modules            # --resolution 2.0 --min-score 400 --no-gwas
+python -m cluster_analysis.library.build_modules            # --resolution 2.0 --min-score 400 --no-gwas
 
 # 2. Person → module report (fully offline)
-python -m cluster_analysis.overlay data/input/MyHeritage_raw_dna_data_XY.csv
+python -m cluster_analysis.library.overlay data/input/MyHeritage_raw_dna_data_XY.csv
 ```
 
 | Output | Contains | In git? |
 |---|---|---|
-| `cluster_analysis/modules.json` | Modules, enrichment, gene summaries, bridge genes, GWAS traits per rsID | yes (no personal data) |
+| `cluster_analysis/library/modules.json` | Modules, enrichment, gene summaries, bridge genes, GWAS traits per rsID | yes (no personal data) |
 | `cluster_analysis/cache/` | Raw API responses, so re-runs don't hit the APIs again | no |
 | `data/output/cluster_analysis/<name>_clusters.md` / `.json` | One person's module readings | no (personal) |
 
 ## Library validation
 
 ```bash
-python -m cluster_analysis.validate_library   # → cluster_analysis/library_validation.md / .json
+python -m cluster_analysis.library.validate_library   # → cluster_analysis/library/library_validation.md / .json
 ```
 
 This checks every rsID in `snp_traits.json` against Ensembl (GRCh38) and the GWAS Catalog:
@@ -74,19 +92,19 @@ GPX1 and CDKN2B-AS1 (a non-coding RNA) aren't in STRING. ABCC11 and TRPM6 have n
 ## Theme clusters
 
 ```bash
-python -m cluster_analysis.themes   # → cluster_analysis/themes.json (public data)
+python -m cluster_analysis.library.themes   # → cluster_analysis/library/themes.json (public data)
 ```
 
 A theme (cancer, fertility, muscle growth) gathers every library gene with evidence that it bears on that area of health, grouped by the mechanism it acts through. Cancer, for example, covers DNA repair, growth signals, cell death, carcinogen activation and detox, hormones, oxidative stress, inflammation and folate. A gene joins a mechanism when its Gene Ontology processes, Reactome pathways (ContentService, by UniProt accession), UniProt function or disease text, or the GWAS traits of its library SNPs match that mechanism's patterns in `THEMES`. The matching terms are kept as evidence.
 
-Broad mechanisms (growth signals, cell death, oxidative stress, inflammation, energy) also need a direct link to the theme: its name in the UniProt text, the gene summary, GWAS traits or the library entry. Otherwise every antioxidant or receptor gene would count as a cancer gene. Connections are STRING interactions (confidence ≥ 0.4) between theme genes, and pathways are Reactome pathways shared by two or more of them. Add a theme by adding an entry to `THEMES`. `export_dashboard --lifecycles ... --dna ...` also writes `theme_meta`, `theme_genes`, `theme_links` and `theme_pathways` with the person's calls.
+Broad mechanisms (growth signals, cell death, oxidative stress, inflammation, energy) also need a direct link to the theme: its name in the UniProt text, the gene summary, GWAS traits or the library entry. Otherwise every antioxidant or receptor gene would count as a cancer gene. Connections are STRING interactions (confidence ≥ 0.4) between theme genes, and pathways are Reactome pathways shared by two or more of them. Add a theme by adding an entry to `THEMES`. `explorer.export --lifecycles ... --dna ...` also writes `theme_meta`, `theme_genes`, `theme_links` and `theme_pathways` with the person's calls.
 
 ## API-built theme graphs (fertility)
 
 ```bash
-python -m cluster_analysis.theme_graph fertility_female   # XX's file, from the theme config
-python -m cluster_analysis.theme_graph fertility_male     # XY's file
-python -m cluster_analysis.theme_graph cancer             # XY's file: the life of a cell
+python -m cluster_analysis.themes.theme_graph fertility_female   # XX's file, from the theme config
+python -m cluster_analysis.themes.theme_graph fertility_male     # XY's file
+python -m cluster_analysis.themes.theme_graph cancer             # XY's file: the life of a cell
 ```
 
 These themes don't depend on the library: the categories come from the APIs and the DNA file is matched afterwards.
@@ -100,7 +118,7 @@ These themes don't depend on the library: the categories come from the APIs and 
   - The library.
 
   Only theme names, disease IDs and gene symbols go to the APIs.
-- **Imputed calls:** when `src/impute.py` has run for the theme's person, the cross-reference reads the imputed file instead of the raw one (`--measured-only` keeps the raw file). Findings use measured, high and medium calls, and each finding records its confidence. A pathogenic variant counts as carried only when measured or imputed at high confidence. Weaker carrier calls are listed as possible, and rare variants imputation can't rule out are counted as not excluded. ClinVar alleles are compared on the forward strand without flipping, because one position often has a benign and a pathogenic change (APC rs2229992: T>C benign, T>G pathogenic). `export_dashboard.py` picks up the imputed file the same way.
+- **Imputed calls:** when `genome/impute.py` has run for the theme's person, the cross-reference reads the imputed file instead of the raw one (`--measured-only` keeps the raw file). Findings use measured, high and medium calls, and each finding records its confidence. A pathogenic variant counts as carried only when measured or imputed at high confidence. Weaker carrier calls are listed as possible, and rare variants imputation can't rule out are counted as not excluded. ClinVar alleles are compared on the forward strand without flipping, because one position often has a benign and a pathogenic change (APC rs2229992: T>C benign, T>G pathogenic). `explorer/export.py` picks up the imputed file the same way.
 
 Themes can be sex-specific and name their own person. `fertility_female` uses the XX file and places every gene on an organ through its mechanisms (`organ`) and strongly linked conditions (`disease_organs`): brain, hypothalamus–pituitary, ovaries, fallopian tubes, uterus, and endometrium/placenta. The explorer draws these as a body map, and selecting an organ narrows the page to its genes. `fertility_male` uses XY's file (XY) with brain, hypothalamus–pituitary, testes, epididymis and vas deferens, prostate and seminal vesicles, and penis. Together the two fertility themes replace the mixed library theme. Each mechanism has a written explanation (`EXPLAIN`) for the explorer's in-depth view. Erection, accessory-gland and behaviour biology is mostly known from mouse, so those mechanisms accept ortholog-based GO evidence.
 
@@ -134,7 +152,7 @@ no support, common genotypes that read negative, and calls without a polarity. I
 listed in `docs/LIBRARY_CHANGES.md`, and each corrected entry in `snp_traits.json` carries an `audit` field with the reason.
 
 ```bash
-python -m cluster_analysis.library_audit
+python -m cluster_analysis.library.library_audit
 ```
 
 `gene_trace.function_call` (the earlier call, now `library_function`) reports what the library says about the person's own genotype:
@@ -150,13 +168,13 @@ python -m cluster_analysis.library_audit
 
 ```bash
 # Lifecycle and gene-function datasets for the explorer, with fresh calls but no new API walks
-python -m cluster_analysis.export_dashboard out/bundle.json --lifecycles data/output/cluster_analysis/lifecycles_XY_full.json
+python -m cluster_analysis.explorer.export out/bundle.json --lifecycles data/output/cluster_analysis/lifecycles_XY_full.json
 ```
 
 Papers and quoted effect sizes come from `literature.py`, run once for the whole library:
 
 ```bash
-python -m cluster_analysis.literature   # → cluster_analysis/literature.json (public data)
+python -m cluster_analysis.evidence.literature   # → cluster_analysis/evidence/literature.json (public data)
 ```
 
 For each SNP it lists UniProt's experimental references, then the most cited Europe PMC papers whose title names the gene or variant. It also quotes abstract sentences that put a number on the variant's own activity, expression or level ("53% reduced urate transport rates compared to wild-type"). Older names such as C677T or ALDH2*2 are learned from abstracts that write them next to the rsID. Sentences with association statistics (odds, CI, risk), and sentences that name only other variants, are dropped. 20 of 229 SNPs have such a quote, since most abstracts give no number.

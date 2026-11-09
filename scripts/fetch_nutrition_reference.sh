@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# Downloads what cluster_analysis/nutrition.py needs into data/reference/nutrition (about 5 MB):
+# Downloads what cluster_analysis/nutrition/nutrition.py needs into data/reference/nutrition (about 5 MB):
 #   * Livsmedelsverket's summary of the Nordic Nutrition Recommendations 2023 (and its errata), parsed into
-#     cluster_analysis/nnr_2023.json (kept in git; rebuild it only when Livsmedelsverket revises the summary)
-#   * the PGS Catalog scoring files named in cluster_analysis/nutrients.json (harmonised, GRCh37)
+#     cluster_analysis/nutrition/nnr_2023.json (kept in git; rebuild it only when Livsmedelsverket revises the summary)
+#   * the PGS Catalog scoring files named in cluster_analysis/nutrition/nutrients.json (harmonised, GRCh37)
 # The GWAS Catalog, ClinVar, ClinPGx, Reactome, the Ensembl GTF and the 1000 Genomes site list come with the theme,
 # medicines and imputation references; Reactome steps, Ensembl VEP, GTEx and the Protein Atlas are fetched (and
 # cached) by nutrition.py itself. Needs: pip install pdfplumber. Pass --refresh to download again.
@@ -14,6 +14,6 @@ get() { if [ "$REFRESH" = 1 ] || [ ! -s "$1" ]; then curl -sfLo "$1.part" "$2" &
 L=https://www.livsmedelsverket.se/globalassets/publikationsdatabas/broschyrer-foldrar
 get data/reference/nutrition/snr_2023.pdf $L/slutleverans_nordiska-naringsrekommendationer-2023.pdf
 get data/reference/nutrition/snr_errata_2025-09.pdf $L/errata-referensvarden-for-energi-och-naringsamnen-september-2025.pdf
-python -m cluster_analysis.nutrition_reference nnr
-python -m cluster_analysis.nutrition_reference pgs
+python -m cluster_analysis.nutrition.nutrition_reference nnr
+python -m cluster_analysis.nutrition.nutrition_reference pgs
 echo "Done"

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Downloads what cluster_analysis/medicines.py needs into data/reference (about 10 MB): ClinPGx (PharmGKB) clinical
+# Downloads what cluster_analysis/medicines/medicines.py needs into data/reference (about 10 MB): ClinPGx (PharmGKB) clinical
 # annotations and the studies behind them, drug names, guideline annotations (CPIC, DPWG, CPNDS, RNPGx ...) and drug-label annotations (FDA, EMA, PMDA, Health
 # Canada, Swissmedic), and the CPIC recommendation table per metaboliser type. Pass --refresh to download again.
 # ClinVar and the 1000 Genomes site list come with the theme and imputation references.

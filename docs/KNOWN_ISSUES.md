@@ -9,7 +9,7 @@ Snapshot from a review on 2026-11-04. P0 means fix first. Items that have been f
 
 ## P0: content says the wrong thing
 
-**Library validation (2026-11-04):** `python -m cluster_analysis.validate_library` checked all 282 entries against Ensembl and the GWAS Catalog and found 73 errors. They were corrected the same day with a one-off script (`injectors-authenticators/corrections_2026_11/`, removed 2026-11-07; see git history):
+**Library validation (2026-11-04):** `python -m cluster_analysis.library.validate_library` checked all 282 entries against Ensembl and the GWAS Catalog and found 73 errors. They were corrected the same day with a one-off script (`injectors-authenticators/corrections_2026_11/`, removed 2026-11-07; see git history):
 
 - 13 entries were rewritten for the gene actually at the site: ATG16L1, SLC2A2, MC1R, MCT1, PER2, CYP3A7*1C, ALPL, CNNM2, MSMB, HSD3B1, SRD5A2, plus the TP53 deep dive and the LEP evidence.
 - 6 entries were moved to the correct standard SNP: F2, SLC2A9, SLC22A5, CYP2D6*4, AOC1/DAO, SOD3.
@@ -23,7 +23,7 @@ The library now has **229 traits, 0 errors and 38 warnings**. Remaining work:
 - **23 A/T or C/G SNPs** still need their strand checked. TP53 proved these can be silently inverted. Use Ensembl's per-allele amino acids, then add each one to `STRAND_VERIFIED` in `validate_library.py`.
 - Some evidence texts in rewritten entries came out 20–30 % shorter than the originals. This is mostly the methodology fields and the LEP evidence.
 
-- **Evidence/deep-dive entries describe a different gene than the trait.** `python scripts/library_coverage.py` lists them. Aliases such as BCMO1/BCO1, TNF-alpha/TNF and HLA-DQ8/HLA-DQB1 can be ignored. The real conflicts are:
+- **Evidence/deep-dive entries describe a different gene than the trait.** `python cluster_analysis/library/library_coverage.py` lists them. Aliases such as BCMO1/BCO1, TNF-alpha/TNF and HLA-DQ8/HLA-DQB1 can be ignored. The real conflicts are:
 
   | RSID | snp_traits | evidence / deep dive |
   |---|---|---|
@@ -43,7 +43,7 @@ The library now has **229 traits, 0 errors and 38 warnings**. Remaining work:
    - child `AA`, mom `AA`, dad `AG` → "Match: Mom", even though one A must have come from dad.
    Rework it per allele: work out which parent could have supplied each allele, and flag Mendelian inconsistencies (useful for spotting sample mix-ups and strand errors). With a single relative, only "consistent / inconsistent" can be stated.
 2. **One SNP per gene.** `drop_duplicates(subset=['Gene'])` hides additional SNPs, for example MTHFR rs1801131 when rs1801133 is present. Decide whether that is intended, or group by gene and show both.
-3. **Palindromic SNPs (A/T, C/G)**: 23 traits can't be strand-resolved by complementing and are not yet verified (see `STRAND_VERIFIED` in `cluster_analysis/validate_library.py`).
+3. **Palindromic SNPs (A/T, C/G)**: 23 traits can't be strand-resolved by complementing and are not yet verified (see `STRAND_VERIFIED` in `cluster_analysis/library/validate_library.py`).
 4. **Silent misses.** RSIDs missing from the panel are dropped without a trace. Report the count ("X of 229 not tested").
 
 ## P1: one-page layout, remaining
@@ -61,7 +61,7 @@ The library now has **229 traits, 0 errors and 38 warnings**. Remaining work:
 
 ## P1: content quality
 
-- Most narrative and evidence text was written or translated by an LLM. An LLM audit in 2026-11 flagged 120 RSIDs (many structural, such as a missing `risks` list). The evidence-based check is now `python -m cluster_analysis.library_audit` ([LIBRARY_AUDIT.md](LIBRARY_AUDIT.md)).
+- Most narrative and evidence text was written or translated by an LLM. An LLM audit in 2026-11 flagged 120 RSIDs (many structural, such as a missing `risks` list). The evidence-based check is now `python -m cluster_analysis.library.library_audit` ([LIBRARY_AUDIT.md](LIBRARY_AUDIT.md)).
 - `impact` has 4 non-standard values ("Beneficial", "Altered DHT levels", …). They now sort as Medium.
 - **15 orphan deep dives** have narratives but no `snp_traits.json` entry, so they never render: rs1143627, rs11568820, rs12255372, rs17616434, rs1799990, rs1800796, rs1800797, rs1801131 (MTHFR A1298C), rs2228570, rs2854464, rs3025039, rs6269, rs731236 (VDR TaqI), rs7412 (APOE, needed with rs429358 for e2/e3/e4), rs8111989. Add trait entries (and validate them) to activate them. 1 trait has no evidence entry.
 
@@ -103,13 +103,13 @@ The library now has **229 traits, 0 errors and 38 warnings**. Remaining work:
 - The footer label key was wrong, so Swedish showed "Page". It now shows "Sida".
 - Zebra striping used the DataFrame index.
 - Tooling dependencies were added to `requirements.txt`.
-- `scripts/library_coverage.py` checks that the gene symbol for each RSID agrees across all three files.
+- `cluster_analysis/library/library_coverage.py` checks that the gene symbol for each RSID agrees across all three files.
 
 ## Removed (2026-11-07)
 
 - The LLM content tooling in `injectors-authenticators/` (generation, translation, audit, sanitiser, injectors, one-off
   fixers and prototypes), the applied 2026-11 correction and addition scripts, `config/backup/`,
   `config/rewrite_needed.json`, `config/muscle_logic_gates_db.json` (superseded by the muscle theme in
-  `cluster_analysis/themes.json`) and the temporary `cluster_analysis/api_check/` page. All are in git history up to
+  `cluster_analysis/library/themes.json`) and the temporary `cluster_analysis/api_check/` page. All are in git history up to
   commit `71d7068`.
 - The unused `introduction` block in `ui_labels.json` (the report uses `introduction_education`).

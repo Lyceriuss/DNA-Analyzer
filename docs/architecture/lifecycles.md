@@ -20,7 +20,7 @@ flowchart TB
     STEPS & RH & OP --> LC["lifecycles_XY_full.json"]
     CALLS["XY's calls (offline)"] --> OVER["genotype + evidence call<br/>on each library enzyme"]
     LC --> OVER
-    OVER --> EXP["export_dashboard.py --lifecycles"]
+    OVER --> EXP["explorer/export.py --lifecycles"]
     EXP --> D1["lifecycle_steps"]
     EXP --> D2["lifecycle_genes"]
     EXP --> D3["gene_function<br/>evidence, genotype ladder, papers"]
@@ -33,8 +33,8 @@ its official symbol. Reactome returns 503s under load; rerun the failed genes an
 
 ```bash
 GENES=$(python -c "import json; print(' '.join(sorted({v['gene'].split()[0] for v in json.load(open('config/snp_traits.json', encoding='utf-8')).values()})))")
-python -m cluster_analysis.lifecycle $GENES TNF --dna data/input/MyHeritage_raw_dna_data_XY.csv --out data/output/cluster_analysis/lifecycles_XY_full.json
-python -m cluster_analysis.gene_trace ALDH2 --dna data/input/MyHeritage_raw_dna_data_XY.csv     # upstream / downstream trace of one gene
+python -m cluster_analysis.lifecycle.lifecycle $GENES TNF --dna data/input/MyHeritage_raw_dna_data_XY.csv --out data/output/cluster_analysis/lifecycles_XY_full.json
+python -m cluster_analysis.lifecycle.gene_trace ALDH2 --dna data/input/MyHeritage_raw_dna_data_XY.csv     # upstream / downstream trace of one gene
 ```
 
 ## The gene panel

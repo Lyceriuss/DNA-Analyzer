@@ -25,7 +25,7 @@ Of the 229 traits, ~183 are present in a typical file. The rest aren't on MyHeri
 data/input/X.csv
       │
       ▼
-src/loader.py          load_dna_file()     → {rsid: "AG", ...}   (~600k SNPs)
+genome/loader.py          load_dna_file()     → {rsid: "AG", ...}   (~600k SNPs)
       │
       ▼
 src/analyzer.py        run_analysis()      for each rsid in config/snp_traits.json:
@@ -51,7 +51,7 @@ The relatives' files go through `run_analysis()` the same way. `src/inheritance.
 
 | File | Responsibility |
 |---|---|
-| `src/loader.py` | Reads CSV/TSV with `#` comments, auto-detects the separator, and requires `RSID` and `RESULT` columns. Returns a dict. |
+| `genome/loader.py` | Reads CSV/TSV with `#` comments, auto-detects the separator, and requires `RSID` and `RESULT` columns. Returns a dict. |
 | `src/normalizer.py` | `resolve_genotype(user_gt, variants)`: sorts the user genotype alphabetically and tries a direct key match, then a complement-strand match. |
 | `src/analyzer.py` | Joins the DNA with `snp_traits.json`, reads each genotype's evidence call and outcome (`outcome()`), and sorts by Domain → Impact rank → positive/negative first. |
 | `src/domain_mapper.py` | Keyword rules that map the free-text `system` field to one of 10 domains (or "Other"). **Order matters**: the first rule that matches wins. |
@@ -65,7 +65,7 @@ The relatives' files go through `run_analysis()` the same way. `src/inheritance.
 The library's old 1–10 ratings (written with an LLM) were removed on 2026-11-07. Each genotype is now read in two steps:
 
 1. **Function** (`snp_traits.json → function`): what the genotype does to the gene by the evidence: GoF, LoF, normal,
-   altered (changed, direction unknown) or unknown. It comes from `cluster_analysis/evidence_call.py` (CPIC, MaveDB,
+   altered (changed, direction unknown) or unknown. It comes from `cluster_analysis/evidence/evidence_call.py` (CPIC, MaveDB,
    UniProt, a protein cut short, SIFT/PolyPhen, GTEx) and is stored in the library so the report runs offline.
 2. **Outcome**: whether that change is good or bad for the person, from the entry's `polarity`
    (`{"LoF": "negative"}`). Positive / negative / neutral; *unclear* when the evidence calls a change but no polarity

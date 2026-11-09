@@ -13,6 +13,7 @@ data, to the Gene Cluster Explorer. The PDF report has its own page, [../ARCHITE
 | [medicines.md](medicines.md) | Drug genes, star alleles, ClinPGx annotations, guidelines, drug labels and ClinVar drug response |
 | [nutrition.md](nutrition.md) | Per nutrient: the uptake and conversion steps, where the person's variants act on them and how, and the net effect on the blood level |
 | [explorer.md](explorer.md) | The datasets the explorer reads, its tabs, and how a new version is published |
+| [migration.md](migration.md) | Moving off claude.ai: what is tied to it, the standalone build, and the steps to a self-hosted service |
 
 ## The whole system
 
@@ -38,7 +39,7 @@ flowchart LR
     end
     LIB["config/snp_traits.json<br/>library, 247 SNPs"]
 
-    CSV --> IMP["src/impute.py<br/>Beagle"]
+    CSV --> IMP["genome/impute.py<br/>Beagle"]
     KG --> IMP
     IMP --> CALLS["Imputed calls<br/>~28M, with confidence tier"]
 
@@ -56,7 +57,7 @@ flowchart LR
     PGX & CV --> MED
     CALLS --> EC
 
-    XR & EC & LC & LITPY --> EXP["export_dashboard.py"]
+    XR & EC & LC & LITPY --> EXP["explorer/export.py"]
     MED --> DS
     EXP --> DS["Datasets (JSON)"]
     DS --> UI["Gene Cluster Explorer<br/>claude.ai artifact"]

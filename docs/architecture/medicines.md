@@ -5,7 +5,7 @@ ClinPGx (formerly PharmGKB), CPIC, ClinVar and 1000 Genomes.
 
 ```bash
 bash scripts/fetch_pgx_reference.sh          # ClinPGx annotations, guidelines, labels, drug names; CPIC recommendations; WHO ATC names
-python -m cluster_analysis.medicines         # XY, imputed file when there is one
+python -m cluster_analysis.medicines.medicines         # XY, imputed file when there is one
 ```
 
 ## Overview

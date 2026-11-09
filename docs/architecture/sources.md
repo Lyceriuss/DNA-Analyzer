@@ -68,7 +68,7 @@ flowchart TB
 | Europe PMC | REST API | Papers naming a SNP, quoted effect sizes | `literature.py` |
 | ClinPGx (PharmGKB) | Bulk zips + REST API | Clinical annotations, guideline annotations, drug labels | `medicines.py`, `function_evidence.py` |
 | CPIC | REST API, saved as JSON | Recommendation per metaboliser type or activity score | `medicines.py` |
-| 1000 Genomes | Bulk panel + site list | Imputation; allele frequencies in five ancestries | `src/impute.py`, `medicines.py`, `nutrition.py` |
+| 1000 Genomes | Bulk panel + site list | Imputation; allele frequencies in five ancestries | `genome/impute.py`, `medicines.py`, `nutrition.py` |
 | PGS Catalog | REST API + harmonised scoring files (GRCh37) | Polygenic scores for blood levels (vitamin D, omega-3, DHA) | `nutrition.py` |
 | Livsmedelsverket: NNR 2023 summary | PDF, parsed to `nnr_2023.json` | Recommended and adequate intakes, upper limits, reference energy, fat targets (the intake line) | `nutrition.py` |
 | Human Protein Atlas | REST API (`search_download.php`) | RNA tissue specificity: where in the body a gene is mostly made | `nutrient_steps.py` |

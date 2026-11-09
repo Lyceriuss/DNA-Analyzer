@@ -1,7 +1,7 @@
 # Run with: python -m unittest discover tests
 import unittest
 
-from cluster_analysis.evidence_call import evidence_call, text_direction
+from cluster_analysis.evidence.evidence_call import evidence_call, text_direction
 
 VEP = {"alleles": ["G", "A"], "eur_af": {"A": 0.3}, "allele_consequences": {"A": ["missense_variant"]}}
 

@@ -6,11 +6,11 @@ one line of context. Every number comes from an official source or a public data
 
 ```bash
 bash scripts/fetch_nutrition_reference.sh    # NNR 2023 (Livsmedelsverket) and the PGS Catalog scores, once
-python -m cluster_analysis.nutrition         # XY, imputed file when there is one; men 25–50 by default
-python -m cluster_analysis.nutrition --sex women --age "25–50 år" --dna data/input/X.csv
+python -m cluster_analysis.nutrition.nutrition         # XY, imputed file when there is one; men 25–50 by default
+python -m cluster_analysis.nutrition.nutrition --sex women --age "25–50 år" --dna data/input/X.csv
 ```
 
-`python cluster_analysis/nutrition.py` (an editor's Run button) works too: run as a file, the script puts the repo root
+`python cluster_analysis/nutrition/nutrition.py` (an editor's Run button) works too: run as a file, the script puts the repo root
 on `sys.path` itself. Relative paths (`data/...`) assume the repo root as the working directory. The first run fetches
 Reactome steps and summaries, Ensembl VEP, GTEx, the Human Protein Atlas and UniProt (about 15 minutes); they are cached for later runs.
 
