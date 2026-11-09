@@ -150,8 +150,7 @@ python -m cluster_analysis.library_audit
 
 ```bash
 # Lifecycle and gene-function datasets for the explorer, with fresh calls but no new API walks
-python -m cluster_analysis.export_dashboard out/bundle.json --lifecycles data/output/cluster_analysis/lifecycles_XY.json \
-    --dna data/input/MyHeritage_raw_dna_data_XY.csv
+python -m cluster_analysis.export_dashboard out/bundle.json --lifecycles data/output/cluster_analysis/lifecycles_XY_full.json
 ```
 
 Papers and quoted effect sizes come from `literature.py`, run once for the whole library:

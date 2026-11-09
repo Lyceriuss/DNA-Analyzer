@@ -62,7 +62,7 @@ person carry `data-who`: their "XY" is rewritten to the selected id, and the Swe
 python -m cluster_analysis.profiles check                  # sex from the DNA (X heterozygosity) against profiles.json
 python -m cluster_analysis.profiles run                    # per profile: theme cross-references, gene calls, medicines,
                                                            # nutrition (with the profile's sex), Profile tab overlay
-python -m cluster_analysis.export_dashboard out/bundle.json --lifecycles data/output/cluster_analysis/lifecycles_XY.json
+python -m cluster_analysis.export_dashboard out/bundle.json --lifecycles data/output/cluster_analysis/lifecycles_XY_full.json
 ```
 
 `profiles run` writes medicines, nutrition and the overlay to `data/output/cluster_analysis/profiles/<id>/`, the theme

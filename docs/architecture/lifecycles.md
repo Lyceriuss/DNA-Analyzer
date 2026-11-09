@@ -17,7 +17,7 @@ flowchart TB
     EXT -->|yes| STEPS["ordered steps"]
     UP --> RH["Rhea<br/>reaction equations"]
     G --> OP["OmniPath<br/>directed, signed regulators"]
-    STEPS & RH & OP --> LC["lifecycles_XY.json"]
+    STEPS & RH & OP --> LC["lifecycles_XY_full.json"]
     CALLS["XY's calls (offline)"] --> OVER["genotype + evidence call<br/>on each library enzyme"]
     LC --> OVER
     OVER --> EXP["export_dashboard.py --lifecycles"]
