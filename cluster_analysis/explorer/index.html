@@ -646,6 +646,16 @@
   .nt-mech { margin: 10px 0; padding: 4px 0 4px 12px; border-left: 3px solid var(--color-border-line); }
   .nt-mech-bad { border-left-color: var(--color-warn); }
   .nt-mech h4 { margin: 0 0 2px; font-size: 15px; }
+  .nt-mech-row { display: flex; align-items: stretch; gap: 10px; }
+  .nt-mech-col { flex: 1 1 0; min-width: 0; }
+  .nt-mech-col .nt-why { margin-top: 0; max-width: none; }
+  .nt-mech-vars { flex-grow: 1.4; }
+  .nt-mech-vars .nt-why-head { margin-top: 0; }
+  .nt-mech-arrow { flex: none; align-self: flex-start; margin-top: -2px; font-size: 18px; color: var(--color-fg-muted); }
+  @media (max-width: 800px) {
+    .nt-mech-row { flex-direction: column; gap: 4px; }
+    .nt-mech-arrow { align-self: flex-start; transform: rotate(90deg); margin-left: 4px; }
+  }
   .nt-quote { color: var(--color-fg-muted); }
   .nt-more { font: inherit; font-size: 12px; margin-left: 6px; padding: 0 6px; border: 1px solid var(--color-border-line); border-radius: 10px;
     background: none; color: var(--color-fg-muted); cursor: pointer; }
@@ -3457,18 +3467,24 @@
         const pr = prot[g];
         const box = ntMake(wb, 'div', 'nt-mech' + (fs.some((f) => ntBad(f) === 'bad') ? ' nt-mech-bad' : ''));
         ntMake(box, 'h4', null, g);
-        const w1 = ntMake(box, 'p', 'nt-why');
+        // Read left to right: the step → the protein that does it → what the person's variants change in it
+        const row = ntMake(box, 'div', 'nt-mech-row');
+        const arrow = () => ntMake(row, 'div', 'nt-mech-arrow', '→').setAttribute('aria-hidden', 'true');
+        const w1 = ntMake(ntMake(row, 'div', 'nt-mech-col'), 'p', 'nt-why');
         ntMake(w1, 'b', null, ntT('The step ({} of {}, {}): ', s.order, st.filter((x) => x.pathway === s.pathway).length, s.pathway));
         ntMake(w1, 'span', null, s.name + '. ');
         if (s.summary) ntQuote(w1, s.summary);
         if (pr) {
-          const w2 = ntMake(box, 'p', 'nt-why');
+          arrow();
+          const w2 = ntMake(ntMake(row, 'div', 'nt-mech-col'), 'p', 'nt-why');
           ntMake(w2, 'b', null, 'The protein: ');
           ntMake(w2, 'span', null, ti && ti.length ? ntT('{} makes {}, mostly in {}.', g, pr.protein, ti.slice(0, 3).join(', ')) : ntT('{} makes {}.', g, pr.protein));
           if (pr.function) { ntMake(w2, 'span', null, ' '); ntQuote(w2, pr.function, 200); }
         }
-        ntMake(box, 'b', 'nt-why-head', ntT(fs.length === 1 ? `${who}'s variant:` : `${who}'s variants ({}):`, fs.length));
-        for (const f of fs) ntVariant(box, f, who);
+        arrow();
+        const vc = ntMake(row, 'div', 'nt-mech-col nt-mech-vars');
+        ntMake(vc, 'b', 'nt-why-head', ntT(fs.length === 1 ? `${who}'s variant:` : `${who}'s variants ({}):`, fs.length));
+        for (const f of fs) ntVariant(vc, f, who);
       }
     }
 

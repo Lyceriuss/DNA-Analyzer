@@ -23,6 +23,16 @@
   .nt-mech { margin: 10px 0; padding: 4px 0 4px 12px; border-left: 3px solid var(--color-border-line); }
   .nt-mech-bad { border-left-color: var(--color-warn); }
   .nt-mech h4 { margin: 0 0 2px; font-size: 15px; }
+  .nt-mech-row { display: flex; align-items: stretch; gap: 10px; }
+  .nt-mech-col { flex: 1 1 0; min-width: 0; }
+  .nt-mech-col .nt-why { margin-top: 0; max-width: none; }
+  .nt-mech-vars { flex-grow: 1.4; }
+  .nt-mech-vars .nt-why-head { margin-top: 0; }
+  .nt-mech-arrow { flex: none; align-self: flex-start; margin-top: -2px; font-size: 18px; color: var(--color-fg-muted); }
+  @media (max-width: 800px) {
+    .nt-mech-row { flex-direction: column; gap: 4px; }
+    .nt-mech-arrow { align-self: flex-start; transform: rotate(90deg); margin-left: 4px; }
+  }
   .nt-quote { color: var(--color-fg-muted); }
   .nt-more { font: inherit; font-size: 12px; margin-left: 6px; padding: 0 6px; border: 1px solid var(--color-border-line); border-radius: 10px;
     background: none; color: var(--color-fg-muted); cursor: pointer; }

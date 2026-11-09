@@ -220,18 +220,24 @@
         const pr = prot[g];
         const box = ntMake(wb, 'div', 'nt-mech' + (fs.some((f) => ntBad(f) === 'bad') ? ' nt-mech-bad' : ''));
         ntMake(box, 'h4', null, g);
-        const w1 = ntMake(box, 'p', 'nt-why');
+        // Read left to right: the step → the protein that does it → what the person's variants change in it
+        const row = ntMake(box, 'div', 'nt-mech-row');
+        const arrow = () => ntMake(row, 'div', 'nt-mech-arrow', '→').setAttribute('aria-hidden', 'true');
+        const w1 = ntMake(ntMake(row, 'div', 'nt-mech-col'), 'p', 'nt-why');
         ntMake(w1, 'b', null, ntT('The step ({} of {}, {}): ', s.order, st.filter((x) => x.pathway === s.pathway).length, s.pathway));
         ntMake(w1, 'span', null, s.name + '. ');
         if (s.summary) ntQuote(w1, s.summary);
         if (pr) {
-          const w2 = ntMake(box, 'p', 'nt-why');
+          arrow();
+          const w2 = ntMake(ntMake(row, 'div', 'nt-mech-col'), 'p', 'nt-why');
           ntMake(w2, 'b', null, 'The protein: ');
           ntMake(w2, 'span', null, ti && ti.length ? ntT('{} makes {}, mostly in {}.', g, pr.protein, ti.slice(0, 3).join(', ')) : ntT('{} makes {}.', g, pr.protein));
           if (pr.function) { ntMake(w2, 'span', null, ' '); ntQuote(w2, pr.function, 200); }
         }
-        ntMake(box, 'b', 'nt-why-head', ntT(fs.length === 1 ? `${who}'s variant:` : `${who}'s variants ({}):`, fs.length));
-        for (const f of fs) ntVariant(box, f, who);
+        arrow();
+        const vc = ntMake(row, 'div', 'nt-mech-col nt-mech-vars');
+        ntMake(vc, 'b', 'nt-why-head', ntT(fs.length === 1 ? `${who}'s variant:` : `${who}'s variants ({}):`, fs.length));
+        for (const f of fs) ntVariant(vc, f, who);
       }
     }
 
