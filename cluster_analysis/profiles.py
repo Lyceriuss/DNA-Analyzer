@@ -12,6 +12,7 @@ Steps, per profile (outputs in data/output/cluster_analysis/profiles/<id>/ unles
   genes      gene_calls.py for the profile's theme genes (-> data/output/cluster_analysis/gene_calls_<id>.json)
   medicines  medicines.py  -> med_genes, med_drugs, med_guidance, med_names
   nutrition  nutrition.py with the profile's sex -> nut_nutrients, nut_findings, nut_steps
+  labtests   nutrition.py with labtests.json (Biomarkers tab) -> lab_tests, lab_findings, lab_steps
   overlay    overlay.py    -> hp_modules, hp_links, hp_bridges, hp_tilts (Profile tab)
 
 export_dashboard.py then builds every dataset for every profile, each row tagged with `person`.
@@ -28,7 +29,7 @@ from src.loader import iter_calls
 HERE = os.path.dirname(__file__)
 PATH = os.path.join(HERE, "profiles.json")
 PROFILE_DIR = "data/output/cluster_analysis/profiles"
-STEPS = ("themes", "genes", "medicines", "nutrition", "overlay")
+STEPS = ("themes", "genes", "medicines", "nutrition", "labtests", "overlay")
 THEME_SEX = {"XX": "female", "XY": "male"}   # theme_graph.py marks a theme's body layout as XX or XY
 
 
@@ -96,6 +97,9 @@ def run(pids, steps):
         if "nutrition" in steps:
             cmds.append(py + ["cluster_analysis.nutrition", "--dna", p["dna"], "--out-dir", od,
                               "--sex", "women" if p["sex"] == "female" else "men"])
+        if "labtests" in steps:
+            cmds.append(py + ["cluster_analysis.nutrition", "--config", "cluster_analysis/labtests.json", "--prefix", "lab",
+                              "--dna", p["dna"], "--out-dir", od, "--sex", "women" if p["sex"] == "female" else "men"])
         if "overlay" in steps:
             cmds.append(py + ["cluster_analysis.overlay", p["dna"], "--name", p["id"], "--dashboard", od])
         for c in cmds:

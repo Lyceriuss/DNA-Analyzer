@@ -134,7 +134,8 @@ def annotate(findings, steps, where):
     rsids = sorted({f["rsid"] for f in findings})
     print(f"Ensembl VEP for {len(rsids)} variants...")
     vep = sources.ensembl_vep(rsids)
-    aa = vep_amino_acids(rsids)
+    # Amino acids only for the variants VEP says change a protein: the only ones that use them
+    aa = vep_amino_acids(sorted(rs for rs in rsids if (vep.get(rs) or {}).get("consequence") in PROTEIN))
     near = lambda rs, genes: [g for g in genes if g in spans and where.get(rs) and where[rs][0] == spans[g][0]
                               and spans[g][1] - EQTL_REACH <= where[rs][1] <= spans[g][2] + EQTL_REACH]
     eqtl_cache = {}

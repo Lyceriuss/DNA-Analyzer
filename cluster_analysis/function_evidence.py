@@ -24,6 +24,8 @@ import os
 import time
 from collections import Counter
 
+import requests
+
 from cluster_analysis import sources
 from cluster_analysis.biomarkers import main_pair
 from cluster_analysis.gene_trace import uniprot_entry
@@ -49,12 +51,24 @@ def uniprot_variants(acc):
 def vep_amino_acids(rsids):
     """{rsid: {variant_allele: (ref_aa, alt_aa, position)}} from Ensembl's canonical transcripts."""
     out = {}
+
+    def records(batch):
+        """Ensembl answers 500 for a whole batch when one id in it breaks the server: split until it is alone, skip it."""
+        try:
+            return sources._cached("vep_canonical", "\n".join(batch), lambda: sources._request(
+                "POST", "https://rest.ensembl.org/vep/human/id", params={"canonical": 1}, json={"ids": batch}, timeout=300,
+                headers={"Content-Type": "application/json", "Accept": "application/json"}) or [])
+        except requests.HTTPError as e:
+            if getattr(e.response, "status_code", None) != 500:
+                raise
+            if len(batch) == 1:
+                print(f"   [!] Ensembl VEP can't process {batch[0]}: skipped")
+                return []
+            half = len(batch) // 2
+            return records(batch[:half]) + records(batch[half:])
+
     for i in range(0, len(rsids), 150):
-        batch = sorted(rsids[i:i + 150])
-        rows = sources._cached("vep_canonical", "\n".join(batch), lambda b=batch: sources._request(
-            "POST", "https://rest.ensembl.org/vep/human/id", params={"canonical": 1}, json={"ids": b}, timeout=300,
-            headers={"Content-Type": "application/json", "Accept": "application/json"}) or [])
-        for v in rows:
+        for v in records(sorted(rsids[i:i + 150])):
             for t in v.get("transcript_consequences", []):
                 if t.get("canonical") and "/" in (t.get("amino_acids") or ""):
                     ref_aa, alt_aa = t["amino_acids"].split("/")

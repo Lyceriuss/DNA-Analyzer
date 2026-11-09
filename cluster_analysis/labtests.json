@@ -1,0 +1,95 @@
+{
+  "about": "The Biomarkers tab's lab tests, read by nutrition.py --config labtests.json --prefix lab: per test the GWAS Catalog traits (EFO/OBA) of its markers, Reactome pathways for the mechanism, the ClinVar conditions that count, and the blood test. higher: whether a higher value is the good direction ('better'), the bad one ('worse') or neither ('neutral'). sex: a test for that sex only. notes: genes that move the test; kind 'test' when the gene shifts the value without the body being affected (the person's normal differs from the reference range), 'body' when the shift is real and worth following up. Each note is cited at build time with the GWAS Catalog study with the strongest association between the gene and the test.",
+  "tests": [
+    {"id": "lipids", "name": "Blood lipids", "sv": "Blodfetter", "group": "Heart and vessels",
+     "reactome": ["R-HSA-174824", "R-HSA-8964038"],
+     "markers": [
+       {"id": "ldl", "name": "LDL cholesterol", "traits": ["EFO_0004611"], "higher": "worse"},
+       {"id": "hdl", "name": "HDL cholesterol", "traits": ["EFO_0004612"], "higher": "better"},
+       {"id": "tg", "name": "Triglycerides", "traits": ["EFO_0004530"], "higher": "worse"},
+       {"id": "apob", "name": "Apolipoprotein B", "traits": ["EFO_0004615"], "higher": "worse"}],
+     "test": "P-LDL, P-HDL, P-triglycerides, P-ApoB",
+     "clinvar": "hypercholesterol|hyperlipoprotein|hypobetalipoprotein|abetalipoprotein|sitosterol",
+     "notes": [
+       {"gene": "APOE", "kind": "body", "text": "APOE variants (ε2, ε4) set how fast LDL is cleared from the blood."},
+       {"gene": "PCSK9", "kind": "body", "text": "PCSK9 controls how many LDL receptors the liver keeps; variants change LDL for life."}]},
+    {"id": "lpa", "name": "Lipoprotein(a)", "sv": "Lipoprotein(a)", "group": "Heart and vessels",
+     "markers": [{"id": "lpa", "name": "Lipoprotein(a)", "traits": ["EFO_0006925"], "higher": "worse"}],
+     "test": "P-Lipoprotein(a), measured once in life",
+     "notes": [
+       {"gene": "LPA", "kind": "body", "text": "Lipoprotein(a) is set mostly by the LPA gene and changes little with diet or exercise, so routine lipid tests miss it."}]},
+    {"id": "sugar", "name": "Blood sugar", "sv": "Blodsocker", "group": "Metabolism",
+     "markers": [
+       {"id": "hba1c", "name": "HbA1c", "traits": ["EFO_0004541"], "higher": "worse"},
+       {"id": "glucose", "name": "Fasting glucose", "traits": ["EFO_0004468"], "higher": "worse"}],
+     "test": "B-HbA1c, fP-glucose",
+     "clinvar": "maturity-onset diabetes|monogenic diabetes",
+     "notes": [
+       {"gene": "HK1", "kind": "test", "text": "Acts in red blood cells: shifts HbA1c without changing blood sugar."},
+       {"gene": "SPTA1", "kind": "test", "text": "Acts in red blood cells: shifts HbA1c without changing blood sugar."},
+       {"gene": "TMPRSS6", "kind": "test", "text": "Acts through iron and red blood cells: shifts HbA1c without changing blood sugar."},
+       {"gene": "G6PD", "kind": "test", "text": "Shortens red blood cell life: HbA1c can read lower than blood sugar is."}]},
+    {"id": "crp", "name": "Inflammation (CRP)", "sv": "Inflammation (CRP)", "group": "Metabolism",
+     "markers": [{"id": "crp", "name": "C-reactive protein", "traits": ["EFO_0004458"], "higher": "worse"}],
+     "test": "P-CRP (high-sensitivity)",
+     "notes": [
+       {"gene": "CRP", "kind": "test", "text": "Variants in the CRP gene itself set a person's baseline CRP: part of a high or low value is inherited, not inflammation."}]},
+    {"id": "liver", "name": "Liver tests", "sv": "Levervärden", "group": "Liver and kidneys",
+     "reactome": ["R-HSA-189483"],
+     "markers": [
+       {"id": "alt", "name": "ALT", "traits": ["OBA_2050062"], "higher": "worse"},
+       {"id": "ggt", "name": "GGT", "traits": ["EFO_0004532"], "higher": "worse"},
+       {"id": "bilirubin", "name": "Bilirubin", "traits": ["EFO_0004570"], "higher": "neutral"}],
+     "test": "P-ALT, P-GT, P-bilirubin",
+     "clinvar": "gilbert|crigler",
+     "notes": [
+       {"gene": "UGT1A1", "kind": "test", "text": "Lower UGT1A1 activity (Gilbert) raises bilirubin without liver disease."},
+       {"gene": "PNPLA3", "kind": "body", "text": "PNPLA3 variants raise liver fat: a high ALT here is worth following up."}]},
+    {"id": "kidney", "name": "Kidney function", "sv": "Njurfunktion", "group": "Liver and kidneys",
+     "markers": [
+       {"id": "egfr", "name": "eGFR", "traits": ["OBA_0003747"], "higher": "better"},
+       {"id": "creatinine", "name": "Creatinine", "traits": ["OBA_2050096"], "higher": "neutral"}],
+     "test": "P-creatinine, eGFR, P-cystatin C",
+     "notes": [
+       {"gene": "SLC22A2", "kind": "test", "text": "Changes how creatinine is secreted by the kidney: creatinine and eGFR shift without kidney function changing. Cystatin C is not affected."}]},
+    {"id": "urate", "name": "Uric acid", "sv": "Urinsyra", "group": "Liver and kidneys",
+     "reactome": ["R-HSA-74259"],
+     "markers": [{"id": "urate", "name": "Uric acid", "traits": ["EFO_0004531"], "higher": "worse"}],
+     "test": "P-urate",
+     "notes": [
+       {"gene": "SLC2A9", "kind": "body", "text": "SLC2A9 moves uric acid out through the kidneys: variants change the level and the risk of gout."},
+       {"gene": "ABCG2", "kind": "body", "text": "ABCG2 excretes uric acid through the gut and kidneys: reduced function raises the level."}]},
+    {"id": "thyroid", "name": "Thyroid (TSH)", "sv": "Sköldkörtel (TSH)", "group": "Hormones",
+     "reactome": ["R-HSA-209968"],
+     "markers": [{"id": "tsh", "name": "TSH", "traits": ["OBA_1000983"], "higher": "neutral"}],
+     "test": "P-TSH, P-free T4",
+     "clinvar": "hypothyroid|thyroid dyshormonogenesis|resistance to thyroid"},
+    {"id": "blood", "name": "Blood count", "sv": "Blodstatus", "group": "Blood",
+     "markers": [
+       {"id": "platelets", "name": "Platelets", "traits": ["EFO_0004309"], "higher": "neutral"},
+       {"id": "neutrophils", "name": "Neutrophils", "traits": ["EFO_0004833"], "higher": "neutral"}],
+     "test": "B-platelets, B-neutrophils",
+     "notes": [
+       {"gene": "ACKR1", "kind": "test", "text": "The Duffy-null variant gives a lower neutrophil count without a higher infection risk."}]},
+    {"id": "testosterone", "name": "Testosterone and SHBG", "sv": "Testosteron och SHBG", "group": "Hormones", "sex": "male",
+     "markers": [
+       {"id": "testosterone", "name": "Testosterone", "traits": ["EFO_0004908"], "higher": "neutral"},
+       {"id": "shbg", "name": "SHBG", "traits": ["EFO_0004696"], "higher": "neutral"}],
+     "test": "S-testosterone, S-SHBG (free testosterone is calculated from both)",
+     "notes": [
+       {"gene": "SHBG", "kind": "test", "text": "SHBG binds testosterone: variants move total testosterone while free testosterone stays similar."}]},
+    {"id": "psa", "name": "PSA", "sv": "PSA", "group": "Hormones", "sex": "male",
+     "markers": [{"id": "psa", "name": "PSA", "traits": ["OBA_2050200"], "higher": "neutral"}],
+     "test": "S-PSA",
+     "notes": [
+       {"gene": "KLK3", "kind": "test", "text": "KLK3 is the PSA gene: its variants change how much PSA is made, so PSA shifts without any change in the prostate."}]},
+    {"id": "female_hormones", "name": "AMH, estradiol and SHBG", "sv": "AMH, östradiol och SHBG", "group": "Hormones", "sex": "female",
+     "markers": [
+       {"id": "amh", "name": "AMH", "traits": ["EFO_0004769"], "higher": "better"},
+       {"id": "estradiol", "name": "Estradiol", "traits": ["EFO_0004697"], "higher": "neutral"},
+       {"id": "shbg", "name": "SHBG", "traits": ["EFO_0004696"], "higher": "neutral"}],
+     "test": "S-AMH, S-estradiol, S-SHBG",
+     "notes": [
+       {"gene": "SHBG", "kind": "test", "text": "SHBG binds sex hormones: variants move total levels while free levels stay similar."}]}
+  ]
+}

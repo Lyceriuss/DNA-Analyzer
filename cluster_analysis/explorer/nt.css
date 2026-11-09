@@ -20,6 +20,8 @@
   .nt-pw { margin: 12px 0 4px; font-weight: 700; }
   .nt-why { margin: 4px 0; font-size: 13px; line-height: 1.5; max-width: 80ch; }
   .nt-why-head { display: block; font-size: 13px; margin-top: 4px; }
+  .nt-note { padding: 6px 10px; margin: 6px 0; border-left: 3px solid var(--color-border-line); font-size: 13px; }
+  .nt-note-on { border-left-color: var(--color-warn); background: var(--color-panel); }
   .nt-mech { margin: 10px 0; padding: 4px 0 4px 12px; border-left: 3px solid var(--color-border-line); }
   .nt-mech-bad { border-left-color: var(--color-warn); }
   .nt-mech h4 { margin: 0 0 2px; font-size: 15px; }

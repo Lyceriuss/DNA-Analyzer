@@ -219,6 +219,47 @@ def theme_rows(themes, status, with_lifecycle=()):
 EFFECTS = ("GoF", "LoF", "altered")
 
 
+GRADES = ["A+", "A", "B", "C"]
+KEEP_MOVING, KEEP_QUIET = 40, 10
+
+
+def _bad(f):
+    """As the explorer's ntBad: True when the person's copies move the value the unfavourable way."""
+    if f.get("xy") == "carried":
+        return True
+    if not f.get("xy") or f["xy"] == "typical" or f.get("higher") == "neutral":
+        return False
+    return (f["xy"] == "lowers") == (f.get("higher") == "better")
+
+
+def trim_findings(tests, findings):
+    """Lab tests read thousands of GWAS variants each (LDL alone has over 2,000 per person) while the tab lists the
+    strongest. Kept in full: variants at a pathway step, in a gene the test's notes name, and ClinVar/ClinPGx findings.
+    Of the other GWAS variants, per person and test the KEEP_MOVING strongest where the person's copies move the value
+    and the KEEP_QUIET strongest where they don't. Each test row gets the true counts: variants (distinct variant and
+    kind outside the steps) and moving (of those, where the person's copies move the value)."""
+    notes = {(t.get("person"), t["id"]): {n["gene"] for n in json.loads(t.get("notes") or "[]")} for t in tests}
+    rank = lambda f: (not _bad(f), GRADES.index(f["grade"]) if f.get("grade") in GRADES else 9, -abs(f.get("shift") or 0))
+    groups = {}
+    for f in findings:
+        groups.setdefault((f.get("person"), f["nutrient"]), []).append(f)
+    kept, counts = [], {}
+    for key, fs in groups.items():
+        genes = notes.get(key, set())
+        named = lambda f: bool(genes & set(re.split(r"[\s,;-]+", f.get("gene") or ""))) or f.get("step_gene") in genes
+        keep = [f for f in fs if f.get("step_gene") or f.get("kind") != "GWAS" or named(f)]
+        kept_ids = {id(f) for f in keep}
+        rest = [f for f in fs if id(f) not in kept_ids]
+        moving = sorted((f for f in rest if f.get("xy") and f["xy"] != "typical"), key=rank)
+        quiet = sorted((f for f in rest if not (f.get("xy") and f["xy"] != "typical")), key=rank)
+        kept += keep + moving[:KEEP_MOVING] + quiet[:KEEP_QUIET]
+        outside = {(f["rsid"], f.get("kind")): f for f in fs if not f.get("step_gene")}
+        counts[key] = (len(outside), sum(1 for f in outside.values() if f.get("xy") and f["xy"] != "typical"))
+    for t in tests:
+        t["variants"], t["moving"] = counts.get((t.get("person"), t["id"]), (0, 0))
+    return tests, kept
+
+
 def gene_status(lib, api):
     """One gene's call for the explorer: the per-gene call from the person's own variants (gene_calls.py) when it finds
     an effect or the library has nothing; the library's per-SNP call otherwise (and always for CPIC pharmacogenes)."""
@@ -332,20 +373,21 @@ if __name__ == "__main__":
                     t.extend(extra)
             for name, rows in zip(("theme_meta", "theme_genes", "theme_links", "theme_pathways"), tables):
                 merged[name] += tag(rows, pid)
-        # Medicines, nutrition and the Profile tab, run per profile into data/output/cluster_analysis/profiles/<id>/
+        # Medicines, nutrition, lab tests and the Profile tab, run per profile into data/output/cluster_analysis/profiles/<id>/
         # (profiles.py run): one dataset each, rows tagged with their person. The public ones are taken once.
-        for name in ("med_genes", "med_drugs", "med_guidance", "nut_nutrients", "nut_findings",
+        for name in ("med_genes", "med_drugs", "med_guidance", "nut_nutrients", "nut_findings", "lab_tests", "lab_findings",
                      "hp_modules", "hp_links", "hp_bridges", "hp_tilts"):
             merged[name] = []
             for p in people:
                 f = os.path.join(prof.PROFILE_DIR, p["id"], name + ".json")
                 if os.path.exists(f):
                     merged[name] += tag(json.load(open(f, encoding="utf-8")), p["id"])
-        for name in ("med_names", "nut_steps"):
+        for name in ("med_names", "nut_steps", "lab_steps"):
             f = next((os.path.join(prof.PROFILE_DIR, p["id"], name + ".json") for p in people
                       if os.path.exists(os.path.join(prof.PROFILE_DIR, p["id"], name + ".json"))), None)
             if f:  # public: the same for everyone, so no person (the page would show it to that person only)
                 merged[name] = [{k: v for k, v in r.items() if k != "person"} for r in json.load(open(f, encoding="utf-8"))]
+        merged["lab_tests"], merged["lab_findings"] = trim_findings(merged.get("lab_tests", []), merged.get("lab_findings", []))
         merged["profiles"] = [{"id": p["id"], "sex": p.get("sex")} for p in people]
         for name, rows in merged.items():
             if not rows and name not in ("profiles",):

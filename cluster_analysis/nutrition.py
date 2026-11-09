@@ -328,8 +328,15 @@ def target_for(nnr, key, sex, age, activity):
     return {"kind": d["kind"], "value": d[sex][age], "unit": d["unit"], "ul": d.get("ul"), "notes": notes}
 
 
-def build(dna, sex, age, activity):
-    cfg = json.load(open(CONFIG, encoding="utf-8"))["nutrients"]
+def build(dna, sex, age, activity, config=CONFIG):
+    """config: nutrients.json (the Nutrition tab) or labtests.json (the Biomarkers tab: lab tests in the same shape,
+    without intake targets; an entry with "sex" is for that sex only)."""
+    data = json.load(open(config, encoding="utf-8"))
+    cfg = [n for n in data.get("nutrients") or data.get("tests")
+           if not n.get("sex") or n["sex"] == {"men": "male", "women": "female"}.get(sex, sex)]
+    for n in cfg:
+        for k, v in (("nnr", None), ("clinvar", ""), ("clinpgx", []), ("reactome", []), ("test", ""), ("sv", n["name"])):
+            n.setdefault(k, v)
     nnr = json.load(open(NNR, encoding="utf-8"))
     trait_ids = {t for n in cfg for m in n["markers"] for t in m["traits"]}
     print("GWAS Catalog associations...")
@@ -362,7 +369,7 @@ def build(dna, sex, age, activity):
 
     nutrients, findings = [], []
     for n in cfg:
-        target = target_for(nnr, n["nnr"], sex, age, activity)
+        target = target_for(nnr, n["nnr"], sex, age, activity) if n["nnr"] else None
         markers = []
         for m in n["markers"]:
             rows = [r for r in gwas if r["trait"] in m["traits"]]
@@ -499,7 +506,17 @@ def build(dna, sex, age, activity):
                              "pmids": int(r["PMID Count"] or 0)})
 
         mine = [f for f in findings if f["nutrient"] == n["id"]]
-        nutrients.append({"id": n["id"], "name": n["name"], "sv": n["sv"], "target": json.dumps(target, ensure_ascii=False),
+        # Notes on genes that move a test (labtests.json): each cites the GWAS Catalog study with the strongest
+        # association between the gene and one of the test's markers
+        traits_n = {t for m in n["markers"] for t in m["traits"]}
+        notes = []
+        for note in n.get("notes") or []:
+            hits = [r for r in gwas if r["trait"] in traits_n and note["gene"] in re.split(r"[\s,;-]+", r["gene"] or "")]
+            best = min(hits, key=lambda r: r["p"]) if hits else None
+            notes.append({**note, "source": {k: best[k] for k in ("study", "pmid", "author", "year", "p", "rsid")} if best else None})
+        nutrients.append({"id": n["id"], "name": n["name"], "sv": n["sv"], "group": n.get("group"),
+                          "notes": json.dumps(notes, ensure_ascii=False),
+                          "target": json.dumps(target, ensure_ascii=False),
                           "markers": json.dumps(markers, ensure_ascii=False), "test": n["test"] or None,
                           "findings": len(mine), "strong": sum(f["grade"] in ("A+", "A") for f in mine),
                           "genes": len(genes_of[n["id"]])})
@@ -554,18 +571,21 @@ def main():
     ap.add_argument("--activity", choices=("low", "medium", "active"), default="medium",
                     help="NNR physical activity level for energy (PAL 1.4, 1.6, 1.8); sets the omega-3 target in grams")
     ap.add_argument("--out-dir", default=OUT)
+    ap.add_argument("--config", default=CONFIG, help="nutrients.json (default) or labtests.json")
+    ap.add_argument("--prefix", default="nut", help="dataset name prefix: nut (Nutrition) or lab (Biomarkers)")
     a = ap.parse_args()
     dna = imputed_path(a.dna)
-    nutrients, findings, steps, meta = build(dna, a.sex, a.age, a.activity)
+    nutrients, findings, steps, meta = build(dna, a.sex, a.age, a.activity, a.config)
     os.makedirs(a.out_dir, exist_ok=True)
-    for name, rows in (("nut_nutrients", nutrients), ("nut_findings", findings), ("nut_steps", steps)):
+    first = "nut_nutrients" if a.prefix == "nut" else f"{a.prefix}_tests"
+    for name, rows in ((first, nutrients), (f"{a.prefix}_findings", findings), (f"{a.prefix}_steps", steps)):
         for r in rows:
             r.setdefault("person", meta["person"])
-            if name == "nut_nutrients":
+            if name == first:
                 r.update(sex=meta["sex"], age=meta["age"], activity=meta["activity"])
         json.dump(rows, open(f"{a.out_dir}/{name}.json", "w", encoding="utf-8"), ensure_ascii=False)
         print(f"wrote {a.out_dir}/{name}.json: {len(rows)} rows")
-    json.dump(meta, open(f"{a.out_dir}/nut_meta.json", "w", encoding="utf-8"), ensure_ascii=False)
+    json.dump(meta, open(f"{a.out_dir}/{a.prefix}_meta.json", "w", encoding="utf-8"), ensure_ascii=False)
 
 
 if __name__ == "__main__":

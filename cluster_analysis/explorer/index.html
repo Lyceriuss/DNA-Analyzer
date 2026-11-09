@@ -643,6 +643,8 @@
   .nt-pw { margin: 12px 0 4px; font-weight: 700; }
   .nt-why { margin: 4px 0; font-size: 13px; line-height: 1.5; max-width: 80ch; }
   .nt-why-head { display: block; font-size: 13px; margin-top: 4px; }
+  .nt-note { padding: 6px 10px; margin: 6px 0; border-left: 3px solid var(--color-border-line); font-size: 13px; }
+  .nt-note-on { border-left-color: var(--color-warn); background: var(--color-panel); }
   .nt-mech { margin: 10px 0; padding: 4px 0 4px 12px; border-left: 3px solid var(--color-border-line); }
   .nt-mech-bad { border-left-color: var(--color-warn); }
   .nt-mech h4 { margin: 0 0 2px; font-size: 15px; }
@@ -696,10 +698,8 @@
       <span class="gx-i18n" data-draw="i18n-terms" data-source="i18n_sv_terms" aria-hidden="true"></span>
     </div>
     <div class="gx-profile" data-draw="gx-profile" data-source="profiles" role="group" aria-label="Profile"></div>
-    <p class="gx-lede">The library's genes form <b data-draw="k-modules" data-source="kpis" data-field="modules" data-row="0">—</b> functional modules.
-      <b data-draw="k-biomarkers" data-source="kpis" data-field="biomarkers" data-row="0">—</b> standard lab biomarkers tie them together through
-      <b data-draw="k-linked" data-source="kpis" data-field="linked_snps" data-row="0">—</b> SNPs with a genome-wide significant GWAS link.
-      Clusters, Medicines, Nutrition, Gene lifecycle and Profile read the selected person's genome; Biomarkers is public reference data.</p>
+    <p class="gx-lede">Every tab reads the selected person's genome through public research sources: Clusters, Medicines, Nutrition,
+      Biomarkers, Gene lifecycle and Profile.</p>
   </header>
 
   <nav class="gx-tabs" role="tablist" aria-label="Views">
@@ -848,33 +848,15 @@
   </section>
 
   <section class="gx-page" id="biomarkers" data-page="biomarkers" hidden>
-    <p class="gx-note"><b data-draw="top-bio" data-source="bio_reach" data-field="biomarker" data-row="0">—</b> draws on the most modules
-      (<b data-draw="top-bio-n" data-source="bio_reach" data-field="modules" data-row="0">—</b>), which makes it the strongest single lab test for
-      tying clusters together.</p>
-    <div class="gx-grid">
-      <div class="gx-card gx-wide" id="biomarker-heatmap">
-        <h2>Which modules feed which lab tests</h2>
-        <p class="gx-note">A cell counts the SNPs in a module with a genome-wide significant (p &lt; 5e-8) GWAS association to the biomarker.
-          Columns are grouped by lab panel. Click a column to list its SNPs.</p>
-        <div class="gx-chart gx-heat" data-draw="heatmap" data-source="module_biomarker"></div>
-      </div>
-      <div class="gx-card gx-wide" id="biomarker-snps">
-        <h2>SNPs behind <span data-draw="sel-bio">—</span></h2>
-        <p class="gx-note">Effect alleles are on the forward strand, as in a MyHeritage file. "Raises" means each copy of the effect allele raises
-          the measured value. EUR freq is the effect allele's frequency in Europeans. A/T or C/G SNPs marked "strand unverified" are left out of
-          person scores.</p>
-        <div class="gx-table-box">
-          <table class="gx-table" data-source="biomarker_snps" data-row-key="biomarker,rsid">
-            <thead><tr>
-              <th data-field="rsid">SNP</th><th data-field="genes">Gene</th><th data-field="module_name">Module</th>
-              <th data-field="effect_allele">Effect allele</th><th data-field="direction">Effect</th>
-              <th data-field="eaf_eur" class="gx-hide-narrow">EUR freq</th><th data-field="p_value">p-value</th>
-              <th data-field="first_author" class="gx-hide-narrow">Study</th>
-            </tr></thead>
-            <tbody data-draw="bio-rows"></tbody>
-          </table>
-        </div>
-      </div>
+    <p class="gx-note" data-who>Common lab tests read through XY's genes. Per test: where XY's genes put the value among Europeans (PGS Catalog,
+      GWAS Catalog), the genes known to move the test, and whether XY's own variants move it: some shift the value without the body being
+      affected ("your normal may differ"), others are real and worth following up. Then how the value is made and regulated (Reactome) and
+      what XY's variants change there (Ensembl VEP, GTEx, UniProt). Every finding carries an evidence grade from A+ to C.</p>
+    <div class="gx-card">
+      <div class="nt-overview" data-draw="lb-overview" data-source="lab_tests lab_steps"></div>
+    </div>
+    <div class="gx-card" id="lb-detail">
+      <div class="nt-detail" data-draw="lb-detail" data-source="lab_tests lab_findings lab_steps"></div>
     </div>
   </section>
 
@@ -939,41 +921,6 @@
       biomarkers: new Set(biomarker_snps.map((r) => r.biomarker)).size,
       linked_snps: new Set(biomarker_snps.map((r) => r.rsid)).size,
     }],
-  });
-
-  dash.calc('module_biomarker', {
-    inputs: ['biomarker_snps'],
-    title: 'SNPs per module and biomarker',
-    description: 'Number of biomarker-linked SNPs in each module for each biomarker.',
-    fn: (biomarker_snps) => {
-      const counts = new Map();
-      for (const r of biomarker_snps) {
-        if (!r.module) continue;
-        const key = r.module + '|' + r.biomarker;
-        const row = counts.get(key) || { module: r.module, module_name: r.module_name, biomarker: r.biomarker, panel: r.panel, n: 0 };
-        row.n += 1;
-        counts.set(key, row);
-      }
-      return [...counts.values()];
-    },
-  });
-
-  dash.calc('bio_reach', {
-    inputs: ['biomarker_snps'],
-    title: 'Modules reached per biomarker',
-    description: 'For each biomarker, how many distinct modules and SNPs link to it, most modules first.',
-    fn: (biomarker_snps) => {
-      const by = new Map();
-      for (const r of biomarker_snps) {
-        const row = by.get(r.biomarker) || { biomarker: r.biomarker, mods: new Set(), snps: 0 };
-        if (r.module) row.mods.add(r.module);
-        row.snps += 1;
-        by.set(r.biomarker, row);
-      }
-      return [...by.values()]
-        .map((r) => ({ biomarker: r.biomarker, modules: r.mods.size, snps: r.snps }))
-        .sort((a, b) => b.modules - a.modules || b.snps - a.snps);
-    },
   });
 
   // Shared helpers
@@ -1101,11 +1048,8 @@
    ['t-modules', 'modules'], ['t-genes', 'genes'], ['t-links', 'links'], ['t-biomarkers', 'biomarkers']]
     .forEach(([n, f]) => numberDraw(n, f));
 
-  dash.draw('top-bio', (el) => { const r = gx.rows('bio_reach'); el.textContent = r ? r[0][0].biomarker : '—'; });
-  dash.draw('top-bio-n', (el) => { const r = gx.rows('bio_reach'); el.textContent = r ? fmt(r[0][0].modules) : '—'; });
   dash.draw('s-top', (el) => { const r = gx.rows('hp_modules'); el.textContent = r ? r[0][0].name : '—'; });
   dash.draw('s-compound', (el) => { const r = gx.rows('hp_compound'); el.textContent = r ? fmt(r[0][0].n) : '—'; });
-  dash.draw('sel-bio', (el) => { el.textContent = dash.params().biomarker || '—'; });
 </script>
 
 <script>
@@ -1996,82 +1940,6 @@
       const det = thMake(el, 'details');
       thMake(det, 'summary', 'gx-note', `Show the other ${sorted.length - 30} genes`);
       table(sorted.slice(30), det);
-    }
-  });
-</script>
-
-<script>
-  // Module x biomarker heatmap
-  dash.draw('heatmap', (el) => {
-    const r = gx.rows('module_biomarker');
-    el.replaceChildren();
-    if (!r) { if (gx.failed('module_biomarker')) gx.failLine(el); return; }
-    const [cells] = r;
-    const panels = ['Lipids', 'Glucose', 'Inflammation', 'Liver', 'Kidney', 'Vitamins', 'Blood & iron', 'Hormones', 'Thyroid', 'Blood pressure', 'Body'];
-    const totals = d3.rollup(cells, (v) => d3.sum(v, (c) => c.n), (c) => c.biomarker);
-    const panelOf = new Map(cells.map((c) => [c.biomarker, c.panel]));
-    const cols = [...totals.keys()].filter((b) => totals.get(b) >= 2)
-      .sort((a, b) => panels.indexOf(panelOf.get(a)) - panels.indexOf(panelOf.get(b)) || totals.get(b) - totals.get(a));
-    const rowsOrder = d3.rollups(cells, (v) => d3.sum(v, (c) => c.n), (c) => c.module_name).sort((a, b) => b[1] - a[1]).map((d) => d[0]);
-    const sel = dash.params().biomarker;
-
-    const svg = d3.select(el).append('svg');
-    const probe = svg.append('g').attr('font-size', 12);
-    const left = d3.max(rowsOrder, (n) => probe.append('text').text(n).node().getComputedTextLength()) + 12;
-    const top = d3.max(cols, (n) => probe.append('text').text(n).node().getComputedTextLength()) * 0.72 + 18;
-    probe.remove();
-    const avail = Math.max(280, el.clientWidth);
-    const cell = Math.max(18, Math.min(34, (avail - left - 8) / cols.length));
-    const W = left + cell * cols.length + 8 + top * 0.7, H = top + cell * rowsOrder.length + 4;
-    svg.attr('width', W).attr('height', H).attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img').attr('aria-label', 'Modules by biomarker heatmap');
-
-    const x = d3.scaleBand(cols, [left, left + cell * cols.length]).padding(0.08);
-    const y = d3.scaleBand(rowsOrder, [top, top + cell * rowsOrder.length]).padding(0.08);
-    const maxN = d3.max(cells, (c) => c.n);
-    const ramp = d3.interpolateRgb(gx.color('--color-panel') || '#eee', dash.colors[0]);
-    const tip = gx.tip(el);
-
-    svg.append('g').selectAll('rect').data(cells.filter((c) => cols.includes(c.biomarker))).join('rect')
-      .attr('x', (c) => x(c.biomarker)).attr('y', (c) => y(c.module_name)).attr('width', x.bandwidth()).attr('height', y.bandwidth())
-      .attr('rx', 3).style('fill', (c) => ramp(0.2 + 0.8 * c.n / maxN)).style('cursor', 'pointer')
-      .on('click', (event, c) => dash.setParams({ biomarker: c.biomarker }))
-      .on('mousemove', (event, c) => tip.show(event, `${c.module_name} → ${c.biomarker}`, [`${c.n} SNP${c.n > 1 ? 's' : ''} (${c.panel})`]))
-      .on('mouseleave', () => tip.hide());
-    svg.append('g').selectAll('text').data(cells.filter((c) => cols.includes(c.biomarker))).join('text')
-      .attr('x', (c) => x(c.biomarker) + x.bandwidth() / 2).attr('y', (c) => y(c.module_name) + y.bandwidth() / 2 + 4)
-      .attr('text-anchor', 'middle').attr('font-size', 11).attr('pointer-events', 'none')
-      .style('fill', (c) => c.n / maxN > 0.5 ? 'var(--color-bg)' : 'var(--color-fg)').text((c) => c.n);
-    if (sel && cols.includes(sel)) {
-      svg.append('rect').attr('x', x(sel) - 2).attr('y', top - 2).attr('width', x.bandwidth() + 4).attr('height', cell * rowsOrder.length + 2)
-        .style('fill', 'none').style('stroke', 'var(--color-fg)').attr('stroke-width', 1.5).attr('rx', 4);
-    }
-    svg.append('g').selectAll('text').data(rowsOrder).join('text')
-      .attr('x', left - 8).attr('y', (n) => y(n) + y.bandwidth() / 2 + 4).attr('text-anchor', 'end').attr('font-size', 12)
-      .style('fill', 'var(--color-fg)').text((n) => n);
-    svg.append('g').selectAll('text').data(cols).join('text')
-      .attr('transform', (b) => `translate(${x(b) + x.bandwidth() / 2},${top - 8}) rotate(-45)`).attr('font-size', 12)
-      .style('fill', (b) => b === sel ? 'var(--color-fg)' : 'var(--color-fg-muted)').attr('font-weight', (b) => b === sel ? 600 : 400)
-      .style('cursor', 'pointer').text((b) => b).on('click', (event, b) => dash.setParams({ biomarker: b }));
-  });
-
-  // SNP table for the selected biomarker
-  dash.draw('bio-rows', (tbody) => {
-    const r = gx.rows('biomarker_snps');
-    tbody.replaceChildren();
-    if (!r) return;
-    const sel = dash.params().biomarker;
-    const rows = r[0].filter((s) => s.biomarker === sel).sort((a, b) => a.p_value - b.p_value);
-    const pfmt = d3.format('.0e'), pct = d3.format('.0%');
-    for (const s of rows) {
-      const tr = document.createElement('tr');
-      tr.dataset.key = encodeURIComponent(s.biomarker) + ',' + encodeURIComponent(s.rsid);
-      const cell = (text, cls) => { const td = document.createElement('td'); td.textContent = text; if (cls) td.className = cls; tr.appendChild(td); };
-      cell(s.rsid); cell(s.genes); cell(s.module_name);
-      cell(s.strand === 'ambiguous' ? `${s.effect_allele} (strand unverified)` : s.effect_allele, s.strand === 'ambiguous' ? 'gx-muted' : null);
-      cell(s.direction, s.direction === 'raises' ? 'gx-up' : 'gx-down');
-      cell(s.eaf_eur == null ? '—' : pct(s.eaf_eur), 'gx-hide-narrow');
-      cell(pfmt(s.p_value)); cell(s.first_author || '—', 'gx-hide-narrow');
-      tbody.appendChild(tr);
     }
   });
 </script>
@@ -3272,7 +3140,6 @@
   const ntJ = (s) => { try { return s ? JSON.parse(s) : null; } catch (e) { return null; } };
   const ntNum = (v) => (v >= 100 ? Math.round(v) : +Number(v).toPrecision(3)).toLocaleString('en');
   const ntT = (tpl, ...vals) => vals.reduce((s, v) => s.replace('{}', v), tpl);
-  let ntAll = false;
   const ntMain = (n) => (ntJ(n.markers) || []).find((m) => m.score);
   const ntSide = (m) => {
     const p = m.score.percentile, side = p <= 20 ? 'low' : p >= 80 ? 'high' : 'typical';
@@ -3357,204 +3224,245 @@
   // Whether a finding works against the person (their copies move the level the unfavourable way), for it, or neither
   const ntBad = (f) => f.xy === 'carried' ? 'bad' : !f.xy || f.xy === 'typical' || f.higher === 'neutral' ? null
     : (f.xy === 'lowers') === (f.higher === 'better') ? 'bad' : 'good';
-  const ntPick = (n) => { ntAll = false; dash.setParams({ nt_n: n.id }); };
-
-  dash.draw('nt-overview', (el) => {
-    const r = gx.rows('nut_nutrients', 'nut_steps');
-    if (!r) { if (gx.failed('nut_nutrients', 'nut_steps')) gx.failLine(el); return; }
-    const [rows, steps] = r;
-    el.replaceChildren();
-    const who = ntWho(rows), low = ntLow(rows), cur = dash.params().nt_n || (low[0] || rows[0]).id;
-    ntMake(el, 'h3', null, `${who} and nutrition`);
-    ntMake(el, 'p', null, low.length ? `${who}'s genes lower these nutrients' blood levels the unfavourable way. Select one to see where in its uptake and conversion the genes act:`
-      : `${who}'s genes point to typical levels throughout.`);
-    if (low.length) {
-      const pills = ntMake(el, 'div', 'md-pills');
-      for (const n of low) { const b = ntMake(pills, 'button', 'md-pill', n.name); b.type = 'button'; b.addEventListener('click', () => ntPick(n)); }
+  // Genes known to move a test (labtests.json): "your normal may differ" when the gene shifts the value without the body
+  // being affected, "worth following up" when the shift is real. Each says whether the person's own variants in the
+  // gene move it, and cites the GWAS Catalog study with the strongest association.
+  const ntNotes = (parent, notes, finds, who) => {
+    if (!notes.length) return;
+    const box = ntMake(parent, 'div', 'nt-block');
+    ntMake(box, 'span', 'gx-label', 'Genes that move this test');
+    for (const note of notes) {
+      const fs = finds.filter((f) => (f.gene || '').split(/[\s,;-]+/).includes(note.gene) || f.step_gene === note.gene);
+      const moved = fs.filter((f) => f.xy && f.xy !== 'typical');
+      const d = ntMake(box, 'div', 'nt-note' + (moved.length ? ' nt-note-on' : ''));
+      ntMake(d, 'b', null, note.kind === 'test' ? 'Your normal may differ' : 'Worth following up');
+      ntMake(d, 'span', null, ' · ' + note.gene + ': ');
+      ntMake(d, 'span', null, note.text);
+      ntMake(d, 'div', moved.length ? 'nt-low' : 'nt-sub', moved.length
+        ? ntT(moved.length === 1 ? `${who} carries a variant here that moves the level (1 variant).` : `${who} carries variants here that move the level ({} variants).`, moved.length)
+        : fs.length ? `${who} has the usual copies at the variants read here.` : `No variant of ${who}'s in this gene is among the findings.`);
+      const src = note.source;
+      if (src) {
+        const a = ntMake(d, 'a', 'nt-src', ntT('{} {} · GWAS Catalog {}', src.author, src.year, src.study));
+        a.href = `https://pubmed.ncbi.nlm.nih.gov/${src.pmid}/`; a.target = '_blank'; a.rel = 'noopener';
+      }
     }
-    const grid = ntMake(el, 'div', 'nt-grid');
-    for (const n of rows) {
-      const b = ntMake(grid, 'button', 'nt-tile');
-      b.type = 'button';
-      b.setAttribute('aria-pressed', String(n.id === cur));
-      ntMake(b, 'b', null, n.name);
-      const m = ntMain(n);
-      if (m) {
-        ntBar(b, m);
-        const s = ntSide(m);
-        const tl = ntMake(b, 'small', s.bad ? 'nt-low' : s.good ? 'nt-high' : null);
-        ntMake(tl, 'span', null, ntBand(m.score.percentile));
-        ntMake(tl, 'span', null, ' · ');
-        ntMake(tl, 'span', null, ntPos(m.score.percentile));
-      } else ntMake(b, 'small', null, 'No genetic score');
-      const k = steps.filter((s) => s.nutrient === n.id).length;
-      if (k) ntMake(b, 'small', 'nt-sub', k === 1 ? '1 step found' : ntT('{} steps found', k));
-      b.addEventListener('click', () => { ntPick(n); document.getElementById('nt-detail').scrollIntoView({ behavior: 'smooth' }); });
-    }
-  });
-
-  // One variant: what it changes, the person's copies, and which way it moves the level for them
-  const ntVariant = (parent, f, who) => {
-    const d = ntMake(parent, 'div', 'nt-find' + (ntBad(f) === 'bad' ? ' nt-find-bad' : ''));
-    ntTag(d, f.grade);
-    const det = ntJ(f.detail) || {};
-    const top = ntMake(d, 'div');
-    ntMake(top, 'b', null, `${f.step_gene || f.gene || ''} ${det.change || f.rsid}`);
-    ntMake(top, 'span', 'nt-sub', ` · ${f.rsid} · ${who}: ${f.genotype || '–'}`);
-    if (f.confidence === 'high') ntMake(top, 'span', 'th-imp th-imp-high', 'imputed, high confidence');
-    if (f.mechanism === 'protein') {
-      ntMake(d, 'div', null, !det.change ? 'Changes the protein.' : ntT(det.copies === 2 ? `Changes the protein: {} ({}). ${who} carries the change on both copies.`
-        : det.copies === 1 ? `Changes the protein: {} ({}). ${who} carries the change on one copy.` : det.copies === 0 ? `Changes the protein: {} ({}). ${who} does not carry the change.`
-        : 'Changes the protein: {} ({}).', det.long, det.change));
-    } else if (f.mechanism === 'expression') {
-      ntMake(d, 'div', null, ntT(det.more ? 'The {} allele makes more {} (GTEx: {}, {} tissues).' : 'The {} allele makes less {} (GTEx: {}, {} tissues).',
-        det.allele, det.gene, det.tissue, det.tissues));
-    } else if (f.mechanism === 'in_gene') ntMake(d, 'div', 'nt-sub', 'In the gene; how it changes the gene is not known.');
-    if (f.kind === 'GWAS' || f.kind === 'Score') {
-      ntMake(d, 'div', null, ntT(f.direction === 'raises' ? '{} raises: {}' : '{} lowers: {}', f.allele, f.marker_name));
-      if (f.xy) ntMake(d, 'div', ntBad(f) === 'bad' ? 'nt-low' : ntBad(f) === 'good' ? 'nt-high' : 'nt-sub',
-        f.xy === 'typical' ? `${who} has the usual copies: no shift.` : ntWhy(f, who));
-      ntRare(d, f);
-      const a = ntMake(d, 'a', 'nt-src', ntT(f.publications === 1 ? '{} · 1 publication' : '{} · {} publications', f.study, f.publications));
-      a.href = `https://pubmed.ncbi.nlm.nih.gov/${f.pmid}/`; a.target = '_blank'; a.rel = 'noopener';
-    } else ntMake(d, 'div', null, f.kind === 'ClinVar' ? `ClinVar: ${f.text} (${f.copies}×${f.allele})` : `${f.chemical}: ${f.effect || f.text || '–'}`);
   };
 
-  dash.draw('nt-detail', (el) => {
-    const r = gx.rows('nut_nutrients', 'nut_findings', 'nut_steps');
-    if (!r) { if (gx.failed('nut_nutrients', 'nut_findings', 'nut_steps')) gx.failLine(el); return; }
-    const [rows, finds, steps] = r;
-    el.replaceChildren();
-    const who = ntWho(rows);
-    const n = rows.find((x) => x.id === dash.params().nt_n) || ntLow(rows)[0] || rows[0];
-    const t = ntJ(n.target);
-    const head = ntMake(el, 'div', 'nt-head');
-    ntMake(head, 'h2', null, n.name);
-    if (t) ntMake(head, 'span', 'nt-sub', ntT(`Intake target: {} (NNR 2023, ${n.sex === 'women' ? 'women' : 'men'} {})`, ntTarget(t), n.age));
+  // One tab drawn from a nutrition.py output: Nutrition (nutrients.json) and Biomarkers (labtests.json)
+  const ntTab = (K) => {
+  let all = false;
+    const pick = (n) => { all = false; dash.setParams({ [K.param]: n.id }); };
 
-    // One variant per locus and marker pair; a variant found for two markers (omega-3 and DHA) is listed once
-    const byRs = new Map();
-    for (const f of finds.filter((x) => x.nutrient === n.id)) {
-      const k = f.rsid + f.kind, o = byRs.get(k);
-      if (!o) byRs.set(k, { ...f });
-      else if (ntRank(f.grade) < ntRank(o.grade)) byRs.set(k, { ...f });
-    }
-    const mine = [...byRs.values()].sort((a, b) => (ntBad(a) === 'bad' ? 0 : 1) - (ntBad(b) === 'bad' ? 0 : 1) || ntRank(a.grade) - ntRank(b.grade) || Math.abs(b.shift || 0) - Math.abs(a.shift || 0));
-    const st = steps.filter((s) => s.nutrient === n.id).sort((a, b) => a.pathway === b.pathway ? a.order - b.order : 0);
-    // Pin each variant to the first step whose genes include its step gene
-    const pinned = new Map();
-    for (const f of mine) {
-      if (!f.step_gene) continue;
-      const s = st.find((x) => x.genes.split(' ').includes(f.step_gene));
-      if (s) { if (!pinned.has(s.step)) pinned.set(s.step, []); pinned.get(s.step).push(f); }
-    }
-    const placed = new Set([...pinned.values()].flat());
-
-    // Net effect on the blood level, one line per marker
-    const markers = (ntJ(n.markers) || []).filter((m) => m.score);
-    if (markers.length) {
-      const box = ntMake(el, 'div', 'nt-block');
-      ntMake(box, 'span', 'gx-label', 'Net effect on the blood level');
-      for (const m of markers) {
-        const d = ntMake(box, 'div', 'nt-marker');
-        ntMake(d, 'b', null, m.name);
-        ntBar(d, m);
-        const s = ntSide(m);
-        ntMake(d, 'b', s.bad ? 'nt-low' : s.good ? 'nt-high' : null, ntBand(m.score.percentile));
-        ntMake(d, 'span', null, ' ');
-        ntMake(d, 'span', null, ntPos(m.score.percentile, true));
-        if (s.bad || s.good) { ntMake(d, 'span', null, ' '); ntMake(d, 'span', s.bad ? 'nt-low' : 'nt-high', s.bad ? 'The unfavourable direction.' : 'The favourable direction.'); }
-        const src = m.source;
-        ntMake(d, 'div', 'nt-src', [src.source, [src.author, src.year].filter(Boolean).join(' '), src.n ? `n = ${src.n.toLocaleString('en')}` : ''].filter(Boolean).join(' · ')).title = src.sample || src.method || '';
+    dash.draw(K.over, (el) => {
+      const r = gx.rows(K.main, K.steps);
+      if (!r) { if (gx.failed(K.main, K.steps)) gx.failLine(el); return; }
+      const [rows, steps] = r;
+      el.replaceChildren();
+      const who = ntWho(rows), low = ntLow(rows), cur = dash.params()[K.param] || (low[0] || rows[0]).id;
+      ntMake(el, 'h3', null, K.title(who));
+      ntMake(el, 'p', null, low.length ? K.low(who)
+        : `${who}'s genes point to typical levels throughout.`);
+      if (low.length) {
+        const pills = ntMake(el, 'div', 'md-pills');
+        for (const n of low) { const b = ntMake(pills, 'button', 'md-pill', n.name); b.type = 'button'; b.addEventListener('click', () => pick(n)); }
       }
-    }
+      const grid = ntMake(el, 'div', 'nt-grid');
+      for (const n of rows) {
+        const b = ntMake(grid, 'button', 'nt-tile');
+        b.type = 'button';
+        b.setAttribute('aria-pressed', String(n.id === cur));
+        ntMake(b, 'b', null, n.name);
+        const m = ntMain(n);
+        if (m) {
+          ntBar(b, m);
+          const s = ntSide(m);
+          const tl = ntMake(b, 'small', s.bad ? 'nt-low' : s.good ? 'nt-high' : null);
+          ntMake(tl, 'span', null, ntBand(m.score.percentile));
+          ntMake(tl, 'span', null, ' · ');
+          ntMake(tl, 'span', null, ntPos(m.score.percentile));
+        } else ntMake(b, 'small', null, 'No genetic score');
+        const k = steps.filter((s) => s.nutrient === n.id).length;
+        if (k) ntMake(b, 'small', 'nt-sub', k === 1 ? '1 step found' : ntT('{} steps found', k));
+        b.addEventListener('click', () => { pick(n); document.getElementById(K.card).scrollIntoView({ behavior: 'smooth' }); });
+      }
+    });
 
-    // How the nutrient is taken up and converted, in Reactome's words
-    const pws = ntJ(n.pathways) || [];
-    if (pws.length) {
-      const hb = ntMake(el, 'div', 'nt-block');
-      ntMake(hb, 'span', 'gx-label', 'How it is taken up and converted (Reactome)');
-      ntMake(hb, 'div', 'nt-sub', ntT(pws.length === 1 ? '{} steps found, in 1 pathway.' : '{} steps found, in {} pathways.', st.length, pws.length));
-      const seen = new Set();
-      for (const p of pws) {
-        if (p.filtered) {
-          // A broad pathway kept only for the steps that move this nutrient: those steps say more than its summary
-          for (const x of st.filter((y) => y.pathway_id === p.id)) {
-            const w = ntMake(hb, 'p', 'nt-why');
-            ntMake(w, 'b', null, x.name + '. ');
-            // Reactome opens related steps with the same sentences: show only what is new for each step
-            const fresh = (x.summary || '').split(/(?<=[a-z0-9)\]]\.)\s+(?=[A-Z])/).filter((z) => !seen.has(z));
-            fresh.forEach((z) => seen.add(z));
-            if (fresh.length) ntQuote(w, fresh.join(' '), 200);
+    // One variant: what it changes, the person's copies, and which way it moves the level for them
+    const ntVariant = (parent, f, who) => {
+      const d = ntMake(parent, 'div', 'nt-find' + (ntBad(f) === 'bad' ? ' nt-find-bad' : ''));
+      ntTag(d, f.grade);
+      const det = ntJ(f.detail) || {};
+      const top = ntMake(d, 'div');
+      ntMake(top, 'b', null, `${f.step_gene || f.gene || ''} ${det.change || f.rsid}`);
+      ntMake(top, 'span', 'nt-sub', ` · ${f.rsid} · ${who}: ${f.genotype || '–'}`);
+      if (f.confidence === 'high') ntMake(top, 'span', 'th-imp th-imp-high', 'imputed, high confidence');
+      if (f.mechanism === 'protein') {
+        ntMake(d, 'div', null, !det.change ? 'Changes the protein.' : ntT(det.copies === 2 ? `Changes the protein: {} ({}). ${who} carries the change on both copies.`
+          : det.copies === 1 ? `Changes the protein: {} ({}). ${who} carries the change on one copy.` : det.copies === 0 ? `Changes the protein: {} ({}). ${who} does not carry the change.`
+          : 'Changes the protein: {} ({}).', det.long, det.change));
+      } else if (f.mechanism === 'expression') {
+        ntMake(d, 'div', null, ntT(det.more ? 'The {} allele makes more {} (GTEx: {}, {} tissues).' : 'The {} allele makes less {} (GTEx: {}, {} tissues).',
+          det.allele, det.gene, det.tissue, det.tissues));
+      } else if (f.mechanism === 'in_gene') ntMake(d, 'div', 'nt-sub', 'In the gene; how it changes the gene is not known.');
+      if (f.kind === 'GWAS' || f.kind === 'Score') {
+        ntMake(d, 'div', null, ntT(f.direction === 'raises' ? '{} raises: {}' : '{} lowers: {}', f.allele, f.marker_name));
+        if (f.xy) ntMake(d, 'div', ntBad(f) === 'bad' ? 'nt-low' : ntBad(f) === 'good' ? 'nt-high' : 'nt-sub',
+          f.xy === 'typical' ? `${who} has the usual copies: no shift.` : ntWhy(f, who));
+        ntRare(d, f);
+        const a = ntMake(d, 'a', 'nt-src', ntT(f.publications === 1 ? '{} · 1 publication' : '{} · {} publications', f.study, f.publications));
+        a.href = `https://pubmed.ncbi.nlm.nih.gov/${f.pmid}/`; a.target = '_blank'; a.rel = 'noopener';
+      } else ntMake(d, 'div', null, f.kind === 'ClinVar' ? `ClinVar: ${f.text} (${f.copies}×${f.allele})` : `${f.chemical}: ${f.effect || f.text || '–'}`);
+    };
+
+    dash.draw(K.detail, (el) => {
+      const r = gx.rows(K.main, K.finds, K.steps);
+      if (!r) { if (gx.failed(K.main, K.finds, K.steps)) gx.failLine(el); return; }
+      const [rows, finds, steps] = r;
+      el.replaceChildren();
+      const who = ntWho(rows);
+      const n = rows.find((x) => x.id === dash.params()[K.param]) || ntLow(rows)[0] || rows[0];
+      const t = ntJ(n.target);
+      const head = ntMake(el, 'div', 'nt-head');
+      ntMake(head, 'h2', null, n.name);
+      if (t) ntMake(head, 'span', 'nt-sub', ntT(`Intake target: {} (NNR 2023, ${n.sex === 'women' ? 'women' : 'men'} {})`, ntTarget(t), n.age));
+
+      // One variant per locus and marker pair; a variant found for two markers (omega-3 and DHA) is listed once
+      const byRs = new Map();
+      for (const f of finds.filter((x) => x.nutrient === n.id)) {
+        const k = f.rsid + f.kind, o = byRs.get(k);
+        if (!o) byRs.set(k, { ...f });
+        else if (ntRank(f.grade) < ntRank(o.grade)) byRs.set(k, { ...f });
+      }
+      const mine = [...byRs.values()].sort((a, b) => (ntBad(a) === 'bad' ? 0 : 1) - (ntBad(b) === 'bad' ? 0 : 1) || ntRank(a.grade) - ntRank(b.grade) || Math.abs(b.shift || 0) - Math.abs(a.shift || 0));
+      const st = steps.filter((s) => s.nutrient === n.id).sort((a, b) => a.pathway === b.pathway ? a.order - b.order : 0);
+      // Pin each variant to the first step whose genes include its step gene
+      const pinned = new Map();
+      for (const f of mine) {
+        if (!f.step_gene) continue;
+        const s = st.find((x) => x.genes.split(' ').includes(f.step_gene));
+        if (s) { if (!pinned.has(s.step)) pinned.set(s.step, []); pinned.get(s.step).push(f); }
+      }
+      const placed = new Set([...pinned.values()].flat());
+
+      // Net effect on the blood level, one line per marker
+      const markers = (ntJ(n.markers) || []).filter((m) => m.score);
+      if (markers.length) {
+        const box = ntMake(el, 'div', 'nt-block');
+        ntMake(box, 'span', 'gx-label', 'Net effect on the blood level');
+        for (const m of markers) {
+          const d = ntMake(box, 'div', 'nt-marker');
+          ntMake(d, 'b', null, m.name);
+          ntBar(d, m);
+          const s = ntSide(m);
+          ntMake(d, 'b', s.bad ? 'nt-low' : s.good ? 'nt-high' : null, ntBand(m.score.percentile));
+          ntMake(d, 'span', null, ' ');
+          ntMake(d, 'span', null, ntPos(m.score.percentile, true));
+          if (s.bad || s.good) { ntMake(d, 'span', null, ' '); ntMake(d, 'span', s.bad ? 'nt-low' : 'nt-high', s.bad ? 'The unfavourable direction.' : 'The favourable direction.'); }
+          const src = m.source;
+          ntMake(d, 'div', 'nt-src', [src.source, [src.author, src.year].filter(Boolean).join(' '), src.n ? `n = ${src.n.toLocaleString('en')}` : ''].filter(Boolean).join(' · ')).title = src.sample || src.method || '';
+        }
+      }
+
+      ntNotes(el, ntJ(n.notes) || [], finds.filter((x) => x.nutrient === n.id), who);
+      // How the nutrient is taken up and converted, in Reactome's words
+      const pws = ntJ(n.pathways) || [];
+      if (pws.length) {
+        const hb = ntMake(el, 'div', 'nt-block');
+        ntMake(hb, 'span', 'gx-label', K.how);
+        ntMake(hb, 'div', 'nt-sub', ntT(pws.length === 1 ? '{} steps found, in 1 pathway.' : '{} steps found, in {} pathways.', st.length, pws.length));
+        const seen = new Set();
+        for (const p of pws) {
+          if (p.filtered) {
+            // A broad pathway kept only for the steps that move this nutrient: those steps say more than its summary
+            for (const x of st.filter((y) => y.pathway_id === p.id)) {
+              const w = ntMake(hb, 'p', 'nt-why');
+              ntMake(w, 'b', null, x.name + '. ');
+              // Reactome opens related steps with the same sentences: show only what is new for each step
+              const fresh = (x.summary || '').split(/(?<=[a-z0-9)\]]\.)\s+(?=[A-Z])/).filter((z) => !seen.has(z));
+              fresh.forEach((z) => seen.add(z));
+              if (fresh.length) ntQuote(w, fresh.join(' '), 200);
+            }
+            continue;
           }
-          continue;
+          const w = ntMake(hb, 'p', 'nt-why');
+          ntMake(w, 'b', null, p.name + '. ');
+          ntQuote(w, p.summary);
         }
-        const w = ntMake(hb, 'p', 'nt-why');
-        ntMake(w, 'b', null, p.name + '. ');
-        ntQuote(w, p.summary);
       }
-    }
 
-    // Where the person's variants act: the step, the protein and what the variant changes, written out
-    const prot = ntJ(n.proteins) || {};
-    const pinnedList = mine.filter((f) => placed.has(f));
-    if (pinnedList.length) {
-      const wb = ntMake(el, 'div', 'nt-block');
-      ntMake(wb, 'span', 'gx-label', `Where ${who}'s variants act`);
-      // One account per gene: the step it does and what its protein is, then the person's variants in it
-      const byGene = new Map();
-      for (const f of pinnedList) { if (!byGene.has(f.step_gene)) byGene.set(f.step_gene, []); byGene.get(f.step_gene).push(f); }
-      for (const [g, fs] of byGene) {
-        const s = st.find((x) => x.genes.split(' ').includes(g));
-        const ti = ((ntJ(s.tissues) || {})[g] || {}).tissues;
-        const pr = prot[g];
-        const box = ntMake(wb, 'div', 'nt-mech' + (fs.some((f) => ntBad(f) === 'bad') ? ' nt-mech-bad' : ''));
-        ntMake(box, 'h4', null, g);
-        ntChain(box, s, st, g, fs);
-        // Read left to right: the step → the protein that does it → what the person's variants change in it
-        const row = ntMake(box, 'div', 'nt-mech-row');
-        const arrow = () => ntMake(row, 'div', 'nt-mech-arrow', '→').setAttribute('aria-hidden', 'true');
-        const w1 = ntMake(ntMake(row, 'div', 'nt-mech-col'), 'p', 'nt-why');
-        ntMake(w1, 'b', null, ntT('The step ({} of {}, {}): ', s.order, st.filter((x) => x.pathway === s.pathway).length, s.pathway));
-        // The step's name is in the chain above; the text adds Reactome's account of it
-        if (s.summary) ntQuote(w1, s.summary); else ntMake(w1, 'span', null, s.name + '.');
-        if (pr) {
+      // Where the person's variants act: the step, the protein and what the variant changes, written out
+      const prot = ntJ(n.proteins) || {};
+      const pinnedList = mine.filter((f) => placed.has(f));
+      if (pinnedList.length) {
+        const wb = ntMake(el, 'div', 'nt-block');
+        ntMake(wb, 'span', 'gx-label', `Where ${who}'s variants act`);
+        // One account per gene: the step it does and what its protein is, then the person's variants in it
+        const byGene = new Map();
+        for (const f of pinnedList) { if (!byGene.has(f.step_gene)) byGene.set(f.step_gene, []); byGene.get(f.step_gene).push(f); }
+        for (const [g, fs] of byGene) {
+          const s = st.find((x) => x.genes.split(' ').includes(g));
+          const ti = ((ntJ(s.tissues) || {})[g] || {}).tissues;
+          const pr = prot[g];
+          const box = ntMake(wb, 'div', 'nt-mech' + (fs.some((f) => ntBad(f) === 'bad') ? ' nt-mech-bad' : ''));
+          ntMake(box, 'h4', null, g);
+          ntChain(box, s, st, g, fs);
+          // Read left to right: the step → the protein that does it → what the person's variants change in it
+          const row = ntMake(box, 'div', 'nt-mech-row');
+          const arrow = () => ntMake(row, 'div', 'nt-mech-arrow', '→').setAttribute('aria-hidden', 'true');
+          const w1 = ntMake(ntMake(row, 'div', 'nt-mech-col'), 'p', 'nt-why');
+          ntMake(w1, 'b', null, ntT('The step ({} of {}, {}): ', s.order, st.filter((x) => x.pathway === s.pathway).length, s.pathway));
+          // The step's name is in the chain above; the text adds Reactome's account of it
+          if (s.summary) ntQuote(w1, s.summary); else ntMake(w1, 'span', null, s.name + '.');
+          if (pr) {
+            arrow();
+            const w2 = ntMake(ntMake(row, 'div', 'nt-mech-col'), 'p', 'nt-why');
+            ntMake(w2, 'b', null, 'The protein: ');
+            ntMake(w2, 'span', null, ti && ti.length ? ntT('{} makes {}, mostly in {}.', g, pr.protein, ti.slice(0, 3).join(', ')) : ntT('{} makes {}.', g, pr.protein));
+            if (pr.function) { ntMake(w2, 'span', null, ' '); ntQuote(w2, pr.function, 200); }
+          }
           arrow();
-          const w2 = ntMake(ntMake(row, 'div', 'nt-mech-col'), 'p', 'nt-why');
-          ntMake(w2, 'b', null, 'The protein: ');
-          ntMake(w2, 'span', null, ti && ti.length ? ntT('{} makes {}, mostly in {}.', g, pr.protein, ti.slice(0, 3).join(', ')) : ntT('{} makes {}.', g, pr.protein));
-          if (pr.function) { ntMake(w2, 'span', null, ' '); ntQuote(w2, pr.function, 200); }
+          const vc = ntMake(row, 'div', 'nt-mech-col nt-mech-vars');
+          ntMake(vc, 'b', 'nt-why-head', ntT(fs.length === 1 ? `${who}'s variant:` : `${who}'s variants ({}):`, fs.length));
+          for (const f of fs) ntVariant(vc, f, who);
         }
-        arrow();
-        const vc = ntMake(row, 'div', 'nt-mech-col nt-mech-vars');
-        ntMake(vc, 'b', 'nt-why-head', ntT(fs.length === 1 ? `${who}'s variant:` : `${who}'s variants ({}):`, fs.length));
-        for (const f of fs) ntVariant(vc, f, who);
       }
-    }
 
-    // Variants that move the level from outside these steps
-    const out = mine.filter((f) => !placed.has(f));
-    const ob = out.length ? ntMake(el, 'div', 'nt-block') : null;
-    if (ob) ntMake(ob, 'span', 'gx-label', ntT(st.length ? 'Outside the conversion steps ({})' : 'Variants found ({})', out.length));
-    if (ob && st.length) ntMake(ob, 'div', 'nt-sub', 'Genes that move the blood level without being part of these steps: transport in the blood, other pathways, or a gene not yet known.');
-    // Lead with the variants whose copies move the person's level (or that they carry, ClinVar); the ones where they
-    // have the usual copies come after, under Show all
-    const moving = out.filter((f) => f.xy && f.xy !== 'typical'), quiet = out.filter((f) => !(f.xy && f.xy !== 'typical'));
-    if (ob) ntMake(ob, 'div', 'nt-sub', ntT(moving.length === 1 ? `${who}'s copies move the level for 1 of them; the others are under Show all.`
-      : `${who}'s copies move the level for {} of them; the others are under Show all.`, moving.length));
-    const shown = ntAll ? [...moving, ...quiet] : moving.slice(0, 8);
-    for (const f of shown) ntVariant(ob, f, who);
-    if (out.length > shown.length || ntAll) {
-      const b = ntMake(ob, 'button', 'md-pill', ntAll ? 'Show fewer' : `Show all (${out.length - shown.length} more)`);
-      b.type = 'button';
-      b.addEventListener('click', () => { ntAll = !ntAll; dash.setParams({ nt_all: ntAll }); });
-    }
+      // Variants that move the level from outside these steps
+      const out = mine.filter((f) => !placed.has(f));
+      const ob = out.length ? ntMake(el, 'div', 'nt-block') : null;
+      // Lab tests carry only the strongest of thousands of variants (export_dashboard.trim_findings): the true counts are
+      // on the test row
+      const total = Math.max(n.variants || 0, out.length);
+      if (ob) ntMake(ob, 'span', 'gx-label', ntT(st.length ? 'Outside the conversion steps ({})' : 'Variants found ({})', total));
+      if (ob && st.length) ntMake(ob, 'div', 'nt-sub', 'Genes that move the blood level without being part of these steps: transport in the blood, other pathways, or a gene not yet known.');
+      // Lead with the variants whose copies move the person's level (or that they carry, ClinVar); the ones where they
+      // have the usual copies come after, under Show all
+      const moving = out.filter((f) => f.xy && f.xy !== 'typical'), quiet = out.filter((f) => !(f.xy && f.xy !== 'typical'));
+      const nMoving = Math.max(n.moving || 0, moving.length);
+      if (ob && total > out.length) ntMake(ob, 'div', 'nt-sub', ntT(`${who}'s copies move the level for {} of them. The {} strongest are listed.`, nMoving, out.length));
+      else if (ob) ntMake(ob, 'div', 'nt-sub', ntT(nMoving === 1 ? `${who}'s copies move the level for 1 of them; the others are under Show all.`
+        : `${who}'s copies move the level for {} of them; the others are under Show all.`, nMoving));
+      const shown = all ? [...moving, ...quiet] : moving.slice(0, 8);
+      for (const f of shown) ntVariant(ob, f, who);
+      if (out.length > shown.length || all) {
+        const b = ntMake(ob, 'button', 'md-pill', all ? 'Show fewer' : `Show all (${out.length - shown.length} more)`);
+        b.type = 'button';
+        b.addEventListener('click', () => { all = !all; dash.setParams({ [K.param + '_all']: all }); });
+      }
 
-    if (n.test) {
-      const tb = ntMake(el, 'div', 'nt-block nt-sub');
-      ntMake(tb, 'span', null, `Blood test: ${n.test}`);
-    }
-  });
+      if (n.test) {
+        const tb = ntMake(el, 'div', 'nt-block nt-sub');
+        ntMake(tb, 'span', null, `Blood test: ${n.test}`);
+      }
+    });
+  };
+  ntTab({ over: 'nt-overview', detail: 'nt-detail', card: 'nt-detail', main: 'nut_nutrients', finds: 'nut_findings', steps: 'nut_steps',
+    param: 'nt_n', title: (who) => `${who} and nutrition`, how: 'How it is taken up and converted (Reactome)',
+    low: (who) => `${who}'s genes lower these nutrients' blood levels the unfavourable way. Select one to see where in its uptake and conversion the genes act:` });
+  ntTab({ over: 'lb-overview', detail: 'lb-detail', card: 'lb-detail', main: 'lab_tests', finds: 'lab_findings', steps: 'lab_steps',
+    param: 'lb_n', title: (who) => `${who}'s lab tests`, how: 'How it is made and regulated (Reactome)',
+    low: (who) => `${who}'s genes move these lab values the unfavourable way. Select one to see which genes act and how:` });
 </script>
 
 <script>
