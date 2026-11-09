@@ -1032,5 +1032,8 @@
 "SNPs with a genome-wide significant GWAS link. Clusters, Medicines, Nutrition, Gene lifecycle and Profile read the selected person's genome; Biomarkers is public reference data.": "SNP:er med en genomvid signifikant GWAS-koppling. Kluster, Läkemedel, Näring, Genens livscykel och Profil läser den valda personens genom; Biomarkörer är offentliga referensdata.",
 "Profile": "Profil",
 "Female": "Kvinna",
-"Male": "Man"
+"Male": "Man",
+"Step before": "Steget före",
+"Step after": "Steget efter",
+"N/A": "Saknas"
 }

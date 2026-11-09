@@ -32,7 +32,9 @@ is kept per viewer in the browser (`localStorage`), English when it can't be rea
 - Other text from the sources stays as published: gene names, UniProt, ClinPGx and CPIC texts, Reactome and GO names,
   paper titles.
 - When page wording changes, add its Swedish to `i18n_sv.json` and republish the `i18n_sv` dataset; text without a key
-  simply stays English.
+  simply stays English. Publish the rows, never the file itself: `i18n_sv.json` is `{english: swedish}`, the page reads
+  `[{en, sv}]` rows and quietly ignores anything else (all page wording then stays English):
+  `python cluster_analysis/explorer/i18n_terms.py --publish i18n_sv_rows.json --page`.
 - After the library or the theme datasets change, check for new terms and republish `i18n_sv_terms`:
 
   ```bash

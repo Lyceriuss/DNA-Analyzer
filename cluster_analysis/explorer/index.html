@@ -646,6 +646,19 @@
   .nt-mech { margin: 10px 0; padding: 4px 0 4px 12px; border-left: 3px solid var(--color-border-line); }
   .nt-mech-bad { border-left-color: var(--color-warn); }
   .nt-mech h4 { margin: 0 0 2px; font-size: 15px; }
+  .nt-chain { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 4px 0 10px; }
+  .nt-chain-arrow { color: var(--color-fg-muted); }
+  .nt-mol { font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 14px; background: var(--color-panel); color: var(--color-fg); }
+  .nt-card { display: flex; flex-direction: column; gap: 2px; min-width: 120px; max-width: 230px; padding: 5px 8px; border: 1px solid var(--color-border-line);
+    border-radius: 6px; font-size: 12px; color: var(--color-fg-muted); }
+  .nt-card-here { border: 2px solid var(--color-fg); color: var(--color-fg); }
+  .nt-card-na { border-style: dashed; }
+  .nt-card-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .nt-card-name { font-weight: 600; line-height: 1.25; }
+  .nt-card-genes { display: flex; flex-wrap: wrap; gap: 3px; }
+  .nt-chip-gene { font-size: 11px; border: 1px solid var(--color-border-line); border-radius: 9px; padding: 0 6px; }
+  .nt-chip-mine { border-color: var(--color-ok); color: var(--color-ok); font-weight: 700; }
+  .nt-chip-bad { border-color: var(--color-warn); color: var(--color-warn); font-weight: 700; }
   .nt-mech-row { display: flex; align-items: stretch; gap: 10px; }
   .nt-mech-col { flex: 1 1 0; min-width: 0; }
   .nt-mech-col .nt-why { margin-top: 0; max-width: none; }
@@ -1064,7 +1077,8 @@
       });
       set.appendChild(b);
     }
-    applyWho(who);
+    // After the draw: the runtime counts a draw's writes outside its own element as stray
+    setTimeout(() => applyWho(who), 0);
   });
   const linked = location.hash.slice(1);
   if (['clusters', 'medicines', 'nutrition', 'lifecycle', 'biomarkers', 'profile'].includes(linked)) gx.show(linked);
@@ -3301,6 +3315,35 @@
       b.addEventListener('click', () => { const open = b.textContent === 'More' || b.textContent === 'Mer'; q.textContent = open ? text : short; b.textContent = open ? 'Less' : 'More'; });
     }
   };
+  // A small version of the lifecycle chain around one step: the step before → the molecule it hands over → this
+  // gene's step → the molecule it makes → the step after. Before and after are the nearest steps of the same pathway
+  // that make this step's input or take its output (Reactome); without one the card says N/A.
+  const ntMols = (x) => (x || '').split('; ').filter(Boolean);
+  const ntChain = (parent, s, st, g, fs) => {
+    const same = st.filter((x) => x.pathway === s.pathway && x.step !== s.step);
+    const ins = ntMols(s.inputs), outs = ntMols(s.outputs);
+    const prev = same.filter((x) => x.order < s.order && ntMols(x.outputs).some((m) => ins.includes(m))).pop();
+    const next = same.find((x) => x.order > s.order && ntMols(x.inputs).some((m) => outs.includes(m)));
+    const c = ntMake(parent, 'div', 'nt-chain');
+    const arrow = () => ntMake(c, 'span', 'nt-chain-arrow', '→').setAttribute('aria-hidden', 'true');
+    const mol = (names) => { arrow(); if (names.length) { ntMake(c, 'span', 'nt-mol', names.slice(0, 2).join(', ')); arrow(); } };
+    const card = (label, x, here) => {
+      const d = ntMake(c, 'div', 'nt-card' + (here ? ' nt-card-here' : x ? '' : ' nt-card-na'));
+      ntMake(d, 'span', 'nt-card-label', label);
+      if (!x) { ntMake(d, 'span', 'nt-card-name', 'N/A'); return; }
+      ntMake(d, 'span', 'nt-card-name', x.name);
+      const gs = ntMake(d, 'span', 'nt-card-genes');
+      for (const gene of x.genes.split(' ').filter(Boolean).slice(0, 4)) {
+        const f = here && gene === g ? fs[0] : null;
+        ntMake(gs, 'span', 'nt-chip-gene' + (f ? (ntBad(f) === 'bad' ? ' nt-chip-bad' : ' nt-chip-mine') : ''), f && f.genotype ? `${gene} ${f.genotype}` : gene);
+      }
+    };
+    card('Step before', prev);
+    mol(prev ? ntMols(prev.outputs).filter((m) => ins.includes(m)) : ins);
+    card('This gene', s, true);
+    mol(next ? outs.filter((m) => ntMols(next.inputs).includes(m)) : outs);
+    card('Step after', next);
+  };
   // How common the person's genotype is among Europeans (Hardy-Weinberg from the allele's European frequency)
   const ntRare = (parent, f) => {
     if (f.copies == null || f.allele_freq == null || !f.genotype) return;
@@ -3467,13 +3510,14 @@
         const pr = prot[g];
         const box = ntMake(wb, 'div', 'nt-mech' + (fs.some((f) => ntBad(f) === 'bad') ? ' nt-mech-bad' : ''));
         ntMake(box, 'h4', null, g);
+        ntChain(box, s, st, g, fs);
         // Read left to right: the step → the protein that does it → what the person's variants change in it
         const row = ntMake(box, 'div', 'nt-mech-row');
         const arrow = () => ntMake(row, 'div', 'nt-mech-arrow', '→').setAttribute('aria-hidden', 'true');
         const w1 = ntMake(ntMake(row, 'div', 'nt-mech-col'), 'p', 'nt-why');
         ntMake(w1, 'b', null, ntT('The step ({} of {}, {}): ', s.order, st.filter((x) => x.pathway === s.pathway).length, s.pathway));
-        ntMake(w1, 'span', null, s.name + '. ');
-        if (s.summary) ntQuote(w1, s.summary);
+        // The step's name is in the chain above; the text adds Reactome's account of it
+        if (s.summary) ntQuote(w1, s.summary); else ntMake(w1, 'span', null, s.name + '.');
         if (pr) {
           arrow();
           const w2 = ntMake(ntMake(row, 'div', 'nt-mech-col'), 'p', 'nt-why');

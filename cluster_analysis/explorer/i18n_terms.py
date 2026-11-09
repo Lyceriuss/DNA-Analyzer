@@ -11,6 +11,7 @@ its own; the page translates a joined list part by part.
     python cluster_analysis/explorer/i18n_terms.py DATASET_DIR            # report what is missing
     python cluster_analysis/explorer/i18n_terms.py DATASET_DIR --todo F   # write the missing terms to F (a JSON list)
     python cluster_analysis/explorer/i18n_terms.py --publish OUT          # write the [{en, sv}] rows for the dataset
+    python cluster_analysis/explorer/i18n_terms.py --publish OUT --page   # the same for the page's wording (i18n_sv)
 
 DATASET_DIR holds the exported datasets (theme_genes.json, theme_meta.json, ...). Only term names are read from them;
 nothing about a genotype is written out.
@@ -83,8 +84,17 @@ def main():
     ap.add_argument("dataset_dir", nargs="?")
     ap.add_argument("--todo")
     ap.add_argument("--publish")
+    ap.add_argument("--page", action="store_true", help="with --publish: the page's own wording (i18n_sv.json) instead")
     a = ap.parse_args()
     have = json.load(open(TERMS, encoding="utf-8")) if os.path.exists(TERMS) else {}
+    if a.publish and a.page:
+        # The page's dictionary keeps every key, also those equal to their Swedish: a separator template such as
+        # "{} · {}" translates its values only through such a key
+        page = json.load(open(os.path.join(os.path.dirname(TERMS), "i18n_sv.json"), encoding="utf-8"))
+        rows = [{"en": en, "sv": sv} for en, sv in page.items() if sv]
+        json.dump(rows, open(a.publish, "w", encoding="utf-8", newline="\n"), ensure_ascii=False, separators=(",", ":"))
+        print(f"{len(rows)} rows -> {a.publish}")
+        return
     if a.publish:
         rows = [{"en": en, "sv": sv} for en, sv in sorted(have.items()) if sv and sv != en]
         json.dump(rows, open(a.publish, "w", encoding="utf-8", newline="\n"), ensure_ascii=False, separators=(",", ":"))

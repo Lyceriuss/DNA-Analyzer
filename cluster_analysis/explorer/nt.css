@@ -23,6 +23,19 @@
   .nt-mech { margin: 10px 0; padding: 4px 0 4px 12px; border-left: 3px solid var(--color-border-line); }
   .nt-mech-bad { border-left-color: var(--color-warn); }
   .nt-mech h4 { margin: 0 0 2px; font-size: 15px; }
+  .nt-chain { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 4px 0 10px; }
+  .nt-chain-arrow { color: var(--color-fg-muted); }
+  .nt-mol { font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 14px; background: var(--color-panel); color: var(--color-fg); }
+  .nt-card { display: flex; flex-direction: column; gap: 2px; min-width: 120px; max-width: 230px; padding: 5px 8px; border: 1px solid var(--color-border-line);
+    border-radius: 6px; font-size: 12px; color: var(--color-fg-muted); }
+  .nt-card-here { border: 2px solid var(--color-fg); color: var(--color-fg); }
+  .nt-card-na { border-style: dashed; }
+  .nt-card-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .nt-card-name { font-weight: 600; line-height: 1.25; }
+  .nt-card-genes { display: flex; flex-wrap: wrap; gap: 3px; }
+  .nt-chip-gene { font-size: 11px; border: 1px solid var(--color-border-line); border-radius: 9px; padding: 0 6px; }
+  .nt-chip-mine { border-color: var(--color-ok); color: var(--color-ok); font-weight: 700; }
+  .nt-chip-bad { border-color: var(--color-warn); color: var(--color-warn); font-weight: 700; }
   .nt-mech-row { display: flex; align-items: stretch; gap: 10px; }
   .nt-mech-col { flex: 1 1 0; min-width: 0; }
   .nt-mech-col .nt-why { margin-top: 0; max-width: none; }
