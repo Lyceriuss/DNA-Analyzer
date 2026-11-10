@@ -24,11 +24,12 @@ import os
 import subprocess
 import sys
 
+from genome import build as gbuild
 from genome.loader import iter_calls
 
 HERE = os.path.dirname(__file__)
 PATH = os.path.join(HERE, "profiles.json")
-PROFILE_DIR = "data/output/cluster_analysis/profiles"
+PROFILE_DIR = f"{gbuild.OUTPUT}/profiles"
 STEPS = ("themes", "genes", "medicines", "nutrition", "labtests", "overlay")
 THEME_SEX = {"XX": "female", "XY": "male"}   # theme_graph.py marks a theme's body layout as XX or XY
 
@@ -56,8 +57,9 @@ def out_dir(pid):
     return d
 
 
-# PAR1 and PAR2 on GRCh37: X positions shared with Y, heterozygous in men too
-PAR = ((60_001, 2_699_520), (154_931_044, 155_260_560))
+# PAR1 and PAR2: X positions shared with Y, heterozygous in men too. On GRCh37, the build of the raw MyHeritage file
+# x_heterozygosity reads, whatever build the analysis runs on.
+PAR = gbuild.par("GRCh37")
 
 
 def x_heterozygosity(dna):

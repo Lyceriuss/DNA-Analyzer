@@ -18,9 +18,10 @@ from collections import defaultdict
 from cluster_analysis import sources
 from cluster_analysis.evidence.evidence_call import evidence_call, load_evidence
 from cluster_analysis.library.biomarkers import BIOMARKERS_PATH
+from genome import build as gbuild
 
 TRAITS_PATH = "config/snp_traits.json"
-OUTPUT_DIR = "data/output/cluster_analysis"
+OUTPUT_DIR = gbuild.OUTPUT
 REACTOME = "https://reactome.org/ContentService"
 
 # Carrier molecules that appear in thousands of reactions; linking through them connects everything

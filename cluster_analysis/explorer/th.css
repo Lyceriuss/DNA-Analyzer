@@ -56,7 +56,30 @@
   .th-organ { display: grid; gap: var(--cds-gap-sm); align-content: start; }
   .th-organ h3 { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); margin: 0; }
   .th-organ p { margin: 0; }
-  .th-context { fill: none; stroke: var(--color-border-line); stroke-width: 1.2; stroke-dasharray: 3 3; }
+  .th-context { fill: color-mix(in srgb, var(--color-fg) 5%, var(--color-panel)); stroke: color-mix(in srgb, var(--color-fg) 22%, var(--color-panel)); stroke-width: 1.2; }
+  /* Body map: figure, the zoom from the pelvis and the panel the organs sit in */
+  .th-fig-line { fill: none; stroke: color-mix(in srgb, var(--color-fg) 28%, var(--color-panel)); stroke-width: 3; }
+  .th-fig-fill { fill: color-mix(in srgb, var(--color-fg) 6%, var(--color-panel)); stroke: none; }
+  .th-focus { fill: none; stroke: color-mix(in srgb, var(--color-fg) 45%, var(--color-panel)); stroke-width: 1.2; }
+  .th-wedge { fill: color-mix(in srgb, var(--color-fg) 9%, transparent); stroke: none; }
+  .th-lens { fill: color-mix(in srgb, var(--color-fg) 3%, var(--color-panel)); stroke: color-mix(in srgb, var(--color-fg) 14%, var(--color-panel)); stroke-width: 1; }
+  .th-anat { stroke-width: 1; pointer-events: none; }
+  .th-anat-line { fill: none; stroke-width: 2.4; stroke-linecap: round; }
+  .th-organ-hit .th-shape, .th-organ-hit .th-tube { transition: filter 120ms ease; }
+  .th-organ-hit:hover .th-shape, .th-organ-hit:hover .th-tube { filter: brightness(1.06) saturate(1.15); }
+  .th-organ-hit.is-selected .th-shape, .th-organ-hit.is-selected .th-tube { filter: drop-shadow(0 0 5px color-mix(in srgb, var(--color-fg) 35%, transparent)); }
+  .th-m-lof { fill: var(--color-bad); } .th-m-gof { fill: var(--gof); } .th-m-var { fill: var(--color-fg-muted); }
+  /* Side panel: ranked organs with their bars */
+  .th-organ-list { display: grid; }
+  .th-organ-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(4rem, 7rem) 2ch; gap: var(--cds-gap-sm); align-items: center;
+    font: inherit; color: inherit; text-align: left; background: none; border: 0; border-bottom: 1px solid var(--color-border-line);
+    padding: 7px 4px; cursor: pointer; }
+  .th-organ-row:hover, .th-organ-row:focus-visible { background: color-mix(in srgb, var(--color-fg) 5%, transparent); }
+  .th-organ-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .th-organ-n { text-align: right; font-variant-numeric: tabular-nums; color: var(--color-fg-muted); }
+  .th-mini { display: flex; gap: 1px; height: 6px; border-radius: 3px; overflow: hidden; background: color-mix(in srgb, var(--color-fg) 8%, transparent); }
+  .th-mini > span { display: block; height: 100%; }
+  .th-mini-lof { background: var(--color-bad); } .th-mini-gof { background: var(--gof); } .th-mini-var { background: var(--color-fg-muted); }
   .th-facet-open { font: inherit; font-weight: var(--cds-font-weight-medium); background: none; border: 0; padding: 0; color: var(--color-fg);
                    text-align: left; cursor: pointer; text-decoration: underline; text-decoration-color: var(--color-border-line);
                    text-underline-offset: 3px; }

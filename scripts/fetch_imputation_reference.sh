@@ -9,6 +9,9 @@ cd data/reference/imputation
 B=https://bochet.gcc.biostat.washington.edu/beagle
 [ -s beagle.jar ] || curl -sfLo beagle.jar https://faculty.washington.edu/browning/beagle/beagle.27Feb25.75f.jar
 [ -s plink.GRCh37.map.zip ] || curl -sfLo plink.GRCh37.map.zip $B/genetic_maps/plink.GRCh37.map.zip
+# For the GRCh38 high-coverage panel (scripts/fetch_1kgp_hc_panel.sh): the VCF -> bref3 converter and GRCh38 maps
+[ -s bref3.jar ] || curl -sfLo bref3.jar https://faculty.washington.edu/browning/beagle/bref3.27Feb25.75f.jar
+[ -s plink.GRCh38.map.zip ] || curl -sfLo plink.GRCh38.map.zip $B/genetic_maps/plink.GRCh38.map.zip
 for c in $(seq 1 22) X; do
   f=panel/chr$c.1kg.phase3.v5a.b37.bref3
   if [ ! -s "$f" ]; then

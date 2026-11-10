@@ -40,10 +40,11 @@ from cluster_analysis import sources
 from cluster_analysis.evidence.evidence_call import text_direction
 from cluster_analysis.evidence.function_evidence import AA3, FUNCTION_WORDS, mavedb_scores, mavedb_sets, uniprot_variants
 from cluster_analysis.lifecycle.gene_trace import uniprot_entry
+from genome import build as gbuild
 from genome.loader import CONFIDENT, imputed_path, iter_calls, person_label
 
 HERE = os.path.dirname(__file__)
-OUT_DIR = "data/output/cluster_analysis"
+OUT_DIR = gbuild.OUTPUT
 EFFECTS = ("GoF", "LoF", "altered")
 BASIS_RANK = {"measured": 0, "curated": 1, "truncating": 2, "predicted": 3, "expression": 4}
 WORKERS = 3                         # parallel API requests

@@ -26,14 +26,16 @@ import subprocess
 import sys
 import threading
 
+from genome import build as gbuild
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
-OUT = os.path.join(ROOT, "data", "output", "explorer")
+OUT = os.path.join(ROOT, gbuild.EXPLORER)
 DATASETS = os.path.join(OUT, "datasets")
 SITE = os.path.join(OUT, "site")
 PUBLISH = os.path.join(OUT, "publish")
 RECORD = os.path.join(OUT, "published.json")
-LIFECYCLES = os.path.join(ROOT, "data", "output", "cluster_analysis", "lifecycles_XY_full.json")
+LIFECYCLES = os.path.join(ROOT, gbuild.OUTPUT, "lifecycles_XY_full.json")
 ARTIFACT = "https://claude.ai/artifact/Rsz3RYugnZyvWnixS9168o"
 TABS = ["clusters", "medicines", "nutrition", "lifecycle", "biomarkers", "profile"]
 

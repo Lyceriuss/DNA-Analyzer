@@ -19,9 +19,10 @@ import os
 from cluster_analysis.library.biomarkers import BIOMARKERS_PATH
 from cluster_analysis.library.build_modules import MODULES_PATH
 from src.analyzer import run_analysis
+from genome import build as gbuild
 
 TRAITS_PATH = "config/snp_traits.json"
-OUTPUT_DIR = "data/output/cluster_analysis"
+OUTPUT_DIR = gbuild.OUTPUT
 NAMES_PATH = os.path.join(os.path.dirname(__file__), "module_names.json")
 MIN_SNPS_FOR_SCORE = 3
 # Which reading decides when a gene has several SNPs

@@ -18,11 +18,12 @@ import os
 import re
 
 from cluster_analysis import sources
+from genome import build as gbuild
 from cluster_analysis.lifecycle.gene_trace import (CURRENCY, HUB_LIMIT, COFACTOR_VITAMIN, genes_for_accessions, omnipath,
                                          person_status, summarize, uniprot_entry)
 
 REACTOME = "https://reactome.org/ContentService"
-OUTPUT_DIR = "data/output/cluster_analysis"
+OUTPUT_DIR = gbuild.OUTPUT
 MAX_PATHWAY_STEPS = 10
 MAX_EXTENSION = 4
 

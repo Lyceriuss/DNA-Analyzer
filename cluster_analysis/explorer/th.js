@@ -559,15 +559,26 @@
     brain: { shapes: [{ ellipse: [120, 54, 29, 19] }], label: [178, 42, 'start'], to: [146, 50] },
     pituitary: { shapes: [{ circle: [124, 80, 6] }], label: [178, 94, 'start'], to: [131, 82] },
     tubes: { shapes: [{ stroke: 'M404,166 C372,142 330,128 300,150 C288,160 284,176 290,186' },
-                      { stroke: 'M536,166 C568,142 610,128 640,150 C652,160 656,176 650,186' }], label: [470, 92, 'middle'], to: [470, 132] },
-    ovaries: { shapes: [{ ellipse: [300, 214, 30, 18, -18] }, { ellipse: [640, 214, 30, 18, 18] }], label: [300, 258, 'middle'], to: [300, 233] },
+                      { stroke: 'M536,166 C568,142 610,128 640,150 C652,160 656,176 650,186' }], label: [470, 92, 'middle'], to: [470, 132],
+             // fimbriae: the fringed ends that sweep the egg in from the ovary
+             detail: [{ stroke: 'M290,186 L278,196 M290,186 L284,201 M290,186 L292,203 M290,186 L300,198' },
+                      { stroke: 'M650,186 L662,196 M650,186 L656,201 M650,186 L648,203 M650,186 L640,198' }] },
+    ovaries: { shapes: [{ ellipse: [300, 214, 30, 18, -18] }, { ellipse: [640, 214, 30, 18, 18] }], label: [300, 258, 'middle'], to: [300, 233],
+               // follicles: one ripening, a few small ones
+               detail: [{ circle: [309, 211, 7] }, { circle: [287, 214, 2.2] }, { circle: [293, 222, 1.8] }, { circle: [284, 206, 1.6] },
+                        { circle: [631, 211, 7] }, { circle: [653, 214, 2.2] }, { circle: [647, 222, 1.8] }, { circle: [656, 206, 1.6] }] },
     uterus: { shapes: [{ path: 'M400,172 C400,128 540,128 540,172 C540,232 506,276 490,298 L490,382 L450,382 L450,298 C434,276 400,232 400,172 Z' }],
               label: [566, 300, 'start'], to: [522, 240] },
     endometrium: { shapes: [{ path: 'M426,168 C444,156 496,156 514,168 C504,212 482,246 470,264 C458,246 436,212 426,168 Z' }],
                    label: [566, 362, 'start'], to: [480, 228] },
   };
-  const XX_BODY = 'M106,100 L104,114 C72,120 54,136 52,172 L60,262 C64,300 72,330 82,362 L158,362 C168,330 176,300 180,262 ' +
-                  'L188,172 C186,136 168,120 136,114 L134,100 Z';
+  // Figures: the right half of a front-view silhouette, top to bottom (neck, shoulder, arm, hand, back up the arm,
+  // torso, leg); thFigure mirrors it around x = 120 and smooths it into one outline. The head is a circle on top.
+  const XX_BODY = [[131, 90], [132, 110], [150, 118], [166, 126], [175, 142], [179, 180], [183, 226], [187, 268], [189, 298],
+                   [185, 311], [179, 303], [175, 268], [171, 226], [167, 186], [162, 158], [158, 184], [152, 214], [156, 242],
+                   [166, 272], [170, 298], [166, 332], [160, 372], [154, 412], [150, 428], [130, 428], [128, 390], [124, 350]];
+  const thFigure = (half) => d3.line().curve(d3.curveCatmullRomClosed.alpha(0.5))(
+    [...half, [120, 336], ...half.slice().reverse().map(([x, y]) => [240 - x, y])]);
 
   dash.draw('th-body', (el) => {
     el.replaceChildren();
@@ -617,11 +628,23 @@
       .attr('role', 'group').attr('aria-label', `${s.theme.theme_name}: organs`);
     const tip = gx.tip(box);
 
-    // Body outline and the zoom from the pelvis to the organ view; the cell map draws its paths instead
+    const defs = svg.append('defs');
+    // Body, the pelvis it zooms from and the panel the organs sit in; the cell map draws its paths instead
     if (cell) drawCellPaths(svg);
     else {
-    svg.append('circle').attr('cx', 120).attr('cy', 62).attr('r', 40).attr('class', 'th-outline');
-    svg.append('path').attr('d', male ? XY_BODY : XX_BODY).attr('class', 'th-outline');
+    const glow = defs.append('radialGradient').attr('id', 'th-glow');
+    glow.append('stop').attr('offset', '0%').style('stop-color', 'var(--color-fg)').style('stop-opacity', 0.16);
+    glow.append('stop').attr('offset', '100%').style('stop-color', 'var(--color-fg)').style('stop-opacity', 0);
+    svg.append('path').attr('d', 'M140,284 L250,122 L250,416 L140,316 Z').attr('class', 'th-wedge');
+    svg.append('rect').attr('x', 250).attr('y', 112).attr('width', 504).attr('height', 314).attr('rx', 22).attr('class', 'th-lens');
+    // Two layers, so the head and body read as one figure: outlines below, fills on top hide the seams
+    const fig = svg.append('g').attr('class', 'th-figure');
+    for (const layer of ['th-fig-line', 'th-fig-fill']) {
+      fig.append('path').attr('d', thFigure(male ? XY_BODY : XX_BODY)).attr('class', layer);
+      fig.append('circle').attr('cx', 120).attr('cy', 56).attr('r', 37).attr('class', layer);
+    }
+    svg.append('circle').attr('cx', 120).attr('cy', 300).attr('r', 34).attr('fill', 'url(#th-glow)');
+    svg.append('circle').attr('cx', 120).attr('cy', 300).attr('r', 20).attr('class', 'th-focus');
     if (male) {
       for (const cx of XY_CONTEXT) {
         if (cx.ellipse) {
@@ -630,15 +653,27 @@
         } else svg.append('path').attr('d', cx.path).attr('class', 'th-context');
       }
     }
-    svg.append('rect').attr('x', 94).attr('y', 268).attr('width', 52).attr('height', 50).attr('rx', 6).attr('class', 'th-zoom');
-    svg.append('path').attr('d', 'M146,268 L262,120 M146,318 L262,400').attr('class', 'th-zoom');
-    svg.append('text').attr('x', 120).attr('y', 398).attr('text-anchor', 'middle').attr('class', 'th-cap').text(`${s.stats.sex || ''} · ${who}`);
     }
+    // Bar of a person's calls in an organ: red less active, blue more active, grey a carried trait-linked variant
+    const k = Math.min(6, 96 / maxSig);
+    const miniBar = (x, y, anchor, c) => {
+      const parts = [['lof', c.lof], ['gof', c.gof], ['var', c.variant]].filter(([, n]) => n);
+      const w = d3.sum(parts, ([, n]) => n * k) + parts.length - 1;
+      let at = anchor === 'start' ? x : anchor === 'end' ? x - w : x - w / 2;
+      for (const [cls, n] of parts) {
+        svg.append('rect').attr('x', at).attr('y', y).attr('width', n * k).attr('height', 5).attr('rx', 2).attr('class', 'th-m-' + cls);
+        at += n * k + 1;
+      }
+    };
 
     for (const [id, shape] of Object.entries(SHAPES)) {
       const c = per.get(id);
       if (!c) continue;
       const selected = s.organ && s.organ.id === id;
+      // Shading: the organ's colour at the centre, deepening toward the rim
+      const grad = defs.append('radialGradient').attr('id', `th-fill-${id}`).attr('cx', '42%').attr('cy', '38%').attr('r', '70%');
+      grad.append('stop').attr('offset', '0%').style('stop-color', tint(c));
+      grad.append('stop').attr('offset', '100%').style('stop-color', `color-mix(in srgb, ${tint(c)} 78%, var(--color-fg))`);
       const g = svg.append('g').attr('class', 'th-organ-hit' + (selected ? ' is-selected' : '')).attr('tabindex', 0).attr('role', 'button')
         .attr('aria-pressed', String(!!selected))
         .attr('aria-label', `${c.o.name}: ${c.all} genes, ${c.lof} less active, ${c.gof} more active, ${c.variant} with carried variants`)
@@ -661,11 +696,17 @@
           node = g.append('path').attr('d', sh.stroke).attr('class', 'th-tube').style('stroke', tint(c));
           continue;
         } else node = g.append('path').attr('d', sh.path).attr('transform', sh.at ? `translate(${sh.at})` : null);
-        node.attr('class', 'th-shape' + (sh.cls ? ' ' + sh.cls : '')).style('fill', tint(c)).style('stroke', edge(c));
+        node.attr('class', 'th-shape' + (sh.cls ? ' ' + sh.cls : '')).style('fill', cell ? tint(c) : `url(#th-fill-${id})`).style('stroke', edge(c));
+      }
+      // Anatomical detail (follicles, fimbriae, the glans): drawn in the organ's colours, not clickable on its own
+      for (const d of shape.detail || []) {
+        if (d.circle) g.append('circle').attr('cx', d.circle[0]).attr('cy', d.circle[1]).attr('r', d.circle[2]).attr('class', 'th-anat')
+          .style('fill', `color-mix(in srgb, ${tint(c)} 45%, var(--color-panel))`).style('stroke', edge(c));
+        else g.append('path').attr('d', d.stroke).attr('class', 'th-anat th-anat-line').style('stroke', id === 'tubes' ? tint(c) : edge(c));
       }
       const [lx, ly, anchor] = shape.label;
       if (shape.to) svg.append('line').attr('x1', shape.to[0]).attr('y1', shape.to[1])
-        .attr('x2', anchor === 'start' ? lx - 6 : anchor === 'end' ? lx + 6 : lx).attr('y2', anchor === 'middle' && ly < shape.to[1] ? ly + 20 : ly - 4).attr('class', 'th-leader');
+        .attr('x2', anchor === 'start' ? lx - 6 : anchor === 'end' ? lx + 6 : lx).attr('y2', anchor === 'middle' && ly < shape.to[1] ? ly + (cell ? 20 : 30) : ly - 4).attr('class', 'th-leader');
       const t = svg.append('text').attr('x', lx).attr('y', ly).attr('text-anchor', anchor).attr('class', 'th-label' + (selected ? ' is-selected' : ''));
       t.append('tspan').text(c.o.name);
       const sub = svg.append('text').attr('x', lx).attr('y', ly + 15).attr('text-anchor', anchor).attr('class', 'th-cap');
@@ -673,6 +714,7 @@
       if (c.lof) sub.append('tspan').attr('class', 'th-c-lof').text(` · ▼${c.lof}`);
       if (c.gof) sub.append('tspan').attr('class', 'th-c-gof').text(` · ▲${c.gof}`);
       if (c.variant) sub.append('tspan').text(` · ●${c.variant}`);
+      if (!cell) miniBar(lx, ly + 21, anchor, c);
     }
 
     if (cell) drawCellLetters(svg);
@@ -686,10 +728,18 @@
       thMake(info, 'p', 'gx-note', `▼ less active and ▲ more active are ${who}'s gene calls; ● counts genes where ${who} carries an allele ` +
         `that a GWAS or ClinVar links to one of the theme's conditions. Shading is stronger where more of these gather, red where less-active genes ` +
         `lead and blue where more-active ones do. Select ${cell ? 'a stage' : 'an organ'} to focus the page on it.`);
-      const list = thMake(info, 'div', 'th-genes');
-      for (const c of [...per.values()].sort((a, b) => signal(b) - signal(a))) {
-        const b = thMake(list, 'button', 'lc-chip th-gene', `${c.o.name} · ${signal(c)}`);
+      // Ranked rows, one per organ: its name, the bar of the person's calls there, and how many there are
+      const list = thMake(info, 'div', 'th-organ-list');
+      for (const c of [...per.values()].sort((a, b) => signal(b) - signal(a) || b.all - a.all)) {
+        const b = thMake(list, 'button', 'th-organ-row');
         b.type = 'button';
+        b.setAttribute('aria-label', `${c.o.name}: ${c.lof} less active, ${c.gof} more active, ${c.variant} with a carried variant`);
+        thMake(b, 'span', 'th-organ-name', c.o.name);
+        const bar = thMake(b, 'span', 'th-mini');
+        for (const [cls, n] of [['lof', c.lof], ['gof', c.gof], ['var', c.variant]]) {
+          if (n) thMake(bar, 'span', 'th-mini-' + cls).style.width = `${(100 * n) / maxSig}%`;
+        }
+        thMake(b, 'span', 'th-organ-n', String(signal(c)));
         b.addEventListener('click', () => dash.setParams({ th_organ: c.o.id, th_gene: null }));
       }
       return;
@@ -768,15 +818,17 @@
     pituitary: { shapes: [{ circle: [124, 80, 6] }], label: [178, 94, 'start'], to: [131, 82] },
     prostate: { shapes: [{ ellipse: [470, 205, 28, 18] }, { ellipse: [428, 178, 20, 9, -35] }, { ellipse: [512, 178, 20, 9, 35] }],
                 label: [566, 190, 'start'], to: [498, 200] },
-    penis: { shapes: [{ path: 'M458,224 L458,318 C458,342 482,342 482,318 L482,224 Z' }], label: [566, 262, 'start'], to: [484, 268] },
+    penis: { shapes: [{ path: 'M459,224 L459,310 C451,316 450,340 470,346 C490,340 489,316 481,310 L481,224 Z' }],
+             detail: [{ stroke: 'M459,312 C464,318 476,318 481,312' }], label: [566, 262, 'start'], to: [484, 268] },
     testes: { shapes: [{ ellipse: [418, 330, 20, 27] }, { ellipse: [522, 330, 20, 27] }], label: [566, 340, 'start'], to: [544, 334] },
     epididymis: { shapes: [{ stroke: 'M402,312 C392,326 394,350 408,358' }, { stroke: 'M538,312 C548,326 546,350 532,358' },
                            { stroke: 'M418,303 C404,262 392,196 420,166 C436,150 452,176 458,196' },
                            { stroke: 'M522,303 C536,262 548,196 520,166 C504,150 488,176 482,196' }],
                   label: [380, 240, 'end'], to: [400, 246] },
   };
-  const XY_BODY = 'M104,100 L102,114 C62,118 42,134 42,172 L54,262 C58,300 66,330 78,362 L162,362 C174,330 182,300 186,262 ' +
-                  'L198,172 C198,134 178,118 138,114 L136,100 Z';
+  const XY_BODY = [[133, 90], [134, 110], [156, 116], [176, 124], [186, 142], [190, 182], [193, 226], [195, 268], [196, 298],
+                   [192, 311], [185, 303], [182, 268], [178, 226], [173, 186], [168, 158], [166, 192], [162, 230], [162, 262],
+                   [164, 294], [162, 332], [158, 372], [154, 412], [150, 428], [130, 428], [128, 390], [124, 350]];
   const XY_CONTEXT = [{ ellipse: [470, 148, 50, 36], name: 'bladder' }, { path: 'M394,304 C382,352 404,374 470,374 C536,374 558,352 546,304' }];
 
   const thFacetOpen = (id) => {

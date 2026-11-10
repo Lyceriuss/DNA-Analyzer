@@ -36,6 +36,7 @@ from collections import Counter, defaultdict
 import sys
 if not __package__:  # run as a file (python cluster_analysis/medicines/medicines.py, an editor's Run button): import from the repo root
     sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+from genome import build as gbuild
 from genome.loader import imputed_path, iter_calls, person_label
 
 REF = "data/reference/clinpgx_clinical_annotations.zip"
@@ -45,14 +46,14 @@ DRUG_NAMES = "data/reference/clinpgx_drugs.zip"            # generic and trade n
 ATC = "data/reference/chembl_atc.json"                      # WHO ATC names and classes (ChEMBL)
 CPIC_RECS = "data/reference/cpic_recommendations.json"
 STUDIES = "data/reference/clinpgx_variant_annotations.zip"  # the studies behind each annotation: size, p, ratios
-CLINVAR = "data/reference/clinvar_grch37.vcf.gz"
-SITES = "data/reference/imputation/sites.vcf.gz"
-FREQ_CACHE = "data/reference/imputation/pgx_pop_freqs.json"
+CLINVAR = gbuild.path("clinvar")
+SITES = gbuild.sites()
+FREQ_CACHE = gbuild.cache("data/reference/imputation/pgx_pop_freqs.json")
 POPS = ("AFR", "AMR", "EAS", "EUR", "SAS")                 # 1000 Genomes superpopulations
 LEVELS = ("1A", "1B", "2A", "2B", "3")
 FLIP = str.maketrans("ACGT", "TGCA")
 
-# Star alleles from their defining SNPs, alleles on the GRCh37 forward strand (checked against 1000 Genomes).
+# Star alleles from their defining SNPs, alleles on the forward strand (checked against 1000 Genomes).
 # value: CPIC activity value or function class used by the phenotype rules below.
 STAR = {
     "CYP2C19": [("*2", "rs4244285", "A", "No function"), ("*3", "rs4986893", "A", "No function"),
@@ -294,7 +295,7 @@ def baseline_genotypes(options):
 
 def site_freqs(where):
     """{rsid: {ref, alt, AFR, AMR, EAS, EUR, SAS}} (alt allele frequency per 1000 Genomes superpopulation) for the
-    SNPs at the given GRCh37 positions, looked up once in the site list and cached."""
+    SNPs at the given positions (the build in genome/build.py), looked up once in the site list and cached."""
     known = json.load(open(FREQ_CACHE)) if os.path.exists(FREQ_CACHE) else {}
     todo = {f"{c}\t{p}": rs for rs, (c, p) in where.items() if rs not in known and p}
     if todo and os.path.exists(SITES):
@@ -760,7 +761,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--dna", default="data/input/MyHeritage_raw_dna_data_XY.csv")
     ap.add_argument("--measured-only", action="store_true", help="use the raw file even when an imputed one exists")
-    ap.add_argument("--out-dir", default="data/output/cluster_analysis")
+    ap.add_argument("--out-dir", default=gbuild.OUTPUT)
     args = ap.parse_args()
     dna = args.dna if args.measured_only else imputed_path(args.dna)
     genes, drugs, guidance = build(dna)

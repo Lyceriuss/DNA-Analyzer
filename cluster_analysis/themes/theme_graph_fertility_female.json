@@ -46761,6 +46761,17 @@
    "on_theme": true
   },
   {
+   "pathway": "HSP90 chaperone cycle for steroid hormone receptors (SHR) in the presence of ligand",
+   "genes": [
+    "AR",
+    "NR3C1",
+    "NR3C2",
+    "PGR",
+    "TUBB8"
+   ],
+   "on_theme": true
+  },
+  {
    "pathway": "Estrogen biosynthesis",
    "genes": [
     "AKR1B15",
@@ -46779,16 +46790,6 @@
     "JAK2",
     "PRLR",
     "PTPN11"
-   ],
-   "on_theme": true
-  },
-  {
-   "pathway": "HSP90 chaperone cycle for steroid hormone receptors (SHR) in the presence of ligand",
-   "genes": [
-    "AR",
-    "NR3C1",
-    "NR3C2",
-    "PGR"
    ],
    "on_theme": true
   },
@@ -46926,6 +46927,24 @@
    "on_theme": false
   },
   {
+   "pathway": "G alpha (i) signalling events",
+   "genes": [
+    "ADCY3",
+    "ADRA2A",
+    "ADRA2B",
+    "APP",
+    "GNAI1",
+    "GNAS",
+    "GNAT3",
+    "GPER1",
+    "GPR55",
+    "MTNR1A",
+    "NMUR2",
+    "OPRK1"
+   ],
+   "on_theme": false
+  },
+  {
    "pathway": "Cell surface interactions at the vascular wall",
    "genes": [
     "CD44",
@@ -46939,23 +46958,6 @@
     "PSG6",
     "PSG7",
     "PSG9"
-   ],
-   "on_theme": false
-  },
-  {
-   "pathway": "G alpha (i) signalling events",
-   "genes": [
-    "ADCY3",
-    "ADRA2A",
-    "APP",
-    "GNAI1",
-    "GNAS",
-    "GNAT3",
-    "GPER1",
-    "GPR55",
-    "MTNR1A",
-    "NMUR2",
-    "OPRK1"
    ],
    "on_theme": false
   },
@@ -47166,6 +47168,21 @@
    "on_theme": false
   },
   {
+   "pathway": "Androgen biosynthesis",
+   "genes": [
+    "CYP17A1",
+    "HSD17B12",
+    "HSD17B3",
+    "HSD3B1",
+    "HSD3B2",
+    "LHB",
+    "SRD5A1",
+    "SRD5A2",
+    "SRD5A3"
+   ],
+   "on_theme": false
+  },
+  {
    "pathway": "Ub-specific processing proteases",
    "genes": [
     "AR",
@@ -47251,6 +47268,20 @@
    "on_theme": false
   },
   {
+   "pathway": "Transcriptional activation of mitochondrial biogenesis",
+   "genes": [
+    "MED1",
+    "NCOA1",
+    "NCOA2",
+    "NR1D1",
+    "PPARA",
+    "PPARGC1B",
+    "SIRT3",
+    "TWNK"
+   ],
+   "on_theme": false
+  },
+  {
    "pathway": "SUMOylation of transcription cofactors",
    "genes": [
     "DAXX",
@@ -47265,16 +47296,16 @@
    "on_theme": false
   },
   {
-   "pathway": "Androgen biosynthesis",
+   "pathway": "G2/M DNA damage checkpoint",
    "genes": [
-    "CYP17A1",
-    "HSD17B12",
-    "HSD17B3",
-    "HSD3B1",
-    "HSD3B2",
-    "LHB",
-    "SRD5A1",
-    "SRD5A3"
+    "ATM",
+    "BABAM2",
+    "CHEK1",
+    "CHEK2",
+    "EXO1",
+    "HERC2",
+    "NBN",
+    "TP53"
    ],
    "on_theme": false
   },
@@ -47331,6 +47362,19 @@
    "on_theme": false
   },
   {
+   "pathway": "RHO GTPases Activate Formins",
+   "genes": [
+    "CDC20",
+    "CDC42",
+    "CENPF",
+    "DIAPH3",
+    "NUP107",
+    "SGO2",
+    "TUBB8"
+   ],
+   "on_theme": false
+  },
+  {
    "pathway": "RAC1 GTPase cycle",
    "genes": [
     "ARHGAP12",
@@ -47357,19 +47401,6 @@
    "on_theme": false
   },
   {
-   "pathway": "Transcriptional activation of mitochondrial biogenesis",
-   "genes": [
-    "MED1",
-    "NCOA1",
-    "NCOA2",
-    "NR1D1",
-    "PPARA",
-    "PPARGC1B",
-    "SIRT3"
-   ],
-   "on_theme": false
-  },
-  {
    "pathway": "Heme signaling",
    "genes": [
     "MED1",
@@ -47392,19 +47423,6 @@
     "SHH",
     "WNT2",
     "WNT4"
-   ],
-   "on_theme": false
-  },
-  {
-   "pathway": "G2/M DNA damage checkpoint",
-   "genes": [
-    "ATM",
-    "CHEK1",
-    "CHEK2",
-    "EXO1",
-    "HERC2",
-    "NBN",
-    "TP53"
    ],
    "on_theme": false
   },
@@ -47456,6 +47474,30 @@
     "HDAC2",
     "JAK2",
     "NR3C1"
+   ],
+   "on_theme": false
+  },
+  {
+   "pathway": "FGFR1c ligand binding and activation",
+   "genes": [
+    "ANOS1",
+    "FGF17",
+    "FGF5",
+    "FGF8",
+    "FGFR1",
+    "TGFBR3"
+   ],
+   "on_theme": false
+  },
+  {
+   "pathway": "Negative regulation of FGFR1 signaling",
+   "genes": [
+    "ANOS1",
+    "FGF17",
+    "FGF5",
+    "FGF8",
+    "FGFR1",
+    "PTPN11"
    ],
    "on_theme": false
   },
@@ -47652,6 +47694,18 @@
    "on_theme": false
   },
   {
+   "pathway": "G alpha (z) signalling events",
+   "genes": [
+    "ADCY3",
+    "ADRA2A",
+    "ADRA2B",
+    "GNAI1",
+    "GNAS",
+    "GNAT3"
+   ],
+   "on_theme": false
+  },
+  {
    "pathway": "GPER1 signaling",
    "genes": [
     "ADCY3",
@@ -47688,6 +47742,18 @@
    "on_theme": false
   },
   {
+   "pathway": "Recruitment and ATM-mediated phosphorylation of repair and signaling proteins at DNA double strand breaks",
+   "genes": [
+    "ATM",
+    "BABAM2",
+    "CHEK2",
+    "HERC2",
+    "NBN",
+    "TP53"
+   ],
+   "on_theme": false
+  },
+  {
    "pathway": "Resolution of D-loop Structures through Holliday Junction Intermediates",
    "genes": [
     "ATM",
@@ -47700,6 +47766,18 @@
    "on_theme": false
   },
   {
+   "pathway": "Processing of DNA double-strand break ends",
+   "genes": [
+    "ATM",
+    "BABAM2",
+    "CHEK1",
+    "EXO1",
+    "HERC2",
+    "NBN"
+   ],
+   "on_theme": false
+  },
+  {
    "pathway": "Presynaptic phase of homologous DNA pairing and strand exchange",
    "genes": [
     "ATM",
@@ -47708,75 +47786,6 @@
     "EXO1",
     "NBN",
     "XRCC2"
-   ],
-   "on_theme": false
-  },
-  {
-   "pathway": "Regulation of TP53 Activity through Phosphorylation",
-   "genes": [
-    "ATM",
-    "CHEK1",
-    "CHEK2",
-    "EXO1",
-    "NBN",
-    "TP53"
-   ],
-   "on_theme": false
-  },
-  {
-   "pathway": "Generic Transcription Pathway",
-   "genes": [
-    "MED1",
-    "MED10",
-    "MED13",
-    "ZNF257",
-    "ZNF33A",
-    "ZNF596"
-   ],
-   "on_theme": false
-  },
-  {
-   "pathway": "FOXO-mediated transcription of oxidative stress, metabolic and neuronal genes",
-   "genes": [
-    "FOXO1",
-    "HDAC2",
-    "NR3C1",
-    "SIRT3",
-    "SMAD2",
-    "SMAD3"
-   ],
-   "on_theme": false
-  },
-  {
-   "pathway": "HDR through Single Strand Annealing (SSA)",
-   "genes": [
-    "ATM",
-    "ERCC1",
-    "EXO1",
-    "NBN",
-    "RAD52"
-   ],
-   "on_theme": false
-  },
-  {
-   "pathway": "Signaling by BRAF and RAF1 fusions",
-   "genes": [
-    "BRAF",
-    "CLCN6",
-    "FN1",
-    "JAK2",
-    "KRAS"
-   ],
-   "on_theme": false
-  },
-  {
-   "pathway": "Cytosolic sensors of pathogen-associated DNA ",
-   "genes": [
-    "POLR1C",
-    "POLR2F",
-    "POLR3A",
-    "POLR3B",
-    "POLR3H"
    ],
    "on_theme": false
   }

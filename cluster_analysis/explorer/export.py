@@ -16,6 +16,7 @@ from collections import defaultdict
 
 from cluster_analysis.library.biomarkers import BIOMARKERS_PATH
 from cluster_analysis.library.build_modules import MODULES_PATH
+from genome import build as gbuild
 from genome.loader import imputed_path, person_label
 
 TRAITS_PATH = "config/snp_traits.json"
@@ -359,13 +360,13 @@ if __name__ == "__main__":
             lifecycle_genes = {r["gene"] for r in lc[1]}
             tables = list(theme_rows(json.load(open(THEMES_PATH, encoding="utf-8")), status, lifecycle_genes))                 if os.path.exists(THEMES_PATH) else [[], [], [], []]
             orders = {r["theme"]: r["theme_order"] for r in tables[0]}
-            cpath = os.path.join("data/output/cluster_analysis", f"gene_calls_{pid}.json")
+            cpath = os.path.join(gbuild.OUTPUT, f"gene_calls_{pid}.json")
             calls = json.load(open(cpath, encoding="utf-8")) if os.path.exists(cpath) else None
             for graph in graphs:
                 # Themes for the profile's sex only: female fertility for women, male fertility for men
                 if not prof.applies(graph.get("sex"), p.get("sex")):
                     continue
-                xpath = os.path.join("data/output/cluster_analysis", f"theme_{pid}_{graph['theme']}.json")
+                xpath = os.path.join(gbuild.OUTPUT, f"theme_{pid}_{graph['theme']}.json")
                 xref = json.load(open(xpath, encoding="utf-8")) if os.path.exists(xpath) else None
                 order = orders.get(graph["theme"], orders.get(graph["theme"].split("_")[0], len(orders)) + 0.5)
                 # An API theme replaces the library theme of the same id, and fertility_female/_male replace "fertility"

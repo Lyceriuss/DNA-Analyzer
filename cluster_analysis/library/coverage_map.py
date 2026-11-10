@@ -30,6 +30,8 @@ from collections import Counter, defaultdict
 
 import pandas as pd
 
+from genome import build as gbuild
+
 REF = "data/reference"
 OUTPUT_DIR = "data/output/cluster_analysis"
 RS = re.compile(r"rs\d+")
@@ -71,7 +73,7 @@ def load_sources():
     s["clinpgx"] = rsids_in_zip(f"{REF}/clinpgx_variants.zip") | rsids_in_zip(f"{REF}/clinpgx_clinical_annotations.zip")
     print(f"  ClinPGx: {len(s['clinpgx']):,} rsIDs")
     clinvar = set()
-    with gzip.open(f"{REF}/clinvar_grch37.vcf.gz", "rt", encoding="utf-8", errors="replace") as f:
+    with gzip.open(gbuild.path("clinvar"), "rt", encoding="utf-8", errors="replace") as f:
         for line in f:
             if line[0] != "#":
                 m = re.search(r"[;\t]RS=(\d+)", line)
@@ -85,7 +87,7 @@ def load_sources():
 def load_genes():
     """Per chromosome: sorted gene intervals (start, end, gene_id, name, biotype) from the GRCh37 GTF."""
     genes = defaultdict(list)
-    with gzip.open(f"{REF}/ensembl_grch37_genes.gtf.gz", "rt", encoding="utf-8") as f:
+    with gzip.open(gbuild.path("gtf"), "rt", encoding="utf-8") as f:
         for line in f:
             if line[0] == "#":
                 continue

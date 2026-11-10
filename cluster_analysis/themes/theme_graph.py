@@ -28,12 +28,13 @@ import zipfile
 from collections import defaultdict
 
 from cluster_analysis import sources
+from genome import build as gbuild
 from genome.loader import imputed_path, iter_calls, person_label
 
 OT_API = "https://api.platform.opentargets.org/api/v4/graphql"
 QUICKGO = "https://www.ebi.ac.uk/QuickGO/services/annotation/downloadSearch"
 REF = "data/reference"
-OUTPUT_DIR = "data/output/cluster_analysis"
+OUTPUT_DIR = gbuild.OUTPUT
 TRAITS_PATH = "config/snp_traits.json"
 # GO evidence by class. Most behaviour and reproduction biology is known from mouse, so annotations carried over from
 # orthologs count too, labelled as such; keyword-mapped electronic annotations are left out.
@@ -437,7 +438,7 @@ def build(theme_id):
 
     # Shared Reactome pathways, offline: GTF symbol → Ensembl gene → lowest-level human pathways
     ensg = {}
-    with gzip.open(f"{REF}/ensembl_grch37_genes.gtf.gz", "rt", encoding="utf-8") as f:
+    with gzip.open(gbuild.path("gtf"), "rt", encoding="utf-8") as f:
         for line in f:
             if "\tgene\t" in line:
                 m = re.search(r'gene_id "([^"]+)".*?gene_name "([^"]+)"', line)
@@ -474,9 +475,9 @@ def build(theme_id):
 # --- Offline cross-reference with a DNA file ---------------------------------------------------------
 
 def gene_regions(symbols, flank=5000):
-    """{chrom: [(start, end, symbol)]} from the Ensembl GRCh37 GTF, with a flank for promoters and nearby regulation."""
+    """{chrom: [(start, end, symbol)]} from the Ensembl GTF (build in genome/build.py), with a flank for promoters and nearby regulation."""
     out = defaultdict(list)
-    with gzip.open(f"{REF}/ensembl_grch37_genes.gtf.gz", "rt", encoding="utf-8") as f:
+    with gzip.open(gbuild.path("gtf"), "rt", encoding="utf-8") as f:
         for line in f:
             if line.startswith("#"):
                 continue
@@ -490,9 +491,9 @@ def gene_regions(symbols, flank=5000):
 
 
 def clinvar_index(rsids):
-    """{rsid: [{significance, condition, ref, alt}]} for the given rsIDs from the GRCh37 ClinVar VCF."""
+    """{rsid: [{significance, condition, ref, alt}]} for the given rsIDs from the ClinVar VCF (build in genome/build.py)."""
     out = defaultdict(list)
-    with gzip.open(f"{REF}/clinvar_grch37.vcf.gz", "rt", encoding="utf-8", errors="replace") as f:
+    with gzip.open(gbuild.path("clinvar"), "rt", encoding="utf-8", errors="replace") as f:
         for line in f:
             if line.startswith("#"):
                 continue

@@ -8,7 +8,7 @@ Sources
          NNR 2023" (Livsmedelsverket, revised June 2025, errata September 2025 applied), tables 7-10 (RI, AI) and 16 (UL).
          scripts/fetch_nutrition_reference.sh downloads the PDF; this parses it into cluster_analysis/nutrition/nnr_2023.json
          (adults; the values are public and carry the citation, so the JSON is kept in git).
-  pgs    PGS Catalog harmonised scoring files (GRCh37): https://www.pgscatalog.org
+  pgs    PGS Catalog harmonised scoring files (on the build in genome/build.py): https://www.pgscatalog.org
 """
 import argparse
 import gzip
@@ -19,12 +19,14 @@ import sys
 import time
 import urllib.request
 
+from genome import build as gbuild
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = "data/reference/nutrition"
 NNR_PDF = f"{OUT}/snr_2023.pdf"
 NNR_JSON = os.path.join(HERE, "nnr_2023.json")
 NUTRIENTS = os.path.join(HERE, "nutrients.json")
-PGS_FTP = "https://ftp.ebi.ac.uk/pub/databases/spot/pgs/scores/{id}/ScoringFiles/Harmonized/{id}_hmPOS_GRCh37.txt.gz"
+PGS_FTP = "https://ftp.ebi.ac.uk/pub/databases/spot/pgs/scores/{id}/ScoringFiles/Harmonized/{id}_{suffix}.txt.gz"
 PGS_API = "https://www.pgscatalog.org/rest/score/{id}"
 
 
@@ -206,11 +208,12 @@ def fetch_pgs():
     cfg = json.load(open(NUTRIENTS, encoding="utf-8"))
     ids = sorted({m["pgs"] for n in cfg["nutrients"] for m in n["markers"] if m.get("pgs")})
     os.makedirs(f"{OUT}/pgs", exist_ok=True)
+    suffix = gbuild.pgs_suffix()
     for pid in ids:
-        path = f"{OUT}/pgs/{pid}_hmPOS_GRCh37.txt.gz"
+        path = f"{OUT}/pgs/{pid}_{suffix}.txt.gz"
         if not os.path.exists(path):
             print("downloading", pid)
-            urllib.request.urlretrieve(PGS_FTP.format(id=pid), path)
+            urllib.request.urlretrieve(PGS_FTP.format(id=pid, suffix=suffix), path)
         meta = f"{OUT}/pgs/{pid}.json"
         if not os.path.exists(meta):
             json.dump(_get(PGS_API.format(id=pid)), open(meta, "w", encoding="utf-8"), ensure_ascii=False)

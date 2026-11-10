@@ -17,11 +17,12 @@ import re
 from collections import defaultdict
 
 from cluster_analysis import sources
+from genome import build as gbuild
 from cluster_analysis.evidence.function_evidence import gtex_eqtl, vep_amino_acids
 from cluster_analysis.lifecycle.gene_trace import genes_for_accessions
 from cluster_analysis.lifecycle.lifecycle import _get, event, links_between, pathway_events
 
-GTF = "data/reference/ensembl_grch37_genes.gtf.gz"
+GTF = gbuild.path("gtf")
 # Genes renamed since GRCh37's annotation and GTEx v8, which still use the old symbol
 OLD_NAME = {"MMUT": "MUT", "CBLIF": "GIF", "PRXL2B": "FAM213B"}
 EQTL_REACH = 1_000_000            # look for an expression effect on a step gene within 1 Mb of the variant
@@ -102,7 +103,7 @@ def tissues(symbols):
 
 
 def gene_spans(symbols):
-    """{gene: (chrom, start, end)} on GRCh37, from the Ensembl GTF."""
+    """{gene: (chrom, start, end)} on the build in genome/build.py, from the Ensembl GTF."""
     out = {}
     with gzip.open(GTF, "rt", encoding="utf-8") as f:
         for line in f:
@@ -128,7 +129,7 @@ def protein_change(aa, gt):
 
 def annotate(findings, steps, where):
     """Adds to each finding: step genes it acts on, its mechanism and the details behind it.
-    findings: rows of nutrition.py; steps: {nutrient: [step]}; where: {rsid: (chrom, pos)} on GRCh37."""
+    findings: rows of nutrition.py; steps: {nutrient: [step]}; where: {rsid: (chrom, pos)} on the same build."""
     step_genes = {nid: {g for s in st for g in s["genes"]} for nid, st in steps.items()}
     spans = gene_spans(set().union(*step_genes.values()) if step_genes else set())
     rsids = sorted({f["rsid"] for f in findings})

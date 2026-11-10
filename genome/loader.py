@@ -13,11 +13,20 @@ def person_label(path):
 
 
 def imputed_path(path):
-    """The imputed version of a raw data file (genome/impute.py), or the file itself when it hasn't been imputed."""
+    """The imputed version of a raw data file (genome/impute.py) on the build in genome/build.py, or the file itself
+    when it hasn't been imputed (GRCh37 only: a raw MyHeritage file is GRCh37, so on GRCh38 it must be imputed)."""
+    from genome import build as gbuild
     root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    p = os.path.join(root, "data", "output", "imputation", person_label(path),
-                     f"MyHeritage_raw_dna_data_{person_label(path)}.imputed.csv")
-    return p if path and os.path.exists(p) else path
+    person = person_label(path)
+    folder = os.path.join(root, "data", "output", "imputation", person)
+    if gbuild.panel_name() != "1kg_phase3":
+        folder = os.path.join(folder, gbuild.panel_name())
+    p = os.path.join(folder, f"MyHeritage_raw_dna_data_{person}.imputed.csv")
+    if path and os.path.exists(p):
+        return p
+    if path and gbuild.BUILD != "GRCh37":
+        raise SystemExit(f"{person} has no {gbuild.BUILD} imputation yet: python -m genome.impute {path} --panel {gbuild.panel_name()}")
+    return path
 
 
 def read_calls(filepath, rsids=None, confidence=CONFIDENT):

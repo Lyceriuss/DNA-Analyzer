@@ -54699,6 +54699,21 @@
  ],
  "pathways": [
   {
+   "pathway": "Androgen biosynthesis",
+   "genes": [
+    "CYP17A1",
+    "HSD17B12",
+    "HSD17B3",
+    "HSD3B1",
+    "HSD3B2",
+    "LHB",
+    "SRD5A1",
+    "SRD5A2",
+    "SRD5A3"
+   ],
+   "on_theme": true
+  },
+  {
    "pathway": "Meiotic synapsis",
    "genes": [
     "FKBP6",
@@ -54709,20 +54724,6 @@
     "SYCP1",
     "SYCP2",
     "SYCP3"
-   ],
-   "on_theme": true
-  },
-  {
-   "pathway": "Androgen biosynthesis",
-   "genes": [
-    "CYP17A1",
-    "HSD17B12",
-    "HSD17B3",
-    "HSD3B1",
-    "HSD3B2",
-    "LHB",
-    "SRD5A1",
-    "SRD5A3"
    ],
    "on_theme": true
   },
@@ -55017,6 +55018,7 @@
    "pathway": "PPARA activates gene expression",
    "genes": [
     "ARNT2",
+    "BMAL1",
     "CYP7A1",
     "MED1",
     "MED13",
@@ -55275,6 +55277,19 @@
    "on_theme": false
   },
   {
+   "pathway": "Negative regulation of FGFR1 signaling",
+   "genes": [
+    "ANOS1",
+    "CBL",
+    "FGF17",
+    "FGF8",
+    "FGF9",
+    "FGFR1",
+    "PTPN11"
+   ],
+   "on_theme": false
+  },
+  {
    "pathway": "Synthesis of bile acids and bile salts via 27-hydroxycholesterol",
    "genes": [
     "AKR1C2",
@@ -55379,6 +55394,19 @@
    "on_theme": false
   },
   {
+   "pathway": "Heme signaling",
+   "genes": [
+    "BMAL1",
+    "MED1",
+    "NCOA1",
+    "NR1D1",
+    "PGRMC2",
+    "PPARA",
+    "PPARGC1A"
+   ],
+   "on_theme": false
+  },
+  {
    "pathway": "MLL4 and MLL3 complexes regulate expression of PPARG target genes in adipogenesis and hepatic steatosis",
    "genes": [
     "GPAM",
@@ -55388,6 +55416,19 @@
     "PPARG",
     "PPARGC1A",
     "PPARGC1B"
+   ],
+   "on_theme": false
+  },
+  {
+   "pathway": "Expression of BMAL (ARNTL), CLOCK, and NPAS2",
+   "genes": [
+    "BMAL1",
+    "MED1",
+    "NCOA1",
+    "NR1D1",
+    "PPARA",
+    "PPARGC1A",
+    "RORB"
    ],
    "on_theme": false
   },
@@ -55452,6 +55493,18 @@
     "BTK",
     "GNG10",
     "SOS2"
+   ],
+   "on_theme": false
+  },
+  {
+   "pathway": "FGFR1c ligand binding and activation",
+   "genes": [
+    "ANOS1",
+    "FGF17",
+    "FGF8",
+    "FGF9",
+    "FGFR1",
+    "TGFBR3"
    ],
    "on_theme": false
   },
@@ -55552,18 +55605,6 @@
    "on_theme": false
   },
   {
-   "pathway": "Negative regulation of FGFR1 signaling",
-   "genes": [
-    "CBL",
-    "FGF17",
-    "FGF8",
-    "FGF9",
-    "FGFR1",
-    "PTPN11"
-   ],
-   "on_theme": false
-  },
-  {
    "pathway": "Signaling by FGFR1 in disease",
    "genes": [
     "FGF17",
@@ -55572,6 +55613,18 @@
     "FGFR1",
     "GAB1",
     "KRAS"
+   ],
+   "on_theme": false
+  },
+  {
+   "pathway": "TP53 Regulates Metabolic Genes",
+   "genes": [
+    "AKT1",
+    "MOV10",
+    "PRKAG1",
+    "PTEN",
+    "TIGAR",
+    "YWHAH"
    ],
    "on_theme": false
   },
@@ -55596,30 +55649,6 @@
     "PPARA",
     "PPARGC1A",
     "PPARGC1B"
-   ],
-   "on_theme": false
-  },
-  {
-   "pathway": "Heme signaling",
-   "genes": [
-    "MED1",
-    "NCOA1",
-    "NR1D1",
-    "PGRMC2",
-    "PPARA",
-    "PPARGC1A"
-   ],
-   "on_theme": false
-  },
-  {
-   "pathway": "Expression of BMAL (ARNTL), CLOCK, and NPAS2",
-   "genes": [
-    "MED1",
-    "NCOA1",
-    "NR1D1",
-    "PPARA",
-    "PPARGC1A",
-    "RORB"
    ],
    "on_theme": false
   },
@@ -55780,28 +55809,6 @@
     "POLR3A",
     "POLR3B",
     "POLR3H"
-   ],
-   "on_theme": false
-  },
-  {
-   "pathway": "RNA Polymerase III Transcription Initiation From Type 3 Promoter",
-   "genes": [
-    "POLR1C",
-    "POLR2F",
-    "POLR3A",
-    "POLR3B",
-    "POLR3H"
-   ],
-   "on_theme": false
-  },
-  {
-   "pathway": "Pre-NOTCH Transcription and Translation",
-   "genes": [
-    "CCND1",
-    "E2F1",
-    "MAMLD1",
-    "MOV10",
-    "NOTCH1"
    ],
    "on_theme": false
   }

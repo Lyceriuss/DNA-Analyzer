@@ -43,6 +43,7 @@ from collections import defaultdict
 
 if not __package__:  # run as a file (python cluster_analysis/nutrition/nutrition.py, an editor's Run button): import from the repo root
     sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+from genome import build as gbuild
 from genome.loader import imputed_path, iter_calls, person_label
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -51,12 +52,12 @@ NNR = os.path.join(HERE, "nnr_2023.json")
 REF = "data/reference"
 PGS_DIR = f"{REF}/nutrition/pgs"
 GWAS = f"{REF}/gwas_associations_ontology.zip"
-CLINVAR = f"{REF}/clinvar_grch37.vcf.gz"
+CLINVAR = gbuild.path("clinvar")
 CLINPGX = f"{REF}/clinpgx_clinical_annotations.zip"
 REACTOME = f"{REF}/Ensembl2Reactome.txt"
-GTF = f"{REF}/ensembl_grch37_genes.gtf.gz"
-SITES = f"{REF}/imputation/sites.vcf.gz"
-OUT = "data/output/cluster_analysis"
+GTF = gbuild.path("gtf")
+SITES = gbuild.sites()
+OUT = gbuild.OUTPUT
 GWS = 5e-8
 LOCUS = 500_000                    # one lead variant per 500 kb
 MIN_N = 10_000                     # a GWAS study smaller than this doesn't make a score (its findings still show)
@@ -117,7 +118,7 @@ def gwas_rows(trait_ids):
 
 
 def pgs_rows(pgs_id):
-    path = f"{PGS_DIR}/{pgs_id}_hmPOS_GRCh37.txt.gz"
+    path = f"{PGS_DIR}/{pgs_id}_{gbuild.pgs_suffix()}.txt.gz"
     meta = json.load(open(f"{PGS_DIR}/{pgs_id}.json", encoding="utf-8"))
     rows = []
     with gzip.open(path, "rt", encoding="utf-8") as f:
