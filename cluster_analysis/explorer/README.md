@@ -8,13 +8,13 @@ https://claude.ai/artifact/Rsz3RYugnZyvWnixS9168o
 ```bash
 python -m cluster_analysis.explorer serve     # localhost: export if needed, build, serve on http://127.0.0.1:8000
 python -m cluster_analysis.explorer check     # every tab x profile x language in headless Chrome; fails on script errors
-python -m cluster_analysis.explorer export    # refresh the datasets (data/output/explorer/datasets/) after a pipeline run
+python -m cluster_analysis.explorer export    # refresh the datasets (data/output/explorer_GRCh38/datasets/; explorer/ for DNA_BUILD=GRCh37) after a pipeline run
 python -m cluster_analysis.explorer publish   # for the agent: what changed since the artifact's last publish
 ```
 
 The same page and datasets serve both: localhost through the standalone runtime, the claude.ai artifact through the
-agent (steps in [CLAUDE.md](../../CLAUDE.md)). `publish` writes `data/output/explorer/publish/` (the minified page,
-every dataset, `manifest.json` marking what changed) and `data/output/explorer/published.json` remembers what is live.
+agent (steps in [CLAUDE.md](../../CLAUDE.md)). `publish` writes `data/output/explorer_GRCh38/publish/` (the minified page,
+every dataset, `manifest.json` marking what changed) and `data/output/explorer_GRCh38/published.json` remembers what is live.
 
 ## Building
 

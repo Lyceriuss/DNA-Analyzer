@@ -1,8 +1,39 @@
 # Imputation and confidence tiers
 
 `genome/impute.py` fills in the SNPs MyHeritage didn't report, by comparing the person's measured SNPs with the
-haplotypes of the 2,504 people in 1000 Genomes. It takes a file from ~600k SNPs to ~28 million calls. Each new call
-gets a confidence tier, so later steps can decide which calls to trust.
+haplotypes of the people in a 1000 Genomes reference panel. Each new call gets a confidence tier, so later steps can
+decide which calls to trust.
+
+## Panels and genome builds
+
+| Panel | Build | People | Calls kept per person | Where |
+|---|---|---|---|---|
+| `1kgp_hc`: 1000 Genomes high coverage (30×), the default | GRCh38 | 3,202 | ~62 million | 15 GB of bref3 outside the repo (`DNA_PANEL_DIR_1KGP_HC`) |
+| `1kg_phase3`: 1000 Genomes phase 3 | GRCh37 | 2,504 | ~28 million | `data/reference/imputation/panel` |
+
+`genome/build.py` (`DNA_BUILD`, default GRCh38) picks the panel and every reference file that must share its
+coordinates: ClinVar, Ensembl genes, the site list, the PGS scoring files. Results go to per-build folders
+(`data/output/cluster_analysis_GRCh38`, `data/output/explorer_GRCh38`), so `DNA_BUILD=GRCh37` still reproduces the
+earlier analysis for comparison.
+
+On GRCh38, MyHeritage's GRCh37 positions are lifted with UCSC's `hg19ToHg38` chain when the file is read (about 270
+of 585,000 calls don't map and are dropped). chrX is imputed in three parts (PAR1, the body, PAR2), because men are
+diploid in the pseudo-autosomal regions and haploid between them, and Beagle wants one ploidy per sample per file.
+The panel names variants `chrom:pos:ref:alt`; rsIDs and frequencies per superpopulation come from its site list,
+built by `genome/panel_sites.py` from the panel itself and Ensembl's GRCh38 dbSNP files (98% of SNPs get an rsID).
+
+```bash
+sh scripts/fetch_1kgp_hc_panel.sh "D:/DNA-Analyzer-reference/1kGP_high_coverage_GRCh38"   # download, check, convert
+python -m genome.panel_sites                                                                # the site list
+python -m genome.build fetch                                                                # GRCh38 ClinVar and genes
+```
+
+Measured the same way (every 10th SNP hidden), both panels are equally accurate on what a chip can test: 98.9% of
+confident calls right, 99.5% at high confidence. The high-coverage panel's gain is coverage (2.2× the calls) and the
+build the sources use. Its "doesn't carry it" calls for uncommon variants found 89.5% of real carriers in XY (91% on
+phase 3), just below the 90% bar, so those calls read `not_excluded`.
+
+The rest of this page describes the method; the figures below are from the phase 3 panel.
 
 ## Pipeline
 

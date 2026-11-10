@@ -5,10 +5,12 @@ the calls to GRCh38 first, on the GRCh38 high-coverage panel. Everything after i
 imputed file, so the gene coordinates, ClinVar, the site list and the PGS files must be on the same build. This module
 is the one switch:
 
-    DNA_BUILD=GRCh38 python -m cluster_analysis.profiles run      # one run on GRCh38
+    python -m cluster_analysis.profiles run                       # GRCh38, the default
+    DNA_BUILD=GRCh37 python -m cluster_analysis.profiles run      # the earlier GRCh37 analysis, for comparison
     python -m genome.build fetch                                  # download the GRCh38 reference files
 
-GRCh37 stays the default until the GRCh38 results are checked against it.
+GRCh38 with the high-coverage panel is the default since 2026-11-10, after its results were compared with GRCh37:
+every medicine phenotype the same, twice the imputed variants. GRCh37 output stays in the unsuffixed folders.
 """
 import os
 import subprocess
@@ -16,7 +18,7 @@ import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 REF = os.path.join(ROOT, "data", "reference")
-BUILD = os.environ.get("DNA_BUILD", "GRCh37")
+BUILD = os.environ.get("DNA_BUILD", "GRCh38")
 
 # url: where `fetch` downloads a file that isn't there yet
 FILES = {

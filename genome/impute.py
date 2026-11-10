@@ -517,8 +517,10 @@ def main():
     ap.add_argument("--threads", type=int, default=os.cpu_count() or 4)
     ap.add_argument("--memory", default="12g", help="Java heap for Beagle")
     ap.add_argument("--min-gp", type=float, default=0.9, help="probability of the best genotype needed to keep a call")
-    ap.add_argument("--panel", choices=list(PANELS), default=DEFAULT_PANEL,
-                    help="reference panel; output for a panel other than the default goes to <person>/<panel>/")
+    from genome import build as gbuild
+    ap.add_argument("--panel", choices=list(PANELS), default=gbuild.panel_name(),
+                    help="reference panel, by default the one for the build in genome/build.py (DNA_BUILD); output for "
+                         f"a panel other than {DEFAULT_PANEL} goes to <person>/<panel>/")
     mode = ap.add_mutually_exclusive_group()
     mode.add_argument("--validate", type=int, default=0, metavar="N",
                       help="hide every Nth measured SNP, re-impute it and build calibration.json (no CSV)")

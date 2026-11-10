@@ -22,11 +22,18 @@
 being phased out). `main.py`, `src/` and `config/` are the original PDF report. Details:
 `cluster_analysis/README.md` and `docs/architecture/`.
 
+## Genome build and disks
+
+The analysis runs on GRCh38 with the 1000 Genomes high-coverage panel (`genome/build.py`, `DNA_BUILD`; GRCh37 for
+comparison). The panel and its site list live on D: (`D:\DNA-Analyzer-reference`), outside the repo. Large jobs:
+check free space on C: and D: first, never stream bulk data through a Docker container's stdout (Docker logs it into
+its virtual disk on C:), write to files on D: instead, and verify outputs against an independent count.
+
 ## The explorer: localhost and the claude.ai artifact
 
 ```bash
 python -m cluster_analysis.profiles run          # per-profile analysis (slow: API calls, cached)
-python -m cluster_analysis.explorer export       # datasets -> data/output/explorer/datasets/
+python -m cluster_analysis.explorer export       # datasets -> data/output/explorer_GRCh38/datasets/
 python -m cluster_analysis.explorer serve        # http://127.0.0.1:8000
 python -m cluster_analysis.explorer check        # render every tab, profile and language; fails on errors
 ```
@@ -36,7 +43,7 @@ Edit the parts (`explorer/*.js|css|html`) and `explorer/page.html`, never `explo
 ### Publishing the explorer
 
 The artifact is https://claude.ai/artifact/Rsz3RYugnZyvWnixS9168o (Dashboard runtime). Run `check`, then
-`python -m cluster_analysis.explorer publish` and read `data/output/explorer/publish/manifest.json`:
+`python -m cluster_analysis.explorer publish` and read `data/output/explorer_GRCh38/publish/manifest.json`:
 
 1. For each dataset with `"changed": true`: upload its `file` with the Artifact tool (`url` = the artifact,
    `asset: true`, one file per call). Note the returned `/_blob/<id>`.
