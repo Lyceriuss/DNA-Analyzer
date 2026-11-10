@@ -98,11 +98,11 @@
       for (const sep of ['; ', ', ']) {
         if (!t.includes(sep)) continue;
         // Keys can hold the separator themselves ("2 changed, direction unclear"): neighbours are joined back when together
-        // they translate and apart the first doesn't
+        // they translate and apart one of them doesn't ("2 changed" is a key, "direction unclear" is not)
         const raw = t.split(sep), parts = [];
         for (let i = 0; i < raw.length; i++) {
           const both = i + 1 < raw.length ? raw[i] + sep + raw[i + 1] : null;
-          if (both && one(raw[i], 0) == null && one(both, 0) != null) { parts.push(both); i++; } else parts.push(raw[i]);
+          if (both && (one(raw[i], 0) == null || one(raw[i + 1], 0) == null) && one(both, 0) != null) { parts.push(both); i++; } else parts.push(raw[i]);
         }
         const done = parts.map((x) => one(x, depth));
         if (all ? done.every((x) => x != null) : done.some((x) => x != null)) return parts.map((x, i) => done[i] ?? x).join(sep);

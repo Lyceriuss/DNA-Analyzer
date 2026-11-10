@@ -591,15 +591,19 @@
     const who = thWho(s);
     const male = s.stats.sex === 'XY';
     const cell = s.stats.view === 'cell';
-    const SHAPES = cell ? CELL_SHAPES() : male ? XY_SHAPES : XX_SHAPES;
-    const unit = cell ? 'stage' : 'organ';
+    const exertion = s.stats.view === 'exertion';
+    const SHAPES = cell ? CELL_SHAPES() : exertion ? EXERTION_SHAPES(s.organs) : male ? XY_SHAPES : XX_SHAPES;
+    const unit = cell || exertion ? 'stage' : 'organ';
     const card = el.closest('.gx-card');
     if (card) {
       const h = card.querySelector('h2'), note = card.querySelector('.gx-note');
-      if (h) h.textContent = cell ? 'Life of a cell' : 'Body map';
+      if (h) h.textContent = cell ? 'Life of a cell' : exertion ? 'A training session' : 'Body map';
       if (note) note.textContent = cell
         ? 'The stages every cell lives through, and where the theme\'s genes act in them. Cancer starts when a cell slips past the ' +
           'checkpoints, repair, ageing and death. Select a stage to narrow the mechanisms, connections and gene panel to it.'
+        : exertion
+        ? 'Before, during and after exertion: what you bring to a session, what your muscle fibres are built for, and how you ' +
+          'recover. Select a stage to narrow the mechanisms, connections and gene panel to it.'
         : 'Where in the body the theme\'s genes act. Each gene is placed by its mechanisms and the conditions it is linked to. ' +
           'Select an organ to narrow the mechanisms, connections and gene panel to it.';
     }
@@ -625,12 +629,13 @@
     const box = thMake(grid, 'div', 'th-body-svg');
     const info = thMake(grid, 'div', 'th-organ');
     const svg = d3.select(box).append('svg').attr('viewBox', '0 0 760 432').attr('width', '100%')
-      .attr('role', 'group').attr('aria-label', `${s.theme.theme_name}: organs`);
+      .attr('role', 'group').attr('aria-label', `${s.theme.theme_name}: ${unit}s`).classed('th-ex', exertion);
     const tip = gx.tip(box);
 
     const defs = svg.append('defs');
     // Body, the pelvis it zooms from and the panel the organs sit in; the cell map draws its paths instead
     if (cell) drawCellPaths(svg);
+    else if (exertion) drawExertionFrame(svg);
     else {
     const glow = defs.append('radialGradient').attr('id', 'th-glow');
     glow.append('stop').attr('offset', '0%').style('stop-color', 'var(--color-fg)').style('stop-opacity', 0.16);
@@ -727,7 +732,27 @@
       thMake(info, 'h3', null, `All ${unit}s`);
       thMake(info, 'p', 'gx-note', `▼ less active and ▲ more active are ${who}'s gene calls; ● counts genes where ${who} carries an allele ` +
         `that a GWAS or ClinVar links to one of the theme's conditions. Shading is stronger where more of these gather, red where less-active genes ` +
-        `lead and blue where more-active ones do. Select ${cell ? 'a stage' : 'an organ'} to focus the page on it.`);
+        `lead and blue where more-active ones do. Select ${cell || exertion ? 'a stage' : 'an organ'} to focus the page on it.`);
+      // Muscle: what the fibres are built for, from the person's calls on the fibre and aerobic genes
+      if (exertion) {
+        thMake(info, 'span', 'gx-label', 'Fibre profile');
+        const rank = { LoF: 0, GoF: 1, altered: 2, variant: 3, normal: 4 };
+        for (const [mid, label] of [['fast', 'Fast-twitch fibres'], ['slow', 'Slow-twitch fibres'], ['aerobic', 'Aerobic capacity']]) {
+          const gs = s.genes.filter((g) => (g.fl || []).includes(mid));
+          const called = gs.filter((g) => thCall(g)).sort((a, b) => (rank[thCall(a)] ?? 5) - (rank[thCall(b)] ?? 5));
+          const row = thMake(info, 'div', 'th-fibre');
+          thMake(row, 'span', 'th-fibre-name', label);
+          const chips = thMake(row, 'div', 'th-genes');
+          for (const g of called.slice(0, 8)) {
+            const b = thMake(chips, 'button', 'lc-chip th-gene lc-' + TH_CLASS[thCall(g)], thLabel(g));
+            b.type = 'button';
+            b.addEventListener('click', () => thPick(g.gene));
+          }
+          thMake(chips, 'span', 'gx-note', called.length
+            ? (called.length > 8 ? `and ${called.length - 8} more of ${gs.length} genes` : `of ${gs.length} genes`)
+            : `${gs.length} genes, none with a call in ${who}`);
+        }
+      }
       // Ranked rows, one per organ: its name, the bar of the person's calls there, and how many there are
       const list = thMake(info, 'div', 'th-organ-list');
       for (const c of [...per.values()].sort((a, b) => signal(b) - signal(a) || b.all - a.all)) {
@@ -773,6 +798,37 @@
   const cellPt = (deg, r) => [CELL_C[0] + r * Math.sin(deg * Math.PI / 180), CELL_C[1] - r * Math.cos(deg * Math.PI / 180)];
   const cellArc = (a, b, r0 = 92, r1 = 128) => ({ path: d3.arc()({ innerRadius: r0, outerRadius: r1, startAngle: a * Math.PI / 180,
     endAngle: b * Math.PI / 180 }), at: CELL_C });
+  // Muscle theme: a training session in three columns (before, during, after), each stage a tile, in the order the theme
+  // lists them. Tiles are buttons like the organs on the body maps.
+  const EX_COLS = { before: 14, during: 266, after: 518 };
+  const EX_W = 228, EX_TOP = 44, EX_BOTTOM = 426;
+  const exTile = (x, y, w, h, r = 10) => `M${x + r},${y} h${w - 2 * r} a${r},${r} 0 0 1 ${r},${r} v${h - 2 * r} ` +
+    `a${r},${r} 0 0 1 -${r},${r} h-${w - 2 * r} a${r},${r} 0 0 1 -${r},-${r} v-${h - 2 * r} a${r},${r} 0 0 1 ${r},-${r} Z`;
+  const EXERTION_SHAPES = (organs) => {
+    const out = {};
+    for (const [phase, x] of Object.entries(EX_COLS)) {
+      const list = organs.filter((o) => o.phase === phase), gap = 8;
+      const h = (EX_BOTTOM - EX_TOP - gap * (list.length - 1)) / Math.max(1, list.length);
+      list.forEach((o, i) => {
+        const y = EX_TOP + i * (h + gap);
+        out[o.id] = { shapes: [{ path: exTile(x, y, EX_W, h) }], label: [x + 12, y + Math.min(26, h / 2 - 4), 'start'] };
+      });
+    }
+    return out;
+  };
+  const drawExertionFrame = (svg) => {
+    svg.append('defs').append('marker').attr('id', 'th-ex-arrow').attr('viewBox', '0 0 10 10').attr('refX', 9).attr('refY', 5)
+      .attr('markerWidth', 7).attr('markerHeight', 7).attr('orient', 'auto')
+      .append('path').attr('d', 'M0,0 L10,5 L0,10 Z').attr('class', 'th-ex-head');
+    const heads = { before: 'Before', during: 'During', after: 'After' };
+    for (const [phase, x] of Object.entries(EX_COLS)) {
+      svg.append('text').attr('x', x + EX_W / 2).attr('y', 24).attr('text-anchor', 'middle').attr('class', 'th-ex-phase').text(heads[phase]);
+    }
+    for (const x of [EX_COLS.before + EX_W, EX_COLS.during + EX_W]) {
+      svg.append('path').attr('d', `M${x + 3},20 L${x + 21},20`).attr('class', 'th-ex-flow').attr('marker-end', 'url(#th-ex-arrow)');
+    }
+  };
+
   const CELL_SHAPES = () => ({
     lives: { shapes: [cellArc(200, 340), { ellipse: [78, 214, 76, 34] }], label: [78, 212, 'middle'] },
     birth: { shapes: [cellArc(340, 440), cellArc(440, 490), cellArc(490, 560)], label: [300, 206, 'middle'] },

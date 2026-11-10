@@ -69,6 +69,13 @@
   .th-organ-hit:hover .th-shape, .th-organ-hit:hover .th-tube { filter: brightness(1.06) saturate(1.15); }
   .th-organ-hit.is-selected .th-shape, .th-organ-hit.is-selected .th-tube { filter: drop-shadow(0 0 5px color-mix(in srgb, var(--color-fg) 35%, transparent)); }
   .th-m-lof { fill: var(--color-bad); } .th-m-gof { fill: var(--gof); } .th-m-var { fill: var(--color-fg-muted); }
+  /* Muscle: the training-session timeline */
+  .th-ex-phase { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; fill: var(--color-fg-muted); }
+  .th-ex-flow { fill: none; stroke: var(--color-fg-muted); stroke-width: 1.5; }
+  .th-ex-head { fill: var(--color-fg-muted); }
+  .th-ex .th-label { font-size: 12px; }
+  .th-fibre { display: grid; gap: 4px; padding: 6px 0; border-bottom: 1px solid var(--color-border-line); }
+  .th-fibre-name { font-weight: var(--cds-font-weight-medium); }
   /* Side panel: ranked organs with their bars */
   .th-organ-list { display: grid; }
   .th-organ-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(4rem, 7rem) 2ch; gap: var(--cds-gap-sm); align-items: center;

@@ -46,6 +46,19 @@ GO_CLASSES = {
 GO_EVIDENCE = ",".join(e for codes in GO_CLASSES.values() for e in codes)
 ECO_CLASS = {e: c for c, codes in GO_CLASSES.items() for e in codes}
 
+# UniProt fields that name a protein's fibre type (Swiss-Prot, human): its name ("Troponin I, fast skeletal muscle",
+# "MyHC-2a") or its curated tissue and function notes ("restricted to fast (type 2) skeletal muscle fibers")
+UNIPROT_FAST = ['protein_name:"fast skeletal"', 'protein_name:"MyHC-2a"', 'protein_name:"MyHC-2x"', 'protein_name:"MyHC-IIa"',
+                'protein_name:"MyHC-IIx"', 'protein_name:"MyHC-2b"', 'cc_tissue_specificity:"fast-twitch"',
+                'cc_tissue_specificity:"fast twitch"', 'cc_tissue_specificity:"fast (type 2)"', 'cc_tissue_specificity:"type II fibers"',
+                'cc_tissue_specificity:"type II fibres"', 'cc_tissue_specificity:"type 2 fibers"', 'cc_tissue_specificity:"type 2 fibres"',
+                'cc_tissue_specificity:"type II muscle fibers"', 'cc_tissue_specificity:"glycolytic fibers"', 'cc_function:"fast-twitch"']
+UNIPROT_SLOW = ['protein_name:"slow skeletal"', 'protein_name:"MyHC-slow"', 'protein_name:"MyHC-beta"', 'cc_tissue_specificity:"slow-twitch"',
+                'cc_tissue_specificity:"slow twitch"', 'cc_tissue_specificity:"type I fibers"', 'cc_tissue_specificity:"type I fibres"',
+                'cc_tissue_specificity:"type 1 fibers"', 'cc_tissue_specificity:"oxidative fibers"', 'cc_function:"slow-twitch"',
+                'cc_function:"fiber type"', 'cc_function:"fibre type"', 'cc_function:"type I fibers"',
+                'cc_function:"oxidative muscle fibers"', 'cc_function:"slow-twitch fibers"']
+
 THEMES = {
     "fertility_female": {
         "name": "Female fertility",
@@ -228,6 +241,132 @@ THEMES = {
         "disease_explain": "Open Targets ties these genes to cancer through human genetics (GWAS and inherited variants), but Gene Ontology "
                            "places them on none of the cell's stages yet. Many are risk loci near a gene whose role is still unclear.",
     },
+    "muscle": {
+        "name": "Muscle and exertion",
+        "person": "data/input/MyHeritage_raw_dna_data_XY.csv",
+        "view": "exertion",
+        "about": "A training session in three phases. Before: the nutrients, hormones and growth brakes you bring to it. During: what "
+                 "the muscle fibres are built for, fast-twitch power or slow-twitch endurance, how they burn fuel, and the strength "
+                 "and mass the genes allow. After: the damage, the inflammation that signals repair, rebuilding and breakdown, "
+                 "tendons and oxidative stress. Genes are placed by Gene Ontology and joined by human genetics from Open Targets.",
+        "diseases": {
+            "EFO_0006941": "grip strength", "EFO_0004980": "appendicular lean mass", "EFO_0004995": "lean body mass",
+            "EFO_0004887": "VO2max", "EFO_1000653": "sarcopenia", "EFO_0009851": "muscle atrophy",
+            "EFO_0004534": "creatine kinase level", "EFO_0003867": "rhabdomyolysis", "EFO_0010686": "muscle strain",
+            "EFO_0004908": "testosterone level", "EFO_0004627": "IGF-1 level", "EFO_0004810": "IL-6 level",
+            "EFO_0004458": "CRP level", "EFO_0600078": "Achilles tendon injury",
+        },
+        # Level traits have thousands of weak links: joining on them alone takes strong human genetic evidence
+        "measurements": ["grip strength", "appendicular lean mass", "lean body mass", "VO2max", "creatine kinase level",
+                         "testosterone level", "IGF-1 level", "IL-6 level", "CRP level"],
+        # Germline: a gene joins on a trait through human genetics only (literature co-mentions say nothing about a DNA file)
+        "disease_join": "genetic",
+        "rule": "Gene Ontology stage genes (fibre types from UniProt's curated notes; broad stages only where GTEx shows the gene "
+                "expressed in skeletal muscle), plus genes with human genetic evidence ≥ 0.5 for a muscle condition (≥ 0.8 for "
+                "level traits such as grip strength or lean mass)",
+        "pathway_terms": r"Muscle|Striated|Myogenesis|Sarcomere|Creatine|Glycogen|Glycolysis|Beta-oxidation|Mitochondrial|TCA|"
+                         r"Respiratory electron|MTOR|AMPK|Insulin|IGF|Growth hormone|Androgen|Steroid|Interleukin-6|Interleukin-1|TNF|"
+                         r"Collagen|Detoxification of Reactive Oxygen",
+        "clinvar_terms": r"muscul|myopath|dystroph|rhabdomyoly|myoglobin|McArdle|glycogen storage|carnitine|creatine|myositis|"
+                         r"malignant hyperthermia|periodic paralysis|myasthen|sarcopen|statin|ehlers|tendon",
+        # Stages of a training session, drawn as the exertion timeline; `phase` groups them
+        "organs": [
+            {"id": "nutrients", "phase": "before", "name": "Nutrient processing",
+             "about": "Taking up amino acids and sensing leucine, storing glycogen, making and loading creatine, and vitamin D signalling."},
+            {"id": "hormones", "phase": "before", "name": "Testosterone and growth hormone",
+             "about": "Making testosterone and the muscle's androgen receptor; growth hormone and the IGF-1 signal it drives."},
+            {"id": "brakes", "phase": "before", "name": "Growth brakes and boosters",
+             "about": "Myostatin and the signals that set how much muscle the body allows, and the drive to grow when loaded."},
+            {"id": "fast", "phase": "during", "name": "Fast-twitch: power",
+             "about": "Type II fibres: explosive force for sprinting and lifting, fuelled by creatine phosphate and glycogen, tiring fast."},
+            {"id": "slow", "phase": "during", "name": "Slow-twitch: endurance",
+             "about": "Type I fibres: steady work on oxygen, rich in mitochondria and capillaries, slow to tire."},
+            {"id": "fuel", "phase": "during", "name": "Fuel during effort",
+             "about": "Breaking down glycogen and glucose, burning fat, clearing lactate, and the energy sensor AMPK."},
+            {"id": "potential", "phase": "during", "name": "Strength and mass potential",
+             "about": "Genes that human genetics ties to grip strength and lean mass: the ceiling the genes set, before training."},
+            {"id": "damage", "phase": "after", "name": "Muscle damage",
+             "about": "How much muscle leaks into the blood after hard work (creatine kinase), and strains and rhabdomyolysis."},
+            {"id": "inflammation", "phase": "after", "name": "Inflammation",
+             "about": "The repair signal: IL-6 from working muscle drives adaptation, while lasting TNF and IL-1 drive breakdown."},
+            {"id": "rebuild", "phase": "after", "name": "Rebuilding and adaptation",
+             "about": "Satellite stem cells waking, multiplying and fusing into fibres, mTOR driving protein synthesis, and PGC-1α "
+                      "building mitochondria: how the muscle adapts to the training."},
+            {"id": "breakdown", "phase": "after", "name": "Breakdown",
+             "about": "Atrophy: atrogin-1 and MuRF1 tagging protein for removal, cortisol, and the loss of muscle with age."},
+            {"id": "tendons", "phase": "after", "name": "Tendons and connective tissue",
+             "about": "Collagen fibrils and tendon building: what carries the force from muscle to bone, and its injuries."},
+            {"id": "oxidative", "phase": "after", "name": "Oxidative stress",
+             "about": "Clearing the free radicals that hard exercise makes: superoxide dismutase, catalase, glutathione peroxidases."},
+        ],
+        "disease_organs": {
+            "grip strength": "potential", "appendicular lean mass": "potential", "lean body mass": "potential", "VO2max": "slow",
+            "sarcopenia": "breakdown", "muscle atrophy": "breakdown", "creatine kinase level": "damage", "rhabdomyolysis": "damage",
+            "muscle strain": "damage", "testosterone level": "hormones", "IGF-1 level": "hormones", "IL-6 level": "inflammation",
+            "CRP level": "inflammation", "Achilles tendon injury": "tendons",
+        },
+        # `tissue`: a mechanism gene counts only when GTEx shows it expressed in skeletal muscle (median TPM ≥ min_tpm),
+        # for broad terms whose genes mostly act elsewhere. Hormone, inflammation and brake genes act from other tissues
+        # or at low levels, so they are not filtered.
+        "mechanisms": [
+            {"id": "protein", "name": "Amino acid uptake and sensing", "go": ["GO:0003333", "GO:0071230"], "organ": "nutrients",
+             "tissue": "Muscle - Skeletal", "about": "Amino acid transporters and leucine sensing that switch on protein synthesis."},
+            {"id": "glycogen", "name": "Glycogen storage", "go": ["GO:0005978"], "organ": "nutrients", "tissue": "Muscle - Skeletal",
+             "about": "Building the glycogen store the muscle burns in hard efforts."},
+            {"id": "creatine", "name": "Creatine", "go": ["GO:0006601", "GO:0015881", "GO:0046314"], "organ": "nutrients",
+             "about": "Making creatine, carrying it into muscle, and charging it to creatine phosphate."},
+            {"id": "vitd", "name": "Vitamin D signalling", "go": ["GO:0070561"], "organ": "nutrients",
+             "about": "The vitamin D receptor and its signal, which muscle strength and fibre size depend on."},
+            {"id": "testosterone", "name": "Testosterone", "go": ["GO:0006702", "GO:0030521"], "organ": "hormones",
+             "about": "Making testosterone and DHT, and the androgen receptor that carries their signal into muscle."},
+            {"id": "gh", "name": "Growth hormone and IGF-1", "go": ["GO:0030252", "GO:0060396", "GO:0048009"], "organ": "hormones",
+             "about": "Growth hormone release and signalling, and the IGF-1 receptor pathway it drives in muscle."},
+            {"id": "brakes", "name": "Growth brakes", "go": ["GO:0048632"], "orthologs": True, "organ": "brakes",
+             "uniprot": ['cc_function:"muscle growth"', 'cc_function:"muscle mass"', 'cc_function:"myostatin"',
+                         'cc_function:"negative regulator of skeletal muscle"'],
+             "about": "Myostatin and the other signals that hold muscle growth back, and the follistatins that block them."},
+            {"id": "hypertrophy", "name": "Growth on load", "go": ["GO:0014734"], "orthologs": True, "organ": "brakes",
+             "uniprot": ['cc_function:"muscle hypertrophy"'],
+             "about": "Muscle fibres growing in response to load."},
+            # Gene Ontology barely covers fibre types in human (one gene each), so the fibre proteins come from UniProt's
+            # curated names and tissue notes; a protein UniProt places in both fibre types is left out of both
+            {"id": "fast", "name": "Fast fibres", "go": ["GO:0031443"], "orthologs": True, "organ": "fast", "tissue": "Muscle - Skeletal",
+             "uniprot": UNIPROT_FAST, "exclusive": "slow",
+             "about": "The proteins of fast-twitch (type II) fibres: their myosins, troponins, calcium pump and alpha-actinin-3."},
+            {"id": "slow", "name": "Slow fibres", "go": ["GO:0031444"], "orthologs": True, "organ": "slow", "tissue": "Muscle - Skeletal",
+             "uniprot": UNIPROT_SLOW, "exclusive": "fast",
+             "about": "The proteins of slow-twitch (type I) fibres, and the calcineurin signal that keeps fibres slow."},
+            {"id": "aerobic", "name": "Aerobic capacity", "go": ["GO:0009060", "GO:0033108"], "organ": "slow", "tissue": "Muscle - Skeletal",
+             "about": "Aerobic respiration and building the mitochondrial respiratory chain."},
+            {"id": "glycolysis", "name": "Glycogen and glucose burning", "go": ["GO:0005980", "GO:0006096"], "organ": "fuel",
+             "tissue": "Muscle - Skeletal", "about": "Breaking glycogen down and burning glucose without oxygen: the fuel for hard efforts."},
+            {"id": "fat", "name": "Fat burning", "go": ["GO:0006635"], "organ": "fuel", "tissue": "Muscle - Skeletal",
+             "about": "Beta-oxidation of fatty acids in the mitochondria: the fuel for long, easy efforts."},
+            {"id": "lactate", "name": "Lactate and energy sensing", "go": ["GO:0035873", "GO:0004679"], "organ": "fuel",
+             "about": "Carrying lactate out of working muscle, and AMPK, the sensor that reads the energy drop during exercise."},
+            {"id": "inflammation", "name": "Inflammatory signals", "go": ["GO:0070102", "GO:0033209", "GO:0070498"], "organ": "inflammation",
+             "about": "IL-6, TNF and IL-1 signalling."},
+            {"id": "regeneration", "name": "Satellite cells and regeneration", "go": ["GO:0014719", "GO:0014841", "GO:0043403", "GO:0007520"],
+             "uniprot": ['cc_function:"satellite cell"', 'cc_function:"satellite cells"'],
+             "orthologs": True, "organ": "rebuild", "about": "Satellite cells activating and multiplying, myoblasts fusing, and muscle regrowing."},
+            {"id": "training", "name": "Response to training", "go": ["GO:0014850"], "organ": "rebuild",
+             "about": "Genes that respond to muscle activity: PGC-1α and the mitochondria it builds, myokines such as irisin, and the "
+                      "amino acid carriers that feed new protein."},
+            {"id": "synthesis", "name": "mTOR and protein synthesis", "go": ["GO:0031929"], "organ": "rebuild", "tissue": "Muscle - Skeletal",
+             "about": "The mTOR signal that turns load, amino acids and IGF-1 into new muscle protein."},
+            {"id": "atrophy", "name": "Atrophy", "go": ["GO:0014889", "GO:0014732"], "orthologs": True, "organ": "breakdown",
+             "uniprot": ['cc_function:"muscle atrophy"'], "tissue": "Muscle - Skeletal",
+             "about": "Muscle wasting: the atrogenes and the signals that switch them on."},
+            {"id": "cortisol", "name": "Cortisol response", "go": ["GO:0071385"], "organ": "breakdown", "tissue": "Muscle - Skeletal",
+             "about": "Muscle's response to glucocorticoids, which push protein breakdown."},
+            {"id": "tendons", "name": "Tendons and collagen", "go": ["GO:0035989", "GO:0030199"], "organ": "tendons",
+             "about": "Building tendons and laying down collagen fibrils."},
+            {"id": "antioxidant", "name": "Antioxidant enzymes", "go": ["GO:0098869"], "organ": "oxidative", "tissue": "Muscle - Skeletal",
+             "about": "Enzymes that neutralise oxidants: superoxide dismutases, catalase, peroxidases and peroxiredoxins."},
+        ],
+        "disease_explain": "Human genetics (Open Targets) ties these genes to muscle strength, mass, damage or recovery, but Gene Ontology "
+                           "places them in none of the stages yet. Most are GWAS loci near a gene whose role in muscle is still unclear.",
+    },
 }
 
 # What each mechanism means and how a change in it plays out; shown in the explorer's in-depth view
@@ -374,6 +513,43 @@ def go_genes(go_id):
     return out
 
 
+# --- UniProt ------------------------------------------------------------------------------------------
+
+def uniprot_genes(queries):
+    """{symbol: (UniProt text matched, "curated")} for reviewed human proteins matching any of the queries."""
+    def fetch():
+        r = sources.requests.get("https://rest.uniprot.org/uniprotkb/search", timeout=120, params={
+            "query": f"({' OR '.join(queries)}) AND organism_id:9606 AND reviewed:true",
+            "fields": "gene_primary,protein_name", "format": "tsv", "size": 500})
+        r.raise_for_status()
+        return [l.split("\t")[:2] for l in r.text.strip().split("\n")[1:] if l.split("\t")[0]]
+    rows = sources._cached("uniprot_query", "|".join(queries), fetch)
+    return {sym: {(f"UniProt: {name.split(' (')[0]}", "curated")} for sym, name in rows}
+
+
+# --- GTEx ---------------------------------------------------------------------------------------------
+
+GTEX_MEDIAN = f"{REF}/gtex_v8_median_tpm.gct.gz"
+GTEX_URL = ("https://storage.googleapis.com/adult-gtex/bulk-gex/v8/rna-seq/"
+            "GTEx_Analysis_2017-06-05_v8_RNASeQCv1.1.9_gene_median_tpm.gct.gz")
+
+
+def gtex_tpm(tissue):
+    """{symbol: median TPM in a GTEx v8 tissue} from the bulk median-expression file (downloaded once, 7 MB)."""
+    if not os.path.exists(GTEX_MEDIAN):
+        r = sources.requests.get(GTEX_URL, timeout=300)
+        r.raise_for_status()
+        open(GTEX_MEDIAN, "wb").write(r.content)
+    out = {}
+    with gzip.open(GTEX_MEDIAN, "rt", encoding="utf-8") as f:
+        next(f), next(f)
+        col = next(f).rstrip("\n").split("\t").index(tissue)
+        for line in f:
+            p = line.rstrip("\n").split("\t")
+            out[p[1]] = max(out.get(p[1], 0.0), float(p[col]))
+    return out
+
+
 # --- Build --------------------------------------------------------------------------------------------
 
 def build(theme_id):
@@ -402,9 +578,19 @@ def build(theme_id):
     # Gene Ontology: human or curated annotations always count; ortholog-only ones when the mechanism says so,
     # or when the gene also has a fertility association
     mech = defaultdict(dict)
+    tpm = {t: gtex_tpm(t) for t in {m["tissue"] for m in theme["mechanisms"] if m.get("tissue")}}
+    curated = {m["id"]: uniprot_genes(m["uniprot"]) for m in theme["mechanisms"] if m.get("uniprot")}
     for m in theme["mechanisms"]:
-        for go_id in m["go"]:
-            for sym, terms in go_genes(go_id).items():
+        found = [go_genes(go_id) for go_id in m["go"]] + ([curated[m["id"]]] if m["id"] in curated else [])
+        # A protein UniProt places on both sides of a pair (fast and slow fibres) tells the two apart in neither
+        both = set(curated.get(m["id"], {})) & set(curated.get(m.get("exclusive"), {}))
+        for genes_terms in found:
+            for sym, terms in genes_terms.items():
+                # A broad mechanism counts a gene only where it is expressed (GTEx median TPM)
+                if m.get("tissue") and tpm[m["tissue"]].get(sym, 0) < m.get("min_tpm", 5):
+                    continue
+                if sym in both:
+                    continue
                 mech[sym].setdefault(m["id"], set()).update(terms)
     genes = {}
     for sym in set(by_disease) | set(mech):
@@ -458,7 +644,7 @@ def build(theme_id):
     edges = sources.string_network(symbols, required_score=400) if len(symbols) <= 2000 else []
     links = list({tuple(sorted((e["preferredName_A"], e["preferredName_B"]))): {"a": e["preferredName_A"], "b": e["preferredName_B"],
                   "score": e["score"]} for e in edges if e["preferredName_A"] in genes and e["preferredName_B"] in genes}.values())
-    rule = ("Gene Ontology mechanism genes, plus Open Targets genes scoring ≥ 0.5 (≥ 0.8 genetic for level and timing traits)"
+    rule = theme.get("rule") or ("Gene Ontology mechanism genes, plus Open Targets genes scoring ≥ 0.5 (≥ 0.8 genetic for level and timing traits)"
             if not theme.get("mechanism_min_disease") else
             f"Gene Ontology stage genes with an Open Targets cancer score ≥ {theme['mechanism_min_disease']}, plus genes with "
             "human genetic evidence ≥ 0.5 for a cancer")
