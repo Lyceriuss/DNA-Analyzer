@@ -1,5 +1,5 @@
 {
-  "about": "The SNPs that consumer fitness DNA tests report, for sport_snps.py. This list only chooses which variants to show and groups them; what each one does and how strong the evidence is comes from Ensembl VEP, the GWAS Catalog, ClinVar, ClinPGx and Europe PMC. ACE rs4343 stands in for the ACE insertion/deletion, which genotyping chips can't read.",
+  "about": "The SNPs that consumer fitness DNA tests report, for sport_snps.py. This list only chooses which variants to show and groups them; what each one does and how strong the evidence is comes from Ensembl VEP, the GWAS Catalog, ClinVar, ClinPGx and Europe PMC. ACE rs4343 stands in for the ACE insertion/deletion, which genotyping chips can't read. meaning, for the variants that matter in practice: what carrying 0, 1 or 2 copies of the changed allele means, by its copies.",
   "topics": [
     {"id": "power", "name": "Power and endurance", "sv": "Kraft och uthållighet"},
     {"id": "fuel", "name": "Fuel and fat burning", "sv": "Bränsle och fettförbränning"},
@@ -10,7 +10,11 @@
     {"id": "weight", "name": "Weight and the brain", "sv": "Vikt och hjärnan"}
   ],
   "snps": [
-    {"gene": "ACTN3", "rsid": "rs1815739", "topic": "power"},
+    {"gene": "ACTN3", "rsid": "rs1815739", "topic": "power", "meaning": {
+      "0": "Both copies make alpha-actinin-3, the protein that stiffens fast-twitch fibres for explosive force: the genotype most common among elite sprinters and power athletes.",
+      "1": "One copy makes alpha-actinin-3, enough for the fast fibres to have it: common among both power and endurance athletes.",
+      "2": "Neither copy makes alpha-actinin-3, the protein that stiffens fast-twitch fibres for explosive force. The fast fibres work without it and behave a little more like slow ones: this genotype is rare among elite sprinters and more common among endurance athletes. For everyday training it matters little; strength still responds normally to lifting."
+    }},
     {"gene": "ACE", "rsid": "rs4343", "topic": "power"},
     {"gene": "PPARGC1A", "rsid": "rs8192678", "topic": "power"},
     {"gene": "MSTN", "rsid": "rs1805086", "topic": "power"},
@@ -19,7 +23,11 @@
     {"gene": "HIF1A", "rsid": "rs11549465", "topic": "power"},
     {"gene": "AGT", "rsid": "rs699", "topic": "power"},
     {"gene": "CKM", "rsid": "rs8111989", "topic": "power"},
-    {"gene": "AMPD1", "rsid": "rs17602729", "topic": "fuel"},
+    {"gene": "AMPD1", "rsid": "rs17602729", "topic": "fuel", "meaning": {
+      "0": "Both copies make AMP deaminase, the enzyme that keeps muscle energy flowing in hard, repeated efforts.",
+      "1": "One copy of AMPD1 is broken, so the muscle makes less AMP deaminase. This usually goes unnoticed; if hard intervals bring early cramps or fatigue, longer warm-ups and rest between efforts help.",
+      "2": "Both copies of AMPD1 are broken: the muscle lacks AMP deaminase. Many people with this have no symptoms; some get cramps, pain or early fatigue in hard exercise. Longer warm-ups, pacing and rest between efforts help."
+    }},
     {"gene": "SLC16A1", "rsid": "rs1049434", "topic": "fuel"},
     {"gene": "PPARA", "rsid": "rs4253778", "topic": "fuel"},
     {"gene": "PPARD", "rsid": "rs2016520", "topic": "fuel"},
@@ -34,14 +42,30 @@
     {"gene": "TNF", "rsid": "rs1800629", "topic": "recovery"},
     {"gene": "SOD2", "rsid": "rs4880", "topic": "recovery"},
     {"gene": "GSTP1", "rsid": "rs1695", "topic": "recovery"},
-    {"gene": "CYP1A2", "rsid": "rs762551", "topic": "stimulants"},
+    {"gene": "CYP1A2", "rsid": "rs762551", "topic": "stimulants", "meaning": {
+      "0": "Both copies are the slower form of CYP1A2, the enzyme that clears caffeine: caffeine lasts longer for you. Smaller doses taken early in the day protect sleep and recovery.",
+      "1": "One fast and one slower copy of CYP1A2, the enzyme that clears caffeine: caffeine is cleared at an in-between pace. Keep it to the first half of the day to protect sleep.",
+      "2": "Both copies are the fast, inducible form of CYP1A2, the enzyme that clears caffeine: caffeine is cleared quickly, faster still in heavy coffee drinkers. Take it 30 to 60 minutes before training."
+    }},
     {"gene": "ADORA2A", "rsid": "rs5751876", "topic": "stimulants"},
-    {"gene": "HFE", "rsid": "rs1800562", "topic": "nutrients"},
-    {"gene": "HFE", "rsid": "rs1799945", "topic": "nutrients"},
+    {"gene": "HFE", "rsid": "rs1800562", "topic": "nutrients", "meaning": {
+      "1": "One copy of C282Y, the main haemochromatosis variant. Carriers rarely build up iron on their own, but it adds to iron from food and supplements: don't take iron unless a test shows you need it. Ferritin and transferrin saturation show where you are.",
+      "2": "Two copies of C282Y: the genotype behind most hereditary haemochromatosis. Ask for ferritin and transferrin saturation; iron overload is easy to treat when found early."
+    }},
+    {"gene": "HFE", "rsid": "rs1799945", "topic": "nutrients", "meaning": {
+      "1": "One copy of H63D, a mild HFE variant: on its own it rarely matters for iron.",
+      "2": "Two copies of H63D, a mild HFE variant: iron can run slightly higher. A ferritin test is worth it before taking iron."
+    }},
     {"gene": "VDR", "rsid": "rs2228570", "topic": "nutrients"},
     {"gene": "VDR", "rsid": "rs1544410", "topic": "nutrients"},
-    {"gene": "MTHFR", "rsid": "rs1801133", "topic": "nutrients"},
-    {"gene": "FTO", "rsid": "rs9939609", "topic": "weight"},
+    {"gene": "MTHFR", "rsid": "rs1801133", "topic": "nutrients", "meaning": {
+      "1": "One copy of MTHFR 677T: the folate enzyme runs a little slower. Folate from leafy greens and legumes covers it.",
+      "2": "Two copies of MTHFR 677T: the folate enzyme runs at about a third of the usual pace, and homocysteine can rise when folate is low. Eat folate-rich food (greens, legumes) daily; a homocysteine test shows whether it matters for you."
+    }},
+    {"gene": "FTO", "rsid": "rs9939609", "topic": "weight", "meaning": {
+      "1": "One copy of the FTO allele linked to higher body weight and appetite. Regular physical activity reduces its effect on weight by about a third (Kilpeläinen 2011).",
+      "2": "Two copies of the FTO allele linked to higher body weight and appetite. Regular physical activity reduces its effect on weight by about a third (Kilpeläinen 2011), so exercise pays off more than average for you."
+    }},
     {"gene": "BDNF", "rsid": "rs6265", "topic": "weight"}
   ]
 }

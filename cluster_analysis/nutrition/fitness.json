@@ -1,5 +1,5 @@
 {
-  "about": "The Muscle and exertion theme's genetic scores, read by nutrition.py --config fitness.json --prefix fit: per measure the GWAS Catalog traits (EFO) of its markers, Reactome pathways for the mechanism, the ClinVar conditions that count, and how it is measured. Each score is the genome-wide significant lead variants of one large GWAS, placed against 1000 Genomes Europeans. higher: whether a higher value is the good direction ('better', 'worse' or 'neutral').",
+  "about": "The Fitness theme's genetic scores, read by nutrition.py --config fitness.json --prefix fit: per measure the GWAS Catalog traits (EFO) of its markers, Reactome pathways for the mechanism, the ClinVar conditions that count, and how it is measured. Each score is the genome-wide significant lead variants of one large GWAS, placed against 1000 Genomes Europeans. higher: whether a higher value is the good direction ('better', 'worse' or 'neutral'). meaning: what a low (20th percentile or below), typical or high (80th or above) score means in practice.",
   "tests": [
     {
       "id": "strength",
@@ -8,7 +8,11 @@
       "group": "Strength and mass",
       "reactome": ["R-HSA-390522"],
       "markers": [
-        {"id": "grip", "name": "Grip strength", "traits": ["EFO_0006941"], "higher": "better"}
+        {"id": "grip", "name": "Grip strength", "traits": ["EFO_0006941"], "higher": "better",
+         "meaning": {
+           "low": "The genes start you on the weaker side. Strength responds to training from any starting point: heavy compound lifts two to three times a week close much of the gap.",
+           "typical": "The genes put your starting strength near the middle. Training, protein and sleep decide where you end up.",
+           "high": "The genes start you on the stronger side. A high starting point says little about how fast you gain, so build load gradually: tendons adapt slower than muscle."}}
       ],
       "test": "Hand-grip dynamometer",
       "clinvar": "myopathy|muscular dystrophy|nemaline|central core|malignant hyperthermia"
@@ -20,8 +24,16 @@
       "group": "Strength and mass",
       "reactome": ["R-HSA-525793"],
       "markers": [
-        {"id": "alm", "name": "Appendicular lean mass", "traits": ["EFO_0004980"], "higher": "better"},
-        {"id": "lbm", "name": "Lean body mass", "traits": ["EFO_0004995"], "higher": "better"}
+        {"id": "alm", "name": "Appendicular lean mass", "traits": ["EFO_0004980"], "higher": "better",
+         "meaning": {
+           "low": "The genes lean toward less muscle in the arms and legs. It builds the same way as for anyone, with progressive resistance training and protein spread over the day; it may take longer to show.",
+           "typical": "The genes put your arm and leg muscle near the middle. Resistance training and protein decide the rest.",
+           "high": "The genes lean toward more muscle in the arms and legs: you likely carry and keep muscle easily, which protects strength with age."}},
+        {"id": "lbm", "name": "Lean body mass", "traits": ["EFO_0004995"], "higher": "better",
+         "meaning": {
+           "low": "The genes lean toward less lean mass overall: muscle, organs and bone. Resistance training and enough protein matter more for you than for most.",
+           "typical": "The genes put your overall lean mass near the middle.",
+           "high": "The genes lean toward more lean mass overall, which goes with a higher resting energy use: you need more food to fuel training."}}
       ],
       "test": "DXA or bioimpedance scan",
       "clinvar": "myopathy|muscular dystrophy"
@@ -30,11 +42,19 @@
       "id": "aerobic",
       "name": "Heart response to exercise",
       "sv": "Hjärtats svar på träning",
-      "group": "Fitness",
+      "group": "Heart and endurance",
       "reactome": ["R-HSA-5576892", "R-HSA-5576893", "R-HSA-5576890", "R-HSA-5576886"],
       "markers": [
-        {"id": "hrr", "name": "Heart-rate recovery after exercise", "traits": ["EFO_0009185"], "higher": "better"},
-        {"id": "hrx", "name": "Heart-rate increase during exercise", "traits": ["EFO_0009184"], "higher": "better"}
+        {"id": "hrr", "name": "Heart-rate recovery after exercise", "traits": ["EFO_0009185"], "higher": "better",
+         "meaning": {
+           "low": "The genes lean toward a slower heart-rate drop after effort. Heart-rate recovery is one of the markers that improves most with endurance training: regular easy aerobic work and some intervals speed it up.",
+           "typical": "The genes put your heart-rate recovery near the middle. It improves with endurance training.",
+           "high": "The genes lean toward a fast heart-rate drop after effort, a sign of strong rest-and-digest control of the heart. A good base for endurance work."}},
+        {"id": "hrx", "name": "Heart-rate increase during exercise", "traits": ["EFO_0009184"], "higher": "better",
+         "meaning": {
+           "low": "The genes lean toward a smaller heart-rate rise during effort. Heart-rate zones from a formula may sit too high for you: set them from a test or from how hard the effort feels.",
+           "typical": "The genes put your heart-rate rise during effort near the middle, so standard heart-rate zones should fit.",
+           "high": "The genes lean toward a larger heart-rate rise during effort: the heart can speed up a lot to meet demand. Standard zones may read low for you."}}
       ],
       "test": "Exercise test with heart-rate monitoring",
       "clinvar": "long QT|short QT|Brugada|catecholaminergic|arrhythmi"
@@ -46,7 +66,11 @@
       "group": "Recovery",
       "reactome": ["R-HSA-71288", "R-HSA-70221", "R-HSA-77289"],
       "markers": [
-        {"id": "ck", "name": "Creatine kinase", "traits": ["EFO_0004534"], "higher": "worse"}
+        {"id": "ck", "name": "Creatine kinase", "traits": ["EFO_0004534"], "higher": "worse",
+         "meaning": {
+           "low": "The genes lean toward low creatine kinase: less muscle protein leaks into the blood after hard work.",
+           "typical": "The genes put your creatine kinase near the middle.",
+           "high": "The genes lean toward high creatine kinase: more muscle protein leaks into the blood after hard work. Expect more soreness after new or downhill and eccentric training; add volume gradually and give the same muscles 48 to 72 hours between hard sessions. A blood test taken within a few days of training can read high without anything being wrong."}}
       ],
       "test": "P-CK",
       "clinvar": "rhabdomyolysis|myoglobinuria|McArdle|glycogen storage disease|carnitine palmitoyltransferase|creatine"
@@ -59,7 +83,11 @@
       "reactome": ["R-HSA-211981"],
       "clinpgx": ["caffeine"],
       "markers": [
-        {"id": "coffee", "name": "Coffee consumption", "traits": ["EFO_0006781"], "higher": "neutral"}
+        {"id": "coffee", "name": "Coffee consumption", "traits": ["EFO_0006781"], "higher": "neutral",
+         "meaning": {
+           "low": "The genes lean toward drinking less coffee. Part of the genetics of coffee drinking is how fast the body clears caffeine, part how strongly you feel it; the CYP1A2 genotype below reads the clearance directly.",
+           "typical": "The genes put your coffee drinking near the middle. The CYP1A2 genotype below says more about how fast you clear caffeine.",
+           "high": "The genes lean toward drinking more coffee. Part of the genetics of coffee drinking is how fast the body clears caffeine, part how strongly you feel it; the CYP1A2 genotype below reads the clearance directly. Coffee drinking adds up: keep the last cup well before bedtime."}}
       ],
       "test": "Coffee intake (the GWAS measure); caffeine clearance itself is rarely tested",
       "clinvar": ""

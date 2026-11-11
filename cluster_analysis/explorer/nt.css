@@ -7,9 +7,13 @@
   .nt-low { color: var(--color-warn); font-weight: 700; }
   .nt-high { color: var(--color-ok); font-weight: 700; }
   .nt-bar { position: relative; height: 8px; border-radius: 4px; margin: 6px 0 2px;
-    background: linear-gradient(90deg, color-mix(in srgb, var(--color-warn) 45%, transparent), var(--color-border-line) 30% 70%, color-mix(in srgb, var(--color-ok) 45%, transparent)); }
+    background: linear-gradient(90deg, var(--nt-scale)); }
+  /* Unfavourable to favourable: red, orange, yellow, green in the typical middle, turquoise, blue */
+  .gx { --nt-scale: #d94141 0%, #ec8a2f 17%, #e9c42a 33%, #46a95a 50%, #22b3a6 67%, #3a78d8 100%; }
   .nt-bar.nt-flip { transform: scaleX(-1); }
-  .nt-bar.nt-even { background: var(--color-border-line); }
+  .nt-mean { margin-top: 6px; max-width: 70ch; line-height: 1.5; }
+  /* Neither direction is better: the typical middle (40-60th percentile) in green */
+  .nt-bar.nt-even { background: linear-gradient(90deg, var(--color-border-line) 0 40%, color-mix(in srgb, var(--color-ok) 60%, transparent) 40% 60%, var(--color-border-line) 60%); }
   .nt-bar i { position: absolute; top: -4px; width: 4px; height: 16px; margin-left: -2px; border-radius: 2px; background: var(--color-fg); }
   .nt-tile .nt-bar { height: 5px; margin: 2px 0; }
   .nt-tile .nt-bar i { top: -3px; height: 11px; }
@@ -62,3 +66,9 @@
     background: var(--color-panel); color: var(--color-fg); }
   .nt-find-bad { box-shadow: inset 3px 0 0 var(--color-warn); }
   .nt-find > :not(.md-grade) { grid-column: 2; }
+  .nt-balance { margin: 4px 0 8px; font-weight: 500; }
+  .nt-sides { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 8px 20px; align-items: start; }
+  .nt-side > .gx-label { display: block; padding-bottom: 4px; margin-bottom: 4px; border-bottom: 2px solid; }
+  .nt-side-good > .gx-label { border-color: var(--color-ok); color: var(--color-ok); }
+  .nt-side-bad > .gx-label { border-color: var(--color-warn); color: var(--color-warn); }
+  .nt-find-good { box-shadow: inset 3px 0 0 var(--color-ok); }

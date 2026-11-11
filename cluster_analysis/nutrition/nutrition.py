@@ -409,6 +409,7 @@ def build(dna, sex, age, activity, config=CONFIG):
                         "author": first.get("author"), "year": first.get("year"), "pmid": first.get("pmid"),
                         "n": sample_size(first.get("sample")), "sample": first.get("sample")}
             markers.append({"id": m["id"], "name": m["name"], "higher": m["higher"], "score": sc, "source": info,
+                            "meaning": m.get("meaning"),
                             "studies": len({r["pmid"] for r in rows})})
 
             # Findings: one lead variant per locus, graded by replication

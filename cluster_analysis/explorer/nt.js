@@ -164,7 +164,7 @@
 
     // One variant: what it changes, the person's copies, and which way it moves the level for them
     const ntVariant = (parent, f, who) => {
-      const d = ntMake(parent, 'div', 'nt-find' + (ntBad(f) === 'bad' ? ' nt-find-bad' : ''));
+      const d = ntMake(parent, 'div', 'nt-find' + (ntBad(f) === 'bad' ? ' nt-find-bad' : ntBad(f) === 'good' ? ' nt-find-good' : ''));
       ntTag(d, f.grade);
       const det = ntJ(f.detail) || {};
       const top = ntMake(d, 'div');
@@ -236,6 +236,10 @@
           if (s.bad || s.good) { ntMake(d, 'span', null, ' '); ntMake(d, 'span', s.bad ? 'nt-low' : 'nt-high', s.bad ? 'The unfavourable direction.' : 'The favourable direction.'); }
           const src = m.source;
           ntMake(d, 'div', 'nt-src', [src.source, [src.author, src.year].filter(Boolean).join(' '), src.n ? `n = ${src.n.toLocaleString('en')}` : ''].filter(Boolean).join(' · ')).title = src.sample || src.method || '';
+          // What the score means in practice (fitness.json): below the 40th percentile it leans low, above the 60th high,
+          // the same lines as the band words (Below average, Above average)
+          const pc = m.score.percentile, mean = m.meaning && m.meaning[pc < 40 ? 'low' : pc > 60 ? 'high' : 'typical'];
+          if (mean) { const w = ntMake(d, 'div', 'nt-mean'); ntMake(w, 'b', null, `What it means for ${who}:`); ntMake(w, 'span', null, ' '); ntMake(w, 'span', null, mean); }
         }
       }
 
@@ -319,8 +323,28 @@
       if (ob && total > out.length) ntMake(ob, 'div', 'nt-sub', ntT(`${who}'s copies move the level for {} of them. The {} strongest are listed.`, nMoving, out.length));
       else if (ob) ntMake(ob, 'div', 'nt-sub', ntT(nMoving === 1 ? `${who}'s copies move the level for 1 of them; the others are under Show all.`
         : `${who}'s copies move the level for {} of them; the others are under Show all.`, nMoving));
-      const shown = all ? [...moving, ...quiet] : moving.slice(0, 8);
-      for (const f of shown) ntVariant(ob, f, who);
+      // Both sides of the net score, side by side: the variants that work in the person's favour on the left, those
+      // against them on the right (for a value where neither way is better: those that raise it, and those that lower it).
+      // The headings carry the true counts; the score is the net of both columns.
+      const directional = !!(n.moving_good || n.moving_bad);
+      const against = moving.filter((f) => ntBad(f) === 'bad' || (ntBad(f) == null && f.xy === 'lowers'));
+      const favour = moving.filter((f) => !against.includes(f));
+      let shown = [];
+      if (ob && moving.length) {
+        ntMake(ob, 'div', 'nt-balance', 'The score above is the net of both columns, each variant weighted by its effect.');
+        const cols = ntMake(ob, 'div', 'nt-sides');
+        const per = all ? Infinity : 4;
+        for (const [list, good, count] of [[favour, true, directional ? n.moving_good : n.moving_up], [against, false, directional ? n.moving_bad : n.moving_down]]) {
+          const col = ntMake(cols, 'div', 'nt-side ' + (good ? 'nt-side-good' : 'nt-side-bad'));
+          ntMake(col, 'span', 'gx-label', ntT(directional ? (good ? `In ${who}'s favour ({})` : `Against ${who} ({})`) : (good ? 'Raise it ({})' : 'Lower it ({})'),
+            Math.max(count || 0, list.length)));
+          const take = list.slice(0, per);
+          if (!take.length) ntMake(col, 'div', 'nt-sub', 'None among the listed variants.');
+          for (const f of take) ntVariant(col, f, who);
+          shown = shown.concat(take);
+        }
+      }
+      if (all) { for (const f of quiet) ntVariant(ob, f, who); shown = shown.concat(quiet); }
       if (out.length > shown.length || all) {
         const b = ntMake(ob, 'button', 'md-pill', all ? 'Show fewer' : `Show all (${out.length - shown.length} more)`);
         b.type = 'button';

@@ -242,7 +242,7 @@ THEMES = {
                            "places them on none of the cell's stages yet. Many are risk loci near a gene whose role is still unclear.",
     },
     "muscle": {
-        "name": "Muscle and exertion",
+        "name": "Fitness",
         "person": "data/input/MyHeritage_raw_dna_data_XY.csv",
         "view": "exertion",
         "about": "A training session in three phases. Before: the nutrients, hormones and growth brakes you bring to it. During: what "

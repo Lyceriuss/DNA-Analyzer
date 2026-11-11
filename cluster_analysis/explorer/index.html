@@ -499,7 +499,7 @@
   .th-organ-hit .th-shape, .th-organ-hit .th-tube { transition: filter 120ms ease; }
   .th-organ-hit:hover .th-shape, .th-organ-hit:hover .th-tube { filter: brightness(1.06) saturate(1.15); }
   .th-organ-hit.is-selected .th-shape, .th-organ-hit.is-selected .th-tube { filter: drop-shadow(0 0 5px color-mix(in srgb, var(--color-fg) 35%, transparent)); }
-  .th-m-lof { fill: var(--color-bad); } .th-m-gof { fill: var(--gof); } .th-m-var { fill: var(--color-fg-muted); }
+  .th-m-lof { fill: var(--color-bad); } .th-m-gof { fill: var(--gof); } .th-m-var { fill: var(--color-fg-muted); } .th-m-norm { fill: var(--typical); }
   /* Muscle: the training-session timeline */
   .th-ex-phase { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; fill: var(--color-fg-muted); }
   .th-ex-flow { fill: none; stroke: var(--color-fg-muted); stroke-width: 1.5; }
@@ -517,7 +517,7 @@
   .th-organ-n { text-align: right; font-variant-numeric: tabular-nums; color: var(--color-fg-muted); }
   .th-mini { display: flex; gap: 1px; height: 6px; border-radius: 3px; overflow: hidden; background: color-mix(in srgb, var(--color-fg) 8%, transparent); }
   .th-mini > span { display: block; height: 100%; }
-  .th-mini-lof { background: var(--color-bad); } .th-mini-gof { background: var(--gof); } .th-mini-var { background: var(--color-fg-muted); }
+  .th-mini-lof { background: var(--color-bad); } .th-mini-gof { background: var(--gof); } .th-mini-var { background: var(--color-fg-muted); } .th-mini-norm { background: var(--typical); }
   .th-facet-open { font: inherit; font-weight: var(--cds-font-weight-medium); background: none; border: 0; padding: 0; color: var(--color-fg);
                    text-align: left; cursor: pointer; text-decoration: underline; text-decoration-color: var(--color-border-line);
                    text-underline-offset: 3px; }
@@ -567,6 +567,16 @@
 .th-sport-row .md-grade { margin-top: 2px; }
 .th-sport-row .nt-src { display: inline-block; margin-top: 2px; font-size: 12px; }
 .th-off { display: none; }
+/* Fitness theme: what the results mean */
+.th-mean-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); gap: 10px; margin-top: 10px; }
+.th-mean { padding: 10px 12px; border-radius: 8px; border: 1px solid var(--color-border-line); box-shadow: inset 4px 0 0 var(--color-fg-muted);
+  font-size: 13px; line-height: 1.5; background: var(--color-bg); }
+.th-mean-good { box-shadow: inset 4px 0 0 var(--typical); }
+.th-mean-bad { box-shadow: inset 4px 0 0 var(--color-warn); }
+.th-mean-watch { box-shadow: inset 4px 0 0 var(--color-bad); }
+.th-mean-head { display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: baseline; margin-bottom: 4px; }
+.th-mean-tag { font-size: 12px; color: var(--color-fg-muted); }
+.th-sport-mean { margin-top: 4px; padding-left: 8px; border-left: 2px solid var(--typical); }
   .md-summary p { margin: 0 0 var(--cds-gap-sm); }
   .md-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: var(--cds-gap-sm); }
   .md-pill { border: 1px solid var(--color-border-line); background: transparent; color: var(--color-fg); border-radius: 12px;
@@ -668,9 +678,13 @@
   .nt-low { color: var(--color-warn); font-weight: 700; }
   .nt-high { color: var(--color-ok); font-weight: 700; }
   .nt-bar { position: relative; height: 8px; border-radius: 4px; margin: 6px 0 2px;
-    background: linear-gradient(90deg, color-mix(in srgb, var(--color-warn) 45%, transparent), var(--color-border-line) 30% 70%, color-mix(in srgb, var(--color-ok) 45%, transparent)); }
+    background: linear-gradient(90deg, var(--nt-scale)); }
+  /* Unfavourable to favourable: red, orange, yellow, green in the typical middle, turquoise, blue */
+  .gx { --nt-scale: #d94141 0%, #ec8a2f 17%, #e9c42a 33%, #46a95a 50%, #22b3a6 67%, #3a78d8 100%; }
   .nt-bar.nt-flip { transform: scaleX(-1); }
-  .nt-bar.nt-even { background: var(--color-border-line); }
+  .nt-mean { margin-top: 6px; max-width: 70ch; line-height: 1.5; }
+  /* Neither direction is better: the typical middle (40-60th percentile) in green */
+  .nt-bar.nt-even { background: linear-gradient(90deg, var(--color-border-line) 0 40%, color-mix(in srgb, var(--color-ok) 60%, transparent) 40% 60%, var(--color-border-line) 60%); }
   .nt-bar i { position: absolute; top: -4px; width: 4px; height: 16px; margin-left: -2px; border-radius: 2px; background: var(--color-fg); }
   .nt-tile .nt-bar { height: 5px; margin: 2px 0; }
   .nt-tile .nt-bar i { top: -3px; height: 11px; }
@@ -723,6 +737,12 @@
     background: var(--color-panel); color: var(--color-fg); }
   .nt-find-bad { box-shadow: inset 3px 0 0 var(--color-warn); }
   .nt-find > :not(.md-grade) { grid-column: 2; }
+  .nt-balance { margin: 4px 0 8px; font-weight: 500; }
+  .nt-sides { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 8px 20px; align-items: start; }
+  .nt-side > .gx-label { display: block; padding-bottom: 4px; margin-bottom: 4px; border-bottom: 2px solid; }
+  .nt-side-good > .gx-label { border-color: var(--color-ok); color: var(--color-ok); }
+  .nt-side-bad > .gx-label { border-color: var(--color-warn); color: var(--color-warn); }
+  .nt-find-good { box-shadow: inset 3px 0 0 var(--color-ok); }
   .th-b-untested { background: var(--color-fg-muted); opacity: 0.35; }
 </style>
 
@@ -756,6 +776,9 @@
     <div class="th-picker" data-draw="th-picker" data-source="theme_meta" role="group" aria-label="Theme"></div>
     <div class="gx-card" id="theme-head">
       <div class="th-head" data-draw="th-head" data-source="theme_meta theme_genes"></div>
+    </div>
+    <div class="gx-card th-off" id="fit-summary">
+      <div data-draw="th-fit-summary" data-source="fit_tests sport_snps"></div>
     </div>
     <div class="gx-card" id="theme-body">
       <h2>Body map</h2>
@@ -1712,19 +1735,22 @@
           'Select an organ to narrow the mechanisms, connections and gene panel to it.';
     }
 
-    const per = new Map(s.organs.map((o) => [o.id, { o, all: 0, lof: 0, gof: 0, variant: 0, genes: [] }]));
+    const per = new Map(s.organs.map((o) => [o.id, { o, all: 0, lof: 0, gof: 0, norm: 0, variant: 0, genes: [] }]));
     for (const g of s.genes) {
       for (const id of g.ev.organs || []) {
         const c = per.get(id);
         if (!c) continue;
         c.all += 1;
         const fn = thCall(g);
-        if (fn === 'LoF') c.lof += 1; else if (fn === 'GoF') c.gof += 1; else if (fn === 'variant') c.variant += 1;
+        if (fn === 'LoF') c.lof += 1; else if (fn === 'GoF') c.gof += 1; else if (fn === 'variant') c.variant += 1; else if (fn === 'normal') c.norm += 1;
         if (g.notable) c.genes.push(g);
       }
     }
     const signal = (c) => c.lof + c.gof + c.variant;
     const maxSig = d3.max([...per.values()], signal) || 1;
+    // Bars: every gene with a call, typical function (green) included, on one scale across the stages
+    const called = (c) => signal(c) + c.norm;
+    const maxCalled = d3.max([...per.values()], called) || 1;
     const hueOf = (c) => c.lof > c.gof ? 'var(--color-bad)' : c.gof > c.lof ? 'var(--gof)' : 'var(--color-fg-muted)';
     const tint = (c) => `color-mix(in srgb, ${hueOf(c)} ${Math.round(18 + 42 * signal(c) / maxSig)}%, var(--color-panel))`;
     const edge = (c) => `color-mix(in srgb, ${hueOf(c)} 75%, var(--color-fg))`;
@@ -1763,10 +1789,10 @@
       }
     }
     }
-    // Bar of a person's calls in an organ: red less active, blue more active, grey a carried trait-linked variant
-    const k = Math.min(6, 96 / maxSig);
+    // Bar of a person's calls in an organ: red less active, blue more active, grey a carried trait-linked variant, green typical
+    const k = Math.min(6, 96 / maxCalled);
     const miniBar = (x, y, anchor, c) => {
-      const parts = [['lof', c.lof], ['gof', c.gof], ['var', c.variant]].filter(([, n]) => n);
+      const parts = [['lof', c.lof], ['gof', c.gof], ['var', c.variant], ['norm', c.norm]].filter(([, n]) => n);
       const w = d3.sum(parts, ([, n]) => n * k) + parts.length - 1;
       let at = anchor === 'start' ? x : anchor === 'end' ? x - w : x - w / 2;
       for (const [cls, n] of parts) {
@@ -1837,6 +1863,9 @@
       thMake(info, 'p', 'gx-note', `▼ less active and ▲ more active are ${who}'s gene calls; ● counts genes where ${who} carries an allele ` +
         `that a GWAS or ClinVar links to one of the theme's conditions. Shading is stronger where more of these gather, red where less-active genes ` +
         `lead and blue where more-active ones do. Select ${cell || exertion ? 'a stage' : 'an organ'} to focus the page on it.`);
+      if (exertion) thMake(info, 'p', 'gx-note', `How to read the list: the number is how many of the stage's genes ${who} carries in a changed form ` +
+        `(red, blue or grey); green are genes ${who} carries in their typical form. A high number means the stage has more places where ` +
+        `${who}'s genes differ from most people's, not that it works better or worse: the colour mix says which way it leans.`);
       // Muscle: what the fibres are built for, from the person's calls on the fibre and aerobic genes
       if (exertion) {
         thMake(info, 'span', 'gx-label', 'Fibre profile');
@@ -1862,11 +1891,11 @@
       for (const c of [...per.values()].sort((a, b) => signal(b) - signal(a) || b.all - a.all)) {
         const b = thMake(list, 'button', 'th-organ-row');
         b.type = 'button';
-        b.setAttribute('aria-label', `${c.o.name}: ${c.lof} less active, ${c.gof} more active, ${c.variant} with a carried variant`);
+        b.setAttribute('aria-label', `${c.o.name}: ${c.lof} less active, ${c.gof} more active, ${c.variant} with a carried variant, ${c.norm} typical function`);
         thMake(b, 'span', 'th-organ-name', c.o.name);
         const bar = thMake(b, 'span', 'th-mini');
-        for (const [cls, n] of [['lof', c.lof], ['gof', c.gof], ['var', c.variant]]) {
-          if (n) thMake(bar, 'span', 'th-mini-' + cls).style.width = `${(100 * n) / maxSig}%`;
+        for (const [cls, n] of [['lof', c.lof], ['gof', c.gof], ['var', c.variant], ['norm', c.norm]]) {
+          if (n) thMake(bar, 'span', 'th-mini-' + cls).style.width = `${(100 * n) / maxCalled}%`;
         }
         thMake(b, 'span', 'th-organ-n', String(signal(c)));
         b.addEventListener('click', () => dash.setParams({ th_organ: c.o.id, th_gene: null }));
@@ -2168,9 +2197,50 @@
         // ClinPGx: levels 1A-2B, and caffeine at any level; a level-3 single study of an unrelated drug says nothing about sport
         const px = (thJ(s.clinpgx) || []).filter((x) => x.effect && (x.level !== '3' || /caffeine/i.test(x.chemicals))).sort((a, b) => a.level.localeCompare(b.level));
         if (px.length) thMake(body, 'div', 'nt-sub', `ClinPGx (level ${px[0].level}), ${px[0].chemicals}: ${who} may ${px[0].effect}` + (px.length > 1 ? `; and ${px.length - 1} more` : ''));
+        if (s.meaning) { const w = thMake(body, 'div', 'th-sport-mean'); thMake(w, 'b', null, `For ${who}:`); thMake(w, 'span', null, ' '); thMake(w, 'span', null, s.meaning); }
         const a = thMake(body, 'a', 'nt-src', s.papers === 1 ? '1 sport or exercise paper (Europe PMC)' : `${s.papers} sport or exercise papers (Europe PMC)`);
         a.href = s.papers_url; a.target = '_blank'; a.rel = 'noopener';
       }
+    }
+  });
+
+  // Fitness theme: what the results mean in practice. Each score in a sentence for the person's band (fitness.json),
+  // then the sport genes that matter in practice for their copies (sport_snps.json). The cards below hold the evidence.
+  const thBand = (p) => p <= 5 ? 'Very low' : p <= 20 ? 'Low' : p < 40 ? 'Below average' : p <= 60 ? 'Average' : p < 80 ? 'Above average' : p < 95 ? 'High' : 'Very high';
+  const thPos = (p) => p > 40 && p <= 60 ? 'middle' : p <= 50 ? `lowest ${Math.max(1, p)}%` : `highest ${Math.max(1, 100 - p)}%`;
+  dash.draw('th-fit-summary', (el) => {
+    const card = el.closest('.gx-card'), on = dash.params().theme === 'muscle';
+    if (card) card.classList.toggle('th-off', !on);
+    if (!on) return;
+    const r = gx.rows('fit_tests', 'sport_snps');
+    if (!r) { if (gx.failed('fit_tests', 'sport_snps')) gx.failLine(el); return; }
+    const [tests, snps] = r;
+    el.replaceChildren();
+    const who = (tests[0] || snps[0] || {}).person || gx.who();
+    thMake(el, 'h2', null, `What it means for ${who}`);
+    thMake(el, 'p', 'gx-note', 'Genes set the starting point; training, food and sleep decide how far you move from it. Each line reads one result in plain words. ' +
+      'The cards below hold the evidence: the training session, the scores and the popular sport genes.');
+    const list = thMake(el, 'div', 'th-mean-list');
+    const row = (tone, title, tag, text) => {
+      const d = thMake(list, 'div', 'th-mean th-mean-' + tone);
+      const h = thMake(d, 'div', 'th-mean-head');
+      thMake(h, 'b', null, title);
+      if (tag) thMake(h, 'span', 'th-mean-tag', tag);
+      thMake(d, 'div', null, text);
+    };
+    for (const t of tests) {
+      for (const m of thJ(t.markers) || []) {
+        if (!m.score || !m.meaning) continue;
+        // Leaning low below the 40th percentile, high above the 60th: the same lines as the band words
+        const p = m.score.percentile, band = p < 40 ? 'low' : p > 60 ? 'high' : 'typical';
+        const tone = band === 'typical' || m.higher === 'neutral' ? 'even' : (band === 'high') === (m.higher === 'better') ? 'good' : 'bad';
+        row(tone, m.name, `${thBand(p)} · ${thPos(p)}`, m.meaning[band]);
+      }
+    }
+    // The genes: those whose copies carry a practical meaning, strongest evidence first; a carrier of a disease variant is flagged
+    const watch = new Set(['rs1800562', 'rs17602729']);
+    for (const s of snps.filter((x) => x.meaning).sort((a, b) => a.grade.localeCompare(b.grade) || a.topic_order - b.topic_order)) {
+      row(watch.has(s.rsid) && s.alt_copies > 0 ? 'watch' : 'even', `${s.gene} ${s.genotype}`, s.topic_name, s.meaning);
     }
   });
 </script>
@@ -3524,7 +3594,7 @@
 
     // One variant: what it changes, the person's copies, and which way it moves the level for them
     const ntVariant = (parent, f, who) => {
-      const d = ntMake(parent, 'div', 'nt-find' + (ntBad(f) === 'bad' ? ' nt-find-bad' : ''));
+      const d = ntMake(parent, 'div', 'nt-find' + (ntBad(f) === 'bad' ? ' nt-find-bad' : ntBad(f) === 'good' ? ' nt-find-good' : ''));
       ntTag(d, f.grade);
       const det = ntJ(f.detail) || {};
       const top = ntMake(d, 'div');
@@ -3596,6 +3666,10 @@
           if (s.bad || s.good) { ntMake(d, 'span', null, ' '); ntMake(d, 'span', s.bad ? 'nt-low' : 'nt-high', s.bad ? 'The unfavourable direction.' : 'The favourable direction.'); }
           const src = m.source;
           ntMake(d, 'div', 'nt-src', [src.source, [src.author, src.year].filter(Boolean).join(' '), src.n ? `n = ${src.n.toLocaleString('en')}` : ''].filter(Boolean).join(' · ')).title = src.sample || src.method || '';
+          // What the score means in practice (fitness.json): below the 40th percentile it leans low, above the 60th high,
+          // the same lines as the band words (Below average, Above average)
+          const pc = m.score.percentile, mean = m.meaning && m.meaning[pc < 40 ? 'low' : pc > 60 ? 'high' : 'typical'];
+          if (mean) { const w = ntMake(d, 'div', 'nt-mean'); ntMake(w, 'b', null, `What it means for ${who}:`); ntMake(w, 'span', null, ' '); ntMake(w, 'span', null, mean); }
         }
       }
 
@@ -3679,8 +3753,28 @@
       if (ob && total > out.length) ntMake(ob, 'div', 'nt-sub', ntT(`${who}'s copies move the level for {} of them. The {} strongest are listed.`, nMoving, out.length));
       else if (ob) ntMake(ob, 'div', 'nt-sub', ntT(nMoving === 1 ? `${who}'s copies move the level for 1 of them; the others are under Show all.`
         : `${who}'s copies move the level for {} of them; the others are under Show all.`, nMoving));
-      const shown = all ? [...moving, ...quiet] : moving.slice(0, 8);
-      for (const f of shown) ntVariant(ob, f, who);
+      // Both sides of the net score, side by side: the variants that work in the person's favour on the left, those
+      // against them on the right (for a value where neither way is better: those that raise it, and those that lower it).
+      // The headings carry the true counts; the score is the net of both columns.
+      const directional = !!(n.moving_good || n.moving_bad);
+      const against = moving.filter((f) => ntBad(f) === 'bad' || (ntBad(f) == null && f.xy === 'lowers'));
+      const favour = moving.filter((f) => !against.includes(f));
+      let shown = [];
+      if (ob && moving.length) {
+        ntMake(ob, 'div', 'nt-balance', 'The score above is the net of both columns, each variant weighted by its effect.');
+        const cols = ntMake(ob, 'div', 'nt-sides');
+        const per = all ? Infinity : 4;
+        for (const [list, good, count] of [[favour, true, directional ? n.moving_good : n.moving_up], [against, false, directional ? n.moving_bad : n.moving_down]]) {
+          const col = ntMake(cols, 'div', 'nt-side ' + (good ? 'nt-side-good' : 'nt-side-bad'));
+          ntMake(col, 'span', 'gx-label', ntT(directional ? (good ? `In ${who}'s favour ({})` : `Against ${who} ({})`) : (good ? 'Raise it ({})' : 'Lower it ({})'),
+            Math.max(count || 0, list.length)));
+          const take = list.slice(0, per);
+          if (!take.length) ntMake(col, 'div', 'nt-sub', 'None among the listed variants.');
+          for (const f of take) ntVariant(col, f, who);
+          shown = shown.concat(take);
+        }
+      }
+      if (all) { for (const f of quiet) ntVariant(ob, f, who); shown = shown.concat(quiet); }
       if (out.length > shown.length || all) {
         const b = ntMake(ob, 'button', 'md-pill', all ? 'Show fewer' : `Show all (${out.length - shown.length} more)`);
         b.type = 'button';

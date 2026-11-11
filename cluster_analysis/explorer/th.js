@@ -608,19 +608,22 @@
           'Select an organ to narrow the mechanisms, connections and gene panel to it.';
     }
 
-    const per = new Map(s.organs.map((o) => [o.id, { o, all: 0, lof: 0, gof: 0, variant: 0, genes: [] }]));
+    const per = new Map(s.organs.map((o) => [o.id, { o, all: 0, lof: 0, gof: 0, norm: 0, variant: 0, genes: [] }]));
     for (const g of s.genes) {
       for (const id of g.ev.organs || []) {
         const c = per.get(id);
         if (!c) continue;
         c.all += 1;
         const fn = thCall(g);
-        if (fn === 'LoF') c.lof += 1; else if (fn === 'GoF') c.gof += 1; else if (fn === 'variant') c.variant += 1;
+        if (fn === 'LoF') c.lof += 1; else if (fn === 'GoF') c.gof += 1; else if (fn === 'variant') c.variant += 1; else if (fn === 'normal') c.norm += 1;
         if (g.notable) c.genes.push(g);
       }
     }
     const signal = (c) => c.lof + c.gof + c.variant;
     const maxSig = d3.max([...per.values()], signal) || 1;
+    // Bars: every gene with a call, typical function (green) included, on one scale across the stages
+    const called = (c) => signal(c) + c.norm;
+    const maxCalled = d3.max([...per.values()], called) || 1;
     const hueOf = (c) => c.lof > c.gof ? 'var(--color-bad)' : c.gof > c.lof ? 'var(--gof)' : 'var(--color-fg-muted)';
     const tint = (c) => `color-mix(in srgb, ${hueOf(c)} ${Math.round(18 + 42 * signal(c) / maxSig)}%, var(--color-panel))`;
     const edge = (c) => `color-mix(in srgb, ${hueOf(c)} 75%, var(--color-fg))`;
@@ -659,10 +662,10 @@
       }
     }
     }
-    // Bar of a person's calls in an organ: red less active, blue more active, grey a carried trait-linked variant
-    const k = Math.min(6, 96 / maxSig);
+    // Bar of a person's calls in an organ: red less active, blue more active, grey a carried trait-linked variant, green typical
+    const k = Math.min(6, 96 / maxCalled);
     const miniBar = (x, y, anchor, c) => {
-      const parts = [['lof', c.lof], ['gof', c.gof], ['var', c.variant]].filter(([, n]) => n);
+      const parts = [['lof', c.lof], ['gof', c.gof], ['var', c.variant], ['norm', c.norm]].filter(([, n]) => n);
       const w = d3.sum(parts, ([, n]) => n * k) + parts.length - 1;
       let at = anchor === 'start' ? x : anchor === 'end' ? x - w : x - w / 2;
       for (const [cls, n] of parts) {
@@ -733,6 +736,9 @@
       thMake(info, 'p', 'gx-note', `▼ less active and ▲ more active are ${who}'s gene calls; ● counts genes where ${who} carries an allele ` +
         `that a GWAS or ClinVar links to one of the theme's conditions. Shading is stronger where more of these gather, red where less-active genes ` +
         `lead and blue where more-active ones do. Select ${cell || exertion ? 'a stage' : 'an organ'} to focus the page on it.`);
+      if (exertion) thMake(info, 'p', 'gx-note', `How to read the list: the number is how many of the stage's genes ${who} carries in a changed form ` +
+        `(red, blue or grey); green are genes ${who} carries in their typical form. A high number means the stage has more places where ` +
+        `${who}'s genes differ from most people's, not that it works better or worse: the colour mix says which way it leans.`);
       // Muscle: what the fibres are built for, from the person's calls on the fibre and aerobic genes
       if (exertion) {
         thMake(info, 'span', 'gx-label', 'Fibre profile');
@@ -758,11 +764,11 @@
       for (const c of [...per.values()].sort((a, b) => signal(b) - signal(a) || b.all - a.all)) {
         const b = thMake(list, 'button', 'th-organ-row');
         b.type = 'button';
-        b.setAttribute('aria-label', `${c.o.name}: ${c.lof} less active, ${c.gof} more active, ${c.variant} with a carried variant`);
+        b.setAttribute('aria-label', `${c.o.name}: ${c.lof} less active, ${c.gof} more active, ${c.variant} with a carried variant, ${c.norm} typical function`);
         thMake(b, 'span', 'th-organ-name', c.o.name);
         const bar = thMake(b, 'span', 'th-mini');
-        for (const [cls, n] of [['lof', c.lof], ['gof', c.gof], ['var', c.variant]]) {
-          if (n) thMake(bar, 'span', 'th-mini-' + cls).style.width = `${(100 * n) / maxSig}%`;
+        for (const [cls, n] of [['lof', c.lof], ['gof', c.gof], ['var', c.variant], ['norm', c.norm]]) {
+          if (n) thMake(bar, 'span', 'th-mini-' + cls).style.width = `${(100 * n) / maxCalled}%`;
         }
         thMake(b, 'span', 'th-organ-n', String(signal(c)));
         b.addEventListener('click', () => dash.setParams({ th_organ: c.o.id, th_gene: null }));
@@ -1064,8 +1070,49 @@
         // ClinPGx: levels 1A-2B, and caffeine at any level; a level-3 single study of an unrelated drug says nothing about sport
         const px = (thJ(s.clinpgx) || []).filter((x) => x.effect && (x.level !== '3' || /caffeine/i.test(x.chemicals))).sort((a, b) => a.level.localeCompare(b.level));
         if (px.length) thMake(body, 'div', 'nt-sub', `ClinPGx (level ${px[0].level}), ${px[0].chemicals}: ${who} may ${px[0].effect}` + (px.length > 1 ? `; and ${px.length - 1} more` : ''));
+        if (s.meaning) { const w = thMake(body, 'div', 'th-sport-mean'); thMake(w, 'b', null, `For ${who}:`); thMake(w, 'span', null, ' '); thMake(w, 'span', null, s.meaning); }
         const a = thMake(body, 'a', 'nt-src', s.papers === 1 ? '1 sport or exercise paper (Europe PMC)' : `${s.papers} sport or exercise papers (Europe PMC)`);
         a.href = s.papers_url; a.target = '_blank'; a.rel = 'noopener';
       }
+    }
+  });
+
+  // Fitness theme: what the results mean in practice. Each score in a sentence for the person's band (fitness.json),
+  // then the sport genes that matter in practice for their copies (sport_snps.json). The cards below hold the evidence.
+  const thBand = (p) => p <= 5 ? 'Very low' : p <= 20 ? 'Low' : p < 40 ? 'Below average' : p <= 60 ? 'Average' : p < 80 ? 'Above average' : p < 95 ? 'High' : 'Very high';
+  const thPos = (p) => p > 40 && p <= 60 ? 'middle' : p <= 50 ? `lowest ${Math.max(1, p)}%` : `highest ${Math.max(1, 100 - p)}%`;
+  dash.draw('th-fit-summary', (el) => {
+    const card = el.closest('.gx-card'), on = dash.params().theme === 'muscle';
+    if (card) card.classList.toggle('th-off', !on);
+    if (!on) return;
+    const r = gx.rows('fit_tests', 'sport_snps');
+    if (!r) { if (gx.failed('fit_tests', 'sport_snps')) gx.failLine(el); return; }
+    const [tests, snps] = r;
+    el.replaceChildren();
+    const who = (tests[0] || snps[0] || {}).person || gx.who();
+    thMake(el, 'h2', null, `What it means for ${who}`);
+    thMake(el, 'p', 'gx-note', 'Genes set the starting point; training, food and sleep decide how far you move from it. Each line reads one result in plain words. ' +
+      'The cards below hold the evidence: the training session, the scores and the popular sport genes.');
+    const list = thMake(el, 'div', 'th-mean-list');
+    const row = (tone, title, tag, text) => {
+      const d = thMake(list, 'div', 'th-mean th-mean-' + tone);
+      const h = thMake(d, 'div', 'th-mean-head');
+      thMake(h, 'b', null, title);
+      if (tag) thMake(h, 'span', 'th-mean-tag', tag);
+      thMake(d, 'div', null, text);
+    };
+    for (const t of tests) {
+      for (const m of thJ(t.markers) || []) {
+        if (!m.score || !m.meaning) continue;
+        // Leaning low below the 40th percentile, high above the 60th: the same lines as the band words
+        const p = m.score.percentile, band = p < 40 ? 'low' : p > 60 ? 'high' : 'typical';
+        const tone = band === 'typical' || m.higher === 'neutral' ? 'even' : (band === 'high') === (m.higher === 'better') ? 'good' : 'bad';
+        row(tone, m.name, `${thBand(p)} · ${thPos(p)}`, m.meaning[band]);
+      }
+    }
+    // The genes: those whose copies carry a practical meaning, strongest evidence first; a carrier of a disease variant is flagged
+    const watch = new Set(['rs1800562', 'rs17602729']);
+    for (const s of snps.filter((x) => x.meaning).sort((a, b) => a.grade.localeCompare(b.grade) || a.topic_order - b.topic_order)) {
+      row(watch.has(s.rsid) && s.alt_copies > 0 ? 'watch' : 'even', `${s.gene} ${s.genotype}`, s.topic_name, s.meaning);
     }
   });

@@ -70,15 +70,20 @@ def gwas(rsid):
     return sorted(best.values(), key=lambda x: x["p"]), pubs
 
 
-def copies(gt, allele):
-    """Copies of an allele in a genotype, on either strand; None when it can't be placed."""
-    if not gt or len(gt) != 2 or not allele:
+def copies(gt, allele, alleles):
+    """Copies of an allele in a genotype; None when it can't be placed. alleles: the variant's forward-strand alleles
+    (Ensembl). The genotype is read on the strand its own letters fit: on a C/G or A/T SNP both strands fit, so only
+    the forward strand is used and a C is never read as a flipped G."""
+    if not gt or len(gt) != 2 or not allele or not set(gt) <= set("ACGT"):
         return None
-    if allele in gt:
-        return gt.count(allele)
-    if allele.translate(FLIP) in gt:
-        return gt.count(allele.translate(FLIP))
-    return 0 if set(gt) <= set("ACGT") else None
+    fwd = set(alleles or [])
+    if not fwd or set(gt) <= fwd:
+        a = allele if allele in fwd or not fwd else allele.translate(FLIP) if allele.translate(FLIP) in fwd else None
+        return gt.count(a) if a else None
+    flipped = {x.translate(FLIP) for x in fwd}
+    if set(gt) <= flipped:
+        return gt.count(allele.translate(FLIP)) if allele in fwd else gt.count(allele) if allele in flipped else None
+    return None
 
 
 def build(dna):
@@ -129,14 +134,16 @@ def build(dna):
         rows.append({
             "gene": gene, "rsid": rs, "topic": s["topic"], "grade": grade,
             "genotype": gt, "confidence": tier,
-            "ref": ref, "alt": alt, "alt_copies": copies(gt, alt) if tier in ("measured", "high", "medium") else None,
+            "ref": ref, "alt": alt, "alt_copies": copies(gt, alt, v.get("alleles")) if tier in ("measured", "high", "medium") else None,
             "eur_af": round(eur[alt], 3) if alt in eur else None,
             "consequence": worst(cons),
             "amino_acids": (v.get("allele_amino_acids") or {}).get(alt),
-            "gwas": json.dumps([{**a, "copies": copies(gt, a["allele"])} for a in assoc[:6]], ensure_ascii=False),
+            "gwas": json.dumps([{**a, "copies": copies(gt, a["allele"], v.get("alleles"))} for a in assoc[:6]], ensure_ascii=False),
             "gwas_traits": len(assoc), "gwas_pubs": len(pubs),
             "clinvar": json.dumps(cv, ensure_ascii=False), "clinpgx": json.dumps(px, ensure_ascii=False),
             "papers": n_papers,
+            # What the person's copies mean in practice (sport_snps.json), where the list gives it
+            "meaning": (s.get("meaning") or {}).get(str(copies(gt, alt, v.get("alleles")))) if tier in ("measured", "high", "medium") else None,
             "papers_url": "https://europepmc.org/search?query=" + urllib.parse.quote(f'"{rs}" AND {SPORT}'),
         })
     topics = {t["id"]: t for t in cfg["topics"]}

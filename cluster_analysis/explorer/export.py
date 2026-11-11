@@ -237,11 +237,13 @@ def _bad(f):
 def trim_findings(tests, findings):
     """Lab tests read thousands of GWAS variants each (LDL alone has over 2,000 per person) while the tab lists the
     strongest. Kept in full: variants at a pathway step, in a gene the test's notes name, and ClinVar/ClinPGx findings.
-    Of the other GWAS variants, per person and test the KEEP_MOVING strongest where the person's copies move the value
-    and the KEEP_QUIET strongest where they don't. Each test row gets the true counts: variants (distinct variant and
-    kind outside the steps) and moving (of those, where the person's copies move the value)."""
+    Of the other GWAS variants, per person and test the KEEP_MOVING strongest where the person's copies move the value,
+    half from each side (the favourable and the unfavourable way, or up and down for a neutral value) so the list shows
+    both sides of the net score, and the KEEP_QUIET strongest where they don't. Each test row gets the true counts:
+    variants (distinct variant and kind outside the steps), moving (of those, where the person's copies move the
+    value), and of the moving ones good/bad (favourable/unfavourable) and up/down (raise/lower the value)."""
     notes = {(t.get("person"), t["id"]): {n["gene"] for n in json.loads(t.get("notes") or "[]")} for t in tests}
-    rank = lambda f: (not _bad(f), GRADES.index(f["grade"]) if f.get("grade") in GRADES else 9, -abs(f.get("shift") or 0))
+    rank = lambda f: (GRADES.index(f["grade"]) if f.get("grade") in GRADES else 9, -abs(f.get("shift") or 0))
     groups = {}
     for f in findings:
         groups.setdefault((f.get("person"), f["nutrient"]), []).append(f)
@@ -254,11 +256,19 @@ def trim_findings(tests, findings):
         rest = [f for f in fs if id(f) not in kept_ids]
         moving = sorted((f for f in rest if f.get("xy") and f["xy"] != "typical"), key=rank)
         quiet = sorted((f for f in rest if not (f.get("xy") and f["xy"] != "typical")), key=rank)
-        kept += keep + moving[:KEEP_MOVING] + quiet[:KEEP_QUIET]
+        # Both sides: half the places to each, a side short of its half leaving the rest to the other
+        side = lambda f: _bad(f) if f.get("higher") != "neutral" else f["xy"] == "lowers"
+        a, b = [f for f in moving if side(f)], [f for f in moving if not side(f)]
+        na = min(len(a), max(KEEP_MOVING // 2, KEEP_MOVING - len(b)))
+        kept += keep + a[:na] + b[:KEEP_MOVING - na] + quiet[:KEEP_QUIET]
         outside = {(f["rsid"], f.get("kind")): f for f in fs if not f.get("step_gene")}
-        counts[key] = (len(outside), sum(1 for f in outside.values() if f.get("xy") and f["xy"] != "typical"))
+        mv = [f for f in outside.values() if f.get("xy") and f["xy"] != "typical"]
+        counts[key] = (len(outside), len(mv), sum(1 for f in mv if _bad(f)),
+                       sum(1 for f in mv if f["xy"] != "carried" and f.get("higher") != "neutral" and not _bad(f)),
+                       sum(1 for f in mv if f["xy"] == "raises"), sum(1 for f in mv if f["xy"] == "lowers"))
     for t in tests:
-        t["variants"], t["moving"] = counts.get((t.get("person"), t["id"]), (0, 0))
+        (t["variants"], t["moving"], t["moving_bad"], t["moving_good"],
+         t["moving_up"], t["moving_down"]) = counts.get((t.get("person"), t["id"]), (0, 0, 0, 0, 0, 0))
     return tests, kept
 
 
