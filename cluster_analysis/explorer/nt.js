@@ -236,6 +236,9 @@
           if (s.bad || s.good) { ntMake(d, 'span', null, ' '); ntMake(d, 'span', s.bad ? 'nt-low' : 'nt-high', s.bad ? 'The unfavourable direction.' : 'The favourable direction.'); }
           const src = m.source;
           ntMake(d, 'div', 'nt-src', [src.source, [src.author, src.year].filter(Boolean).join(' '), src.n ? `n = ${src.n.toLocaleString('en')}` : ''].filter(Boolean).join(' · ')).title = src.sample || src.method || '';
+          // A genome-wide score: its method and the reference it is placed against
+          if (src.kind === 'pgs_ref') ntMake(d, 'div', 'nt-src', ntT('{}, {} variants, placed by rank among {} Europeans in 1000 Genomes scored on the same variants',
+            src.method, (src.variants || 0).toLocaleString('en'), src.reference));
           // What the score means in practice (fitness.json): below the 40th percentile it leans low, above the 60th high,
           // the same lines as the band words (Below average, Above average)
           const pc = m.score.percentile, mean = m.meaning && m.meaning[pc < 40 ? 'low' : pc > 60 ? 'high' : 'typical'];

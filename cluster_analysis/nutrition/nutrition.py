@@ -375,7 +375,19 @@ def build(dna, sex, age, activity, config=CONFIG):
         for m in n["markers"]:
             rows = [r for r in gwas if r["trait"] in m["traits"]]
             # The score
-            if m.get("pgs"):
+            if m.get("pgs_ref"):
+                # A genome-wide score (LDpred2 and the like: correlated variants), placed by rank among the 1000 Genomes
+                # European founders scored on the same variants (genome/pgs_reference.py)
+                from genome import pgs_reference
+                sc = pgs_reference.score(m["pgs_ref"], dna)
+                names = nearest_genes({(t["chrom"], t["pos"]) for t in sc["top"]})
+                for t in sc["top"]:
+                    t["gene"] = names.get((t["chrom"], t["pos"]), "")
+                mt = pgs_reference.meta(m["pgs_ref"])
+                info = {"source": f"PGS Catalog {mt['id']}", "id": mt["id"], "author": mt["author"], "year": mt["year"],
+                        "pmid": mt["pmid"], "n": mt["n"], "method": mt["method"], "variants": mt["variants"], "kind": "pgs_ref",
+                        "reference": sc["reference"]}
+            elif m.get("pgs"):
                 prow, info = pgs[m["pgs"]]
                 variants = []
                 for r in prow:

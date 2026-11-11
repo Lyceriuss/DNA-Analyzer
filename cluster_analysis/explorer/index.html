@@ -787,8 +787,9 @@
       <div class="th-body" data-draw="th-body" data-source="theme_meta theme_genes"></div>
     </div>
     <div class="gx-card th-off" id="fit-overview">
-      <p class="gx-note">Polygenic scores: for each measure, the genome-wide significant lead variants of one large GWAS, each weighted by its
-        effect and placed against 1000 Genomes Europeans. They show the genes' share of the starting point, not what training can build on it.</p>
+      <p class="gx-note">Polygenic scores. Grip strength and lean body mass use genome-wide scores from the PGS Catalog (about a million variants
+        each), placed by rank among 525 Europeans in 1000 Genomes scored on the same variants. The other measures use the genome-wide significant
+        lead variants of one large GWAS. They show the genes' share of the starting point, not what training can build on it.</p>
       <div class="nt-overview" data-draw="fit-overview" data-source="fit_tests fit_steps"></div>
     </div>
     <div class="gx-card th-off" id="fit-detail">
@@ -3666,6 +3667,9 @@
           if (s.bad || s.good) { ntMake(d, 'span', null, ' '); ntMake(d, 'span', s.bad ? 'nt-low' : 'nt-high', s.bad ? 'The unfavourable direction.' : 'The favourable direction.'); }
           const src = m.source;
           ntMake(d, 'div', 'nt-src', [src.source, [src.author, src.year].filter(Boolean).join(' '), src.n ? `n = ${src.n.toLocaleString('en')}` : ''].filter(Boolean).join(' · ')).title = src.sample || src.method || '';
+          // A genome-wide score: its method and the reference it is placed against
+          if (src.kind === 'pgs_ref') ntMake(d, 'div', 'nt-src', ntT('{}, {} variants, placed by rank among {} Europeans in 1000 Genomes scored on the same variants',
+            src.method, (src.variants || 0).toLocaleString('en'), src.reference));
           // What the score means in practice (fitness.json): below the 40th percentile it leans low, above the 60th high,
           // the same lines as the band words (Below average, Above average)
           const pc = m.score.percentile, mean = m.meaning && m.meaning[pc < 40 ? 'low' : pc > 60 ? 'high' : 'typical'];

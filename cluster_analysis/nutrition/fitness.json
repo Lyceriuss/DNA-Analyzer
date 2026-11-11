@@ -1,5 +1,5 @@
 {
-  "about": "The Fitness theme's genetic scores, read by nutrition.py --config fitness.json --prefix fit: per measure the GWAS Catalog traits (EFO) of its markers, Reactome pathways for the mechanism, the ClinVar conditions that count, and how it is measured. Each score is the genome-wide significant lead variants of one large GWAS, placed against 1000 Genomes Europeans. higher: whether a higher value is the good direction ('better', 'worse' or 'neutral'). meaning: what a low (20th percentile or below), typical or high (80th or above) score means in practice.",
+  "about": "The Fitness theme's genetic scores, read by nutrition.py --config fitness.json --prefix fit: per measure the GWAS Catalog traits (EFO) of its markers, Reactome pathways for the mechanism, the ClinVar conditions that count, and how it is measured. pgs_ref: a genome-wide PGS Catalog score placed by rank among the 1000 Genomes European founders (genome/pgs_reference.py); without it the score is the genome-wide significant lead variants of one large GWAS, placed against 1000 Genomes Europeans. higher: whether a higher value is the good direction ('better', 'worse' or 'neutral'). meaning: what a low (below the 40th percentile), typical or high (above the 60th) score means in practice.",
   "tests": [
     {
       "id": "strength",
@@ -8,7 +8,7 @@
       "group": "Strength and mass",
       "reactome": ["R-HSA-390522"],
       "markers": [
-        {"id": "grip", "name": "Grip strength", "traits": ["EFO_0006941"], "higher": "better",
+        {"id": "grip", "name": "Grip strength", "traits": ["EFO_0006941"], "higher": "better", "pgs_ref": "PGS002143",
          "meaning": {
            "low": "The genes start you on the weaker side. Strength responds to training from any starting point: heavy compound lifts two to three times a week close much of the gap.",
            "typical": "The genes put your starting strength near the middle. Training, protein and sleep decide where you end up.",
@@ -29,7 +29,7 @@
            "low": "The genes lean toward less muscle in the arms and legs. It builds the same way as for anyone, with progressive resistance training and protein spread over the day; it may take longer to show.",
            "typical": "The genes put your arm and leg muscle near the middle. Resistance training and protein decide the rest.",
            "high": "The genes lean toward more muscle in the arms and legs: you likely carry and keep muscle easily, which protects strength with age."}},
-        {"id": "lbm", "name": "Lean body mass", "traits": ["EFO_0004995"], "higher": "better",
+        {"id": "lbm", "name": "Lean body mass", "traits": ["EFO_0004995"], "higher": "better", "pgs_ref": "PGS002168",
          "meaning": {
            "low": "The genes lean toward less lean mass overall: muscle, organs and bone. Resistance training and enough protein matter more for you than for most.",
            "typical": "The genes put your overall lean mass near the middle.",

@@ -1174,7 +1174,6 @@
 "How it works in the body (Reactome)": "Hur det fungerar i kroppen (Reactome)",
 "{}'s genes set these the unfavourable way. Select one to see which genes act and how:": "{}:s gener drar dessa åt det ogynnsamma hållet. Välj en för att se vilka gener som verkar och hur:",
 "Measured with: {}": "Mäts med: {}",
-"Polygenic scores: for each measure, the genome-wide significant lead variants of one large GWAS, each weighted by its effect and placed against 1000 Genomes Europeans. They show the genes' share of the starting point, not what training can build on it.": "Polygena poäng: för varje mått de genomvida signifikanta ledvarianterna från en stor GWAS, var och en viktad efter sin effekt och jämförd med européer i 1000 Genomes. De visar genernas del av utgångsläget, inte vad träning kan bygga på det.",
 "Strength": "Styrka",
 "Muscle mass": "Muskelmassa",
 "Heart response to exercise": "Hjärtats svar på träning",
@@ -1287,5 +1286,7 @@
 "Against {} ({})": "Emot {} ({})",
 "Raise it ({})": "Höjer ({})",
 "Lower it ({})": "Sänker ({})",
-"None among the listed variants.": "Inga bland de listade varianterna."
+"None among the listed variants.": "Inga bland de listade varianterna.",
+"Polygenic scores. Grip strength and lean body mass use genome-wide scores from the PGS Catalog (about a million variants each), placed by rank among 525 Europeans in 1000 Genomes scored on the same variants. The other measures use the genome-wide significant lead variants of one large GWAS. They show the genes' share of the starting point, not what training can build on it.": "Polygena poäng. Greppstyrka och fettfri kroppsmassa använder genomvida poäng från PGS Catalog (ungefär en miljon varianter vardera), placerade efter rang bland 525 européer i 1000 Genomes som poängsatts på samma varianter. Övriga mått använder de genomvida signifikanta ledvarianterna från en stor GWAS. De visar genernas del av utgångsläget, inte vad träning kan bygga på det.",
+"{}, {} variants, placed by rank among {} Europeans in 1000 Genomes scored on the same variants": "{}, {} varianter, placerad efter rang bland {} européer i 1000 Genomes som poängsatts på samma varianter"
 }
