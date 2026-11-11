@@ -129,3 +129,10 @@
   .th-imp { display: inline-block; margin: 0 6px 0 0; padding: 0 6px; border-radius: 8px; font-size: 11px; border: 1px dashed var(--color-fg-muted); color: var(--color-fg-muted); }
   .th-imp-medium { border-color: var(--color-warn, #b8860b); color: var(--color-warn, #b8860b); }
   .th-b-untested { background: var(--color-fg-muted); opacity: 0.35; }
+/* Muscle theme: the popular sport genes */
+.th-sport-topic { margin: 18px 0 6px; font-size: 14px; }
+.th-sport-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 360px), 1fr)); gap: 8px 18px; }
+.th-sport-row { display: grid; grid-template-columns: 28px 1fr; gap: 8px; align-items: start; padding: 8px 0; border-top: 1px solid var(--color-border-line); font-size: 13px; line-height: 1.45; }
+.th-sport-row .md-grade { margin-top: 2px; }
+.th-sport-row .nt-src { display: inline-block; margin-top: 2px; font-size: 12px; }
+.th-off { display: none; }

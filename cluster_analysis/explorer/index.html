@@ -560,6 +560,13 @@
   .th-imp { display: inline-block; margin: 0 6px 0 0; padding: 0 6px; border-radius: 8px; font-size: 11px; border: 1px dashed var(--color-fg-muted); color: var(--color-fg-muted); }
   .th-imp-medium { border-color: var(--color-warn, #b8860b); color: var(--color-warn, #b8860b); }
   .th-b-untested { background: var(--color-fg-muted); opacity: 0.35; }
+/* Muscle theme: the popular sport genes */
+.th-sport-topic { margin: 18px 0 6px; font-size: 14px; }
+.th-sport-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 360px), 1fr)); gap: 8px 18px; }
+.th-sport-row { display: grid; grid-template-columns: 28px 1fr; gap: 8px; align-items: start; padding: 8px 0; border-top: 1px solid var(--color-border-line); font-size: 13px; line-height: 1.45; }
+.th-sport-row .md-grade { margin-top: 2px; }
+.th-sport-row .nt-src { display: inline-block; margin-top: 2px; font-size: 12px; }
+.th-off { display: none; }
   .md-summary p { margin: 0 0 var(--cds-gap-sm); }
   .md-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: var(--cds-gap-sm); }
   .md-pill { border: 1px solid var(--color-border-line); background: transparent; color: var(--color-fg); border-radius: 12px;
@@ -755,6 +762,17 @@
       <p class="gx-note">Where in the body the theme's genes act. Each gene is placed by its mechanisms and the conditions it is linked to.
         Select an organ to narrow the mechanisms, connections and gene panel to it.</p>
       <div class="th-body" data-draw="th-body" data-source="theme_meta theme_genes"></div>
+    </div>
+    <div class="gx-card th-off" id="fit-overview">
+      <p class="gx-note">Polygenic scores: for each measure, the genome-wide significant lead variants of one large GWAS, each weighted by its
+        effect and placed against 1000 Genomes Europeans. They show the genes' share of the starting point, not what training can build on it.</p>
+      <div class="nt-overview" data-draw="fit-overview" data-source="fit_tests fit_steps"></div>
+    </div>
+    <div class="gx-card th-off" id="fit-detail">
+      <div class="nt-detail" data-draw="fit-detail" data-source="fit_tests fit_findings fit_steps"></div>
+    </div>
+    <div class="gx-card th-off" id="fit-sport">
+      <div data-draw="th-sport" data-source="sport_snps"></div>
     </div>
     <div class="gx-card" id="theme-facets">
       <div class="lc-flow-head">
@@ -2081,6 +2099,80 @@
       table(sorted.slice(30), det);
     }
   });
+
+  // Muscle theme: the SNPs consumer fitness tests report, grouped by topic, each with its evidence grade (from the GWAS
+  // Catalog, ClinVar and ClinPGx), what it changes (Ensembl VEP), the person's copies, and how many sport papers name it
+  const SPORT_GRADE = { A: 'replicated in genome-wide studies, ClinVar, or ClinPGx level 1–2', B: 'one genome-wide study, or a change that cuts the protein short',
+                        C: 'candidate-gene studies only: no genome-wide study, ClinVar or ClinPGx finding' };
+  const SPORT_CHANGE = { stop_gained: 'Stops the protein early', frameshift_variant: 'Shifts the protein\'s reading frame', missense_variant: 'Changes one amino acid',
+    synonymous_variant: 'Same amino acid: a silent change', '5_prime_UTR_variant': 'In the start of the gene\'s message, before the protein',
+    '3_prime_UTR_variant': 'In the end of the gene\'s message, after the protein', intron_variant: 'Inside an intron, between the protein-coding parts',
+    downstream_gene_variant: 'Just after the gene', upstream_gene_variant: 'Just before the gene', NMD_transcript_variant: 'In the gene',
+    splice_region_variant: 'Near a splice site' };
+  const thJ = (s) => { try { return s ? JSON.parse(s) : null; } catch (e) { return null; } };
+  dash.draw('th-sport', (el) => {
+    const card = el.closest('.gx-card');
+    if (card) card.classList.toggle('th-off', dash.params().theme !== 'muscle');
+    if (dash.params().theme !== 'muscle') return;
+    const r = gx.rows('sport_snps');
+    if (!r) { if (gx.failed('sport_snps')) gx.failLine(el); return; }
+    const [rows] = r;
+    el.replaceChildren();
+    if (!rows.length) return;
+    const who = rows[0].person || gx.who();
+    thMake(el, 'h2', null, 'The popular sport genes');
+    const n = (g) => rows.filter((x) => x.grade === g).length;
+    thMake(el, 'p', 'gx-note', `The ${rows.length} SNPs that consumer fitness DNA tests report. Most come from small candidate-gene studies of athletes; ` +
+      `the grade says what larger sources back: ${n('A')} have replicated genome-wide or clinical evidence (A), ${n('B')} some (B), and ${n('C')} rest on ` +
+      `candidate-gene studies alone (C). The genome-wide traits are what each variant is proven to move, which is often not what the tests sell it for.`);
+    const topics = [...new Map(rows.map((x) => [x.topic, x])).values()].sort((a, b) => a.topic_order - b.topic_order);
+    for (const t of topics) {
+      thMake(el, 'h3', 'th-sport-topic', t.topic_name);
+      const list = thMake(el, 'div', 'th-sport-list');
+      for (const s of rows.filter((x) => x.topic === t.topic).sort((a, b) => a.grade.localeCompare(b.grade))) {
+        const row = thMake(list, 'div', 'th-sport-row');
+        const g = thMake(row, 'span', 'md-grade md-grade-' + s.grade.toLowerCase(), s.grade);
+        g.title = `Evidence grade ${s.grade}: ${SPORT_GRADE[s.grade]}`;
+        const body = thMake(row, 'div');
+        const top = thMake(body, 'div');
+        const gb = thMake(top, 'button', 'lc-link', s.gene);
+        gb.type = 'button'; gb.addEventListener('click', () => thPick(s.gene));
+        thMake(top, 'span', 'nt-sub', ` · ${s.rsid} · ${who}: ${s.genotype || 'not read'}`);
+        if (s.confidence === 'high' || s.confidence === 'medium') thMake(top, 'span', 'th-imp th-imp-' + s.confidence, `imputed, ${s.confidence} confidence`);
+        // One sentence per text node, so each translates on its own
+        const what = thMake(body, 'div');
+        thMake(what, 'span', null, SPORT_CHANGE[s.consequence] || 'Near the gene');
+        if (s.amino_acids) thMake(what, 'span', null, ` (${s.amino_acids.replace('/', ' → ').replace('*', 'stop')})`);
+        thMake(what, 'span', null, '. ');
+        if (s.eur_af != null) thMake(what, 'span', null, `The ${s.alt} allele is carried by ${Math.round(100 * s.eur_af)}% of European chromosomes.`);
+        const carries = s.confidence === 'not_excluded' ? `${who}: not detected, but too rare to rule out.`
+          : s.alt_copies == null ? '' : s.alt_copies === 0 ? `${who} does not carry it.` : s.alt_copies === 1 ? `${who} carries one copy.` : `${who} carries two copies.`;
+        if (carries) { thMake(what, 'span', null, ' '); thMake(what, 'span', null, carries); }
+        const gw = thJ(s.gwas) || [];
+        if (gw.length) {
+          // Each trait its own node: the trait names translate through the terms dictionary
+          const p = thMake(body, 'div', 'nt-sub');
+          thMake(p, 'span', null, s.gwas_pubs === 1 ? 'Genome-wide, 1 publication:' : `Genome-wide, ${s.gwas_pubs} publications:`);
+          gw.slice(0, 3).forEach((a, i) => {
+            thMake(p, 'span', null, i ? '; ' : ' ');
+            thMake(p, 'span', null, a.trait);
+            if (a.allele) thMake(p, 'span', null, a.copies != null ? ` (${a.allele}, ${who} ×${a.copies})` : ` (${a.allele})`);
+          });
+          if (s.gwas_traits > 3) thMake(p, 'span', null, `; and ${s.gwas_traits - 3} more traits`);
+        }
+        for (const c of thJ(s.clinvar) || []) {
+          // ClinVar joins every submitted condition with |: the first three, and how many more
+          const conds = [...new Set(c.condition.replace(/_/g, ' ').split('|').map((x) => x.trim()).filter((x) => x && !/^not (provided|specified)$/i.test(x)))];
+          thMake(body, 'div', 'nt-low', `ClinVar: ${c.significance.replace(/_/g, ' ').split('|')[0]}, ${conds.slice(0, 3).join('; ')}` + (conds.length > 3 ? `; and ${conds.length - 3} more` : ''));
+        }
+        // ClinPGx: levels 1A-2B, and caffeine at any level; a level-3 single study of an unrelated drug says nothing about sport
+        const px = (thJ(s.clinpgx) || []).filter((x) => x.effect && (x.level !== '3' || /caffeine/i.test(x.chemicals))).sort((a, b) => a.level.localeCompare(b.level));
+        if (px.length) thMake(body, 'div', 'nt-sub', `ClinPGx (level ${px[0].level}), ${px[0].chemicals}: ${who} may ${px[0].effect}` + (px.length > 1 ? `; and ${px.length - 1} more` : ''));
+        const a = thMake(body, 'a', 'nt-src', s.papers === 1 ? '1 sport or exercise paper (Europe PMC)' : `${s.papers} sport or exercise papers (Europe PMC)`);
+        a.href = s.papers_url; a.target = '_blank'; a.rel = 'noopener';
+      }
+    }
+  });
 </script>
 
 <script>
@@ -3393,7 +3485,10 @@
   let all = false;
     const pick = (n) => { all = false; dash.setParams({ [K.param]: n.id }); };
 
+    // K.only: the cards show only while it holds (the fitness scores sit in the Clusters page under the muscle theme)
+    const off = (el) => { const c = el.closest('.gx-card'), o = !!K.only && !K.only(); if (c) c.classList.toggle('th-off', o); return o; };
     dash.draw(K.over, (el) => {
+      if (off(el)) return;
       const r = gx.rows(K.main, K.steps);
       if (!r) { if (gx.failed(K.main, K.steps)) gx.failLine(el); return; }
       const [rows, steps] = r;
@@ -3455,6 +3550,7 @@
     };
 
     dash.draw(K.detail, (el) => {
+      if (off(el)) return;
       const r = gx.rows(K.main, K.finds, K.steps);
       if (!r) { if (gx.failed(K.main, K.finds, K.steps)) gx.failLine(el); return; }
       const [rows, finds, steps] = r;
@@ -3488,7 +3584,7 @@
       const markers = (ntJ(n.markers) || []).filter((m) => m.score);
       if (markers.length) {
         const box = ntMake(el, 'div', 'nt-block');
-        ntMake(box, 'span', 'gx-label', 'Net effect on the blood level');
+        ntMake(box, 'span', 'gx-label', K.measured ? 'Net effect on the measure' : 'Net effect on the blood level');
         for (const m of markers) {
           const d = ntMake(box, 'div', 'nt-marker');
           ntMake(d, 'b', null, m.name);
@@ -3573,8 +3669,9 @@
       // Lab tests carry only the strongest of thousands of variants (export_dashboard.trim_findings): the true counts are
       // on the test row
       const total = Math.max(n.variants || 0, out.length);
-      if (ob) ntMake(ob, 'span', 'gx-label', ntT(st.length ? 'Outside the conversion steps ({})' : 'Variants found ({})', total));
-      if (ob && st.length) ntMake(ob, 'div', 'nt-sub', 'Genes that move the blood level without being part of these steps: transport in the blood, other pathways, or a gene not yet known.');
+      if (ob) ntMake(ob, 'span', 'gx-label', ntT(st.length ? (K.measured ? 'Outside these steps ({})' : 'Outside the conversion steps ({})') : 'Variants found ({})', total));
+      if (ob && st.length) ntMake(ob, 'div', 'nt-sub', K.measured ? 'Genes that move the measure without being part of these steps: other pathways, or a gene whose role is not yet known.'
+        : 'Genes that move the blood level without being part of these steps: transport in the blood, other pathways, or a gene not yet known.');
       // Lead with the variants whose copies move the person's level (or that they carry, ClinVar); the ones where they
       // have the usual copies come after, under Show all
       const moving = out.filter((f) => f.xy && f.xy !== 'typical'), quiet = out.filter((f) => !(f.xy && f.xy !== 'typical'));
@@ -3592,7 +3689,7 @@
 
       if (n.test) {
         const tb = ntMake(el, 'div', 'nt-block nt-sub');
-        ntMake(tb, 'span', null, `Blood test: ${n.test}`);
+        ntMake(tb, 'span', null, K.measured ? `Measured with: ${n.test}` : `Blood test: ${n.test}`);
       }
     });
   };
@@ -3602,6 +3699,10 @@
   ntTab({ over: 'lb-overview', detail: 'lb-detail', card: 'lb-detail', main: 'lab_tests', finds: 'lab_findings', steps: 'lab_steps',
     param: 'lb_n', title: (who) => `${who}'s lab tests`, how: 'How it is made and regulated (Reactome)',
     low: (who) => `${who}'s genes move these lab values the unfavourable way. Select one to see which genes act and how:` });
+  ntTab({ over: 'fit-overview', detail: 'fit-detail', card: 'fit-detail', main: 'fit_tests', finds: 'fit_findings', steps: 'fit_steps',
+    param: 'fit_n', title: (who) => `${who}'s strength and fitness scores`, how: 'How it works in the body (Reactome)', measured: true,
+    only: () => dash.params().theme === 'muscle',
+    low: (who) => `${who}'s genes set these the unfavourable way. Select one to see which genes act and how:` });
 </script>
 
 <script>

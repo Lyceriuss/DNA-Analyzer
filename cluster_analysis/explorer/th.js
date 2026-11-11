@@ -995,3 +995,77 @@
       table(sorted.slice(30), det);
     }
   });
+
+  // Muscle theme: the SNPs consumer fitness tests report, grouped by topic, each with its evidence grade (from the GWAS
+  // Catalog, ClinVar and ClinPGx), what it changes (Ensembl VEP), the person's copies, and how many sport papers name it
+  const SPORT_GRADE = { A: 'replicated in genome-wide studies, ClinVar, or ClinPGx level 1–2', B: 'one genome-wide study, or a change that cuts the protein short',
+                        C: 'candidate-gene studies only: no genome-wide study, ClinVar or ClinPGx finding' };
+  const SPORT_CHANGE = { stop_gained: 'Stops the protein early', frameshift_variant: 'Shifts the protein\'s reading frame', missense_variant: 'Changes one amino acid',
+    synonymous_variant: 'Same amino acid: a silent change', '5_prime_UTR_variant': 'In the start of the gene\'s message, before the protein',
+    '3_prime_UTR_variant': 'In the end of the gene\'s message, after the protein', intron_variant: 'Inside an intron, between the protein-coding parts',
+    downstream_gene_variant: 'Just after the gene', upstream_gene_variant: 'Just before the gene', NMD_transcript_variant: 'In the gene',
+    splice_region_variant: 'Near a splice site' };
+  const thJ = (s) => { try { return s ? JSON.parse(s) : null; } catch (e) { return null; } };
+  dash.draw('th-sport', (el) => {
+    const card = el.closest('.gx-card');
+    if (card) card.classList.toggle('th-off', dash.params().theme !== 'muscle');
+    if (dash.params().theme !== 'muscle') return;
+    const r = gx.rows('sport_snps');
+    if (!r) { if (gx.failed('sport_snps')) gx.failLine(el); return; }
+    const [rows] = r;
+    el.replaceChildren();
+    if (!rows.length) return;
+    const who = rows[0].person || gx.who();
+    thMake(el, 'h2', null, 'The popular sport genes');
+    const n = (g) => rows.filter((x) => x.grade === g).length;
+    thMake(el, 'p', 'gx-note', `The ${rows.length} SNPs that consumer fitness DNA tests report. Most come from small candidate-gene studies of athletes; ` +
+      `the grade says what larger sources back: ${n('A')} have replicated genome-wide or clinical evidence (A), ${n('B')} some (B), and ${n('C')} rest on ` +
+      `candidate-gene studies alone (C). The genome-wide traits are what each variant is proven to move, which is often not what the tests sell it for.`);
+    const topics = [...new Map(rows.map((x) => [x.topic, x])).values()].sort((a, b) => a.topic_order - b.topic_order);
+    for (const t of topics) {
+      thMake(el, 'h3', 'th-sport-topic', t.topic_name);
+      const list = thMake(el, 'div', 'th-sport-list');
+      for (const s of rows.filter((x) => x.topic === t.topic).sort((a, b) => a.grade.localeCompare(b.grade))) {
+        const row = thMake(list, 'div', 'th-sport-row');
+        const g = thMake(row, 'span', 'md-grade md-grade-' + s.grade.toLowerCase(), s.grade);
+        g.title = `Evidence grade ${s.grade}: ${SPORT_GRADE[s.grade]}`;
+        const body = thMake(row, 'div');
+        const top = thMake(body, 'div');
+        const gb = thMake(top, 'button', 'lc-link', s.gene);
+        gb.type = 'button'; gb.addEventListener('click', () => thPick(s.gene));
+        thMake(top, 'span', 'nt-sub', ` · ${s.rsid} · ${who}: ${s.genotype || 'not read'}`);
+        if (s.confidence === 'high' || s.confidence === 'medium') thMake(top, 'span', 'th-imp th-imp-' + s.confidence, `imputed, ${s.confidence} confidence`);
+        // One sentence per text node, so each translates on its own
+        const what = thMake(body, 'div');
+        thMake(what, 'span', null, SPORT_CHANGE[s.consequence] || 'Near the gene');
+        if (s.amino_acids) thMake(what, 'span', null, ` (${s.amino_acids.replace('/', ' → ').replace('*', 'stop')})`);
+        thMake(what, 'span', null, '. ');
+        if (s.eur_af != null) thMake(what, 'span', null, `The ${s.alt} allele is carried by ${Math.round(100 * s.eur_af)}% of European chromosomes.`);
+        const carries = s.confidence === 'not_excluded' ? `${who}: not detected, but too rare to rule out.`
+          : s.alt_copies == null ? '' : s.alt_copies === 0 ? `${who} does not carry it.` : s.alt_copies === 1 ? `${who} carries one copy.` : `${who} carries two copies.`;
+        if (carries) { thMake(what, 'span', null, ' '); thMake(what, 'span', null, carries); }
+        const gw = thJ(s.gwas) || [];
+        if (gw.length) {
+          // Each trait its own node: the trait names translate through the terms dictionary
+          const p = thMake(body, 'div', 'nt-sub');
+          thMake(p, 'span', null, s.gwas_pubs === 1 ? 'Genome-wide, 1 publication:' : `Genome-wide, ${s.gwas_pubs} publications:`);
+          gw.slice(0, 3).forEach((a, i) => {
+            thMake(p, 'span', null, i ? '; ' : ' ');
+            thMake(p, 'span', null, a.trait);
+            if (a.allele) thMake(p, 'span', null, a.copies != null ? ` (${a.allele}, ${who} ×${a.copies})` : ` (${a.allele})`);
+          });
+          if (s.gwas_traits > 3) thMake(p, 'span', null, `; and ${s.gwas_traits - 3} more traits`);
+        }
+        for (const c of thJ(s.clinvar) || []) {
+          // ClinVar joins every submitted condition with |: the first three, and how many more
+          const conds = [...new Set(c.condition.replace(/_/g, ' ').split('|').map((x) => x.trim()).filter((x) => x && !/^not (provided|specified)$/i.test(x)))];
+          thMake(body, 'div', 'nt-low', `ClinVar: ${c.significance.replace(/_/g, ' ').split('|')[0]}, ${conds.slice(0, 3).join('; ')}` + (conds.length > 3 ? `; and ${conds.length - 3} more` : ''));
+        }
+        // ClinPGx: levels 1A-2B, and caffeine at any level; a level-3 single study of an unrelated drug says nothing about sport
+        const px = (thJ(s.clinpgx) || []).filter((x) => x.effect && (x.level !== '3' || /caffeine/i.test(x.chemicals))).sort((a, b) => a.level.localeCompare(b.level));
+        if (px.length) thMake(body, 'div', 'nt-sub', `ClinPGx (level ${px[0].level}), ${px[0].chemicals}: ${who} may ${px[0].effect}` + (px.length > 1 ? `; and ${px.length - 1} more` : ''));
+        const a = thMake(body, 'a', 'nt-src', s.papers === 1 ? '1 sport or exercise paper (Europe PMC)' : `${s.papers} sport or exercise papers (Europe PMC)`);
+        a.href = s.papers_url; a.target = '_blank'; a.rel = 'noopener';
+      }
+    }
+  });

@@ -125,7 +125,10 @@
   let all = false;
     const pick = (n) => { all = false; dash.setParams({ [K.param]: n.id }); };
 
+    // K.only: the cards show only while it holds (the fitness scores sit in the Clusters page under the muscle theme)
+    const off = (el) => { const c = el.closest('.gx-card'), o = !!K.only && !K.only(); if (c) c.classList.toggle('th-off', o); return o; };
     dash.draw(K.over, (el) => {
+      if (off(el)) return;
       const r = gx.rows(K.main, K.steps);
       if (!r) { if (gx.failed(K.main, K.steps)) gx.failLine(el); return; }
       const [rows, steps] = r;
@@ -187,6 +190,7 @@
     };
 
     dash.draw(K.detail, (el) => {
+      if (off(el)) return;
       const r = gx.rows(K.main, K.finds, K.steps);
       if (!r) { if (gx.failed(K.main, K.finds, K.steps)) gx.failLine(el); return; }
       const [rows, finds, steps] = r;
@@ -220,7 +224,7 @@
       const markers = (ntJ(n.markers) || []).filter((m) => m.score);
       if (markers.length) {
         const box = ntMake(el, 'div', 'nt-block');
-        ntMake(box, 'span', 'gx-label', 'Net effect on the blood level');
+        ntMake(box, 'span', 'gx-label', K.measured ? 'Net effect on the measure' : 'Net effect on the blood level');
         for (const m of markers) {
           const d = ntMake(box, 'div', 'nt-marker');
           ntMake(d, 'b', null, m.name);
@@ -305,8 +309,9 @@
       // Lab tests carry only the strongest of thousands of variants (export_dashboard.trim_findings): the true counts are
       // on the test row
       const total = Math.max(n.variants || 0, out.length);
-      if (ob) ntMake(ob, 'span', 'gx-label', ntT(st.length ? 'Outside the conversion steps ({})' : 'Variants found ({})', total));
-      if (ob && st.length) ntMake(ob, 'div', 'nt-sub', 'Genes that move the blood level without being part of these steps: transport in the blood, other pathways, or a gene not yet known.');
+      if (ob) ntMake(ob, 'span', 'gx-label', ntT(st.length ? (K.measured ? 'Outside these steps ({})' : 'Outside the conversion steps ({})') : 'Variants found ({})', total));
+      if (ob && st.length) ntMake(ob, 'div', 'nt-sub', K.measured ? 'Genes that move the measure without being part of these steps: other pathways, or a gene whose role is not yet known.'
+        : 'Genes that move the blood level without being part of these steps: transport in the blood, other pathways, or a gene not yet known.');
       // Lead with the variants whose copies move the person's level (or that they carry, ClinVar); the ones where they
       // have the usual copies come after, under Show all
       const moving = out.filter((f) => f.xy && f.xy !== 'typical'), quiet = out.filter((f) => !(f.xy && f.xy !== 'typical'));
@@ -324,7 +329,7 @@
 
       if (n.test) {
         const tb = ntMake(el, 'div', 'nt-block nt-sub');
-        ntMake(tb, 'span', null, `Blood test: ${n.test}`);
+        ntMake(tb, 'span', null, K.measured ? `Measured with: ${n.test}` : `Blood test: ${n.test}`);
       }
     });
   };
@@ -334,3 +339,7 @@
   ntTab({ over: 'lb-overview', detail: 'lb-detail', card: 'lb-detail', main: 'lab_tests', finds: 'lab_findings', steps: 'lab_steps',
     param: 'lb_n', title: (who) => `${who}'s lab tests`, how: 'How it is made and regulated (Reactome)',
     low: (who) => `${who}'s genes move these lab values the unfavourable way. Select one to see which genes act and how:` });
+  ntTab({ over: 'fit-overview', detail: 'fit-detail', card: 'fit-detail', main: 'fit_tests', finds: 'fit_findings', steps: 'fit_steps',
+    param: 'fit_n', title: (who) => `${who}'s strength and fitness scores`, how: 'How it works in the body (Reactome)', measured: true,
+    only: () => dash.params().theme === 'muscle',
+    low: (who) => `${who}'s genes set these the unfavourable way. Select one to see which genes act and how:` });

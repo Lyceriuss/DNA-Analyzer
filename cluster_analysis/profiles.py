@@ -13,6 +13,8 @@ Steps, per profile (outputs in data/output/cluster_analysis/profiles/<id>/ unles
   medicines  medicines.py  -> med_genes, med_drugs, med_guidance, med_names
   nutrition  nutrition.py with the profile's sex -> nut_nutrients, nut_findings, nut_steps
   labtests   nutrition.py with labtests.json (Biomarkers tab) -> lab_tests, lab_findings, lab_steps
+  fitness    nutrition.py with fitness.json (muscle theme scores) -> fit_tests, fit_findings, fit_steps; and
+             themes/sport_snps.py (the popular sport genes) -> sport_snps
   overlay    overlay.py    -> hp_modules, hp_links, hp_bridges, hp_tilts (Profile tab)
 
 explorer/export.py then builds every dataset for every profile, each row tagged with `person`.
@@ -30,7 +32,7 @@ from genome.loader import iter_calls
 HERE = os.path.dirname(__file__)
 PATH = os.path.join(HERE, "profiles.json")
 PROFILE_DIR = f"{gbuild.OUTPUT}/profiles"
-STEPS = ("themes", "genes", "medicines", "nutrition", "labtests", "overlay")
+STEPS = ("themes", "genes", "medicines", "nutrition", "labtests", "fitness", "overlay")
 THEME_SEX = {"XX": "female", "XY": "male"}   # theme_graph.py marks a theme's body layout as XX or XY
 
 
@@ -102,6 +104,10 @@ def run(pids, steps):
         if "labtests" in steps:
             cmds.append(py + ["cluster_analysis.nutrition.nutrition", "--config", "cluster_analysis/nutrition/labtests.json", "--prefix", "lab",
                               "--dna", p["dna"], "--out-dir", od, "--sex", "women" if p["sex"] == "female" else "men"])
+        if "fitness" in steps:
+            cmds.append(py + ["cluster_analysis.nutrition.nutrition", "--config", "cluster_analysis/nutrition/fitness.json", "--prefix", "fit",
+                              "--dna", p["dna"], "--out-dir", od, "--sex", "women" if p["sex"] == "female" else "men"])
+            cmds.append(py + ["cluster_analysis.themes.sport_snps", "--dna", p["dna"], "--out-dir", od])
         if "overlay" in steps:
             cmds.append(py + ["cluster_analysis.library.overlay", p["dna"], "--name", p["id"], "--dashboard", od])
         for c in cmds:

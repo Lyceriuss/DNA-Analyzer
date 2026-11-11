@@ -1,0 +1,68 @@
+{
+  "about": "The Muscle and exertion theme's genetic scores, read by nutrition.py --config fitness.json --prefix fit: per measure the GWAS Catalog traits (EFO) of its markers, Reactome pathways for the mechanism, the ClinVar conditions that count, and how it is measured. Each score is the genome-wide significant lead variants of one large GWAS, placed against 1000 Genomes Europeans. higher: whether a higher value is the good direction ('better', 'worse' or 'neutral').",
+  "tests": [
+    {
+      "id": "strength",
+      "name": "Strength",
+      "sv": "Styrka",
+      "group": "Strength and mass",
+      "reactome": ["R-HSA-390522"],
+      "markers": [
+        {"id": "grip", "name": "Grip strength", "traits": ["EFO_0006941"], "higher": "better"}
+      ],
+      "test": "Hand-grip dynamometer",
+      "clinvar": "myopathy|muscular dystrophy|nemaline|central core|malignant hyperthermia"
+    },
+    {
+      "id": "mass",
+      "name": "Muscle mass",
+      "sv": "Muskelmassa",
+      "group": "Strength and mass",
+      "reactome": ["R-HSA-525793"],
+      "markers": [
+        {"id": "alm", "name": "Appendicular lean mass", "traits": ["EFO_0004980"], "higher": "better"},
+        {"id": "lbm", "name": "Lean body mass", "traits": ["EFO_0004995"], "higher": "better"}
+      ],
+      "test": "DXA or bioimpedance scan",
+      "clinvar": "myopathy|muscular dystrophy"
+    },
+    {
+      "id": "aerobic",
+      "name": "Heart response to exercise",
+      "sv": "Hjärtats svar på träning",
+      "group": "Fitness",
+      "reactome": ["R-HSA-5576892", "R-HSA-5576893", "R-HSA-5576890", "R-HSA-5576886"],
+      "markers": [
+        {"id": "hrr", "name": "Heart-rate recovery after exercise", "traits": ["EFO_0009185"], "higher": "better"},
+        {"id": "hrx", "name": "Heart-rate increase during exercise", "traits": ["EFO_0009184"], "higher": "better"}
+      ],
+      "test": "Exercise test with heart-rate monitoring",
+      "clinvar": "long QT|short QT|Brugada|catecholaminergic|arrhythmi"
+    },
+    {
+      "id": "damage",
+      "name": "Muscle damage marker",
+      "sv": "Markör för muskelskada",
+      "group": "Recovery",
+      "reactome": ["R-HSA-71288", "R-HSA-70221", "R-HSA-77289"],
+      "markers": [
+        {"id": "ck", "name": "Creatine kinase", "traits": ["EFO_0004534"], "higher": "worse"}
+      ],
+      "test": "P-CK",
+      "clinvar": "rhabdomyolysis|myoglobinuria|McArdle|glycogen storage disease|carnitine palmitoyltransferase|creatine"
+    },
+    {
+      "id": "caffeine",
+      "name": "Caffeine",
+      "sv": "Koffein",
+      "group": "Fuel and stimulants",
+      "reactome": ["R-HSA-211981"],
+      "clinpgx": ["caffeine"],
+      "markers": [
+        {"id": "coffee", "name": "Coffee consumption", "traits": ["EFO_0006781"], "higher": "neutral"}
+      ],
+      "test": "Coffee intake (the GWAS measure); caffeine clearance itself is rarely tested",
+      "clinvar": ""
+    }
+  ]
+}
