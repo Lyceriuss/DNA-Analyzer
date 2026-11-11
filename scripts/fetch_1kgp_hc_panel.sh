@@ -9,11 +9,12 @@
 #     DNA_PANEL_DIR_1KGP_HC=DIR/bref3
 #
 # Resumes partial downloads (curl -C -) and skips chromosomes already converted. The panel has no singletons, so
-# nothing is filtered. Needs curl, md5sum and Java; bref3.jar comes from scripts/fetch_imputation_reference.sh.
+# nothing is filtered. Needs curl, md5sum, Java and Python (no Docker); bref3.jar comes from scripts/fetch_imputation_reference.sh.
 # The raw files can be deleted once bref3/ is complete and the frequency tables are built from them.
 set -e
 DIR=${1:?usage: fetch_1kgp_hc_panel.sh DIR}
-JAR="$(cd "$(dirname "$0")/.." && pwd)/data/reference/imputation/bref3.jar"
+REPO="$(cd "$(dirname "$0")/.." && pwd)"
+JAR="$REPO/data/reference/imputation/bref3.jar"
 BASE=https://ftp.1000genomes.ebi.ac.uk/vol1/ftp/data_collections/1000G_2504_high_coverage/working/20220422_3202_phased_SNV_INDEL_SV
 mkdir -p "$DIR/raw" "$DIR/bref3"
 cd "$DIR/raw"
@@ -26,7 +27,7 @@ space() {
   done
 }
 space
-rm -f "$DIR"/bref3/*.part "$DIR"/chrX*.vcf.gz   # leftovers from a run that crashed
+rm -f "$DIR"/bref3/*.part "$DIR"/chrX*.vcf.gz "$DIR"/chrX*.vcf.gz.part   # leftovers from a run that crashed
 
 name() { [ "$1" = X ] && echo "1kGP_high_coverage_Illumina.chrX.filtered.SNV_INDEL_SV_phased_panel.v2.vcf.gz" \
                       || echo "1kGP_high_coverage_Illumina.chr$1.filtered.SNV_INDEL_SV_phased_panel.vcf.gz"; }
@@ -65,20 +66,8 @@ for pair in "1 22" "2 21" "3 20" "4 19" "5 18" "6 17" "7 16" "8 15" "9 14" "10 1
   for c in $pair; do one "$c" & done; wait
 done
 # chrX in three parts: men are diploid in the pseudo-autosomal regions and haploid between them, and Beagle needs
-# one ploidy per sample per file. bcftools (in Docker) cuts the regions; the bounds match genome/impute.py's x_parts.
-x() {
-  out="../bref3/$1.bref3"
-  [ -s "$out" ] && return
-  space
-  # --regions-overlap pos: a structural variant that starts in one part and reaches into the next stays in the first.
-  # The part is written to a file, never piped out of the container: Docker logs a container's output inside its
-  # virtual disk on C: (it once grew to 86 GB), and a pipe hides a failed or cut-short extraction.
-  MSYS_NO_PATHCONV=1 docker run --rm --log-driver none -v "$DIR:/ref" staphb/bcftools:1.21 \
-    bcftools view --regions-overlap pos -r "$2" -Oz -o "/ref/$1.vcf.gz" "/ref/raw/$(name X)" \
-    && java -Xmx10g -jar "$JAR" "../$1.vcf.gz" > "$out.part" && mv "$out.part" "$out" && echo "$(date +%H:%M) converted $1"
-  rm -f "../$1.vcf.gz"
-}
-x chrX_par1 chrX:1-2781479
-x chrX chrX:2781480-155701382
-x chrX_par2 chrX:155701383-156040895
+# one ploidy per sample per file. genome/vcf.py cuts the regions in Python (bounds from genome/impute.py's x_parts),
+# checks the parts add up to the index's record count, converts them and deletes the cut VCFs.
+space
+(cd "$REPO" && python -m genome.vcf split-x "$DIR")
 echo "done: $(ls ../bref3/*.bref3 | wc -l) chromosomes in $DIR/bref3"

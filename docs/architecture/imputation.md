@@ -26,7 +26,25 @@ built by `genome/panel_sites.py` from the panel itself and Ensembl's GRCh38 dbSN
 sh scripts/fetch_1kgp_hc_panel.sh "D:/DNA-Analyzer-reference/1kGP_high_coverage_GRCh38"   # download, check, convert
 python -m genome.panel_sites                                                                # the site list
 python -m genome.build fetch                                                                # GRCh38 ClinVar and genes
+python -m genome.references status                                                          # is everything there?
 ```
+
+None of this needs Docker: the site list, the chrX split and the record counts read the panel's VCFs in Python
+(`genome/vcf.py`), and are checked against the panel's index counts.
+
+### Reference files
+
+`genome/references.json` lists every reference file: its source and version, how it is made, and what uses it. It
+sorts them into tiers:
+- `impute`: needed to impute a person.
+- `analyse`: needed to analyse the result.
+- `built`: made here from the sources (the PGS reference, the imputability map).
+- `source`: the raw panel (32 GB) and dbSNP (13 GB), kept so every built file can be rebuilt without downloading.
+- `grch37`: the comparison build.
+
+`python -m genome.references status` shows what is present and whether a run can start. `lock` writes checksums to
+`data/reference/references.lock.json`. `verify` checks the raw panel against the 1000 Genomes MD5 manifest, and the
+rest against the lock file.
 
 Measured the same way (every 10th SNP hidden), both panels are equally accurate on what a chip can test: 98.9% of
 confident calls right, 99.5% at high confidence. The high-coverage panel's gain is coverage (2.2× the calls) and the

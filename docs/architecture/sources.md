@@ -74,6 +74,8 @@ flowchart TB
 | Human Protein Atlas | REST API (`search_download.php`) | RNA tissue specificity: where in the body a gene is mostly made | `nutrient_steps.py` |
 
 Downloads: `scripts/fetch_imputation_reference.sh` (imputation) and `scripts/fetch_pgx_reference.sh` (medicines).
+Every bulk file, with its URL, version and how it is made, is listed in `genome/references.json`. Check them with
+`python -m genome.references status`.
 
 ## Caching and politeness
 

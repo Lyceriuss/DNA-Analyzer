@@ -27,7 +27,9 @@ being phased out). `main.py`, `src/` and `config/` are the original PDF report. 
 The analysis runs on GRCh38 with the 1000 Genomes high-coverage panel (`genome/build.py`, `DNA_BUILD`; GRCh37 for
 comparison). The panel and its site list live on D: (`D:\DNA-Analyzer-reference`), outside the repo. Large jobs:
 check free space on C: and D: first, never stream bulk data through a Docker container's stdout (Docker logs it into
-its virtual disk on C:), write to files on D: instead, and verify outputs against an independent count.
+its virtual disk on C:), write to files on D: instead, and verify outputs against an independent count. Every
+reference file is listed in `genome/references.json`; `python -m genome.references status` checks them. Keep the
+`source` tier: it is what the built references are rebuilt from.
 
 ## The explorer: localhost and the claude.ai artifact
 

@@ -5,8 +5,8 @@ frequencies, in the layout genome/impute.py reads (the phase 3 sites.vcf.gz layo
     python -m genome.panel_sites --chroms 22 --out sites_chr22.vcf.gz
 
 Frequencies come from the panel itself (its INFO fields over the 2,504 unrelated samples: AF_EUR_unrel and the rest),
-read with bcftools in Docker (staphb/bcftools:1.21). The panel names its variants chrom:pos:ref:alt, so rsIDs come
-from Ensembl's GRCh38 variation files (dbSNP), joined on position and alleles:
+read straight from the raw VCFs in Python (genome/vcf.py; no Docker). The panel names its variants chrom:pos:ref:alt,
+so rsIDs come from Ensembl's GRCh38 variation files (dbSNP), joined on position and alleles:
     <reference>/ensembl_grch38/homo_sapiens-chr<N>.vcf.gz   all of dbSNP for that chromosome, used when present
     <reference>/ensembl_grch38/1000GENOMES-phase_3.vcf.gz     otherwise: the phase 3 variants placed on GRCh38
 Both inputs are sorted by position, so they are merged in one pass without holding either in memory.
@@ -14,15 +14,14 @@ Both inputs are sorted by position, so they are merged in one pass without holdi
 import argparse
 import gzip
 import os
-import subprocess
 import time
 from collections import Counter
 
+from genome import vcf
 from genome.impute import CHROMS, ORDER, panel
 
 FIELDS = ["AF", "AF_EUR_unrel", "AF_AFR_unrel", "AF_AMR_unrel", "AF_EAS_unrel", "AF_SAS_unrel"]
 NAMES = ["AF", "EUR_AF", "AFR_AF", "AMR_AF", "EAS_AF", "SAS_AF"]  # as in the phase 3 site list
-IMAGE = "staphb/bcftools:1.21"
 
 
 def raw_file(root, chrom):
@@ -47,37 +46,12 @@ def check_space(root):
             raise DiskLow(f"{drive} has {free:.0f} GB free, below the {need} GB this run keeps free; stopped")
 
 
-def docker(root, *args):
-    """bcftools in Docker with the panel folder mounted at /ref. Never stream large output through the container's
-    stdout: Docker keeps a log copy of it inside its virtual disk on C: (86 GB once). Large results are written to
-    files under /ref instead, and logging is off."""
-    cmd = ["docker", "run", "--rm", "--log-driver", "none", "-v", f"{root}:/ref", IMAGE, *args]
-    r = subprocess.run(cmd, capture_output=True, text=True, env={**os.environ, "MSYS_NO_PATHCONV": "1"})
-    if r.returncode:
-        raise SystemExit(f"bcftools {args[1]} failed ({r.returncode}): {r.stderr.strip()[-300:]}")
-    return r.stdout
-
-
 def panel_rows(root, chrom):
-    """(pos, ref, alt, [frequencies]) per panel variant: bcftools writes them to a file next to the panel, read here
-    and deleted."""
-    fmt = "%POS\\t%REF\\t%ALT\\t" + "\\t".join(f"%{f}" for f in FIELDS) + "\\n"
-    os.makedirs(os.path.join(root, "tmp"), exist_ok=True)
-    name = f"tmp/query_chr{chrom}.tsv.gz"
-    docker(root, "bcftools", "query", "-f", fmt, "-o", f"/ref/{name}", f"/ref/raw/{raw_file(root, chrom)}")
-    path = os.path.join(root, name)
-    try:
-        with gzip.open(path, "rt") if is_gzip(path) else open(path) as f:
-            for line in f:
-                pos, ref, alt, *af = line.rstrip("\n").split("\t")
-                yield int(pos), ref, alt, af
-    finally:
-        os.remove(path)
-
-
-def is_gzip(path):
-    with open(path, "rb") as f:
-        return f.read(2) == b"\x1f\x8b"
+    """(pos, ref, alt, [frequencies]) per panel variant, read from the raw VCF."""
+    _, recs = vcf.records(os.path.join(root, "raw", raw_file(root, chrom)))
+    for line in recs:
+        p = line.decode().split("\t", 8)
+        yield int(p[1]), p[3], p[4], vcf.info(p[7], FIELDS)
 
 
 class Ensembl:
@@ -125,14 +99,13 @@ def main():
     ap.add_argument("--ensembl", default=os.path.join(os.path.dirname(root), "ensembl_grch38"))
     a = ap.parse_args()
     chroms = [c.strip().upper().replace("CHR", "") for c in a.chroms.split(",")]
-    # One finished file per chromosome, so a run that stops (Docker has dropped out mid-stream) resumes where it was
+    # One finished file per chromosome, so a run that stops resumes where it was
     parts = os.path.join(os.path.dirname(os.path.abspath(a.out)), "sites_parts")
     os.makedirs(parts, exist_ok=True)
     # Leftovers from a run that crashed: removed first, so a retry never stacks another copy
-    for folder in (parts, os.path.join(root, "tmp")):
-        for f in os.listdir(folder) if os.path.isdir(folder) else []:
-            if f.endswith(".part") or f.startswith("query_"):
-                os.remove(os.path.join(folder, f))
+    for f in os.listdir(parts):
+        if f.endswith(".part"):
+            os.remove(os.path.join(parts, f))
     for chrom in chroms:
         done = os.path.join(parts, f"chr{chrom}.vcf.gz")
         if os.path.exists(done):
@@ -143,9 +116,8 @@ def main():
                 one_chrom(root, chrom, Ensembl(a.ensembl), done)
                 break
             except (SystemExit, OSError) as e:
-                for f in (done + ".part", os.path.join(root, "tmp", f"query_chr{chrom}.tsv.gz")):
-                    if os.path.exists(f):
-                        os.remove(f)
+                if os.path.exists(done + ".part"):
+                    os.remove(done + ".part")
                 print(f"chr{chrom}: attempt {attempt} failed ({e}); retrying in a minute", flush=True)
                 time.sleep(60)
         else:
@@ -189,7 +161,7 @@ def one_chrom(root, chrom, ens, done):
 
 def indexed_records(root, chrom):
     """The number of variants in a panel file, from its index."""
-    return int(docker(root, "bcftools", "index", "-n", f"/ref/raw/{raw_file(root, chrom)}").strip())
+    return vcf.indexed_count(os.path.join(root, "raw", raw_file(root, chrom)))
 
 
 if __name__ == "__main__":
