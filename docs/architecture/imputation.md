@@ -4,6 +4,19 @@
 haplotypes of the people in a 1000 Genomes reference panel. Each new call gets a confidence tier, so later steps can
 decide which calls to trust.
 
+## Input files
+
+`genome/formats.py` reads MyHeritage (CSV), AncestryDNA (the `.txt`, or the `.zip` Ancestry delivers) and 23andMe
+files, gzipped or zipped, into one shape: rsid, chromosome, position, genotype. All three are GRCh37; `impute.py`
+stops when fewer than 70% of a file's positions are 1000 Genomes sites, which is what a file on another build looks
+like (MyHeritage files match 98.7%). `python -m genome.formats FILE` shows what a file holds.
+
+The AncestryDNA reader is tested on synthetic files (`tests/test_formats.py`) and on a MyHeritage file rewritten in
+Ancestry's layout: every call reads the same, and chromosome 22 imputes to byte-identical output.
+
+Beagle's output depends on its thread count (`--threads`): the same file on 6 and 8 threads differed in 1.8% of
+chromosome 22's calls, mostly uncertain ones. Keep the thread count fixed where results must be reproducible.
+
 ## Panels and genome builds
 
 | Panel | Build | People | Calls kept per person | Where |

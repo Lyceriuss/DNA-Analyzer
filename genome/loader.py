@@ -8,8 +8,10 @@ CONFIDENT = ("measured", "high")
 
 
 def person_label(path):
-    """XY from data/input/MyHeritage_raw_dna_data_XY.csv, and from its imputed version too."""
-    return re.sub(r"^MyHeritage_raw_dna_data_|(\.imputed)?\.csv$", "", os.path.basename(path or ""))
+    """XY from data/input/MyHeritage_raw_dna_data_XY.csv, and from its imputed version too; otherwise the file's name
+    without its extensions (data/input/XX.txt.zip -> XX)."""
+    name = re.sub(r"^MyHeritage_raw_dna_data_", "", os.path.basename(path or ""))
+    return re.sub(r"(\.imputed)?(\.(csv|txt|tsv))?(\.(gz|zip))?$", "", name, flags=re.I)
 
 
 def imputed_path(path):
@@ -32,7 +34,7 @@ def imputed_path(path):
 def read_calls(filepath, rsids=None, confidence=CONFIDENT):
     """Stream a DNA raw data file: {rsid: (genotype, chrom, pos, confidence)}.
 
-    Reads MyHeritage/23andMe-style CSV or TSV (comment lines start with #) and the imputed CSVs written by
+    Reads MyHeritage, AncestryDNA and 23andMe files (genome/formats.py) and the imputed CSVs written by
     genome/impute.py, whose CONFIDENCE column says how far each call can be trusted. Files without that column are
     all "measured". rsids limits the result to those SNPs (an imputed file holds ~28 million); confidence limits it
     to those tiers (None keeps every call). When an rsID appears twice, the last row wins.
@@ -42,6 +44,14 @@ def read_calls(filepath, rsids=None, confidence=CONFIDENT):
 
 def iter_calls(filepath, rsids=None, confidence=CONFIDENT):
     """(rsid, chrom, pos, genotype, confidence) per row of a DNA raw data file; see read_calls."""
+    from genome import formats
+    if formats.detect(filepath) != "imputed":  # a test's own file: every call is measured
+        if confidence is not None and "measured" not in confidence:
+            return
+        for rsid, chrom, pos, gt in formats.rows(filepath):
+            if rsids is None or rsid in rsids:
+                yield rsid, chrom, pos, gt, "measured"
+        return
     cols = None
     with open(filepath, encoding="utf-8", errors="replace") as f:
         for line in f:
@@ -72,7 +82,7 @@ def iter_calls(filepath, rsids=None, confidence=CONFIDENT):
 def load_dna_file(filepath, rsids=None, confidence=CONFIDENT):
     """
     Loads a DNA raw data file (CSV/TXT) and returns a dictionary mapping RSID -> Genotype.
-    Handles MyHeritage/23andMe formats and imputed files (see read_calls); pass rsids to read only those SNPs.
+    Handles MyHeritage, AncestryDNA and 23andMe files and imputed files (see read_calls); pass rsids to read only those SNPs.
     """
     if not os.path.exists(filepath):
         print(f"❌ Error: File not found at {filepath}")

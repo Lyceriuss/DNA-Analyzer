@@ -71,7 +71,7 @@ PANELS = {
     },
 }
 DEFAULT_PANEL = "1kg_phase3"
-PAR = PANELS[DEFAULT_PANEL]["par"]  # GRCh37, the build of MyHeritage files
+PAR = PANELS[DEFAULT_PANEL]["par"]  # GRCh37, the build of consumer raw files
 
 
 def panel(name=DEFAULT_PANEL):
@@ -89,22 +89,17 @@ MIN_N = 100                 # hidden SNPs a cell needs before its accuracy is tr
 
 
 def person_of(path):
-    return re.sub(r"^MyHeritage_raw_dna_data_|\.csv$", "", os.path.basename(path))
+    from genome.loader import person_label
+    return person_label(path)
 
 
 def read_csv(path, chroms):
-    """{chrom: [(pos, rsid, genotype)]} for 2-letter ACGT calls."""
+    """{chrom: [(pos, rsid, genotype)]} for 2-letter ACGT calls, from any raw file genome/formats.py reads."""
+    from genome import formats
     out = {c: [] for c in chroms}
-    with open(path, encoding="utf-8", errors="replace") as f:
-        for line in f:
-            if line.startswith(("#", "RSID", '"RSID')):
-                continue
-            p = [x.strip().strip('"') for x in line.split(",")]
-            if len(p) < 4 or p[1] not in out or not p[2].isdigit():
-                continue
-            gt = p[3].upper()
-            if len(gt) == 2 and set(gt) <= set("ACGT"):
-                out[p[1]].append((int(p[2]), p[0], gt))
+    for rsid, chrom, pos, gt in formats.rows(path):
+        if chrom in out and pos is not None and len(gt) == 2 and set(gt) <= set("ACGT"):
+            out[chrom].append((pos, rsid, gt))
     for rows in out.values():
         rows.sort()
     return out
@@ -512,7 +507,7 @@ def run_finalize(args, person, out_dir, calls, chroms):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("dna", help="MyHeritage raw data CSV (GRCh37)")
+    ap.add_argument("dna", help="raw data file from MyHeritage, AncestryDNA or 23andMe (GRCh37; zipped or gzipped is fine)")
     ap.add_argument("--chroms", default=",".join(CHROMS), help="comma-separated, default 1-22 and X")
     ap.add_argument("--threads", type=int, default=os.cpu_count() or 4)
     ap.add_argument("--memory", default="12g", help="Java heap for Beagle")
@@ -539,7 +534,7 @@ def main():
 
     calls = read_csv(args.dna, CHROMS)  # all chromosomes, so the site cache covers any later run
     lost = Counter()
-    if P["build"] != "GRCh37":  # MyHeritage files are GRCh37
+    if P["build"] != "GRCh37":  # consumer raw files are GRCh37
         calls, lost = lift_calls(calls)
     if args.finalize:
         return run_finalize(args, person, out_dir, calls, chroms)
@@ -548,6 +543,11 @@ def main():
     wanted = {(c, pos) for c, rows in calls.items() for pos, _, _ in rows}
     cache = f"sites_{person}.tsv.gz" if P["name"] == DEFAULT_PANEL else f"sites_{person}_{P['name']}.tsv.gz"
     sites = panel_sites(wanted, os.path.join(REF, cache), P["sites"])
+    # A file on another genome build lands on the wrong positions: almost none would match (MyHeritage: 98.7%)
+    hit = sum(1 for w in wanted if w in sites) / max(len(wanted), 1)
+    if hit < 0.7:
+        raise SystemExit(f"Only {hit:.0%} of {os.path.basename(args.dna)}'s positions are 1000 Genomes sites; raw files "
+                         "are expected on GRCh37 (build 37). Is this file on another build?")
     if args.validate:
         return run_validate(args, person, out_dir, calls, sites, male, chroms)
 
