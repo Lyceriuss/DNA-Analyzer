@@ -2,7 +2,7 @@
 
 page.html is the page's shell: header, tab sections and the shared helpers, with an include marker where each part goes
 (`/* @include th.css */`, `<!-- @include th.html -->`, `// @include th.js`). Edit the parts and page.html; never
-index.html, which this script writes.
+index.html, which this script writes. settings.json goes in at `// @settings`, as window.GX_SETTINGS.
 
     python cluster_analysis/explorer/build.py
         index.html            the assembled page, readable (committed)
@@ -49,6 +49,9 @@ def assemble():
     page = INCLUDE.sub(part, shell)
     if len(seen) != len(set(seen)):
         raise SystemExit(f"a part is included twice: {seen}")
+    # settings.json (whether the introduction is mandatory, ...) as window.GX_SETTINGS
+    settings = {k: v for k, v in json.loads(read("settings.json")).items() if k != "about"}
+    page = page.replace("// @settings", f"window.GX_SETTINGS = {json.dumps(settings)};")
     return page + "\n"
 
 

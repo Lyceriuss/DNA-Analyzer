@@ -414,7 +414,7 @@ if __name__ == "__main__":
         # Medicines, nutrition, lab tests and the Profile tab, run per profile into data/output/cluster_analysis/profiles/<id>/
         # (profiles.py run): one dataset each, rows tagged with their person. The public ones are taken once.
         for name in ("med_genes", "med_drugs", "med_guidance", "nut_nutrients", "nut_findings", "lab_tests", "lab_findings",
-                     "fit_tests", "fit_findings", "sport_snps", "car_variants", "car_genes", "car_meta",
+                     "fit_tests", "fit_findings", "sport_snps",
                      "hp_modules", "hp_links", "hp_bridges", "hp_tilts"):
             merged[name] = []
             for p in people:
@@ -429,6 +429,9 @@ if __name__ == "__main__":
         merged["lab_tests"], merged["lab_findings"] = trim_findings(merged.get("lab_tests", []), merged.get("lab_findings", []))
         merged["fit_tests"], merged["fit_findings"] = trim_findings(merged.get("fit_tests", []), merged.get("fit_findings", []))
         merged["profiles"] = [{"id": p["id"], "sex": p.get("sex")} for p in people]
+        # The introduction (Home tab): the method's numbers and each person's (cluster_analysis/explorer/intro.py)
+        from cluster_analysis.explorer import intro
+        merged["intro_stats"] = intro.rows(people)
         for name, rows in merged.items():
             if not rows and name not in ("profiles",):
                 continue

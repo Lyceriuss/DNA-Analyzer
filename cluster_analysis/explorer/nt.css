@@ -8,9 +8,9 @@
   .nt-high { color: var(--color-ok); font-weight: 700; }
   .nt-bar { position: relative; height: 8px; border-radius: 4px; margin: 6px 0 2px;
     background: linear-gradient(90deg, var(--nt-scale)); }
-  /* Unfavourable to favourable: red, orange, yellow, green in the typical middle, turquoise, blue */
-  .gx { --nt-scale: #d94141 0%, #ec8a2f 17%, #e9c42a 33%, #46a95a 50%, #22b3a6 67%, #3a78d8 100%; }
-  .nt-bar.nt-flip { transform: scaleX(-1); }
+  /* Unfavourable to favourable, left to right: orange, amber, yellow, then light to deep green. Green is always on the
+     right; where a higher level is worse (.nt-flip), the marker sits at 100 - percentile instead (nt.js) */
+  .gx { --nt-scale: #e8590c 0%, #f08c24 20%, #e9c42a 38%, #8cc152 56%, #3fa34d 78%, #1b7a3a 100%; }
   .nt-mean { margin-top: 6px; max-width: 70ch; line-height: 1.5; }
   /* Neither direction is better: the typical middle (40-60th percentile) in green */
   .nt-bar.nt-even { background: linear-gradient(90deg, var(--color-border-line) 0 40%, color-mix(in srgb, var(--color-ok) 60%, transparent) 40% 60%, var(--color-border-line) 60%); }

@@ -40,10 +40,11 @@ where this is heading: [docs/architecture/migration.md](../../docs/architecture/
 | `runtime/d3.min.js` | d3 7.9.0, so the page draws without internet |
 
 | `lc.html`, `lc.css`, `lc.js` | Gene lifecycle tab: gene summary, node graph, step details with capacity, evidence and papers |
+| `in.html`, `in.css`, `in.js`, `intro.py` | Home tab: the introduction, a walkthrough in 14 steps (the DNA file, imputation, how sure each call is, what a chip can't see, the sources and evidence grades, how to read the bars, then each tab), with the method's numbers and the selected person's (`intro.py` writes the `intro_stats` dataset) |
+| `settings.json` | `intro_required`: every viewer goes through the introduction once per browser before the other tabs open (Next waits `intro_min_seconds` per step, no skipping). Off during development; `build.py` puts the settings in the page as `window.GX_SETTINGS` |
 | `th.html`, `th.css`, `th.js` | Clusters tab: theme picker, body maps, 28-day cycle and the life of a cell, mechanisms and their in-depth view, network, pathways; per theme and gene, how many ClinVar pathogenic variants a chip can see (`genome/imputability.py`) |
 | `md.html`, `md.css`, `md.js` | Medicines tab: drug genes (star alleles and CPIC type), and per medicine (searchable by any name, brand, ATC code or class) its dosing guidance and every finding with the person's reading, each with an evidence grade A+ to C |
 | `nt.html`, `nt.css`, `nt.js` | Nutrition tab: per nutrient the net effect on the blood level, then the mechanism in writing: Reactome's account of each pathway, and for each gene a variant is pinned to, the step (Reactome), the protein (UniProt) and what the person's variants change; the intake target as one line |
-| `cr.html`, `cr.css`, `cr.js` | Carriers tab: the pathogenic variants found (carrier or possible, the chance, what it means for the inheritance), and per gene the variants checked, the chance one was missed and those a chip can't see |
 | `i18n.js` | English / Swedish switch (the EN/SV buttons in the header; the page's last script) |
 | `i18n_sv.json` | The Swedish dictionary for the page's own wording, published as the `i18n_sv` dataset (`[{en, sv}]` rows) |
 | `i18n_sv_terms.json` | Swedish for source terms: the library's traits, systems and genotype readings, module names, and disease/trait names (Open Targets, GWAS Catalog, ClinVar); published as the `i18n_sv_terms` dataset |

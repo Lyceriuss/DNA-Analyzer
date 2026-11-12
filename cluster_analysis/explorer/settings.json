@@ -1,0 +1,5 @@
+{
+  "about": "Explorer settings, read by build.py into the page as window.GX_SETTINGS. intro_required: every viewer must go through the introduction (Home tab) once per browser before the other tabs open; off during development. intro_min_seconds: with intro_required, how long each step stays before Next opens.",
+  "intro_required": false,
+  "intro_min_seconds": 6
+}

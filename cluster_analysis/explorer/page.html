@@ -318,7 +318,7 @@
   /* @include th.css */
   /* @include md.css */
   /* @include nt.css */
-  /* @include cr.css */
+  /* @include in.css */
   .th-b-untested { background: var(--color-fg-muted); opacity: 0.35; }
 </style>
 
@@ -333,24 +333,25 @@
     </div>
     <div class="gx-profile" data-draw="gx-profile" data-source="profiles" role="group" aria-label="Profile"></div>
     <p class="gx-lede">Every tab reads the selected person's genome through public research sources: Clusters, Medicines, Nutrition,
-      Carriers, Biomarkers, Gene lifecycle and Profile.</p>
+      Biomarkers, Gene lifecycle and Profile. Home explains how.</p>
   </header>
 
   <nav class="gx-tabs" role="tablist" aria-label="Views">
-    <button class="gx-tab" role="tab" data-tab="clusters" aria-selected="true">Clusters</button>
+    <button class="gx-tab" role="tab" data-tab="home" aria-selected="true">Home</button>
+    <button class="gx-tab" role="tab" data-tab="clusters" aria-selected="false">Clusters</button>
     <button class="gx-tab" role="tab" data-tab="medicines" aria-selected="false">Medicines</button>
     <button class="gx-tab" role="tab" data-tab="nutrition" aria-selected="false">Nutrition</button>
     <button class="gx-tab" role="tab" data-tab="lifecycle" aria-selected="false">Gene lifecycle</button>
-    <button class="gx-tab" role="tab" data-tab="carriers" aria-selected="false">Carriers</button>
     <button class="gx-tab" role="tab" data-tab="biomarkers" aria-selected="false">Biomarkers</button>
     <button class="gx-tab" role="tab" data-tab="profile" aria-selected="false">Profile</button>
   </nav>
+
+  <!-- @include in.html -->
 
   <!-- @include th.html -->
 
   <!-- @include md.html -->
   <!-- @include nt.html -->
-  <!-- @include cr.html -->
 
   <!-- @include lc.html -->
 
@@ -416,6 +417,7 @@
 </div>
 
 <script>
+  // @settings
   // Calculations from the attached datasets
   dash.calc('kpis', {
     inputs: ['modules', 'module_links', 'biomarker_snps'],
@@ -535,7 +537,7 @@
     setTimeout(() => applyWho(who), 0);
   });
   const linked = location.hash.slice(1);
-  if (['clusters', 'medicines', 'nutrition', 'carriers', 'lifecycle', 'biomarkers', 'profile'].includes(linked)) gx.show(linked);
+  if (['home', 'clusters', 'medicines', 'nutrition', 'lifecycle', 'biomarkers', 'profile'].includes(linked)) gx.show(linked);
 
   dash.calc('hp_compound', {
     inputs: ['hp_links'],
@@ -669,7 +671,7 @@
 </script>
 
 <script>
-  // @include cr.js
+  // @include in.js
 </script>
 
 <script>

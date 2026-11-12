@@ -12,7 +12,6 @@ Architecture overview with diagrams: [docs/architecture/](../docs/architecture/R
 | `evidence/` | How a variant changes its gene: function evidence, per-person gene calls, literature |
 | `lifecycle/` | A gene's chemical lifecycle (Gene lifecycle tab) and gene traces |
 | `medicines/` | Drug genes, star alleles and guidelines (Medicines tab) |
-| `carriers/` | Carrier screening (Carriers tab): ClinVar pathogenic variants the chip sees, inheritance from HPO, the chance of carrying each |
 | `nutrition/` | Nutrients (Nutrition tab) and lab tests (Biomarkers tab): `nutrients.json`, `labtests.json`, NNR 2023 |
 | `explorer/` | The explorer page, its dataset export, the build, and the localhost / agent commands |
 | `library/` | The old 247-SNP library (`config/snp_traits.json`) and its tools: modules, biomarkers, audits. Being phased out in favour of the API-based packages above |

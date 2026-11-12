@@ -1,0 +1,51 @@
+  /* Introduction (Home tab): a walkthrough, one step at a time */
+  .in-card { padding: var(--cds-gap-md) var(--cds-gap-lg); }
+  .in-top { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 16px; }
+  .in-count { font-size: 12px; color: var(--color-fg-muted); letter-spacing: 0.04em; text-transform: uppercase; }
+  .in-progress { display: flex; gap: 4px; margin: 8px 0 16px; }
+  .in-progress span { flex: 1; height: 4px; border-radius: 2px; background: var(--color-border-line); }
+  .in-progress span.on { background: var(--color-fg); }
+  .in-intro h2 { margin: 0; font-size: 22px; }
+  .in-text { max-width: 72ch; line-height: 1.6; margin: 10px 0; }
+  .in-big { font-size: 28px; font-weight: 700; line-height: 1.2; }
+  .in-facts { display: flex; flex-wrap: wrap; gap: 12px; margin: 14px 0; }
+  .in-fact { border: 1px solid var(--color-border-line); border-radius: 8px; padding: 10px 14px; min-width: 150px; background: var(--color-bg); }
+  .in-fact small { display: block; font-size: 12px; color: var(--color-fg-muted); margin-top: 2px; }
+  .in-chart { margin: 14px 0; max-width: 760px; }
+  .in-chart-title { font-size: 12px; color: var(--color-fg-muted); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 6px; }
+  .in-cols { display: flex; align-items: flex-end; gap: 3px; height: 140px; border-bottom: 1px solid var(--color-border-line); }
+  .in-cols div { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; height: 100%; }
+  .in-cols i { display: block; width: 100%; background: var(--color-fg-muted); border-radius: 2px 2px 0 0; }
+  .in-cols-lab { display: flex; gap: 3px; font-size: 10px; color: var(--color-fg-muted); }
+  .in-cols-lab span { flex: 1; text-align: center; }
+  .in-row { display: grid; grid-template-columns: minmax(110px, 200px) 1fr auto; gap: 8px; align-items: center; margin: 6px 0; font-size: 13px; }
+  .in-row b { font-weight: 600; }
+  .in-track { height: 14px; background: var(--color-border-line); border-radius: 3px; overflow: hidden; }
+  .in-track i { display: block; height: 100%; border-radius: 3px; }
+  .in-stack { display: flex; height: 22px; border-radius: 5px; overflow: hidden; border: 1px solid var(--color-border-line); }
+  .in-stack span { display: block; height: 100%; }
+  .in-legend { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 8px; font-size: 13px; }
+  .in-legend span::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; background: var(--in-c); }
+  .in-c-ok { --in-c: var(--color-ok); } .in-c-ok2 { --in-c: color-mix(in srgb, var(--color-ok) 55%, transparent); }
+  .in-c-warn { --in-c: var(--color-warn); } .in-c-bad { --in-c: var(--color-bad); }
+  .in-c-none { --in-c: var(--color-border-line); } .in-c-fg { --in-c: var(--color-fg-muted); }
+  .in-stack .in-c-ok, .in-track .in-c-ok { background: var(--color-ok); }
+  .in-stack .in-c-ok2, .in-track .in-c-ok2 { background: color-mix(in srgb, var(--color-ok) 55%, transparent); }
+  .in-stack .in-c-warn, .in-track .in-c-warn { background: var(--color-warn); }
+  .in-stack .in-c-bad, .in-track .in-c-bad { background: var(--color-bad); }
+  .in-stack .in-c-none, .in-track .in-c-none { background: var(--color-border-line); }
+  .in-stack .in-c-fg, .in-track .in-c-fg { background: var(--color-fg-muted); }
+  .in-flow { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 14px 0; font-size: 13px; }
+  .in-flow span { border: 1px solid var(--color-border-line); border-radius: 6px; padding: 6px 10px; background: var(--color-bg); }
+  .in-flow em { font-style: normal; color: var(--color-fg-muted); }
+  .in-list { margin: 8px 0; padding-left: 20px; line-height: 1.6; max-width: 72ch; }
+  .in-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; align-items: center; }
+  .in-nav button { font: inherit; font-size: 14px; padding: 8px 16px; border-radius: 6px; cursor: pointer;
+    border: 1px solid var(--color-border-line); background: var(--color-bg); color: var(--color-fg); }
+  .in-nav button.in-next { background: var(--color-fg); color: var(--color-bg); border-color: var(--color-fg); }
+  .in-nav button:disabled { opacity: 0.45; cursor: default; }
+  .in-nav .in-skip { margin-left: auto; background: none; border: 0; color: var(--color-fg-muted); text-decoration: underline; }
+  .in-sample { max-width: 420px; }
+  /* While the introduction is mandatory and not yet done, the other tabs are shut */
+  .gx.gx-locked .gx-tab:not([data-tab="home"]) { opacity: 0.35; cursor: not-allowed; }
+  .in-grade { display: flex; align-items: center; gap: 6px; }

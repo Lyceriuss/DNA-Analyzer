@@ -71,7 +71,6 @@ flowchart TB
 | 1000 Genomes | Bulk panel + site list | Imputation; allele frequencies in five ancestries | `genome/impute.py`, `medicines.py`, `nutrition.py` |
 | PGS Catalog | REST API + harmonised scoring files (GRCh37) | Polygenic scores for blood levels (vitamin D, omega-3, DHA) | `nutrition.py` |
 | Livsmedelsverket: NNR 2023 summary | PDF, parsed to `nnr_2023.json` | Recommended and adequate intakes, upper limits, reference energy, fat targets (the intake line) | `nutrition.py` |
-| Human Phenotype Ontology | Bulk files (`phenotype.hpoa`, `genes_to_disease.txt`) | Inheritance of each disease (recessive, dominant, X-linked), joined to ClinVar's OMIM and Orphanet IDs | `carriers.py` |
 | Human Protein Atlas | REST API (`search_download.php`) | RNA tissue specificity: where in the body a gene is mostly made | `nutrient_steps.py` |
 
 Downloads: `scripts/fetch_imputation_reference.sh` (imputation) and `scripts/fetch_pgx_reference.sh` (medicines).

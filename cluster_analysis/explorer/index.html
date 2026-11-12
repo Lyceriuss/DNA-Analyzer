@@ -684,9 +684,9 @@
   .nt-high { color: var(--color-ok); font-weight: 700; }
   .nt-bar { position: relative; height: 8px; border-radius: 4px; margin: 6px 0 2px;
     background: linear-gradient(90deg, var(--nt-scale)); }
-  /* Unfavourable to favourable: red, orange, yellow, green in the typical middle, turquoise, blue */
-  .gx { --nt-scale: #d94141 0%, #ec8a2f 17%, #e9c42a 33%, #46a95a 50%, #22b3a6 67%, #3a78d8 100%; }
-  .nt-bar.nt-flip { transform: scaleX(-1); }
+  /* Unfavourable to favourable, left to right: orange, amber, yellow, then light to deep green. Green is always on the
+     right; where a higher level is worse (.nt-flip), the marker sits at 100 - percentile instead (nt.js) */
+  .gx { --nt-scale: #e8590c 0%, #f08c24 20%, #e9c42a 38%, #8cc152 56%, #3fa34d 78%, #1b7a3a 100%; }
   .nt-mean { margin-top: 6px; max-width: 70ch; line-height: 1.5; }
   /* Neither direction is better: the typical middle (40-60th percentile) in green */
   .nt-bar.nt-even { background: linear-gradient(90deg, var(--color-border-line) 0 40%, color-mix(in srgb, var(--color-ok) 60%, transparent) 40% 60%, var(--color-border-line) 60%); }
@@ -748,16 +748,57 @@
   .nt-side-good > .gx-label { border-color: var(--color-ok); color: var(--color-ok); }
   .nt-side-bad > .gx-label { border-color: var(--color-warn); color: var(--color-warn); }
   .nt-find-good { box-shadow: inset 3px 0 0 var(--color-ok); }
-  .cr-big { font-size: 16px; font-weight: 700; }
-  .cr-quote { font-size: 13px; padding: 6px 10px; border-left: 3px solid var(--color-warn); background: var(--color-panel); max-width: 80ch; }
-  .cr-var { padding: 8px 10px; margin: 8px 0; border-left: 3px solid var(--color-border-line); }
-  .cr-var p { margin: 4px 0; max-width: 80ch; }
-  .cr-rec { border-left-color: var(--color-warn); }
-  .cr-dom { border-left-color: var(--color-bad); }
-  .cr-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
-  .cr-tag { font-size: 12px; padding: 1px 8px; border-radius: 10px; border: 1px solid var(--color-border-line); }
-  .cr-confirm { border-color: var(--color-warn); color: var(--color-warn); }
-  .cr-genes { max-height: 32rem; overflow: auto; }
+  /* Introduction (Home tab): a walkthrough, one step at a time */
+  .in-card { padding: var(--cds-gap-md) var(--cds-gap-lg); }
+  .in-top { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 16px; }
+  .in-count { font-size: 12px; color: var(--color-fg-muted); letter-spacing: 0.04em; text-transform: uppercase; }
+  .in-progress { display: flex; gap: 4px; margin: 8px 0 16px; }
+  .in-progress span { flex: 1; height: 4px; border-radius: 2px; background: var(--color-border-line); }
+  .in-progress span.on { background: var(--color-fg); }
+  .in-intro h2 { margin: 0; font-size: 22px; }
+  .in-text { max-width: 72ch; line-height: 1.6; margin: 10px 0; }
+  .in-big { font-size: 28px; font-weight: 700; line-height: 1.2; }
+  .in-facts { display: flex; flex-wrap: wrap; gap: 12px; margin: 14px 0; }
+  .in-fact { border: 1px solid var(--color-border-line); border-radius: 8px; padding: 10px 14px; min-width: 150px; background: var(--color-bg); }
+  .in-fact small { display: block; font-size: 12px; color: var(--color-fg-muted); margin-top: 2px; }
+  .in-chart { margin: 14px 0; max-width: 760px; }
+  .in-chart-title { font-size: 12px; color: var(--color-fg-muted); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 6px; }
+  .in-cols { display: flex; align-items: flex-end; gap: 3px; height: 140px; border-bottom: 1px solid var(--color-border-line); }
+  .in-cols div { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; height: 100%; }
+  .in-cols i { display: block; width: 100%; background: var(--color-fg-muted); border-radius: 2px 2px 0 0; }
+  .in-cols-lab { display: flex; gap: 3px; font-size: 10px; color: var(--color-fg-muted); }
+  .in-cols-lab span { flex: 1; text-align: center; }
+  .in-row { display: grid; grid-template-columns: minmax(110px, 200px) 1fr auto; gap: 8px; align-items: center; margin: 6px 0; font-size: 13px; }
+  .in-row b { font-weight: 600; }
+  .in-track { height: 14px; background: var(--color-border-line); border-radius: 3px; overflow: hidden; }
+  .in-track i { display: block; height: 100%; border-radius: 3px; }
+  .in-stack { display: flex; height: 22px; border-radius: 5px; overflow: hidden; border: 1px solid var(--color-border-line); }
+  .in-stack span { display: block; height: 100%; }
+  .in-legend { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 8px; font-size: 13px; }
+  .in-legend span::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; background: var(--in-c); }
+  .in-c-ok { --in-c: var(--color-ok); } .in-c-ok2 { --in-c: color-mix(in srgb, var(--color-ok) 55%, transparent); }
+  .in-c-warn { --in-c: var(--color-warn); } .in-c-bad { --in-c: var(--color-bad); }
+  .in-c-none { --in-c: var(--color-border-line); } .in-c-fg { --in-c: var(--color-fg-muted); }
+  .in-stack .in-c-ok, .in-track .in-c-ok { background: var(--color-ok); }
+  .in-stack .in-c-ok2, .in-track .in-c-ok2 { background: color-mix(in srgb, var(--color-ok) 55%, transparent); }
+  .in-stack .in-c-warn, .in-track .in-c-warn { background: var(--color-warn); }
+  .in-stack .in-c-bad, .in-track .in-c-bad { background: var(--color-bad); }
+  .in-stack .in-c-none, .in-track .in-c-none { background: var(--color-border-line); }
+  .in-stack .in-c-fg, .in-track .in-c-fg { background: var(--color-fg-muted); }
+  .in-flow { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 14px 0; font-size: 13px; }
+  .in-flow span { border: 1px solid var(--color-border-line); border-radius: 6px; padding: 6px 10px; background: var(--color-bg); }
+  .in-flow em { font-style: normal; color: var(--color-fg-muted); }
+  .in-list { margin: 8px 0; padding-left: 20px; line-height: 1.6; max-width: 72ch; }
+  .in-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; align-items: center; }
+  .in-nav button { font: inherit; font-size: 14px; padding: 8px 16px; border-radius: 6px; cursor: pointer;
+    border: 1px solid var(--color-border-line); background: var(--color-bg); color: var(--color-fg); }
+  .in-nav button.in-next { background: var(--color-fg); color: var(--color-bg); border-color: var(--color-fg); }
+  .in-nav button:disabled { opacity: 0.45; cursor: default; }
+  .in-nav .in-skip { margin-left: auto; background: none; border: 0; color: var(--color-fg-muted); text-decoration: underline; }
+  .in-sample { max-width: 420px; }
+  /* While the introduction is mandatory and not yet done, the other tabs are shut */
+  .gx.gx-locked .gx-tab:not([data-tab="home"]) { opacity: 0.35; cursor: not-allowed; }
+  .in-grade { display: flex; align-items: center; gap: 6px; }
   .th-b-untested { background: var(--color-fg-muted); opacity: 0.35; }
 </style>
 
@@ -772,20 +813,27 @@
     </div>
     <div class="gx-profile" data-draw="gx-profile" data-source="profiles" role="group" aria-label="Profile"></div>
     <p class="gx-lede">Every tab reads the selected person's genome through public research sources: Clusters, Medicines, Nutrition,
-      Carriers, Biomarkers, Gene lifecycle and Profile.</p>
+      Biomarkers, Gene lifecycle and Profile. Home explains how.</p>
   </header>
 
   <nav class="gx-tabs" role="tablist" aria-label="Views">
-    <button class="gx-tab" role="tab" data-tab="clusters" aria-selected="true">Clusters</button>
+    <button class="gx-tab" role="tab" data-tab="home" aria-selected="true">Home</button>
+    <button class="gx-tab" role="tab" data-tab="clusters" aria-selected="false">Clusters</button>
     <button class="gx-tab" role="tab" data-tab="medicines" aria-selected="false">Medicines</button>
     <button class="gx-tab" role="tab" data-tab="nutrition" aria-selected="false">Nutrition</button>
     <button class="gx-tab" role="tab" data-tab="lifecycle" aria-selected="false">Gene lifecycle</button>
-    <button class="gx-tab" role="tab" data-tab="carriers" aria-selected="false">Carriers</button>
     <button class="gx-tab" role="tab" data-tab="biomarkers" aria-selected="false">Biomarkers</button>
     <button class="gx-tab" role="tab" data-tab="profile" aria-selected="false">Profile</button>
   </nav>
 
-  <section class="gx-page" id="clusters" data-page="clusters">
+  <section class="gx-page" id="home" data-page="home">
+    <div class="gx-card in-card">
+      <div class="in-intro" data-draw="in-intro"
+           data-source="intro_stats theme_meta med_genes med_drugs nut_nutrients lab_tests lifecycle_genes hp_modules"></div>
+    </div>
+  </section>
+
+  <section class="gx-page" id="clusters" data-page="clusters" hidden>
     <p class="gx-note">A theme gathers every library gene with evidence that it bears on one area of health, grouped by the mechanism it acts
       through: repair, growth signals, hormones, the supply of building blocks. Evidence comes from Gene Ontology, Reactome, UniProt and GWAS,
       and each gene shows why it is included. Colours are the selected profile's calls: blue more active, green typical function, red less active. Female fertility is shown for female profiles, male fertility for male ones.</p>
@@ -889,25 +937,6 @@
     </div>
     <div class="gx-card" id="nt-detail">
       <div class="nt-detail" data-draw="nt-detail" data-source="nut_nutrients nut_findings nut_steps"></div>
-    </div>
-  </section>
-  <section class="gx-page" id="carriers" data-page="carriers" hidden>
-    <p class="gx-note" data-who>Carrier screening from XY's chip: every ClinVar pathogenic or likely pathogenic variant XY's DNA says something
-      about, with the chance XY carries it. Inheritance comes from the Human Phenotype Ontology's disease annotations, the chance before a
-      test from 1000 Genomes Europeans, and how well a chip sees each variant from the imputability map (100 people with known genotypes,
-      imputed from chip positions).</p>
-    <div class="gx-card">
-      <div data-draw="cr-summary" data-source="car_variants car_genes car_meta"></div>
-    </div>
-    <div class="gx-card">
-      <h2>Variants found</h2>
-      <div data-draw="cr-found" data-source="car_variants car_meta"></div>
-    </div>
-    <div class="gx-card">
-      <h2>Genes checked</h2>
-      <p class="gx-note" data-who>Per gene: the variants a chip sees that XY doesn't carry, the chance one was missed anyway, and the variants a chip
-        can't see at all.</p>
-      <div data-draw="cr-genes" data-source="car_genes"></div>
     </div>
   </section>
 
@@ -1017,6 +1046,7 @@
 </div>
 
 <script>
+  window.GX_SETTINGS = {"intro_required": false, "intro_min_seconds": 6};
   // Calculations from the attached datasets
   dash.calc('kpis', {
     inputs: ['modules', 'module_links', 'biomarker_snps'],
@@ -1136,7 +1166,7 @@
     setTimeout(() => applyWho(who), 0);
   });
   const linked = location.hash.slice(1);
-  if (['clusters', 'medicines', 'nutrition', 'carriers', 'lifecycle', 'biomarkers', 'profile'].includes(linked)) gx.show(linked);
+  if (['home', 'clusters', 'medicines', 'nutrition', 'lifecycle', 'biomarkers', 'profile'].includes(linked)) gx.show(linked);
 
   dash.calc('hp_compound', {
     inputs: ['hp_links'],
@@ -3869,89 +3899,254 @@
 </script>
 
 <script>
-  // Carriers: ClinVar pathogenic variants the person's chip and imputation see, with the chance they carry each
-  // (cluster_analysis/carriers). Every text node is one whole template, so the Swedish layer can swap it.
-  const crMake = (parent, tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; parent.appendChild(e); return e; };
-  const crT = (tpl, ...vals) => vals.reduce((s, v) => s.replace('{}', v), tpl);
-  const CR_MODE = { AR: 'recessive', AD: 'dominant', XLR: 'X-linked recessive', XLD: 'X-linked dominant', XL: 'X-linked', MT: 'mitochondrial', YL: 'Y-linked' };
-  const CR_HOW = { measured: 'measured on the chip', imputed: 'imputed', 'chip only': 'measured on the chip, not in 1000 Genomes' };
-  const crModes = (m) => (m && m.length ? m.map((x) => CR_MODE[x] || x).join(', ') : 'not annotated');
-  const crChance = (p) => p >= 0.995 ? 'over 99%' : p >= 0.01 ? `${(p * 100).toFixed(p >= 0.1 ? 0 : 1)}%` : p > 0 ? `1 in ${d3.format(',')(+(1 / p).toPrecision(2))}` : 'none, measured';
-  const crDominant = (m) => m.some((x) => x === 'AD' || x === 'XLD');
-  // What a found variant means, from its inheritance and the copies the person has
-  const crMeaning = (r, who) => {
-    const m = r.modes || [];
-    if (crDominant(m) && !m.includes('AR')) return 'One copy can cause the condition.';
-    if (m.includes('XLR') || m.includes('XL')) return r.haploid ? `On ${who}'s only X: the condition is expected.` : 'Carrier on one X: sons have a 1 in 2 chance of inheriting it.';
-    if (m.includes('AR')) return r.copies >= 2 ? 'Two copies: the condition is expected.'
-      : `Carrier: one copy alone has no effect. A child is at risk (1 in 4) only if the other parent also carries a variant in ${r.gene}.`;
-    return 'Inheritance not annotated.';
+  // Introduction (Home tab): a walkthrough of what the explorer does and how, one step at a time, with the method's
+  // numbers and the selected person's (intro_stats, cluster_analysis/explorer/intro.py). With GX_SETTINGS.intro_required
+  // (settings.json) every viewer goes through it once per browser before the other tabs open: Next waits
+  // intro_min_seconds on each step and there is no skipping. Every text node is one whole template for the Swedish layer.
+  const IN_S = window.GX_SETTINGS || {};
+  const inMake = (parent, tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; parent.appendChild(e); return e; };
+  const inT = (tpl, ...vals) => vals.reduce((s, v) => s.replace('{}', v), tpl);
+  const inN = (n) => (n == null ? '—' : d3.format(',')(n));
+  const inPct = (x, d = 0) => (x == null ? '—' : `${(x * 100).toFixed(d)}%`);
+  const inMillions = (n) => (n == null ? '—' : `${(n / 1e6).toFixed(1)} million`);
+  let inDone = false;
+  try { inDone = localStorage.getItem('gx-intro-done') === '1'; } catch (e) { /* storage blocked: shown again next visit */ }
+  const inLocked = () => !!IN_S.intro_required && !inDone;
+  let inStep = 0, inShownAt = Date.now(), inTimer = null;
+
+  // Shut the other tabs while the introduction is mandatory and not done
+  const inShow = gx.show;
+  gx.show = (tab) => inShow(inLocked() && tab !== 'home' ? 'home' : tab);
+  const inLock = () => {
+    document.querySelector('.gx').classList.toggle('gx-locked', inLocked());
+    document.querySelectorAll('.gx-tab').forEach((b) => {
+      if (b.dataset.tab === 'home') return;
+      if (inLocked()) { b.setAttribute('aria-disabled', 'true'); b.title = 'Finish the introduction first'; }
+      else { b.removeAttribute('aria-disabled'); b.removeAttribute('title'); }
+    });
+    if (inLocked()) gx.show('home');
+  };
+  inLock();
+  const inFinish = (tab) => {
+    inDone = true;
+    try { localStorage.setItem('gx-intro-done', '1'); } catch (e) { /* storage blocked: for this visit only */ }
+    inLock();
+    gx.show(tab || 'clusters');
   };
 
-  dash.draw('cr-summary', (el) => {
-    el.replaceChildren();
-    const r = gx.rows('car_variants', 'car_genes', 'car_meta');
-    if (!r) { if (gx.failed('car_variants', 'car_genes', 'car_meta')) gx.failLine(el); return; }
-    const [vs, gs, [meta]] = r, who = gx.who(), fmt = d3.format(',');
-    if (!meta) { crMake(el, 'p', 'gx-note', `No carrier screening for ${who} yet.`); return; }
-    const sure = vs.filter((v) => v.status === 'carrier'), maybe = vs.filter((v) => v.status === 'possible');
-    const rec = sure.filter((v) => !crDominant(v.modes || []));
-    const word = sure.length === 1 ? 'variant' : 'variants';
-    crMake(el, 'p', sure.length ? 'cr-big' : null, sure.length
-      ? rec.length === sure.length ? crT('{} carries {} pathogenic {}, all in recessive or X-linked genes.', who, sure.length, word)
-        : crT('{} carries {} pathogenic {}: {} in recessive or X-linked genes, {} where one copy can cause the condition.', who, sure.length, word, rec.length, sure.length - rec.length)
-      : crT('{} carries none of the pathogenic variants a chip can check.', who));
-    if (maybe.length) crMake(el, 'p', null, crT('{} more {} possible, from imputed calls a chip sees less well.', maybe.length, maybe.length === 1 ? 'is' : 'are'));
-    crMake(el, 'p', 'gx-note', crT('ClinVar lists {} pathogenic or likely pathogenic variants. {}\'s DNA says something about {} of them, in {} genes; the other {} can\'t be seen from a chip, so a clear result here does not rule them out.',
-      fmt(meta.variants), who, fmt(meta.checked), fmt(gs.length), fmt(meta.unseen)));
-    if (vs.some((v) => v.confirm) && meta.quote) {
-      const q = crMake(el, 'p', 'cr-quote');
-      crMake(q, 'span', null, 'Variants marked to confirm are very rare, and chip calls of very rare variants are often wrong: ');
-      crMake(q, 'q', null, meta.quote);
-      crMake(q, 'span', 'gx-muted', ` ${meta.title} ${meta.journal} ${meta.year}, PMID ${meta.pmid}.`);
+  // Charts, drawn as plain elements so their labels are text the Swedish layer translates
+  const inChartBox = (parent, title) => { const b = inMake(parent, 'div', 'in-chart'); if (title) inMake(b, 'div', 'in-chart-title', title); return b; };
+  const inBars = (parent, title, items, fmt = inN) => {
+    const box = inChartBox(parent, title), max = Math.max(...items.map((x) => x.value || 0), 1);
+    for (const x of items) {
+      const r = inMake(box, 'div', 'in-row');
+      inMake(r, 'b', null, x.label);
+      inMake(inMake(r, 'div', 'in-track'), 'i', x.cls || 'in-c-fg').style.width = `${((x.value || 0) / (x.max || max)) * 100}%`;
+      inMake(r, 'span', null, fmt(x.value));
     }
-  });
+    return box;
+  };
+  const inStack = (parent, title, items) => {
+    const box = inChartBox(parent, title), total = items.reduce((s, x) => s + (x.value || 0), 0) || 1;
+    const bar = inMake(box, 'div', 'in-stack');
+    bar.setAttribute('role', 'img');
+    bar.setAttribute('aria-label', items.map((x) => `${x.label}: ${inN(x.value)}`).join(', '));
+    for (const x of items) if (x.value) inMake(bar, 'span', x.cls).style.width = `${(x.value / total) * 100}%`;
+    const lg = inMake(box, 'div', 'in-legend');
+    for (const x of items) inMake(lg, 'span', x.cls, `${x.label}: ${inN(x.value)} (${inPct(x.value / total, x.value / total < 0.01 ? 1 : 0)})`);
+    return box;
+  };
+  const inFacts = (parent, facts) => {
+    const box = inMake(parent, 'div', 'in-facts');
+    for (const [big, small] of facts) { const f = inMake(box, 'div', 'in-fact'); inMake(f, 'div', 'in-big', big); inMake(f, 'small', null, small); }
+  };
+  const inText = (parent, text) => inMake(parent, 'p', 'in-text', text);
 
-  dash.draw('cr-found', (el) => {
+  // The tabs' headline numbers, from the datasets the tabs themselves draw
+  const inCount = (id) => { const r = gx.rows(id); return r ? r[0] : null; };
+  const inDistinct = (rows, key) => (rows ? new Set(rows.map((r) => r[key])).size : null);
+
+  const IN_STEPS = [
+    { title: 'What this is', draw: (el, c) => {
+      inText(el, `This explorer reads ${c.who}'s raw DNA file, the file a consumer test such as MyHeritage, AncestryDNA or 23andMe lets you download, and lays it against public research: which genes act on health, what the variants ${c.who} carries do to them, and what that means for medicines, nutrition and lab values.`);
+      inText(el, 'Everything runs on this computer. The DNA file and every result stay here; the explorer only reads research databases that were downloaded beforehand, and never sends anyone\'s genotypes anywhere.');
+      inText(el, 'The steps that follow explain how the file is read, how the gaps in it are filled, how sure each answer is, where the facts come from, and what each tab shows. Use the switches at the top to change person (Profile) or language (EN, SV).');
+    } },
+    { title: 'The DNA file', draw: (el, c) => {
+      const p = c.p || {}, m = (c.g || {}).map_sites || {};
+      const sites = Object.values(m).reduce((s, n) => s + (n || 0), 0);
+      inText(el, inT('DNA is a long text of four letters, and people differ from each other at certain positions: the 1000 Genomes reference panel records {} such positions. A consumer DNA test doesn\'t read them all. A chip measures a fixed set of them (SNPs), {} in {}\'s file, and reports the two letters found at each, one from each parent.',
+        sites ? inMillions(sites) : '—', inN(p.measured), c.who));
+      inFacts(el, [[inN(p.measured), inT('positions measured in {}\'s file', c.who)],
+                   [p.format ? { myheritage: 'MyHeritage', ancestry: 'AncestryDNA', '23andme': '23andMe' }[p.format] || p.format : '—', 'file format'],
+                   [inN(p.matched), 'of them at positions the reference panel knows']]);
+      const chroms = Object.entries(p.per_chrom || {}).sort((a, b) => (a[0] === 'X') - (b[0] === 'X') || +a[0] - +b[0]);
+      if (chroms.length) {
+        const box = inChartBox(el, 'Measured positions per chromosome');
+        const cols = inMake(box, 'div', 'in-cols'), labs = inMake(box, 'div', 'in-cols-lab'), max = Math.max(...chroms.map((x) => x[1] || 0));
+        for (const [ch, n] of chroms) {
+          const col = inMake(cols, 'div');
+          col.title = inT('Chromosome {}: {} positions', ch, inN(n));
+          inMake(col, 'i').style.height = `${(n / max) * 100}%`;
+          inMake(labs, 'span', null, ch);
+        }
+      }
+      inText(el, 'Larger chromosomes hold more positions. X counts once in men, who have one X; in women, the two X\'s differ like the other chromosomes do.');
+    } },
+    { title: 'Filling in the gaps: imputation', draw: (el, c) => {
+      const p = c.p || {}, g = c.g || {};
+      inText(el, inT('DNA is inherited in long stretches, and distant relatives share them without knowing it. Imputation compares the measured positions with the full genomes of {} volunteers in the 1000 Genomes Project, finds the people who share each stretch, and reads the positions in between from them.', inN(g.panel_people)));
+      const flow = inMake(el, 'div', 'in-flow');
+      inMake(flow, 'span', null, inT('{} measured', inN(p.measured)));
+      inMake(flow, 'em', null, '→');
+      inMake(flow, 'span', null, inT('compared with {} reference genomes', inN(g.panel_people)));
+      inMake(flow, 'em', null, '→');
+      inMake(flow, 'span', null, inT('{} positions filled in', inMillions(p.kept)));
+      if (p.kept && p.measured) {
+        inBars(el, 'Calls before and after imputation', [
+          { label: 'Measured by the chip', value: p.measured, cls: 'in-c-fg' },
+          { label: 'Filled in by imputation', value: p.kept, cls: 'in-c-ok' }]);
+        inText(el, inT('Imputation gives {} {} times more calls than the chip measured. Each comes with a probability: only calls where the best genotype has at least {} probability are kept.', c.who, Math.round(p.kept / p.measured), inPct(p.min_gp)));
+      }
+    } },
+    { title: 'How sure is each call?', draw: (el, c) => {
+      const p = c.p || {}, v = p.validation || {}, t = p.tiers || {};
+      inText(el, inT('To measure how good the guesses are, every tenth measured position was hidden from {}\'s file, imputed as if it had never been read, and compared with the real answer.', c.who));
+      inFacts(el, [[inN(v.hidden), 'positions hidden and re-imputed'], [inPct(v.right, 1), 'of the confident guesses were right']]);
+      inStack(el, inT('{}\'s imputed calls by confidence', c.who), [
+        { label: 'High', value: t.high, cls: 'in-c-ok' }, { label: 'Medium', value: t.medium, cls: 'in-c-ok2' },
+        { label: 'Low', value: t.low, cls: 'in-c-warn' }, { label: 'Untested', value: t.untested, cls: 'in-c-fg' },
+        { label: 'Not detected, not excluded', value: t.not_excluded, cls: 'in-c-none' }]);
+      inMake(el, 'ul', 'in-list').append(...[
+        'High: at least 98% right in the test. Used like a measured call, marked "imputed".',
+        'Medium: at least 90% right. Used for theme findings, not for conclusions from one variant.',
+        'Low and untested: counted, not used.',
+        'Not detected, not excluded: "doesn\'t carry it" for a rare variant, where imputation misses too many real carriers to rule it out. Most imputed calls are of this kind: rare variants nobody can impute well.'
+      ].map((x) => { const li = document.createElement('li'); li.textContent = x; return li; }));
+    } },
+    { title: 'What a chip can and can\'t see', draw: (el, c) => {
+      const g = c.g || {}, m = g.map_sites || {}, cv = g.clinvar;
+      inText(el, inT('To know where imputation can be trusted for anyone, {} of the reference volunteers were set aside, cut down to the positions a chip reads, imputed from the others, and compared with their real genomes at every one of the panel\'s positions.', inN(g.holdout)));
+      inStack(el, 'Every variant position in the reference panel, by how well a chip plus imputation knows it', [
+        { label: 'Measured on the chip', value: m.chip, cls: 'in-c-fg' }, { label: 'Imputed reliably', value: m.reliable, cls: 'in-c-ok' },
+        { label: 'Uncertain', value: m.uncertain, cls: 'in-c-warn' }, { label: 'Not knowable from a chip', value: m.not_knowable, cls: 'in-c-none' }]);
+      const bands = g.map_by_frequency || [];
+      if (bands.length) {
+        inBars(el, 'Imputation accuracy (r², 1 = perfect) by how common the variant is', bands.map((b) => ({
+          label: inT('Variant frequency {}–{}', inPct(b.from), inPct(b.to)), value: b.r2, max: 1, cls: b.r2 >= 0.8 ? 'in-c-ok' : 'in-c-warn' })),
+          (x) => (x == null ? '—' : x.toFixed(2)));
+      }
+      inText(el, 'Common variants are imputed well. The rarer a variant, the fewer reference people share it and the worse the guess; for variants rarer than 1%, the held-out people carry too few copies to measure it at all. Most of the genome\'s variant positions are that rare.');
+      if (cv) inText(el, inT('That matters most for disease variants. Of the {} variants ClinVar lists as causing disease, {} are too rare to be in the reference panel at all, and only {} can be read from a chip with confidence. For those, a clear result here says little; a sequencing test reads them directly. The Clusters tab shows this per theme and per gene ("What a chip can see").',
+        inN(cv.pathogenic), inN(cv.not_in_panel), inN((cv.chip || 0) + (cv.reliable || 0))));
+    } },
+    { title: 'Where the facts come from', draw: (el, c) => {
+      inText(el, 'Nothing in the explorer is written from memory. Which genes belong to a theme, what a variant does, how strong a finding is and what a guideline recommends all come from public research databases, downloaded and read on this computer:');
+      inMake(el, 'ul', 'in-list').append(...[
+        'Genes and diseases: Open Targets, Gene Ontology (QuickGO), the GWAS Catalog, ClinVar.',
+        'How genes work together: STRING (protein interactions), Reactome (pathways and reactions), OmniPath, Rhea.',
+        'What a variant does: Ensembl VEP, UniProt, MaveDB (measured effects), GTEx (gene activity per tissue).',
+        'Medicines: ClinPGx (PharmGKB), CPIC and DPWG dosing guidelines, drug labels.',
+        'Nutrition and lab values: the PGS Catalog (polygenic scores), Nordic Nutrition Recommendations 2023, the Human Protein Atlas.',
+        'Frequencies and imputation: the 1000 Genomes Project.'
+      ].map((x) => { const li = document.createElement('li'); li.textContent = x; return li; }));
+      if (c.g && c.g.references) inText(el, inT('{} reference files in all, each with its source, version and date (genome/references.json).', c.g.references));
+      inText(el, 'Each finding carries an evidence grade, so a single small study never reads like an expert guideline:');
+      const gr = inMake(el, 'div', 'in-legend');
+      for (const [g, t] of [['A+', 'guideline-grade, or expert-reviewed (ClinVar 3–4 stars)'], ['A', 'replicated, or ClinVar 2 stars'],
+                            ['B', 'one publication, or ClinVar 1 star'], ['C', 'a single study']]) {
+        const s = inMake(gr, 'div', 'in-grade');
+        inMake(s, 'span', 'md-grade md-grade-' + (g === 'A+' ? 'ap' : g.toLowerCase()), g);
+        inMake(s, 'span', null, t);
+      }
+    } },
+    { title: 'How to read the results', draw: (el, c) => {
+      inText(el, 'Where a result is a level compared with other people, it is drawn on a bar from orange to green. Green is always on the right, the favourable side, whichever way the level runs: for LDL cholesterol lower is better, for HDL higher is better, and both bars put the better end on the right.');
+      const s = inMake(el, 'div', 'in-sample');
+      const b = inMake(s, 'div', 'nt-bar');
+      inMake(b, 'i').style.left = '72%';
+      inText(el, 'The marker shows where the genes put the person among Europeans. It is a starting point set by the genes, not a measured value: the lab test measures the real one, and lifestyle moves it.');
+      inText(el, 'Calls that come from imputation rather than the chip are marked "imputed", with their confidence. A gene is called more active, less active, changed or typical only from evidence about the variant itself: a measured effect, a curated effect, a change that cuts the protein short, or how the variant changes the gene\'s activity in tissues.');
+    } },
+    { title: 'Clusters', tab: 'clusters', draw: (el, c) => {
+      const tm = inCount('theme_meta'), themes = tm ? [...new Map(tm.map((r) => [r.theme, r.theme_name])).values()] : [];
+      inText(el, 'A theme gathers every gene research links to one area of health (cancer and the life of a cell, fertility, muscle and exertion), grouped by the mechanism it acts through: repair, growth signals, hormones, energy. Each gene is then read against the person\'s own variants.');
+      if (themes.length) inFacts(el, [[String(themes.length), inT('themes for {}: {}', c.who, themes.join(', '))]]);
+      inText(el, 'Body maps show where in the body the genes act, the network shows which genes work together, and selecting a gene lists the person\'s variants in it with what is known about each.');
+    } },
+    { title: 'Medicines', tab: 'medicines', draw: (el, c) => {
+      const mg = inCount('med_genes'), md = inCount('med_drugs');
+      inText(el, 'Some genes decide how fast the body clears a medicine. Each drug gene is read as two versions (star alleles), turned into a type with the CPIC rules (poor, intermediate, normal or fast), and every medicine with a guideline, a drug label or a study finding for the person\'s genotype is listed.');
+      inText(el, 'The core drug genes that need such a type are read whole. Every other gene with a ClinPGx annotation is read one variant at a time, so findings come from far more genes than the core ones.');
+      const mdGenes = md ? new Set(md.flatMap((r) => String(r.gene || '').split(';').filter(Boolean))).size : null;
+      if (mg) inFacts(el, [[String(mg.length), 'core drug genes typed'], [String(mg.filter((g) => g.typical !== true && String(g.typical) !== 'True').length), 'of them not the usual type'], [inN(mdGenes), 'genes with a medicine finding'], [inN(inDistinct(md, 'drug')), 'medicines with a finding']]);
+      inText(el, 'Search a medicine by any name, brand or ATC code to see the dosing guidance that applies and every finding with the person\'s reading and its evidence grade.');
+    } },
+    { title: 'Nutrition', tab: 'nutrition', draw: (el, c) => {
+      const nn = inCount('nut_nutrients');
+      inText(el, 'For each nutrient: how the person\'s variants move its level in the blood, how the body takes it up, carries and converts it (Reactome), which of those steps the person\'s variants touch and how, and the recommended intake (Nordic Nutrition Recommendations 2023).');
+      if (nn) inFacts(el, [[String(nn.length), 'nutrients'], [inN(nn.reduce((s, n) => s + (+n.findings || 0), 0)), 'findings in all']]);
+    } },
+    { title: 'Biomarkers', tab: 'biomarkers', draw: (el, c) => {
+      const lt = inCount('lab_tests');
+      inText(el, 'Common lab tests read through the genes: where the person\'s genes put each value among Europeans, which genes are known to move it, and whether the person\'s own variants move it. Some only shift the value without the body being affected ("your normal may differ"); others are real and worth following up.');
+      if (lt) inFacts(el, [[String(lt.length), 'lab tests']]);
+    } },
+    { title: 'Gene lifecycle', tab: 'lifecycle', draw: (el, c) => {
+      const lg = inCount('lifecycle_genes');
+      inText(el, 'One gene at a time: the chemical journey its protein takes part in, step by step from Reactome, what each step needs (cofactors, vitamins), what regulates it, and where the person\'s variants change the gene\'s capacity.');
+      if (lg) inFacts(el, [[inN(inDistinct(lg, 'gene')), 'genes with a lifecycle']]);
+    } },
+    { title: 'Profile', tab: 'profile', draw: (el, c) => {
+      const hm = inCount('hp_modules');
+      inText(el, 'The genes grouped into functional modules, sets of genes whose proteins work together, with the person\'s results per module: where several weakened genes sit in the same system, and which weakened genes reach into other systems.');
+      if (hm) inFacts(el, [[String(hm.length), 'modules']]);
+    } },
+    { title: 'Ready', draw: (el, c) => {
+      inText(el, 'That is the whole process: the chip\'s measured positions, imputation to fill in the rest, a measured confidence for every call, and public research to read them against. Each tab starts with a short note on what it shows and where its facts come from.');
+      inText(el, 'This introduction stays under Home, to come back to at any time.');
+    } },
+  ];
+
+  dash.draw('in-intro', (el) => {
     el.replaceChildren();
-    const r = gx.rows('car_variants', 'car_meta');
-    if (!r) { if (gx.failed('car_variants', 'car_meta')) gx.failLine(el); return; }
-    const who = gx.who(), order = { carrier: 0, possible: 1 };
-    const vs = [...r[0]].sort((a, b) => order[a.status] - order[b.status] || b.chance - a.chance || a.gene.localeCompare(b.gene));
-    if (!vs.length) { crMake(el, 'p', 'gx-note', crT('No pathogenic variant found in {}\'s DNA.', who)); return; }
-    for (const v of vs) {
-      const box = crMake(el, 'div', 'cr-var cr-' + (v.status === 'carrier' ? (crDominant(v.modes || []) ? 'dom' : 'rec') : 'maybe'));
-      const head = crMake(box, 'div', 'cr-head');
-      crMake(head, 'b', null, v.gene || 'no gene');
-      crMake(head, 'span', null, v.condition);
-      crMake(head, 'span', 'cr-tag', v.status === 'carrier' ? 'Carrier' : 'Possible');
-      if (v.confirm) crMake(head, 'span', 'cr-tag cr-confirm', 'Confirm with a clinical test');
-      crMake(box, 'p', null, crMeaning(v, who));
-      if ((v.also || []).length) crMake(box, 'p', 'gx-note', crT('ClinVar also lists: {}.', v.also.map((x) => `${x.name} (${crModes(x.modes)})`).join('; ')));
-      crMake(box, 'p', 'gx-note', crT('{} {}>{}, {}: {} {}, chance {} carries it {}. ClinVar: {}, {} stars. Inheritance: {}.',
-        v.rsid || `chr${v.chrom}:${v.pos}`, v.ref, v.alt, CR_HOW[v.how], v.copies, v.copies === 1 ? 'copy' : 'copies', who, v.confirm ? 'not known: chip calls this rare are often wrong (see above)' : crChance(v.chance),
-        v.significance, v.stars, crModes(v.modes)) + (v.how === 'imputed' && v.class !== 'chip' && v.class !== 'reliable' ? ' The chip sees this variant poorly, so treat it as a lead.' : ''));
+    if (inTimer) { clearTimeout(inTimer); inTimer = null; }
+    const r = gx.rows('intro_stats');
+    if (!r) { if (gx.failed('intro_stats')) gx.failLine(el); return; }
+    const who = gx.who(), g = r[0].find((x) => x.kind === 'general'), p = r[0].find((x) => x.kind === 'person' && x.person === who);
+    const step = IN_STEPS[inStep];
+    const top = inMake(el, 'div', 'in-top');
+    inMake(top, 'h2', null, step.title);
+    inMake(top, 'span', 'in-count', inT('Step {} of {}', inStep + 1, IN_STEPS.length));
+    const prog = inMake(el, 'div', 'in-progress');
+    IN_STEPS.forEach((_, i) => inMake(prog, 'span', i <= inStep ? 'on' : null));
+    step.draw(el, { who, g, p });
+
+    const nav = inMake(el, 'div', 'in-nav');
+    const go = (i) => { inStep = i; inShownAt = Date.now(); dash.draw('in-intro'); el.scrollIntoView({ block: 'start' }); };
+    const back = inMake(nav, 'button', null, 'Back');
+    back.type = 'button';
+    back.disabled = inStep === 0;
+    back.addEventListener('click', () => go(inStep - 1));
+    const last = inStep === IN_STEPS.length - 1;
+    const next = inMake(nav, 'button', 'in-next', last ? 'Open the explorer' : 'Next');
+    next.type = 'button';
+    next.addEventListener('click', () => (last ? inFinish('clusters') : go(inStep + 1)));
+    if (step.tab && !inLocked()) {
+      const open = inMake(nav, 'button', null, inT('Open {}', step.title));
+      open.type = 'button';
+      open.addEventListener('click', () => gx.show(step.tab));
     }
-  });
-
-  dash.draw('cr-genes', (el) => {
-    el.replaceChildren();
-    const r = gx.rows('car_genes');
-    if (!r) { if (gx.failed('car_genes')) gx.failLine(el); return; }
-    const gs = r[0].filter((g) => g.checked).sort((a, b) => b.checked - a.checked || a.gene.localeCompare(b.gene));
-    const box = crMake(el, 'div', 'gx-table-box cr-genes');
-    const t = crMake(box, 'table', 'gx-table');
-    const hr = crMake(crMake(t, 'thead'), 'tr');
-    for (const h of ['Gene', 'Inheritance', 'Conditions', 'Checked', 'Chance one was missed', "Can't see"]) crMake(hr, 'th', null, h);
-    const tb = crMake(t, 'tbody');
-    for (const g of gs) {
-      const tr = crMake(tb, 'tr');
-      crMake(tr, 'td', null, g.gene || '—');
-      crMake(tr, 'td', null, crModes(g.modes));
-      crMake(tr, 'td', null, g.conditions.join('; ') + (g.n_conditions > 3 ? crT('; and {} more', g.n_conditions - 3) : ''));
-      crMake(tr, 'td', null, String(g.checked));
-      crMake(tr, 'td', null, crChance(g.missed));
-      crMake(tr, 'td', null, d3.format(',')(g.unseen));
+    if (!inLocked() && !last) {
+      const skip = inMake(nav, 'button', 'in-skip', 'Skip the introduction');
+      skip.type = 'button';
+      skip.addEventListener('click', () => inFinish('clusters'));
+    }
+    // Mandatory: each step stays for intro_min_seconds before Next opens
+    const wait = inLocked() ? Math.max(0, (IN_S.intro_min_seconds || 0) * 1000 - (Date.now() - inShownAt)) : 0;
+    if (wait > 0) {
+      next.disabled = true;
+      inTimer = setTimeout(() => { next.disabled = false; inTimer = null; }, wait);
     }
   });
 </script>
