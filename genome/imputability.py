@@ -129,11 +129,16 @@ def beagle(chrom, target, threads, memory):
     prefix = os.path.join(WORK, f"chr{chrom}.imputed")
     if not os.path.exists(prefix + ".vcf.gz"):
         panel_sites.check_space(PANEL)
+        # Beagle writes its output as it goes, so it writes under a .part name: a run stopped halfway leaves no file
+        # that looks finished
+        part = prefix + ".part"
         cmd = ["java", f"-Xmx{memory}", "-jar", os.path.join(impute.REF, "beagle.jar"), f"gt={target}", f"ref={bref(chrom)}",
-               f"map={impute.genetic_map(chrom, impute.panel('1kgp_hc'))}", f"out={prefix}", f"nthreads={threads}", "gp=true"]
+               f"map={impute.genetic_map(chrom, impute.panel('1kgp_hc'))}", f"out={part}", f"nthreads={threads}", "gp=true"]
         r = subprocess.run(cmd, capture_output=True, text=True)
         if r.returncode:
             raise SystemExit(f"Beagle failed on chr{chrom}: {r.stdout[-1500:]}\n{r.stderr[-1500:]}")
+        os.replace(part + ".vcf.gz", prefix + ".vcf.gz")
+        os.replace(part + ".log", prefix + ".log")
     return prefix + ".vcf.gz"
 
 
@@ -218,7 +223,8 @@ def below_normal():
 
 MAF_BINS = [0, 0.001, 0.005, 0.01, 0.05, 0.2, 0.51]
 DR2_BINS = [0, 0.3, 0.5, 0.7, 0.8, 0.9, 0.95, 1.01]
-MIN_CARRIERS = 3      # a site's own r2 counts only when at least this many held-out people carry the allele
+MIN_CARRIERS = 3      # a site's own r2 counts only when the held-out people carry at least this many copies of its
+                      # minor allele (fewer, and one wrong call swings r2 either way)
 RELIABLE, UNCERTAIN = 0.8, 0.5
 SUMMARY = os.path.join(ROOT, "data", "reference", "imputability")
 
@@ -230,8 +236,15 @@ def _bin(x, edges):
     return len(edges) - 2
 
 
+def minor_copies(maf):
+    """Copies of the minor allele among the held-out people."""
+    return round(2 * HOLDOUT * maf)
+
+
 def sites(chroms=CHROMS):
-    """(chrom, pos, ref, alt, chip, maf, dr2, r2 or None, carriers, found) for every compared site."""
+    """(chrom, pos, ref, alt, chip, maf, dr2, r2 or None, carriers, found, alt_is_minor) for every compared site.
+    carriers and found are about the alternative allele, so they measure finding the minor allele only where the
+    alternative allele is the minor one; where it is the common one nearly everyone carries it."""
     for c in chroms:
         f = os.path.join(WORK, f"chr{c}.sites.tsv.gz")
         if not os.path.exists(f):
@@ -242,27 +255,32 @@ def sites(chroms=CHROMS):
                 p = line.rstrip("\n").split("\t")
                 af = float(p[4])
                 yield (c, int(p[0]), p[1], p[2], p[3] == "1", min(af, 1 - af), float(p[5]) if p[5] else 0.0,
-                       float(p[6]) if p[6] else None, int(p[8]), int(p[9]))
+                       float(p[6]) if p[6] else None, int(p[8]), int(p[9]), af <= 0.5)
 
 
 def calibrate(chroms=CHROMS):
-    """Per (frequency bin, Beagle DR2 bin): mean measured r2 and carrier sensitivity over the sites where enough
-    held-out people carry the allele. This is what a site with too few carriers is judged by."""
+    """Per (frequency bin, Beagle DR2 bin): mean measured r2 over the sites where the held-out people carry enough
+    copies of the minor allele, and carrier sensitivity (share of minor-allele carriers the imputation finds) over
+    those of them where the minor allele is the alternative one. This is what a site with too little data is judged
+    by."""
     acc = {}
-    for c, pos, ref, alt, chip, maf, dr2, r2, carriers, found in sites(chroms):
-        if chip or r2 is None or carriers < MIN_CARRIERS:
+    for c, pos, ref, alt, chip, maf, dr2, r2, carriers, found, alt_minor in sites(chroms):
+        if chip or r2 is None or minor_copies(maf) < MIN_CARRIERS:
             continue
         k = (_bin(maf, MAF_BINS), _bin(dr2, DR2_BINS))
         a = acc.setdefault(k, [0, 0.0, 0, 0])
-        a[0] += 1; a[1] += r2; a[2] += carriers; a[3] += found
-    return {k: {"sites": a[0], "r2": round(a[1] / a[0], 3), "sensitivity": round(a[3] / a[2], 3)} for k, a in acc.items()}
+        a[0] += 1; a[1] += r2
+        if alt_minor:
+            a[2] += carriers; a[3] += found
+    return {k: {"sites": a[0], "r2": round(a[1] / a[0], 3), "sensitivity": round(a[3] / a[2], 3) if a[2] else None}
+            for k, a in acc.items()}
 
 
-def reliability(chip, maf, dr2, r2, carriers, cal):
+def reliability(chip, maf, dr2, r2, cal):
     """chip, reliable, uncertain or not_knowable, and the r2 it rests on (measured, else calibrated)."""
     if chip:
         return "chip", 1.0
-    if r2 is not None and carriers >= MIN_CARRIERS:
+    if r2 is not None and minor_copies(maf) >= MIN_CARRIERS:
         est = r2
     else:
         # The calibration of the nearest bin that has data: same DR2 bin, the closest frequency bin above
@@ -283,7 +301,7 @@ def clinvar_pathogenic():
             if line[0] == "#":
                 continue
             p = line.rstrip("\n").split("\t", 8)
-            if p[0] not in CHROMS:
+            if p[0] not in CHROMS and p[0] != "X":
                 continue
             info = dict(x.split("=", 1) for x in p[7].split(";") if "=" in x)
             sig = info.get("CLNSIG", "")
@@ -304,22 +322,33 @@ def summary(chroms=CHROMS):
     classes = {}
     genes = {}
     per_variant = []
-    for c, pos, ref, alt, chip, maf, dr2, r2, carriers, found in sites(done):
-        cls, est = reliability(chip, maf, dr2, r2, carriers, cal)
+    for c, pos, ref, alt, chip, maf, dr2, r2, carriers, found, alt_minor in sites(done):
+        cls, est = reliability(chip, maf, dr2, r2, cal)
         classes[cls] = classes.get(cls, 0) + 1
         hit = cv.get((c, pos, ref, alt))
         if hit:
             gene, sig, st, cond = hit
             g = genes.setdefault(gene, {"gene": gene, "pathogenic": 0, "chip": 0, "reliable": 0, "uncertain": 0, "not_knowable": 0})
             g["pathogenic"] += 1; g[cls] += 1
+            # The carrier sensitivity it rests on: the site's own when the held-out people carry enough minor alleles,
+            # else its frequency and DR2 bin's (the nearest bin above that has data)
+            own = found / carriers if alt_minor and carriers >= MIN_CARRIERS else None
+            mb, db = _bin(maf, MAF_BINS), _bin(dr2, DR2_BINS)
+            binned = next((cal[(m, db)]["sensitivity"] for m in range(mb, len(MAF_BINS) - 1)
+                           if (m, db) in cal and cal[(m, db)]["sensitivity"] is not None), None)
             per_variant.append({"chrom": c, "pos": pos, "ref": ref, "alt": alt, "gene": gene, "significance": sig, "stars": st,
-                                "condition": cond, "class": cls, "r2": est, "maf": round(maf, 5)})
+                                "condition": cond, "class": cls, "r2": est, "maf": round(maf, 5), "dr2": round(dr2, 3),
+                                "sensitivity": round(own, 3) if own is not None else binned,
+                                "sensitivity_from": "site" if own is not None else "bin" if binned is not None else None})
     # ClinVar pathogenic variants the panel doesn't hold at all: too rare to be in 1000 Genomes, so never imputed
     in_panel = {(v["chrom"], v["pos"], v["ref"], v["alt"]) for v in per_variant}
+    # chrX isn't mapped yet (Beagle needs the ploidy split): its variants are counted as not_mapped, so X-linked genes
+    # don't read as having none
     for (c, pos, ref, alt), (gene, sig, st, cond) in cv.items():
-        if c in done and (c, pos, ref, alt) not in in_panel:
+        where = "not_in_panel" if c in done and (c, pos, ref, alt) not in in_panel else "not_mapped" if c == "X" else None
+        if where:
             g = genes.setdefault(gene, {"gene": gene, "pathogenic": 0, "chip": 0, "reliable": 0, "uncertain": 0, "not_knowable": 0})
-            g["pathogenic"] += 1; g["not_in_panel"] = g.get("not_in_panel", 0) + 1
+            g["pathogenic"] += 1; g[where] = g.get(where, 0) + 1
     meta = {"holdout": HOLDOUT, "chromosomes": done, "sites": classes, "reliable_r2": RELIABLE, "uncertain_r2": UNCERTAIN,
             "calibration": [{"maf_bin": [MAF_BINS[m], MAF_BINS[m + 1]], "dr2_bin": [DR2_BINS[d], DR2_BINS[d + 1]], **v}
                             for (m, d), v in sorted(cal.items())]}
@@ -327,8 +356,8 @@ def summary(chroms=CHROMS):
     json.dump(sorted(genes.values(), key=lambda g: g["gene"]), open(os.path.join(SUMMARY, "genes.json"), "w", encoding="utf-8"))
     json.dump(per_variant, open(os.path.join(SUMMARY, "clinvar_variants.json"), "w", encoding="utf-8"))
     print(f"sites by class: {classes}")
-    tot = {k: sum(g.get(k, 0) for g in genes.values()) for k in ("pathogenic", "chip", "reliable", "uncertain", "not_knowable", "not_in_panel")}
-    print(f"ClinVar pathogenic/likely pathogenic on chr{','.join(done)}: {tot}")
+    tot = {k: sum(g.get(k, 0) for g in genes.values()) for k in ("pathogenic", "chip", "reliable", "uncertain", "not_knowable", "not_in_panel", "not_mapped")}
+    print(f"ClinVar pathogenic/likely pathogenic on chr{','.join(done)} (+ chrX, not mapped): {tot}")
     return meta
 
 

@@ -1,0 +1,19 @@
+  <section class="gx-page" id="carriers" data-page="carriers" hidden>
+    <p class="gx-note" data-who>Carrier screening from XY's chip: every ClinVar pathogenic or likely pathogenic variant XY's DNA says something
+      about, with the chance XY carries it. Inheritance comes from the Human Phenotype Ontology's disease annotations, the chance before a
+      test from 1000 Genomes Europeans, and how well a chip sees each variant from the imputability map (100 people with known genotypes,
+      imputed from chip positions).</p>
+    <div class="gx-card">
+      <div data-draw="cr-summary" data-source="car_variants car_genes car_meta"></div>
+    </div>
+    <div class="gx-card">
+      <h2>Variants found</h2>
+      <div data-draw="cr-found" data-source="car_variants car_meta"></div>
+    </div>
+    <div class="gx-card">
+      <h2>Genes checked</h2>
+      <p class="gx-note" data-who>Per gene: the variants a chip sees that XY doesn't carry, the chance one was missed anyway, and the variants a chip
+        can't see at all.</p>
+      <div data-draw="cr-genes" data-source="car_genes"></div>
+    </div>
+  </section>

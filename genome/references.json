@@ -22,7 +22,7 @@
 
   {"name": "clinvar_grch38", "tier": "analyse", "kind": "download", "path": "{ref}/clinvar_grch38.vcf.gz",
    "source": "https://ftp.ncbi.nlm.nih.gov/pub/clinvar/vcf_GRCh38/clinvar.vcf.gz", "version": "weekly release (##fileDate in the file)",
-   "get": "python -m genome.build fetch", "used_by": ["theme_graph.py", "medicines.py", "nutrition.py", "genome/imputability.py"]},
+   "get": "python -m genome.build fetch", "used_by": ["theme_graph.py", "medicines.py", "nutrition.py", "genome/imputability.py", "carriers.py"]},
   {"name": "gtf_grch38", "tier": "analyse", "kind": "download", "path": "{ref}/ensembl_grch38_genes.gtf.gz",
    "source": "https://ftp.ensembl.org/pub/release-115/gtf/homo_sapiens/Homo_sapiens.GRCh38.115.gtf.gz", "version": "Ensembl 115",
    "get": "python -m genome.build fetch", "used_by": ["theme_graph.py", "nutrition.py", "genome/imputability.py"]},
@@ -58,6 +58,10 @@
   {"name": "panel_populations", "tier": "analyse", "kind": "download", "path": "{ref}/pgs_ref/1kgp_3202_samples_ped_population.txt",
    "source": "http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/data_collections/1000G_2504_high_coverage/20130606_g1k_3202_samples_ped_population.txt",
    "version": "3,202 samples with population and parents", "get": "python -m genome.pgs_reference fetch", "used_by": ["genome/pgs_reference.py", "genome/imputability.py"]},
+  {"name": "hpo_annotations", "tier": "analyse", "kind": "download", "path": "{ref}/hpo/*", "count": 2,
+   "source": "https://github.com/obophenotype/human-phenotype-ontology/releases/latest/download/",
+   "version": "phenotype.hpoa and genes_to_disease.txt (#version in phenotype.hpoa)",
+   "get": "curl -L -o data/reference/hpo/FILE <source>FILE, for phenotype.hpoa and genes_to_disease.txt", "used_by": ["carriers.py"]},
   {"name": "pgx_frequencies", "tier": "analyse", "kind": "built", "path": "{ref}/imputation/pgx_*.json", "count": 3,
    "from": ["panel_sites"], "get": "made by cluster_analysis.medicines on first run", "used_by": ["medicines.py"]},
 
@@ -68,7 +72,11 @@
    "from": ["panel_raw", "panel_populations", "beagle", "bref3_jar", "genetic_map_grch38"], "version": "100 held-out EUR founders (seed 20261111), MyHeritage chip positions",
    "get": "python -m genome.imputability run", "used_by": ["genome/imputability.py summary"]},
   {"name": "imputability_summary", "tier": "built", "kind": "built", "path": "{ref}/imputability/*.json", "count": 3,
-   "from": ["imputability_sites", "clinvar_grch38", "gtf_grch38"], "get": "python -m genome.imputability summary", "used_by": ["explorer"]},
+   "from": ["imputability_sites", "clinvar_grch38", "gtf_grch38"], "get": "python -m genome.imputability summary", "used_by": ["explorer", "carriers.py"]},
+  {"name": "carrier_sites", "tier": "built", "kind": "built", "path": "{ref}/carriers/sites.json",
+   "from": ["clinvar_grch38", "hpo_annotations", "panel_sites", "imputability_summary"],
+   "version": "ClinVar pathogenic variants with inheritance, European frequency and imputability",
+   "get": "python -m cluster_analysis.carriers sites", "used_by": ["carriers.py person"]},
 
   {"name": "panel_raw", "tier": "source", "kind": "download", "path": "{panel}/raw/*.vcf.gz", "count": 23, "md5": "{panel}/raw/20220804_manifest.txt",
    "source": "https://ftp.1000genomes.ebi.ac.uk/vol1/ftp/data_collections/1000G_2504_high_coverage/working/20220422_3202_phased_SNV_INDEL_SV/",

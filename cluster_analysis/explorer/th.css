@@ -8,6 +8,11 @@
   .th-head p { margin: 0; max-width: 75ch; }
   .th-balance { display: flex; height: 14px; border-radius: 7px; overflow: hidden; max-width: 40rem; border: 1px solid var(--color-border-line); }
   .th-balance span { display: block; height: 100%; }
+  .th-reach { margin: 0.25rem 0; }
+  .th-r-seen { background: var(--color-ok); }
+  .th-r-unsure { background: var(--color-warn); }
+  .th-r-unseen { background: var(--color-border-line); }
+  .th-r-unmapped { background: repeating-linear-gradient(45deg, var(--color-border-line) 0 3px, transparent 3px 6px); }
   .th-b-gof { background: var(--gof); } .th-b-lof { background: var(--color-bad); } .th-b-norm { background: var(--typical); }
   .th-b-alt { background: var(--color-fg); } .th-b-none { background: var(--color-border-line); }
   .th-facets { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr)); gap: var(--cds-gap-md); }

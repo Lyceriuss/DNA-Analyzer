@@ -284,12 +284,36 @@ def gene_status(lib, api):
             "source": "api"}
 
 
-def api_theme_rows(graph, xref, status, with_lifecycle=(), order=0, person=None, calls=None):
+REACH_KEYS = ("pathogenic", "chip", "reliable", "uncertain", "not_knowable", "not_in_panel", "not_mapped")
+
+
+def chip_reach():
+    """{gene: {pathogenic, chip, reliable, uncertain, not_knowable, not_in_panel, not_mapped}}: how many of ClinVar's
+    pathogenic variants in each gene a chip plus imputation can see (genome/imputability.py, GRCh38 panel only)."""
+    path = os.path.join(gbuild.REF, "imputability", "genes.json")
+    if gbuild.BUILD != "GRCh38" or not os.path.exists(path):
+        return {}
+    return {g["gene"]: {k: g.get(k, 0) for k in REACH_KEYS} for g in json.load(open(path, encoding="utf-8")) if g["gene"]}
+
+
+def theme_reach(genes, reach, top=5):
+    """The chip's reach summed over a theme's genes, and the genes with the most variants a chip can't see."""
+    rs = [reach[g] for g in genes if g in reach]
+    if not rs:
+        return None
+    tot = {k: sum(r[k] for r in rs) for k in REACH_KEYS}
+    unseen = lambda g: reach[g]["pathogenic"] - reach[g]["chip"] - reach[g]["reliable"]
+    tot["unseen_genes"] = [g for g in sorted((g for g in genes if g in reach), key=lambda g: -unseen(g))[:top] if unseen(g) > 0]
+    return tot
+
+
+def api_theme_rows(graph, xref, status, with_lifecycle=(), order=0, person=None, calls=None, reach=None):
     """theme_graph.py output plus a person's cross-reference → the same four theme datasets. Every gene is listed;
     notable ones (a call with an effect, a library call, a finding where the person carries the allele, or an Open
     Targets score ≥ 0.8) are the ones the explorer draws. calls: gene_calls.py output for the person."""
     tid = graph["theme"]
     calls = calls or {}
+    reach = reach or {}
     xg = (xref or {}).get("genes", {})
     facets = graph["mechanisms"] + [{"id": "disease", "name": "Disease link, mechanism not yet known",
                                      "about": "Open Targets ties these genes to one of the theme's conditions, but Gene Ontology has no "
@@ -302,6 +326,7 @@ def api_theme_rows(graph, xref, status, with_lifecycle=(), order=0, person=None,
              "pathogenic_possible": (xref or {}).get("pathogenic", {}).get("possible", []),
              "pathogenic_not_excluded": (xref or {}).get("pathogenic", {}).get("not_excluded", 0),
              "by_confidence": (xref or {}).get("by_confidence"), "rule": graph["rule"],
+             "chip_reach": theme_reach(list(graph["genes"]), reach),
              "person": person, "sex": graph.get("sex"), "organs": graph.get("organs", []),
              "disease_organs": graph.get("disease_organs", {}), "view": graph.get("view")}
     meta = [{"theme": tid, "theme_name": graph["name"], "about": graph["about"], "theme_order": order, "facet": f["id"],
@@ -325,7 +350,7 @@ def api_theme_rows(graph, xref, status, with_lifecycle=(), order=0, person=None,
                       "facets": json.dumps(list(g["mechanisms"]) or ["disease"]),
                       "evidence": json.dumps({"mechanisms": g["mechanisms"], "diseases": dict(top), "joined_by": g["joined_by"],
                                               "findings": findings, "n_snps": xg.get(sym, {}).get("n_snps", 0),
-                                              "organs": g.get("organs", [])}),
+                                              "organs": g.get("organs", []), "reach": reach.get(sym)}),
                       "rsid": p.get("rsid"), "genotype": p.get("genotype"),
                       "function": p.get("function") if p.get("genotype") or p.get("source") == "api" else None,
                       "basis": p.get("basis"), "fn_evidence": p.get("evidence"), "call_source": p.get("source") or ("library" if p else None),
@@ -355,6 +380,7 @@ if __name__ == "__main__":
             people = [p for p in people if p["id"] == person_label(args.dna)] or [{"id": person_label(args.dna), "sex": None, "dna": args.dna}]
         lifecycles = json.load(open(args.lifecycles, encoding="utf-8"))
         graphs = prof.theme_graphs()
+        reach = chip_reach()
         out_dir = os.path.dirname(args.out) or "."
         merged = {n: [] for n in ("lifecycle_steps", "lifecycle_genes", "gene_function",
                                   "theme_meta", "theme_genes", "theme_links", "theme_pathways")}
@@ -381,14 +407,14 @@ if __name__ == "__main__":
                 order = orders.get(graph["theme"], orders.get(graph["theme"].split("_")[0], len(orders)) + 0.5)
                 # An API theme replaces the library theme of the same id, and fertility_female/_male replace "fertility"
                 tables = [[r for r in t if r["theme"] not in (graph["theme"], graph["theme"].split("_")[0])] for t in tables]
-                for t, extra in zip(tables, api_theme_rows(graph, xref, status, lifecycle_genes, order, pid, calls)):
+                for t, extra in zip(tables, api_theme_rows(graph, xref, status, lifecycle_genes, order, pid, calls, reach)):
                     t.extend(extra)
             for name, rows in zip(("theme_meta", "theme_genes", "theme_links", "theme_pathways"), tables):
                 merged[name] += tag(rows, pid)
         # Medicines, nutrition, lab tests and the Profile tab, run per profile into data/output/cluster_analysis/profiles/<id>/
         # (profiles.py run): one dataset each, rows tagged with their person. The public ones are taken once.
         for name in ("med_genes", "med_drugs", "med_guidance", "nut_nutrients", "nut_findings", "lab_tests", "lab_findings",
-                     "fit_tests", "fit_findings", "sport_snps",
+                     "fit_tests", "fit_findings", "sport_snps", "car_variants", "car_genes", "car_meta",
                      "hp_modules", "hp_links", "hp_bridges", "hp_tilts"):
             merged[name] = []
             for p in people:

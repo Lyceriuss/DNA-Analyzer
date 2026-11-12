@@ -51,6 +51,29 @@ confident calls right, 99.5% at high confidence. The high-coverage panel's gain 
 build the sources use. Its "doesn't carry it" calls for uncommon variants found 89.5% of real carriers in XY (91% on
 phase 3), just below the 90% bar, so those calls read `not_excluded`.
 
+### What a chip can see: the imputability map
+
+`genome/imputability.py` measures, site by site, what a chip plus imputation can recover. It holds out 100 European
+founders from the panel, masks them to the chip's positions, imputes them with Beagle against the other 3,102 people
+and compares each site with their real genotypes. Each site gets a class from its measured r² (or, where the held-out
+people carry fewer than 3 copies of the minor allele, from the calibrated r² of its frequency and DR2 band):
+
+| Class | Sites (chr1–22) |
+|---|---|
+| chip: measured | 559,703 |
+| reliable: r² ≥ 0.8 | 11,347,429 |
+| uncertain: r² ≥ 0.5 | 2,465,197 |
+| not knowable | 56,319,686 |
+
+```bash
+python -m genome.imputability run       # per chromosome, about 7 hours in all; per-site tables on D:
+python -m genome.imputability summary   # summary.json, genes.json, clinvar_variants.json in data/reference/imputability
+```
+
+`genes.json` counts ClinVar's pathogenic and likely pathogenic variants per gene by class, plus those not in the panel
+at all (339,655 of 340,908 on chr1–22) and those on chrX (`not_mapped`; chrX isn't mapped yet). The explorer's
+Clusters tab shows it per theme and per gene ("What a chip can see"), so a clean result says how much it rules out.
+
 The rest of this page describes the method; the figures below are from the phase 3 panel.
 
 ## Pipeline

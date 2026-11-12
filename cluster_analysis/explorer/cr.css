@@ -1,0 +1,10 @@
+  .cr-big { font-size: 16px; font-weight: 700; }
+  .cr-quote { font-size: 13px; padding: 6px 10px; border-left: 3px solid var(--color-warn); background: var(--color-panel); max-width: 80ch; }
+  .cr-var { padding: 8px 10px; margin: 8px 0; border-left: 3px solid var(--color-border-line); }
+  .cr-var p { margin: 4px 0; max-width: 80ch; }
+  .cr-rec { border-left-color: var(--color-warn); }
+  .cr-dom { border-left-color: var(--color-bad); }
+  .cr-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
+  .cr-tag { font-size: 12px; padding: 1px 8px; border-radius: 10px; border: 1px solid var(--color-border-line); }
+  .cr-confirm { border-color: var(--color-warn); color: var(--color-warn); }
+  .cr-genes { max-height: 32rem; overflow: auto; }

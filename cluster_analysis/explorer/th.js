@@ -87,6 +87,28 @@
   const thPick = (gene) => dash.setParams({ th_gene: gene });
   const thWho = (s) => (s && s.stats && s.stats.person) || gx.who();
 
+  // What a chip plus imputation can see of ClinVar's pathogenic variants in a gene or theme (genome/imputability.py:
+  // 100 held-out 1000 Genomes Europeans, masked to the chip's positions, imputed and compared with their real genotypes)
+  const thReach = (parent, r, where) => {
+    if (!r || !r.pathogenic) return;
+    const fmt = d3.format(','), seen = r.chip + r.reliable, unseen = r.not_knowable + r.not_in_panel;
+    const bar = thMake(parent, 'div', 'th-balance th-reach');
+    bar.setAttribute('role', 'img');
+    const parts = [[seen, 'seen', 'can be checked'], [r.uncertain, 'unsure', 'imputed with uncertainty'],
+                   [unseen, 'unseen', "can't be seen from a chip"], [r.not_mapped || 0, 'unmapped', 'on chromosome X, not mapped yet']];
+    for (const [n, cls] of parts) if (n) thMake(bar, 'span', 'th-r-' + cls).style.width = `${(n / r.pathogenic) * 100}%`;
+    bar.setAttribute('aria-label', parts.filter((x) => x[0]).map((x) => `${fmt(x[0])} ${x[2]}`).join(', '));
+    const t = [`ClinVar lists ${fmt(r.pathogenic)} pathogenic ${r.pathogenic === 1 ? 'variant' : 'variants'} in ${where}, and a chip test can check ${fmt(seen)} of them ` +
+               `(${fmt(r.chip)} on the chip, ${fmt(r.reliable)} imputed reliably).`];
+    if (r.uncertain) t.push(`${fmt(r.uncertain)} more ${r.uncertain === 1 ? 'is' : 'are'} imputed with uncertainty.`);
+    if (unseen) t.push(`${fmt(unseen)} can't be seen from a chip: ${fmt(r.not_in_panel)} are too rare to be in the 1000 Genomes panel, and imputation can't recover ${fmt(r.not_knowable)}.`);
+    if (r.not_mapped) t.push(`${fmt(r.not_mapped)} are on chromosome X, which isn't mapped yet.`);
+    if (unseen + r.uncertain + (r.not_mapped || 0) > seen) t.push((r.unseen_genes || []).length
+      ? `A clean result rules out only the checkable ones; the rest need a sequencing test, most of all ${r.unseen_genes.join(', ')}.`
+      : 'A clean result rules out only the checkable ones; the rest need a sequencing test.');
+    thMake(parent, 'p', 'gx-note', t.join(' '));
+  };
+
   const thBalance = (parent, genes, none = 'not genotyped') => {
     const bar = thMake(parent, 'div', 'th-balance');
     bar.setAttribute('role', 'img');
@@ -141,6 +163,10 @@
         (st.pathogenic_not_excluded ? ` ${fmt(st.pathogenic_not_excluded)} more are too rare for imputation to rule out: not detected, but not excluded.` : ''));
       if (possible.length) thMake(el, 'p', 'gx-note', `Possible, from weaker imputed calls (confirm with a test before acting): ` +
         possible.map((c) => `${c.gene} ${c.rsid} ${c.genotype} (${c.condition}, ${c.confidence})`).join('; ') + '.');
+      if (st.chip_reach) {
+        thMake(el, 'span', 'gx-label', 'What a chip can see');
+        thReach(el, st.chip_reach, 'these genes');
+      }
       thMake(el, 'p', 'gx-note', `Genes: ${st.rule}. This theme is built from Open Targets and Gene Ontology, not from the library; ` +
         `${who}'s SNPs are matched offline against ClinVar and the GWAS Catalog.`);
       return;
@@ -292,6 +318,10 @@
         for (const f of carriedFirst.slice(0, 12)) { const li = thMake(fl, 'li'); for (const it of f.items.slice(0, 3)) thFinding(li, f, it, thWho(s)); }
         if (fs.length > 12) thMake(el, 'p', 'gx-note', `+${fs.length - 12} more SNPs with a finding.`);
       } else thMake(el, 'p', 'gx-note', `None of ${thWho(s)}'s SNPs in this gene has a ClinVar, GWAS or library entry for one of the theme's conditions.`);
+      if (g.ev.reach) {
+        thMake(el, 'span', 'gx-label', 'What a chip can see');
+        thReach(el, g.ev.reach, g.gene);
+      }
       thMake(el, 'span', 'gx-label', `Why it is in ${s.theme.theme_name.toLowerCase()}`);
       const why = thMake(el, 'ul', 'th-why');
       for (const f of s.facets) {
