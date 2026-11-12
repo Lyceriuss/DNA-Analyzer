@@ -1,19 +1,21 @@
-"""The Gene Cluster Explorer, run locally or published by an agent.
+"""The Gene Cluster Explorer, on localhost.
 
     python -m cluster_analysis.explorer export    # datasets for every profile -> data/output/explorer_GRCh38/datasets/
-    python -m cluster_analysis.explorer build     # the page (index.html) and its minified copy for publishing
-    python -m cluster_analysis.explorer serve     # export if needed, build the standalone site, serve it on
-                                                  # http://127.0.0.1:8000 (this machine only: the data holds genotypes)
+    python -m cluster_analysis.explorer build     # the page (index.html) from its parts
+    python -m cluster_analysis.explorer serve     # export if needed, build the site (page, runtime, d3, datasets) and
+                                                  # serve it on http://127.0.0.1:8000 (this machine only: the data
+                                                  # holds genotypes). No internet needed, no size limit.
     python -m cluster_analysis.explorer check     # render every tab for every profile in English and Swedish in
                                                   # headless Chrome, report script errors
-    python -m cluster_analysis.explorer publish   # what to publish to the claude.ai artifact: the page and the
-                                                  # datasets that changed since the last publish, in
-                                                  # data/output/explorer_GRCh38/publish/ with manifest.json
+
+Everything personal stays under data/output/explorer_GRCh38/ (explorer/ for DNA_BUILD=GRCh37; ignored by git).
+
+The old claude.ai artifact (optional; its page is limited to 262,144 bytes):
+    python -m cluster_analysis.explorer publish   # the minified page and the datasets that changed since the last
+                                                  # publish, in data/output/explorer_GRCh38/publish/ with manifest.json
     python -m cluster_analysis.explorer publish --record lab_tests=/_blob/<id> ... [--page]
                                                   # after the agent's upload: remember what is live
-
-Everything personal stays under data/output/explorer_GRCh38/ (explorer/ for DNA_BUILD=GRCh37; ignored by git). Publishing itself is done by the agent with its
-Artifact tools; CLAUDE.md at the repo root has the steps.
+Publishing itself is done by the agent with its Artifact tools.
 """
 import argparse
 import functools
@@ -165,7 +167,7 @@ def publish(a):
         return
     if not os.path.exists(os.path.join(DATASETS, "profiles.json")):
         export()
-    build()
+    run(os.path.join(HERE, "build.py"), "--publish")
     os.makedirs(os.path.join(PUBLISH, "datasets"), exist_ok=True)
     for f in os.listdir(os.path.join(PUBLISH, "datasets")):
         os.remove(os.path.join(PUBLISH, "datasets", f))

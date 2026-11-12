@@ -6,15 +6,19 @@ index.html, which this script writes.
 
     python cluster_analysis/explorer/build.py
         index.html            the assembled page, readable (committed)
-        build/publish.json    the minified copy for the claude.ai artifact's files/index.html document ({"text": ...}),
-                              checked against the artifact's 262,144-byte document limit
 
     python cluster_analysis/explorer/build.py --standalone DATASET_DIR OUT_DIR
-        OUT_DIR/index.html, runtime.js, tokens.css, data/*.json: the same page as a static site with its own runtime
-        (runtime/dash.js) in place of claude.ai's, readable with any web server:
+        OUT_DIR/index.html, runtime.js, tokens.css, d3.min.js, data/*.json: the page as a static site with its own
+        runtime (runtime/dash.js) and a local copy of d3, so it works without internet; what
+        `python -m cluster_analysis.explorer serve` serves on localhost. Readable with any web server:
             python -m http.server -d OUT_DIR 8000
         DATASET_DIR is an export folder (python -m cluster_analysis.explorer export). Personal datasets hold genotypes: keep OUT_DIR outside the
         repo (data/output is ignored by git) and don't serve it beyond your own machine.
+
+    python cluster_analysis/explorer/build.py --publish
+        build/publish.json    the minified copy for the old claude.ai artifact's files/index.html document
+                              ({"text": ...}), checked against its 262,144-byte document limit. Optional: the localhost
+                              site has no size limit.
 """
 import argparse
 import json
@@ -70,7 +74,7 @@ def minify(page):
 def standalone(page, data_dir, out):
     """The page with the standalone runtime and design tokens loaded before its own styles and scripts."""
     os.makedirs(os.path.join(out, "data"), exist_ok=True)
-    for f in ("dash.js", "tokens.css"):
+    for f in ("dash.js", "tokens.css", "d3.min.js"):
         shutil.copyfile(os.path.join(HERE, "runtime", f), os.path.join(out, "runtime.js" if f == "dash.js" else f))
     names = []
     for f in sorted(os.listdir(data_dir)):
@@ -86,7 +90,7 @@ def standalone(page, data_dir, out):
     head = ('<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
             '<meta name="viewport" content="width=device-width, initial-scale=1">\n<title>Gene Cluster Explorer</title>\n'
             '<link rel="stylesheet" href="tokens.css">\n'
-            '<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>\n'
+            '<script src="d3.min.js"></script>\n'
             '<script src="runtime.js"></script>\n</head>\n<body>\n')
     # The Dashboard runtime runs each <script> in its own scope (what scripts share goes on window): the same here, so a
     # name two parts both declare behaves the same on both runtimes
@@ -99,20 +103,28 @@ def standalone(page, data_dir, out):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--standalone", nargs=2, metavar=("DATASET_DIR", "OUT_DIR"))
+    ap.add_argument("--publish", action="store_true", help="also the minified copy for the claude.ai artifact, checked "
+                                                           "against its 262,144-byte document limit")
     a = ap.parse_args()
     page = assemble()
     with open(os.path.join(HERE, "index.html"), "w", encoding="utf-8", newline="\n") as f:
         f.write(page)
+    print(f"index.html {len(page.encode()):,} bytes")
+    if a.publish:
+        publish_copy(page)
+    if a.standalone:
+        standalone(page, *a.standalone)
+
+
+def publish_copy(page):
     pub = minify(page)
     os.makedirs(os.path.join(HERE, "build"), exist_ok=True)
     with open(os.path.join(HERE, "build", "publish.json"), "w", encoding="utf-8") as f:
         json.dump({"text": pub}, f, ensure_ascii=False)
     enc = len(json.dumps({"text": pub}, ensure_ascii=False).encode())
-    print(f"index.html {len(page.encode()):,} bytes; build/publish.json {enc:,} of {LIMIT:,} bytes")
+    print(f"build/publish.json {enc:,} of {LIMIT:,} bytes")
     if enc > LIMIT:
         print("  over the artifact's document limit: it can't be published as is", file=sys.stderr)
-    if a.standalone:
-        standalone(page, *a.standalone)
 
 
 if __name__ == "__main__":

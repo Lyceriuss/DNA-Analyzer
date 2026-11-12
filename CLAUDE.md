@@ -31,7 +31,7 @@ its virtual disk on C:), write to files on D: instead, and verify outputs agains
 reference file is listed in `genome/references.json`; `python -m genome.references status` checks them. Keep the
 `source` tier: it is what the built references are rebuilt from.
 
-## The explorer: localhost and the claude.ai artifact
+## The explorer: localhost
 
 ```bash
 python -m cluster_analysis.profiles run          # per-profile analysis (slow: API calls, cached)
@@ -41,19 +41,14 @@ python -m cluster_analysis.explorer check        # render every tab, profile and
 ```
 
 Edit the parts (`explorer/*.js|css|html`) and `explorer/page.html`, never `explorer/index.html`: `build` writes it.
+The localhost site is the explorer: no page size limit, no internet needed (d3 is in `explorer/runtime/`), served on
+127.0.0.1 only because the datasets hold genotypes.
 
-### Publishing the explorer
+### The old claude.ai artifact
 
-The artifact is https://claude.ai/artifact/Rsz3RYugnZyvWnixS9168o (Dashboard runtime). Run `check`, then
-`python -m cluster_analysis.explorer publish` and read `data/output/explorer_GRCh38/publish/manifest.json`:
-
-1. For each dataset with `"changed": true`: upload its `file` with the Artifact tool (`url` = the artifact,
-   `asset: true`, one file per call). Note the returned `/_blob/<id>`.
-2. Read the `datasets` collection (ArtifactData `list`) for each document's `version`. In one ArtifactData `batch`:
-   `update` `datasets/<name>` with `{"source": {"kind": "file", "name": "<name>.json", "url": "/_blob/<id>"}}` pinned
-   with `if_version` (`set` with title and description for a dataset that has no document yet), and, if the page
-   changed, `update` `files/index.html` from `file_path` = the manifest's page `file` (pinned to its version).
-3. Record what is live: `python -m cluster_analysis.explorer publish --record name=/_blob/<id> ... --page`.
-
-The page document must stay under 262,144 bytes JSON-encoded (`build` checks). The Swedish datasets (`i18n_sv`,
-`i18n_sv_terms`) are `[{en, sv}]` rows; `publish` writes them in that form.
+https://claude.ai/artifact/Rsz3RYugnZyvWnixS9168o is no longer updated; publish to it only when asked. Its page is
+limited to 262,144 bytes (`build.py --publish` writes the minified copy and checks it), and publishing goes through
+`python -m cluster_analysis.explorer publish` and `manifest.json`: upload each changed dataset as an asset, point its
+`datasets/<name>` document at the returned `/_blob/<id>` (ArtifactData `batch`, pinned with `if_version`), update
+`files/index.html` if the page changed, then `publish --record name=/_blob/<id> ... --page`. The Swedish datasets
+(`i18n_sv`, `i18n_sv_terms`) are `[{en, sv}]` rows; `publish` writes them in that form.

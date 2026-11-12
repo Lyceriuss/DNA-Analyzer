@@ -1,35 +1,34 @@
-# Gene Cluster Explorer (dashboard page)
+# Gene Cluster Explorer
 
-The interactive explorer published as a private claude.ai Dashboard artifact:
-https://claude.ai/artifact/Rsz3RYugnZyvWnixS9168o
+The interactive explorer, served on this machine at http://127.0.0.1:8000. It needs no internet and has no page size
+limit. (It was first published as a claude.ai Dashboard artifact, https://claude.ai/artifact/Rsz3RYugnZyvWnixS9168o,
+which is no longer updated; see the end of this page.)
 
 ## Running it
 
 ```bash
-python -m cluster_analysis.explorer serve     # localhost: export if needed, build, serve on http://127.0.0.1:8000
+python -m cluster_analysis.explorer serve     # export if needed, build the site, serve it on http://127.0.0.1:8000
 python -m cluster_analysis.explorer check     # every tab x profile x language in headless Chrome; fails on script errors
 python -m cluster_analysis.explorer export    # refresh the datasets (data/output/explorer_GRCh38/datasets/; explorer/ for DNA_BUILD=GRCh37) after a pipeline run
-python -m cluster_analysis.explorer publish   # for the agent: what changed since the artifact's last publish
 ```
 
-The same page and datasets serve both: localhost through the standalone runtime, the claude.ai artifact through the
-agent (steps in [CLAUDE.md](../../CLAUDE.md)). `publish` writes `data/output/explorer_GRCh38/publish/` (the minified page,
-every dataset, `manifest.json` marking what changed) and `data/output/explorer_GRCh38/published.json` remembers what is live.
+`serve` writes the site to `data/output/explorer_GRCh38/site/` (page, runtime, d3, datasets) and answers on 127.0.0.1
+only: the datasets hold genotypes. Run `export` after a pipeline run so the site picks up the new results.
 
 ## Building
 
 `page.html` is the page's shell (header, tab sections, shared helpers) with an include marker where each part goes.
-`build.py` assembles it into `index.html`, the complete page, and a minified copy for publishing. **Edit the parts and
+`build.py` assembles it into `index.html`, the complete page. **Edit the parts and
 `page.html`, never `index.html`**, then rebuild:
 
 ```bash
-python cluster_analysis/explorer/build.py                  # index.html + build/publish.json (size-checked)
+python cluster_analysis/explorer/build.py                  # index.html
 python cluster_analysis/explorer/build.py --standalone DATASET_DIR data/output/explorer_site
 python -m http.server -d data/output/explorer_site 8000   # the same page, self-hosted, on http://localhost:8000
 ```
 
-`--standalone` writes the page as a static site with its own runtime (`runtime/dash.js`, `runtime/tokens.css`) in
-place of claude.ai's, and copies the datasets from an export folder (`python -m cluster_analysis.explorer export`) next to it. Those datasets hold
+`--standalone` writes the page as a static site with its own runtime (`runtime/dash.js`, `runtime/tokens.css`) and a
+local copy of d3 (`runtime/d3.min.js`, 7.9.0, ISC licence), and copies the datasets from an export folder (`python -m cluster_analysis.explorer export`) next to it. Those datasets hold
 genotypes: keep the site under `data/output` (ignored by git) and don't serve it beyond your own machine. Why and
 where this is heading: [docs/architecture/migration.md](../../docs/architecture/migration.md).
 
@@ -38,6 +37,7 @@ where this is heading: [docs/architecture/migration.md](../../docs/architecture/
 | `page.html` | The shell: header (language and profile switches), tab sections, shared helpers (`gx.*`) |
 | `build.py` | Assembles the page; minifies the published copy; writes the standalone site |
 | `runtime/dash.js`, `runtime/tokens.css` | The standalone runtime and design tokens (claude.ai provides both on the artifact) |
+| `runtime/d3.min.js` | d3 7.9.0, so the page draws without internet |
 
 | `lc.html`, `lc.css`, `lc.js` | Gene lifecycle tab: gene summary, node graph, step details with capacity, evidence and papers |
 | `th.html`, `th.css`, `th.js` | Clusters tab: theme picker, body maps, 28-day cycle and the life of a cell, mechanisms and their in-depth view, network, pathways; per theme and gene, how many ClinVar pathogenic variants a chip can see (`genome/imputability.py`) |
@@ -82,7 +82,7 @@ is kept per viewer in the browser (`localStorage`), English when it can't be rea
 - The layer only reads and writes inside `.gx` (the explorer's own markup). The dashboard's interface around the page
   is React-drawn and watches its own text and labels; translating it fights React and froze the page.
 
-The page holds no genotypes. Its data comes from datasets uploaded next to it in the artifact.
+The page holds no genotypes. Its data comes from the datasets next to it (`data/<name>.json`).
 
 ## Profiles
 
@@ -107,7 +107,11 @@ to `out/bundle.json` for all profiles at once: `lifecycle_steps`, `lifecycle_gen
 `med_names` and `nut_steps` (public), and `profiles` (ids and sex). The lifecycles are walked once; each profile's
 calls are laid over them. All but `med_names`, `nut_steps` and `profiles` contain genotypes, so keep them out of git.
 
-Publishing goes through the artifact's database:
+## The old claude.ai artifact
+
+No longer updated; publish only when asked (`build.py --publish` writes the minified page and checks it against the
+artifact's 262,144-byte document limit; `python -m cluster_analysis.explorer publish` lists what changed, steps in
+[CLAUDE.md](../../CLAUDE.md)). Publishing goes through the artifact's database:
 - Each dataset file is uploaded as an asset, and its `datasets/<name>` document points at the asset URL.
 - The page is the `text` field of the `files/index.html` document: `build/publish.json` as written by `build.py`.
 - Shared filter defaults (theme, gene) are in `dash/params`.
