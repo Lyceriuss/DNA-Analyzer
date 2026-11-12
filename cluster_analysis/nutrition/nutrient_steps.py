@@ -127,19 +127,30 @@ def protein_change(aa, gt):
     return best
 
 
-def annotate(findings, steps, where):
+def annotate(findings, steps, where, universe=None):
     """Adds to each finding: step genes it acts on, its mechanism and the details behind it.
-    findings: rows of nutrition.py; steps: {nutrient: [step]}; where: {rsid: (chrom, pos)} on the same build."""
+    findings: rows of nutrition.py; steps: {nutrient: [step]}; where: {rsid: (chrom, pos)} on the same build.
+    universe: every variant a finding could be about, whoever carries it. The lookups (Ensembl VEP, amino acids, GTEx)
+    are made for all of them, so they are the same for every person: one run fills the cache for anyone, and no
+    person's own variant list goes to the APIs."""
     step_genes = {nid: {g for s in st for g in s["genes"]} for nid, st in steps.items()}
-    spans = gene_spans(set().union(*step_genes.values()) if step_genes else set())
-    rsids = sorted({f["rsid"] for f in findings})
+    all_genes = set().union(*step_genes.values()) if step_genes else set()
+    spans = gene_spans(all_genes)
+    rsids = sorted(set(universe or ()) | {f["rsid"] for f in findings})
     print(f"Ensembl VEP for {len(rsids)} variants...")
     vep = sources.ensembl_vep(rsids)
     # Amino acids only for the variants VEP says change a protein: the only ones that use them
     aa = vep_amino_acids(sorted(rs for rs in rsids if (vep.get(rs) or {}).get("consequence") in PROTEIN))
-    near = lambda rs, genes: [g for g in genes if g in spans and where.get(rs) and where[rs][0] == spans[g][0]
-                              and spans[g][1] - EQTL_REACH <= where[rs][1] <= spans[g][2] + EQTL_REACH]
+    # Positions from Ensembl (GRCh38, as the imputed files): known for every variant, not only those in a person's file
+    place = lambda rs: (vep[rs]["chrom"], vep[rs]["pos"]) if rs in vep else where.get(rs)
+    near = lambda rs, genes: [g for g in genes if g in spans and place(rs) and place(rs)[0] == spans[g][0]
+                              and spans[g][1] - EQTL_REACH <= place(rs)[1] <= spans[g][2] + EQTL_REACH]
     eqtl_cache = {}
+    if universe:
+        wanted = [rs for rs in rsids if rs in vep and near(rs, all_genes)]
+        print(f"GTEx expression effects for {len(wanted)} variants near step genes (cached)...")
+        for rs in wanted:
+            eqtl_cache[rs] = gtex_eqtl(vep[rs])
     asked = sum(1 for f in findings if near(f["rsid"], step_genes.get(f["nutrient"], ())))
     print(f"GTEx expression effects for variants near step genes (~{asked} lookups, cached)...")
     for f in findings:

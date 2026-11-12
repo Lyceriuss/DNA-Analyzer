@@ -1,0 +1,108 @@
+"""A chip-like raw file for a public 1000 Genomes sample, to test the pipeline on someone new with nobody's private data.
+
+    python -m genome.sample_person HG00096 --layout data/input/MyHeritage_raw_dna_data_XY.csv --out data/input/HG00096.csv
+
+The layout file gives the chip's content: which rsIDs at which GRCh37 positions (its genotypes are not used). Each
+position is lifted to GRCh38 (UCSC chain), the sample's genotype read from the high-coverage panel's raw VCFs, and
+written back on GRCh37's forward strand in MyHeritage's CSV layout. Positions the panel has no SNV for read "--", as a
+chip's no-calls do. A man's X outside the PARs is one allele in the panel; it is written twice, as chips write it.
+
+The sample is part of the reference panel, so its imputation is better than a real customer's would be: use it to test
+that the pipeline runs (formats, offline lookups, the explorer), not to measure accuracy.
+
+Reads every raw panel VCF once (32 GB), one process per chromosome.
+"""
+import argparse
+import gzip
+import io
+import os
+import time
+from multiprocessing import Pool
+
+from genome import formats, panel_sites
+from genome.impute import COMP, REF
+
+PANEL = os.environ.get("DNA_PANEL_ROOT", r"D:\DNA-Analyzer-reference\1kGP_high_coverage_GRCh38")
+CHROMS = [str(c) for c in range(1, 23)] + ["X"]
+
+
+def layout(path):
+    """{chrom: [(GRCh37 pos, rsid, GRCh38 pos or None, strand)]} for the layout file's calls."""
+    from pyliftover import LiftOver
+    lo = LiftOver(os.path.join(REF, "hg19ToHg38.over.chain.gz"))
+    out = {c: [] for c in CHROMS}
+    for rsid, chrom, pos, _ in formats.rows(path):
+        if chrom not in out or pos is None:
+            continue
+        hits = lo.convert_coordinate(f"chr{chrom}", pos - 1)
+        ok = len(hits) == 1 and hits[0][0] == f"chr{chrom}"
+        out[chrom].append((pos, rsid, hits[0][1] + 1 if ok else None, hits[0][2] if ok else None))
+    return out
+
+
+def genotypes(job):
+    """{GRCh38 pos: two letters on GRCh38's forward strand} for one sample on one chromosome."""
+    chrom, sample, wanted = job
+    path = os.path.join(PANEL, "raw", panel_sites.raw_file(PANEL, chrom))
+    want = {str(p).encode() for p in wanted}
+    out, t = {}, time.time()
+    with io.BufferedReader(gzip.open(path, "rb"), buffer_size=1 << 22) as f:
+        col = None
+        for line in f:
+            if line[:1] == b"#":
+                if line.startswith(b"#CHROM"):
+                    col = line.rstrip(b"\n").split(b"\t").index(sample.encode())
+                continue
+            pos = line.split(b"\t", 2)[1]
+            if pos not in want:
+                continue
+            p = line.split(b"\t", col + 1)
+            ref, alt = p[3].decode(), p[4].decode()
+            if len(ref) != 1 or len(alt) != 1:
+                continue  # chips read SNVs
+            gt = p[col].split(b"\t")[0].strip().decode().replace("/", "|").split("|")
+            if any(a not in ("0", "1") for a in gt):
+                continue
+            letters = "".join((ref, alt)[int(a)] for a in gt)
+            letters = letters * 2 if len(letters) == 1 else letters
+            # Several records can share a position (one per alternative allele): keep the one the sample carries
+            if int(pos) not in out or alt in letters:
+                out[int(pos)] = letters
+    print(f"  chr{chrom}: {len(out):,} of {len(wanted):,} positions ({time.time() - t:.0f}s)", flush=True)
+    return chrom, out
+
+
+def main():
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("sample", help="1000 Genomes sample ID, e.g. HG00096")
+    ap.add_argument("--layout", required=True, help="a raw chip file whose rsIDs and positions to use")
+    ap.add_argument("--out", required=True)
+    ap.add_argument("--processes", type=int, default=6)
+    a = ap.parse_args()
+    print("Lifting the layout to GRCh38 ...", flush=True)
+    lay = layout(a.layout)
+    jobs = sorted(((c, a.sample, {p38 for _, _, p38, _ in rows if p38}) for c, rows in lay.items()),
+                  key=lambda j: -len(j[2]))
+    print(f"Reading {a.sample} from the raw panel, {a.processes} processes ...", flush=True)
+    with Pool(a.processes) as pool:
+        got = dict(pool.imap_unordered(genotypes, jobs))
+    n = called = 0
+    tmp = a.out + ".part"
+    with open(tmp, "w", encoding="utf-8", newline="\n") as f:
+        f.write(f"# Test file: 1000 Genomes sample {a.sample} (public), at the positions of a MyHeritage chip.\n")
+        f.write("# Made by genome/sample_person.py; GRCh37, forward strand.\n")
+        f.write('RSID,CHROMOSOME,POSITION,RESULT\n')
+        for c in CHROMS:
+            for pos, rsid, p38, strand in lay[c]:
+                gt = got.get(c, {}).get(p38) if p38 else None
+                if gt and strand == "-":
+                    gt = gt.translate(COMP)
+                n += 1
+                called += bool(gt)
+                f.write(f'"{rsid}","{c}","{pos}","{gt or "--"}"\n')
+    os.replace(tmp, a.out)
+    print(f"Wrote {a.out}: {n:,} positions, {called:,} called ({called / n:.1%})")
+
+
+if __name__ == "__main__":
+    main()

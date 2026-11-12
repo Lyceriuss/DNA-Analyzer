@@ -2,6 +2,7 @@
   "about": "The people the explorer has profiles for. sex decides which themes apply (female fertility: female, male fertility: male) and the NNR intake group; profiles.py checks it against the DNA. dna is the raw file; the imputed version is used when src/impute.py has made one.",
   "profiles": [
     {"id": "XY", "sex": "male", "dna": "data/input/MyHeritage_raw_dna_data_XY.csv"},
-    {"id": "XX", "sex": "female", "dna": "data/input/MyHeritage_raw_dna_data_XX.csv"}
+    {"id": "XX", "sex": "female", "dna": "data/input/MyHeritage_raw_dna_data_XX.csv"},
+    {"id": "HG00096", "sex": "male", "dna": "data/input/HG00096.csv", "test": "public 1000 Genomes sample on a MyHeritage chip layout (genome/sample_person.py)"}
   ]
 }

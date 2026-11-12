@@ -548,7 +548,7 @@ def build(dna, sex, age, activity, config=CONFIG):
     print("Conversion steps (Reactome) ...")
     from cluster_analysis.nutrition import nutrient_steps
     steps = nutrient_steps.build_steps(cfg, {pid: name for pid, (name, _) in pathways.items()})
-    nutrient_steps.annotate(findings, steps, where)
+    nutrient_steps.annotate(findings, steps, where, universe=rsids)
     tissue = nutrient_steps.tissues({g for st in steps.values() for s in st for g in s["genes"]})
     step_rows = []
     for nid, st in steps.items():

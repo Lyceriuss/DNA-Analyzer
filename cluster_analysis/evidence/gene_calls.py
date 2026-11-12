@@ -240,7 +240,9 @@ def run(dna, genes):
     want = {v["rsid"] for vs in pv.values() for v in vs} | {e["rsid"] for e in eq.values() if e}
     print(f"Reading {len(want):,} variants from {os.path.basename(dna)}...", flush=True)
     calls = {rs: (gt, tier) for rs, _, _, gt, tier in iter_calls(dna, rsids=want, confidence=CONFIDENT) if gt and "-" not in gt}
-    eq_rs = sorted({e["rsid"] for e in eq.values() if e and e["rsid"] in calls})
+    # Every gene's eQTL variant, not only those this person has a call at: the lookups are then the same for everyone,
+    # and a run for anyone fills the cache for all (no person's variant list goes to Ensembl)
+    eq_rs = sorted({e["rsid"] for e in eq.values() if e})
     print(f"Ensembl VEP (European frequencies) for {len(eq_rs):,} eQTL variants...", flush=True)
     vep = sources.ensembl_vep(eq_rs) if eq_rs else {}
     return {g: call_gene(g, pv[g], eq[g], calls, vep) for g in genes}

@@ -120,16 +120,16 @@ def string_enrichment(symbols, categories=("Process", "KEGG", "RCTM", "WikiPathw
 PRIMARY_CHROMOSOMES = {str(c) for c in range(1, 23)} | {"X", "Y", "MT"}
 
 
-def _vep_index():
-    """{"files": [...], "ids": {rsid: cache file}} over every cached Ensembl VEP batch; new batch files are read once
-    and added."""
-    path = os.path.join(CACHE_DIR, "vep_index.json")
+def _batch_index(namespace, index_name):
+    """{"files": [...], "ids": {rsid: cache file}} over every cached batch of a namespace whose records carry an "id"
+    (Ensembl VEP); new batch files are read once and added."""
+    path = os.path.join(CACHE_DIR, index_name)
     index = {"files": [], "ids": {}}
     if os.path.exists(path):
         with open(path, encoding="utf-8") as f:
             index = json.load(f)
     seen = set(index["files"])
-    new = [fn for fn in sorted(os.listdir(CACHE_DIR)) if fn.startswith("ensembl_vep_") and fn not in seen]
+    new = [fn for fn in sorted(os.listdir(CACHE_DIR)) if fn.startswith(namespace + "_") and fn not in seen]
     for fn in new:
         with open(os.path.join(CACHE_DIR, fn), encoding="utf-8") as f:
             data = json.load(f)
@@ -141,6 +141,32 @@ def _vep_index():
         with open(path, "w", encoding="utf-8") as f:
             json.dump(index, f)
     return index
+
+
+def _vep_index():
+    return _batch_index("ensembl_vep", "vep_index.json")
+
+
+def by_variant(namespace, index_name, rsids, records, batch_size=150):
+    """Records for rsids from batch-cached lookups, reusing every record any earlier batch fetched (batches are cached
+    by their exact ids, so another person's list, batched differently, would otherwise miss them all). Only rsids no
+    batch holds go to records(batch)."""
+    index = _batch_index(namespace, index_name)
+    found, by_file = [], {}
+    for rs in rsids:
+        if rs in index["ids"]:
+            by_file.setdefault(index["ids"][rs], set()).add(rs)
+    for fn, want in by_file.items():
+        with open(os.path.join(CACHE_DIR, fn), encoding="utf-8") as f:
+            found += [v for v in json.load(f) if v.get("id") in want]
+    have = {v["id"] for v in found}
+    todo = sorted(rs for rs in set(rsids) if rs not in have)
+    if todo:
+        print(f"   {len(set(rsids)) - len(todo)} variants from earlier runs, {len(todo)} asked of Ensembl ({namespace})")
+    fetched = [v for i in range(0, len(todo), batch_size) for v in records(todo[i:i + batch_size])]
+    if todo:
+        _batch_index(namespace, index_name)  # adds the new batches
+    return found + fetched
 
 
 def ensembl_vep(rsids, batch_size=150):
@@ -169,25 +195,8 @@ def ensembl_vep(rsids, batch_size=150):
             half = len(batch) // 2
             return records(batch[:half]) + records(batch[half:])
 
-    # Cached batches are keyed by their exact ids, so another person's list (mostly the same variants, batched
-    # differently) would miss them all: records already fetched in any batch are reused per variant, and only the
-    # variants no batch holds go to Ensembl
-    index = _vep_index()
-    found, by_file = [], {}
-    for rs in rsids:
-        if rs in index["ids"]:
-            by_file.setdefault(index["ids"][rs], set()).add(rs)
-    for fn, want in by_file.items():
-        with open(os.path.join(CACHE_DIR, fn), encoding="utf-8") as f:
-            found += [v for v in json.load(f) if v.get("id") in want]
-    have = {v["id"] for v in found}
-    todo = [rs for rs in rsids if rs not in have]
-    if todo:
-        print(f"   {len(rsids) - len(todo)} variants from earlier runs, {len(todo)} asked of Ensembl VEP")
-    fetched = [v for i in range(0, len(todo), batch_size) for v in records(sorted(todo[i:i + batch_size]))]
-    if todo:
-        _vep_index()  # adds the new batches
-    for chunk in (found, fetched):
+    records_all = by_variant("ensembl_vep", "vep_index.json", rsids, records, batch_size)
+    for chunk in (records_all,):
         for v in chunk:
             if v["seq_region_name"] not in PRIMARY_CHROMOSOMES or v["id"] in out:
                 continue  # skip alt-haplotype contigs (HSCHR...)

@@ -67,12 +67,12 @@ def vep_amino_acids(rsids):
             half = len(batch) // 2
             return records(batch[:half]) + records(batch[half:])
 
-    for i in range(0, len(rsids), 150):
-        for v in records(sorted(rsids[i:i + 150])):
-            for t in v.get("transcript_consequences", []):
-                if t.get("canonical") and "/" in (t.get("amino_acids") or ""):
-                    ref_aa, alt_aa = t["amino_acids"].split("/")
-                    out.setdefault(v["id"], {})[t["variant_allele"]] = (ref_aa, alt_aa, t.get("protein_start"))
+    # Per variant: records any earlier batch fetched are reused, whoever's list it was
+    for v in sources.by_variant("vep_canonical", "vep_canonical_index.json", rsids, records):
+        for t in v.get("transcript_consequences", []):
+            if t.get("canonical") and "/" in (t.get("amino_acids") or ""):
+                ref_aa, alt_aa = t["amino_acids"].split("/")
+                out.setdefault(v["id"], {})[t["variant_allele"]] = (ref_aa, alt_aa, t.get("protein_start"))
     return out
 
 
