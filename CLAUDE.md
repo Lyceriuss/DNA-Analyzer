@@ -18,9 +18,10 @@
 ## Layout
 
 `genome/` reads and imputes DNA files. `cluster_analysis/` holds the analysis, one package per feature (`themes`,
-`evidence`, `lifecycle`, `medicines`, `nutrition`), the explorer (`explorer/`) and the old SNP library (`library/`,
-being phased out). `main.py`, `src/` and `config/` are the original PDF report. Details:
-`cluster_analysis/README.md` and `docs/architecture/`.
+`evidence`, `lifecycle`, `medicines`, `nutrition`), the explorer (`explorer/`) and the old SNP library (`library/`:
+`snp_traits.json`, its reader and tools; still feeds the Profile tab, being phased out). The packages meet only through
+files (the person's calls, each package's outputs, the explorer's datasets), so each can be replaced on its own: keep it
+that way. The PDF report was removed on 2026-11-13. Details: `cluster_analysis/README.md` and `docs/architecture/`.
 
 ## Genome build and disks
 

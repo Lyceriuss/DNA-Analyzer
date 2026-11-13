@@ -61,7 +61,7 @@ is kept per viewer in the browser (`localStorage`), English when it can't be rea
   ("`{} genes act here`"); `{0}` `{1}` in the Swedish reorder values. A value that is itself a key is translated too
   ("Less active ×2"), counts agree in number ("1 mindre aktiv", "5 mindre aktiva"), and labels drawn in capitals use
   their key's translation.
-- Source terms have their own dictionary, `i18n_sv_terms.json`: the library's texts (`config/snp_traits.json`), the
+- Source terms have their own dictionary, `i18n_sv_terms.json`: the library's texts (`cluster_analysis/library/snp_traits.json`), the
   module names (`module_names.json`) and disease/trait names. The page's wording wins when both have a key.
 - Other text from the sources stays as published: gene names, UniProt, ClinPGx and CPIC texts, Reactome and GO names,
   paper titles.

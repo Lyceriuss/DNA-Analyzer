@@ -1,6 +1,6 @@
 # Library changes
 
-Corrections to `config/snp_traits.json` made after the review of [LIBRARY_AUDIT.md](LIBRARY_AUDIT.md). Each changed entry carries an `audit` field with the reason.
+Corrections to `cluster_analysis/library/snp_traits.json` made after the review of [LIBRARY_AUDIT.md](LIBRARY_AUDIT.md). Each changed entry carries an `audit` field with the reason.
 
 | SNP | Gene | Trait | Scores before | Scores after | Why |
 |---|---|---|---|---|---|

@@ -14,13 +14,13 @@ Architecture overview with diagrams: [docs/architecture/](../docs/architecture/R
 | `medicines/` | Drug genes, star alleles and guidelines (Medicines tab) |
 | `nutrition/` | Nutrients (Nutrition tab) and lab tests (Biomarkers tab): `nutrients.json`, `labtests.json`, NNR 2023 |
 | `explorer/` | The explorer page, its dataset export, the build, and the localhost / agent commands |
-| `library/` | The old 247-SNP library (`config/snp_traits.json`) and its tools: modules, biomarkers, audits. Being phased out in favour of the API-based packages above |
+| `library/` | The old 247-SNP library (`snp_traits.json`, `proxies.json`), its reader (`analyzer.py`, `normalizer.py`, `proxy_handler.py`, `domain_mapper.py`) and tools: modules, biomarkers, audits. Feeds the Profile tab; being phased out in favour of the API-based packages above |
 
-Reading a DNA file and imputing it live in `genome/` at the repo root, shared with the PDF report.
+Reading a DNA file and imputing it live in `genome/` at the repo root.
 
 The rest of this page describes the library modules (`library/`).
 
-Groups the genes in the library (`config/snp_traits.json`) into **functional modules**, meaning sets of genes whose proteins work together. It then reads a person's results per module. The aim is to see mechanisms rather than isolated SNPs: where several weakened genes sit in the same pathway, and which weakened genes reach into other systems.
+Groups the genes in the library (`cluster_analysis/library/snp_traits.json`) into **functional modules**, meaning sets of genes whose proteins work together. It then reads a person's results per module. The aim is to see mechanisms rather than isolated SNPs: where several weakened genes sit in the same pathway, and which weakened genes reach into other systems.
 
 ## Two steps
 
@@ -48,7 +48,7 @@ This checks every rsID in `snp_traits.json` against Ensembl (GRCh38) and the GWA
 
 | Check | Error when | Warning when |
 |---|---|---|
-| Location | the library gene is not within 250 kb of the variant, or the deep-dive/evidence file names another gene | the gene is nearby but not at the site, or the SNP is in a gene desert |
+| Location | the library gene is not within 250 kb of the variant | the gene is nearby but not at the site, or the SNP is in a gene desert |
 | Alleles | the genotype letters are impossible for the SNP on either strand | an A/T or C/G SNP, where the strand can't be told and readings may be inverted |
 | Genotypes | — | a genotype is missing, so carriers get no result |
 | Keys | the key has a suffix (`rs328_TIER2`), so it can never match a DNA file | — |

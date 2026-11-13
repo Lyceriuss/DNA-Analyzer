@@ -56,8 +56,8 @@ flowchart LR
    panel. Built once, versioned by release date, refreshed monthly. A person's analysis is then a lookup: minutes
    instead of hours, nothing about the person leaves our servers, and each report names the data release it used.
 
-Running alongside: the old library (`config/snp_traits.json`) still feeds the Clusters themes, the Profile tab and
-`src/`. Those are replaced with the API-built equivalents before the service launches.
+Running alongside: the old library (`cluster_analysis/library/snp_traits.json`) and its reader (`cluster_analysis/library/`) still feed the Clusters themes and the
+Profile tab. Those are replaced with the API-built equivalents before the service launches.
 
 ## Open decisions
 

@@ -2,7 +2,7 @@
 """
 A library SNP's effect on its gene, decided by evidence about the variant instead of the library's wording.
 
-The library (config/snp_traits.json) says what a genotype means for a trait; its sentences were written with an LLM and
+The library (cluster_analysis/library/snp_traits.json) says what a genotype means for a trait; its sentences were written with an LLM and
 are not evidence of how much the gene works. This module reads function_evidence.json (MaveDB, UniProt, GTEx,
 SIFT/PolyPhen, gathered by function_evidence.py) and the CPIC allele functions, and decides, strongest evidence first:
 

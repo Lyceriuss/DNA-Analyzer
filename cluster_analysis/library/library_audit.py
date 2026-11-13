@@ -1,6 +1,6 @@
 # cluster_analysis/library/library_audit.py
 """
-Checks every SNP in the library (config/snp_traits.json, written with an LLM) against evidence:
+Checks every SNP in the library (cluster_analysis/library/snp_traits.json, written with an LLM) against evidence:
 
   * function: what the library's wording claims for the less common genotype (more / less active), against the
     evidence call (evidence_call.py: CPIC, MaveDB, UniProt, a truncating change, SIFT/PolyPhen, GTEx);
@@ -26,9 +26,9 @@ from collections import Counter, defaultdict
 from cluster_analysis import sources
 from cluster_analysis.evidence.evidence_call import BASIS_TEXT, evidence_call, load_evidence
 from cluster_analysis.lifecycle.gene_trace import NORMAL_WORDS, direction
-from src.analyzer import outcome
+from cluster_analysis.library.analyzer import outcome
 
-TRAITS_PATH = "config/snp_traits.json"
+TRAITS_PATH = "cluster_analysis/library/snp_traits.json"
 GWAS_ZIP = "data/reference/gwas_associations_ontology.zip"
 OUT_MD = "docs/LIBRARY_AUDIT.md"
 OUT_JSON = os.path.join(os.path.dirname(__file__), "library_audit.json")
@@ -167,7 +167,7 @@ def write(rows):
     c = Counter(r["verdict"] for r in rows)
     word = {"GoF": "more active", "LoF": "less active", "normal": "typical", "altered": "changed", "unknown": "no known effect", None: "-"}
     lines = ["# Library audit", "",
-             f"Every SNP in `config/snp_traits.json` ({len(rows)}) checked against evidence by `cluster_analysis/library/library_audit.py`. "
+             f"Every SNP in `cluster_analysis/library/snp_traits.json` ({len(rows)}) checked against evidence by `cluster_analysis/library/library_audit.py`. "
              "The library was written with an LLM; this lists where its wording and readings go beyond, or against, the evidence. "
              "Corrections already made are listed in [LIBRARY_CHANGES.md](LIBRARY_CHANGES.md); what remains here is for review "
              "(expression-only contradictions were kept, since a study of the protein can outweigh GTEx).", "",

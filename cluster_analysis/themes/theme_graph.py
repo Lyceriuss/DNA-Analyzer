@@ -35,7 +35,7 @@ OT_API = "https://api.platform.opentargets.org/api/v4/graphql"
 QUICKGO = "https://www.ebi.ac.uk/QuickGO/services/annotation/downloadSearch"
 REF = "data/reference"
 OUTPUT_DIR = gbuild.OUTPUT
-TRAITS_PATH = "config/snp_traits.json"
+TRAITS_PATH = "cluster_analysis/library/snp_traits.json"
 # GO evidence by class. Most behaviour and reproduction biology is known from mouse, so annotations carried over from
 # orthologs count too, labelled as such; keyword-mapped electronic annotations are left out.
 GO_CLASSES = {

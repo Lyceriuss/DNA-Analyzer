@@ -24,7 +24,7 @@ from cluster_analysis import sources
 from cluster_analysis.lifecycle.gene_trace import uniprot_entry
 
 MODULES_PATH = os.path.join(os.path.dirname(__file__), "modules.json")
-TRAITS_PATH = "config/snp_traits.json"
+TRAITS_PATH = "cluster_analysis/library/snp_traits.json"
 OUT_PATH = os.path.join(os.path.dirname(__file__), "themes.json")
 
 THEMES = {

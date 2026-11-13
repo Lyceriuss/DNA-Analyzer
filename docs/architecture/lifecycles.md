@@ -32,7 +32,7 @@ alias on its own can name a different protein (DAO is D-amino acid oxidase). TNF
 its official symbol. Reactome returns 503s under load; rerun the failed genes and merge.
 
 ```bash
-GENES=$(python -c "import json; print(' '.join(sorted({v['gene'].split()[0] for v in json.load(open('config/snp_traits.json', encoding='utf-8')).values()})))")
+GENES=$(python -c "import json; print(' '.join(sorted({v['gene'].split()[0] for v in json.load(open('cluster_analysis/library/snp_traits.json', encoding='utf-8')).values()})))")
 python -m cluster_analysis.lifecycle.lifecycle $GENES TNF --dna data/input/MyHeritage_raw_dna_data_XY.csv --out data/output/cluster_analysis/lifecycles_XY_full.json
 python -m cluster_analysis.lifecycle.gene_trace ALDH2 --dna data/input/MyHeritage_raw_dna_data_XY.csv     # upstream / downstream trace of one gene
 ```

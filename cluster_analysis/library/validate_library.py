@@ -5,7 +5,7 @@ Validates every rsID in the library against Ensembl (GRCh38) and the GWAS Catalo
     python -m cluster_analysis.library.validate_library
 
 Checks per rsID:
-  location   is the library gene at (or within 5 kb of) the variant? which file's gene is right?
+  location   is the library gene at (or within 5 kb of) the variant?
   alleles    are the genotype letters possible for this SNP, and on which strand?
   genotypes  are all three genotypes listed (otherwise some people get no result)?
   gwas       which genes curators mapped it to, and its strongest traits (for manual review)
@@ -19,9 +19,7 @@ import re
 from cluster_analysis import sources
 from cluster_analysis.library.build_modules import candidate_symbols
 
-TRAITS_PATH = "config/snp_traits.json"
-DEEP_DIVE_PATH = "config/deep_dive_content.json"
-EVIDENCE_PATH = "config/evidence_db.json"
+TRAITS_PATH = "cluster_analysis/library/snp_traits.json"
 OUT_BASE = os.path.join(os.path.dirname(__file__), "library_validation")
 COMPLEMENT = {"A": "T", "T": "A", "C": "G", "G": "C"}
 NEAR_WINDOW = 250_000
@@ -80,18 +78,9 @@ def check_alleles(variant_keys, alleles):
 
 def validate():
     traits = _load(TRAITS_PATH)
-    deep_dive = _load(DEEP_DIVE_PATH)
-    evidence = _load(EVIDENCE_PATH)
 
-    def dd_gene(rsid):
-        e = deep_dive.get(rsid) or {}
-        return (e.get("data_risk") or {}).get("gene") or (e.get("data_strength") or {}).get("gene")
-
-    def ev_gene(rsid):
-        return (evidence.get(rsid) or {}).get("variant_identity", {}).get("gene_symbol")
-
-    # Resolve every gene name used in any of the three files to its official symbol
-    all_fields = {g for r in traits for g in (traits[r]["gene"], dd_gene(r), ev_gene(r)) if g}
+    # Resolve every gene name in the library to its official symbol
+    all_fields = {traits[r]["gene"] for r in traits if traits[r].get("gene")}
     queries = sorted({c for g in all_fields for c in candidate_symbols(g)})
     resolved = sources.string_resolve(queries)
     for q in queries:
@@ -109,7 +98,6 @@ def validate():
         rsid = base_of[key]
         info = traits[key]
         row = {"rsid": key, "gene": info["gene"], "trait": info.get("trait", ""),
-               "deep_dive_gene": dd_gene(key), "evidence_gene": ev_gene(key),
                "issues": [], "severity": "ok"}
         if key != rsid:
             dup = f"; duplicates {rsid} ({traits[rsid]['gene']})" if rsid in traits else ""
@@ -128,11 +116,7 @@ def validate():
         # --- location ---
         site = {g for g in v["genes"]}
         lib_ok = bool(_names(info["gene"], resolved) & site)
-        row["gene_supported"] = {
-            "snp_traits": lib_ok,
-            "deep_dive": bool(_names(row["deep_dive_gene"], resolved) & site) if row["deep_dive_gene"] else None,
-            "evidence": bool(_names(row["evidence_gene"], resolved) & site) if row["evidence_gene"] else None,
-        }
+        row["gene_supported"] = lib_ok
         if not lib_ok:
             near = sources.ensembl_genes_near(v["chrom"], v["pos"], NEAR_WINDOW)
             row["nearest_genes"] = near[:5]
@@ -149,10 +133,6 @@ def validate():
                 at = ", ".join(g for g in v["genes"] if not g.startswith("ENSG")) or \
                      ", ".join(g for g, _ in near[:3]) or "no protein-coding gene nearby"
                 row["issues"].append(f"{info['gene']} is not within {NEAR_WINDOW // 1000} kb; variant is at {at}")
-                row["severity"] = "error"
-        for source in ("deep_dive", "evidence"):
-            if row["gene_supported"][source] is False and lib_ok:
-                row["issues"].append(f"{source} names {row[source + '_gene']}, but the site is {info['gene']}")
                 row["severity"] = "error"
 
         # --- alleles / genotypes ---

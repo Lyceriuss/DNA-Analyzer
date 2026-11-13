@@ -1,7 +1,7 @@
 # Run with: python -m unittest discover tests
 import unittest
 
-from src.proxy_handler import apply_proxies
+from cluster_analysis.library.proxy_handler import apply_proxies
 
 
 class TestApoeProxy(unittest.TestCase):

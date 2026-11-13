@@ -15,7 +15,7 @@ Gives every library SNP an evidence-based effect per genotype, and says which ef
 
 A new effect gets no polarity (it reads "unclear") until one is set by hand with "polarity_source": "reviewed".
 
-Reading a genotype is src.analyzer.outcome(): GoF/LoF/altered → the polarity of that effect (positive / negative /
+Reading a genotype is cluster_analysis.library.analyzer.outcome(): GoF/LoF/altered → the polarity of that effect (positive / negative /
 neutral, unclear without one); normal → typical; unknown → unknown.
 """
 import argparse
@@ -26,7 +26,7 @@ from cluster_analysis import sources
 from cluster_analysis.evidence.evidence_call import evidence_call, load_evidence
 from cluster_analysis.lifecycle.gene_trace import direction
 
-TRAITS_PATH = "config/snp_traits.json"
+TRAITS_PATH = "cluster_analysis/library/snp_traits.json"
 EFFECTS = ("GoF", "LoF", "altered")
 
 

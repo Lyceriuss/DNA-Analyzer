@@ -1,6 +1,6 @@
 # Gene function calls and the library audit
 
-The library (`config/snp_traits.json`, 247 SNPs) was written with an LLM. Its sentences say what a genotype means for a
+The library (`cluster_analysis/library/snp_traits.json`, 247 SNPs) was written with an LLM. Its sentences say what a genotype means for a
 trait, but they are not evidence of what the variant does to the gene. The explorer's labels therefore come from
 evidence about the variant, and the library itself is checked against that evidence.
 
@@ -147,4 +147,4 @@ python -m cluster_analysis.library.library_audit        # → docs/LIBRARY_AUDIT
 ```
 
 The audit never edits the library. Corrections are made after review and listed in `docs/LIBRARY_CHANGES.md`; the
-library also drives the PDF report, so a change there changes the report.
+library also drives the Profile tab, so a change there changes it.

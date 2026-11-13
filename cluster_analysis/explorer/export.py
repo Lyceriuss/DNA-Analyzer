@@ -19,7 +19,7 @@ from cluster_analysis.library.build_modules import MODULES_PATH
 from genome import build as gbuild
 from genome.loader import imputed_path, person_label
 
-TRAITS_PATH = "config/snp_traits.json"
+TRAITS_PATH = "cluster_analysis/library/snp_traits.json"
 CA = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # cluster_analysis/
 NAMES_PATH = os.path.join(CA, "library", "module_names.json")
 
@@ -109,7 +109,7 @@ def genotype_ladder(rsid, common, minor, traits, ev):
     evidence call (GoF / LoF / normal ...) and what it means for the person (outcome), and, where MaveDB measured the
     protein change, an activity estimate as a share of the common form. The estimate is additive: each allele
     contributes half, the common allele 1 and the variant its measured score."""
-    from src.analyzer import outcome
+    from cluster_analysis.library.analyzer import outcome
     entry = traits.get(rsid)
     if not entry or not common or not minor:
         return []

@@ -1,6 +1,6 @@
 # Library audit
 
-Every SNP in `config/snp_traits.json` (247) checked against evidence by `cluster_analysis/library/library_audit.py`. The library was written with an LLM; this lists where its wording and readings go beyond, or against, the evidence. Corrections already made are listed in [LIBRARY_CHANGES.md](LIBRARY_CHANGES.md); what remains here is for review (expression-only contradictions were kept, since a study of the protein can outweigh GTEx).
+Every SNP in `cluster_analysis/library/snp_traits.json` (247) checked against evidence by `cluster_analysis/library/library_audit.py`. The library was written with an LLM; this lists where its wording and readings go beyond, or against, the evidence. Corrections already made are listed in [LIBRARY_CHANGES.md](LIBRARY_CHANGES.md); what remains here is for review (expression-only contradictions were kept, since a study of the protein can outweigh GTEx).
 
 - **Function**: what the library's text says the less common genotype does, against the evidence call (CPIC, MaveDB, UniProt, a change that cuts the protein short, SIFT/PolyPhen, GTEx expression).
 - **GWAS**: genome-wide significant (p ≤ 5e-8) associations for the SNP in the GWAS Catalog, any trait. The Catalog lists each study's lead SNP, so a SNP without its own entry is counted through a lead SNP inherited with it (r² ≥ 0.6 in Europeans, Ensembl).

@@ -2,9 +2,9 @@ import json
 import os
 import pandas as pd
 from genome.loader import load_dna_file
-from src.normalizer import resolve_genotype, normalize_variant_keys
-from src.domain_mapper import map_system_to_domain
-from src.proxy_handler import apply_proxies
+from cluster_analysis.library.normalizer import resolve_genotype, normalize_variant_keys
+from cluster_analysis.library.domain_mapper import map_system_to_domain
+from cluster_analysis.library.proxy_handler import apply_proxies
 
 # What a genotype means for the person, from the library's evidence call (function) and its polarity
 OUTCOMES = ("positive", "negative", "neutral", "typical", "unclear", "unknown")
@@ -19,7 +19,7 @@ def outcome(function, polarity):
         return (polarity or {}).get(function, "unclear")
     return "unknown"
 
-def library_rsids(traits_filepath, proxy_map_path="config/proxies.json"):
+def library_rsids(traits_filepath, proxy_map_path="cluster_analysis/library/proxies.json"):
     """The SNPs the analysis reads: the library's, plus the proxies that stand in for missing ones."""
     wanted = set(json.load(open(traits_filepath, encoding="utf-8")))
     if os.path.exists(proxy_map_path):
@@ -38,7 +38,7 @@ def run_analysis(dna_filepath, traits_filepath):
     dna_data = load_dna_file(dna_filepath, rsids=wanted)
     if not dna_data: return pd.DataFrame()
 
-    # Library SNPs missing from the file, estimated from co-inherited SNPs (config/proxies.json)
+    # Library SNPs missing from the file, estimated from co-inherited SNPs (cluster_analysis/library/proxies.json)
     dna_data, estimated = apply_proxies(dna_data)
 
     # 2. Load Traits

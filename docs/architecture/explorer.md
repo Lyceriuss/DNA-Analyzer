@@ -1,7 +1,7 @@
 # The Gene Cluster Explorer
 
-A private claude.ai Dashboard artifact: https://claude.ai/artifact/Rsz3RYugnZyvWnixS9168o. The page holds no
-genotypes itself; it reads datasets uploaded next to it.
+A local web page, served on 127.0.0.1 by `python -m cluster_analysis.explorer serve` (it was first a claude.ai artifact,
+no longer updated). The page holds no genotypes itself; it reads the datasets next to it.
 
 ## Tabs and their datasets
 

@@ -1,7 +1,7 @@
 # Cluster analysis architecture
 
 How the gene-cluster side of DNA-Analyzer fits together: from a MyHeritage file, through imputation and public research
-data, to the Gene Cluster Explorer. The PDF report has its own page, [../ARCHITECTURE.md](../ARCHITECTURE.md).
+data, to the Gene Cluster Explorer.
 
 | Page | What it covers |
 |---|---|
@@ -37,7 +37,7 @@ flowchart LR
         EV["VEP, UniProt, MaveDB, GTEx"]
         LIT["Europe PMC"]
     end
-    LIB["config/snp_traits.json<br/>library, 247 SNPs"]
+    LIB["cluster_analysis/library/snp_traits.json<br/>library, 247 SNPs"]
 
     CSV --> IMP["genome/impute.py<br/>Beagle"]
     KG --> IMP
@@ -60,7 +60,7 @@ flowchart LR
     XR & EC & LC & LITPY --> EXP["explorer/export.py"]
     MED --> DS
     EXP --> DS["Datasets (JSON)"]
-    DS --> UI["Gene Cluster Explorer<br/>claude.ai artifact"]
+    DS --> UI["Gene Cluster Explorer<br/>localhost"]
     LIB --> AUD["library_audit.py"]
     EC --> AUD
     GW --> AUD

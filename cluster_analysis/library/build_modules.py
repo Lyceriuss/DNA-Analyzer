@@ -1,6 +1,6 @@
 # cluster_analysis/library/build_modules.py
 """
-Builds functional modules ("clusters") from the gene library in config/snp_traits.json.
+Builds functional modules ("clusters") from the gene library in cluster_analysis/library/snp_traits.json.
 
     python -m cluster_analysis.library.build_modules [--no-gwas] [--min-score 400] [--resolution 2.0]
 
@@ -17,7 +17,7 @@ import networkx as nx
 
 from cluster_analysis import sources
 
-TRAITS_PATH = "config/snp_traits.json"
+TRAITS_PATH = "cluster_analysis/library/snp_traits.json"
 MODULES_PATH = os.path.join(os.path.dirname(__file__), "modules.json")
 
 

@@ -1,83 +1,66 @@
 # DNA-Analyzer
 
-An in-house tool that turns a consumer raw-DNA export (MyHeritage / 23andMe-style CSV) into a multi-page, illustrated PDF report. The report covers ~230 curated SNPs (each validated against Ensembl and the GWAS Catalog) across ten health domains, with actionable health advice for each result. It can be produced in English or Swedish, and it can optionally compare the subject with one or two relatives.
+Turns a consumer raw-DNA export (MyHeritage, AncestryDNA or 23andMe, zipped or not) into the **Gene Cluster
+Explorer**, a local web page served on your own machine. It covers health themes (cancer, fertility, muscle), medicines,
+nutrition, biomarkers, gene lifecycles and a profile overview, in English or Swedish. Health advice is part of the
+output.
 
-A core design goal is that each SNP result fits on **one PDF page**: its genotype spectrum, mechanism, insight, evidence and confidence panel.
+The DNA file never leaves the machine. Every fact (effects, frequencies, pathways, citations) comes from public
+sources, which are fetched by gene symbol or rsID and never by a person's variants. The analysis can run fully offline
+(`DNA_OFFLINE=1`).
 
 ## Quick start
 
 ```bash
-pip install -r requirements.txt   # installed into the global Python, no venv
+pip install -r requirements.txt                    # global Python, no venv
+python -m genome.references status                 # which reference files are present (genome/references.json)
 
-# put one or more raw DNA CSVs in data/input/
-python main.py
+# put the DNA file in data/input/ and add a profile to cluster_analysis/profiles.json (ids XX, XY, ...)
+python -m genome.impute data/input/<file>.csv      # Beagle with the 1000 Genomes panel; Java 11+
+python -m cluster_analysis.profiles run            # per-profile analysis (cached)
+python -m cluster_analysis.explorer export         # datasets -> data/output/explorer_GRCh38/datasets/
+python -m cluster_analysis.explorer serve          # http://127.0.0.1:8000
+python -m cluster_analysis.explorer check          # renders every tab, profile and language
 ```
 
-`main.py` is interactive. It asks you to:
+`data/input`, `data/output`, `data/reference` and `cluster_analysis/cache` are ignored by git. Never commit DNA files or
+anything derived from them. Run the tests with `python -m unittest discover tests`.
 
-1. pick the report language (English / Swedish),
-2. pick the primary profile from `data/input/*.csv`,
-3. optionally add up to two relatives (Mom / Dad / a custom label).
-
-Output goes to `data/output/<file>_<Language>_Report.pdf`, together with the intermediate chart PNGs.
-
-`data/input/` and `data/output/` are git-ignored. **Never commit raw DNA files or anything derived from them.**
-
-Run the tests with `python -m unittest discover tests`. Check the library with `python -m cluster_analysis.library.validate_library` and content coverage with `python cluster_analysis/library/library_coverage.py`.
-
-On Windows, set `PYTHONIOENCODING=utf-8` if the console crashes when it prints emoji.
-
-## What the report contains
-
-| Section | Source |
-|---|---|
-| 4-page introduction (GoF/LoF, upstream/downstream, etc.) | `config/ui_labels.json` → `introduction_education` |
-| Dashboard: per-domain positive/baseline/negative counts and a polar chart | computed from each genotype's evidence call (GoF/LoF) and polarity in `snp_traits.json` |
-| Key active traits: gain-of-function (GoF) and loss-of-function (LoF) tables | `snp_traits.json` |
-| Section 3, Strengths: one deep-dive page per strength SNP, then a summary | `deep_dive_content.json` + `evidence_db.json` |
-| Section 4, Risks: one deep-dive page per risk SNP, then a summary | same |
-| Heritage (optional): donut chart and per-relative match tables | `src/inheritance.py` |
-
-## Repository layout
+## Layout
 
 ```
-main.py                   Interactive entry point; builds the whole PDF
-src/                      Analysis pipeline and PDF rendering (see docs/ARCHITECTURE.md)
-config/                   The knowledge base: traits, narratives, evidence, UI labels (see docs/DATA_MODEL.md)
-assets/                   Images used by reference-PDF tooling
-cluster_analysis/         Research-API clients, functional modules, library validation
-scripts/                  Reference downloads and the content coverage check
-tests/                    Unit tests (python -m unittest discover tests)
+genome/              reading DNA files (formats.py, loader.py), imputation and confidence tiers (impute.py),
+                     the imputability map, the reference manifest, the offline guard
+cluster_analysis/    the analysis: one package per feature, each writing its own datasets
+  themes/              theme graphs and their DNA cross-reference (Clusters tab)
+  evidence/            how a variant changes its gene: function evidence, gene calls, literature
+  medicines/           drug genes, star alleles, guidelines and drug labels (Medicines tab)
+  nutrition/           nutrients, lab tests and fitness scores (Nutrition and Biomarkers tabs)
+  lifecycle/           a gene's chemical lifecycle (Gene lifecycle tab)
+  library/             the 247-SNP library and its reader (Profile tab); being replaced by the packages above
+  explorer/            the page (one part per tab), the dataset export, the build and the local server
+  sources.py           API clients with an on-disk cache
+  profiles.py          who is analysed and the per-profile pipeline
+scripts/             reference downloads
+tests/               unit tests
+docs/architecture/   how it fits together, with diagrams
 ```
 
-The tooling scripts are described in [docs/CONTENT_TOOLING.md](docs/CONTENT_TOOLING.md).
+## Modularity
 
-## Imputation
+Each step of the pipeline is a separate package, and the steps only meet through files.
 
-`genome/impute.py` fills in the ~28 million common and rare variants the raw file doesn't contain. It runs locally with Beagle 5.5 and the 1000 Genomes phase 3 panel, so the genome never leaves the machine. It needs Java 11+ and the reference files fetched by `scripts/fetch_imputation_reference.sh` (about 5 GB).
+- Every feature package reads the person's calls through `genome/loader.py`.
+- Each package writes its own outputs, and `explorer/export.py` turns them into named datasets.
+- The datasets and their row fields are the contract between the analysis and the page (see
+  [docs/architecture/explorer.md](docs/architecture/explorer.md)).
+- Each tab in the page is its own part (`explorer/<xx>.html|css|js`), and `build.py` assembles them.
 
-```bash
-python -m genome.impute data/input/MyHeritage_raw_dna_data_XY.csv --validate 10   # accuracy check -> calibration.json
-python -m genome.impute data/input/MyHeritage_raw_dna_data_XY.csv                 # impute, then grade every call
-```
-
-Every imputed call gets a confidence tier, measured on the person's own file. The validation run hides 1 in 10 of their measured SNPs, re-imputes them, and records how often calls like each one came back right. "Like it" means the same allele frequency band, the same genotype-probability band, and the same direction (carrier or not).
-- **high:** ≥ 98% right.
-- **medium:** ≥ 90% right.
-- **low**, **untested**: below that, or too few test SNPs to tell.
-- **not_excluded:** a "doesn't carry it" call in a band where imputation misses too many real carriers, which applies to rare variants. It means "not detected", never "not a carrier".
-
-The loaders (`genome/loader.py`) pick tiers by use. Single-SNP conclusions (the library, drug response, pathogenic variants) take measured and high calls; theme statistics also take medium. The output goes to `data/output/imputation/<person>/`, which git ignores like all genotype data.
-
-## Requirements
-
-- Python 3.10+
-- Runtime: `pandas`, `numpy`, `plotly`, `kaleido` (static PNG export), `fpdf` (PyFPDF 1.7.x)
-- Tooling only: `google-genai`, `python-dotenv`, `requests`, `networkx`, and a `GOOGLE_API_KEY` in `.env` for the LLM scripts.
+So a package can be added, replaced or run elsewhere without touching the others. A Home tab introduces the whole
+process. `explorer/settings.json` controls whether that introduction is mandatory.
 
 ## Further reading
 
-- [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md): data flow, scoring, matching, and report assembly
-- [docs/DATA_MODEL.md](docs/DATA_MODEL.md): schemas for every file in `config/`
-- [docs/CONTENT_TOOLING.md](docs/CONTENT_TOOLING.md): the LLM, audit and injection scripts
-- [docs/KNOWN_ISSUES.md](docs/KNOWN_ISSUES.md): known bugs, risks and the improvement backlog
+- [docs/architecture/](docs/architecture/README.md): the system, the privacy boundary, and one page per part
+- [cluster_analysis/README.md](cluster_analysis/README.md) and [cluster_analysis/explorer/README.md](cluster_analysis/explorer/README.md)
+- [docs/KNOWN_ISSUES.md](docs/KNOWN_ISSUES.md): open issues

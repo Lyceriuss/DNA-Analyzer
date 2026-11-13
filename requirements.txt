@@ -1,11 +1,6 @@
 pandas
 numpy
-plotly
-fpdf
-kaleido
-pdfplumber   # nutrition reference: reads the NNR 2023 tables from Livsmedelsverket's PDF
-
-# Content tooling only (LLM pipelines, UniProt prototype)
-google-genai
-python-dotenv
 requests
+networkx
+pyliftover   # GRCh37 -> GRCh38 lift (genome/impute.py, genome/sample_person.py)
+pdfplumber   # nutrition reference: reads the NNR 2023 tables from Livsmedelsverket's PDF

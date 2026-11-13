@@ -20,7 +20,7 @@ from cluster_analysis.evidence.evidence_call import evidence_call, load_evidence
 from cluster_analysis.library.biomarkers import BIOMARKERS_PATH
 from genome import build as gbuild
 
-TRAITS_PATH = "config/snp_traits.json"
+TRAITS_PATH = "cluster_analysis/library/snp_traits.json"
 OUTPUT_DIR = gbuild.OUTPUT
 REACTOME = "https://reactome.org/ContentService"
 
@@ -261,7 +261,7 @@ def function_call(rsid, genotype, variants, vep):
 
 
 def person_status(dna_path):
-    from src.analyzer import run_analysis, outcome
+    from cluster_analysis.library.analyzer import run_analysis, outcome
     df = run_analysis(dna_path, TRAITS_PATH)
     lib = json.load(open("cluster_analysis/library/modules.json", encoding="utf-8"))
     traits = json.load(open(TRAITS_PATH, encoding="utf-8"))

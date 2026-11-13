@@ -1,7 +1,7 @@
 """Lists the source terms the page shows that the Swedish switch should cover, and which still lack a translation.
 
 Two kinds of text reach the page from the data rather than from the page's own wording:
-- the library's texts (config/snp_traits.json): each entry's trait, system and genotype readings;
+- the library's texts (cluster_analysis/library/snp_traits.json): each entry's trait, system and genotype readings;
 - disease and trait names: Open Targets diseases, GWAS Catalog traits and ClinVar conditions in the theme datasets.
 
 Their Swedish lives in explorer/i18n_sv_terms.json ({english: swedish}), published as the i18n_sv_terms dataset next to
@@ -23,7 +23,7 @@ import re
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-LIBRARY = os.path.join(ROOT, "config", "snp_traits.json")
+LIBRARY = os.path.join(ROOT, "cluster_analysis", "library", "snp_traits.json")
 TERMS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "i18n_sv_terms.json")
 # ClinVar readings arrive as "<significance>: <condition>"; the significance is page wording (in i18n_sv.json)
 CLINVAR_PREFIX = re.compile(r"^(association|protective|risk factor|drug response|pathogenic|likely pathogenic|affects|"

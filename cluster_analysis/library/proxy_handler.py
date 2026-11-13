@@ -6,7 +6,7 @@ def _sorted(gt):
     return "".join(sorted(gt or ""))
 
 
-def apply_proxies(dna_data, proxy_map_path="config/proxies.json"):
+def apply_proxies(dna_data, proxy_map_path="cluster_analysis/library/proxies.json"):
     """
     Fills library SNPs that are missing from a DNA file using co-inherited proxy SNPs that are present.
     Returns (dna_data, estimated) where estimated maps target rsID -> {proxy, note, note_sv, uncertain}.
@@ -44,7 +44,7 @@ def apply_proxies(dna_data, proxy_map_path="config/proxies.json"):
             dna_data[target_rsid] = translated
             estimated[target_rsid] = {"proxy": proxy_rsid, "uncertain": uncertain,
                                       "note": f"{note} (via {proxy_rsid})", "note_sv": f"{note_sv} (via {proxy_rsid})"}
-            print(f"🔄 Estimated {config.get('label', target_rsid)} from {proxy_rsid} ({raw}) -> {translated}"
+            print(f"Estimated {config.get('label', target_rsid)} from {proxy_rsid} ({raw}) -> {translated}"
                   + (" [uncertain]" if uncertain else ""))
             break
     return dna_data, estimated
