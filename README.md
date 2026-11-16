@@ -35,7 +35,7 @@ cluster_analysis/    the analysis: one package per feature, each writing its own
   themes/              theme graphs and their DNA cross-reference (Clusters tab)
   evidence/            how a variant changes its gene: function evidence, gene calls, literature
   medicines/           drug genes, star alleles, guidelines and drug labels (Medicines tab)
-  nutrition/           nutrients, lab tests and fitness scores (Nutrition and Biomarkers tabs)
+  nutrition/           nutrients, lab tests, fitness and cancer risk scores (Nutrition and Biomarkers tabs, Clusters)
   lifecycle/           a gene's chemical lifecycle (Gene lifecycle tab)
   library/             the 247-SNP library and its reader (Profile tab); being replaced by the packages above
   explorer/            the page (one part per tab), the dataset export, the build and the local server

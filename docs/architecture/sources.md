@@ -48,30 +48,41 @@ flowchart TB
 
 ## Table
 
-| Source | Access | Gives us | Used by |
-|---|---|---|---|
-| Open Targets | GraphQL API | Genes associated with a disease, with overall and genetic scores | `theme_graph.py` |
-| QuickGO | REST API | Genes with experimental or curated GO annotations to a mechanism | `theme_graph.py` |
-| STRING | REST API | Protein–protein interactions (confidence ≥ 0.4), enrichment | `theme_graph.py`, `themes.py`, `build_modules.py` |
-| Reactome | REST API + `Ensembl2Reactome.txt` | Pathways, ordered reactions, inputs and outputs, curated summaries | `theme_graph.py`, `lifecycle.py`, `gene_trace.py`, `nutrient_steps.py` |
-| MyGene.info | REST API | Gene summaries, GO and Reactome per gene | `themes.py`, `sources.py` |
-| Ensembl GTF (GRCh37) | Bulk file | Gene start and end, to place SNPs in genes | `theme_graph.py` |
-| ClinVar (GRCh37) | Bulk VCF | Pathogenic variants, risk factors, drug response | `theme_graph.py`, `medicines.py`, `nutrition.py` |
-| GWAS Catalog | Bulk zip (+ REST API per rsID) | Genome-wide significant associations, effect allele, OR/beta and direction | `theme_graph.py`, `library_audit.py`, `biomarkers.py`, `nutrition.py` |
-| Ensembl VEP | REST API | Forward-strand alleles, consequence per allele, European frequency, SIFT/PolyPhen, amino acid change | `sources.py`, `function_evidence.py`, `nutrient_steps.py` |
-| Ensembl LD | REST API | Partner SNPs (r² ≥ 0.6, Europeans) so a GWAS lead SNP can support a library SNP | `library_audit.py` |
-| UniProt | REST API + `humsavar.txt` | Curated variant effects, protein name and function, cofactors | `function_evidence.py`, `gene_trace.py`, `nutrient_steps.py` |
-| MaveDB | REST API | Deep mutational scan scores per protein change | `function_evidence.py` |
-| GTEx v8 | REST API | eQTLs: which allele raises or lowers expression, per tissue | `function_evidence.py`, `nutrient_steps.py` |
-| Rhea | REST API | Chemical reactions of an enzyme | `gene_trace.py` |
-| OmniPath | REST API | Directed, signed regulators of a gene | `gene_trace.py`, `lifecycle.py` |
-| Europe PMC | REST API | Papers naming a SNP, quoted effect sizes | `literature.py` |
-| ClinPGx (PharmGKB) | Bulk zips + REST API | Clinical annotations, guideline annotations, drug labels | `medicines.py`, `function_evidence.py` |
-| CPIC | REST API, saved as JSON | Recommendation per metaboliser type or activity score | `medicines.py` |
-| 1000 Genomes | Bulk panel + site list | Imputation; allele frequencies in five ancestries | `genome/impute.py`, `medicines.py`, `nutrition.py` |
-| PGS Catalog | REST API + harmonised scoring files (GRCh37) | Polygenic scores for blood levels (vitamin D, omega-3, DHA) | `nutrition.py` |
-| Livsmedelsverket: NNR 2023 summary | PDF, parsed to `nnr_2023.json` | Recommended and adequate intakes, upper limits, reference energy, fat targets (the intake line) | `nutrition.py` |
-| Human Protein Atlas | REST API (`search_download.php`) | RNA tissue specificity: where in the body a gene is mostly made | `nutrient_steps.py` |
+The 21 research databases. The list is kept in `cluster_analysis/explorer/sources.json`, which the
+explorer's Sources tab and the introduction's count are built from; `tests/test_sources_catalog.py` checks that this table,
+that file and `genome/references.json` agree. Bulk files are on GRCh38.
+
+| Source | Run by | Access | Gives us | Tabs | Bulk files (`references.json`) |
+|---|---|---|---|---|---|
+| [1000 Genomes Project](https://www.internationalgenome.org/) | International Genome Sample Resource (EMBL-EBI) | bulk | Full genomes of 3,202 people from 26 populations: the reference panel imputation reads the missing positions from, and allele frequencies per ancestry. | Home, Clusters, Medicines, Nutrition, Biomarkers | `panel_raw`, `panel_bref3`, `panel_sites`, `panel_populations` |
+| [ClinVar](https://www.ncbi.nlm.nih.gov/clinvar/) | NCBI, US National Library of Medicine | bulk | Variants submitted by clinical laboratories with their significance: disease-causing, risk factor or drug response, with a review status in stars. | Clusters, Medicines, Nutrition, Biomarkers | `clinvar_grch38` |
+| [GWAS Catalog](https://www.ebi.ac.uk/gwas/) | EMBL-EBI and NHGRI | bulk + API | Genome-wide association studies: which variants are linked to a trait or a lab value, the allele that raises or lowers it, and how strongly. | Clusters, Nutrition, Biomarkers, Profile | `gwas_catalog` |
+| [PGS Catalog](https://www.pgscatalog.org/) | EMBL-EBI and the University of Cambridge | bulk | Published polygenic scores: the weights that add up many variants into one genetic score for a blood level or a trait. | Nutrition, Biomarkers, Clusters | `nutrition_pgs`, `pgs_scoring_genomewide` |
+| [ClinPGx (PharmGKB)](https://www.clinpgx.org/) | Stanford University | bulk + API | How genes change the response to medicines: clinical annotations per variant, dosing guidelines (CPIC, DPWG and others) and drug labels (FDA, EMA, Health Canada, Swissmedic and others). | Medicines | `clinpgx` |
+| [CPIC](https://cpicpgx.org/) | Clinical Pharmacogenetics Implementation Consortium | API, saved | Peer-reviewed dosing recommendations per metaboliser type, and the rules that turn star alleles into a type. | Medicines | `cpic_recommendations` |
+| [ChEMBL](https://www.ebi.ac.uk/chembl/) | EMBL-EBI | bulk | The WHO ATC classification of medicines, so a medicine can be found by its class or code. | Medicines | `chembl_atc` |
+| [Ensembl](https://www.ensembl.org/) | EMBL-EBI | bulk + API | The genome itself: where each gene lies (GTF), each variant's identity and position (dbSNP), what a variant does to its gene (VEP) and which variants are inherited together (LD). | Clusters, Nutrition, Biomarkers, Gene lifecycle | `gtf_grch38`, `dbsnp_ensembl` |
+| [UniProt](https://www.uniprot.org/) | UniProt Consortium (EMBL-EBI, SIB, PIR) | bulk + API | Proteins: their function and cofactors, and curated effects of protein changes found in people. | Clusters, Nutrition, Gene lifecycle | `uniprot_humsavar` |
+| [MaveDB](https://www.mavedb.org/) | Brotman Baty Institute and partners | API | Laboratory measurements of how each possible protein change affects the protein's function (deep mutational scans). | Clusters | – |
+| [GTEx](https://gtexportal.org/) | Genotype-Tissue Expression project (NIH) | bulk + API | How much each gene is made in 54 tissues, and which variants make it more or less active (eQTLs). | Clusters, Nutrition, Biomarkers | `gtex_median_tpm` |
+| [Human Protein Atlas](https://www.proteinatlas.org/) | KTH, Uppsala University and SciLifeLab | API | Where in the body each gene is mostly made, tissue by tissue. | Nutrition, Biomarkers | – |
+| [Open Targets Platform](https://platform.opentargets.org/) | EMBL-EBI, Wellcome Sanger Institute and partners | API | Which genes are linked to a disease, scored by genetic, clinical and literature evidence. | Clusters | – |
+| [Gene Ontology (QuickGO)](https://www.ebi.ac.uk/QuickGO/) | Gene Ontology Consortium, served by EMBL-EBI | API | Which genes take part in a biological process (DNA repair, sperm production …), from experiments and curation. | Clusters | – |
+| [STRING](https://string-db.org/) | STRING Consortium (SIB, EMBL, CPR, KU) | API | Which proteins work together, with a confidence score. | Clusters, Profile | – |
+| [Reactome](https://reactome.org/) | OICR, EMBL-EBI, NYU and OHSU | bulk + API | Pathways and their reactions step by step: how a nutrient is taken up, carried and converted, and what each step needs. | Clusters, Nutrition, Biomarkers, Gene lifecycle | `reactome_genes` |
+| [Rhea](https://www.rhea-db.org/) | SIB Swiss Institute of Bioinformatics | API | The chemical reactions enzymes carry out. | Gene lifecycle | – |
+| [OmniPath](https://omnipathdb.org/) | Saez-Rodriguez group, Heidelberg University | API | Which genes switch a gene on or off. | Gene lifecycle | – |
+| [MyGene.info](https://mygene.info/) | Su and Wu labs, Scripps Research | API | Gene names, summaries and identifiers, gathered from the main gene databases. | Profile | – |
+| [Europe PMC](https://europepmc.org/) | EMBL-EBI | API | Research papers that name a variant, for the literature behind a finding. | Clusters, Gene lifecycle | – |
+| [Nordic Nutrition Recommendations 2023](https://www.livsmedelsverket.se/) | Nordic Council of Ministers, published by Livsmedelsverket | bulk | Recommended intakes and upper limits per nutrient, by sex and age. | Nutrition | `nnr_2023` |
+
+Tools, not databases:
+
+| Tool | What it does | Files |
+|---|---|---|
+| Beagle 5.5 | The imputation program. | `beagle`, `bref3_jar` |
+| Genetic maps (GRCh38) | Where DNA is usually cut and recombined between generations, which imputation needs. | `genetic_map_grch38` |
+| UCSC liftOver | Moves positions from the older genome build (GRCh37) that some DNA files use to the current one (GRCh38). | `liftover_chain` |
 
 Downloads: `scripts/fetch_imputation_reference.sh` (imputation) and `scripts/fetch_pgx_reference.sh` (medicines).
 Every bulk file, with its URL, version and how it is made, is listed in `genome/references.json`. Check them with

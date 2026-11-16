@@ -619,10 +619,12 @@
   .md-ann a { color: inherit; }
   .md-grade { display: inline-block; min-width: 22px; text-align: center; font-size: 11px; font-weight: 700; border-radius: 4px;
     padding: 0 4px; border: 1px solid var(--color-border-line); color: var(--color-fg); }
-  .md-grade-ap { background: var(--color-fg); color: var(--color-bg); border-color: var(--color-fg); }
-  .md-grade-a { border-color: var(--color-fg); }
-  .md-grade-b { border-color: var(--color-fg-muted); color: var(--color-fg-muted); }
-  .md-grade-c { border-style: dashed; border-color: var(--color-fg-muted); color: var(--color-fg-muted); font-weight: 400; }
+  /* Evidence grades, on the explorer's orange-to-green scale: strong evidence green, a single study orange */
+  .gx { --grade-ap: #1b7a3a; --grade-a: #3fa34d; --grade-b: #e2b623; --grade-c: #f08c24; }
+  .md-grade-ap { background: var(--grade-ap); border-color: var(--grade-ap); color: #fff; }
+  .md-grade-a { background: var(--grade-a); border-color: var(--grade-a); color: #fff; }
+  .md-grade-b { background: var(--grade-b); border-color: var(--grade-b); color: #1f1f1f; }
+  .md-grade-c { background: var(--grade-c); border-color: var(--grade-c); color: #1f1f1f; }
   .md-legend { flex-basis: 100%; display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; font-size: 12px; color: var(--color-fg-muted); }
   .md-legend-item { display: inline-flex; gap: 4px; align-items: baseline; }
   .md-aka { font-size: 12px; color: var(--color-fg-muted); margin-top: 2px; }
@@ -799,6 +801,143 @@
   /* While the introduction is mandatory and not yet done, the other tabs are shut */
   .gx.gx-locked .gx-tab:not([data-tab="home"]) { opacity: 0.35; cursor: not-allowed; }
   .in-grade { display: flex; align-items: center; gap: 6px; }
+  .in-area { border-left: 3px solid var(--color-ok); padding: 2px 0 2px 14px; margin: 14px 0; max-width: 78ch; }
+  .in-area h3 { margin: 0 0 4px; font-size: 16px; }
+  .in-area p { margin: 4px 0; line-height: 1.6; }
+  /* Slide 1: the pipeline, drawn */
+  .in-pipe { display: flex; align-items: stretch; gap: 10px; margin: 16px 0; flex-wrap: wrap; }
+  .in-src { font: inherit; color: inherit; text-align: left; cursor: pointer; flex: 0 0 170px; border: 1px solid var(--color-border-line); border-radius: 10px; padding: 14px; background: var(--color-bg); display: flex; flex-direction: column; justify-content: center; }
+  .in-src-big { font-size: 26px; font-weight: 700; }
+  .in-src-name { font-weight: 600; margin: 2px 0 4px; }
+  .in-src small, .in-stage small { color: var(--color-fg-muted); font-size: 12px; line-height: 1.4; }
+  .in-pipe-in { align-self: center; font-size: 22px; color: var(--color-fg-muted); }
+  .in-box { flex: 1 1 520px; position: relative; border: 2px dashed var(--color-ok); border-radius: 12px; padding: 22px 14px 14px; }
+  .in-box-label { position: absolute; top: -11px; left: 14px; padding: 0 8px; background: var(--color-panel); color: var(--color-ok); font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+  .in-stages { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+  .in-stage { position: relative; border: 1px solid var(--color-border-line); border-radius: 10px; padding: 12px; background: var(--color-bg); }
+  .in-stage:not(:last-child)::after { content: "→"; position: absolute; right: -12px; top: 50%; transform: translate(50%, -50%); color: var(--color-fg-muted); font-size: 18px; }
+  .in-stage-n { display: inline-flex; width: 22px; height: 22px; border-radius: 50%; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; background: var(--color-ok); color: var(--color-bg); }
+  .in-stage-name { font-weight: 600; margin: 6px 0 2px; }
+  .in-stage-big { font-size: 22px; font-weight: 700; line-height: 1.2; }
+  @media (max-width: 760px) { .in-stages { grid-template-columns: minmax(0, 1fr); } .in-stage::after { display: none; } .in-pipe-in { transform: rotate(90deg); } }
+  .in-section { margin: 24px 0 8px; padding: 6px 20px 14px; border: 1px solid var(--color-border-line); border-radius: 12px; background: var(--color-bg); }
+  .in-h3 { margin: 12px 0 4px; font-size: 18px; display: flex; align-items: center; gap: 8px; }
+  .in-h3::before { content: "?"; display: inline-flex; width: 22px; height: 22px; border-radius: 50%; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; background: var(--color-fg); color: var(--color-bg); }
+  .in-section .in-fact { background: var(--color-panel); }
+  /* Slide 2: the databases by question, and the findings by evidence grade */
+  .in-lead { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 4px 24px; }
+  .in-lead .in-text { margin-bottom: 0; }
+  .in-link { font: inherit; font-size: 13px; background: none; border: 0; padding: 0; color: var(--color-ok); cursor: pointer; white-space: nowrap; }
+  .in-link::after { content: " \2192"; }
+  .in-link:hover { text-decoration: underline; }
+  .in-srcgroup { margin: 18px 0 4px; }
+  .in-group-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .in-icon { width: 30px; height: 30px; padding: 6px; border-radius: 8px; flex: none; fill: none; stroke: var(--color-ok); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round;
+    background: color-mix(in srgb, var(--color-ok) 14%, transparent); box-sizing: border-box; }
+  .in-srcgroup h4 { margin: 0; font-size: 13px; color: var(--color-fg); text-transform: uppercase; letter-spacing: 0.05em; }
+  .in-srccards { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 12px; }
+  .in-srccard { display: flex; flex-direction: column; gap: 8px; padding: 14px; border-radius: 12px; border: 1px solid var(--color-border-line); background: var(--color-bg);
+    color: inherit; text-decoration: none; transition: border-color 0.15s; }
+  .in-srccard:hover { border-color: color-mix(in srgb, var(--color-ok) 60%, transparent); }
+  .in-srccard-top { display: flex; align-items: center; gap: 12px; }
+  .in-logo { flex: none; min-width: 46px; max-width: 96px; padding: 0 5px; box-sizing: border-box; height: 46px; border-radius: 10px; background: #fff; display: flex; align-items: center; justify-content: center; overflow: hidden;
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-fg) 12%, transparent); }
+  .in-logo img { max-width: 86px; max-height: 34px; object-fit: contain; }
+  .in-logo img.in-logo-wide { max-height: 22px; }
+  .in-logo-txt { font-size: 12px; font-weight: 800; color: #1f2937; letter-spacing: 0.02em; }
+  .in-srccard-name { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+  .in-srccard-name b { font-size: 15px; }
+  .in-how { font-size: 11px; color: var(--color-fg-muted); }
+  .in-take { margin: 0; font-size: 13px; line-height: 1.45; }
+  .in-tag { display: block; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-ok); margin-bottom: 1px; }
+  .in-h3-grade::before { content: "A"; }
+  .in-grades { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin: 14px 0 12px; }
+  .in-gtile { border: 1px solid var(--color-border-line); box-shadow: inset 0 4px 0 var(--in-gc); border-radius: 10px; padding: 14px 12px 10px; background: var(--color-panel); display: flex; flex-direction: column; gap: 4px; }
+  .in-gtile-top { display: flex; align-items: center; justify-content: space-between; }
+  .in-gtile-pct { font-size: 12px; color: var(--color-fg-muted); font-variant-numeric: tabular-nums; }
+  .in-gtile .in-big { font-variant-numeric: tabular-nums; }
+  .in-gtile small { color: var(--color-fg-muted); font-size: 12px; line-height: 1.4; }
+  .in-g-ap { --in-gc: var(--grade-ap); } .in-g-a { --in-gc: var(--grade-a); } .in-g-b { --in-gc: var(--grade-b); } .in-g-c { --in-gc: var(--grade-c); }
+  .in-gbar { display: flex; height: 22px; border-radius: 6px; overflow: hidden; gap: 2px; }
+  .in-gbar span { display: flex; align-items: center; justify-content: center; background: var(--in-gc); min-width: 3px; }
+  .in-gbar i { font-style: normal; font-size: 11px; font-weight: 700; color: #fff; }
+  .in-gbar .in-g-b i, .in-gbar .in-g-c i { color: #1f1f1f; }
+  .in-gtile .in-big { color: var(--in-gc); }
+  @media (max-width: 760px) { .in-grades { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 760px) { .in-groups, .in-dbs-3 { grid-template-columns: minmax(0, 1fr); } .in-dbs-3 .in-db:nth-child(-n+3):not(:first-child) { border-top: 1px solid var(--color-border-line); } }
+  .in-gnote { display: flex; align-items: center; gap: 16px; margin-top: 14px; padding: 12px 16px; border-radius: 10px;
+    background: linear-gradient(90deg, color-mix(in srgb, var(--grade-ap) 14%, transparent), color-mix(in srgb, var(--grade-c) 14%, transparent)); }
+  .in-gnote p { margin: 0; font-size: 13px; line-height: 1.55; }
+  .in-gpath { display: flex; align-items: center; gap: 6px; flex: none; }
+  .in-gpath-arrow { color: var(--color-fg-muted); font-size: 13px; }
+  @media (max-width: 760px) { .in-gnote { flex-direction: column; align-items: flex-start; } }
+  /* Slide 3: the cancer genes tested before treatment, one card per gene */
+  .in-cancer { border-left: 0; padding-left: 0; max-width: none; }
+  .in-ccards { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 12px; margin: 12px 0; }
+  .in-ccard { display: flex; flex-direction: column; gap: 10px; padding: 14px; border-radius: 12px; border: 1px solid var(--color-border-line); background: var(--color-bg);
+    box-shadow: inset 4px 0 0 var(--in-cc); }
+  .in-ccard-ok { --in-cc: var(--grade-a); } .in-ccard-open { --in-cc: var(--grade-c); } .in-ccard-alt { --in-cc: var(--grade-b); }
+  .in-ccard-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; }
+  .in-ccard-gene { font-size: 18px; }
+  .in-ccard-type { font-size: 13px; color: var(--in-cc); font-weight: 600; }
+  .in-ccard-drugs, .in-ccard-verdict { font-size: 13px; line-height: 1.45; }
+  .in-snp { display: grid; grid-template-columns: 96px minmax(56px, auto) 34px 1fr; gap: 8px; align-items: center; font-size: 12px; padding: 3px 0; }
+  .in-snp code { font-size: 12px; color: var(--color-fg-muted); }
+  .in-snp-allele { color: var(--color-fg-muted); }
+  .in-conf { justify-self: start; font-size: 11px; padding: 1px 8px; border-radius: 10px; }
+  .in-conf-ok { background: color-mix(in srgb, var(--grade-a) 18%, transparent); color: var(--grade-a); }
+  .in-conf-warn { background: color-mix(in srgb, var(--grade-b) 20%, transparent); color: var(--grade-b); }
+  .in-conf-bad { background: color-mix(in srgb, var(--grade-c) 20%, transparent); color: var(--grade-c); }
+  .in-ccard-note { font-size: 12px; color: var(--color-fg-muted); line-height: 1.45; }
+  .in-ccard-warn { font-size: 13px; line-height: 1.45; padding: 8px 10px; border-radius: 8px; background: color-mix(in srgb, var(--grade-c) 14%, transparent); }
+  .in-ccard-more { font-size: 13px; color: var(--color-fg-muted); }
+  .in-risk { margin: 6px 0 12px; padding: 14px 16px; border-radius: 12px; border: 1px solid var(--color-border-line); background: var(--color-bg); }
+  .in-risk h4 { margin: 0 0 10px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .in-risk-lead { margin: -4px 0 10px; font-size: 13px; color: var(--color-fg-muted); }
+  .in-risk-row { display: grid; grid-template-columns: minmax(130px, 190px) minmax(140px, 1fr) minmax(190px, 240px); gap: 14px; align-items: center; padding: 6px 0; font-size: 13px; }
+  .in-risk-bar { position: relative; }
+  .in-risk-avg { position: absolute; left: 50%; top: -3px; bottom: -3px; width: 1px; background: color-mix(in srgb, var(--color-fg) 55%, transparent); }
+  .in-risk-verdict { display: flex; flex-direction: column; line-height: 1.3; }
+  .in-risk-verdict span { font-size: 12px; color: var(--color-fg-muted); }
+  .in-band-hi .in-risk-verdict b, .in-band-hi > b { color: var(--grade-c); }
+  .in-band-lo .in-risk-verdict b { color: var(--grade-a); }
+  .in-risk-axis { padding-top: 2px; }
+  .in-risk-axis-labels { display: flex; justify-content: space-between; font-size: 11px; color: var(--color-fg-muted); }
+  @media (max-width: 560px) { .in-risk-row { grid-template-columns: 1fr 1fr; } .in-risk-row .nt-bar, .in-risk-axis-labels { grid-column: 1 / -1; grid-row: 2; } }
+  /* Slide 3: what to do with the cancer example, and the way into the cancer theme */
+  .in-acts { margin: 6px 0 12px; padding: 14px 16px; border-radius: 12px; border: 1px solid var(--color-border-line); background: var(--color-bg); }
+  .in-acts h4, .in-deeper h4 { margin: 0 0 10px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .in-act { display: flex; gap: 10px; align-items: baseline; padding: 4px 0; }
+  .in-act p { margin: 0; font-size: 14px; line-height: 1.5; }
+  .in-act-dot { flex: none; width: 9px; height: 9px; border-radius: 50%; background: var(--in-ad, var(--grade-a)); transform: translateY(-1px); }
+  .in-act-meds { --in-ad: var(--grade-b); } .in-act-test, .in-act-screen { --in-ad: var(--grade-c); }
+  .in-deeper { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; margin: 6px 0 12px; padding: 16px; border-radius: 12px;
+    background: color-mix(in srgb, var(--color-ok) 10%, transparent); border: 1px solid color-mix(in srgb, var(--color-ok) 35%, transparent); }
+  .in-deeper > div { flex: 1 1 420px; }
+  .in-deeper p { margin: 0; font-size: 13px; line-height: 1.55; }
+  .in-deeper button.in-next { font: inherit; font-size: 14px; padding: 8px 16px; border-radius: 6px; cursor: pointer; background: var(--color-fg); color: var(--color-bg); border: 1px solid var(--color-fg); }
+  /* Sources and glossary tab */
+  .so-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px; margin-bottom: 12px; }
+  .so-head h3 { margin: 0; font-size: 18px; }
+  .so-filter { font: inherit; font-size: 14px; padding: 6px 10px; border-radius: 6px; border: 1px solid var(--color-border-line); background: var(--color-bg); color: var(--color-fg); min-width: 220px; }
+  .so-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+  .so-db { border: 1px solid var(--color-border-line); border-radius: 10px; padding: 14px; background: var(--color-bg); display: flex; flex-direction: column; gap: 6px; }
+  .so-db h4 { margin: 0; font-size: 15px; display: flex; align-items: center; gap: 10px; }
+  .so-logo { height: 28px; max-width: 72px; object-fit: contain; background: #fff; border-radius: 6px; padding: 3px; box-sizing: content-box; }
+  .so-db h4 a { color: inherit; text-decoration: none; border-bottom: 1px dotted var(--color-fg-muted); }
+  .so-org { font-size: 12px; color: var(--color-fg-muted); }
+  .so-what { font-size: 13px; line-height: 1.5; }
+  .so-meta { display: flex; flex-wrap: wrap; gap: 4px; margin-top: auto; padding-top: 4px; }
+  .so-chip { font-size: 11px; padding: 2px 8px; border-radius: 10px; border: 1px solid var(--color-border-line); color: var(--color-fg-muted); }
+  .so-chip.so-tab { border-color: color-mix(in srgb, var(--color-ok) 60%, transparent); color: var(--color-fg); cursor: pointer; background: none; font: inherit; font-size: 11px; }
+  .so-ver { font-size: 12px; color: var(--color-fg-muted); }
+  .so-tools { margin-top: 18px; font-size: 13px; }
+  .so-tools b { font-weight: 600; }
+  .so-terms { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 10px 24px; margin: 0; }
+  .so-term { padding: 10px 0; border-bottom: 1px solid var(--color-border-line); }
+  .so-term dt { font-weight: 600; margin-bottom: 2px; }
+  .so-term dd { margin: 0; font-size: 13px; line-height: 1.5; color: var(--color-fg); }
+  .so-empty { color: var(--color-fg-muted); font-size: 13px; }
   .th-b-untested { background: var(--color-fg-muted); opacity: 0.35; }
 </style>
 
@@ -824,12 +963,13 @@
     <button class="gx-tab" role="tab" data-tab="lifecycle" aria-selected="false">Gene lifecycle</button>
     <button class="gx-tab" role="tab" data-tab="biomarkers" aria-selected="false">Biomarkers</button>
     <button class="gx-tab" role="tab" data-tab="profile" aria-selected="false">Profile</button>
+    <button class="gx-tab" role="tab" data-tab="sources" aria-selected="false">Sources</button>
   </nav>
 
   <section class="gx-page" id="home" data-page="home">
     <div class="gx-card in-card">
       <div class="in-intro" data-draw="in-intro"
-           data-source="intro_stats theme_meta med_genes med_drugs nut_nutrients lab_tests lifecycle_genes hp_modules"></div>
+           data-source="intro_stats theme_meta theme_genes can_tests fit_tests sport_snps med_names med_genes med_guidance med_drugs nut_nutrients nut_findings lab_tests lab_findings fit_findings lifecycle_genes hp_modules"></div>
     </div>
   </section>
 
@@ -858,6 +998,16 @@
     </div>
     <div class="gx-card th-off" id="fit-detail">
       <div class="nt-detail" data-draw="fit-detail" data-source="fit_tests fit_findings fit_steps"></div>
+    </div>
+    <div class="gx-card th-off" id="can-overview">
+      <p class="gx-note">Polygenic risk scores. For each cancer, the PGS Catalog score evaluated by the most studies among those built from a
+        GWAS's risk variants in Europeans (cluster_analysis/themes/cancer_scores.py), placed by rank among 525 Europeans in 1000 Genomes scored
+        on the same variants. A score shifts risk modestly: the large inherited risks come from rare variants in genes such as BRCA1, BRCA2 and
+        the Lynch syndrome genes, which a chip mostly can't see. Green is a lower risk than most.</p>
+      <div class="nt-overview" data-draw="can-overview" data-source="can_tests can_steps theme_meta"></div>
+    </div>
+    <div class="gx-card th-off" id="can-detail">
+      <div class="nt-detail" data-draw="can-detail" data-source="can_tests can_findings can_steps theme_meta"></div>
     </div>
     <div class="gx-card th-off" id="fit-sport">
       <div data-draw="th-sport" data-source="sport_snps"></div>
@@ -984,6 +1134,17 @@
     </div>
   </section>
 
+  <section class="gx-page" id="sources" data-page="sources" hidden>
+    <p class="gx-note">Every fact in the explorer comes from the public research databases below, downloaded or looked up by gene name and
+      variant number. The glossary explains the terms the tabs use.</p>
+    <div class="gx-card">
+      <div class="so-dbs" data-draw="so-dbs" data-source="profiles"></div>
+    </div>
+    <div class="gx-card">
+      <div class="so-glossary" data-draw="so-glossary" data-source="profiles"></div>
+    </div>
+  </section>
+
   <section class="gx-page" id="biomarkers" data-page="biomarkers" hidden>
     <p class="gx-note" data-who>Common lab tests read through XY's genes. Per test: where XY's genes put the value among Europeans (PGS Catalog,
       GWAS Catalog), the genes known to move the test, and whether XY's own variants move it: some shift the value without the body being
@@ -1047,6 +1208,7 @@
 
 <script>
   window.GX_SETTINGS = {"intro_required": false, "intro_min_seconds": 6};
+  window.GX_SOURCES = {"groups": [{"id": "reading", "title": "Your DNA, completed", "sv": "Ditt DNA, kompletterat", "ids": ["1000g", "ensembl", "mygene"]}, {"id": "health", "title": "Links to health", "sv": "Kopplingar till hälsa", "ids": ["clinvar", "gwas", "pgs", "opentargets", "europepmc"]}, {"id": "body", "title": "Inside the cell", "sv": "Inuti cellen", "ids": ["go", "uniprot", "mavedb", "string", "omnipath", "reactome", "rhea", "gtex", "hpa"]}, {"id": "advice", "title": "Doses and intakes", "sv": "Doser och intag", "ids": ["clinpgx", "cpic", "chembl", "nnr"]}], "databases": [{"id": "1000g", "name": "1000 Genomes Project", "org": "International Genome Sample Resource (EMBL-EBI)", "url": "https://www.internationalgenome.org/", "what": "Full genomes of 3,202 people from 26 populations: the reference panel imputation reads the missing positions from, and allele frequencies per ancestry.", "sv": "Hela genom från 3 202 personer i 26 populationer: referenspanelen som imputeringen läser de saknade positionerna från, och allelfrekvenser per härkomst.", "access": "bulk", "tabs": ["home", "clusters", "medicines", "nutrition", "biomarkers"], "refs": ["panel_raw", "panel_bref3", "panel_sites", "panel_populations"], "hosts": ["ftp.1000genomes.ebi.ac.uk"], "gives": "Reference genomes and allele frequencies", "gives_sv": "Referensgenom och allelfrekvenser", "takes": "The full genomes of 3,202 people and how common each variant is in five ancestries.", "use": "fill in the positions your chip didn't measure, and tell common variants from rare ones.", "takes_sv": "De fullständiga genomen från 3 202 personer och hur vanlig varje variant är i fem härkomster.", "use_sv": "fylla i positionerna ditt chip inte mätte, och skilja vanliga varianter från sällsynta.", "logo": "1000g.ico", "logo_from": "https://www.internationalgenome.org/sites/1000genomes.org/themes/custom/one_thousand_genomes/favicon.ico", "versions": ["1000 Genomes high coverage, 3,202 samples; chrX in three ploidy parts", "20220422 phased SNV/INDEL/SV panel (manifest 20220804; chrX v2)", "3,202 samples with population and parents", "73.5 million sites; frequencies over 2,504 unrelated samples; rsIDs from Ensembl 115 (dbSNP 156)"]}, {"id": "clinvar", "name": "ClinVar", "org": "NCBI, US National Library of Medicine", "url": "https://www.ncbi.nlm.nih.gov/clinvar/", "what": "Variants submitted by clinical laboratories with their significance: disease-causing, risk factor or drug response, with a review status in stars.", "sv": "Varianter inskickade av kliniska laboratorier med deras betydelse: sjukdomsorsakande, riskfaktor eller läkemedelssvar, med en granskningsstatus i stjärnor.", "access": "bulk", "tabs": ["clusters", "medicines", "nutrition", "biomarkers"], "refs": ["clinvar_grch38"], "hosts": ["ftp.ncbi.nlm.nih.gov"], "gives": "Disease-causing and drug-response variants", "gives_sv": "Sjukdomsorsakande varianter och läkemedelssvar", "takes": "Every variant clinical labs have classified, with its significance and review stars.", "use": "flag disease-causing and drug-response variants you carry.", "takes_sv": "Varje variant som kliniska laboratorier har klassat, med betydelse och granskningsstjärnor.", "use_sv": "flagga sjukdomsorsakande varianter och läkemedelssvar som du bär på.", "logo": "clinvar.ico", "logo_from": "https://www.ncbi.nlm.nih.gov/favicon.ico", "versions": ["weekly release (##fileDate in the file)"]}, {"id": "gwas", "name": "GWAS Catalog", "org": "EMBL-EBI and NHGRI", "url": "https://www.ebi.ac.uk/gwas/", "what": "Genome-wide association studies: which variants are linked to a trait or a lab value, the allele that raises or lowers it, and how strongly.", "sv": "Genomomfattande associationsstudier: vilka varianter som är kopplade till en egenskap eller ett labbvärde, vilken allel som höjer eller sänker det, och hur starkt.", "access": "bulk + API", "tabs": ["clusters", "nutrition", "biomarkers", "profile"], "refs": ["gwas_catalog"], "hosts": ["www.ebi.ac.uk"], "gives": "Variants linked to traits and lab values", "gives_sv": "Varianter kopplade till egenskaper och labbvärden", "takes": "Variants that large studies tied to a trait or lab value, with the allele that raises or lowers it.", "use": "show which way your variants push a lab value or trait.", "takes_sv": "Varianter som stora studier kopplat till en egenskap eller ett labbvärde, med allelen som höjer eller sänker det.", "use_sv": "visa åt vilket håll dina varianter drar ett labbvärde eller en egenskap.", "logo": "gwas.ico", "logo_from": "https://www.ebi.ac.uk/gwas/assets/images/favicon.ico", "versions": ["all associations, full and ontology-annotated (date inside the zip)"]}, {"id": "pgs", "name": "PGS Catalog", "org": "EMBL-EBI and the University of Cambridge", "url": "https://www.pgscatalog.org/", "what": "Published polygenic scores: the weights that add up many variants into one genetic score for a blood level or a trait.", "sv": "Publicerade polygena poäng: vikterna som summerar många varianter till en genetisk poäng för en blodnivå eller en egenskap.", "access": "bulk", "tabs": ["nutrition", "biomarkers", "clusters"], "refs": ["nutrition_pgs", "pgs_scoring_genomewide"], "hosts": ["ftp.ebi.ac.uk", "www.pgscatalog.org"], "gives": "Polygenic scores", "gives_sv": "Polygena poäng", "takes": "Published scores that weigh up to a million variants into one number.", "use": "place you among Europeans for nutrient levels, lab values, fitness and cancer risk.", "takes_sv": "Publicerade poäng som väger samman upp till en miljon varianter till ett tal.", "use_sv": "placera dig bland européer för näringsnivåer, labbvärden, kondition och cancerrisk.", "logo": "pgs.png", "logo_from": "https://www.pgscatalog.org/static/catalog/imgs/favicons/apple-touch-icon.png", "versions": ["PGS Catalog harmonised scoring files named in nutrients.json", "PGS002143, PGS002168 (fitness); the 10 cancer scores in cluster_analysis/nutrition/cancers.json (GRCh38 harmonised, with each score's Catalog record)"]}, {"id": "clinpgx", "name": "ClinPGx (PharmGKB)", "org": "Stanford University", "url": "https://www.clinpgx.org/", "what": "How genes change the response to medicines: clinical annotations per variant, dosing guidelines (CPIC, DPWG and others) and drug labels (FDA, EMA, Health Canada, Swissmedic and others).", "sv": "Hur gener ändrar svaret på läkemedel: kliniska annoteringar per variant, doseringsriktlinjer (CPIC, DPWG med flera) och läkemedelsetiketter (FDA, EMA, Health Canada, Swissmedic med flera).", "access": "bulk + API", "tabs": ["medicines"], "refs": ["clinpgx"], "hosts": ["api.clinpgx.org", "www.clinpgx.org"], "gives": "Drug annotations, guidelines and labels", "gives_sv": "Läkemedelsannoteringar, riktlinjer och etiketter", "takes": "How variants change the response to medicines, with dosing guidelines and drug labels.", "use": "list every medicine your genes have a finding for.", "takes_sv": "Hur varianter ändrar svaret på läkemedel, med doseringsriktlinjer och läkemedelsetiketter.", "use_sv": "lista varje läkemedel dina gener har ett fynd för.", "logo": "clinpgx.png", "logo_from": "https://www.clinpgx.org/apple-touch-icon.png", "versions": ["ClinPGx (PharmGKB) bulk files"]}, {"id": "cpic", "name": "CPIC", "org": "Clinical Pharmacogenetics Implementation Consortium", "url": "https://cpicpgx.org/", "what": "Peer-reviewed dosing recommendations per metaboliser type, and the rules that turn star alleles into a type.", "sv": "Granskade doseringsrekommendationer per metaboliseringstyp, och reglerna som gör stjärnalleler till en typ.", "access": "API, saved", "tabs": ["medicines"], "refs": ["cpic_recommendations"], "hosts": ["api.cpicpgx.org"], "gives": "Dosing per metaboliser type", "gives_sv": "Dosering per metaboliseringstyp", "takes": "The rules that turn star alleles into a metaboliser type, and the dose advice per type.", "use": "give you a type and the dosing advice for it.", "takes_sv": "Reglerna som gör stjärnalleler till en metaboliseringstyp, och dosråden per typ.", "use_sv": "ge dig en typ och doseringsrådet för den.", "logo": "cpic.ico", "logo_from": "https://cpicpgx.org/favicon.ico", "versions": []}, {"id": "chembl", "name": "ChEMBL", "org": "EMBL-EBI", "url": "https://www.ebi.ac.uk/chembl/", "what": "The WHO ATC classification of medicines, so a medicine can be found by its class or code.", "sv": "WHO:s ATC-klassificering av läkemedel, så att ett läkemedel kan hittas via sin klass eller kod.", "access": "bulk", "tabs": ["medicines"], "refs": ["chembl_atc"], "hosts": ["www.ebi.ac.uk"], "gives": "Medicine classes (ATC)", "gives_sv": "Läkemedelsklasser (ATC)", "takes": "The WHO ATC classes of medicines.", "use": "let you find a medicine by its class or code.", "takes_sv": "WHO:s ATC-klasser för läkemedel.", "use_sv": "låta dig hitta ett läkemedel via dess klass eller kod.", "logo": "chembl.ico", "logo_from": "https://www.ebi.ac.uk/chembl/favicon.ico", "versions": ["ChEMBL ATC classes (CC BY-SA 3.0)"]}, {"id": "ensembl", "name": "Ensembl", "org": "EMBL-EBI", "url": "https://www.ensembl.org/", "what": "The genome itself: where each gene lies (GTF), each variant's identity and position (dbSNP), what a variant does to its gene (VEP) and which variants are inherited together (LD).", "sv": "Själva genomet: var varje gen ligger (GTF), varje variants identitet och position (dbSNP), vad en variant gör med sin gen (VEP) och vilka varianter som ärvs tillsammans (LD).", "access": "bulk + API", "tabs": ["clusters", "nutrition", "biomarkers", "lifecycle"], "refs": ["gtf_grch38", "dbsnp_ensembl"], "hosts": ["ftp.ensembl.org", "rest.ensembl.org"], "gives": "Genes, variants and their consequences", "gives_sv": "Gener, varianter och deras följder", "takes": "Where every gene lies, each variant's ID and position, and what a variant does to its gene.", "use": "place your variants in genes and see which ones change a protein.", "takes_sv": "Var varje gen ligger, varje variants ID och position, och vad en variant gör med sin gen.", "use_sv": "placera dina varianter i gener och se vilka som ändrar ett protein.", "logo": "ensembl.png", "logo_from": "https://static.ensembl.org/i/e-ensembl.png", "versions": ["Ensembl 115", "Ensembl 115 (dbSNP 156)"]}, {"id": "uniprot", "name": "UniProt", "org": "UniProt Consortium (EMBL-EBI, SIB, PIR)", "url": "https://www.uniprot.org/", "what": "Proteins: their function and cofactors, and curated effects of protein changes found in people.", "sv": "Proteiner: deras funktion och kofaktorer, och kurerade effekter av proteinförändringar hos människor.", "access": "bulk + API", "tabs": ["clusters", "nutrition", "lifecycle"], "refs": ["uniprot_humsavar"], "hosts": ["rest.uniprot.org", "ftp.uniprot.org", "www.ebi.ac.uk"], "gives": "Protein function and curated variant effects", "gives_sv": "Proteinfunktion och kurerade varianteffekter", "takes": "What each protein does, and curated effects of protein changes.", "use": "say what a protein change in you does.", "takes_sv": "Vad varje protein gör, och kurerade effekter av proteinförändringar.", "use_sv": "säga vad en proteinförändring hos dig gör.", "logo": "uniprot.ico", "logo_from": "https://www.uniprot.org/favicon.ico", "versions": ["UniProt release in the file header"]}, {"id": "mavedb", "name": "MaveDB", "org": "Brotman Baty Institute and partners", "url": "https://www.mavedb.org/", "what": "Laboratory measurements of how each possible protein change affects the protein's function (deep mutational scans).", "sv": "Laboratoriemätningar av hur varje möjlig proteinförändring påverkar proteinets funktion (djupa mutationsskanningar).", "access": "API", "tabs": ["clusters"], "refs": [], "hosts": ["api.mavedb.org"], "gives": "Measured effects of protein changes", "gives_sv": "Uppmätta effekter av proteinförändringar", "takes": "Lab measurements of thousands of single protein changes.", "use": "use a measured effect when one exists.", "takes_sv": "Labbmätningar av tusentals enskilda proteinförändringar.", "use_sv": "använda en uppmätt effekt när det finns en.", "logo": "mavedb.png", "logo_from": "https://www.mavedb.org/mavedb-icon-apple-touch.png", "versions": []}, {"id": "gtex", "name": "GTEx", "org": "Genotype-Tissue Expression project (NIH)", "url": "https://gtexportal.org/", "what": "How much each gene is made in 54 tissues, and which variants make it more or less active (eQTLs).", "sv": "Hur mycket varje gen tillverkas i 54 vävnader, och vilka varianter som gör den mer eller mindre aktiv (eQTL).", "access": "bulk + API", "tabs": ["clusters", "nutrition", "biomarkers"], "refs": ["gtex_median_tpm"], "hosts": ["gtexportal.org", "storage.googleapis.com"], "gives": "Gene activity per tissue", "gives_sv": "Genaktivitet per vävnad", "takes": "Which variants make a gene more or less active, tissue by tissue.", "use": "find variants that turn a gene up or down.", "takes_sv": "Vilka varianter som gör en gen mer eller mindre aktiv, vävnad för vävnad.", "use_sv": "hitta varianter som skruvar upp eller ner en gen.", "logo": "gtex.ico", "logo_from": "https://gtexportal.org/favicon.ico", "versions": ["GTEx v8"]}, {"id": "hpa", "name": "Human Protein Atlas", "org": "KTH, Uppsala University and SciLifeLab", "url": "https://www.proteinatlas.org/", "what": "Where in the body each gene is mostly made, tissue by tissue.", "sv": "Var i kroppen varje gen främst tillverkas, vävnad för vävnad.", "access": "API", "tabs": ["nutrition", "biomarkers"], "refs": [], "hosts": ["www.proteinatlas.org"], "gives": "Where in the body a gene is made", "gives_sv": "Var i kroppen en gen tillverkas", "takes": "Where in the body each gene is mostly made.", "use": "show the organs a step happens in.", "takes_sv": "Var i kroppen varje gen främst tillverkas.", "use_sv": "visa organen där ett steg sker.", "logo": "hpa.png", "logo_from": "https://www.proteinatlas.org/images_static/apple-touch-icon.png", "versions": []}, {"id": "opentargets", "name": "Open Targets Platform", "org": "EMBL-EBI, Wellcome Sanger Institute and partners", "url": "https://platform.opentargets.org/", "what": "Which genes are linked to a disease, scored by genetic, clinical and literature evidence.", "sv": "Vilka gener som är kopplade till en sjukdom, med poäng från genetiska, kliniska och litteraturbaserade belägg.", "access": "API", "tabs": ["clusters"], "refs": [], "hosts": ["api.platform.opentargets.org"], "gives": "Genes linked to a disease", "gives_sv": "Gener kopplade till en sjukdom", "takes": "Genes ranked by how strongly they are linked to each disease.", "use": "choose the genes in each health theme.", "takes_sv": "Gener rangordnade efter hur starkt de är kopplade till varje sjukdom.", "use_sv": "välja generna i varje hälsotema.", "logo": "opentargets.png", "logo_from": "https://platform.opentargets.org/favicon.png", "versions": []}, {"id": "go", "name": "Gene Ontology (QuickGO)", "org": "Gene Ontology Consortium, served by EMBL-EBI", "url": "https://www.ebi.ac.uk/QuickGO/", "what": "Which genes take part in a biological process (DNA repair, sperm production …), from experiments and curation.", "sv": "Vilka gener som deltar i en biologisk process (DNA-reparation, spermieproduktion …), från experiment och kurering.", "access": "API", "tabs": ["clusters"], "refs": [], "hosts": ["www.ebi.ac.uk"], "gives": "Genes in a biological process", "gives_sv": "Gener i en biologisk process", "takes": "Which genes take part in each biological process.", "use": "group a theme's genes by what they do: repair, growth, hormones.", "takes_sv": "Vilka gener som deltar i varje biologisk process.", "use_sv": "gruppera ett temas gener efter vad de gör: reparation, tillväxt, hormoner.", "logo": "go.png", "logo_from": "https://geneontology.org/img/go-logo-icon.png", "versions": []}, {"id": "string", "name": "STRING", "org": "STRING Consortium (SIB, EMBL, CPR, KU)", "url": "https://string-db.org/", "what": "Which proteins work together, with a confidence score.", "sv": "Vilka proteiner som arbetar tillsammans, med ett konfidensvärde.", "access": "API", "tabs": ["clusters", "profile"], "refs": [], "hosts": ["string-db.org"], "gives": "Proteins that work together", "gives_sv": "Proteiner som arbetar tillsammans", "takes": "Which proteins work together.", "use": "draw the gene networks in Clusters and Profile.", "takes_sv": "Vilka proteiner som arbetar tillsammans.", "use_sv": "rita gennätverken i Kluster och Profil.", "logo": "string.png", "logo_from": "https://string-db.org/images/favicon.png", "versions": []}, {"id": "reactome", "name": "Reactome", "org": "OICR, EMBL-EBI, NYU and OHSU", "url": "https://reactome.org/", "what": "Pathways and their reactions step by step: how a nutrient is taken up, carried and converted, and what each step needs.", "sv": "Reaktionsvägar och deras reaktioner steg för steg: hur ett näringsämne tas upp, transporteras och omvandlas, och vad varje steg behöver.", "access": "bulk + API", "tabs": ["clusters", "nutrition", "biomarkers", "lifecycle"], "refs": ["reactome_genes"], "hosts": ["reactome.org"], "gives": "Pathways, step by step", "gives_sv": "Reaktionsvägar, steg för steg", "takes": "Pathways as ordered reactions: what goes in, what comes out, which proteins do it.", "use": "lay out how a nutrient is taken up and used, and where your variants act.", "takes_sv": "Reaktionsvägar som ordnade reaktioner: vad som går in, vad som kommer ut, vilka proteiner som gör det.", "use_sv": "visa hur ett näringsämne tas upp och används, och var dina varianter verkar.", "logo": "reactome.png", "logo_from": "https://reactome.org/templates/favourite/images/logo/icon.png", "versions": ["Reactome current release"]}, {"id": "rhea", "name": "Rhea", "org": "SIB Swiss Institute of Bioinformatics", "url": "https://www.rhea-db.org/", "what": "The chemical reactions enzymes carry out.", "sv": "De kemiska reaktioner som enzymer utför.", "access": "API", "tabs": ["lifecycle"], "refs": [], "hosts": ["www.rhea-db.org"], "gives": "Enzyme reactions", "gives_sv": "Enzymreaktioner", "takes": "The chemical reactions enzymes carry out.", "use": "show the chemistry each enzyme does.", "takes_sv": "De kemiska reaktioner som enzymer utför.", "use_sv": "visa kemin varje enzym utför.", "logo": "rhea.png", "logo_from": "https://www.rhea-db.org/style/images/rhea_logo.png", "versions": []}, {"id": "omnipath", "name": "OmniPath", "org": "Saez-Rodriguez group, Heidelberg University", "url": "https://omnipathdb.org/", "what": "Which genes switch a gene on or off.", "sv": "Vilka gener som slår på eller av en gen.", "access": "API", "tabs": ["lifecycle"], "refs": [], "hosts": ["omnipathdb.org"], "gives": "Gene regulators", "gives_sv": "Genregulatorer", "takes": "Which genes switch a gene on or off.", "use": "show what regulates a gene.", "takes_sv": "Vilka gener som slår på eller av en gen.", "use_sv": "visa vad som reglerar en gen.", "logo": "omnipath.png", "logo_from": "https://omnipathdb.org/apple-touch-icon.png", "versions": []}, {"id": "mygene", "name": "MyGene.info", "org": "Su and Wu labs, Scripps Research", "url": "https://mygene.info/", "what": "Gene names, summaries and identifiers, gathered from the main gene databases.", "sv": "Gennamn, sammanfattningar och identifierare, samlade från de stora gendatabaserna.", "access": "API", "tabs": ["profile"], "refs": [], "hosts": ["mygene.info"], "gives": "Gene names and summaries", "gives_sv": "Gennamn och sammanfattningar", "takes": "Gene names, aliases and short summaries.", "use": "put a readable name and description on every gene.", "takes_sv": "Gennamn, alias och korta sammanfattningar.", "use_sv": "ge varje gen ett läsbart namn och en beskrivning.", "logo": "mygene.png", "logo_from": "https://mygene.info/static/img/MyGene.info/apple-touch-icon.png", "versions": []}, {"id": "europepmc", "name": "Europe PMC", "org": "EMBL-EBI", "url": "https://europepmc.org/", "what": "Research papers that name a variant, for the literature behind a finding.", "sv": "Forskningsartiklar som nämner en variant, för litteraturen bakom ett fynd.", "access": "API", "tabs": ["clusters", "lifecycle"], "refs": [], "hosts": ["www.ebi.ac.uk", "europepmc.org"], "gives": "Papers behind a finding", "gives_sv": "Artiklar bakom ett fynd", "takes": "Research papers that name a variant.", "use": "show the studies behind a finding.", "takes_sv": "Forskningsartiklar som nämner en variant.", "use_sv": "visa studierna bakom ett fynd.", "versions": []}, {"id": "nnr", "name": "Nordic Nutrition Recommendations 2023", "org": "Nordic Council of Ministers, published by Livsmedelsverket", "url": "https://www.livsmedelsverket.se/", "what": "Recommended intakes and upper limits per nutrient, by sex and age.", "sv": "Rekommenderat intag och övre gränser per näringsämne, efter kön och ålder.", "access": "bulk", "tabs": ["nutrition"], "refs": ["nnr_2023"], "hosts": ["www.livsmedelsverket.se"], "gives": "Recommended intakes", "gives_sv": "Rekommenderat intag", "takes": "Recommended daily intakes and upper limits.", "use": "show the intake target next to each nutrient.", "takes_sv": "Rekommenderat dagligt intag och övre gränser.", "use_sv": "visa intagsmålet bredvid varje näringsämne.", "logo": "nnr.png", "logo_from": "https://www.livsmedelsverket.se/images/logo.png", "versions": ["NNR 2023 summary and errata 2025-09 (parsed into nnr_2023.json, in git)"]}], "tools": [{"name": "Beagle 5.5", "what": "The imputation program.", "sv": "Imputeringsprogrammet.", "refs": ["beagle", "bref3_jar"], "versions": ["27Feb25.75f", "Beagle 5.5 (27Feb25.75f)"]}, {"name": "Genetic maps (GRCh38)", "what": "Where DNA is usually cut and recombined between generations, which imputation needs.", "sv": "Var DNA vanligtvis klipps och kombineras om mellan generationer, vilket imputeringen behöver.", "refs": ["genetic_map_grch38"], "versions": ["Beagle PLINK maps, GRCh38"]}, {"name": "UCSC liftOver", "what": "Moves positions from the older genome build (GRCh37) that some DNA files use to the current one (GRCh38).", "sv": "Flyttar positioner från den äldre genomversionen (GRCh37) som vissa DNA-filer använder till den aktuella (GRCh38).", "refs": ["liftover_chain"], "versions": ["UCSC hg19ToHg38"]}], "glossary": [{"term": "SNP", "sv_term": "SNP", "text": "Single-nucleotide polymorphism: one position in the DNA where people commonly differ by one letter. Consumer tests measure several hundred thousand of them.", "sv": "Singelnukleotidpolymorfism: en position i DNA där människor ofta skiljer sig åt med en bokstav. Konsumenttester mäter flera hundra tusen av dem."}, {"term": "Allele", "sv_term": "Allel", "text": "One of the versions of a position, for example A or G.", "sv": "En av versionerna av en position, till exempel A eller G."}, {"term": "Genotype", "sv_term": "Genotyp", "text": "The two alleles a person has at a position, one from each parent, for example AG.", "sv": "De två alleler en person har på en position, en från varje förälder, till exempel AG."}, {"term": "rsID", "sv_term": "rsID", "text": "A variant's number in dbSNP, such as rs4149056: the same everywhere, so every database can be joined on it.", "sv": "En variants nummer i dbSNP, till exempel rs4149056: detsamma överallt, så alla databaser kan kopplas ihop på det."}, {"term": "Chip", "sv_term": "Chip", "text": "The genotyping array a consumer test uses: it measures a fixed set of positions, not the whole genome.", "sv": "Genotypningsmatrisen ett konsumenttest använder: den mäter en fast uppsättning positioner, inte hela genomet."}, {"term": "Imputation", "sv_term": "Imputering", "text": "Filling in positions the chip didn't measure, from reference genomes that share the same stretches of DNA.", "sv": "Att fylla i positioner chipet inte mätte, från referensgenom som delar samma DNA-sträckor."}, {"term": "Reference panel", "sv_term": "Referenspanel", "text": "The full genomes imputation compares with: here the 1000 Genomes Project's 3,202 people.", "sv": "De fullständiga genom som imputeringen jämför med: här 1000 Genomes-projektets 3 202 personer."}, {"term": "Genotype probability (GP)", "sv_term": "Genotypsannolikhet (GP)", "text": "How likely imputation's best guess is. Calls below 0.9 are not kept.", "sv": "Hur sannolik imputeringens bästa gissning är. Anrop under 0,9 sparas inte."}, {"term": "Confidence tier", "sv_term": "Säkerhetsnivå", "text": "How often calls like this one came back right when measured positions were hidden and re-imputed: high (at least 98%), medium (at least 90%), low or untested.", "sv": "Hur ofta anrop som detta blev rätt när uppmätta positioner doldes och imputerades på nytt: hög (minst 98 %), medel (minst 90 %), låg eller otestad."}, {"term": "Not detected, not excluded", "sv_term": "Inte påvisad, inte utesluten", "text": "A rare variant imputation found no sign of, in a range where it misses too many real carriers to rule it out.", "sv": "En sällsynt variant som imputeringen inte såg några tecken på, i ett intervall där den missar för många verkliga bärare för att kunna utesluta den."}, {"term": "GRCh38", "sv_term": "GRCh38", "text": "The current version of the human reference genome, which every position here refers to.", "sv": "Den aktuella versionen av människans referensgenom, som varje position här avser."}, {"term": "Protein change", "sv_term": "Proteinförändring", "text": "A variant that swaps one building block of the protein (missense) or stops it early (a stop).", "sv": "En variant som byter ut en byggsten i proteinet (missense) eller avbryter det i förtid (ett stopp)."}, {"term": "eQTL", "sv_term": "eQTL", "text": "A variant that makes a gene more or less active in a tissue, without changing the protein.", "sv": "En variant som gör en gen mer eller mindre aktiv i en vävnad, utan att ändra proteinet."}, {"term": "Loss of function (LoF)", "sv_term": "Funktionsförlust (LoF)", "text": "The variant makes the gene's protein work less, or the gene less active.", "sv": "Varianten gör att genens protein fungerar sämre, eller att genen blir mindre aktiv."}, {"term": "Gain of function (GoF)", "sv_term": "Funktionsökning (GoF)", "text": "The variant makes the gene's protein work more, or the gene more active.", "sv": "Varianten gör att genens protein fungerar mer, eller att genen blir mer aktiv."}, {"term": "Star allele", "sv_term": "Stjärnallel", "text": "A named version of a drug gene, such as CYP2C19*2, defined by one or more variants.", "sv": "En namngiven version av en läkemedelsgen, till exempel CYP2C19*2, definierad av en eller flera varianter."}, {"term": "Metaboliser type", "sv_term": "Metaboliseringstyp", "text": "How fast a person's drug gene clears a medicine: poor, intermediate, normal, rapid or ultrarapid. Dosing guidelines are written per type.", "sv": "Hur snabbt en persons läkemedelsgen gör sig av med ett läkemedel: långsam, intermediär, normal, snabb eller ultrasnabb. Doseringsriktlinjer skrivs per typ."}, {"term": "GWAS", "sv_term": "GWAS", "text": "Genome-wide association study: compares many people's variants with a trait to find the variants linked to it.", "sv": "Genomomfattande associationsstudie: jämför många människors varianter med en egenskap för att hitta de varianter som är kopplade till den."}, {"term": "Polygenic score", "sv_term": "Polygen poäng", "text": "Many variants' small effects added up into one number, placed among Europeans as a percentile.", "sv": "Många varianters små effekter summerade till ett tal, placerat bland européer som en percentil."}, {"term": "Percentile", "sv_term": "Percentil", "text": "Where a person falls among others: the 80th percentile is higher than 80 of 100 Europeans.", "sv": "Var en person hamnar bland andra: den 80:e percentilen är högre än 80 av 100 européer."}, {"term": "Pathogenic variant", "sv_term": "Patogen variant", "text": "A variant ClinVar's submitters classify as causing disease.", "sv": "En variant som ClinVars inskickare klassar som sjukdomsorsakande."}, {"term": "Evidence grade", "sv_term": "Evidensgrad", "text": "How strong the evidence behind a finding is: A+ guideline-grade or expert-reviewed, A replicated, B one publication, C a single study.", "sv": "Hur starkt underlaget bakom ett fynd är: A+ riktlinjenivå eller expertgranskat, A replikerat, B en publikation, C en enskild studie."}, {"term": "Pathway", "sv_term": "Reaktionsväg", "text": "A chain of reactions in the body, each run by proteins, that together do one job, such as taking up iron.", "sv": "En kedja av reaktioner i kroppen, var och en utförd av proteiner, som tillsammans gör ett jobb, till exempel att ta upp järn."}, {"term": "Deep mutational scan", "sv_term": "Djup mutationsskanning", "text": "A laboratory experiment that measures every possible change of a protein, one at a time.", "sv": "Ett laboratorieexperiment som mäter varje möjlig förändring av ett protein, en i taget."}]};
   // Calculations from the attached datasets
   dash.calc('kpis', {
     inputs: ['modules', 'module_links', 'biomarker_snps'],
@@ -1115,6 +1277,11 @@
       el.replaceChildren();
       const p = document.createElement('p'); p.className = 'gx-note'; p.textContent = 'Failed to load'; el.appendChild(p);
     },
+    // A profile whose analysis hasn't produced this part yet: say so instead of drawing nothing (or throwing)
+    emptyLine(el) {
+      el.replaceChildren();
+      const p = document.createElement('p'); p.className = 'gx-note'; p.textContent = 'No results for this profile yet: this part of its analysis has not been run.'; el.appendChild(p);
+    },
   };
 
   document.querySelectorAll('.gx-tab').forEach((b) => b.addEventListener('click', () => gx.show(b.dataset.tab)));
@@ -1166,7 +1333,7 @@
     setTimeout(() => applyWho(who), 0);
   });
   const linked = location.hash.slice(1);
-  if (['home', 'clusters', 'medicines', 'nutrition', 'lifecycle', 'biomarkers', 'profile'].includes(linked)) gx.show(linked);
+  if (['home', 'clusters', 'medicines', 'nutrition', 'lifecycle', 'biomarkers', 'profile', 'sources'].includes(linked)) gx.show(linked);
 
   dash.calc('hp_compound', {
     inputs: ['hp_links'],
@@ -1186,8 +1353,8 @@
    ['t-modules', 'modules'], ['t-genes', 'genes'], ['t-links', 'links'], ['t-biomarkers', 'biomarkers']]
     .forEach(([n, f]) => numberDraw(n, f));
 
-  dash.draw('s-top', (el) => { const r = gx.rows('hp_modules'); el.textContent = r ? r[0][0].name : '—'; });
-  dash.draw('s-compound', (el) => { const r = gx.rows('hp_compound'); el.textContent = r ? fmt(r[0][0].n) : '—'; });
+  dash.draw('s-top', (el) => { const r = gx.rows('hp_modules'); el.textContent = r && r[0][0] ? r[0][0].name : '—'; });
+  dash.draw('s-compound', (el) => { const r = gx.rows('hp_compound'); el.textContent = r && r[0][0] ? fmt(r[0][0].n) : '—'; });
 </script>
 
 <script>
@@ -1251,6 +1418,14 @@
     } else if (it.source === 'ClinVar') {
       d.append(`${f.rsid} ${f.genotype}: ${it.what}; ${who} has ${it.copies} ${it.copies === 1 ? 'copy' : 'copies'} of ${it.allele}.`);
     } else d.append(`${f.rsid} ${f.genotype}: ${it.what}${/[.!?]$/.test(it.what) ? "" : "."}`);
+  };
+
+  // The theme on screen: the one picked, or the first when none is (other parts' cards follow it: fitness, cancer risk)
+  gx.theme = () => {
+    const r = gx.rows('theme_meta');
+    const themes = r ? [...new Map(r[0].map((m) => [m.theme, m])).values()].sort((a, b) => a.theme_order - b.theme_order) : [];
+    const p = dash.params().theme;
+    return (themes.find((t) => t.theme === p) || themes[0] || {}).theme || p;
   };
 
   const thSel = () => {
@@ -2347,6 +2522,7 @@
     const r = gx.rows('hp_modules');
     el.replaceChildren();
     if (!r) { if (gx.failed('hp_modules')) gx.failLine(el); return; }
+    if (!r[0].length) { gx.emptyLine(el); return; }
     const rows = r[0].map((m) => ({ ...m, negative: Number(m.negative), positive: Number(m.positive) }))
       .sort((a, b) => (b.positive - b.negative) - (a.positive - a.negative) || b.positive - a.positive);
     const W = Math.max(280, el.clientWidth), rowH = 24;
@@ -2380,6 +2556,7 @@
     const r = gx.rows('hp_tilts');
     el.replaceChildren();
     if (!r) { if (gx.failed('hp_tilts')) gx.failLine(el); return; }
+    if (!r[0].length) { gx.emptyLine(el); return; }
     const rows = r[0].map((t) => ({ ...t, z: Number(t.z) })).sort((a, b) => b.z - a.z);
     const W = Math.max(280, el.clientWidth), rowH = 20;
     const svg = d3.select(el).append('svg').attr('width', '100%');
@@ -3658,6 +3835,7 @@
       const r = gx.rows(K.main, K.steps);
       if (!r) { if (gx.failed(K.main, K.steps)) gx.failLine(el); return; }
       const [rows, steps] = r;
+      if (!rows.length) { gx.emptyLine(el); return; }
       el.replaceChildren();
       const who = ntWho(rows), low = ntLow(rows), cur = dash.params()[K.param] || (low[0] || rows[0]).id;
       ntMake(el, 'h3', null, K.title(who));
@@ -3720,6 +3898,7 @@
       const r = gx.rows(K.main, K.finds, K.steps);
       if (!r) { if (gx.failed(K.main, K.finds, K.steps)) gx.failLine(el); return; }
       const [rows, finds, steps] = r;
+      if (!rows.length) { gx.emptyLine(el); return; }
       el.replaceChildren();
       const who = ntWho(rows);
       const n = rows.find((x) => x.id === dash.params()[K.param]) || ntLow(rows)[0] || rows[0];
@@ -3894,8 +4073,13 @@
     low: (who) => `${who}'s genes move these lab values the unfavourable way. Select one to see which genes act and how:` });
   ntTab({ over: 'fit-overview', detail: 'fit-detail', card: 'fit-detail', main: 'fit_tests', finds: 'fit_findings', steps: 'fit_steps',
     param: 'fit_n', title: (who) => `${who}'s strength and fitness scores`, how: 'How it works in the body (Reactome)', measured: true,
-    only: () => dash.params().theme === 'muscle',
+    only: () => (gx.theme ? gx.theme() : dash.params().theme) === 'muscle',
     low: (who) => `${who}'s genes set these the unfavourable way. Select one to see which genes act and how:` });
+  // Cancer risk: one polygenic score per cancer (cancers.json), in the Clusters page under the cancer theme
+  ntTab({ over: 'can-overview', detail: 'can-detail', card: 'can-detail', main: 'can_tests', finds: 'can_findings', steps: 'can_steps',
+    param: 'can_n', title: (who) => `${who}'s genetic risk per cancer`, how: 'How it works in the body (Reactome)', measured: true,
+    only: () => (gx.theme ? gx.theme() : dash.params().theme) === 'cancer',
+    low: (who) => `${who}'s genes raise the risk of these cancers above most Europeans. Select one to see the variants behind the score:` });
 </script>
 
 <script>
@@ -3966,17 +4150,320 @@
   const inCount = (id) => { const r = gx.rows(id); return r ? r[0] : null; };
   const inDistinct = (rows, key) => (rows ? new Set(rows.map((r) => r[key])).size : null);
 
+  // Whether a genetic score points to the less favourable side (as in nt.js: below the 20th or above the 80th percentile)
+  const inUnfav = (rows) => (rows || []).filter((n) => {
+    let ms = []; try { ms = JSON.parse(n.markers || '[]') || []; } catch (e) { /* no markers */ }
+    return ms.some((m) => m.score && m.higher !== 'neutral' && (m.score.percentile <= 20 || m.score.percentile >= 80)
+      && (m.score.percentile <= 20) === (m.higher === 'better'));
+  });
+  const inList = (el, items) => inMake(el, 'ul', 'in-list').append(...items.map((x) => { const li = document.createElement('li'); li.textContent = x; return li; }));
+  const inOpen = (parent, tab, label) => {
+    const b = inMake(parent, 'button', null, inT('Open {}', label));
+    b.type = 'button';
+    b.addEventListener('click', () => { if (!inLocked()) gx.show(tab); });
+    return b;
+  };
+  // Small line icons for the groups of research databases (24×24, stroke in the current colour)
+  const IN_ICONS = {
+    reading: 'M7 3c0 6 10 6 10 12s-10 6-10 6M17 3c0 6-10 6-10 12s10 6 10 6M8 7h8M8 17h8M9.5 12h5',
+    health: 'M12 3a9 9 0 1 0 0 18a9 9 0 1 0 0-18M12 7.5a4.5 4.5 0 1 0 0 9a4.5 4.5 0 1 0 0-9M12 11a1 1 0 1 0 0 2a1 1 0 1 0 0-2',
+    body: 'M6 6m-2.5 0a2.5 2.5 0 1 0 5 0a2.5 2.5 0 1 0-5 0M18 7m-2.5 0a2.5 2.5 0 1 0 5 0a2.5 2.5 0 1 0-5 0M12 18m-2.5 0a2.5 2.5 0 1 0 5 0a2.5 2.5 0 1 0-5 0M8.3 7l7.2.2M7.3 8.3l3.6 7.4M16.8 9.2l-3.6 6.5',
+    advice: 'M4.6 13.4l8.8-8.8a4.2 4.2 0 0 1 6 6l-8.8 8.8a4.2 4.2 0 0 1-6-6zM9 9l6 6',
+    nutrition: 'M5 19c0-8 6-14 15-14c0 9-6 15-14 15M5 19l8-8',
+    reference: 'M4 5.5C6.5 4 9.5 4 12 6c2.5-2 5.5-2 8-.5V19c-2.5-1.5-5.5-1.5-8 .5c-2.5-2-5.5-2-8-.5zM12 6v13.5',
+  };
+  const inIcon = (parent, id) => {
+    const NS = 'http://www.w3.org/2000/svg', svg = document.createElementNS(NS, 'svg');
+    svg.setAttribute('viewBox', '0 0 24 24'); svg.setAttribute('class', 'in-icon'); svg.setAttribute('aria-hidden', 'true');
+    const p = document.createElementNS(NS, 'path');
+    p.setAttribute('d', IN_ICONS[id] || IN_ICONS.reference);
+    svg.appendChild(p); parent.appendChild(svg);
+    return svg;
+  };
+
+  // A database's own logo (runtime/logos, sources.json), on a light tile so it reads in both themes; its initials if none
+  const inLogo = (parent, d) => {
+    const t = inMake(parent, 'span', 'in-logo');
+    if (d.logo) { const i = inMake(t, 'img'); i.src = 'logos/' + d.logo; i.alt = ''; i.loading = 'lazy'; i.onload = () => i.classList.toggle('in-logo-wide', i.naturalWidth > 1.6 * i.naturalHeight); }
+    else inMake(t, 'span', 'in-logo-txt', d.name.split(/\s+/).map((w) => w[0]).join('').slice(0, 4).toUpperCase()).setAttribute('data-i18n-skip', '');
+    return t;
+  };
+  const TAB_NAMES = { clusters: 'Clusters', medicines: 'Medicines', nutrition: 'Nutrition', biomarkers: 'Biomarkers' };
+
+  // The steps: how it works (and what imputation is), the research behind it, what it gives, the file, reading it
   const IN_STEPS = [
-    { title: 'What this is', draw: (el, c) => {
-      inText(el, `This explorer reads ${c.who}'s raw DNA file, the file a consumer test such as MyHeritage, AncestryDNA or 23andMe lets you download, and lays it against public research: which genes act on health, what the variants ${c.who} carries do to them, and what that means for medicines, nutrition and lab values.`);
-      inText(el, 'Everything runs on this computer. The DNA file and every result stay here; the explorer only reads research databases that were downloaded beforehand, and never sends anyone\'s genotypes anywhere.');
-      inText(el, 'The steps that follow explain how the file is read, how the gaps in it are filled, how sure each answer is, where the facts come from, and what each tab shows. Use the switches at the top to change person (Profile) or language (EN, SV).');
+    { title: 'How it works', draw: (el, c) => {
+      const p = c.p || {}, g = c.g || {}, v = p.validation || {};
+      // The pipeline as a picture: three stages inside this computer, the research databases coming in from outside
+      const wrap = inMake(el, 'div', 'in-pipe');
+      // The research databases (sources.json, the Sources tab), not the count of reference files
+      const src = inMake(wrap, 'button', 'in-src');
+      src.type = 'button';
+      src.addEventListener('click', () => { if (!inLocked()) gx.show('sources'); });
+      inMake(src, 'div', 'in-src-big', inN(((window.GX_SOURCES || {}).databases || []).length));
+      inMake(src, 'div', 'in-src-name', 'Public research databases');
+      inMake(src, 'small', null, 'Downloaded once, read by gene and variant. Listed under Sources.');
+      inMake(wrap, 'div', 'in-pipe-in', '→');
+      const box = inMake(wrap, 'div', 'in-box');
+      inMake(box, 'div', 'in-box-label', 'This computer');
+      const row = inMake(box, 'div', 'in-stages');
+      const stage = (n, name, big, small) => {
+        const s = inMake(row, 'div', 'in-stage');
+        inMake(s, 'span', 'in-stage-n', String(n));
+        inMake(s, 'div', 'in-stage-name', name);
+        inMake(s, 'div', 'in-stage-big', big);
+        inMake(s, 'small', null, small);
+      };
+      const fmt = { myheritage: 'MyHeritage', ancestry: 'AncestryDNA', '23andme': '23andMe' }[p.format] || p.format;
+      stage(1, 'Read', inN(p.measured), fmt ? inT('SNPs measured in {}\'s {} file: single positions where people\'s DNA differs by one letter', c.who, fmt) : inT('SNPs measured in {}\'s file: single positions where people\'s DNA differs by one letter', c.who));
+      // Confident calls only: most filled-in positions are rare variants called "not detected, not excluded", which add nothing
+      const conf = p.tiers ? (p.tiers.high || 0) + (p.tiers.medium || 0) : null;
+      stage(2, 'After imputation', conf ? inMillions(conf) : '—', inT('confident calls added by imputation, {} of the tested ones right', inPct(v.right, 1)));
+      const tg = inCount('theme_genes');
+      stage(3, 'Results', inN(inDistinct(tg, 'gene')), 'genes read against the research, each finding with an evidence grade');
+      inText(el, 'Genetic data is sensitive health data under the GDPR, so the analysis runs where the DNA file is stored: on this computer. Nothing is sent anywhere, and deleting the DNA file and the results folder removes everything.');
+      // What imputation is, boxed apart from the pipeline above
+      const sec = inMake(el, 'section', 'in-section');
+      inMake(sec, 'h3', 'in-h3', 'What is imputation?');
+      const t = p.tiers || {};
+      inText(sec, inT('DNA is inherited in long stretches, and distant relatives share them without knowing it. Imputation compares the measured positions with the full genomes of {} volunteers in the 1000 Genomes Project, finds the people who share each stretch, and reads the positions in between from them.', inN(g.panel_people)));
+      if (conf && p.measured) inBars(sec, 'Calls before and after imputation', [
+        { label: 'Measured by the chip', value: p.measured, cls: 'in-c-fg' },
+        { label: 'Confident calls added by imputation', value: conf, cls: 'in-c-ok' }]);
+      inText(sec, inT('To check the guesses, every tenth measured position was hidden from {}\'s file, imputed as if it had never been read, and compared with the real answer.', c.who));
+      inFacts(sec, [[inPct(v.right, 1), 'of the confident guesses were right']]);
+      inStack(sec, inT('{}\'s imputed calls by confidence', c.who), [
+        { label: 'High', value: t.high, cls: 'in-c-ok' }, { label: 'Medium', value: t.medium, cls: 'in-c-ok2' },
+        { label: 'Low', value: t.low, cls: 'in-c-warn' }, { label: 'Untested', value: t.untested, cls: 'in-c-fg' }]);
+      inText(sec, 'Only high-confidence calls are used for conclusions from a single variant, and each is marked "imputed".');
+      // The rare positions imputation can't tell about: not calls, so not in the chart; said once, plainly
+      if (t.not_excluded) inText(sec, inT('At {} rare positions imputation can\'t tell whether {} carries the variant: it misses too many real carriers there. Those positions aren\'t used; a rare variant that matters (a drug gene, a disease variant) is shown as "not detected, not excluded".', inMillions(t.not_excluded), c.who));
     } },
-    { title: 'The DNA file', draw: (el, c) => {
-      const p = c.p || {}, m = (c.g || {}).map_sites || {};
-      const sites = Object.values(m).reduce((s, n) => s + (n || 0), 0);
-      inText(el, inT('DNA is a long text of four letters, and people differ from each other at certain positions: the 1000 Genomes reference panel records {} such positions. A consumer DNA test doesn\'t read them all. A chip measures a fixed set of them (SNPs), {} in {}\'s file, and reports the two letters found at each, one from each parent.',
-        sites ? inMillions(sites) : '—', inN(p.measured), c.who));
+    { title: 'Read against research', draw: (el, c) => {
+      const S = window.GX_SOURCES || { groups: [], databases: [] }, byId = new Map(S.databases.map((d) => [d.id, d]));
+      const head = inMake(el, 'div', 'in-lead');
+      inMake(head, 'p', 'in-text', inT('Every fact in the explorer comes from one of {} public research databases, each run by a university or a public research institute. Here is what we take from each, and what we use it for:', S.databases.length));
+      if (!inLocked()) {
+        const all = inMake(head, 'button', 'in-link', inT('All {} under Sources', S.databases.length));
+        all.type = 'button';
+        all.addEventListener('click', () => gx.show('sources'));
+      }
+      // Per group, a card per database: its logo, how we get its data, what we take and what we use it for
+      const HOW = { bulk: 'Downloaded once', 'API, saved': 'Downloaded once', 'bulk + API': 'Downloaded, and looked up by gene or variant', API: 'Looked up by gene or variant' };
+      for (const g of S.groups) {
+        const block = inMake(el, 'section', 'in-srcgroup in-grp-' + g.id);
+        const h = inMake(block, 'div', 'in-group-head');
+        inIcon(h, g.id);
+        inMake(h, 'h4', null, g.title);
+        const grid = inMake(block, 'div', 'in-srccards');
+        for (const id of g.ids) {
+          const d = byId.get(id);
+          if (!d) continue;
+          const card = inMake(grid, 'a', 'in-srccard');
+          card.href = d.url; card.target = '_blank'; card.rel = 'noopener';
+          const top = inMake(card, 'div', 'in-srccard-top');
+          inLogo(top, d);
+          const nm = inMake(top, 'div', 'in-srccard-name');
+          inMake(nm, 'b', null, d.name).setAttribute('data-i18n-skip', '');
+          inMake(nm, 'span', 'in-how', HOW[d.access] || d.access);
+          const take = inMake(card, 'p', 'in-take');
+          inMake(take, 'span', 'in-tag', 'We take');
+          inMake(take, 'span', null, d.takes);
+          const use = inMake(card, 'p', 'in-take');
+          inMake(use, 'span', 'in-tag', 'We use it to');
+          inMake(use, 'span', null, d.use);
+        }
+      }
+
+      // What the person got from them: every finding by evidence grade
+      const grades = ['A+', 'A', 'B', 'C'], cls = (g) => (g === 'A+' ? 'ap' : g.toLowerCase()), n = Object.fromEntries(grades.map((g) => [g, 0]));
+      for (const id of ['med_drugs', 'nut_findings', 'lab_findings', 'fit_findings']) for (const r of inCount(id) || []) if (r.grade in n) n[r.grade]++;
+      const total = grades.reduce((s, g) => s + n[g], 0);
+      const sec = inMake(el, 'section', 'in-section');
+      inMake(sec, 'h3', 'in-h3 in-h3-grade', 'How strong is each finding?');
+      inText(sec, 'Every finding carries an evidence grade, so a single small study never reads like an expert guideline:');
+      const tiles = inMake(sec, 'div', 'in-grades');
+      const NOTE = { 'A+': 'Guideline-grade, or expert-reviewed (ClinVar 3–4 stars)', A: 'Replicated, or ClinVar 2 stars', B: 'One publication, or ClinVar 1 star', C: 'A single study' };
+      for (const g of grades) {
+        const t = inMake(tiles, 'div', 'in-gtile in-g-' + cls(g));
+        const top = inMake(t, 'div', 'in-gtile-top');
+        inMake(top, 'span', 'md-grade md-grade-' + cls(g), g);
+        if (total) inMake(top, 'span', 'in-gtile-pct', inPct(n[g] / total));
+        inMake(t, 'div', 'in-big', inN(n[g]));
+        inMake(t, 'small', null, NOTE[g]);
+      }
+      if (total) {
+        const bar = inMake(sec, 'div', 'in-gbar');
+        bar.setAttribute('role', 'img');
+        bar.setAttribute('aria-label', grades.map((g) => `${g}: ${n[g]}`).join(', '));
+        for (const g of grades) {
+          if (!n[g]) continue;
+          const seg = inMake(bar, 'span', 'in-g-' + cls(g));
+          seg.style.width = `${(n[g] / total) * 100}%`;
+          if (n[g] / total >= 0.08) inMake(seg, 'i', null, g);
+        }
+        inText(sec, inT('{} findings for {} in Medicines, Nutrition, Biomarkers and training, by grade. The tabs show the grade next to every finding, strongest first.', inN(total), c.who));
+      }
+      // A grade is how much evidence there is, not how much a finding matters
+      const note = inMake(sec, 'div', 'in-gnote');
+      const path = inMake(note, 'div', 'in-gpath');
+      // In the tiles' order (A+ first); the arrows point the way evidence grows, from C to A+
+      for (const g of ['A+', 'A', 'B', 'C']) {
+        if (g !== 'A+') inMake(path, 'span', 'in-gpath-arrow', '←');
+        inMake(path, 'span', 'md-grade md-grade-' + (g === 'A+' ? 'ap' : g.toLowerCase()), g);
+      }
+      inMake(note, 'p', null, 'A grade measures how much evidence there is, not how much a finding matters. A single study can find something with a large effect, and every A+ guideline started as one C-grade study that others went on to repeat. The C findings are where tomorrow\'s guidelines come from: worth reading, with that in mind.');
+    } },
+    { title: 'What your DNA can do for you', draw: (el, c) => {
+      inText(el, inT('One example of what the explorer reads from {}\'s own variants: cancer, from the medicines that need a different dose to the cancers the genes lean toward.', c.who));
+      const tg = inCount('theme_genes'), tm = inCount('theme_meta'), mgd = inCount('med_guidance'), names = inCount('med_names');
+      const mg = inCount('med_genes');
+      const nn = inCount('nut_nutrients'), ft = inCount('fit_tests'), sp = inCount('sport_snps');
+      const facetName = new Map((tm || []).map((r) => [`${r.theme}|${r.facet}`, r.facet_name]));
+      const changed = (theme) => (tg || []).filter((r) => r.theme === theme && ['LoF', 'GoF', 'altered'].includes(r.function));
+      // The mechanisms with the most changed genes, with a few of the genes (evidence about the variant itself first)
+      const byFacet = (theme, rows) => {
+        const m = new Map();
+        for (const r of rows) {
+          let fs = []; try { fs = JSON.parse(r.facets || '[]'); } catch (e) { /* none */ }
+          for (const f of fs) if (f !== 'disease') { if (!m.has(f)) m.set(f, []); m.get(f).push(r); }
+        }
+        const rank = (r) => { const i = ['measured', 'curated', 'truncating', 'predicted'].indexOf(r.basis); return i < 0 ? 9 : i; };
+        return [...m.entries()].sort((a, b) => b[1].length - a[1].length).slice(0, 4)
+          .map(([f, rs]) => inT('{}: {} genes ({})', facetName.get(`${theme}|${f}`) || f, rs.length, [...rs].sort((a, b) => rank(a) - rank(b)).slice(0, 3).map((r) => r.gene).join(', ')));
+      };
+      const area = (title, lead, items) => {
+        const a = inMake(el, 'div', 'in-area');
+        inMake(a, 'h3', null, title);
+        if (lead) inMake(a, 'p', null, lead);
+        if (items && items.length) inList(a, items);
+      };
+
+      // Cancer: the genes oncologists test before treatment. A gene counts when a CPIC or DPWG guideline gives a readable
+      // verdict for a cancer medicine (ATC L01/L02); per gene the person's type, every variant read and how sure the
+      // call is, the cancer medicines and the guideline's verdict, and the drug labels that name the gene
+      const atc = new Map((names || []).map((n) => [n.drug, String(n.atc || '')]));
+      const isOnc = (drug) => /\bL0[12]/.test(atc.get(drug) || '');
+      const readable = ['typical', 'differs', 'no_action'];
+      const oncRows = (mgd || []).filter((g) => isOnc(g.drug));
+      const genesOf = (r) => String(r.genes || '').split(';').filter(Boolean);
+      const testGenes = [...new Set(oncRows.filter((r) => r.kind === 'guideline' && ['CPIC', 'DPWG'].includes(r.source) && readable.includes(r.status)).flatMap(genesOf))];
+      const mgBy = new Map((mg || []).map((g) => [g.gene, g]));
+      const cancer = inMake(el, 'div', 'in-area in-cancer');
+      inMake(cancer, 'h3', null, 'Cancer: the genes tested before treatment');
+      inMake(cancer, 'p', null, inT('Before chemotherapy and some hormone and targeted treatments, oncologists test a few genes that decide how the body clears the medicine: a slow clearer can get a toxic dose from a standard one. Here is what {}\'s DNA says for each:', c.who));
+      const cards = inMake(cancer, 'div', 'in-ccards');
+      const CONF = { measured: ['Measured', 'ok'], high: ['Imputed, high confidence', 'ok'], medium: ['Imputed, medium confidence', 'warn'], not_excluded: ['Not detected, can\'t be ruled out', 'bad'] };
+      // Most decisive genes first: an unusual type, then a variant that can't be ruled out
+      const order = (gene) => { const m = mgBy.get(gene) || {}; let s = []; try { s = JSON.parse(m.snps || '[]'); } catch (e) { /* none */ }
+        return (m.typical === true || String(m.typical) === 'True' ? 2 : 0) + (s.some((x) => x.confidence === 'not_excluded') ? 0 : 1); };
+      for (const gene of testGenes.filter((g) => mgBy.has(g)).sort((a, b) => order(a) - order(b) || a.localeCompare(b))) {
+        const m = mgBy.get(gene);
+        let snps = []; try { snps = JSON.parse(m.snps || '[]'); } catch (e) { /* none */ }
+        const usual = m.typical === true || String(m.typical) === 'True', open = snps.filter((x) => x.confidence === 'not_excluded');
+        const card = inMake(cards, 'div', 'in-ccard ' + (!usual ? 'in-ccard-alt' : open.length ? 'in-ccard-open' : 'in-ccard-ok'));
+        const head = inMake(card, 'div', 'in-ccard-head');
+        inMake(head, 'b', 'in-ccard-gene', gene).setAttribute('data-i18n-skip', '');
+        inMake(head, 'span', 'in-ccard-type', `${m.alleles} · ${String(m.phenotype || '').replace(/\s*\(.*\)$/, '')}`);
+        const drugs = [...new Set(oncRows.filter((r) => genesOf(r).includes(gene)).map((r) => r.drug))].sort();
+        const dl = inMake(card, 'div', 'in-ccard-drugs');
+        inMake(dl, 'span', 'in-tag', 'Cancer medicines');
+        inMake(dl, 'span', null, drugs.join(', '));
+        const vt = inMake(card, 'div', 'in-ccard-snps');
+        inMake(vt, 'span', 'in-tag', 'Variants read');
+        for (const x of snps) {
+          const row = inMake(vt, 'div', 'in-snp');
+          inMake(row, 'code', null, x.rsid);
+          inMake(row, 'span', 'in-snp-allele', x.allele);
+          inMake(row, 'b', null, x.genotype || '–');
+          const [label, cls] = CONF[x.confidence] || [x.confidence, 'fg'];
+          inMake(row, 'span', 'in-conf in-conf-' + cls, label);
+        }
+        // The verdict: CPIC first, then DPWG, on the medicines it covers
+        const gl = oncRows.filter((r) => r.kind === 'guideline' && genesOf(r).includes(gene) && readable.includes(r.status));
+        const best = gl.find((r) => r.source === 'CPIC') || gl[0];
+        let rec = ''; try { rec = (JSON.parse(best.recs || '[]')[0] || {}).recommendation || ''; } catch (e) { /* none */ }
+        rec = (rec.match(/^.*?\.(?=\s+[A-Z]|$)/) || [rec])[0];  // the verdict is the first sentence; the Medicines tab has the rest
+        const v = inMake(card, 'div', 'in-ccard-verdict');
+        inMake(v, 'span', 'in-tag', inT('Guideline ({})', best.source));
+        inMake(v, 'span', null, rec);
+        const labels = oncRows.filter((r) => r.kind === 'label' && r.status === 'differs' && genesOf(r).includes(gene));
+        if (labels.length) inMake(card, 'div', 'in-ccard-note', inT('Drug labels ({}) name {}\'s type for: {}.', [...new Set(labels.map((r) => r.source))].join(', '), c.who, [...new Set(labels.map((r) => r.drug))].sort().join(', ')));
+        if (open.length) inMake(card, 'div', 'in-ccard-warn', inT('{} of the {} variants guidelines test for are too rare for a chip to rule out ({}). Test {} before these medicines.', open.length, snps.length, open.map((x) => x.allele).join(', '), gene));
+      }
+      // Which cancers the genes lean toward: one polygenic score per cancer (cancers.json), highest risk first. Green is a
+      // lower risk than most (higher is worse, so the marker sits at 100 - percentile, as in the Clusters cards)
+      const risks = (inCount('can_tests') || []).map((t) => {
+        let ms = []; try { ms = JSON.parse(t.markers || '[]') || []; } catch (e) { /* none */ }
+        const m = ms.find((x) => x.score);
+        return m ? { name: t.name, p: m.score.percentile, pgs: (m.source || {}).study || m.pgs_ref || '' } : null;
+      }).filter(Boolean).sort((a, b) => b.p - a.p);
+      if (risks.length) {
+        // Each cancer in words and as a count out of 100 Europeans; the bar keeps the orange-to-green scale (green: lower
+        // risk than most), with the average marked
+        const band = (p) => p >= 95 ? ['Much higher than most', 'hi'] : p >= 80 ? ['Higher than most', 'hi'] : p >= 60 ? ['Somewhat higher', 'mid']
+          : p > 40 ? ['Average', 'avg'] : p > 20 ? ['Somewhat lower', 'mid'] : p > 5 ? ['Lower than most', 'lo'] : ['Much lower than most', 'lo'];
+        const rk = inMake(cancer, 'div', 'in-risk');
+        inMake(rk, 'h4', null, inT('Which cancers {}\'s genes lean toward', c.who));
+        inMake(rk, 'p', 'in-risk-lead', inT('For each cancer, how many of the risk variants large studies found {} carries, compared with 525 Europeans:', c.who));
+        for (const r of risks) {
+          const [word, cls] = band(r.p);
+          const row = inMake(rk, 'div', 'in-risk-row in-band-' + cls);
+          inMake(row, 'b', null, r.name);
+          const bar = inMake(row, 'div', 'nt-bar in-risk-bar');
+          inMake(bar, 'span', 'in-risk-avg');
+          inMake(bar, 'i').style.left = `${100 - r.p}%`;
+          const v = inMake(row, 'div', 'in-risk-verdict');
+          inMake(v, 'b', null, word);
+          inMake(v, 'span', null, r.p >= 50 ? inT('higher than {} of 100 Europeans', r.p) : inT('lower than {} of 100 Europeans', 100 - r.p));
+        }
+        const axis = inMake(rk, 'div', 'in-risk-row in-risk-axis');
+        inMake(axis, 'span');
+        const ax = inMake(axis, 'div', 'in-risk-axis-labels');
+        inMake(ax, 'span', null, '← Higher risk than most');
+        inMake(ax, 'span', null, 'Average');
+        inMake(ax, 'span', null, 'Lower risk than most →');
+        inMake(rk, 'p', 'in-ccard-note', 'The common variants behind these bars each nudge risk a little; together they shift it modestly. The large inherited risks come from rare variants (BRCA1, BRCA2, the Lynch syndrome genes) that a chip mostly can\'t see. A cancer far to the left is a reason to start screening on time, not a diagnosis.');
+      }
+      const cg = changed('cancer');
+      // What to do with it: one action per finding that can change a decision, from the cards and bars above
+      const drugsOf = (gene) => [...new Set(oncRows.filter((r) => genesOf(r).includes(gene)).map((r) => r.drug))].sort();
+      const snpsOf = (gene) => { try { return JSON.parse((mgBy.get(gene) || {}).snps || '[]'); } catch (e) { return []; } };
+      const shown = testGenes.filter((g) => mgBy.has(g));
+      const acts = [];
+      for (const g of shown) {
+        const m = mgBy.get(g);
+        if (!(m.typical === true || String(m.typical) === 'True'))
+          acts.push(['meds', inT('Before {}, tell the oncologist {}\'s {} type: {}.', drugsOf(g).join(', '), c.who, g, String(m.phenotype || '').replace(/\s*\(.*\)$/, '').toLowerCase())]);
+      }
+      for (const g of shown) if (snpsOf(g).some((x) => x.confidence === 'not_excluded'))
+        acts.push(['test', inT('Ask for a {} test before {}: the chip can\'t rule out the variants that matter.', g, drugsOf(g).join(', '))]);
+      const high = risks.filter((r) => r.p >= 80).map((r) => r.name.toLowerCase());
+      if (high.length) acts.push(['screen', inT('Ask about screening on time for {}: {}\'s genes put these above most Europeans.', high.join(', '), c.who)]);
+      if (!acts.length) acts.push(['ok', inT('Nothing here changes a decision for {} today: the treatment genes read as usual and no cancer stands out.', c.who)]);
+      const act = inMake(cancer, 'div', 'in-acts');
+      inMake(act, 'h4', null, 'What to do with this');
+      for (const [k, t] of acts) {
+        const row = inMake(act, 'div', 'in-act in-act-' + k);
+        inMake(row, 'span', 'in-act-dot');
+        inMake(row, 'p', null, t);
+      }
+
+      // This is the overview: the cancer theme in Clusters goes gene by gene
+      const more = inMake(cancer, 'div', 'in-deeper');
+      const txt = inMake(more, 'div');
+      inMake(txt, 'h4', null, 'This is the overview. The cancer theme goes deeper.');
+      inMake(txt, 'p', null, inT('Under Clusters, the cancer theme follows a cell through its life (resting, copying its DNA, checkpoints, repair, programmed death) and shows each of {} cancer genes where it acts, which of {}\'s variants change it and the evidence behind each call. It also lists the disease variants checked, and the variants behind every bar above.', inN(cg.length), c.who));
+      if (!inLocked()) {
+        const b = inMake(more, 'button', 'in-next', 'Open the cancer theme');
+        b.type = 'button';
+        b.addEventListener('click', () => { dash.setParams({ theme: 'cancer' }); gx.show('clusters'); });
+      }
+      inText(el, 'Fertility, nutrition, lab values and training are read the same way, each in its own tab.');
+    } },
+    { title: 'Your DNA file', draw: (el, c) => {
+      const p = c.p || {};
+      inText(el, inT('A consumer DNA test doesn\'t read the whole genome. A chip measures a fixed set of positions where people differ (SNPs), {} in {}\'s file, and reports the two letters found at each, one from each parent.', inN(p.measured), c.who));
       inFacts(el, [[inN(p.measured), inT('positions measured in {}\'s file', c.who)],
                    [p.format ? { myheritage: 'MyHeritage', ancestry: 'AncestryDNA', '23andme': '23andMe' }[p.format] || p.format : '—', 'file format'],
                    [inN(p.matched), 'of them at positions the reference panel knows']]);
@@ -3991,119 +4478,27 @@
           inMake(labs, 'span', null, ch);
         }
       }
-      inText(el, 'Larger chromosomes hold more positions. X counts once in men, who have one X; in women, the two X\'s differ like the other chromosomes do.');
-    } },
-    { title: 'Filling in the gaps: imputation', draw: (el, c) => {
-      const p = c.p || {}, g = c.g || {};
-      inText(el, inT('DNA is inherited in long stretches, and distant relatives share them without knowing it. Imputation compares the measured positions with the full genomes of {} volunteers in the 1000 Genomes Project, finds the people who share each stretch, and reads the positions in between from them.', inN(g.panel_people)));
-      const flow = inMake(el, 'div', 'in-flow');
-      inMake(flow, 'span', null, inT('{} measured', inN(p.measured)));
-      inMake(flow, 'em', null, '→');
-      inMake(flow, 'span', null, inT('compared with {} reference genomes', inN(g.panel_people)));
-      inMake(flow, 'em', null, '→');
-      inMake(flow, 'span', null, inT('{} positions filled in', inMillions(p.kept)));
-      if (p.kept && p.measured) {
-        inBars(el, 'Calls before and after imputation', [
-          { label: 'Measured by the chip', value: p.measured, cls: 'in-c-fg' },
-          { label: 'Filled in by imputation', value: p.kept, cls: 'in-c-ok' }]);
-        inText(el, inT('Imputation gives {} {} times more calls than the chip measured. Each comes with a probability: only calls where the best genotype has at least {} probability are kept.', c.who, Math.round(p.kept / p.measured), inPct(p.min_gp)));
-      }
-    } },
-    { title: 'How sure is each call?', draw: (el, c) => {
-      const p = c.p || {}, v = p.validation || {}, t = p.tiers || {};
-      inText(el, inT('To measure how good the guesses are, every tenth measured position was hidden from {}\'s file, imputed as if it had never been read, and compared with the real answer.', c.who));
-      inFacts(el, [[inN(v.hidden), 'positions hidden and re-imputed'], [inPct(v.right, 1), 'of the confident guesses were right']]);
-      inStack(el, inT('{}\'s imputed calls by confidence', c.who), [
-        { label: 'High', value: t.high, cls: 'in-c-ok' }, { label: 'Medium', value: t.medium, cls: 'in-c-ok2' },
-        { label: 'Low', value: t.low, cls: 'in-c-warn' }, { label: 'Untested', value: t.untested, cls: 'in-c-fg' },
-        { label: 'Not detected, not excluded', value: t.not_excluded, cls: 'in-c-none' }]);
-      inMake(el, 'ul', 'in-list').append(...[
-        'High: at least 98% right in the test. Used like a measured call, marked "imputed".',
-        'Medium: at least 90% right. Used for theme findings, not for conclusions from one variant.',
-        'Low and untested: counted, not used.',
-        'Not detected, not excluded: "doesn\'t carry it" for a rare variant, where imputation misses too many real carriers to rule it out. Most imputed calls are of this kind: rare variants nobody can impute well.'
-      ].map((x) => { const li = document.createElement('li'); li.textContent = x; return li; }));
-    } },
-    { title: 'What a chip can and can\'t see', draw: (el, c) => {
-      const g = c.g || {}, m = g.map_sites || {}, cv = g.clinvar;
-      inText(el, inT('To know where imputation can be trusted for anyone, {} of the reference volunteers were set aside, cut down to the positions a chip reads, imputed from the others, and compared with their real genomes at every one of the panel\'s positions.', inN(g.holdout)));
-      inStack(el, 'Every variant position in the reference panel, by how well a chip plus imputation knows it', [
-        { label: 'Measured on the chip', value: m.chip, cls: 'in-c-fg' }, { label: 'Imputed reliably', value: m.reliable, cls: 'in-c-ok' },
-        { label: 'Uncertain', value: m.uncertain, cls: 'in-c-warn' }, { label: 'Not knowable from a chip', value: m.not_knowable, cls: 'in-c-none' }]);
-      const bands = g.map_by_frequency || [];
-      if (bands.length) {
-        inBars(el, 'Imputation accuracy (r², 1 = perfect) by how common the variant is', bands.map((b) => ({
-          label: inT('Variant frequency {}–{}', inPct(b.from), inPct(b.to)), value: b.r2, max: 1, cls: b.r2 >= 0.8 ? 'in-c-ok' : 'in-c-warn' })),
-          (x) => (x == null ? '—' : x.toFixed(2)));
-      }
-      inText(el, 'Common variants are imputed well. The rarer a variant, the fewer reference people share it and the worse the guess; for variants rarer than 1%, the held-out people carry too few copies to measure it at all. Most of the genome\'s variant positions are that rare.');
-      if (cv) inText(el, inT('That matters most for disease variants. Of the {} variants ClinVar lists as causing disease, {} are too rare to be in the reference panel at all, and only {} can be read from a chip with confidence. For those, a clear result here says little; a sequencing test reads them directly. The Clusters tab shows this per theme and per gene ("What a chip can see").',
-        inN(cv.pathogenic), inN(cv.not_in_panel), inN((cv.chip || 0) + (cv.reliable || 0))));
-    } },
-    { title: 'Where the facts come from', draw: (el, c) => {
-      inText(el, 'Nothing in the explorer is written from memory. Which genes belong to a theme, what a variant does, how strong a finding is and what a guideline recommends all come from public research databases, downloaded and read on this computer:');
-      inMake(el, 'ul', 'in-list').append(...[
-        'Genes and diseases: Open Targets, Gene Ontology (QuickGO), the GWAS Catalog, ClinVar.',
-        'How genes work together: STRING (protein interactions), Reactome (pathways and reactions), OmniPath, Rhea.',
-        'What a variant does: Ensembl VEP, UniProt, MaveDB (measured effects), GTEx (gene activity per tissue).',
-        'Medicines: ClinPGx (PharmGKB), CPIC and DPWG dosing guidelines, drug labels.',
-        'Nutrition and lab values: the PGS Catalog (polygenic scores), Nordic Nutrition Recommendations 2023, the Human Protein Atlas.',
-        'Frequencies and imputation: the 1000 Genomes Project.'
-      ].map((x) => { const li = document.createElement('li'); li.textContent = x; return li; }));
-      if (c.g && c.g.references) inText(el, inT('{} reference files in all, each with its source, version and date (genome/references.json).', c.g.references));
-      inText(el, 'Each finding carries an evidence grade, so a single small study never reads like an expert guideline:');
-      const gr = inMake(el, 'div', 'in-legend');
-      for (const [g, t] of [['A+', 'guideline-grade, or expert-reviewed (ClinVar 3–4 stars)'], ['A', 'replicated, or ClinVar 2 stars'],
-                            ['B', 'one publication, or ClinVar 1 star'], ['C', 'a single study']]) {
-        const s = inMake(gr, 'div', 'in-grade');
-        inMake(s, 'span', 'md-grade md-grade-' + (g === 'A+' ? 'ap' : g.toLowerCase()), g);
-        inMake(s, 'span', null, t);
-      }
     } },
     { title: 'How to read the results', draw: (el, c) => {
       inText(el, 'Where a result is a level compared with other people, it is drawn on a bar from orange to green. Green is always on the right, the favourable side, whichever way the level runs: for LDL cholesterol lower is better, for HDL higher is better, and both bars put the better end on the right.');
-      const s = inMake(el, 'div', 'in-sample');
-      const b = inMake(s, 'div', 'nt-bar');
-      inMake(b, 'i').style.left = '72%';
+      inMake(inMake(inMake(el, 'div', 'in-sample'), 'div', 'nt-bar'), 'i').style.left = '72%';
+      inText(el, 'Where neither direction is better (TSH, testosterone), the bar is grey with green in the middle: the typical range is the favourable spot.');
+      inMake(inMake(inMake(el, 'div', 'in-sample'), 'div', 'nt-bar nt-even'), 'i').style.left = '50%';
       inText(el, 'The marker shows where the genes put the person among Europeans. It is a starting point set by the genes, not a measured value: the lab test measures the real one, and lifestyle moves it.');
-      inText(el, 'Calls that come from imputation rather than the chip are marked "imputed", with their confidence. A gene is called more active, less active, changed or typical only from evidence about the variant itself: a measured effect, a curated effect, a change that cuts the protein short, or how the variant changes the gene\'s activity in tissues.');
+      inList(el, [
+        'Medicines: every medicine with a guideline, a drug label or a study finding for the person\'s genes, with the dosing advice that applies.',
+        'Nutrition: per nutrient, how the genes move its level in the blood and which steps of its uptake and conversion they touch.',
+        'Biomarkers: common lab tests read through the genes, and which shifts are real and which only move the test.',
+        'Clusters: health themes (cancer, fertility, muscle), gene by gene, with body maps and networks.',
+        'Gene lifecycle and Profile: one gene\'s chemical journey, and the genes grouped into systems that work together.',
+      ]);
     } },
-    { title: 'Clusters', tab: 'clusters', draw: (el, c) => {
-      const tm = inCount('theme_meta'), themes = tm ? [...new Map(tm.map((r) => [r.theme, r.theme_name])).values()] : [];
-      inText(el, 'A theme gathers every gene research links to one area of health (cancer and the life of a cell, fertility, muscle and exertion), grouped by the mechanism it acts through: repair, growth signals, hormones, energy. Each gene is then read against the person\'s own variants.');
-      if (themes.length) inFacts(el, [[String(themes.length), inT('themes for {}: {}', c.who, themes.join(', '))]]);
-      inText(el, 'Body maps show where in the body the genes act, the network shows which genes work together, and selecting a gene lists the person\'s variants in it with what is known about each.');
-    } },
-    { title: 'Medicines', tab: 'medicines', draw: (el, c) => {
-      const mg = inCount('med_genes'), md = inCount('med_drugs');
-      inText(el, 'Some genes decide how fast the body clears a medicine. Each drug gene is read as two versions (star alleles), turned into a type with the CPIC rules (poor, intermediate, normal or fast), and every medicine with a guideline, a drug label or a study finding for the person\'s genotype is listed.');
-      inText(el, 'The core drug genes that need such a type are read whole. Every other gene with a ClinPGx annotation is read one variant at a time, so findings come from far more genes than the core ones.');
-      const mdGenes = md ? new Set(md.flatMap((r) => String(r.gene || '').split(';').filter(Boolean))).size : null;
-      if (mg) inFacts(el, [[String(mg.length), 'core drug genes typed'], [String(mg.filter((g) => g.typical !== true && String(g.typical) !== 'True').length), 'of them not the usual type'], [inN(mdGenes), 'genes with a medicine finding'], [inN(inDistinct(md, 'drug')), 'medicines with a finding']]);
-      inText(el, 'Search a medicine by any name, brand or ATC code to see the dosing guidance that applies and every finding with the person\'s reading and its evidence grade.');
-    } },
-    { title: 'Nutrition', tab: 'nutrition', draw: (el, c) => {
-      const nn = inCount('nut_nutrients');
-      inText(el, 'For each nutrient: how the person\'s variants move its level in the blood, how the body takes it up, carries and converts it (Reactome), which of those steps the person\'s variants touch and how, and the recommended intake (Nordic Nutrition Recommendations 2023).');
-      if (nn) inFacts(el, [[String(nn.length), 'nutrients'], [inN(nn.reduce((s, n) => s + (+n.findings || 0), 0)), 'findings in all']]);
-    } },
-    { title: 'Biomarkers', tab: 'biomarkers', draw: (el, c) => {
-      const lt = inCount('lab_tests');
-      inText(el, 'Common lab tests read through the genes: where the person\'s genes put each value among Europeans, which genes are known to move it, and whether the person\'s own variants move it. Some only shift the value without the body being affected ("your normal may differ"); others are real and worth following up.');
-      if (lt) inFacts(el, [[String(lt.length), 'lab tests']]);
-    } },
-    { title: 'Gene lifecycle', tab: 'lifecycle', draw: (el, c) => {
-      const lg = inCount('lifecycle_genes');
-      inText(el, 'One gene at a time: the chemical journey its protein takes part in, step by step from Reactome, what each step needs (cofactors, vitamins), what regulates it, and where the person\'s variants change the gene\'s capacity.');
-      if (lg) inFacts(el, [[inN(inDistinct(lg, 'gene')), 'genes with a lifecycle']]);
-    } },
-    { title: 'Profile', tab: 'profile', draw: (el, c) => {
-      const hm = inCount('hp_modules');
-      inText(el, 'The genes grouped into functional modules, sets of genes whose proteins work together, with the person\'s results per module: where several weakened genes sit in the same system, and which weakened genes reach into other systems.');
-      if (hm) inFacts(el, [[String(hm.length), 'modules']]);
-    } },
-    { title: 'Ready', draw: (el, c) => {
-      inText(el, 'That is the whole process: the chip\'s measured positions, imputation to fill in the rest, a measured confidence for every call, and public research to read them against. Each tab starts with a short note on what it shows and where its facts come from.');
+    { title: 'Where to start', draw: (el, c) => {
+      inText(el, 'Start with what can change a decision: the medicines where the dosing advice differs, the cancer and fertility genes with a changed function, then the nutrients and lab values marked in orange. Each tab starts with a short note on what it shows and where its facts come from.');
+      if (!inLocked()) {
+        const nav = inMake(el, 'div', 'in-nav');
+        for (const t of ['medicines', 'nutrition', 'biomarkers', 'clusters']) inOpen(nav, t, TAB_NAMES[t]);
+      }
       inText(el, 'This introduction stays under Home, to come back to at any time.');
     } },
   ];
@@ -4147,6 +4542,72 @@
     if (wait > 0) {
       next.disabled = true;
       inTimer = setTimeout(() => { next.disabled = false; inTimer = null; }, wait);
+    }
+  });
+</script>
+
+<script>
+  // Sources and glossary: the research databases behind the explorer and the terms its tabs use, from sources.json
+  // (window.GX_SOURCES, put in by build.py with each bulk file's version from genome/references.json). Every text node
+  // is one whole text, so the Swedish layer swaps it (the build adds sources.json's Swedish to the page's dictionary).
+  const SO = window.GX_SOURCES || { databases: [], tools: [], glossary: [] };
+  const soMake = (parent, tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; parent.appendChild(e); return e; };
+  const SO_TABS = { home: 'Home', clusters: 'Clusters', medicines: 'Medicines', nutrition: 'Nutrition', biomarkers: 'Biomarkers', lifecycle: 'Gene lifecycle', profile: 'Profile' };
+  const SO_ACCESS = { bulk: 'Downloaded file', 'bulk + API': 'Downloaded file and API', API: 'API, cached', 'API, saved': 'API, saved as a file' };
+  let soQuery = '';
+
+  const soFilter = (parent, placeholder, redraw) => {
+    const f = soMake(parent, 'input', 'so-filter');
+    f.type = 'search'; f.placeholder = placeholder; f.value = soQuery;
+    f.addEventListener('input', () => { soQuery = f.value; redraw(); });
+    return f;
+  };
+  const soHit = (...texts) => !soQuery || texts.some((t) => String(t || '').toLowerCase().includes(soQuery.toLowerCase()));
+
+  dash.draw('so-dbs', (el) => {
+    el.replaceChildren();
+    const head = soMake(el, 'div', 'so-head');
+    soMake(head, 'h3', null, `${SO.databases.length} research databases`);
+    const grid = soMake(el, 'div', 'so-grid');
+    const fill = () => {
+      grid.replaceChildren();
+      const rows = SO.databases.filter((d) => soHit(d.name, d.org, d.what, d.sv));
+      if (!rows.length) soMake(grid, 'p', 'so-empty', 'No database matches.');
+      for (const d of rows) {
+        const c = soMake(grid, 'div', 'so-db');
+        const h = soMake(c, 'h4');
+        if (d.logo) { const img = soMake(h, 'img', 'so-logo'); img.src = 'logos/' + d.logo; img.alt = ''; img.loading = 'lazy'; }
+        h.setAttribute('data-i18n-skip', '');  // a name: never translated ("Open Targets" isn't "Öppna Targets")
+        const a = soMake(h, 'a', null, d.name);
+        a.href = d.url; a.target = '_blank'; a.rel = 'noopener';
+        soMake(c, 'div', 'so-org', d.org).setAttribute('data-i18n-skip', '');
+        soMake(c, 'div', 'so-what', d.what);
+        if (d.versions && d.versions.length) soMake(c, 'div', 'so-ver', d.versions.join(' · ')).setAttribute('data-i18n-skip', '');
+        const m = soMake(c, 'div', 'so-meta');
+        soMake(m, 'span', 'so-chip', SO_ACCESS[d.access] || d.access);
+        for (const t of d.tabs || []) {
+          const b = soMake(m, 'button', 'so-chip so-tab', SO_TABS[t] || t);
+          b.type = 'button';
+          b.addEventListener('click', () => gx.show(t));
+        }
+      }
+    };
+    soFilter(head, 'Search the databases', fill);
+    fill();
+    const tools = soMake(el, 'div', 'so-tools');
+    soMake(tools, 'h3', null, 'Tools');
+    for (const t of SO.tools) { const p = soMake(tools, 'p'); soMake(p, 'b', null, t.name); soMake(p, 'span', null, ': '); soMake(p, 'span', null, t.what); if (t.versions && t.versions.length) soMake(p, 'span', 'so-ver', ` (${t.versions.join(', ')})`); }
+  });
+
+  dash.draw('so-glossary', (el) => {
+    el.replaceChildren();
+    const head = soMake(el, 'div', 'so-head');
+    soMake(head, 'h3', null, 'Glossary');
+    const dl = soMake(el, 'dl', 'so-terms');
+    for (const g of [...SO.glossary].sort((a, b) => a.term.localeCompare(b.term))) {
+      const d = soMake(dl, 'div', 'so-term');
+      soMake(d, 'dt', null, g.term);
+      soMake(d, 'dd', null, g.text);
     }
   });
 </script>

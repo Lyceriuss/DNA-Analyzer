@@ -39,7 +39,7 @@ PUBLISH = os.path.join(OUT, "publish")
 RECORD = os.path.join(OUT, "published.json")
 LIFECYCLES = os.path.join(ROOT, gbuild.OUTPUT, "lifecycles_XY_full.json")
 ARTIFACT = "https://claude.ai/artifact/Rsz3RYugnZyvWnixS9168o"
-TABS = ["home", "clusters", "medicines", "nutrition", "lifecycle", "biomarkers", "profile"]
+TABS = ["home", "clusters", "medicines", "nutrition", "lifecycle", "biomarkers", "profile", "sources"]
 
 
 def run(*args):
@@ -88,8 +88,7 @@ CHROME = [r"C:\Program Files\Google\Chrome\Application\chrome.exe", r"C:\Program
 
 COLLECT = """
 <script>
-  window.__errors = [];
-  window.addEventListener('error', (e) => window.__errors.push(e.message));
+  window.__errors = window.__errors || [];
   const _ce = console.error; console.error = (...a) => { window.__errors.push(a.map(String).join(' ')); _ce(...a); };
   const frame = () => new Promise((r) => requestAnimationFrame(() => setTimeout(r, 0)));
   const settled = async () => {
@@ -124,6 +123,9 @@ def check(_=None):
     chrome = next((c for c in CHROME if os.path.exists(c) or not os.path.isabs(c)), None)
     test = os.path.join(SITE, "_check.html")
     page = open(os.path.join(SITE, "index.html"), encoding="utf-8").read()
+    # Errors are collected from the top of the page, so a part that fails to even parse is caught too
+    early = "<script>window.__errors = []; window.addEventListener('error', (e) => window.__errors.push(e.message));</script>"
+    page = page.replace("<body>", "<body>" + early, 1)
     open(test, "w", encoding="utf-8").write(page.replace("<script>dash.start();</script>",
                                                          "<script>dash.start();</script>" + COLLECT % json.dumps(TABS)))
     srv = serve_dir(SITE, 0)

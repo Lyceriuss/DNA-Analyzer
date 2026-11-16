@@ -52,7 +52,32 @@ def assemble():
     # settings.json (whether the introduction is mandatory, ...) as window.GX_SETTINGS
     settings = {k: v for k, v in json.loads(read("settings.json")).items() if k != "about"}
     page = page.replace("// @settings", f"window.GX_SETTINGS = {json.dumps(settings)};")
+    page = page.replace("// @sources", f"window.GX_SOURCES = {json.dumps(sources_catalog(), ensure_ascii=False)};")
     return page + "\n"
+
+
+def sources_catalog():
+    """sources.json for the Sources tab and the introduction, each entry with the versions of its bulk files
+    (genome/references.json)."""
+    cat = json.loads(read("sources.json"))
+    with open(os.path.join(HERE, "..", "..", "genome", "references.json"), encoding="utf-8") as f:
+        version = {r["name"]: r.get("version") for r in json.load(f)["references"]}
+    for item in cat["databases"] + cat["tools"]:
+        item["versions"] = sorted({version[r] for r in item.get("refs", []) if version.get(r)})
+    return {k: cat[k] for k in ("groups", "databases", "tools", "glossary")}
+
+
+def sources_sv():
+    """{English: Swedish} for every text in sources.json, added to the page's Swedish dictionary."""
+    cat = json.loads(read("sources.json"))
+    pairs = {d["what"]: d["sv"] for d in cat["databases"] + cat["tools"]}
+    pairs.update({d["gives"]: d["gives_sv"] for d in cat["databases"]})
+    pairs.update({g["title"]: g["sv"] for g in cat["groups"]})
+    pairs.update({d["takes"]: d["takes_sv"] for d in cat["databases"]})
+    pairs.update({d["use"]: d["use_sv"] for d in cat["databases"]})
+    pairs.update({g["text"]: g["sv"] for g in cat["glossary"]})
+    pairs.update({g["term"]: g["sv_term"] for g in cat["glossary"] if g["term"] != g["sv_term"]})
+    return pairs
 
 
 def minify_js(code):
@@ -79,6 +104,8 @@ def standalone(page, data_dir, out):
     os.makedirs(os.path.join(out, "data"), exist_ok=True)
     for f in ("dash.js", "tokens.css", "d3.min.js"):
         shutil.copyfile(os.path.join(HERE, "runtime", f), os.path.join(out, "runtime.js" if f == "dash.js" else f))
+    # The research databases' logos (sources.json), shown to credit each source
+    shutil.copytree(os.path.join(HERE, "runtime", "logos"), os.path.join(out, "logos"), dirs_exist_ok=True)
     names = []
     for f in sorted(os.listdir(data_dir)):
         if f.endswith(".json") and f != "bundle.json":
@@ -87,6 +114,8 @@ def standalone(page, data_dir, out):
     # The page's own wording in Swedish: the dataset is [{en, sv}] rows, as published to the artifact
     for name, src in (("i18n_sv", "i18n_sv.json"), ("i18n_sv_terms", "i18n_sv_terms.json")):
         d = json.loads(read(src))
+        if name == "i18n_sv":
+            d = {**sources_sv(), **d}
         with open(os.path.join(out, "data", name + ".json"), "w", encoding="utf-8") as f:
             json.dump([{"en": k, "sv": v} for k, v in d.items() if v], f, ensure_ascii=False)
         names.append(name)

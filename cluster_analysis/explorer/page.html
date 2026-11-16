@@ -319,6 +319,7 @@
   /* @include md.css */
   /* @include nt.css */
   /* @include in.css */
+  /* @include so.css */
   .th-b-untested { background: var(--color-fg-muted); opacity: 0.35; }
 </style>
 
@@ -344,6 +345,7 @@
     <button class="gx-tab" role="tab" data-tab="lifecycle" aria-selected="false">Gene lifecycle</button>
     <button class="gx-tab" role="tab" data-tab="biomarkers" aria-selected="false">Biomarkers</button>
     <button class="gx-tab" role="tab" data-tab="profile" aria-selected="false">Profile</button>
+    <button class="gx-tab" role="tab" data-tab="sources" aria-selected="false">Sources</button>
   </nav>
 
   <!-- @include in.html -->
@@ -354,6 +356,8 @@
   <!-- @include nt.html -->
 
   <!-- @include lc.html -->
+
+  <!-- @include so.html -->
 
   <section class="gx-page" id="biomarkers" data-page="biomarkers" hidden>
     <p class="gx-note" data-who>Common lab tests read through XY's genes. Per test: where XY's genes put the value among Europeans (PGS Catalog,
@@ -418,6 +422,7 @@
 
 <script>
   // @settings
+  // @sources
   // Calculations from the attached datasets
   dash.calc('kpis', {
     inputs: ['modules', 'module_links', 'biomarker_snps'],
@@ -486,6 +491,11 @@
       el.replaceChildren();
       const p = document.createElement('p'); p.className = 'gx-note'; p.textContent = 'Failed to load'; el.appendChild(p);
     },
+    // A profile whose analysis hasn't produced this part yet: say so instead of drawing nothing (or throwing)
+    emptyLine(el) {
+      el.replaceChildren();
+      const p = document.createElement('p'); p.className = 'gx-note'; p.textContent = 'No results for this profile yet: this part of its analysis has not been run.'; el.appendChild(p);
+    },
   };
 
   document.querySelectorAll('.gx-tab').forEach((b) => b.addEventListener('click', () => gx.show(b.dataset.tab)));
@@ -537,7 +547,7 @@
     setTimeout(() => applyWho(who), 0);
   });
   const linked = location.hash.slice(1);
-  if (['home', 'clusters', 'medicines', 'nutrition', 'lifecycle', 'biomarkers', 'profile'].includes(linked)) gx.show(linked);
+  if (['home', 'clusters', 'medicines', 'nutrition', 'lifecycle', 'biomarkers', 'profile', 'sources'].includes(linked)) gx.show(linked);
 
   dash.calc('hp_compound', {
     inputs: ['hp_links'],
@@ -557,8 +567,8 @@
    ['t-modules', 'modules'], ['t-genes', 'genes'], ['t-links', 'links'], ['t-biomarkers', 'biomarkers']]
     .forEach(([n, f]) => numberDraw(n, f));
 
-  dash.draw('s-top', (el) => { const r = gx.rows('hp_modules'); el.textContent = r ? r[0][0].name : '—'; });
-  dash.draw('s-compound', (el) => { const r = gx.rows('hp_compound'); el.textContent = r ? fmt(r[0][0].n) : '—'; });
+  dash.draw('s-top', (el) => { const r = gx.rows('hp_modules'); el.textContent = r && r[0][0] ? r[0][0].name : '—'; });
+  dash.draw('s-compound', (el) => { const r = gx.rows('hp_compound'); el.textContent = r && r[0][0] ? fmt(r[0][0].n) : '—'; });
 </script>
 
 <script>
@@ -571,6 +581,7 @@
     const r = gx.rows('hp_modules');
     el.replaceChildren();
     if (!r) { if (gx.failed('hp_modules')) gx.failLine(el); return; }
+    if (!r[0].length) { gx.emptyLine(el); return; }
     const rows = r[0].map((m) => ({ ...m, negative: Number(m.negative), positive: Number(m.positive) }))
       .sort((a, b) => (b.positive - b.negative) - (a.positive - a.negative) || b.positive - a.positive);
     const W = Math.max(280, el.clientWidth), rowH = 24;
@@ -604,6 +615,7 @@
     const r = gx.rows('hp_tilts');
     el.replaceChildren();
     if (!r) { if (gx.failed('hp_tilts')) gx.failLine(el); return; }
+    if (!r[0].length) { gx.emptyLine(el); return; }
     const rows = r[0].map((t) => ({ ...t, z: Number(t.z) })).sort((a, b) => b.z - a.z);
     const W = Math.max(280, el.clientWidth), rowH = 20;
     const svg = d3.select(el).append('svg').attr('width', '100%');
@@ -672,6 +684,10 @@
 
 <script>
   // @include in.js
+</script>
+
+<script>
+  // @include so.js
 </script>
 
 <script>
