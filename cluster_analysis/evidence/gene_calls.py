@@ -224,6 +224,14 @@ def run(dna, genes):
         except Exception as e:  # one gene's API failure should not stop the run
             print(f"   [!] UniProt {g}: {type(e).__name__}", flush=True)
             p = []
+        # MaveDB for every gene with protein variants, not only those a person carries a change in: the lookups are
+        # then the same for everyone, and the analysis of a new person runs offline from the cache
+        if p:
+            try:
+                for s in mavedb_sets(g):
+                    mavedb_scores(s["urn"])
+            except Exception as e:
+                print(f"   [!] MaveDB {g}: {type(e).__name__}", flush=True)
         try:
             q = gtex_top_eqtl(g)
         except Exception as e:

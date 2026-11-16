@@ -159,13 +159,21 @@ def by_variant(namespace, index_name, rsids, records, batch_size=150):
     for fn, want in by_file.items():
         with open(os.path.join(CACHE_DIR, fn), encoding="utf-8") as f:
             found += [v for v in json.load(f) if v.get("id") in want]
-    have = {v["id"] for v in found}
+    # Ids Ensembl had no record for (retired or merged rsIDs, ids that break its server) are remembered as such, so
+    # they aren't asked again on every run, and a run offline doesn't stop on them
+    absent = set(index.get("absent", ()))
+    have = {v["id"] for v in found} | absent
     todo = sorted(rs for rs in set(rsids) if rs not in have)
     if todo:
         print(f"   {len(set(rsids)) - len(todo)} variants from earlier runs, {len(todo)} asked of Ensembl ({namespace})")
     fetched = [v for i in range(0, len(todo), batch_size) for v in records(todo[i:i + batch_size])]
     if todo:
-        _batch_index(namespace, index_name)  # adds the new batches
+        index = _batch_index(namespace, index_name)  # adds the new batches
+        missing = set(todo) - {v.get("id") for v in fetched}
+        if missing:
+            index["absent"] = sorted(absent | missing)
+            with open(os.path.join(CACHE_DIR, index_name), "w", encoding="utf-8") as f:
+                json.dump(index, f)
     return found + fetched
 
 
@@ -187,10 +195,11 @@ def ensembl_vep(rsids, batch_size=150):
         try:
             return _cached("ensembl_vep", "\n".join(batch), fetch)
         except requests.HTTPError as e:
-            if getattr(e.response, "status_code", None) != 500:
+            # 500: one id breaks the server; 400: no id in the batch is known to Ensembl
+            if getattr(e.response, "status_code", None) not in (400, 500):
                 raise
             if len(batch) == 1:
-                print(f"   [!] Ensembl VEP can't process {batch[0]}: skipped")
+                print(f"   [!] Ensembl VEP has no record of {batch[0]}: skipped")
                 return []
             half = len(batch) // 2
             return records(batch[:half]) + records(batch[half:])

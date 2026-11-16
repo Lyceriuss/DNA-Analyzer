@@ -29,7 +29,9 @@ Writes to data/output/imputation/<person>/:
   chr*.vcf.gz                                   Beagle's output (GT, DS, GP)
   MyHeritage_raw_dna_data_<person>.imputed.csv  measured calls plus imputed ones with GP >= --min-gp, in the
                                                 MyHeritage layout plus SOURCE, GP, EUR_AF and CONFIDENCE columns,
-                                                so any tool that takes a --dna CSV can read it
+                                                so any tool that takes a --dna CSV can read it. not_excluded calls
+                                                only for variants ClinVar or ClinPGx list (genome/watch.py): the
+                                                others, ~90% of imputed positions, say nothing and are only counted
   validation_calls.tsv.gz, calibration.json     the hidden SNPs and the accuracy table built from them
   summary.json                                  counts per chromosome and per confidence tier
 """
@@ -456,13 +458,19 @@ def run_finalize(args, person, out_dir, calls, chroms):
     summary = json.load(open(summary_path)) if os.path.exists(summary_path) else {"chroms": {}}
     summary.update({"person": person, "min_gp": args.min_gp, "calibrated": cal is not None})
     freqs = Freqs(args.P["sites"])
-    tiers, carrier_tiers = Counter(), Counter()
+    # "Doesn't carry it" calls imputation can't trust (not_excluded) are written only where that can matter: variants
+    # ClinVar or ClinPGx list (genome/watch.py). The rest, about 90% of all imputed positions, are counted, not written
+    from genome import watch
+    print("Variants ClinVar and ClinPGx list (for not_excluded rows)...", flush=True)
+    watched = watch.rsids()
+    tiers, carrier_tiers, skipped = Counter(), Counter(), 0
     csv = os.path.join(out_dir, f"MyHeritage_raw_dna_data_{person}.imputed.csv")
     with open(csv, "w", encoding="utf-8", newline="\n") as f:
         f.write(f"# Imputed from {person}'s MyHeritage file with Beagle 5.5 and the {args.P['label']} panel; "
                 f"forward strand, {args.P['build']}.\n")
         f.write(f"# Imputed rows have GP >= {args.min_gp}. EUR_AF is the 1000 Genomes European frequency of the alternative allele.\n")
-        f.write("# CONFIDENCE: measured, high, medium, low, untested, not_excluded (see genome/impute.py).\n")
+        f.write("# CONFIDENCE: measured, high, medium, low, untested, not_excluded (see genome/impute.py). not_excluded rows only\n"
+                "# for variants ClinVar or ClinPGx list (genome/watch.py); the others are counted in summary.json.\n")
         f.write("RSID,CHROMOSOME,POSITION,RESULT,SOURCE,GP,EUR_AF,CONFIDENCE\n")
         for chrom in chroms:
             vcfs = outputs(out_dir, chrom, args.P)
@@ -486,7 +494,11 @@ def run_finalize(args, person, out_dir, calls, chroms):
                 tiers[t] += 1
                 if carries_minor(copies, af):
                     carrier_tiers[t] += 1
-                rows[pos] = (vid.split(";")[0], gt, "imputed", f"{gp:.2f}", "" if af is None else f"{af:g}", t)
+                ids = vid.split(";")
+                if t == "not_excluded" and not any(i in watched for i in ids):
+                    skipped += 1
+                    continue
+                rows[pos] = (ids[0], gt, "imputed", f"{gp:.2f}", "" if af is None else f"{af:g}", t)
                 kept += 1
             for pos, (rsid, gt) in measured.items():  # measured calls the panel doesn't have
                 rows.setdefault(pos, (rsid, gt, "measured", "", "", "measured"))
@@ -498,6 +510,7 @@ def run_finalize(args, person, out_dir, calls, chroms):
             print(f"chr{chrom}: {kept:,} imputed calls kept", flush=True)
     summary["tiers"] = dict(tiers)
     summary["carrier_tiers"] = dict(carrier_tiers)
+    summary["not_excluded_written"] = tiers["not_excluded"] - skipped  # the rest: counted, not in the CSV
     summary["totals"] = {k: sum(s.get(k, 0) for s in summary["chroms"].values()) for k in ("calls", "imputed", "imputed_kept")}
     json.dump(summary, open(summary_path, "w"), indent=1)
     print(f"\nWrote {csv}\nImputed calls by confidence (all / carrying the minor allele):")
