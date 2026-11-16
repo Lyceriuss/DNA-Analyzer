@@ -60,6 +60,14 @@
     } else d.append(`${f.rsid} ${f.genotype}: ${it.what}${/[.!?]$/.test(it.what) ? "" : "."}`);
   };
 
+  // The theme on screen: the one picked, or the first when none is (other parts' cards follow it: fitness, cancer risk)
+  gx.theme = () => {
+    const r = gx.rows('theme_meta');
+    const themes = r ? [...new Map(r[0].map((m) => [m.theme, m])).values()].sort((a, b) => a.theme_order - b.theme_order) : [];
+    const p = dash.params().theme;
+    return (themes.find((t) => t.theme === p) || themes[0] || {}).theme || p;
+  };
+
   const thSel = () => {
     const r = gx.rows('theme_meta', 'theme_genes');
     if (!r) return null;

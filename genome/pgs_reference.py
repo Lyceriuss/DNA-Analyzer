@@ -2,6 +2,7 @@
 
     python -m genome.pgs_reference fetch PGS002143 PGS002168     # the PGS Catalog scoring files (GRCh38 harmonised)
     python -m genome.pgs_reference build PGS002143 PGS002168     # once: European dosages at their variants (D:)
+    python -m genome.pgs_reference build --set cancer PGS000004 PGS000030 ...   # another set, in its own folder
     python -m genome.pgs_reference score PGS002143 --dna data/input/MyHeritage_raw_dna_data_XY.csv
 
 Genome-wide scores (LDpred2, snpnet, lasso) weight up to a million correlated variants, so the closed-form mean and
@@ -15,7 +16,9 @@ and the 525 reference people are scored on exactly that subset, so a missing var
 build reads the raw panel VCFs (raw/ in the panel folder) straight from Python, one pass per chromosome, four at a
 time, writing every result to files under the panel folder on D:, and stops when C: or D: runs low.
 Output: <panel folder>/pgs_ref/eur_dosage.npz (positions, alleles, and an int8 dosage matrix of the alternative allele)
-and one <id>.npz of weights per score.
+and one <id>.npz of weights per score; a named set (--set) in <panel folder>/pgs_ref/<set>/, with its own extract (the
+per-chromosome extracts are cached, so a new set of scores must not share another set's folder). score finds a score's
+set by its <id>.npz.
 """
 import argparse
 import csv
@@ -101,11 +104,11 @@ def meta(pid):
 
 # --- Build: European dosages from the raw panel ---------------------------------------------------------------------
 
-def extract(chrom, positions, samples):
+def extract(chrom, positions, samples, work=WORK):
     """Biallelic SNPs at the positions with the given samples' genotypes, read straight from the raw panel VCF (no
     Docker): one pass over the chromosome, keeping only the wanted lines. Written to a gzipped file on D:, then renamed,
     so an interrupted run leaves no half file that looks finished."""
-    out = os.path.join(WORK, f"chr{chrom}.tsv.gz")
+    out = os.path.join(work, f"chr{chrom}.tsv.gz")
     if os.path.exists(out):
         return out
     panel_sites.check_space(PANEL)
@@ -137,10 +140,11 @@ def extract(chrom, positions, samples):
     return out
 
 
-def build(ids):
-    os.makedirs(WORK, exist_ok=True)
+def build(ids, name=None):
+    work = os.path.join(WORK, name) if name else WORK
+    os.makedirs(work, exist_ok=True)
     samples = eur_founders()
-    with open(os.path.join(WORK, "samples_eur.txt"), "w", newline="\n") as f:
+    with open(os.path.join(work, "samples_eur.txt"), "w", newline="\n") as f:
         f.write("\n".join(samples) + "\n")
     scores = {pid: scoring_rows(pid) for pid in ids}
     want = {c: set() for c in CHROMS}
@@ -150,14 +154,14 @@ def build(ids):
     print(f"{len(samples)} European founders; {sum(len(v) for v in want.values()):,} positions for {', '.join(ids)}")
     # One process per chromosome, THREADS at a time (decompression is CPU-bound; more would starve the machine)
     with ProcessPoolExecutor(THREADS) as ex:
-        futs = {c: ex.submit(extract, c, want[c], samples) for c in CHROMS}
+        futs = {c: ex.submit(extract, c, want[c], samples, work) for c in CHROMS}
         for c in CHROMS:
             out = futs[c].result()
             print(f"  chr{c}: {os.path.getsize(out) / 1e6:.0f} MB", flush=True)
     # One dosage matrix for the union of positions: alternative-allele copies per sample
     chrom, pos, ref, alt, dos = [], [], [], [], []
     for c in CHROMS:
-        with gzip.open(os.path.join(WORK, f"chr{c}.tsv.gz"), "rt") as f:
+        with gzip.open(os.path.join(work, f"chr{c}.tsv.gz"), "rt") as f:
             for line in f:
                 p = line.rstrip("\n").split("\t")
                 gts = p[3:]
@@ -167,7 +171,7 @@ def build(ids):
                 dos.append([g.count("1") for g in gts])
         print(f"  read chr{c}: {len(pos):,} variants so far", flush=True)
     dos = np.asarray(dos, dtype=np.int8)
-    np.savez_compressed(os.path.join(WORK, "eur_dosage.npz"), chrom=np.asarray(chrom, dtype=np.int8),
+    np.savez_compressed(os.path.join(work, "eur_dosage.npz"), chrom=np.asarray(chrom, dtype=np.int8),
                         pos=np.asarray(pos, dtype=np.int64), ref=np.asarray(ref), alt=np.asarray(alt),
                         dosage=dos, samples=np.asarray(samples))
     # A position can hold several biallelic records (a split multi-allelic site): match on the alleles too
@@ -194,7 +198,7 @@ def build(ids):
             a = alt[i]
             # The weight per alternative-allele copy: the effect allele is alt, or ref (one alt copy fewer)
             idx.append(i); w.append(wt if e == a else -wt); rs.append(rsid)
-        np.savez_compressed(os.path.join(WORK, f"{pid}.npz"), idx=np.asarray(idx, dtype=np.int64),
+        np.savez_compressed(os.path.join(work, f"{pid}.npz"), idx=np.asarray(idx, dtype=np.int64),
                             weight=np.asarray(w, dtype=np.float64), rsid=np.asarray(rs))
         print(f"{pid}: {len(idx):,} of {len(rows):,} variants found in the panel")
 
@@ -204,12 +208,24 @@ def build(ids):
 _cache = {}
 
 
+def set_dir(pid):
+    """The folder of the set that holds the score: pgs_ref itself, or a named set inside it."""
+    if os.path.exists(os.path.join(WORK, f"{pid}.npz")):
+        return WORK
+    for name in sorted(os.listdir(WORK)):
+        d = os.path.join(WORK, name)
+        if os.path.isdir(d) and os.path.exists(os.path.join(d, f"{pid}.npz")):
+            return d
+    raise SystemExit(f"{pid}: not built (python -m genome.pgs_reference build [--set NAME] {pid})")
+
+
 def _load(pid):
-    if "panel" not in _cache:
-        _cache["panel"] = dict(np.load(os.path.join(WORK, "eur_dosage.npz")))
+    work = set_dir(pid)
+    if ("panel", work) not in _cache:
+        _cache[("panel", work)] = dict(np.load(os.path.join(work, "eur_dosage.npz")))
     if pid not in _cache:
-        _cache[pid] = dict(np.load(os.path.join(WORK, f"{pid}.npz")))
-    return _cache["panel"], _cache[pid]
+        _cache[pid] = dict(np.load(os.path.join(work, f"{pid}.npz")))
+    return _cache[("panel", work)], _cache[pid], work
 
 
 def person_dosage(dna, panel):
@@ -235,11 +251,11 @@ def person_dosage(dna, panel):
 
 def score(pid, dna, dosage=None):
     """{percentile, z, used, variants, reference, top} for the person, against the 525 European founders."""
-    panel, s = _load(pid)
-    if dosage is None:  # one pass over the person's file serves every score
-        dosage = _cache.get(("dosage", dna))
+    panel, s, work = _load(pid)
+    if dosage is None:  # one pass over the person's file serves every score of a set
+        dosage = _cache.get(("dosage", dna, work))
         if dosage is None:
-            dosage = _cache[("dosage", dna)] = person_dosage(dna, panel)
+            dosage = _cache[("dosage", dna, work)] = person_dosage(dna, panel)
     d = dosage
     idx, w = s["idx"], s["weight"]
     have = d[idx] >= 0
@@ -268,17 +284,16 @@ def main():
     ap.add_argument("command", choices=("fetch", "build", "score"))
     ap.add_argument("ids", nargs="+")
     ap.add_argument("--dna", default="data/input/MyHeritage_raw_dna_data_XY.csv")
+    ap.add_argument("--set", help="build: a named set of scores, in its own folder under pgs_ref/")
     a = ap.parse_args()
     if a.command == "fetch":
         fetch(a.ids)
     elif a.command == "build":
         fetch(a.ids)
-        build(a.ids)
+        build(a.ids, a.set)
     else:
-        panel, _ = _load(a.ids[0])
-        d = person_dosage(a.dna, panel)
         for pid in a.ids:
-            r = score(pid, a.dna, d)
+            r = score(pid, a.dna)
             print(pid, {k: v for k, v in r.items() if k != "top"})
 
 

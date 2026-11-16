@@ -1,0 +1,228 @@
+{
+ "about": "Polygenic risk scores for the cancers of the cancer theme, read by nutrition.py --config cancers.json --prefix can (profiles.py run --steps cancers). Written by cluster_analysis/themes/cancer_scores.py from the PGS Catalog by a fixed rule (see its docstring); don't edit by hand. Each score is placed by rank among the 1000 Genomes European founders (genome/pgs_reference.py, set 'cancer'). higher: worse (a higher score, a higher risk).",
+ "tests": [
+  {
+   "id": "breast",
+   "name": "Breast cancer",
+   "sv": "Bröstcancer",
+   "group": "Cancer risk",
+   "disease": "MONDO_0004989",
+   "markers": [
+    {
+     "id": "pgs000004",
+     "name": "Breast cancer",
+     "traits": [
+      "MONDO_0004989"
+     ],
+     "higher": "worse",
+     "pgs_ref": "PGS000004"
+    }
+   ],
+   "selected": {
+    "candidates": 79,
+    "evaluating_publications": 29
+   },
+   "sex": "female"
+  },
+  {
+   "id": "prostate",
+   "name": "Prostate cancer",
+   "sv": "Prostatacancer",
+   "group": "Cancer risk",
+   "disease": "MONDO_0005159",
+   "markers": [
+    {
+     "id": "pgs000030",
+     "name": "Prostate cancer",
+     "traits": [
+      "MONDO_0005159"
+     ],
+     "higher": "worse",
+     "pgs_ref": "PGS000030"
+    }
+   ],
+   "selected": {
+    "candidates": 29,
+    "evaluating_publications": 7
+   },
+   "sex": "male"
+  },
+  {
+   "id": "colorectal",
+   "name": "Colorectal cancer",
+   "sv": "Tjock- och ändtarmscancer",
+   "group": "Cancer risk",
+   "disease": "MONDO_0005575",
+   "markers": [
+    {
+     "id": "pgs002265",
+     "name": "Colorectal cancer",
+     "traits": [
+      "MONDO_0005575"
+     ],
+     "higher": "worse",
+     "pgs_ref": "PGS002265"
+    }
+   ],
+   "selected": {
+    "candidates": 15,
+    "evaluating_publications": 7
+   }
+  },
+  {
+   "id": "lung",
+   "name": "Lung cancer",
+   "sv": "Lungcancer",
+   "group": "Cancer risk",
+   "disease": "MONDO_0005138",
+   "markers": [
+    {
+     "id": "pgs000078",
+     "name": "Lung cancer",
+     "traits": [
+      "MONDO_0005138"
+     ],
+     "higher": "worse",
+     "pgs_ref": "PGS000078"
+    }
+   ],
+   "selected": {
+    "candidates": 13,
+    "evaluating_publications": 4
+   }
+  },
+  {
+   "id": "melanoma",
+   "name": "Cutaneous melanoma",
+   "sv": "Hudmelanom",
+   "group": "Cancer risk",
+   "disease": "MONDO_0005012",
+   "markers": [
+    {
+     "id": "pgs000766",
+     "name": "Cutaneous melanoma",
+     "traits": [
+      "MONDO_0005012"
+     ],
+     "higher": "worse",
+     "pgs_ref": "PGS000766"
+    }
+   ],
+   "selected": {
+    "candidates": 5,
+    "evaluating_publications": 2
+   }
+  },
+  {
+   "id": "ovarian",
+   "name": "Ovarian cancer",
+   "sv": "Äggstockscancer",
+   "group": "Cancer risk",
+   "disease": "MONDO_0008170",
+   "markers": [
+    {
+     "id": "pgs000082",
+     "name": "Ovarian cancer",
+     "traits": [
+      "MONDO_0008170"
+     ],
+     "higher": "worse",
+     "pgs_ref": "PGS000082"
+    }
+   ],
+   "selected": {
+    "candidates": 13,
+    "evaluating_publications": 3
+   },
+   "sex": "female"
+  },
+  {
+   "id": "pancreas",
+   "name": "Pancreatic cancer",
+   "sv": "Bukspottkörtelcancer",
+   "group": "Cancer risk",
+   "disease": "MONDO_0005192",
+   "markers": [
+    {
+     "id": "pgs004250",
+     "name": "Pancreatic cancer",
+     "traits": [
+      "MONDO_0005192"
+     ],
+     "higher": "worse",
+     "pgs_ref": "PGS004250"
+    }
+   ],
+   "selected": {
+    "candidates": 4,
+    "evaluating_publications": 1
+   }
+  },
+  {
+   "id": "bcc",
+   "name": "Basal cell carcinoma",
+   "sv": "Basalcellscancer",
+   "group": "Cancer risk",
+   "disease": "MONDO_0020804",
+   "markers": [
+    {
+     "id": "pgs000730",
+     "name": "Basal cell carcinoma",
+     "traits": [
+      "MONDO_0020804"
+     ],
+     "higher": "worse",
+     "pgs_ref": "PGS000730"
+    }
+   ],
+   "selected": {
+    "candidates": 17,
+    "evaluating_publications": 2
+   }
+  },
+  {
+   "id": "bladder",
+   "name": "Bladder cancer",
+   "sv": "Urinblåsecancer",
+   "group": "Cancer risk",
+   "disease": "MONDO_0004986",
+   "markers": [
+    {
+     "id": "pgs000071",
+     "name": "Bladder cancer",
+     "traits": [
+      "MONDO_0004986"
+     ],
+     "higher": "worse",
+     "pgs_ref": "PGS000071"
+    }
+   ],
+   "selected": {
+    "candidates": 13,
+    "evaluating_publications": 3
+   }
+  },
+  {
+   "id": "kidney",
+   "name": "Kidney cancer",
+   "sv": "Njurcancer",
+   "group": "Cancer risk",
+   "disease": "MONDO_0005086",
+   "markers": [
+    {
+     "id": "pgs000076",
+     "name": "Kidney cancer",
+     "traits": [
+      "MONDO_0005086"
+     ],
+     "higher": "worse",
+     "pgs_ref": "PGS000076"
+    }
+   ],
+   "selected": {
+    "candidates": 3,
+    "evaluating_publications": 3
+   }
+  }
+ ]
+}

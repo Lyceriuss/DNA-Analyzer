@@ -132,6 +132,7 @@
       const r = gx.rows(K.main, K.steps);
       if (!r) { if (gx.failed(K.main, K.steps)) gx.failLine(el); return; }
       const [rows, steps] = r;
+      if (!rows.length) { gx.emptyLine(el); return; }
       el.replaceChildren();
       const who = ntWho(rows), low = ntLow(rows), cur = dash.params()[K.param] || (low[0] || rows[0]).id;
       ntMake(el, 'h3', null, K.title(who));
@@ -194,6 +195,7 @@
       const r = gx.rows(K.main, K.finds, K.steps);
       if (!r) { if (gx.failed(K.main, K.finds, K.steps)) gx.failLine(el); return; }
       const [rows, finds, steps] = r;
+      if (!rows.length) { gx.emptyLine(el); return; }
       el.replaceChildren();
       const who = ntWho(rows);
       const n = rows.find((x) => x.id === dash.params()[K.param]) || ntLow(rows)[0] || rows[0];
@@ -368,5 +370,10 @@
     low: (who) => `${who}'s genes move these lab values the unfavourable way. Select one to see which genes act and how:` });
   ntTab({ over: 'fit-overview', detail: 'fit-detail', card: 'fit-detail', main: 'fit_tests', finds: 'fit_findings', steps: 'fit_steps',
     param: 'fit_n', title: (who) => `${who}'s strength and fitness scores`, how: 'How it works in the body (Reactome)', measured: true,
-    only: () => dash.params().theme === 'muscle',
+    only: () => (gx.theme ? gx.theme() : dash.params().theme) === 'muscle',
     low: (who) => `${who}'s genes set these the unfavourable way. Select one to see which genes act and how:` });
+  // Cancer risk: one polygenic score per cancer (cancers.json), in the Clusters page under the cancer theme
+  ntTab({ over: 'can-overview', detail: 'can-detail', card: 'can-detail', main: 'can_tests', finds: 'can_findings', steps: 'can_steps',
+    param: 'can_n', title: (who) => `${who}'s genetic risk per cancer`, how: 'How it works in the body (Reactome)', measured: true,
+    only: () => (gx.theme ? gx.theme() : dash.params().theme) === 'cancer',
+    low: (who) => `${who}'s genes raise the risk of these cancers above most Europeans. Select one to see the variants behind the score:` });

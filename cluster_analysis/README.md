@@ -8,7 +8,7 @@ Architecture overview with diagrams: [docs/architecture/](../docs/architecture/R
 |---|---|
 | `sources.py` | Clients for the public APIs, with the on-disk cache in `cache/` |
 | `profiles.py`, `profiles.json` | Who is analysed (id, sex, DNA file) and the per-profile pipeline (`python -m cluster_analysis.profiles run`) |
-| `themes/` | Theme graphs for the Clusters tab (cancer, female and male fertility) and their DNA cross-reference |
+| `themes/` | Theme graphs for the Clusters tab (cancer, female and male fertility, muscle) and their DNA cross-reference; `cancer_scores.py` picks one PGS Catalog risk score per cancer by a fixed rule (`nutrition/cancers.json`, scored by `profiles.py run --steps cancers`) |
 | `evidence/` | How a variant changes its gene: function evidence, per-person gene calls, literature |
 | `lifecycle/` | A gene's chemical lifecycle (Gene lifecycle tab) and gene traces |
 | `medicines/` | Drug genes, star alleles and guidelines (Medicines tab) |
