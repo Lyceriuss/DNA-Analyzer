@@ -120,6 +120,21 @@ def uniprot_entry(gene):
     return sources._cached("uniprot_entry2", gene, fetch)
 
 
+def uniprot_text(gene):
+    """UniProt's own words for a gene's protein: {"function", "diseases": [names], "tissue"} (reviewed human entry),
+    with the PubMed and ECO references taken out. Public, per gene, cached."""
+    def fetch():
+        r = sources._request("GET", "https://rest.uniprot.org/uniprotkb/search", params={
+            "query": f"gene_exact:{gene} AND organism_id:9606 AND reviewed:true", "format": "json", "size": 1,
+            "fields": "accession,gene_primary,cc_function,cc_disease,cc_tissue_specificity"})
+        return (r.get("results") or [None])[0]
+    entry = sources._cached("uniprot_text", gene, fetch) or {}
+    clean = lambda t: re.sub(r"\s+", " ", re.sub(r"\s*\((?:PubMed|ECO|By similarity)[^)]*\)", "", t)).strip()
+    text = lambda kind: " ".join(clean(t["value"]) for c in entry.get("comments", []) if c.get("commentType") == kind for t in c.get("texts", []))
+    diseases = [c["disease"]["diseaseId"] for c in entry.get("comments", []) if c.get("commentType") == "DISEASE" and c.get("disease")]
+    return {"function": text("FUNCTION"), "diseases": diseases, "tissue": text("TISSUE SPECIFICITY")}
+
+
 def rhea_sides(rhea_id):
     """Left/right ChEBI ids and names of a Rhea reaction (ChEBI ids come in equation order)."""
     def fetch():

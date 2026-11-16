@@ -186,6 +186,18 @@
   .lc-bar.gtex.down .lc-bar-fill { background: var(--color-bad); }
   /* Crisp vector drawing: curves keep full precision, text keeps its hinting */
   .lc-graph svg, .th-net svg, .th-body-svg svg, .th-cycle-svg svg { shape-rendering: geometricPrecision; text-rendering: optimizeLegibility; }
+  /* Start here: what the colours mean and why a lifecycle matters */
+  .lc-intro h2 { margin: 0 0 4px; }
+  .lc-in-calls { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 10px; margin: 12px 0 4px; }
+  .lc-in-call p { margin: 6px 0 0; font-size: 13px; line-height: 1.45; color: var(--color-fg-muted); }
+  .lc-in-h { margin: 16px 0 8px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .lc-in-why { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 10px; }
+  .lc-in-tile { padding: 12px 14px; border-radius: 10px; border: 1px solid var(--color-border-line); background: var(--color-bg); }
+  .lc-in-tile b { font-size: 14px; }
+  .lc-in-tile p { margin: 4px 0 0; font-size: 13px; line-height: 1.5; color: var(--color-fg-muted); }
+  .lc-in-mine .lc-in-tile { box-shadow: inset 4px 0 0 var(--color-ok); }
+  .lc-in-mine .lc-in-tile p { color: var(--color-fg); }
+  .lc-sub { margin: 2px 0 0; font-size: 13px; color: var(--color-fg-muted); }
   .lc-step.is-selected .lc-card { fill: color-mix(in srgb, var(--color-fg) 9%, var(--color-panel)); }
   .lc-sel-ring { fill: none; stroke: var(--color-fg); stroke-width: 1; stroke-dasharray: 5 4; display: none; }
   .lc-step.is-selected .lc-sel-ring { display: block; }
@@ -582,6 +594,12 @@
 .th-mean-head { display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: baseline; margin-bottom: 4px; }
 .th-mean-tag { font-size: 12px; color: var(--color-fg-muted); }
 .th-sport-mean { margin-top: 4px; padding-left: 8px; border-left: 2px solid var(--typical); }
+.th-prev-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; margin: 12px 0; }
+.th-prev { padding: 12px 14px; border-radius: 10px; border: 1px solid var(--color-border-line); background: var(--color-bg); display: flex; flex-direction: column; gap: 4px; }
+.th-prev b { font-size: 14px; }
+.th-prev p { margin: 0; font-size: 13px; line-height: 1.5; }
+.th-prev-chips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: auto; padding-top: 4px; }
+.th-prev-chip { font-size: 11px; padding: 1px 8px; border-radius: 10px; background: color-mix(in srgb, var(--grade-a) 16%, transparent); }
   .md-summary p { margin: 0 0 var(--cds-gap-sm); }
   .md-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: var(--cds-gap-sm); }
   .md-pill { border: 1px solid var(--color-border-line); background: transparent; color: var(--color-fg); border-radius: 12px;
@@ -916,6 +934,102 @@
   .in-deeper > div { flex: 1 1 420px; }
   .in-deeper p { margin: 0; font-size: 13px; line-height: 1.55; }
   .in-deeper button.in-next { font: inherit; font-size: 14px; padding: 8px 16px; border-radius: 6px; cursor: pointer; background: var(--color-fg); color: var(--color-bg); border: 1px solid var(--color-fg); }
+  .in-canlim { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 6px 0 12px; }
+  .in-canlim-col { padding: 14px 16px; border-radius: 12px; border: 1px solid var(--color-border-line); background: var(--color-bg); box-shadow: inset 0 4px 0 var(--in-lc); }
+  .in-canlim-can { --in-lc: var(--grade-a); } .in-canlim-cant { --in-lc: var(--grade-c); }
+  .in-canlim h4 { margin: 4px 0 8px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--in-lc); }
+  .in-canlim-item { padding: 6px 0; border-top: 1px solid var(--color-border-line); }
+  .in-canlim h4 + .in-canlim-item { border-top: 0; }
+  .in-canlim-item b { font-size: 14px; }
+  .in-canlim-item p { margin: 2px 0 0; font-size: 13px; line-height: 1.5; color: var(--color-fg-muted); }
+  @media (max-width: 760px) { .in-canlim { grid-template-columns: minmax(0, 1fr); } }
+  /* Slide 4: a teaching example, the alcohol chain three ways */
+  .in-lc-lead { font-size: 17px; line-height: 1.6; max-width: 92ch; margin: 4px 0 14px; }
+  .in-lc { margin: 14px 0; padding: 22px 24px; border-radius: 14px; border: 1px solid var(--color-border-line); background: var(--color-bg); }
+  .in-lc-title { margin: 4px 0 0; font-size: 28px; }
+  .in-lc-path { margin: 6px 0 18px; font-size: 15px; line-height: 1.5; max-width: 90ch; color: var(--color-fg-muted); }
+  .in-lc-panels { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+  .in-lc-panel { padding: 16px; border-radius: 12px; background: var(--color-panel); border: 1px solid var(--color-border-line); box-shadow: inset 0 4px 0 var(--in-pc); display: flex; flex-direction: column; gap: 12px; }
+  .in-lc-p-norm { --in-pc: var(--color-ok); } .in-lc-p-lof { --in-pc: var(--color-bad); } .in-lc-p-gof { --in-pc: var(--gof); }
+  .in-lc-ptitle { font-size: 16px; }
+  .in-lc-mini { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; min-height: 64px; }
+  .in-lc-mini .lc-chip { font-size: 13px; padding: 2px 10px; }
+  .in-lc-ar { color: var(--color-fg-muted); }
+  .in-lc-m { font-size: 13px; font-weight: 600; padding: 5px 11px; border-radius: 16px; background: var(--color-bg); border: 1px solid var(--color-border-line); transition: transform 0.2s; }
+  .in-lc-m-low { border-color: var(--color-ok); }
+  .in-lc-m-mid { border-color: var(--gof); background: color-mix(in srgb, var(--gof) 18%, var(--color-bg)); font-size: 15px; padding: 7px 14px; }
+  .in-lc-m-high { border-color: var(--color-bad); background: color-mix(in srgb, var(--color-bad) 26%, var(--color-bg)); font-size: 17px; padding: 9px 16px; }
+  .in-lc-panel p { margin: 0; font-size: 14px; line-height: 1.5; }
+  .in-lc-why { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 18px; }
+  .in-lc-quote { padding: 12px 16px; border-left: 3px solid var(--color-border-line); }
+  .in-lc-quote p { margin: 4px 0 0; font-size: 14px; line-height: 1.55; font-style: italic; }
+  @media (max-width: 900px) { .in-lc-panels, .in-lc-why { grid-template-columns: minmax(0, 1fr); } }
+  .in-frontier { margin: 14px 0; padding: 18px 22px; border-radius: 14px; background: linear-gradient(120deg, color-mix(in srgb, var(--gof) 16%, transparent), color-mix(in srgb, var(--color-ok) 12%, transparent)); border: 1px solid color-mix(in srgb, var(--gof) 35%, transparent); }
+  .in-frontier h3 { margin: 0 0 6px; font-size: 18px; }
+  .in-frontier p { margin: 0; font-size: 15px; line-height: 1.6; max-width: 95ch; }
+  .in-lc-calls { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin: 12px 0; }
+  .in-lc-call p { margin: 6px 0 0; font-size: 13px; line-height: 1.45; color: var(--color-fg-muted); }
+  @media (max-width: 760px) { .in-lc-chain { grid-template-columns: minmax(0, 1fr); gap: 26px; }
+    .in-lc-step:not(:last-child)::after { content: "\2193"; right: auto; left: 50%; top: auto; bottom: -26px; transform: translateX(-50%); } }
+  .in-lc-num { display: grid; grid-template-columns: auto 1fr; gap: 0 10px; align-items: baseline; padding: 6px 0; border-top: 1px dashed var(--color-border-line); }
+  .in-lc-num b { font-size: 24px; color: var(--in-pc); grid-row: span 2; }
+  .in-lc-num span { font-size: 13px; }
+  .in-lc-src { font-size: 11px; color: var(--color-fg-muted); text-decoration: none; }
+  .in-lc-src:hover { text-decoration: underline; }
+  .in-lc-notes { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+  .in-lc-note { font-size: 11px; padding: 2px 8px; border-radius: 10px; background: color-mix(in srgb, var(--in-pc) 16%, transparent); }
+  .in-lc-speed { display: flex; flex-direction: column; gap: 4px; }
+  .in-lc-bar-row { display: grid; grid-template-columns: 112px 1fr 104px; gap: 8px; align-items: center; font-size: 12px; }
+  .in-lc-bar { height: 10px; border-radius: 5px; background: var(--color-bg); overflow: hidden; }
+  .in-lc-bar i { display: block; height: 100%; border-radius: 5px; }
+  .in-lc-bar-norm { background: var(--color-ok); } .in-lc-bar-gof { background: var(--gof); }
+  .in-lc-bar-v { font-variant-numeric: tabular-nums; color: var(--color-fg-muted); }
+  .in-lc-effects { padding: 8px 10px; border-radius: 8px; background: color-mix(in srgb, var(--in-pc) 12%, transparent); }
+  .in-lc-effects p { margin: 2px 0 0; font-size: 13px; line-height: 1.5; }
+  .in-lc-eff { display: flex; flex-direction: column; padding: 4px 0; }
+  .in-lc-eff b { font-size: 13px; }
+  .in-lc-eff span { font-size: 13px; line-height: 1.45; }
+  .in-beer { display: flex; gap: 22px; align-items: center; margin: 4px 0 18px; padding: 16px 18px; border-radius: 12px; background: var(--color-panel); border: 1px solid var(--color-border-line); }
+  .in-beer-glass { width: 72px; height: 108px; flex: none; }
+  .in-beer-glass .g { fill: color-mix(in srgb, var(--color-fg) 8%, transparent); stroke: var(--color-fg-muted); stroke-width: 2; }
+  .in-beer-glass .b { fill: #e9a92a; }
+  .in-beer-glass .f { fill: #f5efe0; stroke: var(--color-fg-muted); stroke-width: 1; }
+  .in-beer-glass .u { fill: #fff3c4; opacity: 0.8; }
+  .in-beer-info { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+  .in-beer-big { font-size: 20px; }
+  .in-beer-info p { margin: 0; font-size: 14px; line-height: 1.5; }
+  .in-beer-tl { margin: 10px 0 2px; }
+  .in-beer-track { position: relative; height: 14px; border-radius: 7px; background: var(--color-bg); overflow: hidden; }
+  .in-beer-left { position: absolute; left: 0; top: 0; bottom: 0; width: var(--end); border-radius: 7px;
+    background: linear-gradient(90deg, #e9a92a, color-mix(in srgb, #e9a92a 15%, transparent)); }
+  .in-beer-ticks { position: relative; height: 16px; font-size: 11px; color: var(--color-fg-muted); }
+  .in-beer-ticks span { position: absolute; transform: translateX(-50%); top: 2px; white-space: nowrap; }
+  .in-beer-ticks span:first-child { transform: none; }
+  .in-beer-ticks span:last-child { transform: translateX(-100%); }
+  .in-beer-w { display: flex; align-items: center; gap: 12px; margin-top: 8px; font-size: 13px; }
+  .in-beer-w input { flex: 1; max-width: 420px; accent-color: #e9a92a; }
+  .in-beer-wv { font-size: 16px; min-width: 58px; font-variant-numeric: tabular-nums; }
+  .in-beer-time { font-size: 16px !important; font-weight: 600; }
+  .in-lc-during { margin: 0; padding: 8px 10px; border-radius: 8px; font-size: 13px; font-weight: 600; background: color-mix(in srgb, #e9a92a 14%, transparent); }
+  .in-lc-measured { padding: 8px 10px; border-radius: 8px; border: 1px dashed var(--color-border-line); }
+  .in-lc-measured p { margin: 4px 0 2px; font-size: 13px; line-height: 1.5; font-style: italic; }
+  .in-beer-same { font-size: 13px !important; color: var(--color-fg-muted); margin-top: 4px !important; }
+  .in-bu { margin: 14px 0; padding: 16px 20px; border-radius: 14px; border: 1px solid var(--color-border-line); display: flex; flex-direction: column; gap: 10px; }
+  .in-bu-lead { margin: 0; font-size: 14px; color: var(--color-fg-muted); }
+  .in-bu-row { display: grid; grid-template-columns: 170px 1fr 1fr 1.1fr; gap: 18px; align-items: center; }
+  .in-bu-head { font-size: 12px; color: var(--color-fg-muted); text-transform: uppercase; letter-spacing: .04em; }
+  .in-bu-name { font-size: 15px; border-left: 4px solid var(--in-pc); padding-left: 10px; }
+  .in-bu-norm { --in-pc: var(--color-ok); } .in-bu-lof { --in-pc: var(--color-bad); } .in-bu-gof { --in-pc: var(--gof); }
+  .in-bu-cell { display: flex; flex-direction: column; gap: 4px; }
+  .in-bu-bar { height: 16px; border-radius: 8px; background: var(--color-bg); overflow: hidden; }
+  .in-bu-bar i { display: block; height: 100%; border-radius: 8px; background: var(--in-pc); }
+  .in-bu-v { font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .in-bu-feel { display: flex; align-items: center; gap: 10px; font-size: 13px; line-height: 1.4; }
+  .in-bu-face { font-size: 28px; line-height: 1; color: var(--in-pc); }
+  .in-bu-note { margin: 0; font-size: 14px; font-weight: 600; }
+  @media (max-width: 760px) { .in-bu-row { grid-template-columns: 1fr; gap: 6px; } .in-bu-head { display: none; } }
+  .in-lc-mini .in-lc-form { display: inline-flex; flex-direction: column; align-items: center; line-height: 1.15; padding: 3px 10px; }
+  .in-lc-form b { font-weight: 500; } .in-lc-form small { font-size: 10px; opacity: .8; }
   /* Sources and glossary tab */
   .so-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px; margin-bottom: 12px; }
   .so-head h3 { margin: 0; font-size: 18px; }
@@ -952,7 +1066,7 @@
     </div>
     <div class="gx-profile" data-draw="gx-profile" data-source="profiles" role="group" aria-label="Profile"></div>
     <p class="gx-lede">Every tab reads the selected person's genome through public research sources: Clusters, Medicines, Nutrition,
-      Biomarkers, Gene lifecycle and Profile. Home explains how.</p>
+      Biomarkers, Gene pathway and Profile. Home explains how.</p>
   </header>
 
   <nav class="gx-tabs" role="tablist" aria-label="Views">
@@ -960,7 +1074,7 @@
     <button class="gx-tab" role="tab" data-tab="clusters" aria-selected="false">Clusters</button>
     <button class="gx-tab" role="tab" data-tab="medicines" aria-selected="false">Medicines</button>
     <button class="gx-tab" role="tab" data-tab="nutrition" aria-selected="false">Nutrition</button>
-    <button class="gx-tab" role="tab" data-tab="lifecycle" aria-selected="false">Gene lifecycle</button>
+    <button class="gx-tab" role="tab" data-tab="lifecycle" aria-selected="false">Gene pathway</button>
     <button class="gx-tab" role="tab" data-tab="biomarkers" aria-selected="false">Biomarkers</button>
     <button class="gx-tab" role="tab" data-tab="profile" aria-selected="false">Profile</button>
     <button class="gx-tab" role="tab" data-tab="sources" aria-selected="false">Sources</button>
@@ -969,7 +1083,7 @@
   <section class="gx-page" id="home" data-page="home">
     <div class="gx-card in-card">
       <div class="in-intro" data-draw="in-intro"
-           data-source="intro_stats theme_meta theme_genes can_tests fit_tests sport_snps med_names med_genes med_guidance med_drugs nut_nutrients nut_findings lab_tests lab_findings fit_findings lifecycle_genes hp_modules"></div>
+           data-source="intro_stats theme_meta theme_genes can_tests fit_tests sport_snps med_names med_genes med_guidance med_drugs nut_nutrients nut_findings lab_tests lab_findings fit_findings lifecycle_genes lifecycle_steps gene_function hp_modules"></div>
     </div>
   </section>
 
@@ -1008,6 +1122,9 @@
     </div>
     <div class="gx-card th-off" id="can-detail">
       <div class="nt-detail" data-draw="can-detail" data-source="can_tests can_findings can_steps theme_meta"></div>
+    </div>
+    <div class="gx-card th-off" id="cancer-prevention">
+      <div data-draw="th-prevention" data-source="theme_meta"></div>
     </div>
     <div class="gx-card th-off" id="fit-sport">
       <div data-draw="th-sport" data-source="sport_snps"></div>
@@ -1091,9 +1208,7 @@
   </section>
 
   <section class="gx-page" id="lifecycle" data-page="lifecycle" hidden>
-    <p class="gx-note">One gene's life, read left to right: the building block it starts from, the steps that convert it, the gene's own step,
-      and where the product goes next, until it is excreted, burned for energy or recycled. Steps come from Reactome's curated reactions,
-      extended through shared molecules. At forks the route with the most library genes is shown and the others are listed in the step details.</p>
+    <div class="gx-card lc-intro" data-draw="lc-intro" data-source="lifecycle_genes gene_function"></div>
     <div class="lc-controls">
       <label class="gx-label" for="lc-gene">Gene</label>
       <select id="lc-gene" class="lc-select" data-draw="lc-gene" data-source="lifecycle_genes" aria-label="Gene"></select>
@@ -1111,7 +1226,7 @@
     </div>
     <div class="gx-card" id="lifecycle-timeline">
       <div class="lc-flow-head">
-        <h2>Lifecycle</h2>
+        <div><h2>Pathway</h2><p class="lc-sub">The chain of reactions a gene's protein takes part in</p></div>
         <div class="lc-legend" aria-label="Enzyme colours">
           <span class="lc-chip lc-gof">More active (GoF)</span><span class="lc-chip lc-norm">Typical function</span><span class="lc-chip lc-lof">Less active (LoF)</span>
           <span class="lc-chip lc-alt">Changed, direction unclear</span>
@@ -1121,7 +1236,7 @@
       <p class="gx-note" data-who>Round nodes are molecules and cards are the steps that convert them, with the enzymes that do the work. Each enzyme is
         compared with the most common European form at its SNP, and ×1 or ×2 is how many copies of the less common allele XY carries. A dashed
         arrow is a move between compartments and ↺ marks a molecule that goes back into the route. Turn off wrapping to read the chain on one scrolling line. Select a step to see its details; select a
-        gene with its own lifecycle to open it.</p>
+        gene with its own pathway to open it.</p>
       <div class="lc-controls">
         <button type="button" class="lc-btn" id="lc-wrap" aria-pressed="true">Wrap to width</button>
       </div>
@@ -1208,7 +1323,8 @@
 
 <script>
   window.GX_SETTINGS = {"intro_required": false, "intro_min_seconds": 6};
-  window.GX_SOURCES = {"groups": [{"id": "reading", "title": "Your DNA, completed", "sv": "Ditt DNA, kompletterat", "ids": ["1000g", "ensembl", "mygene"]}, {"id": "health", "title": "Links to health", "sv": "Kopplingar till hälsa", "ids": ["clinvar", "gwas", "pgs", "opentargets", "europepmc"]}, {"id": "body", "title": "Inside the cell", "sv": "Inuti cellen", "ids": ["go", "uniprot", "mavedb", "string", "omnipath", "reactome", "rhea", "gtex", "hpa"]}, {"id": "advice", "title": "Doses and intakes", "sv": "Doser och intag", "ids": ["clinpgx", "cpic", "chembl", "nnr"]}], "databases": [{"id": "1000g", "name": "1000 Genomes Project", "org": "International Genome Sample Resource (EMBL-EBI)", "url": "https://www.internationalgenome.org/", "what": "Full genomes of 3,202 people from 26 populations: the reference panel imputation reads the missing positions from, and allele frequencies per ancestry.", "sv": "Hela genom från 3 202 personer i 26 populationer: referenspanelen som imputeringen läser de saknade positionerna från, och allelfrekvenser per härkomst.", "access": "bulk", "tabs": ["home", "clusters", "medicines", "nutrition", "biomarkers"], "refs": ["panel_raw", "panel_bref3", "panel_sites", "panel_populations"], "hosts": ["ftp.1000genomes.ebi.ac.uk"], "gives": "Reference genomes and allele frequencies", "gives_sv": "Referensgenom och allelfrekvenser", "takes": "The full genomes of 3,202 people and how common each variant is in five ancestries.", "use": "fill in the positions your chip didn't measure, and tell common variants from rare ones.", "takes_sv": "De fullständiga genomen från 3 202 personer och hur vanlig varje variant är i fem härkomster.", "use_sv": "fylla i positionerna ditt chip inte mätte, och skilja vanliga varianter från sällsynta.", "logo": "1000g.ico", "logo_from": "https://www.internationalgenome.org/sites/1000genomes.org/themes/custom/one_thousand_genomes/favicon.ico", "versions": ["1000 Genomes high coverage, 3,202 samples; chrX in three ploidy parts", "20220422 phased SNV/INDEL/SV panel (manifest 20220804; chrX v2)", "3,202 samples with population and parents", "73.5 million sites; frequencies over 2,504 unrelated samples; rsIDs from Ensembl 115 (dbSNP 156)"]}, {"id": "clinvar", "name": "ClinVar", "org": "NCBI, US National Library of Medicine", "url": "https://www.ncbi.nlm.nih.gov/clinvar/", "what": "Variants submitted by clinical laboratories with their significance: disease-causing, risk factor or drug response, with a review status in stars.", "sv": "Varianter inskickade av kliniska laboratorier med deras betydelse: sjukdomsorsakande, riskfaktor eller läkemedelssvar, med en granskningsstatus i stjärnor.", "access": "bulk", "tabs": ["clusters", "medicines", "nutrition", "biomarkers"], "refs": ["clinvar_grch38"], "hosts": ["ftp.ncbi.nlm.nih.gov"], "gives": "Disease-causing and drug-response variants", "gives_sv": "Sjukdomsorsakande varianter och läkemedelssvar", "takes": "Every variant clinical labs have classified, with its significance and review stars.", "use": "flag disease-causing and drug-response variants you carry.", "takes_sv": "Varje variant som kliniska laboratorier har klassat, med betydelse och granskningsstjärnor.", "use_sv": "flagga sjukdomsorsakande varianter och läkemedelssvar som du bär på.", "logo": "clinvar.ico", "logo_from": "https://www.ncbi.nlm.nih.gov/favicon.ico", "versions": ["weekly release (##fileDate in the file)"]}, {"id": "gwas", "name": "GWAS Catalog", "org": "EMBL-EBI and NHGRI", "url": "https://www.ebi.ac.uk/gwas/", "what": "Genome-wide association studies: which variants are linked to a trait or a lab value, the allele that raises or lowers it, and how strongly.", "sv": "Genomomfattande associationsstudier: vilka varianter som är kopplade till en egenskap eller ett labbvärde, vilken allel som höjer eller sänker det, och hur starkt.", "access": "bulk + API", "tabs": ["clusters", "nutrition", "biomarkers", "profile"], "refs": ["gwas_catalog"], "hosts": ["www.ebi.ac.uk"], "gives": "Variants linked to traits and lab values", "gives_sv": "Varianter kopplade till egenskaper och labbvärden", "takes": "Variants that large studies tied to a trait or lab value, with the allele that raises or lowers it.", "use": "show which way your variants push a lab value or trait.", "takes_sv": "Varianter som stora studier kopplat till en egenskap eller ett labbvärde, med allelen som höjer eller sänker det.", "use_sv": "visa åt vilket håll dina varianter drar ett labbvärde eller en egenskap.", "logo": "gwas.ico", "logo_from": "https://www.ebi.ac.uk/gwas/assets/images/favicon.ico", "versions": ["all associations, full and ontology-annotated (date inside the zip)"]}, {"id": "pgs", "name": "PGS Catalog", "org": "EMBL-EBI and the University of Cambridge", "url": "https://www.pgscatalog.org/", "what": "Published polygenic scores: the weights that add up many variants into one genetic score for a blood level or a trait.", "sv": "Publicerade polygena poäng: vikterna som summerar många varianter till en genetisk poäng för en blodnivå eller en egenskap.", "access": "bulk", "tabs": ["nutrition", "biomarkers", "clusters"], "refs": ["nutrition_pgs", "pgs_scoring_genomewide"], "hosts": ["ftp.ebi.ac.uk", "www.pgscatalog.org"], "gives": "Polygenic scores", "gives_sv": "Polygena poäng", "takes": "Published scores that weigh up to a million variants into one number.", "use": "place you among Europeans for nutrient levels, lab values, fitness and cancer risk.", "takes_sv": "Publicerade poäng som väger samman upp till en miljon varianter till ett tal.", "use_sv": "placera dig bland européer för näringsnivåer, labbvärden, kondition och cancerrisk.", "logo": "pgs.png", "logo_from": "https://www.pgscatalog.org/static/catalog/imgs/favicons/apple-touch-icon.png", "versions": ["PGS Catalog harmonised scoring files named in nutrients.json", "PGS002143, PGS002168 (fitness); the 10 cancer scores in cluster_analysis/nutrition/cancers.json (GRCh38 harmonised, with each score's Catalog record)"]}, {"id": "clinpgx", "name": "ClinPGx (PharmGKB)", "org": "Stanford University", "url": "https://www.clinpgx.org/", "what": "How genes change the response to medicines: clinical annotations per variant, dosing guidelines (CPIC, DPWG and others) and drug labels (FDA, EMA, Health Canada, Swissmedic and others).", "sv": "Hur gener ändrar svaret på läkemedel: kliniska annoteringar per variant, doseringsriktlinjer (CPIC, DPWG med flera) och läkemedelsetiketter (FDA, EMA, Health Canada, Swissmedic med flera).", "access": "bulk + API", "tabs": ["medicines"], "refs": ["clinpgx"], "hosts": ["api.clinpgx.org", "www.clinpgx.org"], "gives": "Drug annotations, guidelines and labels", "gives_sv": "Läkemedelsannoteringar, riktlinjer och etiketter", "takes": "How variants change the response to medicines, with dosing guidelines and drug labels.", "use": "list every medicine your genes have a finding for.", "takes_sv": "Hur varianter ändrar svaret på läkemedel, med doseringsriktlinjer och läkemedelsetiketter.", "use_sv": "lista varje läkemedel dina gener har ett fynd för.", "logo": "clinpgx.png", "logo_from": "https://www.clinpgx.org/apple-touch-icon.png", "versions": ["ClinPGx (PharmGKB) bulk files"]}, {"id": "cpic", "name": "CPIC", "org": "Clinical Pharmacogenetics Implementation Consortium", "url": "https://cpicpgx.org/", "what": "Peer-reviewed dosing recommendations per metaboliser type, and the rules that turn star alleles into a type.", "sv": "Granskade doseringsrekommendationer per metaboliseringstyp, och reglerna som gör stjärnalleler till en typ.", "access": "API, saved", "tabs": ["medicines"], "refs": ["cpic_recommendations"], "hosts": ["api.cpicpgx.org"], "gives": "Dosing per metaboliser type", "gives_sv": "Dosering per metaboliseringstyp", "takes": "The rules that turn star alleles into a metaboliser type, and the dose advice per type.", "use": "give you a type and the dosing advice for it.", "takes_sv": "Reglerna som gör stjärnalleler till en metaboliseringstyp, och dosråden per typ.", "use_sv": "ge dig en typ och doseringsrådet för den.", "logo": "cpic.ico", "logo_from": "https://cpicpgx.org/favicon.ico", "versions": []}, {"id": "chembl", "name": "ChEMBL", "org": "EMBL-EBI", "url": "https://www.ebi.ac.uk/chembl/", "what": "The WHO ATC classification of medicines, so a medicine can be found by its class or code.", "sv": "WHO:s ATC-klassificering av läkemedel, så att ett läkemedel kan hittas via sin klass eller kod.", "access": "bulk", "tabs": ["medicines"], "refs": ["chembl_atc"], "hosts": ["www.ebi.ac.uk"], "gives": "Medicine classes (ATC)", "gives_sv": "Läkemedelsklasser (ATC)", "takes": "The WHO ATC classes of medicines.", "use": "let you find a medicine by its class or code.", "takes_sv": "WHO:s ATC-klasser för läkemedel.", "use_sv": "låta dig hitta ett läkemedel via dess klass eller kod.", "logo": "chembl.ico", "logo_from": "https://www.ebi.ac.uk/chembl/favicon.ico", "versions": ["ChEMBL ATC classes (CC BY-SA 3.0)"]}, {"id": "ensembl", "name": "Ensembl", "org": "EMBL-EBI", "url": "https://www.ensembl.org/", "what": "The genome itself: where each gene lies (GTF), each variant's identity and position (dbSNP), what a variant does to its gene (VEP) and which variants are inherited together (LD).", "sv": "Själva genomet: var varje gen ligger (GTF), varje variants identitet och position (dbSNP), vad en variant gör med sin gen (VEP) och vilka varianter som ärvs tillsammans (LD).", "access": "bulk + API", "tabs": ["clusters", "nutrition", "biomarkers", "lifecycle"], "refs": ["gtf_grch38", "dbsnp_ensembl"], "hosts": ["ftp.ensembl.org", "rest.ensembl.org"], "gives": "Genes, variants and their consequences", "gives_sv": "Gener, varianter och deras följder", "takes": "Where every gene lies, each variant's ID and position, and what a variant does to its gene.", "use": "place your variants in genes and see which ones change a protein.", "takes_sv": "Var varje gen ligger, varje variants ID och position, och vad en variant gör med sin gen.", "use_sv": "placera dina varianter i gener och se vilka som ändrar ett protein.", "logo": "ensembl.png", "logo_from": "https://static.ensembl.org/i/e-ensembl.png", "versions": ["Ensembl 115", "Ensembl 115 (dbSNP 156)"]}, {"id": "uniprot", "name": "UniProt", "org": "UniProt Consortium (EMBL-EBI, SIB, PIR)", "url": "https://www.uniprot.org/", "what": "Proteins: their function and cofactors, and curated effects of protein changes found in people.", "sv": "Proteiner: deras funktion och kofaktorer, och kurerade effekter av proteinförändringar hos människor.", "access": "bulk + API", "tabs": ["clusters", "nutrition", "lifecycle"], "refs": ["uniprot_humsavar"], "hosts": ["rest.uniprot.org", "ftp.uniprot.org", "www.ebi.ac.uk"], "gives": "Protein function and curated variant effects", "gives_sv": "Proteinfunktion och kurerade varianteffekter", "takes": "What each protein does, and curated effects of protein changes.", "use": "say what a protein change in you does.", "takes_sv": "Vad varje protein gör, och kurerade effekter av proteinförändringar.", "use_sv": "säga vad en proteinförändring hos dig gör.", "logo": "uniprot.ico", "logo_from": "https://www.uniprot.org/favicon.ico", "versions": ["UniProt release in the file header"]}, {"id": "mavedb", "name": "MaveDB", "org": "Brotman Baty Institute and partners", "url": "https://www.mavedb.org/", "what": "Laboratory measurements of how each possible protein change affects the protein's function (deep mutational scans).", "sv": "Laboratoriemätningar av hur varje möjlig proteinförändring påverkar proteinets funktion (djupa mutationsskanningar).", "access": "API", "tabs": ["clusters"], "refs": [], "hosts": ["api.mavedb.org"], "gives": "Measured effects of protein changes", "gives_sv": "Uppmätta effekter av proteinförändringar", "takes": "Lab measurements of thousands of single protein changes.", "use": "use a measured effect when one exists.", "takes_sv": "Labbmätningar av tusentals enskilda proteinförändringar.", "use_sv": "använda en uppmätt effekt när det finns en.", "logo": "mavedb.png", "logo_from": "https://www.mavedb.org/mavedb-icon-apple-touch.png", "versions": []}, {"id": "gtex", "name": "GTEx", "org": "Genotype-Tissue Expression project (NIH)", "url": "https://gtexportal.org/", "what": "How much each gene is made in 54 tissues, and which variants make it more or less active (eQTLs).", "sv": "Hur mycket varje gen tillverkas i 54 vävnader, och vilka varianter som gör den mer eller mindre aktiv (eQTL).", "access": "bulk + API", "tabs": ["clusters", "nutrition", "biomarkers"], "refs": ["gtex_median_tpm"], "hosts": ["gtexportal.org", "storage.googleapis.com"], "gives": "Gene activity per tissue", "gives_sv": "Genaktivitet per vävnad", "takes": "Which variants make a gene more or less active, tissue by tissue.", "use": "find variants that turn a gene up or down.", "takes_sv": "Vilka varianter som gör en gen mer eller mindre aktiv, vävnad för vävnad.", "use_sv": "hitta varianter som skruvar upp eller ner en gen.", "logo": "gtex.ico", "logo_from": "https://gtexportal.org/favicon.ico", "versions": ["GTEx v8"]}, {"id": "hpa", "name": "Human Protein Atlas", "org": "KTH, Uppsala University and SciLifeLab", "url": "https://www.proteinatlas.org/", "what": "Where in the body each gene is mostly made, tissue by tissue.", "sv": "Var i kroppen varje gen främst tillverkas, vävnad för vävnad.", "access": "API", "tabs": ["nutrition", "biomarkers"], "refs": [], "hosts": ["www.proteinatlas.org"], "gives": "Where in the body a gene is made", "gives_sv": "Var i kroppen en gen tillverkas", "takes": "Where in the body each gene is mostly made.", "use": "show the organs a step happens in.", "takes_sv": "Var i kroppen varje gen främst tillverkas.", "use_sv": "visa organen där ett steg sker.", "logo": "hpa.png", "logo_from": "https://www.proteinatlas.org/images_static/apple-touch-icon.png", "versions": []}, {"id": "opentargets", "name": "Open Targets Platform", "org": "EMBL-EBI, Wellcome Sanger Institute and partners", "url": "https://platform.opentargets.org/", "what": "Which genes are linked to a disease, scored by genetic, clinical and literature evidence.", "sv": "Vilka gener som är kopplade till en sjukdom, med poäng från genetiska, kliniska och litteraturbaserade belägg.", "access": "API", "tabs": ["clusters"], "refs": [], "hosts": ["api.platform.opentargets.org"], "gives": "Genes linked to a disease", "gives_sv": "Gener kopplade till en sjukdom", "takes": "Genes ranked by how strongly they are linked to each disease.", "use": "choose the genes in each health theme.", "takes_sv": "Gener rangordnade efter hur starkt de är kopplade till varje sjukdom.", "use_sv": "välja generna i varje hälsotema.", "logo": "opentargets.png", "logo_from": "https://platform.opentargets.org/favicon.png", "versions": []}, {"id": "go", "name": "Gene Ontology (QuickGO)", "org": "Gene Ontology Consortium, served by EMBL-EBI", "url": "https://www.ebi.ac.uk/QuickGO/", "what": "Which genes take part in a biological process (DNA repair, sperm production …), from experiments and curation.", "sv": "Vilka gener som deltar i en biologisk process (DNA-reparation, spermieproduktion …), från experiment och kurering.", "access": "API", "tabs": ["clusters"], "refs": [], "hosts": ["www.ebi.ac.uk"], "gives": "Genes in a biological process", "gives_sv": "Gener i en biologisk process", "takes": "Which genes take part in each biological process.", "use": "group a theme's genes by what they do: repair, growth, hormones.", "takes_sv": "Vilka gener som deltar i varje biologisk process.", "use_sv": "gruppera ett temas gener efter vad de gör: reparation, tillväxt, hormoner.", "logo": "go.png", "logo_from": "https://geneontology.org/img/go-logo-icon.png", "versions": []}, {"id": "string", "name": "STRING", "org": "STRING Consortium (SIB, EMBL, CPR, KU)", "url": "https://string-db.org/", "what": "Which proteins work together, with a confidence score.", "sv": "Vilka proteiner som arbetar tillsammans, med ett konfidensvärde.", "access": "API", "tabs": ["clusters", "profile"], "refs": [], "hosts": ["string-db.org"], "gives": "Proteins that work together", "gives_sv": "Proteiner som arbetar tillsammans", "takes": "Which proteins work together.", "use": "draw the gene networks in Clusters and Profile.", "takes_sv": "Vilka proteiner som arbetar tillsammans.", "use_sv": "rita gennätverken i Kluster och Profil.", "logo": "string.png", "logo_from": "https://string-db.org/images/favicon.png", "versions": []}, {"id": "reactome", "name": "Reactome", "org": "OICR, EMBL-EBI, NYU and OHSU", "url": "https://reactome.org/", "what": "Pathways and their reactions step by step: how a nutrient is taken up, carried and converted, and what each step needs.", "sv": "Reaktionsvägar och deras reaktioner steg för steg: hur ett näringsämne tas upp, transporteras och omvandlas, och vad varje steg behöver.", "access": "bulk + API", "tabs": ["clusters", "nutrition", "biomarkers", "lifecycle"], "refs": ["reactome_genes"], "hosts": ["reactome.org"], "gives": "Pathways, step by step", "gives_sv": "Reaktionsvägar, steg för steg", "takes": "Pathways as ordered reactions: what goes in, what comes out, which proteins do it.", "use": "lay out how a nutrient is taken up and used, and where your variants act.", "takes_sv": "Reaktionsvägar som ordnade reaktioner: vad som går in, vad som kommer ut, vilka proteiner som gör det.", "use_sv": "visa hur ett näringsämne tas upp och används, och var dina varianter verkar.", "logo": "reactome.png", "logo_from": "https://reactome.org/templates/favourite/images/logo/icon.png", "versions": ["Reactome current release"]}, {"id": "rhea", "name": "Rhea", "org": "SIB Swiss Institute of Bioinformatics", "url": "https://www.rhea-db.org/", "what": "The chemical reactions enzymes carry out.", "sv": "De kemiska reaktioner som enzymer utför.", "access": "API", "tabs": ["lifecycle"], "refs": [], "hosts": ["www.rhea-db.org"], "gives": "Enzyme reactions", "gives_sv": "Enzymreaktioner", "takes": "The chemical reactions enzymes carry out.", "use": "show the chemistry each enzyme does.", "takes_sv": "De kemiska reaktioner som enzymer utför.", "use_sv": "visa kemin varje enzym utför.", "logo": "rhea.png", "logo_from": "https://www.rhea-db.org/style/images/rhea_logo.png", "versions": []}, {"id": "omnipath", "name": "OmniPath", "org": "Saez-Rodriguez group, Heidelberg University", "url": "https://omnipathdb.org/", "what": "Which genes switch a gene on or off.", "sv": "Vilka gener som slår på eller av en gen.", "access": "API", "tabs": ["lifecycle"], "refs": [], "hosts": ["omnipathdb.org"], "gives": "Gene regulators", "gives_sv": "Genregulatorer", "takes": "Which genes switch a gene on or off.", "use": "show what regulates a gene.", "takes_sv": "Vilka gener som slår på eller av en gen.", "use_sv": "visa vad som reglerar en gen.", "logo": "omnipath.png", "logo_from": "https://omnipathdb.org/apple-touch-icon.png", "versions": []}, {"id": "mygene", "name": "MyGene.info", "org": "Su and Wu labs, Scripps Research", "url": "https://mygene.info/", "what": "Gene names, summaries and identifiers, gathered from the main gene databases.", "sv": "Gennamn, sammanfattningar och identifierare, samlade från de stora gendatabaserna.", "access": "API", "tabs": ["profile"], "refs": [], "hosts": ["mygene.info"], "gives": "Gene names and summaries", "gives_sv": "Gennamn och sammanfattningar", "takes": "Gene names, aliases and short summaries.", "use": "put a readable name and description on every gene.", "takes_sv": "Gennamn, alias och korta sammanfattningar.", "use_sv": "ge varje gen ett läsbart namn och en beskrivning.", "logo": "mygene.png", "logo_from": "https://mygene.info/static/img/MyGene.info/apple-touch-icon.png", "versions": []}, {"id": "europepmc", "name": "Europe PMC", "org": "EMBL-EBI", "url": "https://europepmc.org/", "what": "Research papers that name a variant, for the literature behind a finding.", "sv": "Forskningsartiklar som nämner en variant, för litteraturen bakom ett fynd.", "access": "API", "tabs": ["clusters", "lifecycle"], "refs": [], "hosts": ["www.ebi.ac.uk", "europepmc.org"], "gives": "Papers behind a finding", "gives_sv": "Artiklar bakom ett fynd", "takes": "Research papers that name a variant.", "use": "show the studies behind a finding.", "takes_sv": "Forskningsartiklar som nämner en variant.", "use_sv": "visa studierna bakom ett fynd.", "versions": []}, {"id": "nnr", "name": "Nordic Nutrition Recommendations 2023", "org": "Nordic Council of Ministers, published by Livsmedelsverket", "url": "https://www.livsmedelsverket.se/", "what": "Recommended intakes and upper limits per nutrient, by sex and age.", "sv": "Rekommenderat intag och övre gränser per näringsämne, efter kön och ålder.", "access": "bulk", "tabs": ["nutrition"], "refs": ["nnr_2023"], "hosts": ["www.livsmedelsverket.se"], "gives": "Recommended intakes", "gives_sv": "Rekommenderat intag", "takes": "Recommended daily intakes and upper limits.", "use": "show the intake target next to each nutrient.", "takes_sv": "Rekommenderat dagligt intag och övre gränser.", "use_sv": "visa intagsmålet bredvid varje näringsämne.", "logo": "nnr.png", "logo_from": "https://www.livsmedelsverket.se/images/logo.png", "versions": ["NNR 2023 summary and errata 2025-09 (parsed into nnr_2023.json, in git)"]}], "tools": [{"name": "Beagle 5.5", "what": "The imputation program.", "sv": "Imputeringsprogrammet.", "refs": ["beagle", "bref3_jar"], "versions": ["27Feb25.75f", "Beagle 5.5 (27Feb25.75f)"]}, {"name": "Genetic maps (GRCh38)", "what": "Where DNA is usually cut and recombined between generations, which imputation needs.", "sv": "Var DNA vanligtvis klipps och kombineras om mellan generationer, vilket imputeringen behöver.", "refs": ["genetic_map_grch38"], "versions": ["Beagle PLINK maps, GRCh38"]}, {"name": "UCSC liftOver", "what": "Moves positions from the older genome build (GRCh37) that some DNA files use to the current one (GRCh38).", "sv": "Flyttar positioner från den äldre genomversionen (GRCh37) som vissa DNA-filer använder till den aktuella (GRCh38).", "refs": ["liftover_chain"], "versions": ["UCSC hg19ToHg38"]}], "glossary": [{"term": "SNP", "sv_term": "SNP", "text": "Single-nucleotide polymorphism: one position in the DNA where people commonly differ by one letter. Consumer tests measure several hundred thousand of them.", "sv": "Singelnukleotidpolymorfism: en position i DNA där människor ofta skiljer sig åt med en bokstav. Konsumenttester mäter flera hundra tusen av dem."}, {"term": "Allele", "sv_term": "Allel", "text": "One of the versions of a position, for example A or G.", "sv": "En av versionerna av en position, till exempel A eller G."}, {"term": "Genotype", "sv_term": "Genotyp", "text": "The two alleles a person has at a position, one from each parent, for example AG.", "sv": "De två alleler en person har på en position, en från varje förälder, till exempel AG."}, {"term": "rsID", "sv_term": "rsID", "text": "A variant's number in dbSNP, such as rs4149056: the same everywhere, so every database can be joined on it.", "sv": "En variants nummer i dbSNP, till exempel rs4149056: detsamma överallt, så alla databaser kan kopplas ihop på det."}, {"term": "Chip", "sv_term": "Chip", "text": "The genotyping array a consumer test uses: it measures a fixed set of positions, not the whole genome.", "sv": "Genotypningsmatrisen ett konsumenttest använder: den mäter en fast uppsättning positioner, inte hela genomet."}, {"term": "Imputation", "sv_term": "Imputering", "text": "Filling in positions the chip didn't measure, from reference genomes that share the same stretches of DNA.", "sv": "Att fylla i positioner chipet inte mätte, från referensgenom som delar samma DNA-sträckor."}, {"term": "Reference panel", "sv_term": "Referenspanel", "text": "The full genomes imputation compares with: here the 1000 Genomes Project's 3,202 people.", "sv": "De fullständiga genom som imputeringen jämför med: här 1000 Genomes-projektets 3 202 personer."}, {"term": "Genotype probability (GP)", "sv_term": "Genotypsannolikhet (GP)", "text": "How likely imputation's best guess is. Calls below 0.9 are not kept.", "sv": "Hur sannolik imputeringens bästa gissning är. Anrop under 0,9 sparas inte."}, {"term": "Confidence tier", "sv_term": "Säkerhetsnivå", "text": "How often calls like this one came back right when measured positions were hidden and re-imputed: high (at least 98%), medium (at least 90%), low or untested.", "sv": "Hur ofta anrop som detta blev rätt när uppmätta positioner doldes och imputerades på nytt: hög (minst 98 %), medel (minst 90 %), låg eller otestad."}, {"term": "Not detected, not excluded", "sv_term": "Inte påvisad, inte utesluten", "text": "A rare variant imputation found no sign of, in a range where it misses too many real carriers to rule it out.", "sv": "En sällsynt variant som imputeringen inte såg några tecken på, i ett intervall där den missar för många verkliga bärare för att kunna utesluta den."}, {"term": "GRCh38", "sv_term": "GRCh38", "text": "The current version of the human reference genome, which every position here refers to.", "sv": "Den aktuella versionen av människans referensgenom, som varje position här avser."}, {"term": "Protein change", "sv_term": "Proteinförändring", "text": "A variant that swaps one building block of the protein (missense) or stops it early (a stop).", "sv": "En variant som byter ut en byggsten i proteinet (missense) eller avbryter det i förtid (ett stopp)."}, {"term": "eQTL", "sv_term": "eQTL", "text": "A variant that makes a gene more or less active in a tissue, without changing the protein.", "sv": "En variant som gör en gen mer eller mindre aktiv i en vävnad, utan att ändra proteinet."}, {"term": "Loss of function (LoF)", "sv_term": "Funktionsförlust (LoF)", "text": "The variant makes the gene's protein work less, or the gene less active.", "sv": "Varianten gör att genens protein fungerar sämre, eller att genen blir mindre aktiv."}, {"term": "Gain of function (GoF)", "sv_term": "Funktionsökning (GoF)", "text": "The variant makes the gene's protein work more, or the gene more active.", "sv": "Varianten gör att genens protein fungerar mer, eller att genen blir mer aktiv."}, {"term": "Star allele", "sv_term": "Stjärnallel", "text": "A named version of a drug gene, such as CYP2C19*2, defined by one or more variants.", "sv": "En namngiven version av en läkemedelsgen, till exempel CYP2C19*2, definierad av en eller flera varianter."}, {"term": "Metaboliser type", "sv_term": "Metaboliseringstyp", "text": "How fast a person's drug gene clears a medicine: poor, intermediate, normal, rapid or ultrarapid. Dosing guidelines are written per type.", "sv": "Hur snabbt en persons läkemedelsgen gör sig av med ett läkemedel: långsam, intermediär, normal, snabb eller ultrasnabb. Doseringsriktlinjer skrivs per typ."}, {"term": "GWAS", "sv_term": "GWAS", "text": "Genome-wide association study: compares many people's variants with a trait to find the variants linked to it.", "sv": "Genomomfattande associationsstudie: jämför många människors varianter med en egenskap för att hitta de varianter som är kopplade till den."}, {"term": "Polygenic score", "sv_term": "Polygen poäng", "text": "Many variants' small effects added up into one number, placed among Europeans as a percentile.", "sv": "Många varianters små effekter summerade till ett tal, placerat bland européer som en percentil."}, {"term": "Percentile", "sv_term": "Percentil", "text": "Where a person falls among others: the 80th percentile is higher than 80 of 100 Europeans.", "sv": "Var en person hamnar bland andra: den 80:e percentilen är högre än 80 av 100 européer."}, {"term": "Pathogenic variant", "sv_term": "Patogen variant", "text": "A variant ClinVar's submitters classify as causing disease.", "sv": "En variant som ClinVars inskickare klassar som sjukdomsorsakande."}, {"term": "Evidence grade", "sv_term": "Evidensgrad", "text": "How strong the evidence behind a finding is: A+ guideline-grade or expert-reviewed, A replicated, B one publication, C a single study.", "sv": "Hur starkt underlaget bakom ett fynd är: A+ riktlinjenivå eller expertgranskat, A replikerat, B en publikation, C en enskild studie."}, {"term": "Pathway", "sv_term": "Reaktionsväg", "text": "A chain of reactions in the body, each run by proteins, that together do one job, such as taking up iron.", "sv": "En kedja av reaktioner i kroppen, var och en utförd av proteiner, som tillsammans gör ett jobb, till exempel att ta upp järn."}, {"term": "Deep mutational scan", "sv_term": "Djup mutationsskanning", "text": "A laboratory experiment that measures every possible change of a protein, one at a time.", "sv": "Ett laboratorieexperiment som mäter varje möjlig förändring av ett protein, en i taget."}]};
+  window.GX_SOURCES = {"groups": [{"id": "reading", "title": "Your DNA, completed", "sv": "Ditt DNA, kompletterat", "ids": ["1000g", "ensembl", "mygene"]}, {"id": "health", "title": "Links to health", "sv": "Kopplingar till hälsa", "ids": ["clinvar", "gwas", "pgs", "opentargets", "europepmc", "medgen"]}, {"id": "body", "title": "Inside the cell", "sv": "Inuti cellen", "ids": ["go", "uniprot", "mavedb", "string", "omnipath", "reactome", "rhea", "gtex", "hpa", "pubchem"]}, {"id": "advice", "title": "Doses, intakes and prevention", "sv": "Doser, intag och förebyggande", "ids": ["clinpgx", "cpic", "chembl", "nnr", "iarc", "ecac"]}], "databases": [{"id": "1000g", "name": "1000 Genomes Project", "org": "International Genome Sample Resource (EMBL-EBI)", "url": "https://www.internationalgenome.org/", "what": "Full genomes of 3,202 people from 26 populations: the reference panel imputation reads the missing positions from, and allele frequencies per ancestry.", "sv": "Hela genom från 3 202 personer i 26 populationer: referenspanelen som imputeringen läser de saknade positionerna från, och allelfrekvenser per härkomst.", "access": "bulk", "tabs": ["home", "clusters", "medicines", "nutrition", "biomarkers"], "refs": ["panel_raw", "panel_bref3", "panel_sites", "panel_populations"], "hosts": ["ftp.1000genomes.ebi.ac.uk"], "gives": "Reference genomes and allele frequencies", "gives_sv": "Referensgenom och allelfrekvenser", "takes": "The full genomes of 3,202 people and how common each variant is in five ancestries.", "use": "fill in the positions your chip didn't measure, and tell common variants from rare ones.", "takes_sv": "De fullständiga genomen från 3 202 personer och hur vanlig varje variant är i fem härkomster.", "use_sv": "fylla i positionerna ditt chip inte mätte, och skilja vanliga varianter från sällsynta.", "logo": "1000g.ico", "logo_from": "https://www.internationalgenome.org/sites/1000genomes.org/themes/custom/one_thousand_genomes/favicon.ico", "versions": ["1000 Genomes high coverage, 3,202 samples; chrX in three ploidy parts", "20220422 phased SNV/INDEL/SV panel (manifest 20220804; chrX v2)", "3,202 samples with population and parents", "73.5 million sites; frequencies over 2,504 unrelated samples; rsIDs from Ensembl 115 (dbSNP 156)"]}, {"id": "clinvar", "name": "ClinVar", "org": "NCBI, US National Library of Medicine", "url": "https://www.ncbi.nlm.nih.gov/clinvar/", "what": "Variants submitted by clinical laboratories with their significance: disease-causing, risk factor or drug response, with a review status in stars.", "sv": "Varianter inskickade av kliniska laboratorier med deras betydelse: sjukdomsorsakande, riskfaktor eller läkemedelssvar, med en granskningsstatus i stjärnor.", "access": "bulk", "tabs": ["clusters", "medicines", "nutrition", "biomarkers"], "refs": ["clinvar_grch38"], "hosts": ["ftp.ncbi.nlm.nih.gov"], "gives": "Disease-causing and drug-response variants", "gives_sv": "Sjukdomsorsakande varianter och läkemedelssvar", "takes": "Every variant clinical labs have classified, with its significance and review stars.", "use": "flag disease-causing and drug-response variants you carry.", "takes_sv": "Varje variant som kliniska laboratorier har klassat, med betydelse och granskningsstjärnor.", "use_sv": "flagga sjukdomsorsakande varianter och läkemedelssvar som du bär på.", "logo": "clinvar.ico", "logo_from": "https://www.ncbi.nlm.nih.gov/favicon.ico", "versions": ["weekly release (##fileDate in the file)"]}, {"id": "gwas", "name": "GWAS Catalog", "org": "EMBL-EBI and NHGRI", "url": "https://www.ebi.ac.uk/gwas/", "what": "Genome-wide association studies: which variants are linked to a trait or a lab value, the allele that raises or lowers it, and how strongly.", "sv": "Genomomfattande associationsstudier: vilka varianter som är kopplade till en egenskap eller ett labbvärde, vilken allel som höjer eller sänker det, och hur starkt.", "access": "bulk + API", "tabs": ["clusters", "nutrition", "biomarkers", "profile"], "refs": ["gwas_catalog"], "hosts": ["www.ebi.ac.uk"], "gives": "Variants linked to traits and lab values", "gives_sv": "Varianter kopplade till egenskaper och labbvärden", "takes": "Variants that large studies tied to a trait or lab value, with the allele that raises or lowers it.", "use": "show which way your variants push a lab value or trait.", "takes_sv": "Varianter som stora studier kopplat till en egenskap eller ett labbvärde, med allelen som höjer eller sänker det.", "use_sv": "visa åt vilket håll dina varianter drar ett labbvärde eller en egenskap.", "logo": "gwas.ico", "logo_from": "https://www.ebi.ac.uk/gwas/assets/images/favicon.ico", "versions": ["all associations, full and ontology-annotated (date inside the zip)"]}, {"id": "pgs", "name": "PGS Catalog", "org": "EMBL-EBI and the University of Cambridge", "url": "https://www.pgscatalog.org/", "what": "Published polygenic scores: the weights that add up many variants into one genetic score for a blood level or a trait.", "sv": "Publicerade polygena poäng: vikterna som summerar många varianter till en genetisk poäng för en blodnivå eller en egenskap.", "access": "bulk", "tabs": ["nutrition", "biomarkers", "clusters"], "refs": ["nutrition_pgs", "pgs_scoring_genomewide"], "hosts": ["ftp.ebi.ac.uk", "www.pgscatalog.org"], "gives": "Polygenic scores", "gives_sv": "Polygena poäng", "takes": "Published scores that weigh up to a million variants into one number.", "use": "place you among Europeans for nutrient levels, lab values, fitness and cancer risk.", "takes_sv": "Publicerade poäng som väger samman upp till en miljon varianter till ett tal.", "use_sv": "placera dig bland européer för näringsnivåer, labbvärden, kondition och cancerrisk.", "logo": "pgs.png", "logo_from": "https://www.pgscatalog.org/static/catalog/imgs/favicons/apple-touch-icon.png", "versions": ["PGS Catalog harmonised scoring files named in nutrients.json", "PGS002143, PGS002168 (fitness); the 10 cancer scores in cluster_analysis/nutrition/cancers.json (GRCh38 harmonised, with each score's Catalog record)"]}, {"id": "clinpgx", "name": "ClinPGx (PharmGKB)", "org": "Stanford University", "url": "https://www.clinpgx.org/", "what": "How genes change the response to medicines: clinical annotations per variant, dosing guidelines (CPIC, DPWG and others) and drug labels (FDA, EMA, Health Canada, Swissmedic and others).", "sv": "Hur gener ändrar svaret på läkemedel: kliniska annoteringar per variant, doseringsriktlinjer (CPIC, DPWG med flera) och läkemedelsetiketter (FDA, EMA, Health Canada, Swissmedic med flera).", "access": "bulk + API", "tabs": ["medicines"], "refs": ["clinpgx"], "hosts": ["api.clinpgx.org", "www.clinpgx.org"], "gives": "Drug annotations, guidelines and labels", "gives_sv": "Läkemedelsannoteringar, riktlinjer och etiketter", "takes": "How variants change the response to medicines, with dosing guidelines and drug labels.", "use": "list every medicine your genes have a finding for.", "takes_sv": "Hur varianter ändrar svaret på läkemedel, med doseringsriktlinjer och läkemedelsetiketter.", "use_sv": "lista varje läkemedel dina gener har ett fynd för.", "logo": "clinpgx.png", "logo_from": "https://www.clinpgx.org/apple-touch-icon.png", "versions": ["ClinPGx (PharmGKB) bulk files"]}, {"id": "cpic", "name": "CPIC", "org": "Clinical Pharmacogenetics Implementation Consortium", "url": "https://cpicpgx.org/", "what": "Peer-reviewed dosing recommendations per metaboliser type, and the rules that turn star alleles into a type.", "sv": "Granskade doseringsrekommendationer per metaboliseringstyp, och reglerna som gör stjärnalleler till en typ.", "access": "API, saved", "tabs": ["medicines"], "refs": ["cpic_recommendations"], "hosts": ["api.cpicpgx.org"], "gives": "Dosing per metaboliser type", "gives_sv": "Dosering per metaboliseringstyp", "takes": "The rules that turn star alleles into a metaboliser type, and the dose advice per type.", "use": "give you a type and the dosing advice for it.", "takes_sv": "Reglerna som gör stjärnalleler till en metaboliseringstyp, och dosråden per typ.", "use_sv": "ge dig en typ och doseringsrådet för den.", "logo": "cpic.ico", "logo_from": "https://cpicpgx.org/favicon.ico", "versions": []}, {"id": "chembl", "name": "ChEMBL", "org": "EMBL-EBI", "url": "https://www.ebi.ac.uk/chembl/", "what": "The WHO ATC classification of medicines, so a medicine can be found by its class or code.", "sv": "WHO:s ATC-klassificering av läkemedel, så att ett läkemedel kan hittas via sin klass eller kod.", "access": "bulk", "tabs": ["medicines"], "refs": ["chembl_atc"], "hosts": ["www.ebi.ac.uk"], "gives": "Medicine classes (ATC)", "gives_sv": "Läkemedelsklasser (ATC)", "takes": "The WHO ATC classes of medicines.", "use": "let you find a medicine by its class or code.", "takes_sv": "WHO:s ATC-klasser för läkemedel.", "use_sv": "låta dig hitta ett läkemedel via dess klass eller kod.", "logo": "chembl.ico", "logo_from": "https://www.ebi.ac.uk/chembl/favicon.ico", "versions": ["ChEMBL ATC classes (CC BY-SA 3.0)"]}, {"id": "ensembl", "name": "Ensembl", "org": "EMBL-EBI", "url": "https://www.ensembl.org/", "what": "The genome itself: where each gene lies (GTF), each variant's identity and position (dbSNP), what a variant does to its gene (VEP) and which variants are inherited together (LD).", "sv": "Själva genomet: var varje gen ligger (GTF), varje variants identitet och position (dbSNP), vad en variant gör med sin gen (VEP) och vilka varianter som ärvs tillsammans (LD).", "access": "bulk + API", "tabs": ["clusters", "nutrition", "biomarkers", "lifecycle"], "refs": ["gtf_grch38", "dbsnp_ensembl"], "hosts": ["ftp.ensembl.org", "rest.ensembl.org"], "gives": "Genes, variants and their consequences", "gives_sv": "Gener, varianter och deras följder", "takes": "Where every gene lies, each variant's ID and position, and what a variant does to its gene.", "use": "place your variants in genes and see which ones change a protein.", "takes_sv": "Var varje gen ligger, varje variants ID och position, och vad en variant gör med sin gen.", "use_sv": "placera dina varianter i gener och se vilka som ändrar ett protein.", "logo": "ensembl.png", "logo_from": "https://static.ensembl.org/i/e-ensembl.png", "versions": ["Ensembl 115", "Ensembl 115 (dbSNP 156)"]}, {"id": "uniprot", "name": "UniProt", "org": "UniProt Consortium (EMBL-EBI, SIB, PIR)", "url": "https://www.uniprot.org/", "what": "Proteins: their function and cofactors, and curated effects of protein changes found in people.", "sv": "Proteiner: deras funktion och kofaktorer, och kurerade effekter av proteinförändringar hos människor.", "access": "bulk + API", "tabs": ["clusters", "nutrition", "lifecycle"], "refs": ["uniprot_humsavar"], "hosts": ["rest.uniprot.org", "ftp.uniprot.org", "www.ebi.ac.uk"], "gives": "Protein function and curated variant effects", "gives_sv": "Proteinfunktion och kurerade varianteffekter", "takes": "What each protein does, and curated effects of protein changes.", "use": "say what a protein change in you does.", "takes_sv": "Vad varje protein gör, och kurerade effekter av proteinförändringar.", "use_sv": "säga vad en proteinförändring hos dig gör.", "logo": "uniprot.ico", "logo_from": "https://www.uniprot.org/favicon.ico", "versions": ["UniProt release in the file header"]}, {"id": "mavedb", "name": "MaveDB", "org": "Brotman Baty Institute and partners", "url": "https://www.mavedb.org/", "what": "Laboratory measurements of how each possible protein change affects the protein's function (deep mutational scans).", "sv": "Laboratoriemätningar av hur varje möjlig proteinförändring påverkar proteinets funktion (djupa mutationsskanningar).", "access": "API", "tabs": ["clusters"], "refs": [], "hosts": ["api.mavedb.org"], "gives": "Measured effects of protein changes", "gives_sv": "Uppmätta effekter av proteinförändringar", "takes": "Lab measurements of thousands of single protein changes.", "use": "use a measured effect when one exists.", "takes_sv": "Labbmätningar av tusentals enskilda proteinförändringar.", "use_sv": "använda en uppmätt effekt när det finns en.", "logo": "mavedb.png", "logo_from": "https://www.mavedb.org/mavedb-icon-apple-touch.png", "versions": []}, {"id": "gtex", "name": "GTEx", "org": "Genotype-Tissue Expression project (NIH)", "url": "https://gtexportal.org/", "what": "How much each gene is made in 54 tissues, and which variants make it more or less active (eQTLs).", "sv": "Hur mycket varje gen tillverkas i 54 vävnader, och vilka varianter som gör den mer eller mindre aktiv (eQTL).", "access": "bulk + API", "tabs": ["clusters", "nutrition", "biomarkers"], "refs": ["gtex_median_tpm"], "hosts": ["gtexportal.org", "storage.googleapis.com"], "gives": "Gene activity per tissue", "gives_sv": "Genaktivitet per vävnad", "takes": "Which variants make a gene more or less active, tissue by tissue.", "use": "find variants that turn a gene up or down.", "takes_sv": "Vilka varianter som gör en gen mer eller mindre aktiv, vävnad för vävnad.", "use_sv": "hitta varianter som skruvar upp eller ner en gen.", "logo": "gtex.ico", "logo_from": "https://gtexportal.org/favicon.ico", "versions": ["GTEx v8"]}, {"id": "hpa", "name": "Human Protein Atlas", "org": "KTH, Uppsala University and SciLifeLab", "url": "https://www.proteinatlas.org/", "what": "Where in the body each gene is mostly made, tissue by tissue.", "sv": "Var i kroppen varje gen främst tillverkas, vävnad för vävnad.", "access": "API", "tabs": ["nutrition", "biomarkers"], "refs": [], "hosts": ["www.proteinatlas.org"], "gives": "Where in the body a gene is made", "gives_sv": "Var i kroppen en gen tillverkas", "takes": "Where in the body each gene is mostly made.", "use": "show the organs a step happens in.", "takes_sv": "Var i kroppen varje gen främst tillverkas.", "use_sv": "visa organen där ett steg sker.", "logo": "hpa.png", "logo_from": "https://www.proteinatlas.org/images_static/apple-touch-icon.png", "versions": []}, {"id": "opentargets", "name": "Open Targets Platform", "org": "EMBL-EBI, Wellcome Sanger Institute and partners", "url": "https://platform.opentargets.org/", "what": "Which genes are linked to a disease, scored by genetic, clinical and literature evidence.", "sv": "Vilka gener som är kopplade till en sjukdom, med poäng från genetiska, kliniska och litteraturbaserade belägg.", "access": "API", "tabs": ["clusters"], "refs": [], "hosts": ["api.platform.opentargets.org"], "gives": "Genes linked to a disease", "gives_sv": "Gener kopplade till en sjukdom", "takes": "Genes ranked by how strongly they are linked to each disease.", "use": "choose the genes in each health theme.", "takes_sv": "Gener rangordnade efter hur starkt de är kopplade till varje sjukdom.", "use_sv": "välja generna i varje hälsotema.", "logo": "opentargets.png", "logo_from": "https://platform.opentargets.org/favicon.png", "versions": []}, {"id": "go", "name": "Gene Ontology (QuickGO)", "org": "Gene Ontology Consortium, served by EMBL-EBI", "url": "https://www.ebi.ac.uk/QuickGO/", "what": "Which genes take part in a biological process (DNA repair, sperm production …), from experiments and curation.", "sv": "Vilka gener som deltar i en biologisk process (DNA-reparation, spermieproduktion …), från experiment och kurering.", "access": "API", "tabs": ["clusters"], "refs": [], "hosts": ["www.ebi.ac.uk"], "gives": "Genes in a biological process", "gives_sv": "Gener i en biologisk process", "takes": "Which genes take part in each biological process.", "use": "group a theme's genes by what they do: repair, growth, hormones.", "takes_sv": "Vilka gener som deltar i varje biologisk process.", "use_sv": "gruppera ett temas gener efter vad de gör: reparation, tillväxt, hormoner.", "logo": "go.png", "logo_from": "https://geneontology.org/img/go-logo-icon.png", "versions": []}, {"id": "string", "name": "STRING", "org": "STRING Consortium (SIB, EMBL, CPR, KU)", "url": "https://string-db.org/", "what": "Which proteins work together, with a confidence score.", "sv": "Vilka proteiner som arbetar tillsammans, med ett konfidensvärde.", "access": "API", "tabs": ["clusters", "profile"], "refs": [], "hosts": ["string-db.org"], "gives": "Proteins that work together", "gives_sv": "Proteiner som arbetar tillsammans", "takes": "Which proteins work together.", "use": "draw the gene networks in Clusters and Profile.", "takes_sv": "Vilka proteiner som arbetar tillsammans.", "use_sv": "rita gennätverken i Kluster och Profil.", "logo": "string.png", "logo_from": "https://string-db.org/images/favicon.png", "versions": []}, {"id": "reactome", "name": "Reactome", "org": "OICR, EMBL-EBI, NYU and OHSU", "url": "https://reactome.org/", "what": "Pathways and their reactions step by step: how a nutrient is taken up, carried and converted, and what each step needs.", "sv": "Reaktionsvägar och deras reaktioner steg för steg: hur ett näringsämne tas upp, transporteras och omvandlas, och vad varje steg behöver.", "access": "bulk + API", "tabs": ["clusters", "nutrition", "biomarkers", "lifecycle"], "refs": ["reactome_genes"], "hosts": ["reactome.org"], "gives": "Pathways, step by step", "gives_sv": "Reaktionsvägar, steg för steg", "takes": "Pathways as ordered reactions: what goes in, what comes out, which proteins do it.", "use": "lay out how a nutrient is taken up and used, and where your variants act.", "takes_sv": "Reaktionsvägar som ordnade reaktioner: vad som går in, vad som kommer ut, vilka proteiner som gör det.", "use_sv": "visa hur ett näringsämne tas upp och används, och var dina varianter verkar.", "logo": "reactome.png", "logo_from": "https://reactome.org/templates/favourite/images/logo/icon.png", "versions": ["Reactome current release"]}, {"id": "rhea", "name": "Rhea", "org": "SIB Swiss Institute of Bioinformatics", "url": "https://www.rhea-db.org/", "what": "The chemical reactions enzymes carry out.", "sv": "De kemiska reaktioner som enzymer utför.", "access": "API", "tabs": ["lifecycle"], "refs": [], "hosts": ["www.rhea-db.org"], "gives": "Enzyme reactions", "gives_sv": "Enzymreaktioner", "takes": "The chemical reactions enzymes carry out.", "use": "show the chemistry each enzyme does.", "takes_sv": "De kemiska reaktioner som enzymer utför.", "use_sv": "visa kemin varje enzym utför.", "logo": "rhea.png", "logo_from": "https://www.rhea-db.org/style/images/rhea_logo.png", "versions": []}, {"id": "omnipath", "name": "OmniPath", "org": "Saez-Rodriguez group, Heidelberg University", "url": "https://omnipathdb.org/", "what": "Which genes switch a gene on or off.", "sv": "Vilka gener som slår på eller av en gen.", "access": "API", "tabs": ["lifecycle"], "refs": [], "hosts": ["omnipathdb.org"], "gives": "Gene regulators", "gives_sv": "Genregulatorer", "takes": "Which genes switch a gene on or off.", "use": "show what regulates a gene.", "takes_sv": "Vilka gener som slår på eller av en gen.", "use_sv": "visa vad som reglerar en gen.", "logo": "omnipath.png", "logo_from": "https://omnipathdb.org/apple-touch-icon.png", "versions": []}, {"id": "mygene", "name": "MyGene.info", "org": "Su and Wu labs, Scripps Research", "url": "https://mygene.info/", "what": "Gene names, summaries and identifiers, gathered from the main gene databases.", "sv": "Gennamn, sammanfattningar och identifierare, samlade från de stora gendatabaserna.", "access": "API", "tabs": ["profile"], "refs": [], "hosts": ["mygene.info"], "gives": "Gene names and summaries", "gives_sv": "Gennamn och sammanfattningar", "takes": "Gene names, aliases and short summaries.", "use": "put a readable name and description on every gene.", "takes_sv": "Gennamn, alias och korta sammanfattningar.", "use_sv": "ge varje gen ett läsbart namn och en beskrivning.", "logo": "mygene.png", "logo_from": "https://mygene.info/static/img/MyGene.info/apple-touch-icon.png", "versions": []}, {"id": "europepmc", "name": "Europe PMC", "org": "EMBL-EBI", "url": "https://europepmc.org/", "what": "Research papers that name a variant, for the literature behind a finding.", "sv": "Forskningsartiklar som nämner en variant, för litteraturen bakom ett fynd.", "access": "API", "tabs": ["clusters", "lifecycle"], "refs": [], "hosts": ["www.ebi.ac.uk", "europepmc.org"], "gives": "Papers behind a finding", "gives_sv": "Artiklar bakom ett fynd", "takes": "Research papers that name a variant.", "use": "show the studies behind a finding.", "takes_sv": "Forskningsartiklar som nämner en variant.", "use_sv": "visa studierna bakom ett fynd.", "versions": []}, {"id": "nnr", "name": "Nordic Nutrition Recommendations 2023", "org": "Nordic Council of Ministers, published by Livsmedelsverket", "url": "https://www.livsmedelsverket.se/", "what": "Recommended intakes and upper limits per nutrient, by sex and age.", "sv": "Rekommenderat intag och övre gränser per näringsämne, efter kön och ålder.", "access": "bulk", "tabs": ["nutrition"], "refs": ["nnr_2023"], "hosts": ["www.livsmedelsverket.se"], "gives": "Recommended intakes", "gives_sv": "Rekommenderat intag", "takes": "Recommended daily intakes and upper limits.", "use": "show the intake target next to each nutrient.", "takes_sv": "Rekommenderat dagligt intag och övre gränser.", "use_sv": "visa intagsmålet bredvid varje näringsämne.", "logo": "nnr.png", "logo_from": "https://www.livsmedelsverket.se/images/logo.png", "versions": ["NNR 2023 summary and errata 2025-09 (parsed into nnr_2023.json, in git)"]}, {"id": "iarc", "name": "IARC Monographs", "org": "International Agency for Research on Cancer (WHO)", "url": "https://monographs.iarc.who.int/", "what": "Which agents cause which cancers in humans, classified by the strength of the evidence.", "sv": "Vilka agens som orsakar vilka cancerformer hos människor, klassade efter hur starka beläggen är.", "access": "API, saved", "tabs": ["home", "clusters"], "refs": [], "hosts": ["monographs.iarc.who.int"], "gives": "Known causes of each cancer", "gives_sv": "Kända orsaker till varje cancerform", "takes": "The causes of each cancer with sufficient evidence in humans.", "use": "name the avoidable causes of the cancers in the cancer theme.", "takes_sv": "Orsakerna till varje cancerform med tillräckliga belägg hos människor.", "use_sv": "namnge de undvikbara orsakerna till cancerformerna i cancertemat.", "logo": "iarc.svg", "logo_from": "https://monographs.iarc.who.int/wp-content/themes/iarc-theme-new/images/layout/logo.svg", "versions": []}, {"id": "ecac", "name": "European Code Against Cancer", "org": "International Agency for Research on Cancer (WHO) and the European Commission", "url": "https://cancer-code-europe.iarc.who.int/", "what": "Fourteen recommendations for the public on how to lower the risk of cancer (5th edition), in every EU language.", "sv": "Fjorton rekommendationer till allmänheten om hur man sänker risken för cancer (5:e upplagan), på alla EU-språk.", "access": "API, saved", "tabs": ["home"], "refs": [], "hosts": ["cancer-code-europe.iarc.who.int"], "gives": "How to lower the risk of cancer", "gives_sv": "Hur man sänker risken för cancer", "takes": "Its 14 recommendations, in English and Swedish.", "use": "show what lowers the risk of each cancer, quoted as written.", "takes_sv": "Dess 14 rekommendationer, på engelska och svenska.", "use_sv": "visa vad som sänker risken för varje cancerform, citerat som det står.", "logo": "ecac.svg", "logo_from": "https://cancer-code-europe.iarc.who.int/wp-content/uploads/2025/08/european-code-against-cancer-iarc-eu-favicon.svg", "versions": []}, {"id": "medgen", "name": "MedGen", "org": "NCBI, US National Library of Medicine", "url": "https://www.ncbi.nlm.nih.gov/medgen/", "what": "Definitions of medical conditions, gathered from OMIM, GeneReviews and other curated sources.", "sv": "Definitioner av medicinska tillstånd, samlade från OMIM, GeneReviews och andra kurerade källor.", "access": "API", "tabs": ["home"], "refs": [], "hosts": ["eutils.ncbi.nlm.nih.gov"], "gives": "What a condition is", "gives_sv": "Vad ett tillstånd är", "takes": "The definition of a condition, such as acute alcohol sensitivity.", "use": "say what a buildup does, in a curated definition.", "takes_sv": "Definitionen av ett tillstånd, till exempel akut alkoholkänslighet.", "use_sv": "säga vad en ansamling gör, med en kurerad definition.", "logo": "medgen.ico", "logo_from": "https://www.ncbi.nlm.nih.gov/favicon.ico", "versions": []}, {"id": "pubchem", "name": "PubChem", "org": "NCBI, US National Library of Medicine", "url": "https://pubchem.ncbi.nlm.nih.gov/", "what": "Chemistry of each substance: properties, metabolism and toxicology, from curated sources such as HSDB.", "sv": "Kemin för varje ämne: egenskaper, ämnesomsättning och toxikologi, från kurerade källor som HSDB.", "access": "API", "tabs": ["home"], "refs": [], "hosts": ["pubchem.ncbi.nlm.nih.gov"], "gives": "How fast the body clears a substance", "gives_sv": "Hur snabbt kroppen gör sig av med ett ämne", "takes": "How fast the body clears alcohol, and its density.", "use": "work out how long one drink takes to pass through the chain.", "takes_sv": "Hur snabbt kroppen gör sig av med alkohol, och dess densitet.", "use_sv": "räkna ut hur lång tid en drink tar genom kedjan.", "logo": "pubchem.png", "logo_from": "https://pubchem.ncbi.nlm.nih.gov/pcfe/favicon/apple-touch-icon.png", "versions": []}], "tools": [{"name": "Beagle 5.5", "what": "The imputation program.", "sv": "Imputeringsprogrammet.", "refs": ["beagle", "bref3_jar"], "versions": ["27Feb25.75f", "Beagle 5.5 (27Feb25.75f)"]}, {"name": "Genetic maps (GRCh38)", "what": "Where DNA is usually cut and recombined between generations, which imputation needs.", "sv": "Var DNA vanligtvis klipps och kombineras om mellan generationer, vilket imputeringen behöver.", "refs": ["genetic_map_grch38"], "versions": ["Beagle PLINK maps, GRCh38"]}, {"name": "UCSC liftOver", "what": "Moves positions from the older genome build (GRCh37) that some DNA files use to the current one (GRCh38).", "sv": "Flyttar positioner från den äldre genomversionen (GRCh37) som vissa DNA-filer använder till den aktuella (GRCh38).", "refs": ["liftover_chain"], "versions": ["UCSC hg19ToHg38"]}], "glossary": [{"term": "SNP", "sv_term": "SNP", "text": "Single-nucleotide polymorphism: one position in the DNA where people commonly differ by one letter. Consumer tests measure several hundred thousand of them.", "sv": "Singelnukleotidpolymorfism: en position i DNA där människor ofta skiljer sig åt med en bokstav. Konsumenttester mäter flera hundra tusen av dem."}, {"term": "Allele", "sv_term": "Allel", "text": "One of the versions of a position, for example A or G.", "sv": "En av versionerna av en position, till exempel A eller G."}, {"term": "Genotype", "sv_term": "Genotyp", "text": "The two alleles a person has at a position, one from each parent, for example AG.", "sv": "De två alleler en person har på en position, en från varje förälder, till exempel AG."}, {"term": "rsID", "sv_term": "rsID", "text": "A variant's number in dbSNP, such as rs4149056: the same everywhere, so every database can be joined on it.", "sv": "En variants nummer i dbSNP, till exempel rs4149056: detsamma överallt, så alla databaser kan kopplas ihop på det."}, {"term": "Chip", "sv_term": "Chip", "text": "The genotyping array a consumer test uses: it measures a fixed set of positions, not the whole genome.", "sv": "Genotypningsmatrisen ett konsumenttest använder: den mäter en fast uppsättning positioner, inte hela genomet."}, {"term": "Imputation", "sv_term": "Imputering", "text": "Filling in positions the chip didn't measure, from reference genomes that share the same stretches of DNA.", "sv": "Att fylla i positioner chipet inte mätte, från referensgenom som delar samma DNA-sträckor."}, {"term": "Reference panel", "sv_term": "Referenspanel", "text": "The full genomes imputation compares with: here the 1000 Genomes Project's 3,202 people.", "sv": "De fullständiga genom som imputeringen jämför med: här 1000 Genomes-projektets 3 202 personer."}, {"term": "Genotype probability (GP)", "sv_term": "Genotypsannolikhet (GP)", "text": "How likely imputation's best guess is. Calls below 0.9 are not kept.", "sv": "Hur sannolik imputeringens bästa gissning är. Anrop under 0,9 sparas inte."}, {"term": "Confidence tier", "sv_term": "Säkerhetsnivå", "text": "How often calls like this one came back right when measured positions were hidden and re-imputed: high (at least 98%), medium (at least 90%), low or untested.", "sv": "Hur ofta anrop som detta blev rätt när uppmätta positioner doldes och imputerades på nytt: hög (minst 98 %), medel (minst 90 %), låg eller otestad."}, {"term": "Not detected, not excluded", "sv_term": "Inte påvisad, inte utesluten", "text": "A rare variant imputation found no sign of, in a range where it misses too many real carriers to rule it out.", "sv": "En sällsynt variant som imputeringen inte såg några tecken på, i ett intervall där den missar för många verkliga bärare för att kunna utesluta den."}, {"term": "GRCh38", "sv_term": "GRCh38", "text": "The current version of the human reference genome, which every position here refers to.", "sv": "Den aktuella versionen av människans referensgenom, som varje position här avser."}, {"term": "Protein change", "sv_term": "Proteinförändring", "text": "A variant that swaps one building block of the protein (missense) or stops it early (a stop).", "sv": "En variant som byter ut en byggsten i proteinet (missense) eller avbryter det i förtid (ett stopp)."}, {"term": "eQTL", "sv_term": "eQTL", "text": "A variant that makes a gene more or less active in a tissue, without changing the protein.", "sv": "En variant som gör en gen mer eller mindre aktiv i en vävnad, utan att ändra proteinet."}, {"term": "Loss of function (LoF)", "sv_term": "Funktionsförlust (LoF)", "text": "The variant makes the gene's protein work less, or the gene less active.", "sv": "Varianten gör att genens protein fungerar sämre, eller att genen blir mindre aktiv."}, {"term": "Gain of function (GoF)", "sv_term": "Funktionsökning (GoF)", "text": "The variant makes the gene's protein work more, or the gene more active.", "sv": "Varianten gör att genens protein fungerar mer, eller att genen blir mer aktiv."}, {"term": "Star allele", "sv_term": "Stjärnallel", "text": "A named version of a drug gene, such as CYP2C19*2, defined by one or more variants.", "sv": "En namngiven version av en läkemedelsgen, till exempel CYP2C19*2, definierad av en eller flera varianter."}, {"term": "Metaboliser type", "sv_term": "Metaboliseringstyp", "text": "How fast a person's drug gene clears a medicine: poor, intermediate, normal, rapid or ultrarapid. Dosing guidelines are written per type.", "sv": "Hur snabbt en persons läkemedelsgen gör sig av med ett läkemedel: långsam, intermediär, normal, snabb eller ultrasnabb. Doseringsriktlinjer skrivs per typ."}, {"term": "GWAS", "sv_term": "GWAS", "text": "Genome-wide association study: compares many people's variants with a trait to find the variants linked to it.", "sv": "Genomomfattande associationsstudie: jämför många människors varianter med en egenskap för att hitta de varianter som är kopplade till den."}, {"term": "Polygenic score", "sv_term": "Polygen poäng", "text": "Many variants' small effects added up into one number, placed among Europeans as a percentile.", "sv": "Många varianters små effekter summerade till ett tal, placerat bland européer som en percentil."}, {"term": "Percentile", "sv_term": "Percentil", "text": "Where a person falls among others: the 80th percentile is higher than 80 of 100 Europeans.", "sv": "Var en person hamnar bland andra: den 80:e percentilen är högre än 80 av 100 européer."}, {"term": "Pathogenic variant", "sv_term": "Patogen variant", "text": "A variant ClinVar's submitters classify as causing disease.", "sv": "En variant som ClinVars inskickare klassar som sjukdomsorsakande."}, {"term": "Evidence grade", "sv_term": "Evidensgrad", "text": "How strong the evidence behind a finding is: A+ guideline-grade or expert-reviewed, A replicated, B one publication, C a single study.", "sv": "Hur starkt underlaget bakom ett fynd är: A+ riktlinjenivå eller expertgranskat, A replikerat, B en publikation, C en enskild studie."}, {"term": "Pathway", "sv_term": "Reaktionsväg", "text": "A chain of reactions in the body, each run by proteins, that together do one job, such as taking up iron.", "sv": "En kedja av reaktioner i kroppen, var och en utförd av proteiner, som tillsammans gör ett jobb, till exempel att ta upp järn."}, {"term": "Deep mutational scan", "sv_term": "Djup mutationsskanning", "text": "A laboratory experiment that measures every possible change of a protein, one at a time.", "sv": "Ett laboratorieexperiment som mäter varje möjlig förändring av ett protein, en i taget."}]};
+  window.GX_PREVENTION = {"recommendations": [{"n": 1, "topic": "Smoking", "topic_sv": "Rökning", "text": "Do not smoke. Do not use any form of tobacco, or vaping products. If you smoke, you should quit.", "text_sv": "Rök inte. Använd inte någon form av tobak eller någon vejpingprodukt. Om du röker borde du sluta.", "items": [], "items_sv": []}, {"n": 2, "topic": "Exposure to other people’s tobacco smoke", "topic_sv": "Exponering för andra människors tobaksrök", "text": "Keep your home and car free of tobacco smoke.", "text_sv": "Håll ditt hem och din bil fria från tobaksrök.", "items": [], "items_sv": []}, {"n": 3, "topic": "Overweight and obesity", "topic_sv": "Övervikt och fetma", "text": "Take action to avoid or manage overweight and obesity:", "text_sv": "Saker du kan göra för att undvika eller hantera övervikt och fetma:", "items": ["Limit food high in calories, sugar, fat, and salt.", "Limit drinks high in sugar. Drink mostly water and unsweetened drinks.", "Limit ultra-processed foods."], "items_sv": ["Begränsa intaget av mat som innehåller många kalorier eller mycket socker, fett och salt.", "Begränsa intaget av drycker som innehåller mycket socker. Drick helst vatten och osötade drycker.", "Begränsa intaget av ultraprocessad mat."]}, {"n": 4, "topic": "Physical activity", "topic_sv": "Fysisk aktivitet", "text": "Be physically active in everyday life. Limit the time you spend sitting.", "text_sv": "Var fysiskt aktiv i vardagen. Begränsa den tid som du sitter ned.", "items": [], "items_sv": []}, {"n": 5, "topic": "Diet", "topic_sv": "Kost", "text": "Eat whole grains, vegetables, legumes, and fruits as a major part of your daily diet. Limit red meat, and avoid processed meat.", "text_sv": "Gör fullkornsprodukter, grönsaker, baljväxter och frukt till en stor del av din dagliga kost. Begränsa intaget av rött kött och undvik bearbetat kött.", "items": [], "items_sv": []}, {"n": 6, "topic": "Alcohol", "topic_sv": "Alkohol", "text": "Avoid alcoholic drinks.", "text_sv": "Undvik alkoholhaltiga drycker.", "items": [], "items_sv": []}, {"n": 7, "topic": "Breastfeeding", "topic_sv": "Amning", "text": "Breastfeed your baby for as long as possible.", "text_sv": "Amma ditt barn så länge som möjligt.", "items": [], "items_sv": []}, {"n": 8, "topic": "Sun exposure", "topic_sv": "Solexponering", "text": "Avoid too much sun exposure, especially for children. Use sun protection. Never use sunbeds.", "text_sv": "Undvik att vistas för mycket i solen. Detta gäller särskilt barn. Använd solskyddsprodukter. Sola aldrig i solarium.", "items": [], "items_sv": []}, {"n": 9, "topic": "Cancer-causing factors at work", "topic_sv": "Cancerframkallande faktorer på arbetsplatsen", "text": "Inform yourself about cancer-causing factors at work, and call on your employer to protect you against them. Always follow health and safety instructions at your workplace.", "text_sv": "Ta reda på vilka cancerframkallande faktorer som kan finnas på din arbetsplats och be din arbetsgivare att skydda dig mot dem. Följ alltid hälso- och säkerhetsinstruktionerna på arbetsplatsen.", "items": [], "items_sv": []}, {"n": 10, "topic": "Indoor radon gas", "topic_sv": "Radongas inomhus", "text": "Inform yourself about radon gas levels in your area by checking a local radon map. Seek professional help to measure levels in your home and, if necessary, reduce them.", "text_sv": "Ta reda på om det förekommer radongas i ditt närområde och på vilka nivåer genom att konsultera en lokal radonkarta. Be om professionell hjälp med att mäta nivåerna i ditt hem och vid behov att sänka dem.", "items": [], "items_sv": []}, {"n": 11, "topic": "Air pollution", "topic_sv": "Luftföroreningar", "text": "Take action to reduce exposure to air pollution by:", "text_sv": "Minska exponeringen för luftföroreningar genom att", "items": ["Using public transportation, and walking or cycling instead of using a car.", "Choosing low-traffic routes when walking, cycling, or exercising.", "Keeping your home free of smoke by not burning materials such as coal or wood.", "Supporting policies that improve air quality."], "items_sv": ["använda kollektivtrafik och gå eller cykla i stället för att köra bil,", "välja vägar med lite trafik när du promenerar, cyklar eller tränar,", "hålla ditt hem fritt från rök genom att inte elda material som kol eller ved,", "stödja politik som syftar till att förbättra luftkvaliteten."]}, {"n": 12, "topic": "Cancer-causing infections", "topic_sv": "Infektioner som kan orsaka cancer", "text": "", "text_sv": "", "items": ["Vaccinate girls and boys against hepatitis B virus and human papillomavirus (HPV) at the age recommended in your country.", "Take part in testing and treatment for hepatitis B and C viruses, human immunodeficiency virus (HIV), and Helicobacter pylori , as recommended in your country."], "items_sv": ["Vaccinera flickor och pojkar mot hepatit B-virus och humant papillomvirus (HPV) vid den ålder som rekommenderas i ditt land.", "Delta i testning för och behandling av hepatit B- och C-virus, humant immunbristvirus (hiv) och Helicobacter pylori, enligt rekommendationerna i ditt land."]}, {"n": 13, "topic": "Hormone replacement therapy", "topic_sv": "Hormonbehandling", "text": "If you decide to use hormone replacement therapy (for menopausal symptoms) after a thorough discussion with your health-care professional, limit its use to the shortest duration possible.", "text_sv": "Om du efter nära samråd med vårdpersonal påbörjar en hormonbehandling (för klimakteriebesvär) bör denna behandling pågå under så kort tid som möjligt.", "items": [], "items_sv": []}, {"n": 14, "topic": "Organized cancer screening programmes", "topic_sv": "Organiserade cancerscreeningprogram", "text": "Take part in organized cancer screening programmes, as recommended in your country, for:", "text_sv": "Delta i de organiserade cancerscreeningprogram som rekommenderas i ditt land för följande cancertyper:", "items": ["Bowel cancer.", "Breast cancer.", "Cervical cancer.", "Lung cancer."], "items_sv": ["Tjock- och ändtarmscancer", "Bröstcancer", "Livmoderhalscancer", "Lungcancer"]}], "cancers": {"breast carcinoma": {"name": "Breast cancer", "sv": "Bröstcancer", "iarc_sites": ["Breast"], "agents": ["Alcoholic beverages", "Estrogen–progestogen menopausal therapy"], "recommendations": [{"n": 6, "agents": ["Alcoholic beverages"]}, {"n": 13, "agents": ["Estrogen–progestogen menopausal therapy"]}]}, "prostate carcinoma": {"name": "Prostate cancer", "sv": "Prostatacancer", "iarc_sites": ["Prostate"], "agents": [], "recommendations": []}, "colorectal cancer": {"name": "Colorectal cancer", "sv": "Tjock- och ändtarmscancer", "iarc_sites": ["Colon", "Rectum"], "agents": ["Alcoholic beverages", "Processed meat (consumption of)", "Tobacco smoking"], "recommendations": [{"n": 1, "agents": ["Tobacco smoking"]}, {"n": 5, "agents": ["Processed meat (consumption of)"]}, {"n": 6, "agents": ["Alcoholic beverages"]}]}, "lung carcinoma": {"name": "Lung cancer", "sv": "Lungcancer", "iarc_sites": ["Lung"], "agents": ["Aluminium production", "Asbestos (all forms)", "Outdoor air pollution", "Painter (occupational exposure as a)", "Radon-222", "Rubber manufacturing industry", "Silica dust, crystalline", "Tobacco smoke, secondhand", "Tobacco smoking", "Welding fumes"], "recommendations": [{"n": 1, "agents": ["Tobacco smoking"]}, {"n": 2, "agents": ["Tobacco smoke, secondhand"]}, {"n": 9, "agents": ["Aluminium production", "Asbestos (all forms)", "Painter (occupational exposure as a)", "Rubber manufacturing industry", "Silica dust, crystalline", "Welding fumes"]}, {"n": 10, "agents": ["Radon-222"]}, {"n": 11, "agents": ["Outdoor air pollution"]}]}, "cutaneous melanoma": {"name": "Cutaneous melanoma", "sv": "Hudmelanom", "iarc_sites": ["Skin (melanoma)"], "agents": ["Solar radiation", "Ultraviolet-emitting tanning devices"], "recommendations": [{"n": 8, "agents": ["Solar radiation", "Ultraviolet-emitting tanning devices"]}]}, "ovarian cancer": {"name": "Ovarian cancer", "sv": "Äggstockscancer", "iarc_sites": ["Ovary"], "agents": ["Asbestos (all forms)", "Estrogen therapy, postmenopausal", "Tobacco smoking"], "recommendations": [{"n": 1, "agents": ["Tobacco smoking"]}, {"n": 9, "agents": ["Asbestos (all forms)"]}, {"n": 13, "agents": ["Estrogen therapy, postmenopausal"]}]}, "exocrine pancreatic carcinoma": {"name": "Pancreatic cancer", "sv": "Bukspottkörtelcancer", "iarc_sites": ["Pancreas"], "agents": ["Tobacco smoking", "Tobacco, smokeless"], "recommendations": [{"n": 1, "agents": ["Tobacco smoking", "Tobacco, smokeless"]}]}, "basal cell carcinoma": {"name": "Basal cell carcinoma", "sv": "Basalcellscancer", "iarc_sites": ["Skin (malignant non-melanoma)"], "agents": ["Coal-tar distillation", "Solar radiation"], "recommendations": [{"n": 8, "agents": ["Solar radiation"]}, {"n": 9, "agents": ["Coal-tar distillation"]}]}, "urinary bladder carcinoma": {"name": "Bladder cancer", "sv": "Urinblåsecancer", "iarc_sites": ["Urinary bladder"], "agents": ["Aluminium production", "Firefighter (occupational exposure as a)", "Painter (occupational exposure as a)", "Rubber manufacturing industry", "Tobacco smoking"], "recommendations": [{"n": 1, "agents": ["Tobacco smoking"]}, {"n": 9, "agents": ["Aluminium production", "Firefighter (occupational exposure as a)", "Painter (occupational exposure as a)", "Rubber manufacturing industry"]}]}, "renal cell carcinoma": {"name": "Kidney cancer", "sv": "Njurcancer", "iarc_sites": ["Kidney"], "agents": ["Tobacco smoking", "Trichloroethylene"], "recommendations": [{"n": 1, "agents": ["Tobacco smoking"]}, {"n": 9, "agents": ["Trichloroethylene"]}]}}, "sources": {"iarc": "https://monographs.iarc.who.int/wp-content/uploads/2019/07/Classifications_by_cancer_site.pdf", "ecac": {"en": "https://cancer-code-europe.iarc.who.int/", "sv": "https://cancer-code-europe.iarc.who.int/sv/startsida/"}}};
   // Calculations from the attached datasets
   dash.calc('kpis', {
     inputs: ['modules', 'module_links', 'biomarker_snps'],
@@ -1671,7 +1787,7 @@
     else thMake(el, 'p', g.genotype ? 'gx-note' : null, g.genotype ? `Library note for ${g.rsid} ${g.genotype}: ${g.interpretation}. The notes were written with an LLM and are being checked against the evidence; the label above comes from the evidence, not the note.`
       : s.api ? `Not in the library. ${thWho(s)}'s file ${s.stats && (s.stats.by_confidence || {}).high ? 'measures or confidently imputes' : 'measures'} ${g.ev.n_snps || 0} SNPs in or near this gene.` : `${thWho(s)} has no call at this gene's library SNP.`);
     if (g.has_lifecycle) {
-      const b = thMake(el, 'button', 'lc-btn', 'Open its lifecycle');
+      const b = thMake(el, 'button', 'lc-btn', 'Open its pathway');
       b.type = 'button';
       b.addEventListener('click', () => { dash.setParams({ lc_gene: g.gene, lc_role: 1 }); gx.show('lifecycle'); });
     }
@@ -2479,6 +2595,39 @@
   // then the sport genes that matter in practice for their copies (sport_snps.json). The cards below hold the evidence.
   const thBand = (p) => p <= 5 ? 'Very low' : p <= 20 ? 'Low' : p < 40 ? 'Below average' : p <= 60 ? 'Average' : p < 80 ? 'Above average' : p < 95 ? 'High' : 'Very high';
   const thPos = (p) => p > 40 && p <= 60 ? 'middle' : p <= 50 ? `lowest ${Math.max(1, p)}%` : `highest ${Math.max(1, 100 - p)}%`;
+  // Lowering the risk (cancer theme): the European Code Against Cancer's recommendations for the avoidable causes IARC
+  // links to the theme's cancers (themes/cancer_prevention.json, window.GX_PREVENTION), the same for everyone
+  dash.draw('th-prevention', (el) => {
+    const card = el.closest('.gx-card'), on = gx.theme() === 'cancer';
+    if (card) card.classList.toggle('th-off', !on);
+    el.replaceChildren();
+    const PV = window.GX_PREVENTION;
+    if (!on || !PV) return;
+    const make = (parent, tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; parent.appendChild(e); return e; };
+    const by = new Map();
+    for (const c of Object.values(PV.cancers)) for (const r of c.recommendations) {
+      if (!by.has(r.n)) by.set(r.n, []);
+      by.get(r.n).push(c.name);
+    }
+    make(el, 'h2', null, 'Lowering the risk');
+    make(el, 'p', 'gx-note', 'The European Code Against Cancer (IARC/WHO, 5th edition): its recommendations for the avoidable causes that IARC classifies with sufficient evidence for the cancers of this theme, quoted as written. The same for everyone: genes shift the starting point, these lower it from there.');
+    const grid = make(el, 'div', 'th-prev-grid');
+    const recs = PV.recommendations.filter((r) => by.has(r.n)).sort((a, b) => by.get(b.n).length - by.get(a.n).length || a.n - b.n);
+    for (const r of recs) {
+      const d = make(grid, 'div', 'th-prev');
+      make(d, 'b', null, r.topic);
+      make(d, 'p', null, [r.text, ...(r.items || [])].filter(Boolean).join(' '));
+      const chips = make(d, 'div', 'th-prev-chips');
+      for (const nm of by.get(r.n)) make(chips, 'span', 'th-prev-chip', nm);
+    }
+    const none = Object.values(PV.cancers).filter((c) => !c.recommendations.length).map((c) => c.name);
+    if (none.length) make(el, 'p', 'gx-note', `No avoidable cause with sufficient evidence is known for: ${none.join(', ')}.`);
+    const src = make(el, 'p', 'gx-note');
+    const a1 = make(src, 'a', null, 'European Code Against Cancer'); a1.href = PV.sources.ecac.en; a1.target = '_blank'; a1.rel = 'noopener';
+    make(src, 'span', null, ' · ');
+    const a2 = make(src, 'a', null, 'IARC: cancers by cause'); a2.href = PV.sources.iarc; a2.target = '_blank'; a2.rel = 'noopener';
+  });
+
   dash.draw('th-fit-summary', (el) => {
     const card = el.closest('.gx-card'), on = dash.params().theme === 'muscle';
     if (card) card.classList.toggle('th-off', !on);
@@ -2585,7 +2734,7 @@
       .attr('font-size', 12).style('fill', 'var(--color-fg)').text((t) => t.biomarker);
   });
 
-  // Gene lifecycle: gene picker, role switch, gene summary, regulation, node graph, route patterns and step details
+  // Gene pathway: gene picker, role switch, gene summary, regulation, node graph, route patterns and step details
   const LC = { key: null, step: null, wrap: true, drawnKey: null, scroll: 0 };
   const LC_OUTCOME = { positive: 'Positive for {who}', negative: 'Negative for {who}', neutral: 'Neither good nor bad', unclear: 'Unclear whether good or bad',
     typical: 'Typical', unknown: 'Unknown' };
@@ -2652,12 +2801,13 @@
     const r = gx.rows('lifecycle_genes');
     if (!r) return null;
     const genes = r[0];
-    const p = dash.params();
+    // LC.other: another part (the introduction) drawing a given gene, without touching the tab's own selection
+    const p = LC.other ? { lc_gene: LC.other.gene, lc_role: LC.other.role } : dash.params();
     const gene = genes.some((g) => g.gene === p.lc_gene) ? p.lc_gene : genes[0].gene;
     const roles = genes.filter((g) => g.gene === gene).sort((a, b) => a.role - b.role);
     const role = roles.find((g) => g.role === Number(p.lc_role)) || roles[0];
     const key = gene + '|' + role.role;
-    if (LC.key !== key) { LC.key = key; LC.step = null; }
+    if (!LC.other && LC.key !== key) { LC.key = key; LC.step = null; }
     return { genes, gene, roles, role, key };
   };
 
@@ -2717,6 +2867,49 @@
       b.type = 'button';
       b.setAttribute('aria-pressed', String(r.role === s.role.role));
       b.addEventListener('click', () => dash.setParams({ lc_role: r.role }));
+    }
+  });
+
+  // Start here: what the colours mean, why a gene's lifecycle matters in real life (the same for everyone), and the same
+  // four points for the selected gene, from its own data (ClinPGx drugs, cofactors and vitamins, regulators, GTEx tissue)
+  dash.draw('lc-intro', (el) => {
+    el.replaceChildren();
+    const s = lcSel();
+    if (!s) { if (gx.failed('lifecycle_genes')) gx.failLine(el); return; }
+    const f = lcFn().get(s.gene) || {}, ev = f.ev || {}, row = s.role || {};
+    make(el, 'h2', null, 'What a gene\'s pathway tells you');
+    make(el, 'p', 'gx-note', 'Every gene makes a protein that does one job in a chain: it takes a substance in, converts or moves it, and passes it on. This tab follows that chain from start to end (Reactome) and marks where the person\'s variants change a protein.');
+    const calls = make(el, 'div', 'lc-in-calls');
+    for (const [cls, name, text] of [
+      ['gof', 'More active (GoF, gain of function)', 'The protein works harder, or more of it is made: the step runs faster.'],
+      ['norm', 'Typical function', 'The common form: the step runs as in most people.'],
+      ['lof', 'Less active (LoF, loss of function)', 'The protein works less, or less of it is made: the step slows down.'],
+      ['alt', 'Changed, direction unclear', 'The variant changes the protein, but the evidence doesn\'t say which way.']]) {
+      const c = make(calls, 'div', 'lc-in-call');
+      make(c, 'span', 'lc-chip lc-' + cls, name);
+      make(c, 'p', null, text);
+    }
+    make(el, 'h3', 'lc-in-h', 'Why it matters');
+    const why = make(el, 'div', 'lc-in-why');
+    const WHY = [
+      ['Medicines', 'Many medicines are moved or broken down by the same proteins. A faster or slower one changes how much of a drug reaches the tissue, and so its effect and side effects.'],
+      ['What the steps need', 'Many steps need a vitamin or cofactor to run. Where a step is slower, getting enough of what it needs matters most.'],
+      ['Bottlenecks behind lab values', 'A slow step lets its input build up and its output drop: often why a lab value sits high or low without anything being wrong.'],
+      ['Where in the body', 'A protein acts where it is made. The tissue says where an effect shows up.']];
+    for (const [h, t] of WHY) { const d = make(why, 'div', 'lc-in-tile'); make(d, 'b', null, h); make(d, 'p', null, t); }
+    // The same four for the selected gene, only those its data has
+    const mine = [];
+    const pgx = [...new Set((ev.clinpgx || []).map((x) => x.chemicals).filter(Boolean))];
+    if (pgx.length) mine.push(['Medicines', `ClinPGx links ${s.gene} to ${pgx.slice(0, 6).join(', ')}${pgx.length > 6 ? ` and ${pgx.length - 6} more` : ''}.`]);
+    const needs = [row.cofactors, row.vitamins].filter(Boolean).join('; ');
+    if (needs) mine.push(['What the steps need', `${s.gene}'s step needs: ${needs}.`]);
+    let regs = []; try { regs = JSON.parse(row.regulators || '[]'); } catch (e) { /* none */ }
+    if (regs.length) mine.push(['What controls it', `${regs.length} genes switch ${s.gene} on or off (OmniPath), listed beside it.`]);
+    if (ev.gtex && ev.gtex.tissue) mine.push(['Where in the body', `The variant's effect on how much ${s.gene} is made is strongest in ${ev.gtex.tissue} (GTEx).`]);
+    if (mine.length) {
+      make(el, 'h3', 'lc-in-h', `For ${s.gene} in ${gx.who()}`);
+      const g = make(el, 'div', 'lc-in-why lc-in-mine');
+      for (const [h, t] of mine) { const d = make(g, 'div', 'lc-in-tile'); make(d, 'b', null, h); make(d, 'p', null, t); }
     }
   });
 
@@ -2814,14 +3007,14 @@
           if (f && f.has_lifecycle) { chip.type = 'button'; chip.addEventListener('click', () => openGene(x.gene)); }
         }
       }
-      make(d, 'p', 'gx-note', 'From OmniPath. Genes with a genotype are in the library; select one to open its lifecycle.');
+      make(d, 'p', 'gx-note', 'From OmniPath. Genes with a genotype are in the library; select one to open its pathway.');
     }
   });
 
   // Lifecycle as a left-to-right node graph: start, molecule, step, molecule, step, ..., end
-  dash.draw('lc-timeline', (el) => {
+  const drawTimeline = (el) => {
     const s = lcSel();
-    if (LC.drawnKey === (s && s.key)) LC.scroll = el.scrollLeft;
+    if (!LC.other && LC.drawnKey === (s && s.key)) LC.scroll = el.scrollLeft;
     el.replaceChildren();
     const steps = lcSteps(s);
     if (!s || !steps) { if (gx.failed('lifecycle_steps', 'lifecycle_genes', 'gene_function')) gx.failLine(el); return; }
@@ -2830,7 +3023,7 @@
     const sel = selectedIndex(steps);
     const FS = 12, SMALL = 11, LINE = 15, GAP = 36, TOP = 34;
 
-    const svg = d3.select(el).append('svg').attr('role', 'group').attr('aria-label', `Lifecycle of ${s.gene}: ${s.role.pathway}`);
+    const svg = d3.select(el).append('svg').attr('role', 'group').attr('aria-label', `Pathway of ${s.gene}: ${s.role.pathway}`);
     const probe = svg.append('text').style('visibility', 'hidden');
     const textW = (t, size = FS, weight = 400) => { probe.attr('font-size', size).attr('font-weight', weight).text(t); return probe.node().getComputedTextLength(); };
     const wrap = (t, maxW, maxLines, size = FS, weight = 400) => {
@@ -2893,7 +3086,7 @@
     probe.remove();
 
     // 3. Layout: rows that fit the card (wrapped) or one long line, each row with a lane for section labels above
-    const wrapped = LC.wrap && el.clientWidth > 320;
+    const wrapped = (LC.other ? true : LC.wrap) && el.clientWidth > 320;
     const avail = el.clientWidth - 4;
     const rows = [];
     let cursor = 16, row = [];
@@ -2976,7 +3169,10 @@
 
     // 5. Nodes
     const stepGroups = [];
+    const other = LC.other;
     const select = (i) => {
+      // Drawn elsewhere: a step opens the Gene pathway tab on it
+      if (other) { LC.step = steps[i].order; dash.setParams({ lc_gene: s.gene, lc_role: s.role.role }); gx.show('lifecycle'); return; }
       LC.step = steps[i].order;
       for (const sg of stepGroups) sg.node.classList.toggle('is-selected', sg.i === i);
       dash.draw('lc-detail');
@@ -3050,7 +3246,7 @@
             event.stopPropagation();
             tip.show(event, c.g.gene, !c.g.lib ? ['Not in the library'] : !f || !f.genotype ? [`In the library, no call in ${gx.who()}`] :
               [`${FN_TEXT[f.function] || ''}${f.function !== 'normal' && f.dose ? ' ×' + f.dose : ''} · ${f.rsid} ${f.genotype}`, f.interpretation,
-                opens ? 'Select to open its lifecycle' : ''].filter(Boolean));
+                opens ? 'Select to open its pathway' : ''].filter(Boolean));
           });
           if (opens) cg.on('click', (event) => { event.stopPropagation(); tip.hide(); openGene(c.g.gene); });
         }
@@ -3060,12 +3256,21 @@
     }
 
     // Open centred on the gene's own step; keep the scroll position while the same chain is redrawn
+    if (LC.other) return;
     if (LC.drawnKey !== s.key) {
       const focalNode = nodes.find((n) => n.type === 'step' && n.x.section === 'focal');
       el.scrollLeft = focalNode ? Math.max(0, focalNode.left + focalNode.w / 2 - el.clientWidth / 2) : 0;
     } else el.scrollLeft = LC.scroll;
     LC.drawnKey = s.key;
-  });
+  };
+  dash.draw('lc-timeline', drawTimeline);
+  // The same drawing for a given gene, in another part (the introduction's lifecycle step)
+  window.gxLifecycle = (el, gene, role) => {
+    const keep = LC.step;
+    LC.other = { gene, role: role || 1 };
+    LC.step = null;  // the tab's selected step isn't this drawing's
+    try { drawTimeline(el); } finally { LC.other = null; LC.step = keep; }
+  };
 
   dash.draw('lc-patterns', (el) => {
     el.replaceChildren();
@@ -3154,7 +3359,7 @@
       if (!f || !f.genotype) { make(head, 'span', 'lc-call unknown', `Not genotyped in ${gx.who()}`); continue; }
       make(head, 'span', 'gx-muted', `${f.rsid} ${f.genotype}`);
       make(head, 'span', 'lc-call ' + FN_CLASS[f.function], FN_TEXT[f.function] + (f.function !== 'normal' && f.dose ? ` ×${f.dose}` : ''));
-      if (f.has_lifecycle && g.gene !== s.gene) { const b = make(head, 'button', 'lc-btn', 'Open its lifecycle'); b.type = 'button'; b.addEventListener('click', () => openGene(g.gene)); }
+      if (f.has_lifecycle && g.gene !== s.gene) { const b = make(head, 'button', 'lc-btn', 'Open its pathway'); b.type = 'button'; b.addEventListener('click', () => openGene(g.gene)); }
       const ev = f.ev || {}, lit = f.lit || {};
       make(card, 'p', 'gx-note', [`Library: ${f.interpretation}`, ev.protein_change, pretty(ev.consequence)].filter(Boolean).join(' · '));
 
@@ -4426,28 +4631,31 @@
         inMake(rk, 'p', 'in-ccard-note', 'The common variants behind these bars each nudge risk a little; together they shift it modestly. The large inherited risks come from rare variants (BRCA1, BRCA2, the Lynch syndrome genes) that a chip mostly can\'t see. A cancer far to the left is a reason to start screening on time, not a diagnosis.');
       }
       const cg = changed('cancer');
-      // What to do with it: one action per finding that can change a decision, from the cards and bars above
-      const drugsOf = (gene) => [...new Set(oncRows.filter((r) => genesOf(r).includes(gene)).map((r) => r.drug))].sort();
-      const snpsOf = (gene) => { try { return JSON.parse((mgBy.get(gene) || {}).snps || '[]'); } catch (e) { return []; } };
       const shown = testGenes.filter((g) => mgBy.has(g));
-      const acts = [];
-      for (const g of shown) {
-        const m = mgBy.get(g);
-        if (!(m.typical === true || String(m.typical) === 'True'))
-          acts.push(['meds', inT('Before {}, tell the oncologist {}\'s {} type: {}.', drugsOf(g).join(', '), c.who, g, String(m.phenotype || '').replace(/\s*\(.*\)$/, '').toLowerCase())]);
-      }
-      for (const g of shown) if (snpsOf(g).some((x) => x.confidence === 'not_excluded'))
-        acts.push(['test', inT('Ask for a {} test before {}: the chip can\'t rule out the variants that matter.', g, drugsOf(g).join(', '))]);
-      const high = risks.filter((r) => r.p >= 80).map((r) => r.name.toLowerCase());
-      if (high.length) acts.push(['screen', inT('Ask about screening on time for {}: {}\'s genes put these above most Europeans.', high.join(', '), c.who)]);
-      if (!acts.length) acts.push(['ok', inT('Nothing here changes a decision for {} today: the treatment genes read as usual and no cancer stands out.', c.who)]);
-      const act = inMake(cancer, 'div', 'in-acts');
-      inMake(act, 'h4', null, 'What to do with this');
-      for (const [k, t] of acts) {
-        const row = inMake(act, 'div', 'in-act in-act-' + k);
-        inMake(row, 'span', 'in-act-dot');
-        inMake(row, 'p', null, t);
-      }
+      // What this gives and what it can't tell: the same for everyone (general counts, no message built from one
+      // person's results), and what lowers the risk: the European Code Against Cancer's recommendations for the avoidable
+      // causes IARC links to the theme's cancers (themes/cancer_prevention.json, window.GX_PREVENTION)
+      const cst = (() => { const r = (tm || []).find((x) => x.theme === 'cancer' && x.stats); try { return r ? JSON.parse(r.stats) : {}; } catch (e) { return {}; } })();
+      const reach = cst.chip_reach || {};
+      const PV = window.GX_PREVENTION || { recommendations: [], cancers: {} };
+      const nMech = new Set((tm || []).filter((r) => r.theme === 'cancer' && r.facet && r.facet !== 'disease').map((r) => r.facet)).size;
+      const nCancers = Object.keys(PV.cancers).length;
+      const lim = inMake(cancer, 'div', 'in-canlim');
+      const can = inMake(lim, 'div', 'in-canlim-col in-canlim-can');
+      inMake(can, 'h4', null, 'What this gives');
+      const cannot = inMake(lim, 'div', 'in-canlim-col in-canlim-cant');
+      inMake(cannot, 'h4', null, 'What it can\'t tell');
+      const item = (col, head, text) => { const d = inMake(col, 'div', 'in-canlim-item'); inMake(d, 'b', null, head); if (text) inMake(d, 'p', null, text); return d; };
+      if (cst.n_genes) item(can, 'A broad read of the cancer genes', inT('{} genes research links to cancer, grouped by the {} stages of a cell\'s life they act on (repair, checkpoints, clearing toxins and more).', inN(cst.n_genes), nMech));
+      item(can, 'Safer dosing', inT('The {} genes that decide how cancer medicines are cleared, read before any treatment starts, so a standard dose that would be toxic can be adjusted in time.', shown.length));
+      if (nCancers) item(can, 'Screening at the right time', inT('A genetic risk ranking for {} cancer types, so screening can start on time for the ones that stand out.', nCancers));
+      // What lowers the risk, in one line: the full list is in the cancer theme (th.js, th-prevention)
+      const nRecs = new Set(Object.values(PV.cancers).flatMap((c) => c.recommendations.map((r) => r.n))).size;
+      if (nRecs) item(can, 'Reduce cancer trigger exposure', inT('{} of the European Code Against Cancer\'s recommendations cover the known, avoidable causes of these cancers, such as smoking, alcohol and too much sun. The cancer theme lists them, with the cancers each one lowers.', nRecs));
+      item(cannot, 'Rare high-risk mutations (BRCA1, BRCA2, Lynch syndrome)', 'The genes above are read through common variation, which a DNA test reads well. The large inherited risks come from rare single mutations, each carried by very few people, and finding them takes clinical-grade sequencing of the genes themselves.');
+      item(cannot, 'Some drug-gene variants', 'A few of the variants dosing guidelines test for are too rare for a chip to rule out; the cards above mark them in orange.');
+      item(cannot, 'What a tumour will do', 'How fast a cancer grows and which treatment it responds to are written in the tumour\'s own DNA, read from a biopsy. Inherited DNA only shifts the chance of getting it.');
+      item(cannot, 'Exact risk', 'The bars rank common variants among Europeans; they don\'t give a lifetime risk, and they are less accurate for other ancestries. Family history counts as much and isn\'t in the DNA file.');
 
       // This is the overview: the cancer theme in Clusters goes gene by gene
       const more = inMake(cancer, 'div', 'in-deeper');
@@ -4459,24 +4667,212 @@
         b.type = 'button';
         b.addEventListener('click', () => { dash.setParams({ theme: 'cancer' }); gx.show('clusters'); });
       }
-      inText(el, 'Fertility, nutrition, lab values and training are read the same way, each in its own tab.');
     } },
-    { title: 'Your DNA file', draw: (el, c) => {
-      const p = c.p || {};
-      inText(el, inT('A consumer DNA test doesn\'t read the whole genome. A chip measures a fixed set of positions where people differ (SNPs), {} in {}\'s file, and reports the two letters found at each, one from each parent.', inN(p.measured), c.who));
-      inFacts(el, [[inN(p.measured), inT('positions measured in {}\'s file', c.who)],
-                   [p.format ? { myheritage: 'MyHeritage', ancestry: 'AncestryDNA', '23andme': '23andMe' }[p.format] || p.format : '—', 'file format'],
-                   [inN(p.matched), 'of them at positions the reference panel knows']]);
-      const chroms = Object.entries(p.per_chrom || {}).sort((a, b) => (a[0] === 'X') - (b[0] === 'X') || +a[0] - +b[0]);
-      if (chroms.length) {
-        const box = inChartBox(el, 'Measured positions per chromosome');
-        const cols = inMake(box, 'div', 'in-cols'), labs = inMake(box, 'div', 'in-cols-lab'), max = Math.max(...chroms.map((x) => x[1] || 0));
-        for (const [ch, n] of chroms) {
-          const col = inMake(cols, 'div');
-          col.title = inT('Chromosome {}: {} positions', ch, inN(n));
-          inMake(col, 'i').style.height = `${(n / max) * 100}%`;
-          inMake(labs, 'span', null, ch);
+    { title: 'Inside a gene: its pathway', draw: (el, c) => {
+      inMake(el, 'p', 'in-lc-lead', 'Your body runs on thousands of processes, each a link in a chain where one protein hands its product to the next. Your DNA sets how well each link works, like a dial turned a little up or down. Those settings are how humans adapted to different foods, climates and threats, and the same setting can be a strength in one situation and a weakness in another. Knowing yours, down to the single step, shows where to lean on your strengths and where to support your weaknesses: for a longer, healthier and fuller life.');
+      // A teaching example, the same for everyone (no one's genotype): the alcohol chain. The two enzymes are the one
+      // choice made here; the molecules come from Reactome's reactions, what the enzymes are for from UniProt
+      const lg = inCount('lifecycle_genes') || [], ls = inCount('lifecycle_steps') || [];
+      const EX = ['ADH1B', 'ALDH2'];
+      const focal = (g) => ls.find((r) => r.gene === g && String(r.role) === '1' && r.section === 'focal');
+      const gene = (g) => lg.find((r) => r.gene === g && String(r.role) === '1') || {};
+      // "ethanol + NAD+ => acetaldehyde + NADH + H+": the first molecule on each side
+      const sides = (rx) => { const m = String(rx || '').split(/\s*=>\s*/); return m.length === 2 ? m.map((x) => x.split(/\s+\+\s+/)[0].replace(/\s*\[.*\]$/, '').trim()) : null; };
+      const s1 = sides((focal(EX[0]) || {}).reaction), s2 = sides((focal(EX[1]) || {}).reaction);
+      if (s1 && s2) {
+        const mols = [s1[0], s1[1], s2[1]];
+        const box = inMake(el, 'div', 'in-lc');
+        inMake(box, 'span', 'in-tag', 'An example: the alcohol chain');
+        inMake(box, 'h3', 'in-lc-title', inT('{} → {} → {}', mols[0], mols[1], mols[2]));
+        inMake(box, 'p', 'in-lc-path', inT('Two enzymes, two steps: {} turns {} into {}, then {} turns {} into {}. Change how well one of them works and the middle of the chain changes.', EX[0], mols[0], mols[1], EX[1], mols[1], mols[2]));
+        // The same chain three ways; the middle molecule's level is what changes
+        // One beer through the chain: grams from its volume, strength and ethanol's density, hours from the whole body's
+        // rate (PubChem: a constant amount per hour, whatever the dose)
+        let eth = {}; try { eth = JSON.parse(((inCount('intro_stats') || []).find((r) => r.kind === 'example') || {}).ethanol || '{}'); } catch (e) { /* none */ }
+        if (eth.rate && eth.density) {
+          // The time scales with body weight: PubChem's per-kilo rate (mg per kg per hour), or the 70 kg figure without it
+          const ML = 500, ABV = 5, grams = ML * ABV / 100 * eth.density;
+          const perKg = eth.rate.mg_per_kg_hour ? eth.rate.mg_per_kg_hour / 1000 : eth.rate.g_per_hour / eth.rate.weight_kg;
+          const timeFor = (kg) => grams / (perKg * kg);
+          const fmtT = (h) => { const hh = Math.floor(h), mm = Math.round((h - hh) * 60); return mm === 60 ? inT('{} h {} min', hh + 1, 0) : inT('{} h {} min', hh, mm); };
+          const bw = inMake(box, 'div', 'in-beer');
+          const NS = 'http://www.w3.org/2000/svg', svg = document.createElementNS(NS, 'svg');
+          svg.setAttribute('viewBox', '0 0 80 120'); svg.setAttribute('class', 'in-beer-glass'); svg.setAttribute('aria-hidden', 'true');
+          svg.innerHTML = '<path d="M14 22 L66 22 L60 112 Q59 116 55 116 L25 116 Q21 116 20 112 Z" class="g"/>' +
+            '<path d="M17 40 L63 40 L59 110 Q58 113 55 113 L25 113 Q22 113 21 110 Z" class="b"/>' +
+            '<path d="M12 22 Q16 8 30 12 Q38 2 50 10 Q64 6 68 22 Z" class="f"/>' +
+            '<circle cx="32" cy="70" r="2" class="u"/><circle cx="44" cy="88" r="1.6" class="u"/><circle cx="50" cy="60" r="1.4" class="u"/>';
+          bw.appendChild(svg);
+          const info = inMake(bw, 'div', 'in-beer-info');
+          inMake(info, 'span', 'in-tag', 'One beer through the chain');
+          inMake(info, 'b', 'in-beer-big', inT('{} ml at {}%: {} g of alcohol', ML, ABV, grams.toFixed(1)));
+          inMake(info, 'p', null, inT('The liver turns about {} mg of alcohol into acetate per kilo of body weight per hour, a constant amount whatever was drunk.', Math.round(perKg * 1000)));
+          // The weight slider
+          const wl = inMake(info, 'label', 'in-beer-w');
+          inMake(wl, 'span', null, 'Body weight');
+          const range = inMake(wl, 'input');
+          range.type = 'range'; range.min = 40; range.max = 120; range.step = 1; range.value = Math.round(eth.rate.weight_kg || 70);
+          const wv = inMake(wl, 'b', 'in-beer-wv');
+          const tline = inMake(info, 'p', 'in-beer-time');
+          // A timeline of those hours, on a fixed 0 to 8 h scale so the weights compare
+          const SCALE = 8;
+          const tl = inMake(info, 'div', 'in-beer-tl');
+          const track = inMake(tl, 'div', 'in-beer-track');
+          inMake(track, 'i', 'in-beer-left');
+          const ticks = inMake(tl, 'div', 'in-beer-ticks');
+          for (let h = 0; h <= SCALE; h += 2) { const t = inMake(ticks, 'span', null, inT('{} h', h)); t.style.left = `${(h / SCALE) * 100}%`; }
+          const during = [];   // the panels' lines, filled in below and updated with the slider
+          box._beerDuring = during;
+          const update = () => {
+            const kg = +range.value, h = timeFor(kg);
+            wv.textContent = `${kg} kg`;
+            tline.textContent = inT('One beer takes about {} to pass through the chain.', fmtT(h));
+            track.style.setProperty('--end', `${Math.min(100, (h / SCALE) * 100)}%`);
+            for (const [node, tpl] of during) node.textContent = inT(tpl, fmtT(h));
+          };
+          range.addEventListener('input', update);
+          box._beerUpdate = update;
+          // Measured: the time doesn't depend on these genes (blood ethanol unaffected by ADH1B or ALDH2)
+          let both = []; try { both = JSON.parse(((inCount('intro_stats') || []).find((r) => r.kind === 'example') || {}).measured || '[]').filter((m) => m.about === 'both'); } catch (e) { /* none */ }
+          for (const m of both) {
+            const q = inMake(info, 'p', 'in-beer-same');
+            inMake(q, 'span', null, inT('The same for every form of these genes: measured in people, “{}”', m.finding));
+            const a = inMake(q, 'a', 'in-lc-src', ` ${m.study}`); a.href = `https://pubmed.ncbi.nlm.nih.gov/${m.pmid}/`; a.target = '_blank'; a.rel = 'noopener';
+          }
+          const s2 = inMake(info, 'a', 'in-lc-src', 'PubChem, ethanol: metabolism and density');
+          s2.href = eth.url; s2.target = '_blank'; s2.rel = 'noopener';
         }
+        // The buildup, measured (Chen 2021's full text, read at export): shown in the slow form's panel
+        let bu = null; try { bu = JSON.parse(((inCount('intro_stats') || []).find((r) => r.kind === 'example') || {}).buildup || 'null'); } catch (e) { /* none */ }
+        const panels = inMake(box, 'div', 'in-lc-panels');
+        // The variants' numbers: GWAS Catalog odds per copy and UniProt's notes, read at export (intro.py, the same for everyone)
+        let exData = []; try { exData = JSON.parse(((inCount('intro_stats') || []).find((r) => r.kind === 'example') || {}).example || '[]'); } catch (e) { /* none */ }
+        const exOf = (g) => exData.find((x) => x.gene === g);
+        const NOISE = /^AMED|ALDH2-related|cancer|carcinoma|nitroglycerin/i;
+        const caseFix = (t) => (t === t.toUpperCase() ? t.charAt(0) + t.slice(1).toLowerCase() : t);
+        const fmtN = (v) => (v == null ? '—' : String(v));
+        const src = (parent, text, pmid) => { const a = inMake(parent, 'a', 'in-lc-src', text); if (pmid) { a.href = `https://pubmed.ncbi.nlm.nih.gov/${pmid}/`; a.target = '_blank'; a.rel = 'noopener'; } return a; };
+        const effect = (d, e) => {
+          const n = inMake(d, 'div', 'in-lc-num');
+          inMake(n, 'b', null, e.or != null ? `×${e.or}` : inT('p = {}', e.p));
+          inMake(n, 'span', null, e.or != null ? inT('odds of {} per copy', e.trait.toLowerCase()) : inT('linked to {}', e.trait.toLowerCase()));
+          const size = (e.sample.match(/^[\d,]+ [^,]*?(?:individuals|cases)/) || [e.sample.slice(0, 50)])[0];
+          src(n, `${e.author} ${e.year} · ${size}`, e.pmid);
+        };
+        // How fast: the measured speeds (UniProt), drawn as two bars; what the buildup does (MedGen); one GWAS effect
+        const numbers = (d, g) => {
+          const x = exOf(g);
+          if (!x) return;
+          inMake(d, 'span', 'in-tag', inT('{} {} ({})', g, x.variant, x.rsid));
+          if (x.speed && x.speed.typical && x.speed.variant) {
+            const sp = x.speed, ratio = Math.round(sp.variant.value / sp.typical.value);
+            const k = inMake(d, 'div', 'in-lc-speed');
+            const head = inMake(k, 'div', 'in-lc-num');
+            inMake(head, 'b', null, `×${ratio}`);
+            inMake(head, 'span', null, inT('faster: {} per minute, per mg of enzyme (Vmax)', sp.substrate));
+            for (const [lab, v, cls] of [[inT('{} (typical)', sp.typical_allele), sp.typical, 'norm'], [inT('{} (this form)', sp.variant_allele), sp.variant, 'gof']]) {
+              const row = inMake(k, 'div', 'in-lc-bar-row');
+              inMake(row, 'span', null, lab);
+              const bar = inMake(row, 'div', 'in-lc-bar');
+              inMake(bar, 'i', 'in-lc-bar-' + cls).style.width = `${Math.max(2, (v.value / sp.variant.value) * 100)}%`;
+              inMake(row, 'span', 'in-lc-bar-v', `${fmtN(v.value)} ${v.unit.replace('umol', 'µmol')}`);
+            }
+            src(k, 'UniProt, measured kinetics');
+          }
+          if (x.medgen && x.medgen.definition) {
+            // MedGen's effects, without what doesn't belong to drinking (nitroglycerin), each in plain words
+            const m = inMake(d, 'div', 'in-lc-effects');
+            inMake(m, 'span', 'in-tag', 'What the buildup does (MedGen)');
+            const sent = x.medgen.definition.split(/(?<=\.)\s/).find((t) => /results in/i.test(t)) || '';
+            const list = (sent.match(/results in (.*?)(?:, as well as|\.$)/) || [])[1] || '';
+            const PLAIN = [[/flushing/i, 'Flushing: the face and neck turn red and warm after a drink'],
+                           [/toxicity/i, 'Acute alcohol toxicity: feeling poisoned by less alcohol than others'],
+                           [/hangover/i, 'Hangovers: worse after-effects the next day']];
+            for (const part of list.split(/,\s*(?:and\s+)?|\s+and\s+/).filter(Boolean)) {
+              const pl = PLAIN.find(([rx]) => rx.test(part));
+              const row = inMake(m, 'div', 'in-lc-eff');
+              inMake(row, 'b', null, pl ? pl[1].split(':')[0] : part);
+              if (pl) inMake(row, 'span', null, pl[1].split(': ')[1]);
+            }
+          }
+          for (const e of x.effects) effect(d, e);
+          const notes = x.uniprot.filter((t) => !NOISE.test(t)).map(caseFix).slice(0, 3);
+          if (notes.length) { const t = inMake(d, 'div', 'in-lc-notes'); inMake(t, 'span', 'in-tag', 'UniProt'); for (const nt of notes) inMake(t, 'span', 'in-lc-note', nt); }
+        };
+        const panel = (title, cls, calls, level, text, gene) => {
+          const d = inMake(panels, 'div', 'in-lc-panel in-lc-p-' + cls);
+          inMake(d, 'b', 'in-lc-ptitle', title);
+          const ch = inMake(d, 'div', 'in-lc-mini');
+          const mol = (m, lvl) => { const x = inMake(ch, 'span', 'in-lc-m' + (lvl ? ' in-lc-m-' + lvl : ''), m); return x; };
+          const FORM = { norm: 'wild-type', lof: 'slow form', gof: 'fast form' };
+          const enz = (g, k) => { inMake(ch, 'span', 'in-lc-ar', '→'); const c = inMake(ch, 'span', 'lc-chip in-lc-form lc-' + k); inMake(c, 'b', null, g); inMake(c, 'small', null, FORM[k]); inMake(ch, 'span', 'in-lc-ar', '→'); };
+          mol(mols[0]); enz(EX[0], calls[0]); mol(mols[1], level); enz(EX[1], calls[1]); mol(mols[2]);
+          inMake(d, 'p', null, text);
+          if (gene) numbers(d, gene);
+        };
+        panel('Wild-type (typical)', 'norm', ['norm', 'norm'], 'low', inT('Both enzymes work as in most people: {} is cleared about as fast as it is made.', mols[1]));
+        // What controlled studies measured, in their abstracts' words (Europe PMC, read at export)
+        let measuredRows = []; try { measuredRows = JSON.parse(((inCount('intro_stats') || []).find((r) => r.kind === 'example') || {}).measured || '[]'); } catch (e) { /* none */ }
+        const studies = (gene) => {
+          const rows = measuredRows.filter((m) => m.about === gene);
+          if (!rows.length) return;
+          const d = inMake(panels.lastElementChild, 'div', 'in-lc-measured');
+          inMake(d, 'span', 'in-tag', 'Measured in people, after a dose like one beer');
+          for (const m of rows) {
+            inMake(d, 'p', null, `“${m.finding.charAt(0).toUpperCase() + m.finding.slice(1)}”`);
+            src(d, `${m.study} · PMID ${m.pmid}`, m.pmid);
+          }
+        };
+        const duringLine = (tpl) => { if (!box._beerDuring) return; const n = inMake(panels.lastElementChild, 'p', 'in-lc-during'); box._beerDuring.push([n, tpl]); };
+        duringLine('For the {} the beer takes, acetaldehyde stays low.');
+        {
+          const tp = panels.lastElementChild, a1 = exOf(EX[0]), a2 = exOf(EX[1]);
+          if (a1 && a1.speed && a1.speed.typical) { const n = inMake(tp, 'div', 'in-lc-num'); inMake(n, 'b', null, fmtN(a1.speed.typical.value)); inMake(n, 'span', null, inT('µmol of {} made by {} per minute, per mg of enzyme (Vmax)', mols[1], EX[0])); src(n, inT('{}, UniProt', a1.speed.typical_allele)); }
+          if (a2 && a2.affinity) { const n = inMake(tp, 'div', 'in-lc-num'); inMake(n, 'b', null, `${a2.affinity.value} ${a2.affinity.unit.replace('uM', 'µM')}`); inMake(n, 'span', null, inT('{} grabs {} at this tiny concentration (Km): it clears it as soon as it appears', EX[1], mols[1])); src(n, 'UniProt'); }
+        }
+        panel(inT('{} less active (LoF)', EX[1]), 'lof', ['norm', 'lof'], 'high', inT('The second step slows: {} is made as before but cleared slowly, so it builds up.', mols[1]), EX[1]);
+        if (bu) {
+          const d = panels.lastElementChild, wt = bu.acetaldehyde.gof;
+          const cite = (n) => { const sa = inMake(n, 'a', 'in-lc-src', inT('{} · {} g/kg, about one beer', bu.study, bu.dose_g_per_kg)); sa.href = `https://europepmc.org/article/PMC/${bu.pmcid}`; sa.target = '_blank'; sa.rel = 'noopener'; };
+          let n = inMake(d, 'div', 'in-lc-num');
+          inMake(n, 'b', null, `${bu.acetaldehyde.lof} µM`);
+          inMake(n, 'span', null, Array.isArray(wt) ? inT('peak {} in the blood after one beer, against {} to {} µM with wild-type {}', mols[1], wt[0], wt[1], EX[1]) : inT('peak {} in the blood after one beer', mols[1]));
+          cite(n);
+          n = inMake(d, 'div', 'in-lc-num');
+          inMake(n, 'b', null, `+${bu.heart.lof}%`);
+          inMake(n, 'span', null, inT('heart rate 25 minutes after, against no change with wild-type {}', EX[1]));
+          cite(n);
+        }
+        studies(EX[1]);
+        panel(inT('{} more active (GoF)', EX[0]), 'gof', ['gof', 'norm'], 'low', inT('The first enzyme is far faster in the lab, yet in people the blood {} measures the same as typical. Carriers still drink less and are protected; why is not known yet.', mols[1]), EX[0]);
+        studies(EX[0]);
+        duringLine('For the {} the beer takes, blood acetaldehyde stays as in the typical form.');
+        if (box._beerUpdate) box._beerUpdate();
+        // Why we have them: UniProt's own words
+        const why = inMake(box, 'div', 'in-lc-why');
+        for (const g of EX) {
+          const t = gene(g).protein_function;
+          if (!t) continue;
+          const d = inMake(why, 'div', 'in-lc-quote');
+          inMake(d, 'span', 'in-tag', inT('Why we have {} (UniProt)', g));
+          const sentences = t.split(/(?<=\.)\s/).filter((x) => /ethanol|alcohols|formaldehyde/i.test(x) && !/DOPAL|dopamine|esterase/.test(x)).slice(0, 2);
+          inMake(d, 'p', null, (sentences.length ? sentences : [t.split(/(?<=\.)\s/)[0]]).join(' ').replace(/\.?$/, '.'));
+        }
+      }
+      // A frontier: what is known is the pieces; how they add up is what the person puzzles together
+      const fr = inMake(el, 'div', 'in-frontier');
+      inMake(fr, 'h3', null, 'A new frontier');
+      inMake(fr, 'p', null, 'Research maps one protein and one step at a time. How a slower step plays out in a whole body, alongside every other variant, is mostly unknown.');
+      inMake(fr, 'p', null, 'Where the data exist, the explorer lays out the pieces: the chain, the person\'s variants in it, what each step needs, where it happens and the papers behind it.');
+      inMake(fr, 'p', null, 'It gives you the data, not every answer. Some insights won\'t come from a paper but from people who learn which steps run differently in them and how that affects them in their everyday lives.');
+      const more = inMake(el, 'div', 'in-deeper');
+      const txt = inMake(more, 'div');
+      inMake(txt, 'h4', null, 'Gene pathway');
+      inMake(txt, 'p', null, 'In this tab every gene with a pathway is drawn step by step from Reactome: what each step takes in and gives out, the enzymes and how the person\'s variants change them, what the steps need, what switches the gene on or off, and the papers behind each finding.');
+      if (!inLocked()) {
+        const b = inMake(more, 'button', 'in-next', 'Open the Gene pathway tab');
+        b.type = 'button';
+        b.addEventListener('click', () => { dash.setParams({ lc_gene: 'ALDH2', lc_role: 1 }); gx.show('lifecycle'); });
       }
     } },
     { title: 'How to read the results', draw: (el, c) => {
@@ -4490,7 +4886,7 @@
         'Nutrition: per nutrient, how the genes move its level in the blood and which steps of its uptake and conversion they touch.',
         'Biomarkers: common lab tests read through the genes, and which shifts are real and which only move the test.',
         'Clusters: health themes (cancer, fertility, muscle), gene by gene, with body maps and networks.',
-        'Gene lifecycle and Profile: one gene\'s chemical journey, and the genes grouped into systems that work together.',
+        'Gene pathway and Profile: one gene\'s chemical journey, and the genes grouped into systems that work together.',
       ]);
     } },
     { title: 'Where to start', draw: (el, c) => {
@@ -4552,7 +4948,7 @@
   // is one whole text, so the Swedish layer swaps it (the build adds sources.json's Swedish to the page's dictionary).
   const SO = window.GX_SOURCES || { databases: [], tools: [], glossary: [] };
   const soMake = (parent, tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; parent.appendChild(e); return e; };
-  const SO_TABS = { home: 'Home', clusters: 'Clusters', medicines: 'Medicines', nutrition: 'Nutrition', biomarkers: 'Biomarkers', lifecycle: 'Gene lifecycle', profile: 'Profile' };
+  const SO_TABS = { home: 'Home', clusters: 'Clusters', medicines: 'Medicines', nutrition: 'Nutrition', biomarkers: 'Biomarkers', lifecycle: 'Gene pathway', profile: 'Profile' };
   const SO_ACCESS = { bulk: 'Downloaded file', 'bulk + API': 'Downloaded file and API', API: 'API, cached', 'API, saved': 'API, saved as a file' };
   let soQuery = '';
 

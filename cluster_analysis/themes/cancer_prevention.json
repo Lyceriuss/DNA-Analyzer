@@ -1,0 +1,450 @@
+{
+ "about": "Avoidable causes per cancer of the cancer theme (IARC, sufficient evidence in humans) and the European Code Against Cancer's advice for them. Written by cluster_analysis/themes/cancer_prevention.py; don't edit by hand.",
+ "sources": {
+  "iarc": "https://monographs.iarc.who.int/wp-content/uploads/2019/07/Classifications_by_cancer_site.pdf",
+  "ecac": {
+   "en": "https://cancer-code-europe.iarc.who.int/",
+   "sv": "https://cancer-code-europe.iarc.who.int/sv/startsida/"
+  }
+ },
+ "recommendations": [
+  {
+   "n": 1,
+   "topic": "Smoking",
+   "topic_sv": "Rökning",
+   "text": "Do not smoke. Do not use any form of tobacco, or vaping products. If you smoke, you should quit.",
+   "text_sv": "Rök inte. Använd inte någon form av tobak eller någon vejpingprodukt. Om du röker borde du sluta.",
+   "items": [],
+   "items_sv": []
+  },
+  {
+   "n": 2,
+   "topic": "Exposure to other people’s tobacco smoke",
+   "topic_sv": "Exponering för andra människors tobaksrök",
+   "text": "Keep your home and car free of tobacco smoke.",
+   "text_sv": "Håll ditt hem och din bil fria från tobaksrök.",
+   "items": [],
+   "items_sv": []
+  },
+  {
+   "n": 3,
+   "topic": "Overweight and obesity",
+   "topic_sv": "Övervikt och fetma",
+   "text": "Take action to avoid or manage overweight and obesity:",
+   "text_sv": "Saker du kan göra för att undvika eller hantera övervikt och fetma:",
+   "items": [
+    "Limit food high in calories, sugar, fat, and salt.",
+    "Limit drinks high in sugar. Drink mostly water and unsweetened drinks.",
+    "Limit ultra-processed foods."
+   ],
+   "items_sv": [
+    "Begränsa intaget av mat som innehåller många kalorier eller mycket socker, fett och salt.",
+    "Begränsa intaget av drycker som innehåller mycket socker. Drick helst vatten och osötade drycker.",
+    "Begränsa intaget av ultraprocessad mat."
+   ]
+  },
+  {
+   "n": 4,
+   "topic": "Physical activity",
+   "topic_sv": "Fysisk aktivitet",
+   "text": "Be physically active in everyday life. Limit the time you spend sitting.",
+   "text_sv": "Var fysiskt aktiv i vardagen. Begränsa den tid som du sitter ned.",
+   "items": [],
+   "items_sv": []
+  },
+  {
+   "n": 5,
+   "topic": "Diet",
+   "topic_sv": "Kost",
+   "text": "Eat whole grains, vegetables, legumes, and fruits as a major part of your daily diet. Limit red meat, and avoid processed meat.",
+   "text_sv": "Gör fullkornsprodukter, grönsaker, baljväxter och frukt till en stor del av din dagliga kost. Begränsa intaget av rött kött och undvik bearbetat kött.",
+   "items": [],
+   "items_sv": []
+  },
+  {
+   "n": 6,
+   "topic": "Alcohol",
+   "topic_sv": "Alkohol",
+   "text": "Avoid alcoholic drinks.",
+   "text_sv": "Undvik alkoholhaltiga drycker.",
+   "items": [],
+   "items_sv": []
+  },
+  {
+   "n": 7,
+   "topic": "Breastfeeding",
+   "topic_sv": "Amning",
+   "text": "Breastfeed your baby for as long as possible.",
+   "text_sv": "Amma ditt barn så länge som möjligt.",
+   "items": [],
+   "items_sv": []
+  },
+  {
+   "n": 8,
+   "topic": "Sun exposure",
+   "topic_sv": "Solexponering",
+   "text": "Avoid too much sun exposure, especially for children. Use sun protection. Never use sunbeds.",
+   "text_sv": "Undvik att vistas för mycket i solen. Detta gäller särskilt barn. Använd solskyddsprodukter. Sola aldrig i solarium.",
+   "items": [],
+   "items_sv": []
+  },
+  {
+   "n": 9,
+   "topic": "Cancer-causing factors at work",
+   "topic_sv": "Cancerframkallande faktorer på arbetsplatsen",
+   "text": "Inform yourself about cancer-causing factors at work, and call on your employer to protect you against them. Always follow health and safety instructions at your workplace.",
+   "text_sv": "Ta reda på vilka cancerframkallande faktorer som kan finnas på din arbetsplats och be din arbetsgivare att skydda dig mot dem. Följ alltid hälso- och säkerhetsinstruktionerna på arbetsplatsen.",
+   "items": [],
+   "items_sv": []
+  },
+  {
+   "n": 10,
+   "topic": "Indoor radon gas",
+   "topic_sv": "Radongas inomhus",
+   "text": "Inform yourself about radon gas levels in your area by checking a local radon map. Seek professional help to measure levels in your home and, if necessary, reduce them.",
+   "text_sv": "Ta reda på om det förekommer radongas i ditt närområde och på vilka nivåer genom att konsultera en lokal radonkarta. Be om professionell hjälp med att mäta nivåerna i ditt hem och vid behov att sänka dem.",
+   "items": [],
+   "items_sv": []
+  },
+  {
+   "n": 11,
+   "topic": "Air pollution",
+   "topic_sv": "Luftföroreningar",
+   "text": "Take action to reduce exposure to air pollution by:",
+   "text_sv": "Minska exponeringen för luftföroreningar genom att",
+   "items": [
+    "Using public transportation, and walking or cycling instead of using a car.",
+    "Choosing low-traffic routes when walking, cycling, or exercising.",
+    "Keeping your home free of smoke by not burning materials such as coal or wood.",
+    "Supporting policies that improve air quality."
+   ],
+   "items_sv": [
+    "använda kollektivtrafik och gå eller cykla i stället för att köra bil,",
+    "välja vägar med lite trafik när du promenerar, cyklar eller tränar,",
+    "hålla ditt hem fritt från rök genom att inte elda material som kol eller ved,",
+    "stödja politik som syftar till att förbättra luftkvaliteten."
+   ]
+  },
+  {
+   "n": 12,
+   "topic": "Cancer-causing infections",
+   "topic_sv": "Infektioner som kan orsaka cancer",
+   "text": "",
+   "text_sv": "",
+   "items": [
+    "Vaccinate girls and boys against hepatitis B virus and human papillomavirus (HPV) at the age recommended in your country.",
+    "Take part in testing and treatment for hepatitis B and C viruses, human immunodeficiency virus (HIV), and Helicobacter pylori , as recommended in your country."
+   ],
+   "items_sv": [
+    "Vaccinera flickor och pojkar mot hepatit B-virus och humant papillomvirus (HPV) vid den ålder som rekommenderas i ditt land.",
+    "Delta i testning för och behandling av hepatit B- och C-virus, humant immunbristvirus (hiv) och Helicobacter pylori, enligt rekommendationerna i ditt land."
+   ]
+  },
+  {
+   "n": 13,
+   "topic": "Hormone replacement therapy",
+   "topic_sv": "Hormonbehandling",
+   "text": "If you decide to use hormone replacement therapy (for menopausal symptoms) after a thorough discussion with your health-care professional, limit its use to the shortest duration possible.",
+   "text_sv": "Om du efter nära samråd med vårdpersonal påbörjar en hormonbehandling (för klimakteriebesvär) bör denna behandling pågå under så kort tid som möjligt.",
+   "items": [],
+   "items_sv": []
+  },
+  {
+   "n": 14,
+   "topic": "Organized cancer screening programmes",
+   "topic_sv": "Organiserade cancerscreeningprogram",
+   "text": "Take part in organized cancer screening programmes, as recommended in your country, for:",
+   "text_sv": "Delta i de organiserade cancerscreeningprogram som rekommenderas i ditt land för följande cancertyper:",
+   "items": [
+    "Bowel cancer.",
+    "Breast cancer.",
+    "Cervical cancer.",
+    "Lung cancer."
+   ],
+   "items_sv": [
+    "Tjock- och ändtarmscancer",
+    "Bröstcancer",
+    "Livmoderhalscancer",
+    "Lungcancer"
+   ]
+  }
+ ],
+ "cancers": {
+  "breast carcinoma": {
+   "name": "Breast cancer",
+   "sv": "Bröstcancer",
+   "iarc_sites": [
+    "Breast"
+   ],
+   "agents": [
+    "Alcoholic beverages",
+    "Estrogen–progestogen menopausal therapy"
+   ],
+   "recommendations": [
+    {
+     "n": 6,
+     "agents": [
+      "Alcoholic beverages"
+     ]
+    },
+    {
+     "n": 13,
+     "agents": [
+      "Estrogen–progestogen menopausal therapy"
+     ]
+    }
+   ]
+  },
+  "prostate carcinoma": {
+   "name": "Prostate cancer",
+   "sv": "Prostatacancer",
+   "iarc_sites": [
+    "Prostate"
+   ],
+   "agents": [],
+   "recommendations": []
+  },
+  "colorectal cancer": {
+   "name": "Colorectal cancer",
+   "sv": "Tjock- och ändtarmscancer",
+   "iarc_sites": [
+    "Colon",
+    "Rectum"
+   ],
+   "agents": [
+    "Alcoholic beverages",
+    "Processed meat (consumption of)",
+    "Tobacco smoking"
+   ],
+   "recommendations": [
+    {
+     "n": 1,
+     "agents": [
+      "Tobacco smoking"
+     ]
+    },
+    {
+     "n": 5,
+     "agents": [
+      "Processed meat (consumption of)"
+     ]
+    },
+    {
+     "n": 6,
+     "agents": [
+      "Alcoholic beverages"
+     ]
+    }
+   ]
+  },
+  "lung carcinoma": {
+   "name": "Lung cancer",
+   "sv": "Lungcancer",
+   "iarc_sites": [
+    "Lung"
+   ],
+   "agents": [
+    "Aluminium production",
+    "Asbestos (all forms)",
+    "Outdoor air pollution",
+    "Painter (occupational exposure as a)",
+    "Radon-222",
+    "Rubber manufacturing industry",
+    "Silica dust, crystalline",
+    "Tobacco smoke, secondhand",
+    "Tobacco smoking",
+    "Welding fumes"
+   ],
+   "recommendations": [
+    {
+     "n": 1,
+     "agents": [
+      "Tobacco smoking"
+     ]
+    },
+    {
+     "n": 2,
+     "agents": [
+      "Tobacco smoke, secondhand"
+     ]
+    },
+    {
+     "n": 9,
+     "agents": [
+      "Aluminium production",
+      "Asbestos (all forms)",
+      "Painter (occupational exposure as a)",
+      "Rubber manufacturing industry",
+      "Silica dust, crystalline",
+      "Welding fumes"
+     ]
+    },
+    {
+     "n": 10,
+     "agents": [
+      "Radon-222"
+     ]
+    },
+    {
+     "n": 11,
+     "agents": [
+      "Outdoor air pollution"
+     ]
+    }
+   ]
+  },
+  "cutaneous melanoma": {
+   "name": "Cutaneous melanoma",
+   "sv": "Hudmelanom",
+   "iarc_sites": [
+    "Skin (melanoma)"
+   ],
+   "agents": [
+    "Solar radiation",
+    "Ultraviolet-emitting tanning devices"
+   ],
+   "recommendations": [
+    {
+     "n": 8,
+     "agents": [
+      "Solar radiation",
+      "Ultraviolet-emitting tanning devices"
+     ]
+    }
+   ]
+  },
+  "ovarian cancer": {
+   "name": "Ovarian cancer",
+   "sv": "Äggstockscancer",
+   "iarc_sites": [
+    "Ovary"
+   ],
+   "agents": [
+    "Asbestos (all forms)",
+    "Estrogen therapy, postmenopausal",
+    "Tobacco smoking"
+   ],
+   "recommendations": [
+    {
+     "n": 1,
+     "agents": [
+      "Tobacco smoking"
+     ]
+    },
+    {
+     "n": 9,
+     "agents": [
+      "Asbestos (all forms)"
+     ]
+    },
+    {
+     "n": 13,
+     "agents": [
+      "Estrogen therapy, postmenopausal"
+     ]
+    }
+   ]
+  },
+  "exocrine pancreatic carcinoma": {
+   "name": "Pancreatic cancer",
+   "sv": "Bukspottkörtelcancer",
+   "iarc_sites": [
+    "Pancreas"
+   ],
+   "agents": [
+    "Tobacco smoking",
+    "Tobacco, smokeless"
+   ],
+   "recommendations": [
+    {
+     "n": 1,
+     "agents": [
+      "Tobacco smoking",
+      "Tobacco, smokeless"
+     ]
+    }
+   ]
+  },
+  "basal cell carcinoma": {
+   "name": "Basal cell carcinoma",
+   "sv": "Basalcellscancer",
+   "iarc_sites": [
+    "Skin (malignant non-melanoma)"
+   ],
+   "agents": [
+    "Coal-tar distillation",
+    "Solar radiation"
+   ],
+   "recommendations": [
+    {
+     "n": 8,
+     "agents": [
+      "Solar radiation"
+     ]
+    },
+    {
+     "n": 9,
+     "agents": [
+      "Coal-tar distillation"
+     ]
+    }
+   ]
+  },
+  "urinary bladder carcinoma": {
+   "name": "Bladder cancer",
+   "sv": "Urinblåsecancer",
+   "iarc_sites": [
+    "Urinary bladder"
+   ],
+   "agents": [
+    "Aluminium production",
+    "Firefighter (occupational exposure as a)",
+    "Painter (occupational exposure as a)",
+    "Rubber manufacturing industry",
+    "Tobacco smoking"
+   ],
+   "recommendations": [
+    {
+     "n": 1,
+     "agents": [
+      "Tobacco smoking"
+     ]
+    },
+    {
+     "n": 9,
+     "agents": [
+      "Aluminium production",
+      "Firefighter (occupational exposure as a)",
+      "Painter (occupational exposure as a)",
+      "Rubber manufacturing industry"
+     ]
+    }
+   ]
+  },
+  "renal cell carcinoma": {
+   "name": "Kidney cancer",
+   "sv": "Njurcancer",
+   "iarc_sites": [
+    "Kidney"
+   ],
+   "agents": [
+    "Tobacco smoking",
+    "Trichloroethylene"
+   ],
+   "recommendations": [
+    {
+     "n": 1,
+     "agents": [
+      "Tobacco smoking"
+     ]
+    },
+    {
+     "n": 9,
+     "agents": [
+      "Trichloroethylene"
+     ]
+    }
+   ]
+  }
+ }
+}

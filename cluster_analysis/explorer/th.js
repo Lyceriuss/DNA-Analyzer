@@ -311,7 +311,7 @@
     else thMake(el, 'p', g.genotype ? 'gx-note' : null, g.genotype ? `Library note for ${g.rsid} ${g.genotype}: ${g.interpretation}. The notes were written with an LLM and are being checked against the evidence; the label above comes from the evidence, not the note.`
       : s.api ? `Not in the library. ${thWho(s)}'s file ${s.stats && (s.stats.by_confidence || {}).high ? 'measures or confidently imputes' : 'measures'} ${g.ev.n_snps || 0} SNPs in or near this gene.` : `${thWho(s)} has no call at this gene's library SNP.`);
     if (g.has_lifecycle) {
-      const b = thMake(el, 'button', 'lc-btn', 'Open its lifecycle');
+      const b = thMake(el, 'button', 'lc-btn', 'Open its pathway');
       b.type = 'button';
       b.addEventListener('click', () => { dash.setParams({ lc_gene: g.gene, lc_role: 1 }); gx.show('lifecycle'); });
     }
@@ -1119,6 +1119,39 @@
   // then the sport genes that matter in practice for their copies (sport_snps.json). The cards below hold the evidence.
   const thBand = (p) => p <= 5 ? 'Very low' : p <= 20 ? 'Low' : p < 40 ? 'Below average' : p <= 60 ? 'Average' : p < 80 ? 'Above average' : p < 95 ? 'High' : 'Very high';
   const thPos = (p) => p > 40 && p <= 60 ? 'middle' : p <= 50 ? `lowest ${Math.max(1, p)}%` : `highest ${Math.max(1, 100 - p)}%`;
+  // Lowering the risk (cancer theme): the European Code Against Cancer's recommendations for the avoidable causes IARC
+  // links to the theme's cancers (themes/cancer_prevention.json, window.GX_PREVENTION), the same for everyone
+  dash.draw('th-prevention', (el) => {
+    const card = el.closest('.gx-card'), on = gx.theme() === 'cancer';
+    if (card) card.classList.toggle('th-off', !on);
+    el.replaceChildren();
+    const PV = window.GX_PREVENTION;
+    if (!on || !PV) return;
+    const make = (parent, tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; parent.appendChild(e); return e; };
+    const by = new Map();
+    for (const c of Object.values(PV.cancers)) for (const r of c.recommendations) {
+      if (!by.has(r.n)) by.set(r.n, []);
+      by.get(r.n).push(c.name);
+    }
+    make(el, 'h2', null, 'Lowering the risk');
+    make(el, 'p', 'gx-note', 'The European Code Against Cancer (IARC/WHO, 5th edition): its recommendations for the avoidable causes that IARC classifies with sufficient evidence for the cancers of this theme, quoted as written. The same for everyone: genes shift the starting point, these lower it from there.');
+    const grid = make(el, 'div', 'th-prev-grid');
+    const recs = PV.recommendations.filter((r) => by.has(r.n)).sort((a, b) => by.get(b.n).length - by.get(a.n).length || a.n - b.n);
+    for (const r of recs) {
+      const d = make(grid, 'div', 'th-prev');
+      make(d, 'b', null, r.topic);
+      make(d, 'p', null, [r.text, ...(r.items || [])].filter(Boolean).join(' '));
+      const chips = make(d, 'div', 'th-prev-chips');
+      for (const nm of by.get(r.n)) make(chips, 'span', 'th-prev-chip', nm);
+    }
+    const none = Object.values(PV.cancers).filter((c) => !c.recommendations.length).map((c) => c.name);
+    if (none.length) make(el, 'p', 'gx-note', `No avoidable cause with sufficient evidence is known for: ${none.join(', ')}.`);
+    const src = make(el, 'p', 'gx-note');
+    const a1 = make(src, 'a', null, 'European Code Against Cancer'); a1.href = PV.sources.ecac.en; a1.target = '_blank'; a1.rel = 'noopener';
+    make(src, 'span', null, ' · ');
+    const a2 = make(src, 'a', null, 'IARC: cancers by cause'); a2.href = PV.sources.iarc; a2.target = '_blank'; a2.rel = 'noopener';
+  });
+
   dash.draw('th-fit-summary', (el) => {
     const card = el.closest('.gx-card'), on = dash.params().theme === 'muscle';
     if (card) card.classList.toggle('th-off', !on);

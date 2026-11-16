@@ -113,3 +113,15 @@
   .lc-bar.gtex.down .lc-bar-fill { background: var(--color-bad); }
   /* Crisp vector drawing: curves keep full precision, text keeps its hinting */
   .lc-graph svg, .th-net svg, .th-body-svg svg, .th-cycle-svg svg { shape-rendering: geometricPrecision; text-rendering: optimizeLegibility; }
+  /* Start here: what the colours mean and why a lifecycle matters */
+  .lc-intro h2 { margin: 0 0 4px; }
+  .lc-in-calls { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 10px; margin: 12px 0 4px; }
+  .lc-in-call p { margin: 6px 0 0; font-size: 13px; line-height: 1.45; color: var(--color-fg-muted); }
+  .lc-in-h { margin: 16px 0 8px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .lc-in-why { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 10px; }
+  .lc-in-tile { padding: 12px 14px; border-radius: 10px; border: 1px solid var(--color-border-line); background: var(--color-bg); }
+  .lc-in-tile b { font-size: 14px; }
+  .lc-in-tile p { margin: 4px 0 0; font-size: 13px; line-height: 1.5; color: var(--color-fg-muted); }
+  .lc-in-mine .lc-in-tile { box-shadow: inset 4px 0 0 var(--color-ok); }
+  .lc-in-mine .lc-in-tile p { color: var(--color-fg); }
+  .lc-sub { margin: 2px 0 0; font-size: 13px; color: var(--color-fg-muted); }

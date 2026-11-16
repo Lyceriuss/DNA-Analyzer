@@ -132,6 +132,12 @@ def genotype_ladder(rsid, common, minor, traits, ev):
     return sorted(rows.values(), key=lambda r: r["dose"])
 
 
+def protein_text(gene):
+    from cluster_analysis.lifecycle.gene_trace import uniprot_text
+    t = uniprot_text(gene)
+    return {"protein_function": t["function"], "protein_diseases": "; ".join(t["diseases"]), "protein_tissue": t["tissue"]}
+
+
 def lifecycle_rows(lifecycles, status=None):
     """Flattens lifecycle.py output into (steps, genes, gene_function) row lists for dashboards.
     Contains genotypes when the lifecycles were built with a DNA file. status ({gene: summarized person call},
@@ -163,7 +169,9 @@ def lifecycle_rows(lifecycles, status=None):
                 "regulation": lc.get("regulation") or "",
                 "regulators": json.dumps([{"gene": r["gene"], "effect": r["effect"], "lib": r["in_library"]}
                                           for r in (lc.get("regulators") or [])]),
-                "other_pathways": lc.get("other_pathways", 0)})
+                "other_pathways": lc.get("other_pathways", 0),
+                # What the protein does, the diseases linked to it and where it is made, in UniProt's words
+                **protein_text(lc["gene"])})
             for i, s in enumerate(role["steps"]):
                 for g in s["genes"]:
                     if g["in_library"]:

@@ -1,10 +1,13 @@
-# Gene lifecycles
+# Gene pathways
 
-The Lifecycle tab follows one gene's product through the body: where its building block comes from, the reactions
+The Gene pathway tab follows one gene's product through the body: where its building block comes from, the reactions
 before and after the gene's own step, the cofactors it needs, who regulates it, and where the product ends up
 (excreted, made inert, burned for energy or recycled). The person's genotype is shown on every library enzyme.
 
-## Building a lifecycle
+The code keeps its older name: the `cluster_analysis/lifecycle` package, the `lifecycle_*` datasets and the tab id
+`lifecycle` all belong to this tab. Only the name users see changed ("Gene lifecycle" became "Gene pathway" on 2026-11-16).
+
+## Building a pathway
 
 ```mermaid
 flowchart TB

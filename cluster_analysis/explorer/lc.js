@@ -1,4 +1,4 @@
-  // Gene lifecycle: gene picker, role switch, gene summary, regulation, node graph, route patterns and step details
+  // Gene pathway: gene picker, role switch, gene summary, regulation, node graph, route patterns and step details
   const LC = { key: null, step: null, wrap: true, drawnKey: null, scroll: 0 };
   const LC_OUTCOME = { positive: 'Positive for {who}', negative: 'Negative for {who}', neutral: 'Neither good nor bad', unclear: 'Unclear whether good or bad',
     typical: 'Typical', unknown: 'Unknown' };
@@ -65,12 +65,13 @@
     const r = gx.rows('lifecycle_genes');
     if (!r) return null;
     const genes = r[0];
-    const p = dash.params();
+    // LC.other: another part (the introduction) drawing a given gene, without touching the tab's own selection
+    const p = LC.other ? { lc_gene: LC.other.gene, lc_role: LC.other.role } : dash.params();
     const gene = genes.some((g) => g.gene === p.lc_gene) ? p.lc_gene : genes[0].gene;
     const roles = genes.filter((g) => g.gene === gene).sort((a, b) => a.role - b.role);
     const role = roles.find((g) => g.role === Number(p.lc_role)) || roles[0];
     const key = gene + '|' + role.role;
-    if (LC.key !== key) { LC.key = key; LC.step = null; }
+    if (!LC.other && LC.key !== key) { LC.key = key; LC.step = null; }
     return { genes, gene, roles, role, key };
   };
 
@@ -130,6 +131,49 @@
       b.type = 'button';
       b.setAttribute('aria-pressed', String(r.role === s.role.role));
       b.addEventListener('click', () => dash.setParams({ lc_role: r.role }));
+    }
+  });
+
+  // Start here: what the colours mean, why a gene's lifecycle matters in real life (the same for everyone), and the same
+  // four points for the selected gene, from its own data (ClinPGx drugs, cofactors and vitamins, regulators, GTEx tissue)
+  dash.draw('lc-intro', (el) => {
+    el.replaceChildren();
+    const s = lcSel();
+    if (!s) { if (gx.failed('lifecycle_genes')) gx.failLine(el); return; }
+    const f = lcFn().get(s.gene) || {}, ev = f.ev || {}, row = s.role || {};
+    make(el, 'h2', null, 'What a gene\'s pathway tells you');
+    make(el, 'p', 'gx-note', 'Every gene makes a protein that does one job in a chain: it takes a substance in, converts or moves it, and passes it on. This tab follows that chain from start to end (Reactome) and marks where the person\'s variants change a protein.');
+    const calls = make(el, 'div', 'lc-in-calls');
+    for (const [cls, name, text] of [
+      ['gof', 'More active (GoF, gain of function)', 'The protein works harder, or more of it is made: the step runs faster.'],
+      ['norm', 'Typical function', 'The common form: the step runs as in most people.'],
+      ['lof', 'Less active (LoF, loss of function)', 'The protein works less, or less of it is made: the step slows down.'],
+      ['alt', 'Changed, direction unclear', 'The variant changes the protein, but the evidence doesn\'t say which way.']]) {
+      const c = make(calls, 'div', 'lc-in-call');
+      make(c, 'span', 'lc-chip lc-' + cls, name);
+      make(c, 'p', null, text);
+    }
+    make(el, 'h3', 'lc-in-h', 'Why it matters');
+    const why = make(el, 'div', 'lc-in-why');
+    const WHY = [
+      ['Medicines', 'Many medicines are moved or broken down by the same proteins. A faster or slower one changes how much of a drug reaches the tissue, and so its effect and side effects.'],
+      ['What the steps need', 'Many steps need a vitamin or cofactor to run. Where a step is slower, getting enough of what it needs matters most.'],
+      ['Bottlenecks behind lab values', 'A slow step lets its input build up and its output drop: often why a lab value sits high or low without anything being wrong.'],
+      ['Where in the body', 'A protein acts where it is made. The tissue says where an effect shows up.']];
+    for (const [h, t] of WHY) { const d = make(why, 'div', 'lc-in-tile'); make(d, 'b', null, h); make(d, 'p', null, t); }
+    // The same four for the selected gene, only those its data has
+    const mine = [];
+    const pgx = [...new Set((ev.clinpgx || []).map((x) => x.chemicals).filter(Boolean))];
+    if (pgx.length) mine.push(['Medicines', `ClinPGx links ${s.gene} to ${pgx.slice(0, 6).join(', ')}${pgx.length > 6 ? ` and ${pgx.length - 6} more` : ''}.`]);
+    const needs = [row.cofactors, row.vitamins].filter(Boolean).join('; ');
+    if (needs) mine.push(['What the steps need', `${s.gene}'s step needs: ${needs}.`]);
+    let regs = []; try { regs = JSON.parse(row.regulators || '[]'); } catch (e) { /* none */ }
+    if (regs.length) mine.push(['What controls it', `${regs.length} genes switch ${s.gene} on or off (OmniPath), listed beside it.`]);
+    if (ev.gtex && ev.gtex.tissue) mine.push(['Where in the body', `The variant's effect on how much ${s.gene} is made is strongest in ${ev.gtex.tissue} (GTEx).`]);
+    if (mine.length) {
+      make(el, 'h3', 'lc-in-h', `For ${s.gene} in ${gx.who()}`);
+      const g = make(el, 'div', 'lc-in-why lc-in-mine');
+      for (const [h, t] of mine) { const d = make(g, 'div', 'lc-in-tile'); make(d, 'b', null, h); make(d, 'p', null, t); }
     }
   });
 
@@ -227,14 +271,14 @@
           if (f && f.has_lifecycle) { chip.type = 'button'; chip.addEventListener('click', () => openGene(x.gene)); }
         }
       }
-      make(d, 'p', 'gx-note', 'From OmniPath. Genes with a genotype are in the library; select one to open its lifecycle.');
+      make(d, 'p', 'gx-note', 'From OmniPath. Genes with a genotype are in the library; select one to open its pathway.');
     }
   });
 
   // Lifecycle as a left-to-right node graph: start, molecule, step, molecule, step, ..., end
-  dash.draw('lc-timeline', (el) => {
+  const drawTimeline = (el) => {
     const s = lcSel();
-    if (LC.drawnKey === (s && s.key)) LC.scroll = el.scrollLeft;
+    if (!LC.other && LC.drawnKey === (s && s.key)) LC.scroll = el.scrollLeft;
     el.replaceChildren();
     const steps = lcSteps(s);
     if (!s || !steps) { if (gx.failed('lifecycle_steps', 'lifecycle_genes', 'gene_function')) gx.failLine(el); return; }
@@ -243,7 +287,7 @@
     const sel = selectedIndex(steps);
     const FS = 12, SMALL = 11, LINE = 15, GAP = 36, TOP = 34;
 
-    const svg = d3.select(el).append('svg').attr('role', 'group').attr('aria-label', `Lifecycle of ${s.gene}: ${s.role.pathway}`);
+    const svg = d3.select(el).append('svg').attr('role', 'group').attr('aria-label', `Pathway of ${s.gene}: ${s.role.pathway}`);
     const probe = svg.append('text').style('visibility', 'hidden');
     const textW = (t, size = FS, weight = 400) => { probe.attr('font-size', size).attr('font-weight', weight).text(t); return probe.node().getComputedTextLength(); };
     const wrap = (t, maxW, maxLines, size = FS, weight = 400) => {
@@ -306,7 +350,7 @@
     probe.remove();
 
     // 3. Layout: rows that fit the card (wrapped) or one long line, each row with a lane for section labels above
-    const wrapped = LC.wrap && el.clientWidth > 320;
+    const wrapped = (LC.other ? true : LC.wrap) && el.clientWidth > 320;
     const avail = el.clientWidth - 4;
     const rows = [];
     let cursor = 16, row = [];
@@ -389,7 +433,10 @@
 
     // 5. Nodes
     const stepGroups = [];
+    const other = LC.other;
     const select = (i) => {
+      // Drawn elsewhere: a step opens the Gene pathway tab on it
+      if (other) { LC.step = steps[i].order; dash.setParams({ lc_gene: s.gene, lc_role: s.role.role }); gx.show('lifecycle'); return; }
       LC.step = steps[i].order;
       for (const sg of stepGroups) sg.node.classList.toggle('is-selected', sg.i === i);
       dash.draw('lc-detail');
@@ -463,7 +510,7 @@
             event.stopPropagation();
             tip.show(event, c.g.gene, !c.g.lib ? ['Not in the library'] : !f || !f.genotype ? [`In the library, no call in ${gx.who()}`] :
               [`${FN_TEXT[f.function] || ''}${f.function !== 'normal' && f.dose ? ' ×' + f.dose : ''} · ${f.rsid} ${f.genotype}`, f.interpretation,
-                opens ? 'Select to open its lifecycle' : ''].filter(Boolean));
+                opens ? 'Select to open its pathway' : ''].filter(Boolean));
           });
           if (opens) cg.on('click', (event) => { event.stopPropagation(); tip.hide(); openGene(c.g.gene); });
         }
@@ -473,12 +520,21 @@
     }
 
     // Open centred on the gene's own step; keep the scroll position while the same chain is redrawn
+    if (LC.other) return;
     if (LC.drawnKey !== s.key) {
       const focalNode = nodes.find((n) => n.type === 'step' && n.x.section === 'focal');
       el.scrollLeft = focalNode ? Math.max(0, focalNode.left + focalNode.w / 2 - el.clientWidth / 2) : 0;
     } else el.scrollLeft = LC.scroll;
     LC.drawnKey = s.key;
-  });
+  };
+  dash.draw('lc-timeline', drawTimeline);
+  // The same drawing for a given gene, in another part (the introduction's lifecycle step)
+  window.gxLifecycle = (el, gene, role) => {
+    const keep = LC.step;
+    LC.other = { gene, role: role || 1 };
+    LC.step = null;  // the tab's selected step isn't this drawing's
+    try { drawTimeline(el); } finally { LC.other = null; LC.step = keep; }
+  };
 
   dash.draw('lc-patterns', (el) => {
     el.replaceChildren();
@@ -567,7 +623,7 @@
       if (!f || !f.genotype) { make(head, 'span', 'lc-call unknown', `Not genotyped in ${gx.who()}`); continue; }
       make(head, 'span', 'gx-muted', `${f.rsid} ${f.genotype}`);
       make(head, 'span', 'lc-call ' + FN_CLASS[f.function], FN_TEXT[f.function] + (f.function !== 'normal' && f.dose ? ` ×${f.dose}` : ''));
-      if (f.has_lifecycle && g.gene !== s.gene) { const b = make(head, 'button', 'lc-btn', 'Open its lifecycle'); b.type = 'button'; b.addEventListener('click', () => openGene(g.gene)); }
+      if (f.has_lifecycle && g.gene !== s.gene) { const b = make(head, 'button', 'lc-btn', 'Open its pathway'); b.type = 'button'; b.addEventListener('click', () => openGene(g.gene)); }
       const ev = f.ev || {}, lit = f.lit || {};
       make(card, 'p', 'gx-note', [`Library: ${f.interpretation}`, ev.protein_change, pretty(ev.consequence)].filter(Boolean).join(' · '));
 

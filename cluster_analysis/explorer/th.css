@@ -151,3 +151,9 @@
 .th-mean-head { display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: baseline; margin-bottom: 4px; }
 .th-mean-tag { font-size: 12px; color: var(--color-fg-muted); }
 .th-sport-mean { margin-top: 4px; padding-left: 8px; border-left: 2px solid var(--typical); }
+.th-prev-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; margin: 12px 0; }
+.th-prev { padding: 12px 14px; border-radius: 10px; border: 1px solid var(--color-border-line); background: var(--color-bg); display: flex; flex-direction: column; gap: 4px; }
+.th-prev b { font-size: 14px; }
+.th-prev p { margin: 0; font-size: 13px; line-height: 1.5; }
+.th-prev-chips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: auto; padding-top: 4px; }
+.th-prev-chip { font-size: 11px; padding: 1px 8px; border-radius: 10px; background: color-mix(in srgb, var(--grade-a) 16%, transparent); }

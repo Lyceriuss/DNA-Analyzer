@@ -53,6 +53,7 @@ def assemble():
     settings = {k: v for k, v in json.loads(read("settings.json")).items() if k != "about"}
     page = page.replace("// @settings", f"window.GX_SETTINGS = {json.dumps(settings)};")
     page = page.replace("// @sources", f"window.GX_SOURCES = {json.dumps(sources_catalog(), ensure_ascii=False)};")
+    page = page.replace("// @prevention", f"window.GX_PREVENTION = {json.dumps(prevention(), ensure_ascii=False)};")
     return page + "\n"
 
 
@@ -65,6 +66,27 @@ def sources_catalog():
     for item in cat["databases"] + cat["tools"]:
         item["versions"] = sorted({version[r] for r in item.get("refs", []) if version.get(r)})
     return {k: cat[k] for k in ("groups", "databases", "tools", "glossary")}
+
+
+def prevention():
+    """themes/cancer_prevention.json: per cancer of the cancer theme, its avoidable causes (IARC) and the European Code
+    Against Cancer's recommendations for them; public, the same for everyone."""
+    with open(os.path.join(HERE, "..", "themes", "cancer_prevention.json"), encoding="utf-8") as f:
+        d = json.load(f)
+    return {"recommendations": d["recommendations"], "cancers": d["cancers"], "sources": d["sources"]}
+
+
+def prevention_sv():
+    """{English: Swedish} from the Code's own Swedish edition, and the cancers' names."""
+    d = prevention()
+    pairs = {}
+    for r in d["recommendations"]:
+        pairs[r["topic"]] = r["topic_sv"]
+        if r["text"]:
+            pairs[r["text"]] = r["text_sv"]
+        pairs.update(dict(zip(r["items"], r["items_sv"])))
+    pairs.update({c["name"]: c["sv"] for c in d["cancers"].values()})
+    return {k: v for k, v in pairs.items() if k and v}
 
 
 def sources_sv():
@@ -115,7 +137,7 @@ def standalone(page, data_dir, out):
     for name, src in (("i18n_sv", "i18n_sv.json"), ("i18n_sv_terms", "i18n_sv_terms.json")):
         d = json.loads(read(src))
         if name == "i18n_sv":
-            d = {**sources_sv(), **d}
+            d = {**sources_sv(), **prevention_sv(), **d}
         with open(os.path.join(out, "data", name + ".json"), "w", encoding="utf-8") as f:
             json.dump([{"en": k, "sv": v} for k, v in d.items() if v], f, ensure_ascii=False)
         names.append(name)

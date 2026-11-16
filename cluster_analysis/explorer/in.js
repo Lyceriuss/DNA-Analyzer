@@ -341,28 +341,31 @@
         inMake(rk, 'p', 'in-ccard-note', 'The common variants behind these bars each nudge risk a little; together they shift it modestly. The large inherited risks come from rare variants (BRCA1, BRCA2, the Lynch syndrome genes) that a chip mostly can\'t see. A cancer far to the left is a reason to start screening on time, not a diagnosis.');
       }
       const cg = changed('cancer');
-      // What to do with it: one action per finding that can change a decision, from the cards and bars above
-      const drugsOf = (gene) => [...new Set(oncRows.filter((r) => genesOf(r).includes(gene)).map((r) => r.drug))].sort();
-      const snpsOf = (gene) => { try { return JSON.parse((mgBy.get(gene) || {}).snps || '[]'); } catch (e) { return []; } };
       const shown = testGenes.filter((g) => mgBy.has(g));
-      const acts = [];
-      for (const g of shown) {
-        const m = mgBy.get(g);
-        if (!(m.typical === true || String(m.typical) === 'True'))
-          acts.push(['meds', inT('Before {}, tell the oncologist {}\'s {} type: {}.', drugsOf(g).join(', '), c.who, g, String(m.phenotype || '').replace(/\s*\(.*\)$/, '').toLowerCase())]);
-      }
-      for (const g of shown) if (snpsOf(g).some((x) => x.confidence === 'not_excluded'))
-        acts.push(['test', inT('Ask for a {} test before {}: the chip can\'t rule out the variants that matter.', g, drugsOf(g).join(', '))]);
-      const high = risks.filter((r) => r.p >= 80).map((r) => r.name.toLowerCase());
-      if (high.length) acts.push(['screen', inT('Ask about screening on time for {}: {}\'s genes put these above most Europeans.', high.join(', '), c.who)]);
-      if (!acts.length) acts.push(['ok', inT('Nothing here changes a decision for {} today: the treatment genes read as usual and no cancer stands out.', c.who)]);
-      const act = inMake(cancer, 'div', 'in-acts');
-      inMake(act, 'h4', null, 'What to do with this');
-      for (const [k, t] of acts) {
-        const row = inMake(act, 'div', 'in-act in-act-' + k);
-        inMake(row, 'span', 'in-act-dot');
-        inMake(row, 'p', null, t);
-      }
+      // What this gives and what it can't tell: the same for everyone (general counts, no message built from one
+      // person's results), and what lowers the risk: the European Code Against Cancer's recommendations for the avoidable
+      // causes IARC links to the theme's cancers (themes/cancer_prevention.json, window.GX_PREVENTION)
+      const cst = (() => { const r = (tm || []).find((x) => x.theme === 'cancer' && x.stats); try { return r ? JSON.parse(r.stats) : {}; } catch (e) { return {}; } })();
+      const reach = cst.chip_reach || {};
+      const PV = window.GX_PREVENTION || { recommendations: [], cancers: {} };
+      const nMech = new Set((tm || []).filter((r) => r.theme === 'cancer' && r.facet && r.facet !== 'disease').map((r) => r.facet)).size;
+      const nCancers = Object.keys(PV.cancers).length;
+      const lim = inMake(cancer, 'div', 'in-canlim');
+      const can = inMake(lim, 'div', 'in-canlim-col in-canlim-can');
+      inMake(can, 'h4', null, 'What this gives');
+      const cannot = inMake(lim, 'div', 'in-canlim-col in-canlim-cant');
+      inMake(cannot, 'h4', null, 'What it can\'t tell');
+      const item = (col, head, text) => { const d = inMake(col, 'div', 'in-canlim-item'); inMake(d, 'b', null, head); if (text) inMake(d, 'p', null, text); return d; };
+      if (cst.n_genes) item(can, 'A broad read of the cancer genes', inT('{} genes research links to cancer, grouped by the {} stages of a cell\'s life they act on (repair, checkpoints, clearing toxins and more).', inN(cst.n_genes), nMech));
+      item(can, 'Safer dosing', inT('The {} genes that decide how cancer medicines are cleared, read before any treatment starts, so a standard dose that would be toxic can be adjusted in time.', shown.length));
+      if (nCancers) item(can, 'Screening at the right time', inT('A genetic risk ranking for {} cancer types, so screening can start on time for the ones that stand out.', nCancers));
+      // What lowers the risk, in one line: the full list is in the cancer theme (th.js, th-prevention)
+      const nRecs = new Set(Object.values(PV.cancers).flatMap((c) => c.recommendations.map((r) => r.n))).size;
+      if (nRecs) item(can, 'Reduce cancer trigger exposure', inT('{} of the European Code Against Cancer\'s recommendations cover the known, avoidable causes of these cancers, such as smoking, alcohol and too much sun. The cancer theme lists them, with the cancers each one lowers.', nRecs));
+      item(cannot, 'Rare high-risk mutations (BRCA1, BRCA2, Lynch syndrome)', 'The genes above are read through common variation, which a DNA test reads well. The large inherited risks come from rare single mutations, each carried by very few people, and finding them takes clinical-grade sequencing of the genes themselves.');
+      item(cannot, 'Some drug-gene variants', 'A few of the variants dosing guidelines test for are too rare for a chip to rule out; the cards above mark them in orange.');
+      item(cannot, 'What a tumour will do', 'How fast a cancer grows and which treatment it responds to are written in the tumour\'s own DNA, read from a biopsy. Inherited DNA only shifts the chance of getting it.');
+      item(cannot, 'Exact risk', 'The bars rank common variants among Europeans; they don\'t give a lifetime risk, and they are less accurate for other ancestries. Family history counts as much and isn\'t in the DNA file.');
 
       // This is the overview: the cancer theme in Clusters goes gene by gene
       const more = inMake(cancer, 'div', 'in-deeper');
@@ -374,24 +377,212 @@
         b.type = 'button';
         b.addEventListener('click', () => { dash.setParams({ theme: 'cancer' }); gx.show('clusters'); });
       }
-      inText(el, 'Fertility, nutrition, lab values and training are read the same way, each in its own tab.');
     } },
-    { title: 'Your DNA file', draw: (el, c) => {
-      const p = c.p || {};
-      inText(el, inT('A consumer DNA test doesn\'t read the whole genome. A chip measures a fixed set of positions where people differ (SNPs), {} in {}\'s file, and reports the two letters found at each, one from each parent.', inN(p.measured), c.who));
-      inFacts(el, [[inN(p.measured), inT('positions measured in {}\'s file', c.who)],
-                   [p.format ? { myheritage: 'MyHeritage', ancestry: 'AncestryDNA', '23andme': '23andMe' }[p.format] || p.format : '—', 'file format'],
-                   [inN(p.matched), 'of them at positions the reference panel knows']]);
-      const chroms = Object.entries(p.per_chrom || {}).sort((a, b) => (a[0] === 'X') - (b[0] === 'X') || +a[0] - +b[0]);
-      if (chroms.length) {
-        const box = inChartBox(el, 'Measured positions per chromosome');
-        const cols = inMake(box, 'div', 'in-cols'), labs = inMake(box, 'div', 'in-cols-lab'), max = Math.max(...chroms.map((x) => x[1] || 0));
-        for (const [ch, n] of chroms) {
-          const col = inMake(cols, 'div');
-          col.title = inT('Chromosome {}: {} positions', ch, inN(n));
-          inMake(col, 'i').style.height = `${(n / max) * 100}%`;
-          inMake(labs, 'span', null, ch);
+    { title: 'Inside a gene: its pathway', draw: (el, c) => {
+      inMake(el, 'p', 'in-lc-lead', 'Your body runs on thousands of processes, each a link in a chain where one protein hands its product to the next. Your DNA sets how well each link works, like a dial turned a little up or down. Those settings are how humans adapted to different foods, climates and threats, and the same setting can be a strength in one situation and a weakness in another. Knowing yours, down to the single step, shows where to lean on your strengths and where to support your weaknesses: for a longer, healthier and fuller life.');
+      // A teaching example, the same for everyone (no one's genotype): the alcohol chain. The two enzymes are the one
+      // choice made here; the molecules come from Reactome's reactions, what the enzymes are for from UniProt
+      const lg = inCount('lifecycle_genes') || [], ls = inCount('lifecycle_steps') || [];
+      const EX = ['ADH1B', 'ALDH2'];
+      const focal = (g) => ls.find((r) => r.gene === g && String(r.role) === '1' && r.section === 'focal');
+      const gene = (g) => lg.find((r) => r.gene === g && String(r.role) === '1') || {};
+      // "ethanol + NAD+ => acetaldehyde + NADH + H+": the first molecule on each side
+      const sides = (rx) => { const m = String(rx || '').split(/\s*=>\s*/); return m.length === 2 ? m.map((x) => x.split(/\s+\+\s+/)[0].replace(/\s*\[.*\]$/, '').trim()) : null; };
+      const s1 = sides((focal(EX[0]) || {}).reaction), s2 = sides((focal(EX[1]) || {}).reaction);
+      if (s1 && s2) {
+        const mols = [s1[0], s1[1], s2[1]];
+        const box = inMake(el, 'div', 'in-lc');
+        inMake(box, 'span', 'in-tag', 'An example: the alcohol chain');
+        inMake(box, 'h3', 'in-lc-title', inT('{} → {} → {}', mols[0], mols[1], mols[2]));
+        inMake(box, 'p', 'in-lc-path', inT('Two enzymes, two steps: {} turns {} into {}, then {} turns {} into {}. Change how well one of them works and the middle of the chain changes.', EX[0], mols[0], mols[1], EX[1], mols[1], mols[2]));
+        // The same chain three ways; the middle molecule's level is what changes
+        // One beer through the chain: grams from its volume, strength and ethanol's density, hours from the whole body's
+        // rate (PubChem: a constant amount per hour, whatever the dose)
+        let eth = {}; try { eth = JSON.parse(((inCount('intro_stats') || []).find((r) => r.kind === 'example') || {}).ethanol || '{}'); } catch (e) { /* none */ }
+        if (eth.rate && eth.density) {
+          // The time scales with body weight: PubChem's per-kilo rate (mg per kg per hour), or the 70 kg figure without it
+          const ML = 500, ABV = 5, grams = ML * ABV / 100 * eth.density;
+          const perKg = eth.rate.mg_per_kg_hour ? eth.rate.mg_per_kg_hour / 1000 : eth.rate.g_per_hour / eth.rate.weight_kg;
+          const timeFor = (kg) => grams / (perKg * kg);
+          const fmtT = (h) => { const hh = Math.floor(h), mm = Math.round((h - hh) * 60); return mm === 60 ? inT('{} h {} min', hh + 1, 0) : inT('{} h {} min', hh, mm); };
+          const bw = inMake(box, 'div', 'in-beer');
+          const NS = 'http://www.w3.org/2000/svg', svg = document.createElementNS(NS, 'svg');
+          svg.setAttribute('viewBox', '0 0 80 120'); svg.setAttribute('class', 'in-beer-glass'); svg.setAttribute('aria-hidden', 'true');
+          svg.innerHTML = '<path d="M14 22 L66 22 L60 112 Q59 116 55 116 L25 116 Q21 116 20 112 Z" class="g"/>' +
+            '<path d="M17 40 L63 40 L59 110 Q58 113 55 113 L25 113 Q22 113 21 110 Z" class="b"/>' +
+            '<path d="M12 22 Q16 8 30 12 Q38 2 50 10 Q64 6 68 22 Z" class="f"/>' +
+            '<circle cx="32" cy="70" r="2" class="u"/><circle cx="44" cy="88" r="1.6" class="u"/><circle cx="50" cy="60" r="1.4" class="u"/>';
+          bw.appendChild(svg);
+          const info = inMake(bw, 'div', 'in-beer-info');
+          inMake(info, 'span', 'in-tag', 'One beer through the chain');
+          inMake(info, 'b', 'in-beer-big', inT('{} ml at {}%: {} g of alcohol', ML, ABV, grams.toFixed(1)));
+          inMake(info, 'p', null, inT('The liver turns about {} mg of alcohol into acetate per kilo of body weight per hour, a constant amount whatever was drunk.', Math.round(perKg * 1000)));
+          // The weight slider
+          const wl = inMake(info, 'label', 'in-beer-w');
+          inMake(wl, 'span', null, 'Body weight');
+          const range = inMake(wl, 'input');
+          range.type = 'range'; range.min = 40; range.max = 120; range.step = 1; range.value = Math.round(eth.rate.weight_kg || 70);
+          const wv = inMake(wl, 'b', 'in-beer-wv');
+          const tline = inMake(info, 'p', 'in-beer-time');
+          // A timeline of those hours, on a fixed 0 to 8 h scale so the weights compare
+          const SCALE = 8;
+          const tl = inMake(info, 'div', 'in-beer-tl');
+          const track = inMake(tl, 'div', 'in-beer-track');
+          inMake(track, 'i', 'in-beer-left');
+          const ticks = inMake(tl, 'div', 'in-beer-ticks');
+          for (let h = 0; h <= SCALE; h += 2) { const t = inMake(ticks, 'span', null, inT('{} h', h)); t.style.left = `${(h / SCALE) * 100}%`; }
+          const during = [];   // the panels' lines, filled in below and updated with the slider
+          box._beerDuring = during;
+          const update = () => {
+            const kg = +range.value, h = timeFor(kg);
+            wv.textContent = `${kg} kg`;
+            tline.textContent = inT('One beer takes about {} to pass through the chain.', fmtT(h));
+            track.style.setProperty('--end', `${Math.min(100, (h / SCALE) * 100)}%`);
+            for (const [node, tpl] of during) node.textContent = inT(tpl, fmtT(h));
+          };
+          range.addEventListener('input', update);
+          box._beerUpdate = update;
+          // Measured: the time doesn't depend on these genes (blood ethanol unaffected by ADH1B or ALDH2)
+          let both = []; try { both = JSON.parse(((inCount('intro_stats') || []).find((r) => r.kind === 'example') || {}).measured || '[]').filter((m) => m.about === 'both'); } catch (e) { /* none */ }
+          for (const m of both) {
+            const q = inMake(info, 'p', 'in-beer-same');
+            inMake(q, 'span', null, inT('The same for every form of these genes: measured in people, “{}”', m.finding));
+            const a = inMake(q, 'a', 'in-lc-src', ` ${m.study}`); a.href = `https://pubmed.ncbi.nlm.nih.gov/${m.pmid}/`; a.target = '_blank'; a.rel = 'noopener';
+          }
+          const s2 = inMake(info, 'a', 'in-lc-src', 'PubChem, ethanol: metabolism and density');
+          s2.href = eth.url; s2.target = '_blank'; s2.rel = 'noopener';
         }
+        // The buildup, measured (Chen 2021's full text, read at export): shown in the slow form's panel
+        let bu = null; try { bu = JSON.parse(((inCount('intro_stats') || []).find((r) => r.kind === 'example') || {}).buildup || 'null'); } catch (e) { /* none */ }
+        const panels = inMake(box, 'div', 'in-lc-panels');
+        // The variants' numbers: GWAS Catalog odds per copy and UniProt's notes, read at export (intro.py, the same for everyone)
+        let exData = []; try { exData = JSON.parse(((inCount('intro_stats') || []).find((r) => r.kind === 'example') || {}).example || '[]'); } catch (e) { /* none */ }
+        const exOf = (g) => exData.find((x) => x.gene === g);
+        const NOISE = /^AMED|ALDH2-related|cancer|carcinoma|nitroglycerin/i;
+        const caseFix = (t) => (t === t.toUpperCase() ? t.charAt(0) + t.slice(1).toLowerCase() : t);
+        const fmtN = (v) => (v == null ? '—' : String(v));
+        const src = (parent, text, pmid) => { const a = inMake(parent, 'a', 'in-lc-src', text); if (pmid) { a.href = `https://pubmed.ncbi.nlm.nih.gov/${pmid}/`; a.target = '_blank'; a.rel = 'noopener'; } return a; };
+        const effect = (d, e) => {
+          const n = inMake(d, 'div', 'in-lc-num');
+          inMake(n, 'b', null, e.or != null ? `×${e.or}` : inT('p = {}', e.p));
+          inMake(n, 'span', null, e.or != null ? inT('odds of {} per copy', e.trait.toLowerCase()) : inT('linked to {}', e.trait.toLowerCase()));
+          const size = (e.sample.match(/^[\d,]+ [^,]*?(?:individuals|cases)/) || [e.sample.slice(0, 50)])[0];
+          src(n, `${e.author} ${e.year} · ${size}`, e.pmid);
+        };
+        // How fast: the measured speeds (UniProt), drawn as two bars; what the buildup does (MedGen); one GWAS effect
+        const numbers = (d, g) => {
+          const x = exOf(g);
+          if (!x) return;
+          inMake(d, 'span', 'in-tag', inT('{} {} ({})', g, x.variant, x.rsid));
+          if (x.speed && x.speed.typical && x.speed.variant) {
+            const sp = x.speed, ratio = Math.round(sp.variant.value / sp.typical.value);
+            const k = inMake(d, 'div', 'in-lc-speed');
+            const head = inMake(k, 'div', 'in-lc-num');
+            inMake(head, 'b', null, `×${ratio}`);
+            inMake(head, 'span', null, inT('faster: {} per minute, per mg of enzyme (Vmax)', sp.substrate));
+            for (const [lab, v, cls] of [[inT('{} (typical)', sp.typical_allele), sp.typical, 'norm'], [inT('{} (this form)', sp.variant_allele), sp.variant, 'gof']]) {
+              const row = inMake(k, 'div', 'in-lc-bar-row');
+              inMake(row, 'span', null, lab);
+              const bar = inMake(row, 'div', 'in-lc-bar');
+              inMake(bar, 'i', 'in-lc-bar-' + cls).style.width = `${Math.max(2, (v.value / sp.variant.value) * 100)}%`;
+              inMake(row, 'span', 'in-lc-bar-v', `${fmtN(v.value)} ${v.unit.replace('umol', 'µmol')}`);
+            }
+            src(k, 'UniProt, measured kinetics');
+          }
+          if (x.medgen && x.medgen.definition) {
+            // MedGen's effects, without what doesn't belong to drinking (nitroglycerin), each in plain words
+            const m = inMake(d, 'div', 'in-lc-effects');
+            inMake(m, 'span', 'in-tag', 'What the buildup does (MedGen)');
+            const sent = x.medgen.definition.split(/(?<=\.)\s/).find((t) => /results in/i.test(t)) || '';
+            const list = (sent.match(/results in (.*?)(?:, as well as|\.$)/) || [])[1] || '';
+            const PLAIN = [[/flushing/i, 'Flushing: the face and neck turn red and warm after a drink'],
+                           [/toxicity/i, 'Acute alcohol toxicity: feeling poisoned by less alcohol than others'],
+                           [/hangover/i, 'Hangovers: worse after-effects the next day']];
+            for (const part of list.split(/,\s*(?:and\s+)?|\s+and\s+/).filter(Boolean)) {
+              const pl = PLAIN.find(([rx]) => rx.test(part));
+              const row = inMake(m, 'div', 'in-lc-eff');
+              inMake(row, 'b', null, pl ? pl[1].split(':')[0] : part);
+              if (pl) inMake(row, 'span', null, pl[1].split(': ')[1]);
+            }
+          }
+          for (const e of x.effects) effect(d, e);
+          const notes = x.uniprot.filter((t) => !NOISE.test(t)).map(caseFix).slice(0, 3);
+          if (notes.length) { const t = inMake(d, 'div', 'in-lc-notes'); inMake(t, 'span', 'in-tag', 'UniProt'); for (const nt of notes) inMake(t, 'span', 'in-lc-note', nt); }
+        };
+        const panel = (title, cls, calls, level, text, gene) => {
+          const d = inMake(panels, 'div', 'in-lc-panel in-lc-p-' + cls);
+          inMake(d, 'b', 'in-lc-ptitle', title);
+          const ch = inMake(d, 'div', 'in-lc-mini');
+          const mol = (m, lvl) => { const x = inMake(ch, 'span', 'in-lc-m' + (lvl ? ' in-lc-m-' + lvl : ''), m); return x; };
+          const FORM = { norm: 'wild-type', lof: 'slow form', gof: 'fast form' };
+          const enz = (g, k) => { inMake(ch, 'span', 'in-lc-ar', '→'); const c = inMake(ch, 'span', 'lc-chip in-lc-form lc-' + k); inMake(c, 'b', null, g); inMake(c, 'small', null, FORM[k]); inMake(ch, 'span', 'in-lc-ar', '→'); };
+          mol(mols[0]); enz(EX[0], calls[0]); mol(mols[1], level); enz(EX[1], calls[1]); mol(mols[2]);
+          inMake(d, 'p', null, text);
+          if (gene) numbers(d, gene);
+        };
+        panel('Wild-type (typical)', 'norm', ['norm', 'norm'], 'low', inT('Both enzymes work as in most people: {} is cleared about as fast as it is made.', mols[1]));
+        // What controlled studies measured, in their abstracts' words (Europe PMC, read at export)
+        let measuredRows = []; try { measuredRows = JSON.parse(((inCount('intro_stats') || []).find((r) => r.kind === 'example') || {}).measured || '[]'); } catch (e) { /* none */ }
+        const studies = (gene) => {
+          const rows = measuredRows.filter((m) => m.about === gene);
+          if (!rows.length) return;
+          const d = inMake(panels.lastElementChild, 'div', 'in-lc-measured');
+          inMake(d, 'span', 'in-tag', 'Measured in people, after a dose like one beer');
+          for (const m of rows) {
+            inMake(d, 'p', null, `“${m.finding.charAt(0).toUpperCase() + m.finding.slice(1)}”`);
+            src(d, `${m.study} · PMID ${m.pmid}`, m.pmid);
+          }
+        };
+        const duringLine = (tpl) => { if (!box._beerDuring) return; const n = inMake(panels.lastElementChild, 'p', 'in-lc-during'); box._beerDuring.push([n, tpl]); };
+        duringLine('For the {} the beer takes, acetaldehyde stays low.');
+        {
+          const tp = panels.lastElementChild, a1 = exOf(EX[0]), a2 = exOf(EX[1]);
+          if (a1 && a1.speed && a1.speed.typical) { const n = inMake(tp, 'div', 'in-lc-num'); inMake(n, 'b', null, fmtN(a1.speed.typical.value)); inMake(n, 'span', null, inT('µmol of {} made by {} per minute, per mg of enzyme (Vmax)', mols[1], EX[0])); src(n, inT('{}, UniProt', a1.speed.typical_allele)); }
+          if (a2 && a2.affinity) { const n = inMake(tp, 'div', 'in-lc-num'); inMake(n, 'b', null, `${a2.affinity.value} ${a2.affinity.unit.replace('uM', 'µM')}`); inMake(n, 'span', null, inT('{} grabs {} at this tiny concentration (Km): it clears it as soon as it appears', EX[1], mols[1])); src(n, 'UniProt'); }
+        }
+        panel(inT('{} less active (LoF)', EX[1]), 'lof', ['norm', 'lof'], 'high', inT('The second step slows: {} is made as before but cleared slowly, so it builds up.', mols[1]), EX[1]);
+        if (bu) {
+          const d = panels.lastElementChild, wt = bu.acetaldehyde.gof;
+          const cite = (n) => { const sa = inMake(n, 'a', 'in-lc-src', inT('{} · {} g/kg, about one beer', bu.study, bu.dose_g_per_kg)); sa.href = `https://europepmc.org/article/PMC/${bu.pmcid}`; sa.target = '_blank'; sa.rel = 'noopener'; };
+          let n = inMake(d, 'div', 'in-lc-num');
+          inMake(n, 'b', null, `${bu.acetaldehyde.lof} µM`);
+          inMake(n, 'span', null, Array.isArray(wt) ? inT('peak {} in the blood after one beer, against {} to {} µM with wild-type {}', mols[1], wt[0], wt[1], EX[1]) : inT('peak {} in the blood after one beer', mols[1]));
+          cite(n);
+          n = inMake(d, 'div', 'in-lc-num');
+          inMake(n, 'b', null, `+${bu.heart.lof}%`);
+          inMake(n, 'span', null, inT('heart rate 25 minutes after, against no change with wild-type {}', EX[1]));
+          cite(n);
+        }
+        studies(EX[1]);
+        panel(inT('{} more active (GoF)', EX[0]), 'gof', ['gof', 'norm'], 'low', inT('The first enzyme is far faster in the lab, yet in people the blood {} measures the same as typical. Carriers still drink less and are protected; why is not known yet.', mols[1]), EX[0]);
+        studies(EX[0]);
+        duringLine('For the {} the beer takes, blood acetaldehyde stays as in the typical form.');
+        if (box._beerUpdate) box._beerUpdate();
+        // Why we have them: UniProt's own words
+        const why = inMake(box, 'div', 'in-lc-why');
+        for (const g of EX) {
+          const t = gene(g).protein_function;
+          if (!t) continue;
+          const d = inMake(why, 'div', 'in-lc-quote');
+          inMake(d, 'span', 'in-tag', inT('Why we have {} (UniProt)', g));
+          const sentences = t.split(/(?<=\.)\s/).filter((x) => /ethanol|alcohols|formaldehyde/i.test(x) && !/DOPAL|dopamine|esterase/.test(x)).slice(0, 2);
+          inMake(d, 'p', null, (sentences.length ? sentences : [t.split(/(?<=\.)\s/)[0]]).join(' ').replace(/\.?$/, '.'));
+        }
+      }
+      // A frontier: what is known is the pieces; how they add up is what the person puzzles together
+      const fr = inMake(el, 'div', 'in-frontier');
+      inMake(fr, 'h3', null, 'A new frontier');
+      inMake(fr, 'p', null, 'Research maps one protein and one step at a time. How a slower step plays out in a whole body, alongside every other variant, is mostly unknown.');
+      inMake(fr, 'p', null, 'Where the data exist, the explorer lays out the pieces: the chain, the person\'s variants in it, what each step needs, where it happens and the papers behind it.');
+      inMake(fr, 'p', null, 'It gives you the data, not every answer. Some insights won\'t come from a paper but from people who learn which steps run differently in them and how that affects them in their everyday lives.');
+      const more = inMake(el, 'div', 'in-deeper');
+      const txt = inMake(more, 'div');
+      inMake(txt, 'h4', null, 'Gene pathway');
+      inMake(txt, 'p', null, 'In this tab every gene with a pathway is drawn step by step from Reactome: what each step takes in and gives out, the enzymes and how the person\'s variants change them, what the steps need, what switches the gene on or off, and the papers behind each finding.');
+      if (!inLocked()) {
+        const b = inMake(more, 'button', 'in-next', 'Open the Gene pathway tab');
+        b.type = 'button';
+        b.addEventListener('click', () => { dash.setParams({ lc_gene: 'ALDH2', lc_role: 1 }); gx.show('lifecycle'); });
       }
     } },
     { title: 'How to read the results', draw: (el, c) => {
@@ -405,7 +596,7 @@
         'Nutrition: per nutrient, how the genes move its level in the blood and which steps of its uptake and conversion they touch.',
         'Biomarkers: common lab tests read through the genes, and which shifts are real and which only move the test.',
         'Clusters: health themes (cancer, fertility, muscle), gene by gene, with body maps and networks.',
-        'Gene lifecycle and Profile: one gene\'s chemical journey, and the genes grouped into systems that work together.',
+        'Gene pathway and Profile: one gene\'s chemical journey, and the genes grouped into systems that work together.',
       ]);
     } },
     { title: 'Where to start', draw: (el, c) => {

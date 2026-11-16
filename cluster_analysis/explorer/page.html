@@ -334,7 +334,7 @@
     </div>
     <div class="gx-profile" data-draw="gx-profile" data-source="profiles" role="group" aria-label="Profile"></div>
     <p class="gx-lede">Every tab reads the selected person's genome through public research sources: Clusters, Medicines, Nutrition,
-      Biomarkers, Gene lifecycle and Profile. Home explains how.</p>
+      Biomarkers, Gene pathway and Profile. Home explains how.</p>
   </header>
 
   <nav class="gx-tabs" role="tablist" aria-label="Views">
@@ -342,7 +342,7 @@
     <button class="gx-tab" role="tab" data-tab="clusters" aria-selected="false">Clusters</button>
     <button class="gx-tab" role="tab" data-tab="medicines" aria-selected="false">Medicines</button>
     <button class="gx-tab" role="tab" data-tab="nutrition" aria-selected="false">Nutrition</button>
-    <button class="gx-tab" role="tab" data-tab="lifecycle" aria-selected="false">Gene lifecycle</button>
+    <button class="gx-tab" role="tab" data-tab="lifecycle" aria-selected="false">Gene pathway</button>
     <button class="gx-tab" role="tab" data-tab="biomarkers" aria-selected="false">Biomarkers</button>
     <button class="gx-tab" role="tab" data-tab="profile" aria-selected="false">Profile</button>
     <button class="gx-tab" role="tab" data-tab="sources" aria-selected="false">Sources</button>
@@ -423,6 +423,7 @@
 <script>
   // @settings
   // @sources
+  // @prevention
   // Calculations from the attached datasets
   dash.calc('kpis', {
     inputs: ['modules', 'module_links', 'biomarker_snps'],

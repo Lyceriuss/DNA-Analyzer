@@ -2,7 +2,7 @@
 
 Turns a consumer raw-DNA export (MyHeritage, AncestryDNA or 23andMe, zipped or not) into the **Gene Cluster
 Explorer**, a local web page served on your own machine. It covers health themes (cancer, fertility, muscle), medicines,
-nutrition, biomarkers, gene lifecycles and a profile overview, in English or Swedish. Health advice is part of the
+nutrition, biomarkers, gene pathways and a profile overview, in English or Swedish. Health advice is part of the
 output.
 
 The DNA file never leaves the machine. Every fact (effects, frequencies, pathways, citations) comes from public
@@ -36,7 +36,7 @@ cluster_analysis/    the analysis: one package per feature, each writing its own
   evidence/            how a variant changes its gene: function evidence, gene calls, literature
   medicines/           drug genes, star alleles, guidelines and drug labels (Medicines tab)
   nutrition/           nutrients, lab tests, fitness and cancer risk scores (Nutrition and Biomarkers tabs, Clusters)
-  lifecycle/           a gene's chemical lifecycle (Gene lifecycle tab)
+  lifecycle/           a gene's chemical lifecycle (Gene pathway tab)
   library/             the 247-SNP library and its reader (Profile tab); being replaced by the packages above
   explorer/            the page (one part per tab), the dataset export, the build and the local server
   sources.py           API clients with an on-disk cache

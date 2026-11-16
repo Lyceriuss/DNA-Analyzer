@@ -41,4 +41,4 @@
 [hidden] { display: none !important; }
 body { margin: 0; padding: 16px; background: var(--color-bg); color: var(--color-fg);
   font-family: var(--font-anthropic-sans); font-size: var(--cds-font-size-body); line-height: 1.45; }
-body > .gx { max-width: 1200px; margin: 0 auto; }
+body > .gx { max-width: 1800px; margin: 0 auto; }  /* wide screens: charts and the lifecycle use the room; text keeps its own line length */

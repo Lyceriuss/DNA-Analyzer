@@ -39,7 +39,7 @@ where this is heading: [docs/architecture/migration.md](../../docs/architecture/
 | `runtime/dash.js`, `runtime/tokens.css` | The standalone runtime and design tokens (claude.ai provides both on the artifact) |
 | `runtime/d3.min.js` | d3 7.9.0, so the page draws without internet |
 
-| `lc.html`, `lc.css`, `lc.js` | Gene lifecycle tab: gene summary, node graph, step details with capacity, evidence and papers |
+| `lc.html`, `lc.css`, `lc.js` | Gene pathway tab: gene summary, node graph, step details with capacity, evidence and papers |
 | `in.html`, `in.css`, `in.js`, `intro.py` | Home tab: the introduction in six steps (how it works and what imputation is, the research behind it, what the person's DNA can do for them, the DNA file, how to read the results, where to start), with the method's numbers and the selected person's (`intro.py` writes the `intro_stats` dataset) |
 | `so.html`, `so.css`, `so.js`, `sources.json` | Sources tab: the research databases (who runs them, what they give, how they are reached, which tabs use them, the version of each bulk file from `genome/references.json`), the tools and a glossary. `sources.json` is the one list of databases: `build.py` puts it in the page as `window.GX_SOURCES` and adds its Swedish to the dictionary; `tests/test_sources_catalog.py` checks it against `docs/architecture/sources.md` and `references.json` |
 | `settings.json` | `intro_required`: every viewer goes through the introduction once per browser before the other tabs open (Next waits `intro_min_seconds` per step, no skipping). Off during development; `build.py` puts the settings in the page as `window.GX_SETTINGS` |
@@ -106,7 +106,7 @@ python -m cluster_analysis.explorer.export out/bundle.json --lifecycles data/out
 cross-references and gene calls to `data/output/cluster_analysis/`. `export_dashboard` then writes every dataset next
 to `out/bundle.json` for all profiles at once: `lifecycle_steps`, `lifecycle_genes`, `gene_function`, the four
 `theme_*`, `med_genes`, `med_drugs`, `med_guidance`, `nut_nutrients`, `nut_findings`, the four `hp_*` (person-tagged),
-`med_names` and `nut_steps` (public), and `profiles` (ids and sex). The lifecycles are walked once; each profile's
+`med_names` and `nut_steps` (public), and `profiles` (ids and sex). The pathways are walked once; each profile's
 calls are laid over them. All but `med_names`, `nut_steps` and `profiles` contain genotypes, so keep them out of git.
 
 ## The old claude.ai artifact
