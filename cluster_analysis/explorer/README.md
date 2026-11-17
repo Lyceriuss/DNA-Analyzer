@@ -45,7 +45,8 @@ where this is heading: [docs/architecture/migration.md](../../docs/architecture/
 | `settings.json` | `intro_required`: every viewer goes through the introduction once per browser before the other tabs open (Next waits `intro_min_seconds` per step, no skipping). Off during development; `build.py` puts the settings in the page as `window.GX_SETTINGS` |
 | `th.html`, `th.css`, `th.js` | Clusters tab: theme picker, body maps, 28-day cycle and the life of a cell, mechanisms and their in-depth view, network, pathways; per theme and gene, how many ClinVar pathogenic variants a chip can see (`genome/imputability.py`) |
 | `md.html`, `md.css`, `md.js` | Medicines tab: drug genes (star alleles and CPIC type), and per medicine (searchable by any name, brand, ATC code or class) its dosing guidance and every finding with the person's reading, each with an evidence grade A+ to C |
-| `nt.html`, `nt.css`, `nt.js` | Nutrition tab: per nutrient the net effect on the blood level, then the mechanism in writing: Reactome's account of each pathway, and for each gene a variant is pinned to, the step (Reactome), the protein (UniProt) and what the person's variants change; the intake target as one line |
+| `nt.html`, `nt.css`, `nt.js` | Nutrition (shown in Clusters, as a choice beside the themes): per nutrient the net effect on the blood level, then the mechanism in writing: Reactome's account of each pathway, and for each gene a variant is pinned to, the step (Reactome), the protein (UniProt) and what the person's variants change; the intake target as one line |
+| `ad.js`, `ad.css`, `server.py` | Add a person: the header button and dialog (choose a raw file, review what was read, name the person, follow the run, open them), and the local server's API behind it (`/api/status`, `upload`, `start`, `resume`, `cancel`, `dismiss`; 127.0.0.1 only, same-origin checked). The button shows only when the page is served by `explorer serve` |
 | `i18n.js` | English / Swedish switch (the EN/SV buttons in the header; the page's last script) |
 | `i18n_sv.json` | The Swedish dictionary for the page's own wording, published as the `i18n_sv` dataset (`[{en, sv}]` rows) |
 | `i18n_sv_terms.json` | Swedish for source terms: the library's traits, systems and genotype readings, module names, and disease/trait names (Open Targets, GWAS Catalog, ClinVar); published as the `i18n_sv_terms` dataset |
@@ -98,7 +99,7 @@ person carry `data-who`: their "XY" is rewritten to the selected id, and the Swe
 ```bash
 python -m cluster_analysis.profiles check                  # sex from the DNA (X heterozygosity) against profiles.json
 python -m cluster_analysis.profiles run                    # per profile: theme cross-references, gene calls, medicines,
-                                                           # nutrition (with the profile's sex), Profile tab overlay
+                                                           # body systems, nutrition (with the profile's sex), lab tests
 python -m cluster_analysis.explorer.export out/bundle.json --lifecycles data/output/cluster_analysis/lifecycles_XY_full.json
 ```
 

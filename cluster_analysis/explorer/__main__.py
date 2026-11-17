@@ -75,7 +75,9 @@ def serve_dir(directory, port):
 
 def serve(a):
     site()
-    srv = serve_dir(SITE, a.port)
+    # The site plus the API behind "Add a person" (explorer/server.py)
+    from cluster_analysis.explorer import server
+    srv = server.make(SITE, a.port)
     print(f"Serving the explorer on http://127.0.0.1:{srv.server_address[1]}/  (Ctrl+C stops)")
     try:
         srv.serve_forever()
@@ -107,7 +109,7 @@ COLLECT = """
       for (const person of people) for (const tab of %s) {
         try { gx.show(tab); dash.setParams({ person }); } catch (e) { window.__errors.push(`${tab} ${person}: ${e.message}`); }
         await settled();
-        seen.push(`${lang} ${person} ${tab}: ${document.querySelector(`[data-page=${tab}]`).innerText.length} characters`);
+        seen.push(`${lang} ${person} ${tab}: ${[...document.querySelectorAll('.gx-page:not([hidden])')].reduce((n, p) => n + p.innerText.length, 0)} characters`);
       }
     }
     const pre = document.createElement('pre'); pre.id = 'checked';
@@ -205,6 +207,7 @@ def main():
     sub = ap.add_subparsers(dest="cmd", required=True)
     sub.add_parser("export").set_defaults(fn=export)
     sub.add_parser("build").set_defaults(fn=build)
+    sub.add_parser("site", help="the standalone site (page, runtime, datasets) rebuilt").set_defaults(fn=lambda _: run(os.path.join(HERE, "build.py"), "--standalone", DATASETS, SITE))
     p = sub.add_parser("serve")
     p.add_argument("--port", type=int, default=8000)
     p.set_defaults(fn=serve)

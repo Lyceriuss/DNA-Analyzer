@@ -20,7 +20,7 @@ Open issues for the Gene Cluster Explorer and its pipeline. The PDF report and i
 
 - Tabs throw on a profile whose pipeline hasn't produced every output (nutrition, lab tests, overlay): they should show
   that the data is missing instead.
-- The Nutrition tab overflows a phone-width screen.
+- The Nutrition view (in Clusters) overflows a phone-width screen.
 
 ## P1: nutrition
 

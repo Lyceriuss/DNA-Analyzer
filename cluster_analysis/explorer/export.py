@@ -419,21 +419,23 @@ if __name__ == "__main__":
                     t.extend(extra)
             for name, rows in zip(("theme_meta", "theme_genes", "theme_links", "theme_pathways"), tables):
                 merged[name] += tag(rows, pid)
-        # Medicines, nutrition, lab tests and the Profile tab, run per profile into data/output/cluster_analysis/profiles/<id>/
+        # Medicines, nutrition, lab tests and the body systems, run per profile into data/output/cluster_analysis/profiles/<id>/
         # (profiles.py run): one dataset each, rows tagged with their person. The public ones are taken once.
         for name in ("med_genes", "med_drugs", "med_guidance", "nut_nutrients", "nut_findings", "lab_tests", "lab_findings",
                      "fit_tests", "fit_findings", "sport_snps", "can_tests", "can_findings",
-                     "hp_modules", "hp_links", "hp_bridges", "hp_tilts"):
+                     "sys_systems", "sys_genes", "sys_links", "sys_bridges", "fd_phases", "fd_impact"):
             merged[name] = []
             for p in people:
                 f = os.path.join(prof.PROFILE_DIR, p["id"], name + ".json")
                 if os.path.exists(f):
                     merged[name] += tag(json.load(open(f, encoding="utf-8")), p["id"])
-        for name in ("med_names", "nut_steps", "lab_steps", "fit_steps", "can_steps"):
+        for name in ("med_names", "nut_steps", "lab_steps", "fit_steps", "can_steps", "fd_genes", "fd_explain"):
             f = next((os.path.join(prof.PROFILE_DIR, p["id"], name + ".json") for p in people
                       if os.path.exists(os.path.join(prof.PROFILE_DIR, p["id"], name + ".json"))), None)
             if f:  # public: the same for everyone, so no person (the page would show it to that person only)
                 merged[name] = [{k: v for k, v in r.items() if k != "person"} for r in json.load(open(f, encoding="utf-8"))]
+        merged.setdefault("fd_genes", [])
+        merged.setdefault("fd_explain", [])  # no female profile run yet: the fertility views read an empty set
         merged["lab_tests"], merged["lab_findings"] = trim_findings(merged.get("lab_tests", []), merged.get("lab_findings", []))
         merged["fit_tests"], merged["fit_findings"] = trim_findings(merged.get("fit_tests", []), merged.get("fit_findings", []))
         merged["can_tests"], merged["can_findings"] = trim_findings(merged.get("can_tests", []), merged.get("can_findings", []))
@@ -443,7 +445,7 @@ if __name__ == "__main__":
         merged["intro_stats"] = intro.rows(people)
         for name, rows in merged.items():
             # Empty is still an answer for the datasets the page reads (the cancer scores have no Reactome steps)
-            if not rows and name not in ("profiles", "nut_steps", "lab_steps", "fit_steps", "can_steps"):
+            if not rows and name not in ("profiles", "nut_steps", "lab_steps", "fit_steps", "can_steps", "fd_phases", "fd_genes", "fd_explain", "fd_impact"):
                 continue
             with open(os.path.join(out_dir, name + ".json"), "w", encoding="utf-8") as f:
                 json.dump(rows, f, ensure_ascii=False, separators=(",", ":"))

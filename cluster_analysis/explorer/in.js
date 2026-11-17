@@ -103,7 +103,7 @@
     else inMake(t, 'span', 'in-logo-txt', d.name.split(/\s+/).map((w) => w[0]).join('').slice(0, 4).toUpperCase()).setAttribute('data-i18n-skip', '');
     return t;
   };
-  const TAB_NAMES = { clusters: 'Clusters', medicines: 'Medicines', nutrition: 'Nutrition', biomarkers: 'Biomarkers' };
+  const TAB_NAMES = { clusters: 'Clusters', medicines: 'Medicines', nutrition: 'Nutrition', biomarkers: 'Biomarkers' };  // Nutrition opens in Clusters
 
   // The steps: how it works (and what imputation is), the research behind it, what it gives, the file, reading it
   const IN_STEPS = [
@@ -585,27 +585,723 @@
         b.addEventListener('click', () => { dash.setParams({ lc_gene: 'ALDH2', lc_role: 1 }); gx.show('lifecycle'); });
       }
     } },
-    { title: 'How to read the results', draw: (el, c) => {
-      inText(el, 'Where a result is a level compared with other people, it is drawn on a bar from orange to green. Green is always on the right, the favourable side, whichever way the level runs: for LDL cholesterol lower is better, for HDL higher is better, and both bars put the better end on the right.');
-      inMake(inMake(inMake(el, 'div', 'in-sample'), 'div', 'nt-bar'), 'i').style.left = '72%';
-      inText(el, 'Where neither direction is better (TSH, testosterone), the bar is grey with green in the middle: the typical range is the favourable spot.');
-      inMake(inMake(inMake(el, 'div', 'in-sample'), 'div', 'nt-bar nt-even'), 'i').style.left = '50%';
-      inText(el, 'The marker shows where the genes put the person among Europeans. It is a starting point set by the genes, not a measured value: the lab test measures the real one, and lifestyle moves it.');
-      inList(el, [
-        'Medicines: every medicine with a guideline, a drug label or a study finding for the person\'s genes, with the dosing advice that applies.',
-        'Nutrition: per nutrient, how the genes move its level in the blood and which steps of its uptake and conversion they touch.',
-        'Biomarkers: common lab tests read through the genes, and which shifts are real and which only move the test.',
-        'Clusters: health themes (cancer, fertility, muscle), gene by gene, with body maps and networks.',
-        'Gene pathway and Profile: one gene\'s chemical journey, and the genes grouped into systems that work together.',
-      ]);
+    { title: 'Reading a cluster', draw: (el, c) => {
+      // The worked example (intro.py): one woman's female fertility theme and genotypes, the same whoever is selected.
+      // Without it (an older export), the selected person's own theme is used.
+      let exAll = null;
+      try { const row = (gx.rows('intro_stats') || [[]])[0].find((x) => x.kind === 'cluster'); exAll = row && row.cluster ? JSON.parse(row.cluster) : null; } catch (e) { /* none */ }
+      const EX = exAll && exAll._example;
+      const r = EX ? [Object.entries(EX.facets).map(([facet, facet_name]) => ({ theme: EX.theme, theme_name: EX.theme_name, facet, facet_name })),
+                      EX.genes.map((x) => ({ ...x, theme: EX.theme })), EX.links.map((x) => ({ ...x, theme: EX.theme }))]
+        : gx.rows('theme_meta', 'theme_genes', 'theme_links');
+      if (!r) { if (gx.failed('theme_meta', 'theme_genes', 'theme_links')) gx.failLine(el); return; }
+      const [meta, genes, links] = r;
+      // The labels: "the example" for the worked example, else the person
+      const EXW = EX ? 'the example' : c.who, WL = EX ? 'example' : c.who;
+      const prof = dash.data('profiles'), sex = prof.status === 'ok' ? ((prof.data.find((p) => p.id === c.who) || {}).sex) : null;
+      const themes = [...new Set(meta.map((m) => m.theme))];
+      const T = EX ? EX.theme : themes.find((t) => t === (sex === 'female' ? 'fertility_female' : 'fertility_male')) || themes[0];
+      const tname = (meta.find((m) => m.theme === T) || {}).theme_name || T;
+      const facetName = new Map(meta.filter((m) => m.theme === T).map((m) => [m.facet, m.facet_name]));
+      const call = (g) => (g.genotype || (g.call_source === 'api' && g.function) ? (g.function || 'normal') : g.carried > 0 ? 'variant' : null);
+      const shown = genes.filter((g) => g.theme === T && g.notable);
+      const byName = new Map(shown.map((g) => [g.gene, g]));
+      const tl = links.filter((l) => l.theme === T && byName.has(l.a) && byName.has(l.b));
+      const partnersOf = (name) => tl.filter((l) => l.a === name || l.b === name).map((l) => ({ g: byName.get(l.a === name ? l.b : l.a), score: l.score }))
+        .sort((a, b) => b.score - a.score);
+      // The example: a changed gene with the most confident partners
+      const cand = shown.filter((g) => ['LoF', 'GoF'].includes(call(g)));
+      const sel = EX && byName.has(EX.gene) ? { g: byName.get(EX.gene) }
+        : (cand.length ? cand : shown).map((g) => ({ g, n: partnersOf(g.gene).filter((p) => p.score >= 0.7).length })).sort((a, b) => b.n - a.n)[0];
+      if (!sel) { inText(el, 'Choose a theme in the Clusters tab to see its network.'); return; }
+      const g = sel.g, partners = partnersOf(g.gene).slice(0, 6);
+      // A few unlinked genes, one per call, so the colours show
+      const used = new Set([g.gene, ...partners.map((p) => p.g.gene)]), extra = [];
+      for (const k of ['LoF', 'normal', 'GoF', null]) {
+        const x = shown.find((o) => !used.has(o.gene) && call(o) === k && !partnersOf(o.gene).some((p) => p.g.gene === g.gene));
+        if (x) { extra.push(x); used.add(x.gene); }
+      }
+      let ev = {}; try { ev = JSON.parse(g.evidence || '{}'); } catch (e) { /* no evidence */ }
+
+      const deep = (exAll || {})[g.gene] || null;
+      // An example without a profile behind it (the most common European genotypes): its call is read from GTEx, as the
+      // tab reads expression calls: the copies of the allele that changes expression where GTEx finds it significant
+      if (EX && deep && !call(g)) {
+        const v = Object.keys(deep.gtex || {})[0], G = v && deep.gtex[v], sig = G ? G.rows.filter((x) => x.significant) : [];
+        const n = ((EX.genotypes || {})[v] || '').split('').filter((x) => G && x === G.alt).length;
+        if (n && sig.length) Object.assign(g, { rsid: v, genotype: EX.genotypes[v], function: sig[0].nes > 0 ? 'GoF' : 'LoF', basis: 'expression', dose: n });
+      }
+      inText(el, EX && deep
+        ? inT('The Clusters tab draws each health theme as a network of genes. A worked example, the same for every profile: one woman\'s {} theme, where {} is one of the most connected changed genes. What its call means for her, from the measurements and studies behind it:', tname.toLowerCase(), g.gene)
+        : deep
+        ? inT('The Clusters tab draws each health theme as a network of genes. In {}\'s {} theme, {} is one of the most connected changed genes. What its call means for {}, from the measurements and studies behind it:', c.who, tname.toLowerCase(), g.gene, c.who)
+        : inT('The Clusters tab draws each health theme as a network of genes, with a panel describing the gene you select. Here is {}\'s {} theme, with {} selected.', c.who, tname.toLowerCase(), g.gene));
+      const grid = inMake(el, 'div', 'in-rc');
+
+      // --- the network, drawn small from the person's own data, with numbered marks
+      const left = inMake(grid, 'div', 'in-rc-net');
+      inMake(left, 'div', 'in-chart-title', 'Connections');
+      const NS = 'http://www.w3.org/2000/svg', W = 540, H = 330;
+      const svg = document.createElementNS(NS, 'svg');
+      svg.setAttribute('viewBox', `0 0 ${W} ${H}`); svg.setAttribute('class', 'in-rc-svg'); svg.setAttribute('role', 'img');
+      svg.setAttribute('aria-label', inT('{} and its interaction partners in the {} theme', g.gene, tname.toLowerCase()));
+      left.appendChild(svg);
+      const sv = (tag, attrs, text) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (text != null) e.textContent = text; svg.appendChild(e); return e; };
+      const nodes = [g, ...partners.map((p) => p.g), ...extra];
+      const facets = [...new Set(nodes.map((n) => n.primary))].sort((a, b) => (a === g.primary ? -1 : b === g.primary ? 1 : 0));
+      const spots = [[250, 175], [425, 100], [425, 255], [95, 95], [95, 260], [250, 45], [250, 300]];
+      const anchor = new Map(facets.map((f, i) => [f, spots[i % spots.length]]));
+      // each group's genes evenly round its spot; the selected gene at the centre of its own
+      const pos = new Map(), rrOf = new Map();
+      for (const f of facets) {
+        const [ax, ay] = anchor.get(f), ring = nodes.filter((n) => n.primary === f && n !== g);
+        if (f === g.primary) pos.set(g.gene, [ax, ay]);
+        const rr = f === g.primary ? 66 : ring.length === 1 ? 0 : 30 + 4 * ring.length;
+        rrOf.set(f, rr);
+        ring.forEach((n, j) => {
+          const a = (f === g.primary ? -Math.PI / 2 + 0.5 : -Math.PI / 4) + (j / ring.length) * 2 * Math.PI;
+          pos.set(n.gene, [Math.max(16, Math.min(W - 70, ax + Math.cos(a) * rr)), Math.max(30, Math.min(H - 26, ay + Math.sin(a) * rr * 0.85))]);
+        });
+      }
+      const FILL = { LoF: 'var(--color-bad)', GoF: 'var(--gof)', altered: 'var(--color-fg)', normal: 'var(--typical)', variant: 'var(--color-fg-muted)', unknown: 'var(--color-panel)' };
+      const label = new Map();
+      for (const f of facets) {
+        const [ax, ay] = anchor.get(f), side = f === g.primary || ax < W * 0.35 ? 'start' : ax > W * 0.65 ? 'end' : 'middle';
+        const lx = f === g.primary ? Math.max(28, ax - 90) : side === 'start' ? 24 : side === 'end' ? W - 4 : ax;
+        const r0 = (rrOf.get(f) || 0) * 0.85;
+        const ly = f === g.primary ? ay + r0 + 26 : ay < H / 2 ? Math.max(12, ay - r0 - 16) : Math.min(H - 4, ay + r0 + 24);
+        const t = sv('text', { x: lx, y: ly, 'text-anchor': side, class: 'in-rc-facet' }, facetName.get(f) || f);
+        label.set(f, t);
+      }
+      // faint lines between the other genes, strong ones from the selected gene
+      for (const l of tl) {
+        if (!pos.has(l.a) || !pos.has(l.b) || l.a === g.gene || l.b === g.gene) continue;
+        const [x1, y1] = pos.get(l.a), [x2, y2] = pos.get(l.b);
+        sv('line', { x1, y1, x2, y2, class: 'in-rc-edge', 'stroke-width': 0.6 + (l.score - 0.4) * 3 });
+      }
+      const [sx, sy] = pos.get(g.gene);
+      for (const p of partners) {
+        const [x2, y2] = pos.get(p.g.gene);
+        sv('line', { x1: sx, y1: sy, x2, y2, class: 'in-rc-edge is-on', 'stroke-width': 0.6 + (p.score - 0.4) * 3 });
+      }
+      for (const n of nodes) {
+        const [x, y] = pos.get(n.gene), fn = call(n), on = n === g || partners.some((p) => p.g === n);
+        const ci = sv('circle', { cx: x, cy: y, r: n === g ? 10 : 7, class: 'in-rc-dot' + (n === g ? ' is-sel' : '') + (fn ? '' : ' is-none') + (on ? '' : ' is-dim') });
+        ci.style.fill = fn ? FILL[fn] : 'var(--color-panel)';
+        sv('text', { x: x + 12, y: y + 4, class: 'in-rc-name' + (n === g ? ' is-sel' : '') + (on ? '' : ' is-dim') }, n.gene).setAttribute('data-i18n-skip', '');
+      }
+      // numbered marks: 1 a group's name, 2 a coloured dot, 3 the most confident line, 4 the selected gene
+      const mark = (n, x, y) => { sv('circle', { cx: x, cy: y, r: 9, class: 'in-rc-mark' }); sv('text', { x, y: y + 4, 'text-anchor': 'middle', class: 'in-rc-marknum' }, String(n)); };
+      // What a mark must keep clear of: every drawn line, every dot and every gene name (names run right of their dots)
+      const segs = [...svg.querySelectorAll('line')].map((l) => ['x1', 'y1', 'x2', 'y2'].map((k) => +l.getAttribute(k)));
+      const blobs = nodes.flatMap((n) => { const [x, y] = pos.get(n.gene); return [[x, y], [x + 22, y], [x + 40, y]]; });
+      // group names too, sampled along their estimated width (10px capitals, about 6.6px a letter)
+      for (const t of label.values()) {
+        const w = t.textContent.length * 6.6, an = t.getAttribute('text-anchor'), x0 = +t.getAttribute('x'), y0 = +t.getAttribute('y') - 4;
+        const left = an === 'end' ? x0 - w : an === 'middle' ? x0 - w / 2 : x0;
+        for (let x = left; x <= left + w; x += 10) blobs.push([x, y0]);
+      }
+      const segDist = (px, py, [x1, y1, x2, y2]) => {
+        const dx = x2 - x1, dy = y2 - y1, t = Math.max(0, Math.min(1, ((px - x1) * dx + (py - y1) * dy) / (dx * dx + dy * dy || 1)));
+        return Math.hypot(px - x1 - t * dx, py - y1 - t * dy);
+      };
+      const placed = [];
+      const clear = (x, y) => Math.min(...segs.map((sg) => segDist(x, y, sg)), ...blobs.map(([bx, by]) => Math.hypot(bx - x, by - y) - 4), ...placed.map(([a, b]) => Math.hypot(a - x, b - y)));
+      // the nearest spot with at least `room` px clear of everything; the clearest one if none has that much
+      const markNear = (n, tx, ty, room = 13) => {
+        let best = null;
+        for (const r of [16, 20, 24, 28, 34, 40, 48]) for (let k = 0; k < 16; k++) {
+          const a = (k / 16) * 2 * Math.PI, x = tx + Math.cos(a) * r, y = ty + Math.sin(a) * r;
+          if (x < 10 || x > W - 10 || y < 10 || y > H - 10) continue;
+          const cl = clear(x, y), sc = cl >= room ? 100 - r : cl - 60;
+          if (!best || sc > best[0]) best = [sc, x, y];
+        }
+        placed.push([best[1], best[2]]);
+        mark(n, best[1], best[2]);
+      };
+      // 1 just before the selected gene's group name (left-aligned, so the mark holds whatever the language), 2 left of a
+      // coloured dot, 3 beside the strongest line
+      const lb = label.get(g.primary);
+      markNear(1, +lb.getAttribute('x') - 4, +lb.getAttribute('y') - 4, 12);
+      const other = extra.find((n) => call(n)) || nodes.find((n) => n !== g && call(n));
+      if (other) { const [ox, oy] = pos.get(other.gene); markNear(2, ox, oy); }
+      if (partners[0]) {
+        const [px, py] = pos.get(partners[0].g.gene), len = Math.hypot(px - sx, py - sy) || 1;
+        markNear(3, sx + (px - sx) * 0.6, sy + (py - sy) * 0.6);
+      }
+      markNear(4, sx, sy);
+      const steps = inMake(left, 'ol', 'in-rc-steps');
+      const step = (n, text, extraEl) => { const li = inMake(steps, 'li'); inMake(li, 'span', 'in-rc-num', String(n)); const d = inMake(li, 'div'); inMake(d, 'span', null, text); if (extraEl) extraEl(d); };
+      step(1, 'Each dot is a gene. It sits in the group of the mechanism it acts through most (Gene Ontology), named in capitals.');
+      step(2, inT('Its colour is {}\'s call for the gene, from their own variants:', EXW), (d) => {
+        const lg = inMake(d, 'div', 'in-rc-legend');
+        const drawn = new Set(nodes.map((n) => call(n) || null));
+        for (const [k, t] of [['LoF', 'Less active'], ['altered', 'Changed'], ['GoF', 'More active'], [null, 'No call'], ['normal', 'Typical']].filter(([k]) => drawn.has(k))) {
+          const s = inMake(lg, 'span'); const i = inMake(s, 'i', k ? null : 'is-none'); i.style.background = k ? FILL[k] : 'transparent'; s.append(t);
+        }
+      });
+      step(3, 'Lines are protein interactions from STRING: the proteins bind or work together. Thicker lines are more confident.');
+      step(4, 'Select a gene: it grows, its partners light up, the rest fade, and the panel beside the network describes it.');
+      if (deep) steps.classList.add('is-compact');
+
+      // --- the panel, as the Clusters tab draws it for this gene, block by block
+      const answer = inMake(grid, 'div', 'in-rc-panel'), right = deep ? document.createElement('div') : answer;
+      inMake(right, 'div', 'in-chart-title', 'Selected gene');
+      let num = 4;
+      const block = (n, build, text) => {
+        const b = inMake(right, 'div', 'in-rc-block');
+        inMake(b, 'span', 'in-rc-num', String(++num));
+        const m = inMake(b, 'div', 'in-rc-mock'); build(m);
+        inMake(b, 'p', 'in-rc-exp', text);
+      };
+      const fn = call(g), expr = g.basis === 'expression';
+      const fnText = { LoF: expr ? 'Less expressed' : 'Less active', GoF: expr ? 'More expressed' : 'More active', normal: 'Typical function', altered: 'Changed, direction unclear', unknown: 'No known effect on the gene', variant: 'Carries a trait-linked variant' }[fn] || 'Not genotyped';
+      const BASIS = { cpic: 'CPIC allele function', measured: 'measured protein function, MaveDB', curated: 'curated protein effect, UniProt', truncating: 'the change cuts the protein short', predicted: 'predicted damage, SIFT and PolyPhen', expression: 'gene expression, GTEx', none: 'no evidence about function' };
+      block(5, (m) => {
+        const h = inMake(m, 'div', 'lc-name'); inMake(h, 'h3', null, g.gene).setAttribute('data-i18n-skip', '');
+        inMake(h, 'span', 'lc-call ' + ({ LoF: 'lof', GoF: 'gof', altered: 'altered', normal: 'norm', variant: 'var' }[fn] || 'unknown'), fn && fn !== 'normal' && g.dose ? inT('{} ×{}', fnText, g.dose) : fnText);
+      }, 'The call: what the person\'s variant does to the gene, with ×1 or ×2 for one or two copies. Blue is more active or more expressed, red less, green typical.');
+      if (g.fn_evidence) block(6, (m) => inMake(m, 'p', null, inT('Effect on the gene: {} ({}).', g.fn_evidence, BASIS[g.basis] || BASIS.none)),
+        'What the call rests on: a measured or curated protein change (CPIC, MaveDB, UniProt), a predicted one (SIFT, PolyPhen), or a change in how much of the gene the body\'s tissues make (GTEx).');
+      if (g.outcome && !['typical', 'unknown'].includes(g.outcome)) {
+        const OUT = { positive: 'positive', negative: 'negative', neutral: 'neither good nor bad', unclear: 'whether this is good or bad is unclear' };
+        block(7, (m) => inMake(m, 'p', null, inT('Effect on {}: {}.', c.who, OUT[g.outcome] || g.outcome)),
+          'Whether the change is good or bad for the person, where the trait says which way is better. Often it is unclear, and it says so.');
+      }
+      if (g.call_source !== 'api' && g.genotype) block(8, (m) => inMake(m, 'p', 'gx-note', inT('Library note for {} {}: {}.', g.rsid, g.genotype, g.interpretation)),
+        'A note from the old SNP library, which is being phased out. The call above comes from the evidence, not from the note.');
+      if (g.has_lifecycle) block(9, (m) => {
+        const b = inMake(m, 'button', 'lc-btn', 'Open its pathway'); b.type = 'button';
+        b.addEventListener('click', () => { if (!inLocked()) { dash.setParams({ lc_gene: g.gene, lc_role: 1 }); gx.show('lifecycle'); } });
+      }, 'Opens the gene in the Gene pathway tab: the chemical steps it takes part in, step by step.');
+      const fs = (ev.findings || []).filter((f) => f.items.length);
+      if (fs.length) block(10, (m) => {
+        inMake(m, 'span', 'gx-label', inT('{}\'s variants with a known effect ({})', c.who, fs.length));
+        const ul = inMake(m, 'ul', 'th-why');
+        // one of each kind: a GWAS effect carried, an imputed call, a library note
+        const pickF = [fs.find((f) => f.items.some((i) => i.source === 'GWAS' && i.copies > 0 && i.effect != null)),
+                       fs.find((f) => f.confidence === 'high' || f.confidence === 'medium'), fs.find((f) => f.items.some((i) => i.source === 'Library'))]
+          .filter((f, i, a) => f && a.indexOf(f) === i).slice(0, 3);
+        for (const f of pickF) {
+          const it = f.items.find((i) => i.source === 'GWAS' && i.copies > 0) || f.items[0];
+          const d = inMake(inMake(ul, 'li'), 'div');
+          inMake(d, 'span', 'th-src', it.source);
+          if (f.confidence === 'high' || f.confidence === 'medium') inMake(d, 'span', 'th-imp th-imp-' + f.confidence, f.confidence === 'high' ? 'imputed, high confidence' : 'imputed, medium confidence');
+          const known = /^[ACGT]$/.test(it.allele || '');
+          if (it.source === 'GWAS' && known && it.copies != null) d.append(inT('{} {}: {} of {}, linked to {}.', f.rsid, f.genotype, it.copies === 1 ? '1 copy' : inT('{} copies', it.copies), it.allele, it.what));
+          else d.append(inT('{} {}: {}.', f.rsid, f.genotype, String(it.what).replace(/\.$/, '')));
+          if (it.pubmed) { d.append(' '); const a = inMake(d, 'a', null, 'PubMed'); a.href = `https://pubmed.ncbi.nlm.nih.gov/${it.pubmed}/`; a.target = '_blank'; a.rel = 'noopener'; }
+        }
+      }, 'Every SNP the person has in the gene with a finding: the source (GWAS Catalog, ClinVar or the library), the genotype, how many copies of the allele and the paper. A dashed badge marks a call filled in by imputation and how sure it is; no badge means the chip measured it.');
+      block(11, (m) => {
+        inMake(m, 'span', 'gx-label', inT('Why it is in {}', tname.toLowerCase()));
+        const ul = inMake(m, 'ul', 'th-why');
+        const mech = Object.entries(ev.mechanisms || {})[0];
+        if (mech) { const d = inMake(inMake(ul, 'li'), 'div'); inMake(d, 'span', 'th-src', 'GO'); d.append(mech[1].terms.slice(0, 2).join('; ')); }
+        const dis = Object.entries(ev.diseases || {})[0];
+        if (dis) { const d = inMake(inMake(ul, 'li'), 'div'); inMake(d, 'span', 'th-src', d3.format('.2f')(dis[1].score)); d.append(inT('{} (Open Targets)', dis[0])); }
+        inMake(m, 'span', 'gx-label', 'Interacts with, in this theme');
+        const box = inMake(m, 'div', 'th-genes');
+        for (const p of partners.slice(0, 4)) {
+          const pf = call(p.g);
+          inMake(box, 'span', 'lc-chip th-gene ' + (pf ? 'lc-' + ({ LoF: 'lof', GoF: 'gof', altered: 'alt', normal: 'norm', variant: 'var', unknown: 'untested' }[pf]) : 'lc-untested'), `${p.g.gene} · ${p.score.toFixed(2)}`).setAttribute('data-i18n-skip', '');
+        }
+      }, 'Why the gene belongs to the theme: its Gene Ontology mechanisms and its strongest Open Targets disease links (0 to 1). Then its STRING partners in the theme with their confidence, the lines of the network.');
+
+      // --- 2. How the genes relate: what each link rests on (STRING's channels, a shared Reactome pathway, OmniPath's
+      // direction) and how the two changes combine, from the person's own calls
+      let pr = {};
+      try { const row = (gx.rows('intro_stats') || [[]])[0].find((x) => x.kind === 'pairs'); pr = row && row.pairs ? JSON.parse(row.pairs) || {} : {}; } catch (e) { /* no table */ }
+      const PT = pr.pairs || {}, PW = pr.pathways || [];
+      const pairOf = (a, b) => PT[[a, b].sort().join('|')];
+      const lcRows = gx.rows('lifecycle_genes'), lcg = lcRows ? lcRows[0] : [];
+      const regs = (gene) => { const row = lcg.find((x) => x.gene === gene && x.regulators); try { return row ? JSON.parse(row.regulators) : []; } catch (e) { return []; } };
+      const dirOf = (a, b) => {   // OmniPath, as the Gene pathway tab reads it: a regulator of b, or of a
+        const ra = regs(b).find((x) => x.gene === a), rb = regs(a).find((x) => x.gene === b);
+        const say = (x, r, y) => inT(r.effect === 'activates' ? '{} activates {}' : r.effect === 'inhibits' ? '{} inhibits {}' : '{} regulates {}', x, y);
+        return ra ? say(a, ra, b) : rb ? say(b, rb, a) : null;
+      };
+      const kind = (x, y) => {
+        const fx = call(x), fy = call(y);
+        if (['LoF', 'GoF'].includes(fx) && ['LoF', 'GoF'].includes(fy)) return fx === fy ? (fx === 'LoF' ? 'Both less' : 'Both more') : 'Mixed';
+        return fy === 'normal' ? 'Partner typical' : 'Partner not called';
+      };
+      const KIND_CLASS = { 'Both less': 'is-lof', 'Both more': 'is-gof', Mixed: 'is-mixed', 'Partner typical': 'is-norm', 'Partner not called': 'is-none' };
+      const host = deep ? document.createElement('div') : el;
+      const sec2 = inMake(host, 'div', 'in-rc-sec');
+      inMake(sec2, 'h3', null, inT('How {} relates to its partners', g.gene));
+      inText(sec2, 'A line in the network is a STRING interaction. STRING scores each pair from separate kinds of evidence, and Reactome says whether the two proteins share a pathway. Where both genes are changed in the person, the two changes either point the same way or opposite ways.');
+      const tbl = inMake(sec2, 'div', 'in-rc-pairs');
+      const head = inMake(tbl, 'div', 'in-rc-prow is-head');
+      for (const t of ['Pair', 'How the changes combine', 'Evidence for the link (STRING, 0 to 1)', 'Shared Reactome pathway']) inMake(head, 'span', null, t);
+      const CH = [['Experiments', 0], ['Databases', 1], ['Co-expression', 2], ['Text mining', 3]];
+      const chip = (p, x) => {
+        const f = call(x);
+        inMake(p, 'span', 'lc-chip th-gene ' + (f ? 'lc-' + ({ LoF: 'lof', GoF: 'gof', altered: 'alt', normal: 'norm', variant: 'var', unknown: 'untested' }[f]) : 'lc-untested'),
+          x.gene + (x.genotype ? ' ' + x.genotype : '')).setAttribute('data-i18n-skip', '');
+      };
+      const kinds = {};
+      for (const p of partners.slice(0, 5)) {
+        const row = inMake(tbl, 'div', 'in-rc-prow'), d = pairOf(g.gene, p.g.gene), k = kind(g, p.g);
+        kinds[k] = (kinds[k] || 0) + 1;
+        const c1 = inMake(row, 'div', 'in-rc-pair'); chip(c1, g); inMake(c1, 'span', 'in-rc-dash', '—'); chip(c1, p.g);
+        const dir = dirOf(g.gene, p.g.gene);
+        if (dir) inMake(c1, 'small', null, inT('{} (OmniPath)', dir));
+        inMake(inMake(row, 'div'), 'span', 'in-rc-kind ' + KIND_CLASS[k], k);
+        const ev = inMake(row, 'div', 'in-rc-ch');
+        if (d) {
+          for (const [t, i] of CH) {
+            const r = inMake(ev, 'div', 'in-rc-chrow'); inMake(r, 'span', null, t);
+            inMake(inMake(r, 'span', 'in-rc-chbar'), 'i').style.width = `${d[i]}%`;
+            inMake(r, 'b', null, (d[i] / 100).toFixed(2));
+          }
+          inMake(ev, 'small', null, inT('Combined {}', (d[4] / 100).toFixed(2)));
+        } else inMake(ev, 'small', null, inT('Combined {}; the channels are kept for pairs of {} or more', p.score.toFixed(2), (pr.min_score || 0.7).toFixed(1)));
+        const sp = inMake(row, 'div', 'in-rc-path');
+        if (d && d[6].length) { for (const i of d[6]) inMake(sp, 'span', null, PW[i]); if (d[5] > d[6].length) inMake(sp, 'small', null, inT('+{} more shared', d[5] - d[6].length)); }
+        else inMake(sp, 'small', null, d ? 'None: they meet through other evidence' : '—');
+      }
+      // What the pair kinds mean, for the kinds on screen
+      const MEAN = { 'Both less': 'Both proteins work less. Linked steps that both slow down point the same way, so the effects can add up.',
+                     'Both more': 'Both proteins work more, or are made more. The changes point the same way and can reinforce each other.',
+                     Mixed: 'One works more and the other less. The changes point opposite ways and can partly cancel.',
+                     'Partner typical': 'Only one of the two is changed: the partner works as usual.',
+                     'Partner not called': 'No call for the partner in the person\'s file, so how the two combine is not known.' };
+      const lg2 = inMake(sec2, 'div', 'in-rc-kinds');
+      for (const k of ['Both less', 'Mixed', 'Both more', 'Partner not called', 'Partner typical'].filter((k) => kinds[k])) {
+        const d = inMake(lg2, 'div'); inMake(d, 'span', 'in-rc-kind ' + KIND_CLASS[k], k); inMake(d, 'span', null, MEAN[k]);
+      }
+      inMake(sec2, 'p', 'gx-note', 'Experiments: the proteins were seen binding or acting together in the lab. Databases: curated pathway and complex databases list them together. Co-expression: their genes are switched on together across tissues. Text mining: papers name them together.');
+
+      // --- 3. What can be gained: where the changes gather, and where to go from there
+      const sec3 = inMake(host, 'div', 'in-rc-sec');
+      inMake(sec3, 'h3', null, 'What reading it gives');
+      const byFacet = new Map();
+      for (const x of shown) {
+        const f = call(x), b = byFacet.get(x.primary) || { lof: 0, gof: 0, norm: 0, genes: [] };
+        if (f === 'LoF') b.lof++; else if (f === 'GoF') b.gof++; else if (f === 'normal') b.norm++;
+        if (f === 'LoF' || f === 'GoF') b.genes.push(x);
+        byFacet.set(x.primary, b);
+      }
+      const ranked = [...byFacet.entries()].sort((a, b) => (b[1].lof + b[1].gof) - (a[1].lof + a[1].gof));
+      const focus = (ranked.find(([f]) => f !== 'disease') || ranked[0] || [g.primary])[0];
+      const fb = byFacet.get(focus) || { genes: [] };
+      inText(sec3, inT('Where {}\'s changed genes gather in the {} theme, per mechanism. The busiest one with a known mechanism: {}.', c.who, tname.toLowerCase(), facetName.get(focus) || focus));
+      const bars = inMake(sec3, 'div', 'in-rc-facets');
+      const max = Math.max(1, ...ranked.map(([, b]) => b.lof + b.gof + b.norm));
+      for (const [f, b] of ranked.slice(0, 8)) {
+        const r = inMake(bars, 'div', 'in-rc-frow' + (f === focus ? ' is-focus' : ''));
+        inMake(r, 'span', null, facetName.get(f) || f);
+        const tr = inMake(r, 'span', 'in-rc-ftrack');
+        for (const [n, cls] of [[b.lof, 'is-lof'], [b.gof, 'is-gof'], [b.norm, 'is-norm']]) if (n) inMake(tr, 'i', cls).style.width = `${(n / max) * 100}%`;
+        inMake(r, 'b', null, inT('{} less · {} more · {} typical', b.lof, b.gof, b.norm));
+      }
+      const acts = inMake(sec3, 'div', 'in-rc-acts');
+      // a. Gene pathway: the changed genes of the mechanism that have one
+      const a1 = inMake(acts, 'div', 'in-rc-act');
+      inMake(a1, 'b', null, 'Follow the chemistry');
+      inMake(a1, 'p', 'gx-note', 'Changed genes of this mechanism with a pathway in the Gene pathway tab, and the Reactome pathway it opens on.');
+      const withLc = fb.genes.filter((x) => x.has_lifecycle).slice(0, 5);
+      for (const x of withLc) {
+        const row = lcg.find((y) => y.gene === x.gene);
+        const b = inMake(a1, 'button', 'in-rc-go'); b.type = 'button';
+        chip(b, x); if (row) inMake(b, 'span', null, row.pathway);
+        b.addEventListener('click', () => { if (!inLocked()) { dash.setParams({ lc_gene: x.gene, lc_role: 1 }); gx.show('lifecycle'); } });
+      }
+      if (!withLc.length) inMake(a1, 'p', 'gx-note', 'None of them has a Reactome pathway with steps yet.');
+      // b. Lab tests and nutrients: findings where a changed gene of the theme moves a marker in the person (copies > 0)
+      const a2 = inMake(acts, 'div', 'in-rc-act');
+      inMake(a2, 'b', null, 'What a test can show');
+      const lr = gx.rows('lab_findings', 'nut_findings', 'lab_tests', 'nut_nutrients');
+      const changedHere = new Set(fb.genes.map((x) => x.gene)), changedAll = new Set(shown.filter((x) => ['LoF', 'GoF'].includes(call(x))).map((x) => x.gene));
+      const finds = (set) => lr ? [...lr[0].map((x) => ({ ...x, src: 'lab' })), ...lr[1].map((x) => ({ ...x, src: 'nut' }))]
+        .filter((x) => (set.has(x.gene) || set.has(x.step_gene)) && x.copies > 0 && x.direction) : [];
+      let fl = finds(changedHere), scope = 'mechanism';
+      if (!fl.length) { fl = finds(changedAll); scope = 'theme'; }
+      inMake(a2, 'p', 'gx-note', scope === 'mechanism'
+        ? inT('Lab values and nutrient levels that {}\'s changed genes in this mechanism move, from the GWAS Catalog.', c.who)
+        : inT('None for this mechanism; across the whole {} theme, the lab values and nutrient levels {}\'s changed genes move, from the GWAS Catalog.', tname.toLowerCase(), c.who));
+      const seen = new Set(), tests = new Map([...(lr ? lr[2] : []), ...(lr ? lr[3] : [])].map((t) => [t.id, t.name]));
+      for (const x of fl.sort((a, b) => (a.grade || 'Z').localeCompare(b.grade || 'Z'))) {
+        const key = x.marker_name + x.gene;
+        if (seen.has(key) || seen.size >= 6) continue;
+        seen.add(key);
+        const r = inMake(a2, 'div', 'in-rc-find');
+        inMake(r, 'span', 'th-src', tests.get(x.nutrient) || x.nutrient);
+        r.append(inT('{} {} {}: {} copies of the allele that {} {}.', x.gene, x.rsid, x.genotype, x.copies, x.direction, x.marker_name));
+        r.append(' ');
+        const a = inMake(r, 'a', null, x.study || 'PubMed'); a.href = `https://pubmed.ncbi.nlm.nih.gov/${x.pmid}/`; a.target = '_blank'; a.rel = 'noopener';
+      }
+      if (!seen.size) inMake(a2, 'p', 'gx-note', 'No lab value or nutrient level is moved by these genes in the GWAS Catalog findings the tabs read.');
+      if (!inLocked()) {
+        const nav = inMake(a2, 'div', 'in-rc-nav');
+        for (const [t, label] of [['biomarkers', 'Biomarkers'], ['nutrition', 'Nutrition']]) { const b = inMake(nav, 'button', 'lc-btn', inT('Open {}', label)); b.type = 'button'; b.addEventListener('click', () => gx.show(t)); }
+      }
+      // --- The example gene, told for the person (intro.py CLUSTER: GTEx, UniProt, Reactome, studies in women, GWAS)
+      if (deep) {
+        const D = deep, who = EXW;
+        const gt = new Map(EX ? Object.entries(EX.genotypes || {}) : (ev.findings || []).map((f) => [f.rsid, f.genotype]));
+        if (g.rsid && g.genotype) gt.set(g.rsid, g.genotype);
+        const same = (a, b) => !!a && !!b && a.split('').sort().join('') === b.split('').sort().join('');
+        const copies = (rsid, allele) => (gt.get(rsid) || '').split('').filter((x) => x === allele).length;
+        const tis = (t) => t.replace(/_/g, ' ').replace('Breast Mammary Tissue', 'Breast');
+        const fmtP = (p) => (p == null ? '—' : p < 0.001 ? d3.format('.1e')(p) : d3.format('.2~g')(p));
+        const cite = (parent, s) => { const a = inMake(parent, 'a', 'in-cl-cite', s.n ? inT('{}, {} women', s.study, inN(s.n)) : s.study); a.href = `https://pubmed.ncbi.nlm.nih.gov/${s.pmid}/`; a.target = '_blank'; a.rel = 'noopener'; return a; };
+        const callG = D.gtex[g.rsid], callAlt = callG && callG.alt;
+        const reproductive = (callG ? callG.rows : []).filter((r) => r.tissue !== 'Thyroid' && !r.significant);
+        const sigRows = (callG ? callG.rows : []).filter((r) => r.significant);
+        const studies = D.studies || [], st = (id) => studies.find((s) => s.id === id);
+        const fd = (gx.rows('fd_phases') || [[]])[0];            // the selected person's (their trait scores)
+        const fdChains = EX && EX.phases && EX.phases.length ? EX.phases : fd;   // the chains, the same for everyone
+
+        // The answer, top right: each line read from the facts below
+        answer.className = 'in-cl-answer';
+        inMake(answer, 'div', 'in-chart-title', inT('What {} {} means for {}', g.gene, fnText.toLowerCase(), who));
+        if (EX && EX.source !== 'profile') inMake(answer, 'p', 'gx-note', 'The example\'s genotypes are the most common ones among Europeans (1000 Genomes).');
+        // The selected person's own calls at the same variants, beside the example (the studies were in women)
+        let mineGt = {};
+        try { mineGt = JSON.parse((c.p || {}).example_gt || '{}') || {}; } catch (e) { /* none */ }
+        const myRs = Object.keys(D.gtex || {}).filter((rs) => mineGt[rs]);
+        const pg = (rs) => ((c.p || {}).is_example ? undefined : mineGt[rs]);   // the example's own profile: no second tag
+        if (EX && myRs.length && !(c.p || {}).is_example) {
+          const m = inMake(answer, 'div', 'in-cl-me');
+          inMake(m, 'b', null, inT('{} has:', c.who));
+          for (const rs of myRs) inMake(m, 'span', same(mineGt[rs], gt.get(rs)) ? 'is-same' : null, `${rs} ${mineGt[rs]}`).setAttribute('data-i18n-skip', '');
+          if (sex !== 'female') inMake(m, 'small', null, 'The studies below were done in women.');
+        }
+        const ul = inMake(answer, 'ul', 'in-cl-points');
+        const point = (cls, head, text) => { const li = inMake(ul, 'li', cls); inMake(li, 'b', null, head); inMake(li, 'span', null, text); };
+        if (sigRows.length) point('is-gtex', 'Where it acts', inT('{} copy of {} at {}: {} {} expression in {} (GTEx). In {} it was measured and is not distinguishable from zero.',
+          copies(g.rsid, callAlt), callAlt, g.rsid, sigRows[0].nes > 0 ? 'more' : 'less', g.gene, sigRows.map((r) => tis(r.tissue)).join(', '), reproductive.map((r) => tis(r.tissue).toLowerCase()).join(', ')));
+        const dose = st('dose');
+        if (dose) {
+          const mine = dose.groups.find((x) => same(x.label, gt.get(dose.rsid))), top = dose.groups.reduce((a, b) => (b.value > a.value ? b : a));
+          if (mine) point(mine === top ? 'is-bad' : 'is-ok', inT('{} {}', dose.name, gt.get(dose.rsid)), inT('{} IU of FSH in IVF, against {} IU for {} ({}).', inN(mine.value), inN(top.value), top.label, dose.study));
+        }
+        const resp = st('response');
+        if (resp) {
+          const i = gt.get(resp.rsid) === resp.labels[0] ? 0 : 1, better = resp.rows.filter((r) => r.values[i] > r.values[1 - i]).length;
+          point(better ? 'is-ok' : 'is-bad', inT('{} {}', resp.name, gt.get(resp.rsid)), inT('More of {} of {} IVF measures than the other genotypes ({}).', better, resp.rows.length, resp.study));
+        }
+        const odds = st('odds');
+        if (odds) {
+          const i = odds.labels.findIndex((l) => same(l, gt.get(odds.rsid)));
+          if (i >= 0) point(i === 0 ? 'is-ok' : 'is-bad', inT('{} {}', odds.name, gt.get(odds.rsid)), i === 0
+            ? inT('The reference form. Among infertile women with endometriosis, {} turned up at {} times and {} at {} times the odds of {} ({}).', odds.labels[1], odds.outcomes[0].odds[1], odds.labels[2], odds.outcomes[0].odds[2], odds.labels[0], odds.study)
+            : inT('Among infertile women with endometriosis, {} turned up at {} times the odds of {} ({}).', odds.labels[i], odds.outcomes[0].odds[i], odds.labels[0], odds.study));
+        }
+        for (const w of D.gwas || []) {
+          const n = copies(w.rsid, w.allele);
+          if (n && w.estimate != null && !/unit/.test(w.ci)) point('is-warn', inT('{} {}', w.rsid, gt.get(w.rsid)), inT('{} copy of {}: {} odds ×{} per copy, a small effect ({} {}).', n, w.allele, w.trait.split(' (')[0].toLowerCase(), w.estimate, w.author, w.year));
+        }
+        const nStudy = studies.map((s) => s.n).filter(Boolean);
+        if (nStudy.length) point('is-note', 'How strong', inT('The genotype studies followed {} to {} women; the GWAS effects come from up to {} people.', inN(Math.min(...nStudy)), inN(Math.max(...nStudy)),
+          inN(Math.max(...(D.gwas || []).map((w) => +((w.sample.match(/[\d,]+/g) || []).map((x) => +x.replace(/,/g, '')).reduce((a, b) => a + b, 0)))))));
+        if (!inLocked()) {
+          const nav = inMake(answer, 'div', 'in-rc-nav');
+          const go = (label, fn) => { const b = inMake(nav, 'button', 'lc-btn', label); b.type = 'button'; b.addEventListener('click', fn); };
+          go('AMH, estradiol and SHBG', () => { dash.setParams({ bm_view: 'lab', lb_n: 'female_hormones' }); gx.show('biomarkers'); });
+          if (sigRows.some((r) => r.tissue === 'Thyroid')) go('Thyroid (TSH)', () => { dash.setParams({ bm_view: 'lab', lb_n: 'thyroid' }); gx.show('biomarkers'); });
+          if (g.has_lifecycle) go(inT('{} in Gene pathway', g.gene), () => { dash.setParams({ lc_gene: g.gene, lc_role: 1 }); gx.show('lifecycle'); });
+          const ph = fdChains.find((p) => (p.chains || '').includes(`"gene": "${g.gene}"`));
+          if (ph && T === 'fertility_female' && sex === 'female') go(ph.name, () => { dash.setParams({ theme: T }); gx.show('clusters'); if (window.gxFertility) window.gxFertility.open(ph.phase); });
+        }
+
+        // 1. What the call rests on: the variant's measured effect per tissue, beside how much the tissue makes of the gene
+        const s1 = inMake(el, 'div', 'in-rc-sec');
+        inMake(s1, 'h3', null, inT('1. What "{}" rests on', fnText.toLowerCase()));
+        if (callG) {
+          inText(s1, inT('GTEx measured how {}\'s expression changes with each copy of {} at {} in donated tissue. {} has {} {}.', g.gene, callAlt, g.rsid, who.charAt(0).toUpperCase() + who.slice(1), copies(g.rsid, callAlt) === 1 ? '1 copy' : inT('{} copies', copies(g.rsid, callAlt)), callAlt));
+          const tb = inMake(s1, 'div', 'in-cl-gtex');
+          const hd = inMake(tb, 'div', 'in-cl-grow is-head');
+          for (const t of ['Tissue', inT('How much {} the tissue makes (median TPM)', g.gene), inT('Effect of each {} (NES)', callAlt), 'p']) inMake(hd, 'span', null, t);
+          const maxT = Math.max(1, ...callG.rows.map((r) => r.tpm || 0)), lim = Math.max(0.15, ...callG.rows.map((r) => Math.abs(r.nes || 0))) * 1.15;
+          for (const r of [...callG.rows].sort((a, b) => (b.tpm || 0) - (a.tpm || 0))) {
+            const row = inMake(tb, 'div', 'in-cl-grow' + (r.significant ? ' is-sig' : ''));
+            inMake(row, 'span', null, inT('{} (n = {})', tis(r.tissue), r.n || '—'));
+            const tr = inMake(inMake(row, 'span', 'in-cl-tpm'), 'span', 'in-rc-chbar'); inMake(tr, 'i').style.width = `${((r.tpm || 0) / maxT) * 100}%`;
+            tr.parentNode.append(d3.format('.1f')(r.tpm || 0));
+            const ax = inMake(row, 'span', 'in-cl-nes'); inMake(ax, 'i', 'in-cl-zero');
+            const dot = inMake(ax, 'b', r.significant ? 'is-sig' : null); dot.style.left = `${50 + ((r.nes || 0) / lim) * 50}%`;
+            dot.title = d3.format('+.3f')(r.nes || 0);
+            inMake(row, 'span', 'in-cl-p', r.significant ? inT('{}, significant', fmtP(r.p)) : fmtP(r.p));
+          }
+          inMake(s1, 'p', 'gx-note', inT('{} is made mostly in {}. A filled dot is an effect GTEx counts as significant; a hollow one was measured but is within chance.', g.gene,
+            (callG.top_tpm || []).slice(0, 3).map(([t]) => tis(t).toLowerCase()).join(', ')));
+          const vs = inMake(s1, 'div', 'in-cl-vars');
+          for (const [rs, v] of Object.entries(D.gtex)) {
+            if (!v) continue;
+            const sig = v.rows.filter((r) => r.significant).map((r) => tis(r.tissue));
+            const d = inMake(vs, 'span', sig.length ? 'is-sig' : null); inMake(d, 'b', null, `${rs} ${gt.get(rs) || '—'}`).setAttribute('data-i18n-skip', '');
+            d.append(sig.length ? inT('changes expression in {}', sig.join(', ')) : 'no significant effect in these tissues');
+          }
+        }
+
+        // 2. The mechanism: estradiol, the receptor, its partners and targets, and the cycle step it feeds
+        const s2 = inMake(el, 'div', 'in-rc-sec');
+        inMake(s2, 'h3', null, inT('2. What {} does, and with whom', g.gene));
+        const rq = inMake(s2, 'q', 'in-cl-quote', D.reactome.summary); rq.setAttribute('data-i18n-skip', '');   // Reactome's own words
+        const ra = inMake(s2, 'a', 'in-cl-cite', 'Reactome'); ra.href = `https://reactome.org/content/detail/${D.reactome.id}`; ra.target = '_blank'; ra.rel = 'noopener';
+        const chain = inMake(s2, 'div', 'in-cl-chain');
+        const node = (label, sub, cls) => { const n = inMake(chain, 'div', 'in-cl-node ' + (cls || '')); inMake(n, 'b', null, label); if (sub) inMake(n, 'small', null, sub); return n; };
+        const arrow = () => inMake(chain, 'span', 'in-cl-arrow', '→');
+        const fdChain = fdChains.map((p) => { try { return JSON.parse(p.chains || '[]').find((ch) => ch.some((x) => x.gene === g.gene)); } catch (e) { return null; } }).find(Boolean) || [];
+        const before = fdChain.slice(0, fdChain.findIndex((x) => x.gene === g.gene)).filter((x) => !x.gene).slice(-1)[0];
+        const after = fdChain.slice(fdChain.findIndex((x) => x.gene === g.gene) + 1).filter((x) => !x.gene)[0];
+        if (before) { node(before.label, null, 'is-step'); arrow(); }
+        const me = node(g.gene, inT('{} · {}', g.genotype ? `${g.rsid} ${g.genotype}` : '', fnText), 'is-' + ({ LoF: 'lof', GoF: 'gof', normal: 'norm' }[fn] || 'none'));
+        me.title = D.function;
+        arrow();
+        const grp = inMake(chain, 'div', 'in-cl-partners');
+        for (const p of partners.filter((p) => D.partners[p.g.gene])) {
+          const k = kind(g, p.g), d = pairOf(g.gene, p.g.gene);
+          const card = inMake(grp, 'div', 'in-cl-pcard');
+          const h = inMake(card, 'div'); chip(h, p.g); inMake(h, 'span', 'in-rc-kind ' + KIND_CLASS[k], k);
+          inMake(card, 'p', null, D.partners[p.g.gene]).setAttribute('data-i18n-skip', '');   // UniProt's own words
+          const dir = dirOf(g.gene, p.g.gene);
+          inMake(card, 'small', null, [dir ? inT('{} (OmniPath)', dir) : null, d ? inT('STRING {}: experiments {}, databases {}', (d[4] / 100).toFixed(2), (d[0] / 100).toFixed(2), (d[1] / 100).toFixed(2)) : null,
+            d && d[6].length ? inT('shared pathway: {}', PW[d[6][0]]) : null].filter(Boolean).join(' · '));
+        }
+        if (after) { arrow(); node(after.label, null, 'is-step'); }
+        const both = partners.filter((p) => D.partners[p.g.gene] && ['Both more', 'Both less'].includes(kind(g, p.g)));
+        if (both.length) {
+          const k0 = kind(g, both[0].g), bp = inMake(s2, 'div', 'in-cl-both');
+          inMake(bp, 'span', 'in-rc-kind ' + KIND_CLASS[k0], k0);
+          inMake(bp, 'b', null, inT('{}, {}', g.gene, both.map((p) => p.g.gene).join(', '))).setAttribute('data-i18n-skip', '');
+          inMake(bp, 'span', null, MEAN[k0]);
+        }
+
+        // 3. Studies in women, by the person's genotypes
+        const s3 = inMake(el, 'div', 'in-rc-sec');
+        inMake(s3, 'h3', null, inT('3. Measured in women with {}\'s genotypes', who));
+        const cards = inMake(s3, 'div', 'in-cl-studies');
+        const card = (s, title) => { const b = inMake(cards, 'div', 'in-cl-study'); inMake(b, 'b', null, title); return b; };
+        const quote = (b, s) => { if (s.finding) inMake(b, 'q', null, s.finding.replace(/: [^:]*?(estrogen receptor 1)/, ': … $1')).setAttribute('data-i18n-skip', ''); cite(b, s); };
+        if (dose) {
+          const b = card(dose, inT('{} {} · {}', dose.name, dose.rsid, dose.measure));
+          const max = Math.max(...dose.groups.map((x) => x.value));
+          for (const x of dose.groups) {
+            const r = inMake(b, 'div', 'in-cl-bar' + (same(x.label, gt.get(dose.rsid)) ? ' is-mine' : ''));
+            inMake(r, 'span', null, same(x.label, gt.get(dose.rsid)) ? inT('{} ({})', x.label, WL) : x.label);
+            if (EX && same(x.label, pg(dose.rsid))) inMake(r.firstChild, 'em', 'in-cl-you', c.who).setAttribute('data-i18n-skip', '');
+            inMake(inMake(r, 'span', 'in-cl-track'), 'i').style.width = `${(x.value / max) * 100}%`;
+            inMake(r, 'b', null, inT('{} {}', inN(x.value), dose.unit));
+          }
+          quote(b, dose);
+        }
+        if (resp) {
+          const mineI = gt.get(resp.rsid) === resp.labels[0] ? 0 : 1;
+          const b = card(resp, inT('{} {} · {}', resp.name, resp.rsid, resp.measure));
+          const lg = inMake(b, 'div', 'in-rc-legend');
+          const youI = pg(resp.rsid) ? (pg(resp.rsid) === resp.labels[0] ? 0 : 1) : -1;
+          resp.labels.forEach((l, i) => {
+            const s = inMake(lg, 'span'); inMake(s, 'i', i === mineI ? 'is-mine' : 'is-other'); s.append(i === mineI ? inT('{} ({})', l, WL) : l);
+            if (EX && i === youI) inMake(s, 'em', 'in-cl-you', c.who).setAttribute('data-i18n-skip', '');
+          });
+          const max = Math.max(...resp.rows.flatMap((r) => r.values));
+          for (const r of resp.rows) {
+            const row = inMake(b, 'div', 'in-cl-pair');
+            inMake(row, 'span', null, r.measure);
+            const bars = inMake(row, 'span', 'in-cl-pbars');
+            r.values.forEach((v, i) => { const t = inMake(bars, 'span', 'in-cl-track'); const ii = inMake(t, 'i', i === mineI ? 'is-mine' : 'is-other'); ii.style.width = `${(v / max) * 100}%`; inMake(t, 'em', null, d3.format('~g')(v)); });
+            inMake(row, 'small', null, inT('p {}', fmtP(r.p)));
+          }
+          quote(b, resp);
+        }
+        if (odds) {
+          const mineI = odds.labels.findIndex((l) => same(l, gt.get(odds.rsid))), youI = odds.labels.findIndex((l) => same(l, pg(odds.rsid)));
+          const ng = odds.n_groups || [];
+          const b = card(odds, inT('{} {} · {}', odds.name, odds.rsid, odds.measure));
+          inMake(b, 'p', 'in-cl-explain', ng.length === 3
+            ? inT('The study compared {} infertile women with endometriosis and {} women whose IVF had failed with {} fertile women, and counted each form of {} in every group.', ng[0], ng[1], ng[2], odds.rsid)
+            : inT('The study compared infertile women with fertile women, and counted each form of {} in every group.', odds.rsid));
+          inMake(b, 'p', 'in-cl-explain', inT('An odds ratio compares two forms: 2 means a woman with that form was twice as likely, in odds, to be in the infertile group as a woman with {}. {} is the reference, ×1.', odds.labels[0], odds.labels[0]));
+          const TITLE = { 'Endometriosis-related infertility': 'How much more often each form turns up in infertile women with endometriosis, compared with {}',
+                          'IVF failure': 'How much more often each form turns up in women whose IVF failed, compared with {}' };
+          const max = Math.max(...odds.outcomes.flatMap((o) => o.odds));
+          for (const o of odds.outcomes) {
+            inMake(b, 'span', 'in-cl-sub', inT(TITLE[o.outcome] || '{}', odds.labels[0]));
+            o.odds.forEach((v, i) => {
+              const r = inMake(b, 'div', 'in-cl-bar is-wide' + (i === mineI ? ' is-mine' : '') + (i ? ' is-risk' : ''));
+              const lab = inMake(r, 'span', null, i === mineI ? inT('{} ({})', odds.labels[i], WL) : odds.labels[i]);
+              if (EX && i === youI) inMake(lab, 'em', 'in-cl-you', c.who).setAttribute('data-i18n-skip', '');
+              inMake(inMake(r, 'span', 'in-cl-track'), 'i').style.width = `${(v / max) * 100}%`;
+              inMake(r, 'b', null, i ? inT('{} times the odds of {} (p {})', v, odds.labels[0], fmtP(o.p[i])) : '×1, the reference');
+            });
+          }
+          quote(b, odds);
+        }
+        const meta = st('meta');
+        if (meta) { const b = card(meta, inT('{} {} · {}', meta.name, meta.rsid, meta.measure)); quote(b, meta); }
+        if ((D.gwas || []).length) {
+          const b = card(null, 'GWAS Catalog, per copy');
+          for (const w of D.gwas) {
+            const n = copies(w.rsid, w.allele), r = inMake(b, 'div', 'in-cl-gw');
+            inMake(r, 'b', null, `${w.rsid} ${gt.get(w.rsid) || '—'}`).setAttribute('data-i18n-skip', '');
+            r.append(/unit/.test(w.ci)
+              ? inT('each {} {} {} by {} SD; {} has {}.', w.allele, /decrease/.test(w.ci) ? 'lowers' : 'raises', w.trait.toLowerCase(), d3.format('.3~f')(w.estimate), who, n)
+              : inT('each {} multiplies the odds of {} by {}; {} has {}.', w.allele, w.trait.split(' (')[0].toLowerCase(), w.estimate, who, n));
+            r.append(' ');
+            const a = inMake(r, 'a', 'in-cl-cite', inT('{} {}', w.author, w.year)); a.href = `https://pubmed.ncbi.nlm.nih.gov/${w.pmid}/`; a.target = '_blank'; a.rel = 'noopener';
+          }
+        }
+
+        // 4. Your turn: the example was one gene's worth; the method, step by step, with the selected person's own starting
+        // points (their theme by sex and their most connected changed genes, read from their own Clusters data)
+        const s4 = inMake(el, 'div', 'in-rc-sec in-yt');
+        inMake(s4, 'h3', null, '4. Your turn: the same reading, on your own genes');
+        inText(s4, inT('Everything above is one worked example: the value a single gene and its cluster can yield. {}\'s own networks hold many more genes like it, each waiting to be read the same way. Here is the method, with {}\'s starting points.', c.who, c.who));
+        const own = gx.rows('theme_meta', 'theme_genes', 'theme_links');
+        let myT = null, myName = null, top = [];
+        if (own) {
+          const [om, og, ol] = own;
+          const ts = [...new Set(om.map((m) => m.theme))];
+          myT = ts.find((t) => t === (sex === 'female' ? 'fertility_female' : 'fertility_male')) || ts[0];
+          myName = (om.find((m) => m.theme === myT) || {}).theme_name || myT;
+          const mine = og.filter((x) => x.theme === myT && x.notable), names = new Set(mine.map((x) => x.gene));
+          const deg = new Map();
+          for (const l of ol) if (l.theme === myT && l.score >= 0.7 && names.has(l.a) && names.has(l.b)) { deg.set(l.a, (deg.get(l.a) || 0) + 1); deg.set(l.b, (deg.get(l.b) || 0) + 1); }
+          top = mine.filter((x) => ['LoF', 'GoF'].includes(call(x))).map((x) => ({ x, n: deg.get(x.gene) || 0 })).filter((t) => t.n).sort((p1, p2) => p2.n - p1.n).slice(0, 5);
+        }
+        const openGene = (gene) => { if (inLocked()) return; dash.setParams({ theme: myT, th_gene: gene, th_organ: null, th_facet: null }); gx.show('clusters'); };
+        const ol2 = inMake(s4, 'ol', 'in-yt-steps');
+        const stepY = (n, title, like, body) => {
+          const li = inMake(ol2, 'li');
+          inMake(li, 'span', 'in-yt-n', String(n));
+          const d = inMake(li, 'div');
+          const h = inMake(d, 'div', 'in-yt-h'); inMake(h, 'b', null, title); if (like) inMake(h, 'span', 'in-yt-like', inT('as in {} above', like));
+          if (body) body(d);
+        };
+        stepY(1, 'Open your own theme in Clusters', null, (d) => {
+          if (myT && !inLocked()) { const bt = inMake(d, 'button', 'lc-btn', inT('Open {}: {}', c.who, myName)); bt.type = 'button'; bt.addEventListener('click', () => openGene(null)); }
+        });
+        stepY(2, 'Pick your most connected changed genes', null, (d) => {
+          if (!top.length) { inMake(d, 'p', 'gx-note', 'No changed gene with high-confidence partners in this theme.'); return; }
+          inMake(d, 'p', 'gx-note', inT('{}\'s changed genes with the most high-confidence partners (STRING ≥ 0.7) in the theme. Each opens in Clusters, selected.', c.who));
+          const box = inMake(d, 'div', 'in-yt-genes');
+          for (const { x, n } of top) {
+            const bt = inMake(box, 'button', 'lc-chip th-gene lc-' + ({ LoF: 'lof', GoF: 'gof' }[call(x)]), inT('{} · {} partners', x.gene + (x.genotype ? ' ' + x.genotype : ''), n));
+            bt.type = 'button'; bt.addEventListener('click', () => openGene(x.gene));
+          }
+        });
+        stepY(3, 'Read what each call rests on', '1', (d) => inMake(d, 'p', 'gx-note', 'The gene panel\'s "Effect on the gene": which kind of evidence, and in which tissue. An expression change measured only far from where the gene works says little about that organ.'));
+        stepY(4, 'Follow the partners and shared pathways', '2', (d) => inMake(d, 'p', 'gx-note', 'The partners under "Interacts with", and "Open its pathway" for the chemical steps. Partners changed the same way can add up; opposite ways can partly cancel.'));
+        stepY(5, 'Look for studies measured in people with your genotype', '3', (d) => inMake(d, 'p', 'gx-note', 'Each variant in the panel links its paper. Look for studies that report outcomes per genotype, and note how many people they followed.'));
+        stepY(6, 'Check the lab values that would show it', null, (d) => {
+          inMake(d, 'p', 'gx-note', 'Where a change should move something measurable, the Biomarkers tab reads those tests through the genes.');
+          if (!inLocked()) { const bt = inMake(d, 'button', 'lc-btn', 'Open Biomarkers'); bt.type = 'button'; bt.addEventListener('click', () => { dash.setParams({ bm_view: 'lab' }); gx.show('biomarkers'); }); }
+        });
+      }
     } },
-    { title: 'Where to start', draw: (el, c) => {
-      inText(el, 'Start with what can change a decision: the medicines where the dosing advice differs, the cancer and fertility genes with a changed function, then the nutrients and lab values marked in orange. Each tab starts with a short note on what it shows and where its facts come from.');
+    { title: 'Your DNA, the law and the limits', draw: (el, c) => {
+      const p = c.p || {};
+      let LAWS = [], LIM = null;
+      try { const row = (gx.rows('intro_stats') || [[]])[0].find((x) => x.kind === 'law'); LAWS = JSON.parse(row.law || '[]') || []; LIM = JSON.parse(row.limits || 'null'); } catch (e) { /* none */ }
+      const pct = (a, b) => (b ? Math.round((a / b) * 100) : 0);
+      const sec = (n, title) => { const s = inMake(el, 'div', 'in-rc-sec in-lw-sec'); inMake(s, 'h3', null, inT('{}. {}', n, title)); return s; };
+
+      // 1. Your data: what happens to it (the real setup: a local server, local folders, public identifiers out)
+      const s1 = sec(1, 'Your data: what happens to it');
+      const flow = inMake(s1, 'div', 'in-lw-flow');
+      const node = (parent, cls, title, lines) => { const n = inMake(parent, 'div', 'in-lw-node ' + (cls || '')); inMake(n, 'b', null, title); for (const l of lines) inMake(n, 'small', null, l); return n; };
+      node(flow, 'is-file', 'Your raw DNA file', ['From the DNA test company']);
+      inMake(flow, 'span', 'in-lw-arrow', '→');
+      const pc = inMake(flow, 'div', 'in-lw-pc');
+      inMake(pc, 'div', 'in-lw-pc-label', 'This computer · served on 127.0.0.1 only');
+      const inner = inMake(pc, 'div', 'in-lw-inner');
+      node(inner, null, 'data/input', ['A copy of the file']);
+      inMake(inner, 'span', 'in-lw-arrow', '→');
+      node(inner, null, 'Imputation and analysis', ['Beagle and the analysis run here']);
+      inMake(inner, 'span', 'in-lw-arrow', '→');
+      node(inner, null, 'data/output', ['Results and the explorer\'s datasets']);
+      const dbs = ((window.GX_SOURCES || {}).databases || []);
+      const out = inMake(flow, 'div', 'in-lw-out');
+      const ex = inMake(out, 'div', 'in-lw-exchange');
+      inMake(ex, 'span', 'in-lw-up', 'rs numbers, gene names →');
+      inMake(ex, 'span', 'in-lw-down', '← published research facts');
+      const pub = inMake(out, 'div', 'in-lw-node is-pub');
+      inMake(pub, 'b', null, inT('{} public research databases', dbs.length));
+      const logos = inMake(pub, 'div', 'in-lw-logos');
+      for (const d of dbs.slice(0, 12)) { const t = inLogo(logos, d); t.title = d.name; }
+      if (dbs.length > 12) inMake(logos, 'span', 'in-lw-more', inT('+{}', dbs.length - 12));
+      const notes = inMake(s1, 'ul', 'in-lw-points');
+      for (const [b, t] of [['Genotypes never leave.', 'Only public identifiers go out: an rs number or a gene name says nothing about whose file it came from.'],
+                            ['Results stay in data/output.', 'The explorer reads them from there and shows them only on this computer.'],
+                            ['Removing a person:', 'Abandon a run in Add a person, or delete the person\'s file in data/input and their folders in data/output.']]) {
+        const li = inMake(notes, 'li'); inMake(li, 'b', null, b); li.append(' '); inMake(li, 'span', null, t);
+      }
+
+      // 2. The law in the EU and Sweden: each rule's own words, quoted from the official text
+      if (LAWS.length) {
+        const s2 = sec(2, 'The law in the EU and Sweden');
+        inMake(s2, 'p', 'gx-note', 'Each rule in its own words, quoted from the official text (EUR-Lex, riksdagen.se). Swedish law is quoted in Swedish.');
+        const FOR = {
+          gdpr: 'Your own file, analysed by you for yourself, is the household case of Art. 2(2)(c). Another person\'s file is their genetic data (Art. 4(13)), a special category (Art. 9(1)); their explicit consent (Art. 9(2)(a)) is what lifts that ban, also for sharing their results.',
+          mdr: 'What makes software a medical device is its intended purpose (Art. 2(12)): diagnosis, prevention, prediction or prognosis of disease. This explorer is not CE-marked, is not intended for any of those purposes and does not diagnose: it lays out research findings.',
+          ivdr: 'Information on a predisposition to a disease, from a specimen, is an in vitro diagnostic purpose. The DNA test company\'s lab produced the raw file; this explorer reads research about it.',
+          gi: 'In Sweden no one may, without support in law, make a genetic test or genetic information a condition of an agreement, or search for or use it. Insurers have the exception in 2 kap. 2 §.' };
+        for (const level of ['EU', 'Sweden']) {
+          const acts = LAWS.filter((a) => a.level === level);
+          if (!acts.length) continue;
+          const band = inMake(s2, 'div', 'in-lw-band is-' + level.toLowerCase());
+          inMake(band, 'div', 'in-lw-band-label', level === 'EU' ? 'European Union · applies in every member state' : 'Sweden · adds to the EU rules');
+          const grid = inMake(band, 'div', 'in-lw-acts');
+          for (const a of acts) {
+            const card = inMake(grid, 'div', 'in-lw-act');
+            const h = inMake(card, 'div', 'in-lw-act-h');
+            inMake(h, 'b', null, a.short).setAttribute('data-i18n-skip', '');
+            const link = inMake(h, 'a', 'in-cl-cite', a.act); link.href = a.url; link.target = '_blank'; link.rel = 'noopener'; link.setAttribute('data-i18n-skip', '');
+            for (const q of a.quotes) {
+              const r = inMake(card, 'div', 'in-lw-q');
+              inMake(r, 'span', 'in-lw-ref', q.ref).setAttribute('data-i18n-skip', '');
+              const qq = inMake(r, 'q', null, q.text); qq.setAttribute('data-i18n-skip', ''); if (a.lang === 'sv') qq.lang = 'sv';
+            }
+            if (FOR[a.id]) inMake(card, 'p', 'in-lw-here', FOR[a.id]);
+          }
+        }
+      }
+
+      // 3. What the explorer gives and doesn't (green on the right), and why, in numbers
+      const s3 = sec(LAWS.length ? 3 : 2, 'What the explorer gives, and what it doesn\'t');
+      const two = inMake(s3, 'div', 'in-lw-two');
+      const side = (cls, title, items) => { const b = inMake(two, 'div', 'in-lw-side ' + cls); inMake(b, 'b', null, title); const ul = inMake(b, 'ul'); for (const t of items) inMake(ul, 'li', null, t); };
+      side('is-not', 'It doesn\'t give', ['A diagnosis', 'Treatment decisions', 'Clinical advice']);
+      side('is-yes', 'It gives', ['Research findings matched to your genotypes', 'Graded by evidence, with each source and its size', 'The choices stay yours']);
+      inMake(s3, 'span', 'in-cl-sub', 'Why, in numbers');
+      const why = inMake(s3, 'div', 'in-lw-why');
+      const card = (title) => { const b = inMake(why, 'div', 'in-lw-wcard'); inMake(b, 'b', null, title); return b; };
+      const stackBar = (b, parts) => {
+        const tot = parts.reduce((s, x) => s + x[1], 0) || 1, bar = inMake(b, 'div', 'in-stack');
+        for (const [, v, cls] of parts) if (v) inMake(bar, 'span', cls).style.width = `${(v / tot) * 100}%`;
+        const lg = inMake(b, 'div', 'in-legend');
+        for (const [t, v, cls] of parts) inMake(lg, 'span', cls, inT('{}: {}%', t, pct(v, tot)));
+      };
+      if (LIM && LIM.odds_ratios) {
+        const b = card('Most effects are small, per copy');
+        stackBar(b, [['Odds ×1.5 or more', LIM.odds_ratios - LIM.or_below_1_5, 'in-c-bad'], ['×1.2 to ×1.5', LIM.or_below_1_5 - LIM.or_below_1_2, 'in-c-warn'], ['Below ×1.2', LIM.or_below_1_2, 'in-c-ok2']]);
+        inMake(b, 'small', null, inT('{} odds ratios in the GWAS Catalog; the median is ×{} per copy of an allele.', inN(LIM.odds_ratios), LIM.or_median));
+      }
+      if (LIM && LIM.participants) {
+        const b = card('Most studies are in Europeans');
+        stackBar(b, [['Other ancestries', LIM.participants - LIM.european_participants, 'in-c-fg'], ['European', LIM.european_participants, 'in-c-ok2']]);
+        inMake(b, 'small', null, inT('Of the participants counted in {} GWAS Catalog studies (a person in several studies counts in each); {} of the studies are European only.', inN(LIM.studies), inN(LIM.european_only_studies)));
+      }
+      const tiers = p.tiers || {};
+      if (tiers.high) {
+        const b = card(inT('{}\'s filled-in calls carry a confidence', c.who));
+        stackBar(b, [['Untested', tiers.untested || 0, 'in-c-fg'], ['Low', tiers.low || 0, 'in-c-bad'], ['Medium', tiers.medium || 0, 'in-c-warn'], ['High', tiers.high, 'in-c-ok']]);
+        inMake(b, 'small', null, 'Only high-confidence calls are used for conclusions from a single variant; each is marked imputed.');
+      }
+      if (p.measured) {
+        const b = card('A chip reads part of the genome');
+        const G = 3.1e9, kept = p.kept || 0;
+        stackBar(b, [['Not read', G - p.measured - kept, 'in-c-fg'], ['Filled in by imputation', kept, 'in-c-ok2'], ['Measured by the chip', p.measured, 'in-c-ok']]);
+        inMake(b, 'small', null, inT('{} positions measured and {} filled in, of the 3.1 billion letters in a genome. Rare variants, and changes the chip can\'t see, stay unread.', inN(p.measured), inN(kept)));
+      }
       if (!inLocked()) {
         const nav = inMake(el, 'div', 'in-nav');
         for (const t of ['medicines', 'nutrition', 'biomarkers', 'clusters']) inOpen(nav, t, TAB_NAMES[t]);
       }
-      inText(el, 'This introduction stays under Home, to come back to at any time.');
     } },
   ];
 

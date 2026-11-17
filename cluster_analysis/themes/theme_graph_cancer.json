@@ -1,6 +1,6 @@
 {
  "theme": "cancer",
- "name": "Cancer and the life of a cell",
+ "name": "Cancer and senescence",
  "about": "Every cell lives through the same stages: it rests or grows, copies its DNA and divides, passes checkpoints, meets toxins and damage, ages, and is meant to die and be cleared. Cancer starts when a cell slips past these controls. Genes are placed on the stage they act in, from Gene Ontology, and kept when Open Targets links them to cancer.",
  "rule": "Gene Ontology stage genes with an Open Targets cancer score ≥ 0.3, plus genes with human genetic evidence ≥ 0.5 for a cancer",
  "view": "cell",

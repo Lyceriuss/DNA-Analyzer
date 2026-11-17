@@ -112,6 +112,11 @@ flowchart TB
 - A carried change without evidence is named in the gene's text ("also carries D301Y, no known effect") and doesn't
   make a call by itself.
 - Writes `data/output/cluster_analysis/gene_calls_<person>.json`; `export_dashboard.py` reads it per theme person.
+- `systems.py` groups the calls into body systems for the Biomarkers tab: Reactome's top-level pathways (Disease left
+  out, Metabolism split into its children, those with fewer than 15 read genes as "Other metabolism"), and STRING
+  high-confidence pairs (≥ 0.7) between changed genes, inside a system and across systems. It shows direction (more or
+  less active), not good or bad: the sources don't say which. Writes `profiles/<id>/sys_systems`, `sys_genes`,
+  `sys_links`, `sys_bridges`.
 - Limits: UniProt lists the changes it has curated or imported, not every missense variant (SLC23A1 V264M is missing),
   and an eQTL from GTEx's mostly European donors is one variant per gene.
 
@@ -147,4 +152,4 @@ python -m cluster_analysis.library.library_audit        # → docs/LIBRARY_AUDIT
 ```
 
 The audit never edits the library. Corrections are made after review and listed in `docs/LIBRARY_CHANGES.md`; the
-library also drives the Profile tab, so a change there changes it.
+library no longer draws a tab; the Body systems view is built from the gene calls (below).

@@ -1,8 +1,8 @@
   <section class="gx-page" id="clusters" data-page="clusters" hidden>
+    <div class="th-picker" data-draw="th-picker" data-source="theme_meta" role="group" aria-label="Theme"></div>
     <p class="gx-note">A theme gathers every library gene with evidence that it bears on one area of health, grouped by the mechanism it acts
       through: repair, growth signals, hormones, the supply of building blocks. Evidence comes from Gene Ontology, Reactome, UniProt and GWAS,
       and each gene shows why it is included. Colours are the selected profile's calls: blue more active, green typical function, red less active. Female fertility is shown for female profiles, male fertility for male ones.</p>
-    <div class="th-picker" data-draw="th-picker" data-source="theme_meta" role="group" aria-label="Theme"></div>
     <div class="gx-card" id="theme-head">
       <div class="th-head" data-draw="th-head" data-source="theme_meta theme_genes"></div>
     </div>
@@ -13,7 +13,11 @@
       <h2>Body map</h2>
       <p class="gx-note">Where in the body the theme's genes act. Each gene is placed by its mechanisms and the conditions it is linked to.
         Select an organ to narrow the mechanisms, connections and gene panel to it.</p>
-      <div class="th-body" data-draw="th-body" data-source="theme_meta theme_genes"></div>
+      <div class="th-body" data-draw="th-body" data-source="theme_meta theme_genes fd_genes fd_explain"></div>
+    </div>
+    <div class="gx-card th-off" id="fd-view">
+      <h2>How the cycle works, gene by gene</h2>
+      <div class="fd-view" data-draw="fd-view" data-source="theme_meta theme_genes fd_phases fd_genes fd_explain fd_impact"></div>
     </div>
     <div class="gx-card th-off" id="fit-overview">
       <p class="gx-note">Polygenic scores. Grip strength and lean body mass use genome-wide scores from the PGS Catalog (about a million variants

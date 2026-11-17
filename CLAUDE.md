@@ -19,7 +19,7 @@
 
 `genome/` reads and imputes DNA files. `cluster_analysis/` holds the analysis, one package per feature (`themes`,
 `evidence`, `lifecycle`, `medicines`, `nutrition`), the explorer (`explorer/`) and the old SNP library (`library/`:
-`snp_traits.json`, its reader and tools; still feeds the Profile tab, being phased out). The packages meet only through
+`snp_traits.json`, its reader and tools; no tab is drawn from it any more, being phased out). The packages meet only through
 files (the person's calls, each package's outputs, the explorer's datasets), so each can be replaced on its own: keep it
 that way. The PDF report was removed on 2026-11-13. Details: `cluster_analysis/README.md` and `docs/architecture/`.
 
@@ -37,7 +37,7 @@ reference file is listed in `genome/references.json`; `python -m genome.referenc
 ```bash
 python -m cluster_analysis.profiles run          # per-profile analysis (slow: API calls, cached)
 python -m cluster_analysis.explorer export       # datasets -> data/output/explorer_GRCh38/datasets/
-python -m cluster_analysis.explorer serve        # http://127.0.0.1:8000
+python -m cluster_analysis.explorer serve        # http://127.0.0.1:8000, with "Add a person" (cluster_analysis/pipeline.py)
 python -m cluster_analysis.explorer check        # render every tab, profile and language; fails on errors
 ```
 

@@ -37,7 +37,7 @@ cluster_analysis/    the analysis: one package per feature, each writing its own
   medicines/           drug genes, star alleles, guidelines and drug labels (Medicines tab)
   nutrition/           nutrients, lab tests, fitness and cancer risk scores (Nutrition and Biomarkers tabs, Clusters)
   lifecycle/           a gene's chemical lifecycle (Gene pathway tab)
-  library/             the 247-SNP library and its reader (Profile tab); being replaced by the packages above
+  library/             the old 247-SNP library and its reader; being replaced by the packages above
   explorer/            the page (one part per tab), the dataset export, the build and the local server
   sources.py           API clients with an on-disk cache
   profiles.py          who is analysed and the per-profile pipeline

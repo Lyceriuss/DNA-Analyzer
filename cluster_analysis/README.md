@@ -8,13 +8,14 @@ Architecture overview with diagrams: [docs/architecture/](../docs/architecture/R
 |---|---|
 | `sources.py` | Clients for the public APIs, with the on-disk cache in `cache/` |
 | `profiles.py`, `profiles.json` | Who is analysed (id, sex, DNA file) and the per-profile pipeline (`python -m cluster_analysis.profiles run`) |
+| `pipeline.py` | Adds a person end to end: check the raw file, register it, impute (accuracy first, then the run), analyse step by step, export and rebuild the explorer; resumable, with its state in `data/output/pipeline/<id>.json`. Run by the explorer's "Add a person" dialog, or `python -m cluster_analysis.pipeline add FILE --id NAME` |
 | `themes/` | Theme graphs for the Clusters tab (cancer, female and male fertility, muscle) and their DNA cross-reference; `cancer_scores.py` picks one PGS Catalog risk score per cancer by a fixed rule (`nutrition/cancers.json`, scored by `profiles.py run --steps cancers`); `cancer_prevention.py` reads each cancer's avoidable causes (IARC Monographs) and the European Code Against Cancer's advice for them, in English and Swedish (`cancer_prevention.json`) |
-| `evidence/` | How a variant changes its gene: function evidence, per-person gene calls, literature |
+| `evidence/` | How a variant changes its gene: function evidence, per-person gene calls, body systems (`systems.py`: the calls by Reactome top-level pathway, with STRING pairs), literature |
 | `lifecycle/` | A gene's chemical lifecycle (Gene pathway tab) and gene traces |
 | `medicines/` | Drug genes, star alleles and guidelines (Medicines tab) |
-| `nutrition/` | Nutrients (Nutrition tab) and lab tests (Biomarkers tab): `nutrients.json`, `labtests.json`, NNR 2023 |
+| `nutrition/` | Nutrients (Nutrition, a choice in Clusters) and lab tests (Biomarkers tab): `nutrients.json`, `labtests.json`, NNR 2023 |
 | `explorer/` | The explorer page, its dataset export, the build, and the localhost / agent commands |
-| `library/` | The old 247-SNP library (`snp_traits.json`, `proxies.json`), its reader (`analyzer.py`, `normalizer.py`, `proxy_handler.py`, `domain_mapper.py`) and tools: modules, biomarkers, audits. Feeds the Profile tab; being phased out in favour of the API-based packages above |
+| `library/` | The old 247-SNP library (`snp_traits.json`, `proxies.json`), its reader (`analyzer.py`, `normalizer.py`, `proxy_handler.py`, `domain_mapper.py`) and tools: modules, biomarkers, audits. No tab is drawn from it any more; being phased out in favour of the API-based packages above |
 
 Reading a DNA file and imputing it live in `genome/` at the repo root.
 

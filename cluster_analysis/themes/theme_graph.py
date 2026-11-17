@@ -170,7 +170,7 @@ THEMES = {
         ],
     },
     "cancer": {
-        "name": "Cancer and the life of a cell",
+        "name": "Cancer and senescence",
         "person": "data/input/MyHeritage_raw_dna_data_XY.csv",
         "view": "cell",
         "about": "Every cell lives through the same stages: it rests or grows, copies its DNA and divides, passes checkpoints, meets "

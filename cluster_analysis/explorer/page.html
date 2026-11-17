@@ -315,11 +315,59 @@
   .lc-mol small { color: var(--color-fg-muted); }
   .lc-alts { margin: 0; padding-left: 1.1rem; font-size: var(--cds-font-size-caption); }
   .lc-detail a { color: var(--color-fg); text-underline-offset: 2px; }
+  /* Biomarkers: Lab tests or Body systems; Clusters: a theme or Nutrition */
+  .gx:has(.bm-pick[data-v=body][aria-pressed=true]) .bm-lab,
+  .gx:not(:has(.bm-pick[data-v=body][aria-pressed=true])) .bm-body,
+  .gx:has(.th-pick-nut[aria-pressed=true]) #clusters > :not(.th-picker),
+  .gx:not(:has(.th-pick-nut[aria-pressed=true])) #nutrition { display: none !important; }
+  .bm-top { margin-bottom: calc(-1 * var(--cds-gap-sm)); }
+  .bm-body-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: var(--cds-gap-md); align-items: start; }
+  @media (max-width: 860px) { .bm-body-grid { grid-template-columns: 1fr; } }
+  .bm-chart { display: grid; grid-template-columns: max-content 1fr 1fr; column-gap: 0; row-gap: 4px; }
+  .bm-chart-head, .bm-row { display: grid; grid-column: 1 / -1; grid-template-columns: subgrid; align-items: center; }
+  .bm-chart-head { font-size: 12px; } .bm-h-neg { text-align: right; padding-right: 8px; color: var(--color-bad); } .bm-h-pos { padding-left: 8px; color: var(--gof); }
+  .bm-row { font: inherit; color: var(--color-fg); background: none; border: 1px solid transparent; border-radius: 8px; padding: 4px 6px; cursor: pointer; text-align: left; }
+  .bm-row:hover, .bm-row:focus-visible { background: var(--color-bg); }
+  .bm-row:focus-visible { outline: 2px solid var(--color-fg); outline-offset: 1px; }
+  .bm-row[aria-pressed="true"] { background: var(--color-bg); border-color: var(--color-fg-muted); }
+  .bm-row[aria-pressed="true"] .bm-name { font-weight: 600; }
+  .bm-name { font-size: 13px; padding-right: 14px; text-align: right; white-space: nowrap; }
+  .bm-track { display: flex; align-items: center; gap: 6px; height: 18px; }
+  .bm-track-neg { justify-content: flex-end; border-right: 1px solid var(--cds-chart-reference); padding-right: 0; }
+  .bm-track i { display: block; height: 16px; border-radius: 3px; }
+  .bm-track-neg i { background: var(--color-bad); } .bm-track-pos i { background: var(--gof); }
+  .bm-n { font-size: 12px; color: var(--color-fg-muted); font-variant-numeric: tabular-nums; }
+  .bm-reach { display: inline-flex; gap: 4px; align-items: baseline; } .bm-reach small { color: var(--color-fg-muted); }
+  .bm-reaches { display: flex; flex-wrap: wrap; gap: 4px 6px; flex: 1; min-width: 0; }
+  .bm-reach { font-size: 12px; padding: 1px 8px; border-radius: 6px; background: var(--color-bg); color: var(--color-fg-muted); }
+  .bm-pair:has(.bm-reaches) { flex-wrap: nowrap; align-items: flex-start; }
+  @media (max-width: 560px) { .bm-name { white-space: normal; max-width: 9rem; } }
+  .bm-module { display: grid; gap: var(--cds-gap-sm); }
+  .bm-module h3 { margin: 0; font-size: var(--cds-font-size-heading); }
+  .bm-side { display: grid; gap: 6px; padding-top: var(--cds-gap-sm); border-top: 1px solid var(--color-border-line); }
+  .bm-side .gx-note { margin: 0; }
+  .bm-side > .nt-more { justify-self: start; margin-left: 0; }
+  .bm-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .bm-chip { font-size: 13px; padding: 2px 10px; border-radius: 999px; border: 1.5px solid; }
+  .bm-lof { border-color: var(--color-bad); background: color-mix(in srgb, var(--color-bad) 18%, transparent); }
+  .bm-gof { border-color: var(--gof); background: color-mix(in srgb, var(--gof) 18%, transparent); }
+  .bm-alt { border-color: var(--color-warn); border-style: dashed; }
+  .bm-genes { display: grid; gap: 4px; }
+  .bm-gene { display: flex; align-items: baseline; gap: 10px; font-size: 13px; }
+  .bm-gene .bm-chip { min-width: 70px; text-align: center; }
+  .bm-why { color: var(--color-fg-muted); } .bm-why small { font-size: 11px; }
+  .bm-pr { display: inline-flex; gap: 6px; }
+  .bm-pair { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; font-size: 13px; }
+  .bm-kind { font-size: 11px; text-transform: uppercase; letter-spacing: .04em; min-width: 100px; }
+  .bm-stack .bm-kind { color: var(--color-fg); } .bm-buffer .bm-kind { color: var(--color-fg-muted); }
+  .bm-score { margin-left: auto; color: var(--color-fg-muted); font-variant-numeric: tabular-nums; }
   /* @include th.css */
+  /* @include fd.css */
   /* @include md.css */
   /* @include nt.css */
   /* @include in.css */
   /* @include so.css */
+  /* @include ad.css */
   .th-b-untested { background: var(--color-fg-muted); opacity: 0.35; }
 </style>
 
@@ -333,18 +381,17 @@
       <span class="gx-i18n" data-draw="i18n-terms" data-source="i18n_sv_terms" aria-hidden="true"></span>
     </div>
     <div class="gx-profile" data-draw="gx-profile" data-source="profiles" role="group" aria-label="Profile"></div>
-    <p class="gx-lede">Every tab reads the selected person's genome through public research sources: Clusters, Medicines, Nutrition,
-      Biomarkers, Gene pathway and Profile. Home explains how.</p>
+    <div class="gx-add" id="gx-add"></div>
+    <p class="gx-lede">Every tab reads the selected person's genome through public research sources: Clusters (with Nutrition), Medicines,
+      Biomarkers and Gene pathway. Home explains how.</p>
   </header>
 
   <nav class="gx-tabs" role="tablist" aria-label="Views">
     <button class="gx-tab" role="tab" data-tab="home" aria-selected="true">Home</button>
     <button class="gx-tab" role="tab" data-tab="clusters" aria-selected="false">Clusters</button>
     <button class="gx-tab" role="tab" data-tab="medicines" aria-selected="false">Medicines</button>
-    <button class="gx-tab" role="tab" data-tab="nutrition" aria-selected="false">Nutrition</button>
     <button class="gx-tab" role="tab" data-tab="lifecycle" aria-selected="false">Gene pathway</button>
     <button class="gx-tab" role="tab" data-tab="biomarkers" aria-selected="false">Biomarkers</button>
-    <button class="gx-tab" role="tab" data-tab="profile" aria-selected="false">Profile</button>
     <button class="gx-tab" role="tab" data-tab="sources" aria-selected="false">Sources</button>
   </nav>
 
@@ -359,7 +406,11 @@
 
   <!-- @include so.html -->
 
-  <section class="gx-page" id="biomarkers" data-page="biomarkers" hidden>
+  <section class="gx-page bm-top" id="bm-top" data-page="biomarkers" hidden>
+    <div class="th-picker" data-draw="bm-picker" data-source="profiles" role="group" aria-label="View"></div>
+  </section>
+
+  <section class="gx-page bm-lab" id="biomarkers" data-page="biomarkers" hidden>
     <p class="gx-note" data-who>Common lab tests read through XY's genes. Per test: where XY's genes put the value among Europeans (PGS Catalog,
       GWAS Catalog), the genes known to move the test, and whether XY's own variants move it: some shift the value without the body being
       affected ("your normal may differ"), others are real and worth following up. Then how the value is made and regulated (Reactome) and
@@ -372,49 +423,19 @@
     </div>
   </section>
 
-  <section class="gx-page" id="profile" data-page="profile" hidden>
-    <p class="gx-note gx-sample" data-who>XY's own genome (MyHeritage file) read against the library. <b data-draw="s-top" data-source="hp_modules" data-field="name" data-row="0">—</b>
-      has the most genes reading negative, with <b data-draw="s-compound" data-source="hp_compound" data-field="n" data-row="0">—</b> compound links across all modules,
-      where two interacting genes both read negative.</p>
-    <div class="gx-grid">
+  <section class="gx-page bm-body" id="profile" data-page="biomarkers" hidden>
+    <p class="gx-note" data-who>XY's genes grouped into body systems: Reactome's top-level pathways, with metabolism split into its main parts.
+      Per system: the genes where XY's variants make the gene less active (red, left) or more active (blue, right), read from UniProt and
+      MaveDB for protein changes and GTEx for how much of the gene is made. The sources say which way a gene works, not whether that is good
+      or bad, so the bars show direction. Select a system to see its genes, the changed genes that work together (STRING) and the ones that
+      reach into other systems.</p>
+    <div class="bm-body-grid">
       <div class="gx-card" id="profile-modules">
-        <h2>Module balance</h2>
-        <p class="gx-note" data-who>Genes per module where the evidence says XY's genotype changes the gene (GoF or LoF) and that change is bad for
-          XY (negative, left) or good (positive, right). Genes with typical function or no evidence count as neither. Hover a bar for the genes.</p>
-        <div class="gx-chart gx-bars" data-draw="hp-modules" data-source="hp_modules"></div>
+        <h2>Body systems</h2>
+        <div data-draw="sys-chart" data-source="sys_systems"></div>
       </div>
-      <div class="gx-card" id="profile-tilts">
-        <h2>Biomarker tilt</h2>
-        <p class="gx-note">Standardised genetic score per lab test against European allele frequencies (0 = average). The band marks ±1.
-          Only biomarkers with 3 or more scoreable SNPs are shown. It suggests what is worth measuring; it does not predict the value.</p>
-        <div class="gx-chart gx-bars" data-draw="hp-tilts" data-source="hp_tilts"></div>
-      </div>
-      <div class="gx-card" id="profile-links">
-        <h2>Gene interactions inside modules</h2>
-        <p class="gx-note">Compound: both interacting genes read negative, so effects may stack. Buffered: a gene reading negative interacts
-          with one reading positive, which may partly compensate. STRING confidence is how sure STRING is of the interaction (0–1).</p>
-        <div class="gx-table-box">
-          <table class="gx-table" data-source="hp_links" data-row-key="gene_a,gene_b">
-            <thead><tr>
-              <th data-field="kind">Type</th><th data-field="gene_a">Gene</th><th data-field="gene_b">Partner</th>
-              <th data-field="module_name">Module</th><th data-field="string_score">STRING confidence</th>
-            </tr></thead>
-            <tbody data-draw="hp-links"></tbody>
-          </table>
-        </div>
-      </div>
-      <div class="gx-card" id="profile-bridges">
-        <h2>Reduced bridge genes</h2>
-        <p class="gx-note">Reduced genes with strong interactions into other modules: candidates for effects that cross systems.</p>
-        <div class="gx-table-box">
-          <table class="gx-table" data-source="hp_bridges" data-row-key="gene">
-            <thead><tr>
-              <th data-field="gene">Gene</th><th data-field="module_name">Home module</th>
-              <th data-field="reaches">Reaches into</th><th data-field="total_weight" class="gx-hide-narrow">Weight</th>
-            </tr></thead>
-            <tbody data-draw="hp-bridges"></tbody>
-          </table>
-        </div>
+      <div class="gx-card" id="profile-module">
+        <div class="bm-module" data-draw="sys-detail" data-source="sys_systems sys_genes sys_links sys_bridges"></div>
       </div>
     </div>
   </section>
@@ -425,18 +446,6 @@
   // @sources
   // @prevention
   // Calculations from the attached datasets
-  dash.calc('kpis', {
-    inputs: ['modules', 'module_links', 'biomarker_snps'],
-    title: 'Library totals',
-    description: 'Counts of modules, genes in modules, module links, biomarkers and SNPs with a biomarker link.',
-    fn: (modules, module_links, biomarker_snps) => [{
-      modules: modules.length,
-      genes: modules.reduce((s, m) => s + Number(m.size), 0),
-      links: module_links.length,
-      biomarkers: new Set(biomarker_snps.map((r) => r.biomarker)).size,
-      linked_snps: new Set(biomarker_snps.map((r) => r.rsid)).size,
-    }],
-  });
 
   // Shared helpers
   // Profiles: each personal dataset holds every person's rows, tagged with `person`; gx.rows hands a draw only the
@@ -467,6 +476,10 @@
     failed(...ids) { return ids.some((id) => dash.data(id).status === 'error'); },
     color(name) { return getComputedStyle(document.documentElement).getPropertyValue(name).trim() || null; },
     show(tab) {
+      // Nutrition is a choice in the Clusters picker, the old Profile the Body systems view of Biomarkers
+      if (tab === 'nutrition') { dash.setParams({ theme: 'nutrition' }); tab = 'clusters'; }
+      if (tab === 'profile') { dash.setParams({ bm_view: 'body' }); tab = 'biomarkers'; }
+      if (tab === 'biomarkers' && !dash.params().bm_view) dash.setParams({ bm_view: 'lab' });
       document.querySelectorAll('.gx-page').forEach((p) => { p.hidden = p.dataset.page !== tab; });
       document.querySelectorAll('.gx-tab').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.tab === tab)));
       dash.setLink(tab);
@@ -550,129 +563,135 @@
   const linked = location.hash.slice(1);
   if (['home', 'clusters', 'medicines', 'nutrition', 'lifecycle', 'biomarkers', 'profile', 'sources'].includes(linked)) gx.show(linked);
 
-  dash.calc('hp_compound', {
-    inputs: ['hp_links'],
-    title: 'Compound links',
-    description: 'Number of interacting gene pairs where both genes are reduced, per person.',
-    fn: (hp_links) => [...new Set(hp_links.map((l) => l.person))].map((person) =>
-      ({ person, n: hp_links.filter((l) => l.person === person && l.kind === 'compound').length })),
-  });
 
   // Simple number drawings
   const fmt = d3.format(',');
-  const numberDraw = (name, field) => dash.draw(name, (el) => {
-    const r = gx.rows('kpis');
-    el.textContent = r ? fmt(r[0][0][field]) : '—';
-  });
-  [['k-modules', 'modules'], ['k-biomarkers', 'biomarkers'], ['k-linked', 'linked_snps'],
-   ['t-modules', 'modules'], ['t-genes', 'genes'], ['t-links', 'links'], ['t-biomarkers', 'biomarkers']]
-    .forEach(([n, f]) => numberDraw(n, f));
 
-  dash.draw('s-top', (el) => { const r = gx.rows('hp_modules'); el.textContent = r && r[0][0] ? r[0][0].name : '—'; });
-  dash.draw('s-compound', (el) => { const r = gx.rows('hp_compound'); el.textContent = r && r[0][0] ? fmt(r[0][0].n) : '—'; });
 </script>
 
 <script>
   // @include th.js
+  // @include fd.js
 </script>
 
 <script>
-  // XY profile: module balance (diverging bars)
-  dash.draw('hp-modules', (el) => {
-    const r = gx.rows('hp_modules');
+  // Biomarkers: Lab tests or Body systems
+  dash.draw('bm-picker', (el) => {
     el.replaceChildren();
-    if (!r) { if (gx.failed('hp_modules')) gx.failLine(el); return; }
-    if (!r[0].length) { gx.emptyLine(el); return; }
-    const rows = r[0].map((m) => ({ ...m, negative: Number(m.negative), positive: Number(m.positive) }))
-      .sort((a, b) => (b.positive - b.negative) - (a.positive - a.negative) || b.positive - a.positive);
-    const W = Math.max(280, el.clientWidth), rowH = 24;
-    const svg = d3.select(el).append('svg').attr('width', '100%');
-    const probe = svg.append('g').attr('font-size', 12);
-    const left = d3.max(rows, (m) => probe.append('text').text(m.name).node().getComputedTextLength()) + 10;
-    probe.remove();
-    const H = rows.length * rowH + 28;
-    svg.attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img').attr('aria-label', 'Genes reading negative and positive per module');
-    const maxV = d3.max(rows, (m) => Math.max(m.negative, m.positive)) || 1;
-    const x = d3.scaleLinear([-maxV, maxV], [left, W - 30]).nice();
-    const y = d3.scaleBand(rows.map((m) => m.name), [4, H - 24]).padding(0.25);
-    const tip = gx.tip(el);
-    svg.append('g').attr('transform', `translate(0,${H - 22})`).call(d3.axisBottom(x).ticks(Math.min(5, 2 * maxV)).tickFormat((v) => (Number.isInteger(v) ? Math.abs(v) : '')))
-      .attr('font-size', null).attr('font-family', null).call((a) => a.selectAll('text').style('fill', 'var(--color-fg-muted)'))
-      .call((a) => a.selectAll('line,path').style('stroke', 'var(--cds-chart-axis)'));
-    svg.append('line').attr('x1', x(0)).attr('x2', x(0)).attr('y1', 0).attr('y2', H - 22).style('stroke', 'var(--cds-chart-reference)');
-    const g = svg.append('g').selectAll('g').data(rows).join('g')
-      .on('mousemove', (event, m) => tip.show(event, m.name, [`Negative ${m.negative}: ${m.negative_genes || 'none'}`, `Positive ${m.positive}: ${m.positive_genes || 'none'}`, `${m.with_evidence} of ${m.tested} tested genes with evidence`, `${m.compound_links} compound links`]))
-      .on('mouseleave', () => tip.hide());
-    g.append('rect').attr('x', (m) => x(-m.negative)).attr('width', (m) => x(0) - x(-m.negative)).attr('y', (m) => y(m.name))
-      .attr('height', y.bandwidth()).attr('rx', 3).style('fill', 'var(--cds-chart-status-critical)');
-    g.append('rect').attr('x', x(0)).attr('width', (m) => x(m.positive) - x(0)).attr('y', (m) => y(m.name))
-      .attr('height', y.bandwidth()).attr('rx', 3).style('fill', dash.colors[0]);
-    g.append('text').attr('x', left - 8).attr('y', (m) => y(m.name) + y.bandwidth() / 2 + 4).attr('text-anchor', 'end')
-      .attr('font-size', 12).style('fill', 'var(--color-fg)').text((m) => m.name);
+    const v = dash.params().bm_view === 'body' ? 'body' : 'lab';
+    for (const [id, label] of [['lab', 'Lab tests'], ['body', 'Body systems']]) {
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'th-pick bm-pick'; b.dataset.v = id; b.textContent = label;
+      b.setAttribute('aria-pressed', String(id === v));
+      b.addEventListener('click', () => dash.setParams({ bm_view: id }));
+      el.appendChild(b);
+    }
   });
 
-  // XY profile: biomarker tilt (z) as bars from zero
-  dash.draw('hp-tilts', (el) => {
-    const r = gx.rows('hp_tilts');
+  // Body systems (cluster_analysis/evidence/systems.py): less active genes left in red, more active right in blue
+  const sysRows = () => {
+    const r = gx.rows('sys_systems');
+    if (!r) return null;
+    return r[0].map((m) => ({ ...m, lof: Number(m.lof), gof: Number(m.gof), altered: Number(m.altered), read: Number(m.read) }))
+      .sort((a, b) => (b.lof + b.gof + b.altered) - (a.lof + a.gof + a.altered) || b.read - a.read);
+  };
+  const sysPicked = (rows) => rows.find((m) => m.system === dash.params().sys) || rows[0];
+  const sysMake = (p, tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; p.appendChild(e); return e; };
+  const SYS_FN = { LoF: ['Less active', 'bm-lof'], GoF: ['More active', 'bm-gof'], altered: ['Changed, direction unclear', 'bm-alt'] };
+  dash.draw('sys-chart', (el) => {
+    const rows = sysRows();
     el.replaceChildren();
-    if (!r) { if (gx.failed('hp_tilts')) gx.failLine(el); return; }
-    if (!r[0].length) { gx.emptyLine(el); return; }
-    const rows = r[0].map((t) => ({ ...t, z: Number(t.z) })).sort((a, b) => b.z - a.z);
-    const W = Math.max(280, el.clientWidth), rowH = 20;
-    const svg = d3.select(el).append('svg').attr('width', '100%');
-    const probe = svg.append('g').attr('font-size', 12);
-    const left = d3.max(rows, (t) => probe.append('text').text(t.biomarker).node().getComputedTextLength()) + 10;
-    probe.remove();
-    const H = rows.length * rowH + 28;
-    svg.attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img').attr('aria-label', 'Biomarker tilt scores');
-    const lim = Math.max(3, Math.ceil(d3.max(rows, (t) => Math.abs(t.z))));
-    const x = d3.scaleLinear([-lim, lim], [left, W - 16]);
-    const y = d3.scaleBand(rows.map((t) => t.biomarker), [4, H - 24]).padding(0.25);
-    const tip = gx.tip(el);
-    svg.append('rect').attr('x', x(-1)).attr('width', x(1) - x(-1)).attr('y', 0).attr('height', H - 22)
-      .style('fill', 'var(--cds-chart-grid)');
-    svg.append('g').attr('transform', `translate(0,${H - 22})`).call(d3.axisBottom(x).ticks(Math.min(7, 2 * lim + 1)).tickFormat(d3.format('+')))
-      .attr('font-size', null).attr('font-family', null).call((a) => a.selectAll('text').style('fill', 'var(--color-fg-muted)'))
-      .call((a) => a.selectAll('line,path').style('stroke', 'var(--cds-chart-axis)'));
-    svg.append('line').attr('x1', x(0)).attr('x2', x(0)).attr('y1', 0).attr('y2', H - 22).style('stroke', 'var(--cds-chart-reference)');
-    const g = svg.append('g').selectAll('g').data(rows).join('g')
-      .on('mousemove', (event, t) => tip.show(event, `${t.biomarker} (${t.panel})`, [`z ${d3.format('+.2f')(t.z)} · percentile ${t.percentile}`, `${t.n_snps} SNPs`, `Top drivers: ${t.drivers}`]))
-      .on('mouseleave', () => tip.hide());
-    g.append('rect').attr('x', (t) => Math.min(x(0), x(t.z))).attr('width', (t) => Math.abs(x(t.z) - x(0))).attr('y', (t) => y(t.biomarker))
-      .attr('height', y.bandwidth()).attr('rx', 2)
-      .style('fill', (t) => Math.abs(t.z) >= 1 ? dash.colors[0] : 'var(--cds-chart-muted)');
-    g.append('text').attr('x', left - 8).attr('y', (t) => y(t.biomarker) + y.bandwidth() / 2 + 4).attr('text-anchor', 'end')
-      .attr('font-size', 12).style('fill', 'var(--color-fg)').text((t) => t.biomarker);
+    if (!rows) { if (gx.failed('sys_systems')) gx.failLine(el); return; }
+    if (!rows.length) { gx.emptyLine(el); return; }
+    // HTML rows, not SVG: the name column then fits the names in whichever language they are shown
+    const sel = sysPicked(rows), maxV = d3.max(rows, (m) => Math.max(m.lof, m.gof)) || 1;
+    const chart = sysMake(el, 'div', 'bm-chart');
+    const head = sysMake(chart, 'div', 'bm-chart-head');
+    sysMake(head, 'span'); sysMake(head, 'span', 'bm-h-neg', '← Less active'); sysMake(head, 'span', 'bm-h-pos', 'More active →');
+    for (const m of rows) {
+      const b = sysMake(chart, 'button', 'bm-row');
+      b.type = 'button';
+      b.setAttribute('aria-pressed', String(m === sel));
+      b.addEventListener('click', () => dash.setParams({ sys: m.system }));
+      sysMake(b, 'span', 'bm-name', m.system);
+      const l = sysMake(b, 'span', 'bm-track bm-track-neg');
+      if (m.lof) { sysMake(l, 'span', 'bm-n', String(m.lof)); sysMake(l, 'i').style.width = `${(m.lof / maxV) * 100}%`; }
+      const r = sysMake(b, 'span', 'bm-track bm-track-pos');
+      if (m.gof) { sysMake(r, 'i').style.width = `${(m.gof / maxV) * 100}%`; sysMake(r, 'span', 'bm-n', String(m.gof)); }
+    }
   });
+
+  // The selected system: its changed genes with what each call rests on, the changed genes that work together, and reach
+  dash.draw('sys-detail', (el) => {
+    const rows = sysRows(), r = gx.rows('sys_genes', 'sys_links', 'sys_bridges');
+    el.replaceChildren();
+    if (!rows || !r) { if (gx.failed('sys_systems', 'sys_genes', 'sys_links', 'sys_bridges')) gx.failLine(el); return; }
+    if (!rows.length) { gx.emptyLine(el); return; }
+    const m = sysPicked(rows), who = gx.who();
+    const genes = r[0].filter((g) => g.system === m.system);
+    sysMake(el, 'span', 'gx-label', 'Selected system');
+    sysMake(el, 'h3', null, m.system);
+    sysMake(el, 'p', 'gx-note', inTpl('{} reads {} of this system\'s genes; {} of them work differently from the most common form.', who, m.read, m.lof + m.gof + m.altered));
+    const BASIS = { measured: 'measured in the lab (MaveDB)', curated: 'curated effect (UniProt)', truncating: 'the protein is cut short',
+                    predicted: 'predicted damaging (SIFT and PolyPhen)', expression: 'how much is made (GTEx)' };
+    for (const fn of ['LoF', 'GoF', 'altered']) {
+      // Strongest evidence first: measured in the lab, curated, truncating, predicted, then expression
+      const RANK = { measured: 0, curated: 1, truncating: 2, predicted: 3, expression: 4 };
+      const list = genes.filter((g) => g.function === fn).sort((a, b) => (RANK[a.basis] ?? 5) - (RANK[b.basis] ?? 5) || a.gene.localeCompare(b.gene));
+      if (!list.length && fn === 'altered') continue;
+      const d = sysMake(el, 'div', 'bm-side');
+      sysMake(d, 'b', null, inTpl('{} ({})', SYS_FN[fn][0], list.length));
+      const box = sysMake(d, 'div', 'bm-genes');
+      if (!list.length) sysMake(box, 'span', 'gx-muted', 'None');
+      const FIRST = 8;
+      list.forEach((g, i) => {
+        const row = sysMake(box, 'div', 'bm-gene');
+        if (i >= FIRST) row.hidden = true;
+        sysMake(row, 'span', 'bm-chip ' + SYS_FN[fn][1], g.gene).setAttribute('data-i18n-skip', '');
+        const t = sysMake(row, 'span', 'bm-why');
+        sysMake(t, 'span', null, BASIS[g.basis] || g.basis);
+        if (g.rsid) sysMake(t, 'small', null, ` · ${g.rsid} ${g.genotype || ''}`).setAttribute('data-i18n-skip', '');
+        if (g.detail) row.title = g.detail;
+      });
+      if (list.length > FIRST) {
+        const more = sysMake(d, 'button', 'nt-more', inTpl('Show all ({} more)', list.length - FIRST));
+        more.type = 'button';
+        more.addEventListener('click', () => { box.querySelectorAll('.bm-gene[hidden]').forEach((x) => { x.hidden = false; }); more.remove(); });
+      }
+    }
+    const links = r[1].filter((l) => l.system === m.system).sort((a, b) => b.score - a.score);
+    const lk = sysMake(el, 'div', 'bm-side');
+    sysMake(lk, 'b', null, 'Changed genes that work together');
+    sysMake(lk, 'p', 'gx-note', 'STRING high-confidence interactions (0.7 to 1) between two changed genes of this system. Both less active or both more active may add up; opposite directions may partly balance.');
+    if (!links.length) sysMake(lk, 'span', 'gx-muted', 'None in this system');
+    for (const l of links.slice(0, 12)) {
+      const same = l.fn_a === l.fn_b && l.fn_a !== 'altered';
+      const row = sysMake(lk, 'div', 'bm-pair ' + (same ? 'bm-stack' : 'bm-buffer'));
+      sysMake(row, 'span', 'bm-kind', same ? (l.fn_a === 'LoF' ? 'Both less' : 'Both more') : 'Mixed');
+      const pr = sysMake(row, 'span', 'bm-pr');
+      sysMake(pr, 'span', 'bm-chip ' + SYS_FN[l.fn_a][1], l.gene_a).setAttribute('data-i18n-skip', '');
+      sysMake(pr, 'span', 'bm-chip ' + SYS_FN[l.fn_b][1], l.gene_b).setAttribute('data-i18n-skip', '');
+      sysMake(row, 'span', 'bm-score', d3.format('.2f')(l.score));
+    }
+    if (links.length > 12) sysMake(lk, 'span', 'gx-muted', inTpl('and {} more', links.length - 12));
+    const br = r[2].filter((b) => b.system === m.system).slice(0, 8);
+    if (br.length) {
+      const bd = sysMake(el, 'div', 'bm-side');
+      sysMake(bd, 'b', null, 'Reaching into other systems');
+      sysMake(bd, 'p', 'gx-note', 'Changed genes here that work with changed genes in other systems (STRING): where an effect may cross over.');
+      for (const b of br) {
+        const row = sysMake(bd, 'div', 'bm-pair');
+        sysMake(row, 'span', 'bm-chip ' + SYS_FN[b.function][1], b.gene).setAttribute('data-i18n-skip', '');
+        let reach = []; try { reach = JSON.parse(b.reaches); } catch (e) { /* none */ }
+        const rs = sysMake(row, 'span', 'bm-reaches');
+        for (const x of reach) sysMake(rs, 'span', 'bm-reach', x.system);
+      }
+    }
+  });
+  // A sentence with values, written as its template so the Swedish layer finds it
+  function inTpl(tpl, ...v) { let i = 0; return tpl.replace(/\{\}/g, () => String(v[i++])); }
 
   // @include lc.js
-  // XY profile: interaction and bridge tables
-  dash.draw('hp-links', (tbody) => {
-    const r = gx.rows('hp_links');
-    tbody.replaceChildren();
-    if (!r) return;
-    const rows = [...r[0]].sort((a, b) => (a.kind === b.kind ? 0 : a.kind === 'compound' ? -1 : 1) || b.string_score - a.string_score);
-    for (const l of rows) {
-      const tr = document.createElement('tr');
-      tr.dataset.key = encodeURIComponent(l.gene_a) + ',' + encodeURIComponent(l.gene_b);
-      const cell = (text, cls) => { const td = document.createElement('td'); td.textContent = text; if (cls) td.className = cls; tr.appendChild(td); };
-      cell(l.kind, l.kind === 'compound' ? 'gx-up' : 'gx-down');
-      cell(l.gene_a); cell(l.gene_b); cell(l.module_name); cell(d3.format('.2f')(l.string_score));
-      tbody.appendChild(tr);
-    }
-  });
-
-  dash.draw('hp-bridges', (tbody) => {
-    const r = gx.rows('hp_bridges');
-    tbody.replaceChildren();
-    if (!r) return;
-    for (const b of r[0]) {
-      const tr = document.createElement('tr');
-      const cell = (text, cls) => { const td = document.createElement('td'); td.textContent = text; if (cls) td.className = cls; tr.appendChild(td); };
-      cell(b.gene); cell(b.module_name); cell(b.reaches); cell(d3.format('.1f')(b.total_weight), 'gx-hide-narrow');
-      tbody.appendChild(tr);
-    }
-  });
 </script>
 
 <script>
@@ -689,6 +708,10 @@
 
 <script>
   // @include so.js
+</script>
+
+<script>
+  // @include ad.js
 </script>
 
 <script>

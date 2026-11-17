@@ -16,7 +16,8 @@ Steps, per profile (outputs in data/output/cluster_analysis/profiles/<id>/ unles
   fitness    nutrition.py with fitness.json (muscle theme scores) -> fit_tests, fit_findings, fit_steps; and
              themes/sport_snps.py (the popular sport genes) -> sport_snps
   cancers    nutrition.py with cancers.json (cancer theme: polygenic risk per cancer) -> can_tests, can_findings, can_steps
-  overlay    overlay.py    -> hp_modules, hp_links, hp_bridges, hp_tilts (Profile tab)
+  systems    evidence/systems.py: the gene calls by Reactome top-level pathway, with STRING pairs
+             -> sys_systems, sys_genes, sys_links, sys_bridges (Biomarkers tab: Body systems)
 
 explorer/export.py then builds every dataset for every profile, each row tagged with `person`.
 """
@@ -33,7 +34,7 @@ from genome.loader import iter_calls
 HERE = os.path.dirname(__file__)
 PATH = os.path.join(HERE, "profiles.json")
 PROFILE_DIR = f"{gbuild.OUTPUT}/profiles"
-STEPS = ("themes", "genes", "medicines", "nutrition", "labtests", "fitness", "cancers", "overlay")
+STEPS = ("themes", "genes", "systems", "medicines", "nutrition", "labtests", "fitness", "cancers")
 THEME_SEX = {"XX": "female", "XY": "male"}   # theme_graph.py marks a theme's body layout as XX or XY
 
 
@@ -97,6 +98,10 @@ def run(pids, steps):
             cmds += [py + ["cluster_analysis.themes.theme_graph", t, "--dna", p["dna"]] for t in themes]
         if "genes" in steps:
             cmds.append(py + ["cluster_analysis.evidence.gene_calls", "--person", p["id"]])
+            if p["sex"] == "female":  # the female fertility views (themes/fertility_deep.py): after the gene calls it reads
+                cmds.append(py + ["cluster_analysis.themes.fertility_deep", "--dna", p["dna"], "--out-dir", od])
+        if "systems" in steps:
+            cmds.append(py + ["cluster_analysis.evidence.systems", "--person", p["id"]])
         if "medicines" in steps:
             cmds.append(py + ["cluster_analysis.medicines.medicines", "--dna", p["dna"], "--out-dir", od])
         if "nutrition" in steps:
@@ -112,8 +117,6 @@ def run(pids, steps):
         if "cancers" in steps:
             cmds.append(py + ["cluster_analysis.nutrition.nutrition", "--config", "cluster_analysis/nutrition/cancers.json", "--prefix", "can",
                               "--dna", p["dna"], "--out-dir", od, "--sex", "women" if p["sex"] == "female" else "men"])
-        if "overlay" in steps:
-            cmds.append(py + ["cluster_analysis.library.overlay", p["dna"], "--name", p["id"], "--dashboard", od])
         for c in cmds:
             print(f"\n== {p['id']}: {' '.join(c[2:])}", flush=True)
             subprocess.run(c, check=True, env={**os.environ, "PYTHONIOENCODING": "utf-8"})

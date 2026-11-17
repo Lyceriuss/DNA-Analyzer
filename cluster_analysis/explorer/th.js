@@ -65,6 +65,7 @@
     const r = gx.rows('theme_meta');
     const themes = r ? [...new Map(r[0].map((m) => [m.theme, m])).values()].sort((a, b) => a.theme_order - b.theme_order) : [];
     const p = dash.params().theme;
+    if (p === 'nutrition') return p;
     return (themes.find((t) => t.theme === p) || themes[0] || {}).theme || p;
   };
 
@@ -95,28 +96,6 @@
   const thPick = (gene) => dash.setParams({ th_gene: gene });
   const thWho = (s) => (s && s.stats && s.stats.person) || gx.who();
 
-  // What a chip plus imputation can see of ClinVar's pathogenic variants in a gene or theme (genome/imputability.py:
-  // 100 held-out 1000 Genomes Europeans, masked to the chip's positions, imputed and compared with their real genotypes)
-  const thReach = (parent, r, where) => {
-    if (!r || !r.pathogenic) return;
-    const fmt = d3.format(','), seen = r.chip + r.reliable, unseen = r.not_knowable + r.not_in_panel;
-    const bar = thMake(parent, 'div', 'th-balance th-reach');
-    bar.setAttribute('role', 'img');
-    const parts = [[seen, 'seen', 'can be checked'], [r.uncertain, 'unsure', 'imputed with uncertainty'],
-                   [unseen, 'unseen', "can't be seen from a chip"], [r.not_mapped || 0, 'unmapped', 'on chromosome X, not mapped yet']];
-    for (const [n, cls] of parts) if (n) thMake(bar, 'span', 'th-r-' + cls).style.width = `${(n / r.pathogenic) * 100}%`;
-    bar.setAttribute('aria-label', parts.filter((x) => x[0]).map((x) => `${fmt(x[0])} ${x[2]}`).join(', '));
-    const t = [`ClinVar lists ${fmt(r.pathogenic)} pathogenic ${r.pathogenic === 1 ? 'variant' : 'variants'} in ${where}, and a chip test can check ${fmt(seen)} of them ` +
-               `(${fmt(r.chip)} on the chip, ${fmt(r.reliable)} imputed reliably).`];
-    if (r.uncertain) t.push(`${fmt(r.uncertain)} more ${r.uncertain === 1 ? 'is' : 'are'} imputed with uncertainty.`);
-    if (unseen) t.push(`${fmt(unseen)} can't be seen from a chip: ${fmt(r.not_in_panel)} are too rare to be in the 1000 Genomes panel, and imputation can't recover ${fmt(r.not_knowable)}.`);
-    if (r.not_mapped) t.push(`${fmt(r.not_mapped)} are on chromosome X, which isn't mapped yet.`);
-    if (unseen + r.uncertain + (r.not_mapped || 0) > seen) t.push((r.unseen_genes || []).length
-      ? `A clean result rules out only the checkable ones; the rest need a sequencing test, most of all ${r.unseen_genes.join(', ')}.`
-      : 'A clean result rules out only the checkable ones; the rest need a sequencing test.');
-    thMake(parent, 'p', 'gx-note', t.join(' '));
-  };
-
   const thBalance = (parent, genes, none = 'not genotyped') => {
     const bar = thMake(parent, 'div', 'th-balance');
     bar.setAttribute('role', 'img');
@@ -141,9 +120,14 @@
       // The profile switcher picks the person, so a theme no longer names it
       const b = thMake(el, 'button', 'th-pick', t.theme_name);
       b.type = 'button';
-      b.setAttribute('aria-pressed', String(t.theme === s.theme.theme));
+      b.setAttribute('aria-pressed', String(dash.params().theme !== 'nutrition' && t.theme === s.theme.theme));
       b.addEventListener('click', () => dash.setParams({ theme: t.theme, th_gene: null, th_organ: null, th_facet: null }));
     }
+    // Nutrition sits among the themes: its own page (nt.html) shows in place of the theme's cards
+    const n = thMake(el, 'button', 'th-pick th-pick-nut', 'Nutrition');
+    n.type = 'button';
+    n.setAttribute('aria-pressed', String(dash.params().theme === 'nutrition'));
+    n.addEventListener('click', () => dash.setParams({ theme: 'nutrition', th_gene: null, th_organ: null, th_facet: null }));
   });
 
   dash.draw('th-head', (el) => {
@@ -171,10 +155,6 @@
         (st.pathogenic_not_excluded ? ` ${fmt(st.pathogenic_not_excluded)} more are too rare for imputation to rule out: not detected, but not excluded.` : ''));
       if (possible.length) thMake(el, 'p', 'gx-note', `Possible, from weaker imputed calls (confirm with a test before acting): ` +
         possible.map((c) => `${c.gene} ${c.rsid} ${c.genotype} (${c.condition}, ${c.confidence})`).join('; ') + '.');
-      if (st.chip_reach) {
-        thMake(el, 'span', 'gx-label', 'What a chip can see');
-        thReach(el, st.chip_reach, 'these genes');
-      }
       thMake(el, 'p', 'gx-note', `Genes: ${st.rule}. This theme is built from Open Targets and Gene Ontology, not from the library; ` +
         `${who}'s SNPs are matched offline against ClinVar and the GWAS Catalog.`);
       return;
@@ -326,10 +306,6 @@
         for (const f of carriedFirst.slice(0, 12)) { const li = thMake(fl, 'li'); for (const it of f.items.slice(0, 3)) thFinding(li, f, it, thWho(s)); }
         if (fs.length > 12) thMake(el, 'p', 'gx-note', `+${fs.length - 12} more SNPs with a finding.`);
       } else thMake(el, 'p', 'gx-note', `None of ${thWho(s)}'s SNPs in this gene has a ClinVar, GWAS or library entry for one of the theme's conditions.`);
-      if (g.ev.reach) {
-        thMake(el, 'span', 'gx-label', 'What a chip can see');
-        thReach(el, g.ev.reach, g.gene);
-      }
       thMake(el, 'span', 'gx-label', `Why it is in ${s.theme.theme_name.toLowerCase()}`);
       const why = thMake(el, 'ul', 'th-why');
       for (const f of s.facets) {
@@ -404,17 +380,14 @@
     }
   });
 
-  // The 28-day cycle for the female theme: textbook hormone shapes, the lining, and the person's genes on the days they act
+  // The 28-day cycle for the female theme: a schematic of the hormone shapes and the lining, and the person's genes on
+  // the days they act. What each phase is comes from Gene Ontology (the fertility views' fd_explain dataset): `go` picks
+  // the term, the days place it on the schematic.
   const CYCLE_PHASES = [
-    { id: 'menses', name: 'Menstruation', from: 1, to: 5,
-      what: 'Progesterone has fallen, so the lining sheds. FSH starts rising to recruit a new group of follicles.' },
-    { id: 'follicular', name: 'Follicular phase', from: 1, to: 13,
-      what: 'FSH grows a group of follicles; one becomes dominant, and its rising estradiol rebuilds the lining.' },
-    { id: 'ovulation', name: 'Ovulation', from: 13, to: 15,
-      what: 'Peak estradiol flips to positive feedback: an LH surge releases the egg about 24–36 hours later.' },
-    { id: 'luteal', name: 'Luteal phase', from: 15, to: 28,
-      what: 'The empty follicle becomes the corpus luteum and makes progesterone, which readies the lining; the implantation ' +
-            'window is roughly days 19–24. Without a pregnancy, progesterone falls and the cycle restarts.' },
+    { id: 'menses', name: 'Menstruation', from: 1, to: 5, go: 'GO:0042703' },
+    { id: 'follicular', name: 'Follicular phase', from: 1, to: 13, go: 'GO:0001541' },
+    { id: 'ovulation', name: 'Ovulation', from: 13, to: 15, go: 'GO:0030728' },
+    { id: 'luteal', name: 'Luteal phase', from: 15, to: 28, go: 'GO:0001553' },
   ];
   // Relative hormone levels by day (0–1): the textbook shape of a 28-day cycle, not anyone's measurements
   const CYCLE_HORMONES = [
@@ -424,57 +397,20 @@
     { id: 'Progesterone', pts: [[1, .05], [13, .05], [15, .14], [18, .6], [21, .95], [24, .7], [27, .2], [28, .08]] },
   ];
   const CYCLE_LINING = [[1, .55], [5, .15], [9, .35], [14, .62], [18, .82], [21, .95], [26, .9], [28, .6]];
-  // Core cycle genes: where they act and what a change in them does
+  // Core cycle genes: the day each does its main work and the phases it acts in (placement only; what a gene does is
+  // UniProt's function text, from the fertility views' fd_genes dataset)
   const CYCLE_GENES = {
-    GNRH1: { day: 13, phases: ['follicular', 'ovulation'], role: 'GnRH pulses from the hypothalamus drive the whole cycle.',
-             LoF: 'Weaker GnRH signalling lowers LH and FSH, which can mean irregular or missed ovulation.' },
-    GNRHR: { day: 13, phases: ['follicular', 'ovulation'], role: 'The pituitary receptor that answers GnRH by releasing LH and FSH.',
-             LoF: 'A less responsive receptor lowers LH and FSH release; strong loss stops the cycle.' },
-    KISS1R: { day: 13, phases: ['ovulation'], role: 'Kisspeptin receptor: switches on GnRH pulses and the LH surge.',
-              LoF: 'Weaker kisspeptin signalling can delay puberty and blunt the LH surge.', GoF: 'Stronger signalling is linked to earlier puberty.' },
-    FSHB: { day: 3, phases: ['menses', 'follicular'], role: 'FSH beta subunit: FSH recruits and grows the follicles.',
-            LoF: 'Less FSH: slower follicle growth and a longer follicular phase.', GoF: 'More FSH: faster follicle recruitment.' },
-    FSHR: { day: 6, phases: ['follicular'], role: 'FSH receptor on the granulosa cells that line each follicle.',
-            LoF: 'A less responsive receptor needs more FSH to grow follicles; this is linked to a slightly longer follicular phase and higher FSH.',
-            GoF: 'A more responsive receptor grows follicles on less FSH.' },
-    AMH: { day: 4, phases: ['follicular'], role: 'Made by small follicles; restrains how many are recruited each cycle. Its blood level tracks egg reserve.',
-           LoF: 'Less AMH restraint lets follicles be used up faster.', GoF: 'More AMH holds back recruitment; high AMH is common in PCOS.' },
-    AMHR2: { day: 4, phases: ['follicular'], role: 'The AMH receptor.', LoF: 'Weaker AMH restraint on follicle recruitment.' },
-    GDF9: { day: 8, phases: ['follicular'], role: 'Egg-made signal that drives follicle growth.',
-            LoF: 'Weaker signalling slows follicle growth; strong loss causes early ovarian failure.' },
-    BMP15: { day: 8, phases: ['follicular'], role: 'Egg-made signal that sets how many follicles mature.',
-             LoF: 'Weaker signalling slows follicle growth; strong loss causes early ovarian failure.', GoF: 'Linked in some studies to more than one follicle maturing.' },
-    FOXL2: { day: 7, phases: ['follicular'], role: 'Keeps granulosa cells ovarian and paces follicle growth.',
-             LoF: 'Faster follicle use; strong loss causes early ovarian failure.' },
-    CYP17A1: { day: 10, phases: ['follicular'], role: 'Theca cells make androgens, the raw material for estradiol.',
-               LoF: 'Less androgen supply can lower estradiol.', GoF: 'More androgen production is a PCOS feature.' },
-    CYP19A1: { day: 12, phases: ['follicular', 'luteal'], role: 'Aromatase: turns androgens into estradiol in the growing follicle.',
-               LoF: 'Less estradiol: a slower rise, a later or weaker LH surge and a thinner lining.', GoF: 'More estradiol: a stronger rise and higher estrogen exposure.' },
-    HSD17B1: { day: 11, phases: ['follicular'], role: 'Converts estrone into the stronger estradiol.', LoF: 'Lower estradiol at the follicular peak.' },
-    ESR1: { day: 12, phases: ['follicular', 'ovulation'], role: 'Estrogen receptor alpha: estradiol builds the lining and, at its peak, triggers the LH surge.',
-            LoF: 'A weaker estrogen response: a thinner lining and a less certain surge.', GoF: 'A stronger estrogen response.' },
-    ESR2: { day: 10, phases: ['follicular'], role: 'Estrogen receptor beta, important inside the follicle.',
-            LoF: 'Weaker signalling can impair follicle maturation and ovulation.', GoF: 'Stronger estrogen signalling in the follicle.' },
-    LHB: { day: 14, phases: ['ovulation'], role: 'LH beta subunit: the LH surge triggers ovulation.', LoF: 'A weaker LH surge can delay or prevent ovulation.' },
-    LHCGR: { day: 14, phases: ['ovulation', 'luteal'], role: 'LH receptor: answers the surge to release the egg, then keeps the corpus luteum making progesterone.',
-             LoF: 'A less responsive receptor can weaken ovulation and the luteal phase: shorter, with less progesterone.',
-             GoF: 'A more responsive receptor; LHCGR variants are linked to PCOS in GWAS.' },
-    PGR: { day: 20, phases: ['ovulation', 'luteal'], role: 'Progesterone receptor: needed to release the egg and to prepare the lining for implantation.',
-           LoF: 'A weaker progesterone response: harder ovulation and a less receptive lining.', GoF: 'A stronger progesterone response: a more receptive lining.' },
-    PTGS2: { day: 14, phases: ['ovulation', 'menses'], role: 'COX-2 makes prostaglandins that help the follicle rupture, and that drive menstrual cramps.',
-             LoF: 'Less COX-2 can delay follicle rupture, as NSAIDs taken around ovulation can.' },
-    STAR: { day: 17, phases: ['luteal'], role: 'Moves cholesterol into mitochondria: the first step of every steroid hormone.',
-            LoF: 'Less steroid production overall, progesterone included.' },
-    CYP11A1: { day: 17, phases: ['luteal'], role: 'First enzyme of steroid making: cholesterol to pregnenolone.', LoF: 'Less pregnenolone, so less progesterone downstream.' },
-    HSD3B2: { day: 18, phases: ['luteal'], role: 'Turns pregnenolone into progesterone in the corpus luteum.', LoF: 'Lower progesterone in the luteal phase.' },
-    HOXA10: { day: 21, phases: ['luteal'], role: 'Opens the implantation window in the lining.',
-              LoF: 'A less receptive lining; linked to implantation failure and endometriosis.' },
-    LIF: { day: 21, phases: ['luteal'], role: 'Signal from the lining that lets the embryo attach.', LoF: 'A less receptive lining at implantation.' },
-    OXTR: { day: 2, phases: ['menses'], role: 'Oxytocin receptor in the uterine muscle: contractions at menstruation and birth.',
-            LoF: 'Weaker contraction signalling in the uterus.', GoF: 'Stronger contraction signalling in the uterus.' },
-    SHBG: { day: 9, phases: ['follicular', 'luteal'], role: 'Carries estradiol and testosterone in the blood; less SHBG means more free hormone.',
-            LoF: 'More free testosterone and estradiol; low SHBG is common in PCOS.', GoF: 'Less free hormone.' },
+    GNRH1: { day: 13, phases: ['follicular', 'ovulation'] }, GNRHR: { day: 13, phases: ['follicular', 'ovulation'] }, KISS1R: { day: 13, phases: ['ovulation'] },
+    FSHB: { day: 3, phases: ['menses', 'follicular'] }, FSHR: { day: 6, phases: ['follicular'] }, AMH: { day: 4, phases: ['follicular'] },
+    AMHR2: { day: 4, phases: ['follicular'] }, GDF9: { day: 8, phases: ['follicular'] }, BMP15: { day: 8, phases: ['follicular'] },
+    FOXL2: { day: 7, phases: ['follicular'] }, CYP17A1: { day: 10, phases: ['follicular'] }, CYP19A1: { day: 12, phases: ['follicular', 'luteal'] },
+    HSD17B1: { day: 11, phases: ['follicular'] }, ESR1: { day: 12, phases: ['follicular', 'ovulation'] }, ESR2: { day: 10, phases: ['follicular'] },
+    LHB: { day: 14, phases: ['ovulation'] }, LHCGR: { day: 14, phases: ['ovulation', 'luteal'] }, PGR: { day: 20, phases: ['ovulation', 'luteal'] },
+    PTGS2: { day: 14, phases: ['ovulation', 'menses'] }, STAR: { day: 17, phases: ['luteal'] }, CYP11A1: { day: 17, phases: ['luteal'] },
+    HSD3B2: { day: 18, phases: ['luteal'] }, HOXA10: { day: 21, phases: ['luteal'] }, LIF: { day: 21, phases: ['luteal'] },
+    OXTR: { day: 2, phases: ['menses'] }, SHBG: { day: 9, phases: ['follicular', 'luteal'] },
   };
+
   // Other genes are placed by their Gene Ontology mechanism
   const MECH_PHASES = { eggs: ['follicular'], axis: ['follicular', 'ovulation'], hormones: ['follicular', 'luteal'], cycle: ['ovulation', 'luteal'],
                         implantation: ['luteal'], uterus: ['menses'], ovary: ['follicular'] };
@@ -483,8 +419,8 @@
     const who = thWho(s);
     const sec = thMake(parent, 'div', 'th-cycle');
     thMake(sec, 'h3', null, 'The 28-day cycle');
-    thMake(sec, 'p', 'gx-note', `Typical hormone shapes across a 28-day cycle: textbook curves, not ${who}'s measured levels. Dots mark ` +
-      `the day each of ${who}'s changed genes does its main work; hover a dot, a phase or a gene for what it means for the cycle.`);
+    thMake(sec, 'p', 'gx-note', `Schematic: the usual shapes of the hormones across a 28-day cycle, not ${who}'s measured levels. Dots mark ` +
+      `the day each of ${who}'s changed genes does its main work. Select a phase for how it works and what ${who}'s variants change in it.`);
     const box = thMake(sec, 'div', 'th-cycle-svg');
     // Drawn at the container's own width, 1:1, so it lines up with the phase columns below and follows resizes
     const W = Math.max(320, Math.round(box.clientWidth || 760)), H = 270, L = 34, R = 12, T = 34, CH = 150, LT = T + CH + 18, LH = 40;
@@ -494,14 +430,17 @@
       .attr('role', 'img').attr('aria-label', 'Hormone levels across a typical 28-day cycle, with the genes that act on each day');
     const tip = gx.tip(box);
     const callOf = (name) => { const g = s.byName.get(name); return g ? thCall(g) : null; };
+    const fdg = gx.rows('fd_genes'), fdx = gx.rows('fd_explain');
+    const fns = new Map(((fdg && fdg[0]) || []).map((f) => [f.gene, f.function]));
+    // Gene Ontology's definitions, from the fertility views' Part 1
+    const goDef = new Map(((fdx && fdx[0]) || []).flatMap((r) => JSON.parse(r.processes)).map((t) => [t.id, t.definition]));
+    for (const p of CYCLE_PHASES) p.what = goDef.get(p.go) || '';
     const effect = (name) => {
-      const info = CYCLE_GENES[name] || {}, g = s.byName.get(name), fn = g && thCall(g);
-      const lines = [info.role || ''];
+      const g = s.byName.get(name), fn = g && thCall(g);
+      const lines = [fns.get(name) || ''];
       if (g && g.genotype) lines.push(`${who}: ${g.genotype}, ${TH_TEXT[fn]}${g.dose && fn !== 'normal' ? ` ×${g.dose}` : ''} (${thNote(g)})`);
       else if (g && g.carried) lines.push(`${who} carries ${g.carried} trait-linked ${g.carried === 1 ? 'allele' : 'alleles'} here`);
       else lines.push(`No ${who} call at this gene`);
-      if (fn === 'LoF' && info.LoF) lines.push('What it can mean: ' + info.LoF);
-      if (fn === 'GoF' && info.GoF) lines.push('What it can mean: ' + info.GoF);
       return lines.filter(Boolean);
     };
 
@@ -510,11 +449,12 @@
       svg.append('rect').attr('x', x(p.from)).attr('width', x(p.to) - x(p.from)).attr('y', T).attr('height', CH + 18 + LH)
         .attr('class', 'th-cy-band th-cy-' + p.id)
         .on('mousemove', (event) => tip.show(event, `${p.name} · days ${p.from}–${p.to}`, [p.what]))
-        .on('mouseleave', () => tip.hide());
+        .on('mouseleave', () => tip.hide())
+        .on('click', () => window.gxFertility && gxFertility.open(p.id));
     }
     svg.append('text').attr('x', (x(19) + x(24)) / 2).attr('y', LT - 4).attr('text-anchor', 'middle').attr('class', 'th-cap').text('implantation window');
     svg.append('rect').attr('x', x(19)).attr('width', x(24) - x(19)).attr('y', LT).attr('height', LH).attr('class', 'th-cy-window')
-      .on('mousemove', (event) => tip.show(event, 'Implantation window · days 19–24', ['The lining is receptive to an embryo for a few days under progesterone.']))
+      .on('mousemove', (event) => tip.show(event, 'Implantation window · days 19–24', [goDef.get('GO:0007566') || ''].filter(Boolean)))
       .on('mouseleave', () => tip.hide());
     for (const p of CYCLE_PHASES) {
       const mid = p.id === 'follicular' ? x(8) : (x(p.from) + x(p.to)) / 2;
@@ -536,7 +476,7 @@
     svg.append('text').attr('x', 4).attr('y', LT + LH / 2 + 4).attr('class', 'th-cap').text('Lining');
     svg.append('path').attr('class', 'th-cy-lining')
       .attr('d', d3.area().x((d) => x(d[0])).y0(LT + LH).y1((d) => LT + LH - d[1] * LH).curve(d3.curveMonotoneX)(CYCLE_LINING))
-      .on('mousemove', (event) => tip.show(event, 'Endometrium', ['Sheds at menstruation, rebuilds under estradiol, and matures under progesterone.']))
+      .on('mousemove', (event) => tip.show(event, 'Endometrium', [goDef.get('GO:0042698') || 'Schematic of the lining thickness'].filter(Boolean)))
       .on('mouseleave', () => tip.hide());
     // Day axis
     for (const d of [1, 7, 14, 21, 28]) {
@@ -559,11 +499,13 @@
       g.append('text').attr('x', 8).attr('y', 4).attr('class', 'th-cy-glabel').text(n);
     }
 
-    // One column per phase: what happens, and the person's genes there
+    // One column per phase: what happens, and the person's genes there; each heading opens the phase in depth
     const cols = thMake(sec, 'div', 'th-cycle-cols');
     for (const p of CYCLE_PHASES) {
       const col = thMake(cols, 'div', 'th-cycle-col th-cy-col-' + p.id);
-      thMake(col, 'b', null, `${p.name} · days ${p.from}–${p.to}`);
+      const open = thMake(col, 'button', 'th-cy-open', `${p.name} · days ${p.from}–${p.to}`);
+      open.type = 'button';
+      open.addEventListener('click', () => window.gxFertility && gxFertility.open(p.id));
       thMake(col, 'p', 'gx-note', p.what);
       const key = Object.keys(CYCLE_GENES).filter((n) => CYCLE_GENES[n].phases.includes(p.id));
       const fromMech = s.shown.filter((g) => !CYCLE_GENES[g.gene] && (g.ev.organs || []).some((o) => o === 'ovaries' || o === 'endometrium' || o === 'uterus' || o === 'pituitary')
@@ -574,21 +516,14 @@
         const g = s.byName.get(n), fn = g && thCall(g);
         const b = thMake(chips, 'button', 'lc-chip th-gene ' + (fn ? 'lc-' + TH_CLASS[fn] : 'lc-untested'), g ? thLabel(g) : n);
         b.type = 'button';
-        b.addEventListener('mousemove', (event) => tip.show(event, n, CYCLE_GENES[n] ? effect(n) : [thNote(g) ? `${who}: ${thNote(g)}` : `No ${who} call here`]));
+        b.addEventListener('mousemove', (event) => tip.show(event, n, CYCLE_GENES[n] ? effect(n) : [fns.get(n) || '', thNote(g) ? `${who}: ${thNote(g)}` : `No ${who} call here`].filter(Boolean)));
         b.addEventListener('mouseleave', () => tip.hide());
         b.addEventListener('click', () => thPick(n));
       }
-      const notes = key.filter((n) => ['LoF', 'GoF'].includes(callOf(n)) && CYCLE_GENES[n][callOf(n)]);
-      if (notes.length) {
-        const ul = thMake(col, 'ul', 'th-why');
-        for (const n of notes) {
-          const g = s.byName.get(n);
-          const li = thMake(ul, 'li');
-          thMake(li, 'b', null, `${n} ${TH_TEXT[callOf(n)]}${g.dose ? ` ×${g.dose}` : ''}: `);
-          li.append(CYCLE_GENES[n][callOf(n)]);
-        }
-      }
     }
+    const life = thMake(sec, 'button', 'th-cy-open th-cy-life', 'Across a reproductive life: egg reserve, first period and menopause');
+    life.type = 'button';
+    life.addEventListener('click', () => window.gxFertility && gxFertility.open('ageing'));
   };
 
   // Body map: where a theme's genes act, shaded by the person's calls. Female (XX) layout: a body outline with brain and

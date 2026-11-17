@@ -1,0 +1,950 @@
+{
+ "about": "Choices for the female fertility deep views (fertility_deep.py): per phase of the cycle, the chain of genes it runs on, the variants and the studies that measured them in women, and the GWAS studies whose lead variants are read for the person. Only choices: what a study found is the sentence or number its abstract gives (the find and number patterns locate it), what a gene does is UniProt's function text, what a variant is comes from Ensembl VEP, and every GWAS effect is the catalog's.",
+ "card_traits": "menstru|menopaus|menarche|ovar|follic|hormone|estradiol|progesterone|endometri|fertil|polycystic|twin|pregnan|mullerian|leiomyom|fibroid|puberty|reproductive",
+ "phases": [
+  {
+   "id": "menses",
+   "name": "Menstruation",
+   "days": [
+    1,
+    5
+   ],
+   "chains": [
+    [
+     {
+      "label": "Progesterone falls"
+     },
+     {
+      "gene": "PTGS2"
+     },
+     {
+      "label": "Prostaglandins"
+     },
+     {
+      "gene": "OXTR"
+     },
+     {
+      "label": "Contractions"
+     },
+     {
+      "label": "Lining sheds"
+     }
+    ]
+   ],
+   "variants": [],
+   "gwas": [
+    {
+     "trait": "Menstruation quality of life impact (dysmenorrhea)",
+     "pmid": "29855537",
+     "name": "Period pain (dysmenorrhea)",
+     "higher": "worse"
+    },
+    {
+     "trait": "ICD10 N92: Excessive, frequent and irregular menstruation",
+     "pmid": "40069456",
+     "name": "Heavy or irregular periods",
+     "higher": "worse"
+    },
+    {
+     "trait": "Endometriosis",
+     "pmid": "36914876",
+     "name": "Endometriosis",
+     "higher": "worse"
+    },
+    {
+     "trait": "Uterine fibroids",
+     "pmid": "31649266",
+     "name": "Uterine fibroids",
+     "higher": "worse"
+    }
+   ]
+  },
+  {
+   "id": "follicular",
+   "name": "Follicular phase",
+   "days": [
+    1,
+    13
+   ],
+   "chains": [
+    [
+     {
+      "gene": "FSHB"
+     },
+     {
+      "label": "FSH"
+     },
+     {
+      "gene": "FSHR"
+     },
+     {
+      "label": "Granulosa cells"
+     },
+     {
+      "gene": "CYP19A1"
+     },
+     {
+      "label": "Estradiol"
+     },
+     {
+      "gene": "ESR1"
+     },
+     {
+      "label": "Lining rebuilds"
+     }
+    ],
+    [
+     {
+      "gene": "AMH"
+     },
+     {
+      "gene": "AMHR2"
+     },
+     {
+      "label": "Fewer follicles recruited"
+     }
+    ]
+   ],
+   "variants": [
+    {
+     "gene": "FSHR",
+     "rsid": "rs6166",
+     "name": "FSHR N680S",
+     "forms": {
+      "N": "Asn680",
+      "S": "Ser680"
+     },
+     "studied": "S",
+     "call": "LoF",
+     "studies": [
+      {
+       "pmid": "15886248",
+       "finds": [
+        "FSH levels were steadily and significantly higher",
+        "The time from luteolysis to ovulation was significantly longer",
+        "The FSH receptor Ser680/Ser680 genotype is associated with"
+       ],
+       "numbers": [
+        {
+         "id": "follicular_days",
+         "name": "Luteolysis to ovulation",
+         "unit": "days",
+         "kind": "pair",
+         "pattern": "Ser680/Ser680 \\((\\d+(?:\\.\\d+)?) \\+/- [\\d.]+ d\\) compared with Asn680/Asn680 \\((\\d+(?:\\.\\d+)?) \\+/-",
+         "studied": 1,
+         "typical": 2,
+         "copies": 2
+        },
+        {
+         "id": "cycle_days",
+         "name": "Whole cycle",
+         "unit": "days",
+         "kind": "pair",
+         "pattern": "total menstrual cycle length \\((\\d+(?:\\.\\d+)?) vs\\. (\\d+(?:\\.\\d+)?) d",
+         "studied": 1,
+         "typical": 2,
+         "copies": 2
+        },
+        {
+         "id": "fsh_auc",
+         "name": "FSH across the cycle (area under the curve)",
+         "unit": "%",
+         "kind": "more",
+         "pattern": "area under the FSH curve was (\\d+)% greater",
+         "studied": 1,
+         "copies": 2
+        }
+       ]
+      },
+      {
+       "pmid": "10999835",
+       "finds": [
+        "Peak estradiol levels, number of preovulatory follicles, and number of retrieved oocytes were similar",
+        "These clinical findings demonstrate"
+       ],
+       "numbers": [
+        {
+         "id": "basal_fsh",
+         "name": "FSH at the start of the cycle",
+         "unit": "IU/L",
+         "kind": "copies",
+         "pattern": "basal FSH levels were significantly different among the 3 groups \\((\\d+(?:\\.\\d+)?) \\+/- [\\d.]+ IU/L, (\\d+(?:\\.\\d+)?) \\+/- [\\d.]+ IU/L, and (\\d+(?:\\.\\d+)?) \\+/- [\\d.]+ IU/L for the Asn/Asn, Asn/Ser, and Ser/Ser"
+        },
+        {
+         "id": "ampoules",
+         "name": "FSH ampoules needed in IVF stimulation",
+         "unit": "ampoules",
+         "kind": "copies",
+         "pattern": "number of FSH ampoules required for successful stimulation was significantly different among the 3 groups \\((\\d+(?:\\.\\d+)?) \\+/- [\\d.]+, (\\d+(?:\\.\\d+)?) \\+/- [\\d.]+, and (\\d+(?:\\.\\d+)?) \\+/-"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "gene": "AMH",
+     "rsid": "rs10407022",
+     "name": "AMH I49S",
+     "forms": {
+      "I": "Ile49",
+      "S": "Ser49"
+     },
+     "studied": "S",
+     "call": "GoF",
+     "studies": [
+      {
+       "pmid": "17337470",
+       "finds": [
+        "Carriers of the AMH Ser(49) allele had higher serum estradiol",
+        "For both polymorphisms no association with serum AMH or FSH levels was observed"
+       ]
+      },
+      {
+       "pmid": "17636279",
+       "finds": [
+        "The AMH Ile(49)Ser polymorphism (rs10407022) was not associated with age at menopause"
+       ]
+      }
+     ]
+    },
+    {
+     "gene": "AMHR2",
+     "rsid": "rs2002555",
+     "name": "AMHR2 -482A>G",
+     "alleles": {
+      "A": "-482A",
+      "G": "-482G"
+     },
+     "studied": "G",
+     "call": "GoF",
+     "studies": [
+      {
+       "pmid": "17337470",
+       "finds": [
+        "Carriers of the AMHR2 -482G allele also had higher follicular phase",
+        "Women carrying both AMH Ser(49) and AMHR2 -482G alleles had highest"
+       ]
+      }
+     ]
+    }
+   ],
+   "gwas": [
+    {
+     "trait": "Follicle stimulating hormone levels",
+     "pmid": "40229599",
+     "name": "FSH level",
+     "higher": "neutral"
+    },
+    {
+     "trait": "Estradiol levels",
+     "pmid": "40229599",
+     "name": "Estradiol level",
+     "higher": "neutral"
+    },
+    {
+     "trait": "Anti-Mullerian hormone levels in pre-menopausal women",
+     "pmid": "38815977",
+     "name": "AMH level (egg reserve)",
+     "higher": "better"
+    }
+   ]
+  },
+  {
+   "id": "ovulation",
+   "name": "Ovulation",
+   "days": [
+    13,
+    15
+   ],
+   "chains": [
+    [
+     {
+      "label": "Estradiol peak"
+     },
+     {
+      "gene": "KISS1R"
+     },
+     {
+      "gene": "GNRH1"
+     },
+     {
+      "gene": "GNRHR"
+     },
+     {
+      "gene": "LHB"
+     },
+     {
+      "label": "LH surge"
+     },
+     {
+      "gene": "LHCGR"
+     },
+     {
+      "gene": "PGR"
+     },
+     {
+      "gene": "PTGS2"
+     },
+     {
+      "label": "Egg released"
+     }
+    ]
+   ],
+   "variants": [
+    {
+     "gene": "LHCGR",
+     "rsid": "rs2293275",
+     "name": "LHCGR N312S",
+     "forms": {
+      "N": "Asn312",
+      "S": "Ser312"
+     },
+     "studied": "S",
+     "call": "variant",
+     "studies": [
+      {
+       "pmid": "17709176",
+       "finds": [
+        "No functional consequences were observed for the 312"
+       ]
+      }
+     ],
+     "effect": "none"
+    },
+    {
+     "gene": "LHB",
+     "rsid": "rs1800447",
+     "name": "LHB W8R (variant LH)",
+     "forms": {
+      "W": "Trp8",
+      "R": "Arg8"
+     },
+     "studied": "R",
+     "call": "altered",
+     "studies": [
+      {
+       "pmid": "7720944",
+       "finds": [
+        "Serum LH levels in the homozygote cases were undetectable",
+        "Response patterns of serum gonadotropins to GnRH in the homozygote"
+       ]
+      }
+     ]
+    }
+   ],
+   "gwas": [
+    {
+     "trait": "Luteinizing hormone levels",
+     "pmid": "40229599",
+     "name": "LH level",
+     "higher": "neutral"
+    },
+    {
+     "trait": "Spontaneous dizygotic twinning",
+     "pmid": "38052102",
+     "name": "Releasing two eggs (non-identical twins)",
+     "higher": "neutral"
+    },
+    {
+     "trait": "Polycystic ovary syndrome",
+     "pmid": "30566500",
+     "name": "PCOS",
+     "higher": "worse"
+    }
+   ]
+  },
+  {
+   "id": "luteal",
+   "name": "Luteal phase and implantation",
+   "days": [
+    15,
+    28
+   ],
+   "chains": [
+    [
+     {
+      "label": "LH"
+     },
+     {
+      "gene": "LHCGR"
+     },
+     {
+      "label": "Corpus luteum"
+     },
+     {
+      "gene": "STAR"
+     },
+     {
+      "gene": "CYP11A1"
+     },
+     {
+      "gene": "HSD3B2"
+     },
+     {
+      "label": "Progesterone"
+     },
+     {
+      "gene": "PGR"
+     },
+     {
+      "gene": "HOXA10"
+     },
+     {
+      "gene": "LIF"
+     },
+     {
+      "label": "Implantation window"
+     }
+    ]
+   ],
+   "variants": [
+    {
+     "gene": "PGR",
+     "rsid": "rs1042838",
+     "name": "PGR V660L (PROGINS)",
+     "forms": {
+      "V": "Val660",
+      "L": "Leu660"
+     },
+     "studied": "L",
+     "call": "LoF",
+     "studies": [
+      {
+       "pmid": "17293450",
+       "finds": [
+        "displays decreased transactivation activity",
+        "our results indicate that the PROGINS variant of PR is less responsive"
+       ]
+      },
+      {
+       "pmid": "11821088",
+       "finds": [
+        "Frequencies of the mutant allele T2 was",
+        "PROGINS appears to be associated with endometriosis"
+       ],
+       "numbers": [
+        {
+         "id": "endo_or",
+         "name": "Endometriosis odds",
+         "unit": "×",
+         "kind": "odds",
+         "pattern": "odds ratio, (\\d+(?:\\.\\d+)?)",
+         "studied": 1
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "gwas": [
+    {
+     "trait": "Progesterone levels",
+     "pmid": "34822396",
+     "name": "Progesterone level",
+     "higher": "neutral"
+    },
+    {
+     "trait": "Pregnancy loss in nulliparas",
+     "pmid": "38714721",
+     "name": "Pregnancy loss",
+     "higher": "worse"
+    }
+   ]
+  },
+  {
+   "id": "ageing",
+   "name": "Across a reproductive life",
+   "days": null,
+   "chains": [
+    [
+     {
+      "label": "Primordial follicles"
+     },
+     {
+      "gene": "AMH"
+     },
+     {
+      "gene": "AMHR2"
+     },
+     {
+      "label": "Recruited each cycle"
+     },
+     {
+      "gene": "MCM8"
+     },
+     {
+      "gene": "BRCA2"
+     },
+     {
+      "label": "Egg reserve"
+     },
+     {
+      "label": "Menopause"
+     }
+    ]
+   ],
+   "variants": [
+    {
+     "gene": "AMHR2",
+     "rsid": "rs2002555",
+     "name": "AMHR2 -482A>G",
+     "alleles": {
+      "A": "-482A",
+      "G": "-482G"
+     },
+     "studied": "G",
+     "call": "GoF",
+     "studies": [
+      {
+       "pmid": "17636279",
+       "finds": [
+        "Nulliparous women homozygous for the G-allele entered menopause",
+        "In the LASA cohort, women with the G/G genotype tended to enter menopause"
+       ],
+       "numbers": [
+        {
+         "id": "menopause_years",
+         "name": "Menopause earlier (women without children)",
+         "unit": "years",
+         "kind": "earlier",
+         "pattern": "Nulliparous women homozygous for the G-allele entered menopause (\\d+(?:\\.\\d+)?) years earlier",
+         "studied": 1,
+         "copies": 2
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "gene": "FSHR",
+     "rsid": "rs6166",
+     "name": "FSHR N680S",
+     "forms": {
+      "N": "Asn680",
+      "S": "Ser680"
+     },
+     "studied": "S",
+     "call": "LoF",
+     "studies": [
+      {
+       "pmid": "15886248",
+       "finds": [
+        "The FSH receptor Ser680/Ser680 genotype is associated with"
+       ]
+      }
+     ]
+    }
+   ],
+   "gwas": [
+    {
+     "trait": "Menarche (age at onset)",
+     "pmid": "25231870",
+     "name": "Age at first period",
+     "higher": "later"
+    },
+    {
+     "trait": "Anti-Mullerian hormone levels in pre-menopausal women",
+     "pmid": "38815977",
+     "name": "AMH level (egg reserve)",
+     "higher": "better"
+    },
+    {
+     "trait": "Age at natural menopause",
+     "pmid": "34349265",
+     "name": "Age at natural menopause",
+     "higher": "later"
+    }
+   ],
+   "clinvar": {
+    "conditions": "ovarian insufficiency|ovarian failure|ovarian dysgenesis",
+    "medgen": [
+     "Premature ovarian insufficiency",
+     "Premature ovarian failure"
+    ]
+   }
+  }
+ ],
+ "explain_about": "Part 1 (How the cycle works): per section the Gene Ontology processes whose definitions word it, the Reactome reactions drawn as its steps (inputs, outputs, catalyst, compartment and summary are Reactome's), and extra genes. 'cell' only places a reaction in the schematic of the two-cell model; 'cofactors' only sets which molecules are drawn as cofactors rather than substrates.",
+ "cofactors": [
+  "NADPH",
+  "NADP+",
+  "NADH",
+  "NAD+",
+  "O2",
+  "H2O",
+  "H+",
+  "ATP",
+  "ADP",
+  "Pi",
+  "FAD",
+  "CoA-SH",
+  "PAPS",
+  "PAP"
+ ],
+ "tissues": [
+  "Ovary",
+  "Uterus",
+  "Pituitary",
+  "Brain_Hypothalamus",
+  "Vagina"
+ ],
+ "sections": [
+  {
+   "id": "axis",
+   "name": "The hypothalamus–pituitary–ovary axis",
+   "phase": null,
+   "go": [
+    "GO:0032274",
+    "GO:0032276",
+    "GO:0042699",
+    "GO:0042700",
+    "GO:0042698"
+   ],
+   "reactions": [
+    {
+     "id": "R-HSA-388981",
+     "cell": "hypothalamus"
+    },
+    {
+     "id": "R-HSA-391372",
+     "cell": "pituitary"
+    },
+    {
+     "id": "R-HSA-378975",
+     "cell": "pituitary"
+    },
+    {
+     "id": "R-HSA-378956",
+     "cell": "pituitary"
+    },
+    {
+     "id": "R-HSA-391378",
+     "cell": "granulosa"
+    },
+    {
+     "id": "R-HSA-391377",
+     "cell": "theca"
+    },
+    {
+     "id": "R-HSA-9839384",
+     "cell": "pituitary"
+    },
+    {
+     "id": "R-HSA-8858346",
+     "cell": "granulosa"
+    }
+   ],
+   "genes": [
+    "KISS1",
+    "KISS1R",
+    "GNRH1",
+    "GNRHR",
+    "FSHB",
+    "LHB",
+    "CGA",
+    "ESR1",
+    "INHA",
+    "INHBA",
+    "AMH"
+   ],
+   "go_defs_only": [
+    "GO:0042698"
+   ]
+  },
+  {
+   "id": "follicle",
+   "name": "Follicle development",
+   "phase": "follicular",
+   "go": [
+    "GO:0001544",
+    "GO:0001547",
+    "GO:0001541"
+   ],
+   "reactions": [
+    {
+     "id": "R-HSA-391378",
+     "cell": "granulosa"
+    },
+    {
+     "id": "R-HSA-391377",
+     "cell": "theca"
+    },
+    {
+     "id": "R-HSA-8858346",
+     "cell": "granulosa"
+    }
+   ],
+   "genes": [
+    "FSHR",
+    "LHCGR",
+    "AMH",
+    "AMHR2",
+    "GDF9",
+    "BMP15",
+    "FOXL2",
+    "CYP19A1"
+   ]
+  },
+  {
+   "id": "steroids",
+   "name": "Steroid making in theca and granulosa cells",
+   "phase": "follicular",
+   "go": [
+    "GO:0006701",
+    "GO:0006702",
+    "GO:0006703"
+   ],
+   "reactions": [
+    {
+     "id": "R-HSA-196126",
+     "cell": "theca"
+    },
+    {
+     "id": "R-HSA-193054",
+     "cell": "theca"
+    },
+    {
+     "id": "R-HSA-193065",
+     "cell": "theca"
+    },
+    {
+     "id": "R-HSA-193101",
+     "cell": "theca"
+    },
+    {
+     "id": "R-HSA-193097",
+     "cell": "theca"
+    },
+    {
+     "id": "R-HSA-196350",
+     "cell": "theca"
+    },
+    {
+     "id": "R-HSA-193052",
+     "cell": "theca"
+    },
+    {
+     "id": "R-HSA-193068",
+     "cell": "theca"
+    },
+    {
+     "id": "R-HSA-193070",
+     "cell": "theca"
+    },
+    {
+     "id": "R-HSA-193073",
+     "cell": "theca"
+    },
+    {
+     "id": "R-HSA-193060",
+     "cell": "granulosa"
+    },
+    {
+     "id": "R-HSA-804969",
+     "cell": "granulosa"
+    },
+    {
+     "id": "R-HSA-193143",
+     "cell": "granulosa"
+    }
+   ],
+   "genes": [
+    "STAR",
+    "CYP11A1",
+    "HSD3B2",
+    "CYP17A1",
+    "CYP19A1",
+    "HSD17B1"
+   ]
+  },
+  {
+   "id": "ovulation",
+   "name": "Ovulation",
+   "phase": "ovulation",
+   "go": [
+    "GO:0030728",
+    "GO:0001550",
+    "GO:0001556",
+    "GO:0001542"
+   ],
+   "reactions": [
+    {
+     "id": "R-HSA-391377",
+     "cell": "granulosa"
+    },
+    {
+     "id": "R-HSA-9725885",
+     "cell": "granulosa"
+    },
+    {
+     "id": "R-HSA-2309787",
+     "cell": "granulosa"
+    },
+    {
+     "id": "R-HSA-2309773",
+     "cell": "granulosa"
+    },
+    {
+     "id": "R-HSA-2161660",
+     "cell": "granulosa"
+    }
+   ],
+   "genes": [
+    "LHCGR",
+    "PGR",
+    "PTGS2",
+    "PTGES",
+    "ADAMTS1",
+    "HAS2",
+    "TNFAIP6",
+    "PTX3"
+   ]
+  },
+  {
+   "id": "luteal",
+   "name": "Corpus luteum and luteolysis",
+   "phase": "luteal",
+   "go": [
+    "GO:0001553",
+    "GO:0001554"
+   ],
+   "reactions": [
+    {
+     "id": "R-HSA-391377",
+     "cell": "luteal"
+    },
+    {
+     "id": "R-HSA-196126",
+     "cell": "luteal"
+    },
+    {
+     "id": "R-HSA-193101",
+     "cell": "luteal"
+    },
+    {
+     "id": "R-HSA-193052",
+     "cell": "luteal"
+    },
+    {
+     "id": "R-HSA-2161549",
+     "cell": "luteal"
+    },
+    {
+     "id": "R-HSA-416929",
+     "cell": "luteal"
+    }
+   ],
+   "genes": [
+    "LHCGR",
+    "STAR",
+    "CYP11A1",
+    "HSD3B2",
+    "PTGFR",
+    "AKR1C3"
+   ]
+  },
+  {
+   "id": "endometrium",
+   "name": "Endometrium, receptivity and implantation",
+   "phase": "luteal",
+   "go": [
+    "GO:0046697",
+    "GO:0007566",
+    "GO:0060135"
+   ],
+   "reactions": [
+    {
+     "id": "R-HSA-9716947",
+     "cell": "endometrium"
+    },
+    {
+     "id": "R-HSA-1254392",
+     "cell": "endometrium"
+    },
+    {
+     "id": "R-HSA-9725885",
+     "cell": "endometrium"
+    },
+    {
+     "id": "R-HSA-9038161",
+     "cell": "endometrium"
+    }
+   ],
+   "genes": [
+    "ESR1",
+    "PGR",
+    "HOXA10",
+    "LIF",
+    "ITGB3",
+    "ITGAV",
+    "HAND2"
+   ]
+  },
+  {
+   "id": "menstruation",
+   "name": "Menstruation and repair",
+   "phase": "menses",
+   "go": [
+    "GO:0042703"
+   ],
+   "reactions": [
+    {
+     "id": "R-HSA-2309787",
+     "cell": "endometrium"
+    },
+    {
+     "id": "R-HSA-2309773",
+     "cell": "endometrium"
+    },
+    {
+     "id": "R-HSA-2161549",
+     "cell": "endometrium"
+    },
+    {
+     "id": "R-HSA-416929",
+     "cell": "endometrium"
+    },
+    {
+     "id": "R-HSA-388503",
+     "cell": "endometrium"
+    },
+    {
+     "id": "R-HSA-1592297",
+     "cell": "endometrium"
+    }
+   ],
+   "genes": [
+    "PTGS2",
+    "AKR1C3",
+    "PTGFR",
+    "OXTR",
+    "MMP1",
+    "MMP3"
+   ]
+  },
+  {
+   "id": "ageing",
+   "name": "Across a reproductive life",
+   "phase": "ageing",
+   "go": [
+    "GO:0042697",
+    "GO:0001544"
+   ],
+   "reactions": [
+    {
+     "id": "R-HSA-8858346",
+     "cell": "granulosa"
+    }
+   ],
+   "genes": [
+    "AMH",
+    "AMHR2",
+    "MCM8",
+    "MCM9",
+    "BRCA2",
+    "FSHR"
+   ]
+  }
+ ],
+ "card_traits_not": "cancer|carcinoma|tumou?r|thyroid|platelet|asthma|depression|migraine|body mass|BMI|or breast|lymphoma|leukemia|breast"
+}
