@@ -1,0 +1,2200 @@
+{
+ "source": {
+  "icd": "https://clinicaltables.nlm.nih.gov/apidoc/icd10cm/v3/doc.html",
+  "papers": "https://europepmc.org",
+  "atc": "https://www.ebi.ac.uk/chembl/"
+ },
+ "groups": {
+  "substance": {
+   "icd": [
+    {
+     "category": "F10",
+     "codes": [
+      [
+       "F10.10",
+       "Alcohol abuse, uncomplicated"
+      ],
+      [
+       "F10.11",
+       "Alcohol abuse, in remission"
+      ],
+      [
+       "F10.120",
+       "Alcohol abuse with intoxication, uncomplicated"
+      ],
+      [
+       "F10.121",
+       "Alcohol abuse with intoxication delirium"
+      ],
+      [
+       "F10.129",
+       "Alcohol abuse with intoxication, unspecified"
+      ],
+      [
+       "F10.130",
+       "Alcohol abuse with withdrawal, uncomplicated"
+      ],
+      [
+       "F10.131",
+       "Alcohol abuse with withdrawal delirium"
+      ],
+      [
+       "F10.132",
+       "Alcohol abuse with withdrawal with perceptual disturbance"
+      ],
+      [
+       "F10.139",
+       "Alcohol abuse with withdrawal, unspecified"
+      ],
+      [
+       "F10.14",
+       "Alcohol abuse with alcohol-induced mood disorder"
+      ],
+      [
+       "F10.150",
+       "Alcohol abuse with alcohol-induced psychotic disorder with delusions"
+      ],
+      [
+       "F10.151",
+       "Alcohol abuse with alcohol-induced psychotic disorder with hallucinations"
+      ],
+      [
+       "F10.159",
+       "Alcohol abuse with alcohol-induced psychotic disorder, unspecified"
+      ],
+      [
+       "F10.180",
+       "Alcohol abuse with alcohol-induced anxiety disorder"
+      ],
+      [
+       "F10.181",
+       "Alcohol abuse with alcohol-induced sexual dysfunction"
+      ],
+      [
+       "F10.182",
+       "Alcohol abuse with alcohol-induced sleep disorder"
+      ],
+      [
+       "F10.188",
+       "Alcohol abuse with other alcohol-induced disorder"
+      ],
+      [
+       "F10.19",
+       "Alcohol abuse with unspecified alcohol-induced disorder"
+      ],
+      [
+       "F10.20",
+       "Alcohol dependence, uncomplicated"
+      ],
+      [
+       "F10.21",
+       "Alcohol dependence, in remission"
+      ],
+      [
+       "F10.220",
+       "Alcohol dependence with intoxication, uncomplicated"
+      ],
+      [
+       "F10.221",
+       "Alcohol dependence with intoxication delirium"
+      ],
+      [
+       "F10.229",
+       "Alcohol dependence with intoxication, unspecified"
+      ],
+      [
+       "F10.230",
+       "Alcohol dependence with withdrawal, uncomplicated"
+      ],
+      [
+       "F10.231",
+       "Alcohol dependence with withdrawal delirium"
+      ],
+      [
+       "F10.232",
+       "Alcohol dependence with withdrawal with perceptual disturbance"
+      ],
+      [
+       "F10.239",
+       "Alcohol dependence with withdrawal, unspecified"
+      ],
+      [
+       "F10.24",
+       "Alcohol dependence with alcohol-induced mood disorder"
+      ],
+      [
+       "F10.250",
+       "Alcohol dependence with alcohol-induced psychotic disorder with delusions"
+      ],
+      [
+       "F10.251",
+       "Alcohol dependence with alcohol-induced psychotic disorder with hallucinations"
+      ],
+      [
+       "F10.259",
+       "Alcohol dependence with alcohol-induced psychotic disorder, unspecified"
+      ],
+      [
+       "F10.26",
+       "Alcohol dependence with alcohol-induced persisting amnestic disorder"
+      ],
+      [
+       "F10.27",
+       "Alcohol dependence with alcohol-induced persisting dementia"
+      ],
+      [
+       "F10.280",
+       "Alcohol dependence with alcohol-induced anxiety disorder"
+      ],
+      [
+       "F10.281",
+       "Alcohol dependence with alcohol-induced sexual dysfunction"
+      ],
+      [
+       "F10.282",
+       "Alcohol dependence with alcohol-induced sleep disorder"
+      ],
+      [
+       "F10.288",
+       "Alcohol dependence with other alcohol-induced disorder"
+      ],
+      [
+       "F10.29",
+       "Alcohol dependence with unspecified alcohol-induced disorder"
+      ],
+      [
+       "F10.90",
+       "Alcohol use, unspecified, uncomplicated"
+      ],
+      [
+       "F10.91",
+       "Alcohol use, unspecified, in remission"
+      ],
+      [
+       "F10.920",
+       "Alcohol use, unspecified with intoxication, uncomplicated"
+      ],
+      [
+       "F10.921",
+       "Alcohol use, unspecified with intoxication delirium"
+      ],
+      [
+       "F10.929",
+       "Alcohol use, unspecified with intoxication, unspecified"
+      ],
+      [
+       "F10.930",
+       "Alcohol use, unspecified with withdrawal, uncomplicated"
+      ],
+      [
+       "F10.931",
+       "Alcohol use, unspecified with withdrawal delirium"
+      ],
+      [
+       "F10.932",
+       "Alcohol use, unspecified with withdrawal with perceptual disturbance"
+      ],
+      [
+       "F10.939",
+       "Alcohol use, unspecified with withdrawal, unspecified"
+      ],
+      [
+       "F10.94",
+       "Alcohol use, unspecified with alcohol-induced mood disorder"
+      ],
+      [
+       "F10.950",
+       "Alcohol use, unspecified with alcohol-induced psychotic disorder with delusions"
+      ],
+      [
+       "F10.951",
+       "Alcohol use, unspecified with alcohol-induced psychotic disorder with hallucinations"
+      ],
+      [
+       "F10.959",
+       "Alcohol use, unspecified with alcohol-induced psychotic disorder, unspecified"
+      ],
+      [
+       "F10.96",
+       "Alcohol use, unspecified with alcohol-induced persisting amnestic disorder"
+      ],
+      [
+       "F10.97",
+       "Alcohol use, unspecified with alcohol-induced persisting dementia"
+      ],
+      [
+       "F10.980",
+       "Alcohol use, unspecified with alcohol-induced anxiety disorder"
+      ],
+      [
+       "F10.981",
+       "Alcohol use, unspecified with alcohol-induced sexual dysfunction"
+      ],
+      [
+       "F10.982",
+       "Alcohol use, unspecified with alcohol-induced sleep disorder"
+      ],
+      [
+       "F10.988",
+       "Alcohol use, unspecified with other alcohol-induced disorder"
+      ],
+      [
+       "F10.99",
+       "Alcohol use, unspecified with unspecified alcohol-induced disorder"
+      ]
+     ]
+    },
+    {
+     "category": "F12",
+     "codes": [
+      [
+       "F12.10",
+       "Cannabis abuse, uncomplicated"
+      ],
+      [
+       "F12.11",
+       "Cannabis abuse, in remission"
+      ],
+      [
+       "F12.120",
+       "Cannabis abuse with intoxication, uncomplicated"
+      ],
+      [
+       "F12.121",
+       "Cannabis abuse with intoxication delirium"
+      ],
+      [
+       "F12.122",
+       "Cannabis abuse with intoxication with perceptual disturbance"
+      ],
+      [
+       "F12.129",
+       "Cannabis abuse with intoxication, unspecified"
+      ],
+      [
+       "F12.13",
+       "Cannabis abuse with withdrawal"
+      ],
+      [
+       "F12.150",
+       "Cannabis abuse with psychotic disorder with delusions"
+      ],
+      [
+       "F12.151",
+       "Cannabis abuse with psychotic disorder with hallucinations"
+      ],
+      [
+       "F12.159",
+       "Cannabis abuse with psychotic disorder, unspecified"
+      ],
+      [
+       "F12.180",
+       "Cannabis abuse with cannabis-induced anxiety disorder"
+      ],
+      [
+       "F12.188",
+       "Cannabis abuse with other cannabis-induced disorder"
+      ],
+      [
+       "F12.19",
+       "Cannabis abuse with unspecified cannabis-induced disorder"
+      ],
+      [
+       "F12.20",
+       "Cannabis dependence, uncomplicated"
+      ],
+      [
+       "F12.21",
+       "Cannabis dependence, in remission"
+      ],
+      [
+       "F12.220",
+       "Cannabis dependence with intoxication, uncomplicated"
+      ],
+      [
+       "F12.221",
+       "Cannabis dependence with intoxication delirium"
+      ],
+      [
+       "F12.222",
+       "Cannabis dependence with intoxication with perceptual disturbance"
+      ],
+      [
+       "F12.229",
+       "Cannabis dependence with intoxication, unspecified"
+      ],
+      [
+       "F12.23",
+       "Cannabis dependence with withdrawal"
+      ],
+      [
+       "F12.250",
+       "Cannabis dependence with psychotic disorder with delusions"
+      ],
+      [
+       "F12.251",
+       "Cannabis dependence with psychotic disorder with hallucinations"
+      ],
+      [
+       "F12.259",
+       "Cannabis dependence with psychotic disorder, unspecified"
+      ],
+      [
+       "F12.280",
+       "Cannabis dependence with cannabis-induced anxiety disorder"
+      ],
+      [
+       "F12.288",
+       "Cannabis dependence with other cannabis-induced disorder"
+      ],
+      [
+       "F12.29",
+       "Cannabis dependence with unspecified cannabis-induced disorder"
+      ],
+      [
+       "F12.90",
+       "Cannabis use, unspecified, uncomplicated"
+      ],
+      [
+       "F12.91",
+       "Cannabis use, unspecified, in remission"
+      ],
+      [
+       "F12.920",
+       "Cannabis use, unspecified with intoxication, uncomplicated"
+      ],
+      [
+       "F12.921",
+       "Cannabis use, unspecified with intoxication delirium"
+      ],
+      [
+       "F12.922",
+       "Cannabis use, unspecified with intoxication with perceptual disturbance"
+      ],
+      [
+       "F12.929",
+       "Cannabis use, unspecified with intoxication, unspecified"
+      ],
+      [
+       "F12.93",
+       "Cannabis use, unspecified with withdrawal"
+      ],
+      [
+       "F12.950",
+       "Cannabis use, unspecified with psychotic disorder with delusions"
+      ],
+      [
+       "F12.951",
+       "Cannabis use, unspecified with psychotic disorder with hallucinations"
+      ],
+      [
+       "F12.959",
+       "Cannabis use, unspecified with psychotic disorder, unspecified"
+      ],
+      [
+       "F12.980",
+       "Cannabis use, unspecified with anxiety disorder"
+      ],
+      [
+       "F12.988",
+       "Cannabis use, unspecified with other cannabis-induced disorder"
+      ],
+      [
+       "F12.99",
+       "Cannabis use, unspecified with unspecified cannabis-induced disorder"
+      ]
+     ]
+    },
+    {
+     "category": "F15",
+     "codes": [
+      [
+       "F15.10",
+       "Other stimulant abuse, uncomplicated"
+      ],
+      [
+       "F15.11",
+       "Other stimulant abuse, in remission"
+      ],
+      [
+       "F15.120",
+       "Other stimulant abuse with intoxication, uncomplicated"
+      ],
+      [
+       "F15.121",
+       "Other stimulant abuse with intoxication delirium"
+      ],
+      [
+       "F15.122",
+       "Other stimulant abuse with intoxication with perceptual disturbance"
+      ],
+      [
+       "F15.129",
+       "Other stimulant abuse with intoxication, unspecified"
+      ],
+      [
+       "F15.13",
+       "Other stimulant abuse with withdrawal"
+      ],
+      [
+       "F15.14",
+       "Other stimulant abuse with stimulant-induced mood disorder"
+      ],
+      [
+       "F15.150",
+       "Other stimulant abuse with stimulant-induced psychotic disorder with delusions"
+      ],
+      [
+       "F15.151",
+       "Other stimulant abuse with stimulant-induced psychotic disorder with hallucinations"
+      ],
+      [
+       "F15.159",
+       "Other stimulant abuse with stimulant-induced psychotic disorder, unspecified"
+      ],
+      [
+       "F15.180",
+       "Other stimulant abuse with stimulant-induced anxiety disorder"
+      ],
+      [
+       "F15.181",
+       "Other stimulant abuse with stimulant-induced sexual dysfunction"
+      ],
+      [
+       "F15.182",
+       "Other stimulant abuse with stimulant-induced sleep disorder"
+      ],
+      [
+       "F15.188",
+       "Other stimulant abuse with other stimulant-induced disorder"
+      ],
+      [
+       "F15.19",
+       "Other stimulant abuse with unspecified stimulant-induced disorder"
+      ],
+      [
+       "F15.20",
+       "Other stimulant dependence, uncomplicated"
+      ],
+      [
+       "F15.21",
+       "Other stimulant dependence, in remission"
+      ],
+      [
+       "F15.220",
+       "Other stimulant dependence with intoxication, uncomplicated"
+      ],
+      [
+       "F15.221",
+       "Other stimulant dependence with intoxication delirium"
+      ],
+      [
+       "F15.222",
+       "Other stimulant dependence with intoxication with perceptual disturbance"
+      ],
+      [
+       "F15.229",
+       "Other stimulant dependence with intoxication, unspecified"
+      ],
+      [
+       "F15.23",
+       "Other stimulant dependence with withdrawal"
+      ],
+      [
+       "F15.24",
+       "Other stimulant dependence with stimulant-induced mood disorder"
+      ],
+      [
+       "F15.250",
+       "Other stimulant dependence with stimulant-induced psychotic disorder with delusions"
+      ],
+      [
+       "F15.251",
+       "Other stimulant dependence with stimulant-induced psychotic disorder with hallucinations"
+      ],
+      [
+       "F15.259",
+       "Other stimulant dependence with stimulant-induced psychotic disorder, unspecified"
+      ],
+      [
+       "F15.280",
+       "Other stimulant dependence with stimulant-induced anxiety disorder"
+      ],
+      [
+       "F15.281",
+       "Other stimulant dependence with stimulant-induced sexual dysfunction"
+      ],
+      [
+       "F15.282",
+       "Other stimulant dependence with stimulant-induced sleep disorder"
+      ],
+      [
+       "F15.288",
+       "Other stimulant dependence with other stimulant-induced disorder"
+      ],
+      [
+       "F15.29",
+       "Other stimulant dependence with unspecified stimulant-induced disorder"
+      ],
+      [
+       "F15.90",
+       "Other stimulant use, unspecified, uncomplicated"
+      ],
+      [
+       "F15.91",
+       "Other stimulant use, unspecified, in remission"
+      ],
+      [
+       "F15.920",
+       "Other stimulant use, unspecified with intoxication, uncomplicated"
+      ],
+      [
+       "F15.921",
+       "Other stimulant use, unspecified with intoxication delirium"
+      ],
+      [
+       "F15.922",
+       "Other stimulant use, unspecified with intoxication with perceptual disturbance"
+      ],
+      [
+       "F15.929",
+       "Other stimulant use, unspecified with intoxication, unspecified"
+      ],
+      [
+       "F15.93",
+       "Other stimulant use, unspecified with withdrawal"
+      ],
+      [
+       "F15.94",
+       "Other stimulant use, unspecified with stimulant-induced mood disorder"
+      ],
+      [
+       "F15.950",
+       "Other stimulant use, unspecified with stimulant-induced psychotic disorder with delusions"
+      ],
+      [
+       "F15.951",
+       "Other stimulant use, unspecified with stimulant-induced psychotic disorder with hallucinations"
+      ],
+      [
+       "F15.959",
+       "Other stimulant use, unspecified with stimulant-induced psychotic disorder, unspecified"
+      ],
+      [
+       "F15.980",
+       "Other stimulant use, unspecified with stimulant-induced anxiety disorder"
+      ],
+      [
+       "F15.981",
+       "Other stimulant use, unspecified with stimulant-induced sexual dysfunction"
+      ],
+      [
+       "F15.982",
+       "Other stimulant use, unspecified with stimulant-induced sleep disorder"
+      ],
+      [
+       "F15.988",
+       "Other stimulant use, unspecified with other stimulant-induced disorder"
+      ],
+      [
+       "F15.99",
+       "Other stimulant use, unspecified with unspecified stimulant-induced disorder"
+      ]
+     ]
+    },
+    {
+     "category": "F17",
+     "codes": [
+      [
+       "F17.200",
+       "Nicotine dependence, unspecified, uncomplicated"
+      ],
+      [
+       "F17.201",
+       "Nicotine dependence, unspecified, in remission"
+      ],
+      [
+       "F17.203",
+       "Nicotine dependence unspecified, with withdrawal"
+      ],
+      [
+       "F17.208",
+       "Nicotine dependence, unspecified, with other nicotine-induced disorders"
+      ],
+      [
+       "F17.209",
+       "Nicotine dependence, unspecified, with unspecified nicotine-induced disorders"
+      ],
+      [
+       "F17.210",
+       "Nicotine dependence, cigarettes, uncomplicated"
+      ],
+      [
+       "F17.211",
+       "Nicotine dependence, cigarettes, in remission"
+      ],
+      [
+       "F17.213",
+       "Nicotine dependence, cigarettes, with withdrawal"
+      ],
+      [
+       "F17.218",
+       "Nicotine dependence, cigarettes, with other nicotine-induced disorders"
+      ],
+      [
+       "F17.219",
+       "Nicotine dependence, cigarettes, with unspecified nicotine-induced disorders"
+      ],
+      [
+       "F17.220",
+       "Nicotine dependence, chewing tobacco, uncomplicated"
+      ],
+      [
+       "F17.221",
+       "Nicotine dependence, chewing tobacco, in remission"
+      ],
+      [
+       "F17.223",
+       "Nicotine dependence, chewing tobacco, with withdrawal"
+      ],
+      [
+       "F17.228",
+       "Nicotine dependence, chewing tobacco, with other nicotine-induced disorders"
+      ],
+      [
+       "F17.229",
+       "Nicotine dependence, chewing tobacco, with unspecified nicotine-induced disorders"
+      ],
+      [
+       "F17.290",
+       "Nicotine dependence, other tobacco product, uncomplicated"
+      ],
+      [
+       "F17.291",
+       "Nicotine dependence, other tobacco product, in remission"
+      ],
+      [
+       "F17.293",
+       "Nicotine dependence, other tobacco product, with withdrawal"
+      ],
+      [
+       "F17.298",
+       "Nicotine dependence, other tobacco product, with other nicotine-induced disorders"
+      ],
+      [
+       "F17.299",
+       "Nicotine dependence, other tobacco product, with unspecified nicotine-induced disorders"
+      ]
+     ]
+    }
+   ],
+   "screens": [
+    {
+     "name": "AUDIT",
+     "pmid": "8329970",
+     "title": "Development of the Alcohol Use Disorders Identification Test (AUDIT): WHO Collaborative Project on Early Detection of Persons with Harmful Alcohol Consumption--II.",
+     "authors": "Saunders JB, Aasland OG, Babor TF, de la Fuente JR, Grant M.",
+     "journal": "Addiction (Abingdon, England)",
+     "year": "1993",
+     "doi": "10.1111/j.1360-0443.1993.tb02093.x",
+     "quotes": [
+      "Responses to each question are scored from 0 to 4, giving a maximum possible score of 40.",
+      "Among those diagnosed as having hazardous or harmful alcohol use, 92% had an AUDIT score of 8 or more, and 94% of those with non-hazardous consumption had a score of less than 8."
+     ],
+     "url": "https://europepmc.org/article/MED/8329970"
+    },
+    {
+     "name": "Fagerström Test for Nicotine Dependence",
+     "pmid": "1932883",
+     "title": "The Fagerström Test for Nicotine Dependence: a revision of the Fagerström Tolerance Questionnaire.",
+     "authors": "Heatherton TF, Kozlowski LT, Frecker RC, Fagerström KO.",
+     "journal": "British journal of addiction",
+     "year": "1991",
+     "doi": "10.1111/j.1360-0443.1991.tb01879.x",
+     "quotes": [],
+     "url": "https://europepmc.org/article/MED/1932883"
+    },
+    {
+     "name": "CUDIT-R",
+     "pmid": "20347232",
+     "title": "An improved brief measure of cannabis misuse: the Cannabis Use Disorders Identification Test-Revised (CUDIT-R).",
+     "authors": "Adamson SJ, Kay-Lambkin FJ, Baker AL, Lewin TJ, Thornton L, Kelly BJ, Sellman JD.",
+     "journal": "Drug and alcohol dependence",
+     "year": "2010",
+     "doi": "10.1016/j.drugalcdep.2010.02.017",
+     "quotes": [
+      "High sensitivity (91%) and specificity (90%) were achieved."
+     ],
+     "url": "https://europepmc.org/article/MED/20347232"
+    }
+   ],
+   "classes": [
+    {
+     "atc": "N07B",
+     "name": "DRUGS USED IN ADDICTIVE DISORDERS"
+    }
+   ],
+   "drugs": {
+    "acamprosate": "N07BB03",
+    "buprenorphine": "N07BC01",
+    "buprenorphine, combinations": "N07BC51",
+    "calcium carbimide": "N07BB02",
+    "cytisine": "N07BA04",
+    "diamorphine": "N07BC06",
+    "disulfiram": "N07BB01",
+    "levacetylmethadol": "N07BC03",
+    "levomethadone": "N07BC05",
+    "lofexidine": "N07BC04",
+    "methadone": "N07BC02",
+    "nalmefene": "N07BB05",
+    "naltrexone": "N07BB04",
+    "nicotine": "N07BA01",
+    "ondelopran": "N07BB06",
+    "varenicline": "N07BA03"
+   }
+  },
+  "psychotic": {
+   "icd": [
+    {
+     "category": "F20",
+     "codes": [
+      [
+       "F20.0",
+       "Paranoid schizophrenia"
+      ],
+      [
+       "F20.1",
+       "Disorganized schizophrenia"
+      ],
+      [
+       "F20.2",
+       "Catatonic schizophrenia"
+      ],
+      [
+       "F20.3",
+       "Undifferentiated schizophrenia"
+      ],
+      [
+       "F20.5",
+       "Residual schizophrenia"
+      ],
+      [
+       "F20.81",
+       "Schizophreniform disorder"
+      ],
+      [
+       "F20.89",
+       "Other schizophrenia"
+      ],
+      [
+       "F20.9",
+       "Schizophrenia, unspecified"
+      ]
+     ]
+    }
+   ],
+   "screens": [
+    {
+     "name": "Prodromal Questionnaire, brief (PQ-B)",
+     "pmid": "21511440",
+     "title": "Psychosis risk screening with the Prodromal Questionnaire--brief version (PQ-B).",
+     "authors": "Loewy RL, Pearson R, Vinogradov S, Bearden CE, Cannon TD.",
+     "journal": "Schizophrenia research",
+     "year": "2011",
+     "doi": "10.1016/j.schres.2011.03.029",
+     "quotes": [
+      "Endorsement of three or more positive symptoms on the PQ-B differentiated between those with prodromal syndrome and psychotic syndrome diagnoses on the SIPS versus those with no SIPS diagnoses with 89% sensitivity, 58% specificity, and a positive Likelihood Ratio of 2.12.",
+      "A Distress Score measuring the distress or impairment associated with endorsed positive symptoms increased the specificity to 68%, while retaining similar sensitivity of 88%."
+     ],
+     "url": "https://europepmc.org/article/MED/21511440"
+    }
+   ],
+   "classes": [
+    {
+     "atc": "N05A",
+     "name": "ANTIPSYCHOTICS"
+    }
+   ],
+   "drugs": {
+    "acepromazine": "N05AA04",
+    "acetophenazine": "N05AB07",
+    "amisulpride": "N05AL05",
+    "aripiprazole": "N05AX12",
+    "asenapine": "N05AH05",
+    "benperidol": "N05AD07",
+    "brexpiprazole": "N05AX16",
+    "bromperidol": "N05AD06",
+    "butaperazine": "N05AB09",
+    "cariprazine": "N05AX15",
+    "chlorproethazine": "N05AA07",
+    "chlorpromazine": "N05AA01",
+    "chlorprothixene": "N05AF03",
+    "clopenthixol": "N05AF02",
+    "clotiapine": "N05AH06",
+    "clozapine": "N05AH02",
+    "cyamemazine": "N05AA06",
+    "dixyrazine": "N05AB01",
+    "droperidol": "N05AD08",
+    "fluanisone": "N05AD09",
+    "flupentixol": "N05AF01",
+    "fluphenazine": "N05AB02",
+    "fluspirilene": "N05AG01",
+    "haloperidol": "N05AD01",
+    "iloperidone": "N05AX14",
+    "levomepromazine": "N05AA02",
+    "levosulpiride": "N05AL07",
+    "lithium": "N05AN01",
+    "loxapine": "N05AH01",
+    "lumateperone": "N05AD10",
+    "lurasidone": "N05AE05",
+    "melperone": "N05AD03",
+    "mesoridazine": "N05AC03",
+    "molindone": "N05AE02",
+    "moperone": "N05AD04",
+    "mosapramine": "N05AX10",
+    "olanzapine": "N05AH03",
+    "olanzapine and samidorphan": "N05AH53",
+    "oxypertine": "N05AE01",
+    "paliperidone": "N05AX13",
+    "penfluridol": "N05AG03",
+    "perazine": "N05AB10",
+    "periciazine": "N05AC01",
+    "perphenazine": "N05AB03",
+    "pimavanserin": "N05AX17",
+    "pimozide": "N05AG02",
+    "pipamperone": "N05AD05",
+    "pipotiazine": "N05AC04",
+    "prochlorperazine": "N05AB04",
+    "promazine": "N05AA03",
+    "prothipendyl": "N05AX07",
+    "quetiapine": "N05AH04",
+    "remoxipride": "N05AL04",
+    "risperidone": "N05AX08",
+    "sertindole": "N05AE03",
+    "sulpiride": "N05AL01",
+    "sultopride": "N05AL02",
+    "thiopropazate": "N05AB05",
+    "thioproperazine": "N05AB08",
+    "thioridazine": "N05AC02",
+    "tiapride": "N05AL03",
+    "tiotixene": "N05AF04",
+    "trifluoperazine": "N05AB06",
+    "trifluperidol": "N05AD02",
+    "triflupromazine": "N05AA05",
+    "veralipride": "N05AL06",
+    "ziprasidone": "N05AE04",
+    "zotepine": "N05AX11",
+    "zuclopenthixol": "N05AF05"
+   }
+  },
+  "bipolar": {
+   "icd": [
+    {
+     "category": "F31",
+     "codes": [
+      [
+       "F31.0",
+       "Bipolar disorder, current episode hypomanic"
+      ],
+      [
+       "F31.10",
+       "Bipolar disorder, current episode manic without psychotic features, unspecified"
+      ],
+      [
+       "F31.11",
+       "Bipolar disorder, current episode manic without psychotic features, mild"
+      ],
+      [
+       "F31.12",
+       "Bipolar disorder, current episode manic without psychotic features, moderate"
+      ],
+      [
+       "F31.13",
+       "Bipolar disorder, current episode manic without psychotic features, severe"
+      ],
+      [
+       "F31.2",
+       "Bipolar disorder, current episode manic severe with psychotic features"
+      ],
+      [
+       "F31.30",
+       "Bipolar disorder, current episode depressed, mild or moderate severity, unspecified"
+      ],
+      [
+       "F31.31",
+       "Bipolar disorder, current episode depressed, mild"
+      ],
+      [
+       "F31.32",
+       "Bipolar disorder, current episode depressed, moderate"
+      ],
+      [
+       "F31.4",
+       "Bipolar disorder, current episode depressed, severe, without psychotic features"
+      ],
+      [
+       "F31.5",
+       "Bipolar disorder, current episode depressed, severe, with psychotic features"
+      ],
+      [
+       "F31.60",
+       "Bipolar disorder, current episode mixed, unspecified"
+      ],
+      [
+       "F31.61",
+       "Bipolar disorder, current episode mixed, mild"
+      ],
+      [
+       "F31.62",
+       "Bipolar disorder, current episode mixed, moderate"
+      ],
+      [
+       "F31.63",
+       "Bipolar disorder, current episode mixed, severe, without psychotic features"
+      ],
+      [
+       "F31.64",
+       "Bipolar disorder, current episode mixed, severe, with psychotic features"
+      ],
+      [
+       "F31.70",
+       "Bipolar disorder, currently in remission, most recent episode unspecified"
+      ],
+      [
+       "F31.71",
+       "Bipolar disorder, in partial remission, most recent episode hypomanic"
+      ],
+      [
+       "F31.72",
+       "Bipolar disorder, in full remission, most recent episode hypomanic"
+      ],
+      [
+       "F31.73",
+       "Bipolar disorder, in partial remission, most recent episode manic"
+      ],
+      [
+       "F31.74",
+       "Bipolar disorder, in full remission, most recent episode manic"
+      ],
+      [
+       "F31.75",
+       "Bipolar disorder, in partial remission, most recent episode depressed"
+      ],
+      [
+       "F31.76",
+       "Bipolar disorder, in full remission, most recent episode depressed"
+      ],
+      [
+       "F31.77",
+       "Bipolar disorder, in partial remission, most recent episode mixed"
+      ],
+      [
+       "F31.78",
+       "Bipolar disorder, in full remission, most recent episode mixed"
+      ],
+      [
+       "F31.81",
+       "Bipolar II disorder"
+      ],
+      [
+       "F31.89",
+       "Other bipolar disorder"
+      ],
+      [
+       "F31.9",
+       "Bipolar disorder, unspecified"
+      ]
+     ]
+    }
+   ],
+   "screens": [
+    {
+     "name": "Mood Disorder Questionnaire (MDQ)",
+     "pmid": "11058490",
+     "title": "Development and validation of a screening instrument for bipolar spectrum disorder: the Mood Disorder Questionnaire.",
+     "authors": "Hirschfeld RM, Williams JB, Spitzer RL, Calabrese JR, Flynn L, Keck PE, Lewis L, McElroy SL, Post RM, Rapport DJ, Russell JM, Sachs GS, Zajecka J.",
+     "journal": "The American journal of psychiatry",
+     "year": "2000",
+     "doi": "10.1176/appi.ajp.157.11.1873",
+     "quotes": [
+      "A Mood Disorder Questionnaire screening score of 7 or more items yielded good sensitivity (0.73) and very good specificity (0.90)."
+     ],
+     "url": "https://europepmc.org/article/MED/11058490"
+    }
+   ],
+   "classes": [
+    {
+     "atc": "N03AF",
+     "name": "Carboxamide derivatives"
+    },
+    {
+     "atc": "N03AG",
+     "name": "Fatty acid derivatives"
+    },
+    {
+     "atc": "N03AX09",
+     "name": "lamotrigine"
+    },
+    {
+     "atc": "N05A",
+     "name": "ANTIPSYCHOTICS"
+    },
+    {
+     "atc": "N05AN",
+     "name": "Lithium"
+    }
+   ],
+   "drugs": {
+    "acepromazine": "N05AA04",
+    "acetophenazine": "N05AB07",
+    "aminobutyric acid": "N03AG03",
+    "amisulpride": "N05AL05",
+    "aripiprazole": "N05AX12",
+    "asenapine": "N05AH05",
+    "benperidol": "N05AD07",
+    "brexpiprazole": "N05AX16",
+    "bromperidol": "N05AD06",
+    "butaperazine": "N05AB09",
+    "carbamazepine": "N03AF01",
+    "cariprazine": "N05AX15",
+    "chlorproethazine": "N05AA07",
+    "chlorpromazine": "N05AA01",
+    "chlorprothixene": "N05AF03",
+    "clopenthixol": "N05AF02",
+    "clotiapine": "N05AH06",
+    "clozapine": "N05AH02",
+    "cyamemazine": "N05AA06",
+    "dixyrazine": "N05AB01",
+    "droperidol": "N05AD08",
+    "eslicarbazepine": "N03AF04",
+    "fluanisone": "N05AD09",
+    "flupentixol": "N05AF01",
+    "fluphenazine": "N05AB02",
+    "fluspirilene": "N05AG01",
+    "haloperidol": "N05AD01",
+    "iloperidone": "N05AX14",
+    "lamotrigine": "N03AX09",
+    "levomepromazine": "N05AA02",
+    "levosulpiride": "N05AL07",
+    "lithium": "N05AN01",
+    "loxapine": "N05AH01",
+    "lumateperone": "N05AD10",
+    "lurasidone": "N05AE05",
+    "melperone": "N05AD03",
+    "mesoridazine": "N05AC03",
+    "molindone": "N05AE02",
+    "moperone": "N05AD04",
+    "mosapramine": "N05AX10",
+    "olanzapine": "N05AH03",
+    "olanzapine and samidorphan": "N05AH53",
+    "oxcarbazepine": "N03AF02",
+    "oxypertine": "N05AE01",
+    "paliperidone": "N05AX13",
+    "penfluridol": "N05AG03",
+    "perazine": "N05AB10",
+    "periciazine": "N05AC01",
+    "perphenazine": "N05AB03",
+    "pimavanserin": "N05AX17",
+    "pimozide": "N05AG02",
+    "pipamperone": "N05AD05",
+    "pipotiazine": "N05AC04",
+    "prochlorperazine": "N05AB04",
+    "progabide": "N03AG05",
+    "promazine": "N05AA03",
+    "prothipendyl": "N05AX07",
+    "quetiapine": "N05AH04",
+    "remoxipride": "N05AL04",
+    "risperidone": "N05AX08",
+    "rufinamide": "N03AF03",
+    "sertindole": "N05AE03",
+    "sulpiride": "N05AL01",
+    "sultopride": "N05AL02",
+    "thiopropazate": "N05AB05",
+    "thioproperazine": "N05AB08",
+    "thioridazine": "N05AC02",
+    "tiagabine": "N03AG06",
+    "tiapride": "N05AL03",
+    "tiotixene": "N05AF04",
+    "trifluoperazine": "N05AB06",
+    "trifluperidol": "N05AD02",
+    "triflupromazine": "N05AA05",
+    "valproic acid": "N03AG01",
+    "valpromide": "N03AG02",
+    "veralipride": "N05AL06",
+    "vigabatrin": "N03AG04",
+    "ziprasidone": "N05AE04",
+    "zotepine": "N05AX11",
+    "zuclopenthixol": "N05AF05"
+   }
+  },
+  "depressive": {
+   "icd": [
+    {
+     "category": "F32",
+     "codes": [
+      [
+       "F32.0",
+       "Major depressive disorder, single episode, mild"
+      ],
+      [
+       "F32.1",
+       "Major depressive disorder, single episode, moderate"
+      ],
+      [
+       "F32.2",
+       "Major depressive disorder, single episode, severe without psychotic features"
+      ],
+      [
+       "F32.3",
+       "Major depressive disorder, single episode, severe with psychotic features"
+      ],
+      [
+       "F32.4",
+       "Major depressive disorder, single episode, in partial remission"
+      ],
+      [
+       "F32.5",
+       "Major depressive disorder, single episode, in full remission"
+      ],
+      [
+       "F32.81",
+       "Premenstrual dysphoric disorder"
+      ],
+      [
+       "F32.89",
+       "Other specified depressive episodes"
+      ],
+      [
+       "F32.9",
+       "Major depressive disorder, single episode, unspecified"
+      ],
+      [
+       "F32.A",
+       "Depression, unspecified"
+      ]
+     ]
+    },
+    {
+     "category": "F33",
+     "codes": [
+      [
+       "F33.0",
+       "Major depressive disorder, recurrent, mild"
+      ],
+      [
+       "F33.1",
+       "Major depressive disorder, recurrent, moderate"
+      ],
+      [
+       "F33.2",
+       "Major depressive disorder, recurrent severe without psychotic features"
+      ],
+      [
+       "F33.3",
+       "Major depressive disorder, recurrent, severe with psychotic symptoms"
+      ],
+      [
+       "F33.40",
+       "Major depressive disorder, recurrent, in remission, unspecified"
+      ],
+      [
+       "F33.41",
+       "Major depressive disorder, recurrent, in partial remission"
+      ],
+      [
+       "F33.42",
+       "Major depressive disorder, recurrent, in full remission"
+      ],
+      [
+       "F33.8",
+       "Other recurrent depressive disorders"
+      ],
+      [
+       "F33.9",
+       "Major depressive disorder, recurrent, unspecified"
+      ]
+     ]
+    }
+   ],
+   "screens": [
+    {
+     "name": "PHQ-9",
+     "pmid": "11556941",
+     "title": "The PHQ-9: validity of a brief depression severity measure.",
+     "authors": "Kroenke K, Spitzer RL, Williams JB.",
+     "journal": "Journal of general internal medicine",
+     "year": "2001",
+     "doi": "10.1046/j.1525-1497.2001.016009606.x",
+     "quotes": [
+      "Using the MHP reinterview as the criterion standard, a PHQ-9 score > or =10 had a sensitivity of 88% and a specificity of 88% for major depression.",
+      "PHQ-9 scores of 5, 10, 15, and 20 represented mild, moderate, moderately severe, and severe depression, respectively."
+     ],
+     "url": "https://europepmc.org/article/MED/11556941"
+    }
+   ],
+   "classes": [
+    {
+     "atc": "N06A",
+     "name": "ANTIDEPRESSANTS"
+    }
+   ],
+   "drugs": {
+    "agomelatine": "N06AX22",
+    "alaproclate": "N06AB07",
+    "amineptine": "N06AA19",
+    "amitriptyline": "N06AA09",
+    "amoxapine": "N06AA17",
+    "bifemelane": "N06AX08",
+    "brexanolone": "N06AX29",
+    "bupropion": "N06AX12",
+    "bupropion and dextromethorphan": "N06AX62",
+    "butriptyline": "N06AA15",
+    "citalopram": "N06AB04",
+    "clomipramine": "N06AA04",
+    "desipramine": "N06AA01",
+    "desvenlafaxine": "N06AX23",
+    "dibenzepin": "N06AA08",
+    "dimetacrine": "N06AA18",
+    "dosulepin": "N06AA16",
+    "doxepin": "N06AA12",
+    "duloxetine": "N06AX21",
+    "escitalopram": "N06AB10",
+    "esketamine": "N06AX27",
+    "etoperidone": "N06AB09",
+    "fluoxetine": "N06AB03",
+    "fluvoxamine": "N06AB08",
+    "gepirone": "N06AX19",
+    "hyperici herba": "N06AX25",
+    "imipramine": "N06AA02",
+    "imipramine oxide": "N06AA03",
+    "iprindole": "N06AA13",
+    "iproclozide": "N06AF06",
+    "iproniazide": "N06AF05",
+    "isocarboxazid": "N06AF01",
+    "levomilnacipran": "N06AX28",
+    "lofepramine": "N06AA07",
+    "maprotiline": "N06AA21",
+    "medifoxamine": "N06AX13",
+    "melitracen": "N06AA14",
+    "mianserin": "N06AX03",
+    "milnacipran": "N06AX17",
+    "minaprine": "N06AX07",
+    "mirtazapine": "N06AX11",
+    "moclobemide": "N06AG02",
+    "nefazodone": "N06AX06",
+    "nialamide": "N06AF02",
+    "nomifensine": "N06AX04",
+    "nortriptyline": "N06AA10",
+    "opipramol": "N06AA05",
+    "oxaflozane": "N06AX10",
+    "oxitriptan": "N06AX01",
+    "paroxetine": "N06AB05",
+    "phenelzine": "N06AF03",
+    "pivagabine": "N06AX15",
+    "protriptyline": "N06AA11",
+    "quinupramine": "N06AA23",
+    "reboxetine": "N06AX18",
+    "sertraline": "N06AB06",
+    "tianeptine": "N06AX14",
+    "toloxatone": "N06AG03",
+    "tranylcypromine": "N06AF04",
+    "trazodone": "N06AX05",
+    "trimipramine": "N06AA06",
+    "tryptophan": "N06AX02",
+    "venlafaxine": "N06AX16",
+    "vilazodone": "N06AX24",
+    "viloxazine": "N06AX09",
+    "vortioxetine": "N06AX26",
+    "zimeldine": "N06AB02",
+    "zuranolone": "N06AX31"
+   }
+  },
+  "anxiety": {
+   "icd": [
+    {
+     "category": "F41",
+     "codes": [
+      [
+       "F41.0",
+       "Panic disorder [episodic paroxysmal anxiety]"
+      ],
+      [
+       "F41.1",
+       "Generalized anxiety disorder"
+      ],
+      [
+       "F41.3",
+       "Other mixed anxiety disorders"
+      ],
+      [
+       "F41.8",
+       "Other specified anxiety disorders"
+      ],
+      [
+       "F41.9",
+       "Anxiety disorder, unspecified"
+      ]
+     ]
+    }
+   ],
+   "screens": [
+    {
+     "name": "GAD-7",
+     "pmid": "16717171",
+     "title": "A brief measure for assessing generalized anxiety disorder: the GAD-7.",
+     "authors": "Spitzer RL, Kroenke K, Williams JB, Löwe B.",
+     "journal": "Archives of internal medicine",
+     "year": "2006",
+     "doi": "10.1001/archinte.166.10.1092",
+     "quotes": [
+      "A cut point was identified that optimized sensitivity (89%) and specificity (82%)."
+     ],
+     "url": "https://europepmc.org/article/MED/16717171"
+    }
+   ],
+   "classes": [
+    {
+     "atc": "N05BA",
+     "name": "Benzodiazepine derivatives"
+    },
+    {
+     "atc": "N06A",
+     "name": "ANTIDEPRESSANTS"
+    }
+   ],
+   "drugs": {
+    "adinazolam": "N05BA07",
+    "agomelatine": "N06AX22",
+    "alaproclate": "N06AB07",
+    "alprazolam": "N05BA12",
+    "amineptine": "N06AA19",
+    "amitriptyline": "N06AA09",
+    "amoxapine": "N06AA17",
+    "bentazepam": "N05BA24",
+    "bifemelane": "N06AX08",
+    "brexanolone": "N06AX29",
+    "bromazepam": "N05BA08",
+    "bupropion": "N06AX12",
+    "bupropion and dextromethorphan": "N06AX62",
+    "butriptyline": "N06AA15",
+    "camazepam": "N05BA15",
+    "chlordiazepoxide": "N05BA02",
+    "citalopram": "N06AB04",
+    "clobazam": "N05BA09",
+    "clomipramine": "N06AA04",
+    "clotiazepam": "N05BA21",
+    "cloxazolam": "N05BA22",
+    "desipramine": "N06AA01",
+    "desvenlafaxine": "N06AX23",
+    "diazepam": "N05BA01",
+    "dibenzepin": "N06AA08",
+    "dimetacrine": "N06AA18",
+    "dosulepin": "N06AA16",
+    "doxepin": "N06AA12",
+    "duloxetine": "N06AX21",
+    "escitalopram": "N06AB10",
+    "esketamine": "N06AX27",
+    "ethyl loflazepate": "N05BA18",
+    "etizolam": "N05BA19",
+    "etoperidone": "N06AB09",
+    "fludiazepam": "N05BA17",
+    "fluoxetine": "N06AB03",
+    "fluvoxamine": "N06AB08",
+    "gepirone": "N06AX19",
+    "halazepam": "N05BA13",
+    "hyperici herba": "N06AX25",
+    "imipramine": "N06AA02",
+    "imipramine oxide": "N06AA03",
+    "iprindole": "N06AA13",
+    "iproclozide": "N06AF06",
+    "iproniazide": "N06AF05",
+    "isocarboxazid": "N06AF01",
+    "ketazolam": "N05BA10",
+    "levomilnacipran": "N06AX28",
+    "lofepramine": "N06AA07",
+    "lorazepam": "N05BA06",
+    "lorazepam, combinations": "N05BA56",
+    "maprotiline": "N06AA21",
+    "medazepam": "N05BA03",
+    "medifoxamine": "N06AX13",
+    "melitracen": "N06AA14",
+    "mexazolam": "N05BA25",
+    "mianserin": "N06AX03",
+    "milnacipran": "N06AX17",
+    "minaprine": "N06AX07",
+    "mirtazapine": "N06AX11",
+    "moclobemide": "N06AG02",
+    "nefazodone": "N06AX06",
+    "nialamide": "N06AF02",
+    "nomifensine": "N06AX04",
+    "nordazepam": "N05BA16",
+    "nortriptyline": "N06AA10",
+    "opipramol": "N06AA05",
+    "oxaflozane": "N06AX10",
+    "oxazepam": "N05BA04",
+    "oxitriptan": "N06AX01",
+    "paroxetine": "N06AB05",
+    "phenelzine": "N06AF03",
+    "pinazepam": "N05BA14",
+    "pivagabine": "N06AX15",
+    "potassium clorazepate": "N05BA05",
+    "prazepam": "N05BA11",
+    "protriptyline": "N06AA11",
+    "quinupramine": "N06AA23",
+    "reboxetine": "N06AX18",
+    "sertraline": "N06AB06",
+    "tianeptine": "N06AX14",
+    "tofisopam": "N05BA23",
+    "toloxatone": "N06AG03",
+    "tranylcypromine": "N06AF04",
+    "trazodone": "N06AX05",
+    "trimipramine": "N06AA06",
+    "tryptophan": "N06AX02",
+    "venlafaxine": "N06AX16",
+    "vilazodone": "N06AX24",
+    "viloxazine": "N06AX09",
+    "vortioxetine": "N06AX26",
+    "zimeldine": "N06AB02",
+    "zuranolone": "N06AX31"
+   }
+  },
+  "ocd": {
+   "icd": [
+    {
+     "category": "F42",
+     "codes": [
+      [
+       "F42.2",
+       "Mixed obsessional thoughts and acts"
+      ],
+      [
+       "F42.3",
+       "Hoarding disorder"
+      ],
+      [
+       "F42.4",
+       "Excoriation (skin-picking) disorder"
+      ],
+      [
+       "F42.8",
+       "Other obsessive-compulsive disorder"
+      ],
+      [
+       "F42.9",
+       "Obsessive-compulsive disorder, unspecified"
+      ]
+     ]
+    }
+   ],
+   "screens": [
+    {
+     "name": "OCI-R",
+     "pmid": "12501574",
+     "title": "The Obsessive-Compulsive Inventory: development and validation of a short version.",
+     "authors": "Foa EB, Huppert JD, Leiberg S, Langner R, Kichic R, Hajcak G, Salkovskis PM.",
+     "journal": "Psychological assessment",
+     "year": "2002",
+     "doi": "10.1037/1040-3590.14.4.485",
+     "quotes": [],
+     "url": "https://europepmc.org/article/MED/12501574"
+    }
+   ],
+   "classes": [
+    {
+     "atc": "N06A",
+     "name": "ANTIDEPRESSANTS"
+    }
+   ],
+   "drugs": {
+    "agomelatine": "N06AX22",
+    "alaproclate": "N06AB07",
+    "amineptine": "N06AA19",
+    "amitriptyline": "N06AA09",
+    "amoxapine": "N06AA17",
+    "bifemelane": "N06AX08",
+    "brexanolone": "N06AX29",
+    "bupropion": "N06AX12",
+    "bupropion and dextromethorphan": "N06AX62",
+    "butriptyline": "N06AA15",
+    "citalopram": "N06AB04",
+    "clomipramine": "N06AA04",
+    "desipramine": "N06AA01",
+    "desvenlafaxine": "N06AX23",
+    "dibenzepin": "N06AA08",
+    "dimetacrine": "N06AA18",
+    "dosulepin": "N06AA16",
+    "doxepin": "N06AA12",
+    "duloxetine": "N06AX21",
+    "escitalopram": "N06AB10",
+    "esketamine": "N06AX27",
+    "etoperidone": "N06AB09",
+    "fluoxetine": "N06AB03",
+    "fluvoxamine": "N06AB08",
+    "gepirone": "N06AX19",
+    "hyperici herba": "N06AX25",
+    "imipramine": "N06AA02",
+    "imipramine oxide": "N06AA03",
+    "iprindole": "N06AA13",
+    "iproclozide": "N06AF06",
+    "iproniazide": "N06AF05",
+    "isocarboxazid": "N06AF01",
+    "levomilnacipran": "N06AX28",
+    "lofepramine": "N06AA07",
+    "maprotiline": "N06AA21",
+    "medifoxamine": "N06AX13",
+    "melitracen": "N06AA14",
+    "mianserin": "N06AX03",
+    "milnacipran": "N06AX17",
+    "minaprine": "N06AX07",
+    "mirtazapine": "N06AX11",
+    "moclobemide": "N06AG02",
+    "nefazodone": "N06AX06",
+    "nialamide": "N06AF02",
+    "nomifensine": "N06AX04",
+    "nortriptyline": "N06AA10",
+    "opipramol": "N06AA05",
+    "oxaflozane": "N06AX10",
+    "oxitriptan": "N06AX01",
+    "paroxetine": "N06AB05",
+    "phenelzine": "N06AF03",
+    "pivagabine": "N06AX15",
+    "protriptyline": "N06AA11",
+    "quinupramine": "N06AA23",
+    "reboxetine": "N06AX18",
+    "sertraline": "N06AB06",
+    "tianeptine": "N06AX14",
+    "toloxatone": "N06AG03",
+    "tranylcypromine": "N06AF04",
+    "trazodone": "N06AX05",
+    "trimipramine": "N06AA06",
+    "tryptophan": "N06AX02",
+    "venlafaxine": "N06AX16",
+    "vilazodone": "N06AX24",
+    "viloxazine": "N06AX09",
+    "vortioxetine": "N06AX26",
+    "zimeldine": "N06AB02",
+    "zuranolone": "N06AX31"
+   }
+  },
+  "stress": {
+   "icd": [
+    {
+     "category": "F43",
+     "codes": [
+      [
+       "F43.0",
+       "Acute stress reaction"
+      ],
+      [
+       "F43.10",
+       "Post-traumatic stress disorder, unspecified"
+      ],
+      [
+       "F43.11",
+       "Post-traumatic stress disorder, acute"
+      ],
+      [
+       "F43.12",
+       "Post-traumatic stress disorder, chronic"
+      ],
+      [
+       "F43.20",
+       "Adjustment disorder, unspecified"
+      ],
+      [
+       "F43.21",
+       "Adjustment disorder with depressed mood"
+      ],
+      [
+       "F43.22",
+       "Adjustment disorder with anxiety"
+      ],
+      [
+       "F43.23",
+       "Adjustment disorder with mixed anxiety and depressed mood"
+      ],
+      [
+       "F43.24",
+       "Adjustment disorder with disturbance of conduct"
+      ],
+      [
+       "F43.25",
+       "Adjustment disorder with mixed disturbance of emotions and conduct"
+      ],
+      [
+       "F43.29",
+       "Adjustment disorder with other symptoms"
+      ],
+      [
+       "F43.81",
+       "Prolonged grief disorder"
+      ],
+      [
+       "F43.89",
+       "Other reactions to severe stress"
+      ],
+      [
+       "F43.9",
+       "Reaction to severe stress, unspecified"
+      ]
+     ]
+    }
+   ],
+   "screens": [
+    {
+     "name": "PCL-5",
+     "pmid": "26606250",
+     "title": "The Posttraumatic Stress Disorder Checklist for DSM-5 (PCL-5): Development and Initial Psychometric Evaluation.",
+     "authors": "Blevins CA, Weathers FW, Davis MT, Witte TK, Domino JL.",
+     "journal": "Journal of traumatic stress",
+     "year": "2015",
+     "doi": "10.1002/jts.22059",
+     "quotes": [],
+     "url": "https://europepmc.org/article/MED/26606250"
+    }
+   ],
+   "classes": [
+    {
+     "atc": "N06A",
+     "name": "ANTIDEPRESSANTS"
+    }
+   ],
+   "drugs": {
+    "agomelatine": "N06AX22",
+    "alaproclate": "N06AB07",
+    "amineptine": "N06AA19",
+    "amitriptyline": "N06AA09",
+    "amoxapine": "N06AA17",
+    "bifemelane": "N06AX08",
+    "brexanolone": "N06AX29",
+    "bupropion": "N06AX12",
+    "bupropion and dextromethorphan": "N06AX62",
+    "butriptyline": "N06AA15",
+    "citalopram": "N06AB04",
+    "clomipramine": "N06AA04",
+    "desipramine": "N06AA01",
+    "desvenlafaxine": "N06AX23",
+    "dibenzepin": "N06AA08",
+    "dimetacrine": "N06AA18",
+    "dosulepin": "N06AA16",
+    "doxepin": "N06AA12",
+    "duloxetine": "N06AX21",
+    "escitalopram": "N06AB10",
+    "esketamine": "N06AX27",
+    "etoperidone": "N06AB09",
+    "fluoxetine": "N06AB03",
+    "fluvoxamine": "N06AB08",
+    "gepirone": "N06AX19",
+    "hyperici herba": "N06AX25",
+    "imipramine": "N06AA02",
+    "imipramine oxide": "N06AA03",
+    "iprindole": "N06AA13",
+    "iproclozide": "N06AF06",
+    "iproniazide": "N06AF05",
+    "isocarboxazid": "N06AF01",
+    "levomilnacipran": "N06AX28",
+    "lofepramine": "N06AA07",
+    "maprotiline": "N06AA21",
+    "medifoxamine": "N06AX13",
+    "melitracen": "N06AA14",
+    "mianserin": "N06AX03",
+    "milnacipran": "N06AX17",
+    "minaprine": "N06AX07",
+    "mirtazapine": "N06AX11",
+    "moclobemide": "N06AG02",
+    "nefazodone": "N06AX06",
+    "nialamide": "N06AF02",
+    "nomifensine": "N06AX04",
+    "nortriptyline": "N06AA10",
+    "opipramol": "N06AA05",
+    "oxaflozane": "N06AX10",
+    "oxitriptan": "N06AX01",
+    "paroxetine": "N06AB05",
+    "phenelzine": "N06AF03",
+    "pivagabine": "N06AX15",
+    "protriptyline": "N06AA11",
+    "quinupramine": "N06AA23",
+    "reboxetine": "N06AX18",
+    "sertraline": "N06AB06",
+    "tianeptine": "N06AX14",
+    "toloxatone": "N06AG03",
+    "tranylcypromine": "N06AF04",
+    "trazodone": "N06AX05",
+    "trimipramine": "N06AA06",
+    "tryptophan": "N06AX02",
+    "venlafaxine": "N06AX16",
+    "vilazodone": "N06AX24",
+    "viloxazine": "N06AX09",
+    "vortioxetine": "N06AX26",
+    "zimeldine": "N06AB02",
+    "zuranolone": "N06AX31"
+   }
+  },
+  "sleep": {
+   "icd": [
+    {
+     "category": "F51",
+     "codes": [
+      [
+       "F51.01",
+       "Primary insomnia"
+      ],
+      [
+       "F51.02",
+       "Adjustment insomnia"
+      ],
+      [
+       "F51.03",
+       "Paradoxical insomnia"
+      ],
+      [
+       "F51.04",
+       "Psychophysiologic insomnia"
+      ],
+      [
+       "F51.05",
+       "Insomnia due to other mental disorder"
+      ],
+      [
+       "F51.09",
+       "Other insomnia not due to a substance or known physiological condition"
+      ],
+      [
+       "F51.11",
+       "Primary hypersomnia"
+      ],
+      [
+       "F51.12",
+       "Insufficient sleep syndrome"
+      ],
+      [
+       "F51.13",
+       "Hypersomnia due to other mental disorder"
+      ],
+      [
+       "F51.19",
+       "Other hypersomnia not due to a substance or known physiological condition"
+      ],
+      [
+       "F51.3",
+       "Sleepwalking [somnambulism]"
+      ],
+      [
+       "F51.4",
+       "Sleep terrors [night terrors]"
+      ],
+      [
+       "F51.5",
+       "Nightmare disorder"
+      ],
+      [
+       "F51.8",
+       "Other sleep disorders not due to a substance or known physiological condition"
+      ],
+      [
+       "F51.9",
+       "Sleep disorder not due to a substance or known physiological condition, unspecified"
+      ]
+     ]
+    },
+    {
+     "category": "G47",
+     "codes": [
+      [
+       "G47.00",
+       "Insomnia, unspecified"
+      ],
+      [
+       "G47.01",
+       "Insomnia due to medical condition"
+      ],
+      [
+       "G47.09",
+       "Other insomnia"
+      ],
+      [
+       "G47.10",
+       "Hypersomnia, unspecified"
+      ],
+      [
+       "G47.11",
+       "Idiopathic hypersomnia with long sleep time"
+      ],
+      [
+       "G47.12",
+       "Idiopathic hypersomnia without long sleep time"
+      ],
+      [
+       "G47.13",
+       "Recurrent hypersomnia"
+      ],
+      [
+       "G47.14",
+       "Hypersomnia due to medical condition"
+      ],
+      [
+       "G47.19",
+       "Other hypersomnia"
+      ],
+      [
+       "G47.20",
+       "Circadian rhythm sleep disorder, unspecified type"
+      ],
+      [
+       "G47.21",
+       "Circadian rhythm sleep disorder, delayed sleep phase type"
+      ],
+      [
+       "G47.22",
+       "Circadian rhythm sleep disorder, advanced sleep phase type"
+      ],
+      [
+       "G47.23",
+       "Circadian rhythm sleep disorder, irregular sleep wake type"
+      ],
+      [
+       "G47.24",
+       "Circadian rhythm sleep disorder, free running type"
+      ],
+      [
+       "G47.25",
+       "Circadian rhythm sleep disorder, jet lag type"
+      ],
+      [
+       "G47.26",
+       "Circadian rhythm sleep disorder, shift work type"
+      ],
+      [
+       "G47.27",
+       "Circadian rhythm sleep disorder in conditions classified elsewhere"
+      ],
+      [
+       "G47.29",
+       "Other circadian rhythm sleep disorder"
+      ],
+      [
+       "G47.30",
+       "Sleep apnea, unspecified"
+      ],
+      [
+       "G47.31",
+       "Primary central sleep apnea"
+      ],
+      [
+       "G47.32",
+       "High altitude periodic breathing"
+      ],
+      [
+       "G47.33",
+       "Obstructive sleep apnea (adult) (pediatric)"
+      ],
+      [
+       "G47.34",
+       "Idiopathic sleep related nonobstructive alveolar hypoventilation"
+      ],
+      [
+       "G47.35",
+       "Congenital central alveolar hypoventilation syndrome"
+      ],
+      [
+       "G47.36",
+       "Sleep related hypoventilation in conditions classified elsewhere"
+      ],
+      [
+       "G47.37",
+       "Central sleep apnea in conditions classified elsewhere"
+      ],
+      [
+       "G47.39",
+       "Other sleep apnea"
+      ],
+      [
+       "G47.411",
+       "Narcolepsy with cataplexy"
+      ],
+      [
+       "G47.419",
+       "Narcolepsy without cataplexy"
+      ],
+      [
+       "G47.421",
+       "Narcolepsy in conditions classified elsewhere with cataplexy"
+      ],
+      [
+       "G47.429",
+       "Narcolepsy in conditions classified elsewhere without cataplexy"
+      ],
+      [
+       "G47.50",
+       "Parasomnia, unspecified"
+      ],
+      [
+       "G47.51",
+       "Confusional arousals"
+      ],
+      [
+       "G47.52",
+       "REM sleep behavior disorder"
+      ],
+      [
+       "G47.53",
+       "Recurrent isolated sleep paralysis"
+      ],
+      [
+       "G47.54",
+       "Parasomnia in conditions classified elsewhere"
+      ],
+      [
+       "G47.59",
+       "Other parasomnia"
+      ],
+      [
+       "G47.61",
+       "Periodic limb movement disorder"
+      ],
+      [
+       "G47.62",
+       "Sleep related leg cramps"
+      ],
+      [
+       "G47.63",
+       "Sleep related bruxism"
+      ],
+      [
+       "G47.69",
+       "Other sleep related movement disorders"
+      ],
+      [
+       "G47.8",
+       "Other sleep disorders"
+      ],
+      [
+       "G47.9",
+       "Sleep disorder, unspecified"
+      ]
+     ]
+    }
+   ],
+   "screens": [
+    {
+     "name": "Insomnia Severity Index (ISI)",
+     "pmid": "11438246",
+     "title": "Validation of the Insomnia Severity Index as an outcome measure for insomnia research.",
+     "authors": "Bastien CH, Vallières A, Morin CM.",
+     "journal": "Sleep medicine",
+     "year": "2001",
+     "doi": "10.1016/s1389-9457(00)00065-4",
+     "quotes": [
+      "The results from Study 2 also indicated that the ISI is a valid and sensitive measure to detect changes in perceived sleep difficulties with treatment."
+     ],
+     "url": "https://europepmc.org/article/MED/11438246"
+    },
+    {
+     "name": "Morningness–Eveningness Questionnaire (MEQ)",
+     "pmid": "1027738",
+     "title": "A self-assessment questionnaire to determine morningness-eveningness in human circadian rhythms.",
+     "authors": "Horne JA, Ostberg O.",
+     "journal": "International journal of chronobiology",
+     "year": "1976",
+     "doi": null,
+     "quotes": [],
+     "url": "https://europepmc.org/article/MED/1027738"
+    }
+   ],
+   "classes": [
+    {
+     "atc": "N05C",
+     "name": "HYPNOTICS AND SEDATIVES"
+    }
+   ],
+   "drugs": {
+    "acetylglycinamide chloral hydrate": "N05CC03",
+    "allobarbital": "N05CA21",
+    "amobarbital": "N05CA02",
+    "aprobarbital": "N05CA05",
+    "apronal": "N05CM12",
+    "barbital": "N05CA04",
+    "barbiturates in combination with other drugs": "N05CB02",
+    "bromides": "N05CM11",
+    "bromisoval": "N05CM03",
+    "brotizolam": "N05CD09",
+    "butobarbital": "N05CA03",
+    "carbromal": "N05CM04",
+    "chloral hydrate": "N05CC01",
+    "chloralodol": "N05CC02",
+    "cinolazepam": "N05CD13",
+    "clomethiazole": "N05CM02",
+    "clomethiazole, combinations": "N05CX04",
+    "combinations of barbiturates": "N05CB01",
+    "cyclobarbital": "N05CA10",
+    "daridorexant": "N05CJ03",
+    "dexmedetomidine": "N05CM18",
+    "dichloralphenazone": "N05CC04",
+    "dipiperonylaminoethanol, combinations": "N05CX06",
+    "doxefazepam": "N05CD12",
+    "emepronium, combinations": "N05CX05",
+    "estazolam": "N05CD04",
+    "eszopiclone": "N05CF04",
+    "etallobarbital": "N05CA20",
+    "ethchlorvynol": "N05CM08",
+    "flunitrazepam": "N05CD03",
+    "flurazepam": "N05CD01",
+    "glutethimide": "N05CE01",
+    "heptabarbital": "N05CA11",
+    "hexapropymate": "N05CM10",
+    "hexobarbital": "N05CA16",
+    "lemborexant": "N05CJ02",
+    "loprazolam": "N05CD11",
+    "lormetazepam": "N05CD06",
+    "melatonin": "N05CH01",
+    "meprobamate, combinations": "N05CX01",
+    "methaqualone": "N05CM01",
+    "methaqualone, combinations": "N05CX02",
+    "methohexital": "N05CA15",
+    "methylpentynol": "N05CM15",
+    "methylpentynol, combinations": "N05CX03",
+    "methyprylon": "N05CE02",
+    "midazolam": "N05CD08",
+    "niaprazine": "N05CM16",
+    "nimetazepam": "N05CD15",
+    "nitrazepam": "N05CD02",
+    "paraldehyde": "N05CC05",
+    "pentobarbital": "N05CA01",
+    "propiomazine": "N05CM06",
+    "proxibarbal": "N05CA22",
+    "pyrithyldione": "N05CE03",
+    "quazepam": "N05CD10",
+    "ramelteon": "N05CH02",
+    "remimazolam": "N05CD14",
+    "reposal": "N05CA12",
+    "scopolamine": "N05CM05",
+    "secobarbital": "N05CA06",
+    "suvorexant": "N05CJ01",
+    "talbutal": "N05CA07",
+    "tasimelteon": "N05CH03",
+    "temazepam": "N05CD07",
+    "thiopental": "N05CA19",
+    "triazolam": "N05CD05",
+    "triclofos": "N05CM07",
+    "valerianae radix": "N05CM09",
+    "valnoctamide": "N05CM13",
+    "vinbarbital": "N05CA09",
+    "vinylbital": "N05CA08",
+    "zaleplon": "N05CF03",
+    "zolpidem": "N05CF02",
+    "zopiclone": "N05CF01"
+   }
+  },
+  "neurodev": {
+   "icd": [
+    {
+     "category": "F84",
+     "codes": [
+      [
+       "F84.0",
+       "Autistic disorder"
+      ],
+      [
+       "F84.2",
+       "Rett's syndrome"
+      ],
+      [
+       "F84.3",
+       "Other childhood disintegrative disorder"
+      ],
+      [
+       "F84.5",
+       "Asperger's syndrome"
+      ],
+      [
+       "F84.8",
+       "Other pervasive developmental disorders"
+      ],
+      [
+       "F84.9",
+       "Pervasive developmental disorder, unspecified"
+      ]
+     ]
+    },
+    {
+     "category": "F90",
+     "codes": [
+      [
+       "F90.0",
+       "Attention-deficit hyperactivity disorder, predominantly inattentive type"
+      ],
+      [
+       "F90.1",
+       "Attention-deficit hyperactivity disorder, predominantly hyperactive type"
+      ],
+      [
+       "F90.2",
+       "Attention-deficit hyperactivity disorder, combined type"
+      ],
+      [
+       "F90.8",
+       "Attention-deficit hyperactivity disorder, other type"
+      ],
+      [
+       "F90.9",
+       "Attention-deficit hyperactivity disorder, unspecified type"
+      ]
+     ]
+    }
+   ],
+   "screens": [
+    {
+     "name": "Adult ADHD Self-Report Scale (ASRS)",
+     "pmid": "15841682",
+     "title": "The World Health Organization Adult ADHD Self-Report Scale (ASRS): a short screening scale for use in the general population.",
+     "authors": "Kessler RC, Adler L, Ames M, Demler O, Faraone S, Hiripi E, Howes MJ, Jin R, Secnik K, Spencer T, Ustun TB, Walters EE.",
+     "journal": "Psychological medicine",
+     "year": "2005",
+     "doi": "10.1017/s0033291704002892",
+     "quotes": [
+      "However, because of the wide variation in symptom-level concordance, the unweighted six-question ASRS screener outperformed the unweighted 18-question ASRS in sensitivity (68.7% v. 56.3%), specificity (99.5% v. 98.3%), total classification accuracy (97.9% v. 96.2%), and kappa (0.76 v. 0.58)."
+     ],
+     "url": "https://europepmc.org/article/MED/15841682"
+    },
+    {
+     "name": "AQ-10",
+     "pmid": "22265366",
+     "title": "Toward brief “Red Flags” for autism screening: The Short Autism Spectrum Quotient and the Short Quantitative Checklist for Autism in toddlers in 1,000 cases and 3,000 controls [corrected].",
+     "authors": "Allison C, Auyeung B, Baron-Cohen S.",
+     "journal": "Journal of the American Academy of Child and Adolescent Psychiatry",
+     "year": "2012",
+     "doi": "10.1016/j.jaac.2011.11.003",
+     "quotes": [
+      "At a cut-point of 6 on the AQ-10 adult, sensitivity was 0.88, specificity was 0.91, and positive predictive value (PPV) was 0.85.",
+      "At a cut-point of 6 on the AQ-10 adolescent, sensitivity was 0.93, specificity was 0.95, and PPV was 0.86.",
+      "At a cut-point of 6 on the AQ-10 child, sensitivity was 0.95, specificity was 0.97, and PPV was 0.94."
+     ],
+     "url": "https://europepmc.org/article/MED/22265366"
+    }
+   ],
+   "classes": [
+    {
+     "atc": "N06BA",
+     "name": "Centrally acting sympathomimetics"
+    }
+   ],
+   "drugs": {
+    "amfetamine": "N06BA01",
+    "armodafinil": "N06BA13",
+    "atomoxetine": "N06BA09",
+    "dexamfetamine": "N06BA02",
+    "dexmethylphenidate": "N06BA11",
+    "dexmethylphenidate and serdexmethylphenidate": "N06BA15",
+    "fencamfamin": "N06BA06",
+    "fenetylline": "N06BA10",
+    "fenozolone": "N06BA08",
+    "lisdexamfetamine": "N06BA12",
+    "metamfetamine": "N06BA03",
+    "methylphenidate": "N06BA04",
+    "modafinil": "N06BA07",
+    "pemoline": "N06BA05",
+    "solriamfetol": "N06BA14"
+   }
+  }
+ }
+}

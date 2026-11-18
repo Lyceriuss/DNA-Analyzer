@@ -563,47 +563,44 @@ def cluster(people=()):
     return out
 
 
-# The last step of the introduction: the rules around working with one's own DNA. The choice here is the acts, the
-# articles and the regex anchors; every quoted sentence is read from the official text at export (EUR-Lex for the EU
-# acts, riksdagen.se for Swedish law), cached. An item whose text can't be fetched or matched is left out.
+# The last step of the introduction: the EU rules around working with one's own DNA. The choice here is the acts, the
+# articles and the regex anchors; every quoted sentence is read from the official text at export (EUR-Lex, or the EU
+# Publications Office's Cellar when EUR-Lex answers with a bot check), cached. An item is a reference and one or more
+# anchors (several are joined with " … "); one whose text can't be fetched or matched is left out.
 LAW = [
-    {"id": "gdpr", "level": "EU", "act": "General Data Protection Regulation (EU) 2016/679", "short": "GDPR",
-     "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32016R0679", "source": "eurlex", "celex": "32016R0679",
-     "items": [("Art. 4(13)", r"\(13\) ‘genetic data’[^;]*;"),
+    {"id": "gdpr", "act": "General Data Protection Regulation (EU) 2016/679", "short": "GDPR", "celex": "32016R0679",
+     "items": [("Art. 4(13)", r"‘genetic data’ means[^;]*;"),
                ("Art. 9(1)", r"Processing of personal data revealing racial[^.]*\."),
                ("Art. 9(2)(a)", r"\(a\) the data subject has given explicit consent[^;]*;"),
-               ("Art. 2(2)(c)", r"\(c\) by a natural person in the course of a purely personal or household activity;"),
-               ("Recital 18", r"\(18\) This Regulation does not apply to the processing of personal data by a natural person in the course of a purely personal or household activity[^.]*\.")]},
-    {"id": "mdr", "level": "EU", "act": "Medical Device Regulation (EU) 2017/745", "short": "MDR",
-     "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32017R0745", "source": "eurlex", "celex": "32017R0745",
-     "items": [("Art. 2(1)", r"\(1\) ‘medical device’ means[^—]*?purposes: — diagnosis, prevention, monitoring, prediction, prognosis, treatment or alleviation of disease,"),
-               ("Art. 2(12)", r"\(12\) ‘intended purpose’ means[^;]*;"),
-               ("Annex VIII, Rule 11", r"Software intended to provide information which is used to take decisions with diagnosis or therapeutic purposes is classified as class IIa")]},
-    {"id": "ivdr", "level": "EU", "act": "In Vitro Diagnostic Medical Device Regulation (EU) 2017/746", "short": "IVDR",
-     "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32017R0746", "source": "eurlex", "celex": "32017R0746",
-     "items": [("Art. 2(2)", r"\(2\) ‘ ?in vitro diagnostic medical device’ means any medical device which is[^,]*, reagent product, calibrator, control material, kit, instrument, apparatus, piece of equipment, software or system[^:]*:"),
-               ("Art. 2(2)(c)", r"\(c\) concerning the predisposition to a medical condition or a disease;")]},
-    {"id": "gi", "level": "Sweden", "act": "Lag (2006:351) om genetisk integritet m.m.", "short": "2006:351",
-     "url": "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/lag-2006351-om-genetisk-integritet-mm_sfs-2006-351/",
-     "source": "riksdagen", "lang": "sv",
-     "items": [("1 kap. 5 §", r"genetisk undersökning: en undersökning inom hälso- och sjukvården eller medicinsk forskning[^,]*,"),
-               ("2 kap. 1 §", r"Ingen får utan stöd i lag ställa som villkor för ett avtal[^.]*\. Ingen får utan stöd i lag i samband med ett avtal efterforska eller använda genetisk information om den andre\. Ingen får olovligen bereda sig tillgång till genetisk information om någon annan\."),
-               ("2 kap. 2 §", r"I fråga om riskbedömd personförsäkring får .{0,400}?30 prisbasbelopp")]},
+               ("Art. 2(2)(c)", (r"This Regulation does not apply to the processing of personal data: \(a\)", r"\(c\) by a natural person in the course of a purely personal or household activity;")),
+               ("Art. 5(1)(c)", r"adequate, relevant and limited to what is necessary in relation to the purposes for which they are processed \(‘data minimisation’\);"),
+               ("Art. 17(1)", r"The data subject shall have the right to obtain from the controller the erasure of personal data concerning him or her without undue delay[^:]*:")]},
+    {"id": "ivdr", "act": "In Vitro Diagnostic Medical Device Regulation (EU) 2017/746", "short": "IVDR", "celex": "32017R0746",
+     "items": [("Art. 2(2)", r"‘ ?in vitro diagnostic medical device’ means any medical device which is.*?\(f\) to define or monitoring therapeutic measures\."),
+               ("Art. 2(12)", r"‘intended purpose’ means[^;]*;"),
+               ("Annex VIII, Rule 3", (r"Devices are classified as class C if they are intended:", r"\(f\) to be used as companion diagnostics;", r"\(i\) for human genetic testing;")),
+               ("Art. 5(1)", r"A device may be placed on the market or put into service only if it complies with this Regulation[^.]*\."),
+               ("Art. 6(1)", r"A device offered by means of information society services[^.]*?shall comply with this Regulation\."),
+               ("Art. 7", r"In the labelling, instructions for use, making available, putting into service and advertising of devices, it shall be prohibited[^:]*: \(a\)[^;]*; \(b\)[^;]*;"),
+               ("Art. 4(1)", r"Member States shall ensure that where a genetic test is used on individuals.*?as appropriate\.")]},
 ]
 
 
 def law_text(item):
     """The act's text as plain words, fetched once and cached (public pages; no personal data is sent)."""
     from cluster_analysis import sources
+    url = f"https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:{item['celex']}"
     def fetch():
         import requests
-        url = item["url"] if item["source"] == "riksdagen" else f"https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:{item['celex']}"
-        r = requests.get(url, timeout=90, headers={"User-Agent": "Mozilla/5.0 (DNA-Analyzer; research)"})
-        r.raise_for_status()
-        t = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", r.text)).replace("&nbsp;", " ").replace("&#160;", " ")
-        return {"text": t}
+        for u, h in ((url, {"Accept": "text/html"}),
+                     (f"http://publications.europa.eu/resource/celex/{item['celex']}", {"Accept": "application/xhtml+xml", "Accept-Language": "eng"})):
+            r = requests.get(u, timeout=90, headers={"User-Agent": "Mozilla/5.0 (DNA-Analyzer; research)", **h})
+            if r.status_code == 200 and len(r.text) > 50000:   # EUR-Lex's bot check is a short 202 page
+                t = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", r.text)).replace("&nbsp;", " ").replace("&#160;", " ")
+                return {"text": t}
+        raise RuntimeError(f"{item['short']}: no text")
     try:
-        return (sources._cached("law_text", item["url"], fetch) or {}).get("text", "")
+        return (sources._cached("law_text", url, fetch) or {}).get("text", "")
     except Exception:
         return ""
 
@@ -611,62 +608,17 @@ def law_text(item):
 def law():
     out = []
     for a in LAW:
-        t = law_text(a)
+        t = re.sub(r"\( \d+ \) ?", "", law_text(a))   # footnote marks are spaced, "( 23 )"; "Article 1(1)" is not
         quotes = []
         for ref, rx in a["items"]:
-            m = re.search(rx, t)
-            if m:
-                quotes.append({"ref": ref, "text": re.sub(r"\s+([,;:.])", r"\1", m.group(0)).replace("‘ ", "‘").strip()})
+            parts = [re.search(x, t) for x in ((rx,) if isinstance(rx, str) else rx)]
+            if all(parts):
+                text = " … ".join(m.group(0) for m in parts)
+                quotes.append({"ref": ref, "text": re.sub(r"\s+([,;:.)])", r"\1", text).replace("‘ ", "‘").replace("( ", "(").strip()})
         if quotes:
-            out.append({k: a[k] for k in ("id", "level", "act", "short", "url")} | {"lang": a.get("lang", "en"), "quotes": quotes})
+            out.append({k: a[k] for k in ("id", "act", "short")} |
+                       {"url": f"https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:{a['celex']}", "quotes": quotes})
     return out
-
-
-def gwas_limits():
-    """From the GWAS Catalog's full association file: how many studies and participants are of European ancestry
-    alone, and how large the per-copy odds ratios are (folded to >= 1)."""
-    import csv
-    import io
-    import statistics
-    import zipfile
-    from cluster_analysis import sources
-    path = os.path.join(ROOT, "data", "reference", "gwas_associations.zip")
-    if not os.path.exists(path):
-        return None
-    OTHER = re.compile(r"African|Asian|Hispanic|Latin|Japanese|Chinese|Korean|Indian|Arab|Native|Oceanian|Greater Middle Eastern|"
-                       r"Sub-Saharan|Caribbean|Mexican|Brazilian|Pakistani|Bangladeshi|Iranian|Turkish|Filipino|Thai|Vietnamese|"
-                       r"Malay|Taiwanese|Singapore|Han|other|multiple|unspecified|NR|not reported", re.I)
-    NUM = re.compile(r"(\d{1,3}(?:,\d{3})+|\d+)\s+([^\d]*?)(?=,\s*(?:up to\s*)?\d|$)")
-    def fetch():
-        z = zipfile.ZipFile(path)
-        studies, ors = {}, []
-        for r in csv.DictReader(io.TextIOWrapper(z.open(z.namelist()[0]), encoding="utf-8"), delimiter="\t"):
-            acc = (r.get("PUBMEDID"), r.get("STUDY"), r.get("INITIAL SAMPLE SIZE"))   # one study (the file has no accession column)
-            if acc[0] and acc not in studies:
-                eur = other = 0
-                for n, desc in NUM.findall(r.get("INITIAL SAMPLE SIZE") or ""):
-                    k = int(n.replace(",", ""))
-                    if "European" in desc and not OTHER.search(desc):
-                        eur += k
-                    elif desc.strip():
-                        other += k
-                studies[acc] = (eur, other)
-            ci = r.get("95% CI (TEXT)") or ""
-            try:
-                v = float(r.get("OR or BETA") or "")
-            except ValueError:
-                continue
-            if v > 0 and not re.search(r"unit|increase|decrease|z.score|SD|%", ci, re.I):
-                ors.append(max(v, 1 / v))
-        tot_e = sum(e for e, o in studies.values()); tot = sum(e + o for e, o in studies.values())
-        only = sum(1 for e, o in studies.values() if e and not o)
-        ors.sort()
-        return {"studies": len(studies), "european_only_studies": only, "participants": tot, "european_participants": tot_e,
-                "odds_ratios": len(ors), "or_median": round(statistics.median(ors), 3) if ors else None,
-                "or_below_1_2": sum(1 for x in ors if x < 1.2), "or_below_1_5": sum(1 for x in ors if x < 1.5),
-                "file_date": z.getinfo(z.namelist()[0]).date_time[:3]}
-    st = os.stat(path)
-    return sources._cached("gwas_limits_v2", f"{st.st_size}|{int(st.st_mtime)}", fetch)
 
 
 def rows(people):
@@ -676,7 +628,7 @@ def rows(people):
                         "buildup": json.dumps(buildup(), ensure_ascii=False)},
             {"person": None, "kind": "pairs", "pairs": json.dumps(pairs(), ensure_ascii=False, separators=(",", ":"))},
             {"person": None, "kind": "cluster", "cluster": json.dumps(cluster(people), ensure_ascii=False)},
-            {"person": None, "kind": "law", "law": json.dumps(law(), ensure_ascii=False), "limits": json.dumps(gwas_limits())}] + \
+            {"person": None, "kind": "law", "law": json.dumps(law(), ensure_ascii=False)}] + \
         [person(p) for p in people]
 
 

@@ -367,6 +367,139 @@ THEMES = {
         "disease_explain": "Human genetics (Open Targets) ties these genes to muscle strength, mass, damage or recovery, but Gene Ontology "
                            "places them in none of the stages yet. Most are GWAS loci near a gene whose role in muscle is still unclear.",
     },
+    "mind": {
+        "name": "Mind, mood and sleep",
+        "person": "data/input/MyHeritage_raw_dna_data_XY.csv",
+        "view": "clinical",
+        "view_title": "The clinical path",
+        "view_note": "The diagnostic groups of ICD-10's mental and behavioural chapter, the classification Swedish care codes in, "
+                     "each walked along the path a clinician takes: a validated screening test, what genetics adds, the mechanisms "
+                     "behind it, and how the person's genes change the response to its medicines. Select a group to open it.",
+        "about": "Mental health along the path a clinician takes. For each diagnostic group of ICD-10 (substance use, psychosis, "
+                 "bipolar disorder, depression, anxiety, obsessive-compulsive and stress-related disorders, sleep, and "
+                 "neurodevelopmental conditions): the validated screening test, the genes human genetics ties to it, the "
+                 "mechanisms those genes act through, and the medicines whose response the person's genes change. Genes come from "
+                 "Open Targets and Gene Ontology.",
+        "diseases": {
+            "MONDO_0002009": "major depressive disorder", "MONDO_0005618": "anxiety disorder",
+            "MONDO_0005146": "post-traumatic stress disorder", "MONDO_0005090": "schizophrenia", "MONDO_0004985": "bipolar disorder",
+            "MONDO_0007743": "ADHD", "MONDO_0005258": "autism spectrum disorder", "MONDO_0008114": "obsessive-compulsive disorder",
+            "EFO_0007660": "neuroticism", "MONDO_0013600": "insomnia", "EFO_0008328": "chronotype", "OBA_2040171": "sleep duration",
+            "MONDO_0007079": "alcohol dependence", "EFO_0004329": "alcohol drinking", "MONDO_0008575": "nicotine dependence",
+            "EFO_0005670": "smoking initiation", "EFO_0006525": "cigarettes per day", "MONDO_0005689": "cannabis dependence",
+            "EFO_0006781": "coffee consumption", "EFO_0007872": "caffeine metabolite level",
+            "EFO_0008354": "cognitive function", "EFO_0008579": "risk-taking",
+        },
+        # Behaviour and level traits have thousands of weak links: joining on them alone takes strong human genetic evidence.
+        # The caffeine traits have few (a few hundred genes, most of them weak), so they join like the conditions.
+        "measurements": ["neuroticism", "chronotype", "sleep duration", "alcohol drinking", "smoking initiation", "cigarettes per day",
+                         "cognitive function", "risk-taking"],
+        "disease_join": "genetic",
+        "rule": "Gene Ontology stage genes (broad brain stages only where GTEx shows the gene expressed in the cortex), plus genes "
+                "with human genetic evidence ≥ 0.5 for a psychiatric, sleep, caffeine or substance-use trait (≥ 0.8 for behaviour "
+                "and level traits such as chronotype, neuroticism or alcohol drinking)",
+        "pathway_terms": r"Neurotransmitter|Dopamine|Serotonin|Norepinephrine|Adrenaline|GABA|Glutamate|NMDA|AMPA|Acetylcholine|"
+                         r"Nicotinic|Cannabinoid|Opioid|Circadian|Melatonin|Ethanol|Synap|Axon guidance|Neurexin|Neuroligin|"
+                         r"Corticotropin|Glucocorticoid|Oxytocin|Adenosine",
+        "clinvar_terms": r"depress|anxiety|schizophren|bipolar|psychos|attention deficit|ADHD|autis|intellectual disability|"
+                         r"obsessive|insomnia|sleep|narcolep|circadian|alcohol|nicotine|epilep|dopamine|serotonin|monoamine|"
+                         r"Brunner|neurodevelopment",
+        # The ICD-10 diagnostic groups (chapter F, sleep from G47), in the chapter's order. The choices: which codes,
+        # screening tests (by the PubMed id of their validation paper) and ATC drug classes belong to a group;
+        # themes/mind_clinical.py fetches what they are (code titles, papers, drugs)
+        "organs": [
+            {"id": "substance", "name": "Substance use", "icd": ["F10", "F12", "F15", "F17"],
+             "about": "Alcohol, cannabis, caffeine and nicotine: harmful use and dependence.",
+             "screens": [{"name": "AUDIT", "pmid": "8329970"}, {"name": "Fagerström Test for Nicotine Dependence", "pmid": "1932883"},
+                         {"name": "CUDIT-R", "pmid": "20347232"}],
+             "atc": ["N07B"]},
+            {"id": "psychotic", "name": "Schizophrenia and psychosis", "icd": ["F20"],
+             "about": "Schizophrenia and other primary psychotic disorders.",
+             "screens": [{"name": "Prodromal Questionnaire, brief (PQ-B)", "pmid": "21511440"}], "atc": ["N05A"]},
+            {"id": "bipolar", "name": "Bipolar disorder", "icd": ["F31"],
+             "about": "Episodes of mania or hypomania alternating with depression.",
+             "screens": [{"name": "Mood Disorder Questionnaire (MDQ)", "pmid": "11058490"}],
+             "atc": ["N05AN", "N05A", "N03AF", "N03AG", "N03AX09"]},
+            {"id": "depressive", "name": "Depression", "icd": ["F32", "F33"],
+             "about": "A single depressive episode or recurrent depression.",
+             "screens": [{"name": "PHQ-9", "pmid": "11556941"}], "atc": ["N06A"]},
+            {"id": "anxiety", "name": "Anxiety disorders", "icd": ["F41"],
+             "about": "Generalised anxiety and panic, with neuroticism, the trait most tied to them.",
+             "screens": [{"name": "GAD-7", "pmid": "16717171"}], "atc": ["N06A", "N05BA"]},
+            {"id": "ocd", "name": "Obsessive-compulsive disorder", "icd": ["F42"],
+             "about": "Intrusive thoughts and the rituals that answer them.",
+             "screens": [{"name": "OCI-R", "pmid": "12501574"}], "atc": ["N06A"]},
+            {"id": "stress", "name": "Stress-related disorders", "icd": ["F43"],
+             "about": "Post-traumatic stress and other reactions to severe stress.",
+             "screens": [{"name": "PCL-5", "pmid": "26606250"}], "atc": ["N06A"]},
+            {"id": "sleep", "name": "Sleep disorders", "icd": ["F51", "G47"],
+             "about": "Insomnia, with sleep length and chronotype, the morning or evening type.",
+             "screens": [{"name": "Insomnia Severity Index (ISI)", "pmid": "11438246"},
+                         {"name": "Morningness–Eveningness Questionnaire (MEQ)", "pmid": "1027738"}],
+             "atc": ["N05C"]},
+            {"id": "neurodev", "name": "Neurodevelopmental conditions", "icd": ["F84", "F90"],
+             "about": "ADHD and autism, with cognitive function and risk-taking.",
+             "screens": [{"name": "Adult ADHD Self-Report Scale (ASRS)", "pmid": "15841682"}, {"name": "AQ-10", "pmid": "22265366"}],
+             "atc": ["N06BA"]},
+        ],
+        "disease_organs": {
+            "alcohol dependence": "substance", "alcohol drinking": "substance", "nicotine dependence": "substance",
+            "smoking initiation": "substance", "cigarettes per day": "substance", "cannabis dependence": "substance",
+            "coffee consumption": "substance", "caffeine metabolite level": "substance", "schizophrenia": "psychotic",
+            "bipolar disorder": "bipolar", "major depressive disorder": "depressive", "anxiety disorder": "anxiety",
+            "neuroticism": "anxiety", "obsessive-compulsive disorder": "ocd", "post-traumatic stress disorder": "stress",
+            "insomnia": "sleep", "sleep duration": "sleep", "chronotype": "sleep", "ADHD": "neurodev",
+            "autism spectrum disorder": "neurodev", "cognitive function": "neurodev", "risk-taking": "neurodev",
+        },
+        # `tissue`: broad neural terms count a gene only where GTEx shows it expressed in the brain's cortex. Behaviour is
+        # mostly known from mouse, so those mechanisms take annotations carried over from orthologs.
+        "mechanisms": [
+            {"id": "axons", "name": "Axon growth and guidance", "go": ["GO:0007409"], "tissue": "Brain - Cortex",
+             "about": "Neurons growing their axons and steering them to their targets."},
+            {"id": "synapses", "name": "Building synapses", "go": ["GO:0007416"], "tissue": "Brain - Cortex",
+             "about": "Assembling the contacts through which neurons signal to each other."},
+            {"id": "myelin", "name": "Myelination", "go": ["GO:0042552"],
+             "about": "Wrapping axons in myelin so that signals travel fast."},
+            {"id": "circadian", "name": "Circadian clock", "go": ["GO:0007623", "GO:0042745"], "orthologs": True,
+             "about": "The clock genes and the sleep–wake cycle they run."},
+            {"id": "adenosine", "name": "Adenosine and caffeine", "go": ["GO:0001973", "GO:0031000"],
+             "about": "Adenosine receptor signalling, which caffeine blocks, and the response to caffeine."},
+            {"id": "cortisol", "name": "Cortisol signalling", "go": ["GO:0051414", "GO:0042921"],
+             "about": "The response to cortisol and the glucocorticoid receptor's signal."},
+            {"id": "fear", "name": "Fear and startle", "go": ["GO:0042596", "GO:0001964"], "orthologs": True,
+             "about": "Fear responses and the startle reflex."},
+            {"id": "dopamine", "name": "Dopamine", "go": ["GO:0007212", "GO:0042417"],
+             "about": "Making and breaking down dopamine, and its receptors."},
+            {"id": "noradrenaline", "name": "Noradrenaline", "go": ["GO:0042415"],
+             "about": "Making and breaking down noradrenaline, the signal of arousal and attention."},
+            {"id": "serotonin", "name": "Serotonin", "go": ["GO:0042428", "GO:0007210"],
+             "about": "Making and breaking down serotonin, and its receptors."},
+            {"id": "glutamate", "name": "Glutamate", "go": ["GO:0007215"], "tissue": "Brain - Cortex",
+             "about": "Glutamate receptors, the brain's main excitatory signal."},
+            {"id": "gaba", "name": "GABA", "go": ["GO:0007214", "GO:0009449", "GO:0009450"],
+             "about": "Making and breaking down GABA, the brain's main inhibitory signal, and its receptors."},
+            {"id": "memory", "name": "Learning and memory", "go": ["GO:0007611"], "orthologs": True,
+             "tissue": "Brain - Cortex", "about": "Genes for learning and memory."},
+            {"id": "plasticity", "name": "Synaptic plasticity", "go": ["GO:0048167"], "tissue": "Brain - Cortex",
+             "about": "Synapses strengthening and weakening with use."},
+            {"id": "social", "name": "Social behaviour and oxytocin", "go": ["GO:0035176", "GO:0036162"], "orthologs": True,
+             "about": "Social behaviour, and making oxytocin."},
+            {"id": "ethanol", "name": "Alcohol breakdown and response", "go": ["GO:0006067", "GO:0048149"], "orthologs": True,
+             "about": "Breaking ethanol down to acetaldehyde and acetate, and the behavioural response to alcohol."},
+            {"id": "nicotine", "name": "Nicotine and acetylcholine", "go": ["GO:0035094", "GO:0095500"],
+             "about": "The response to nicotine and the acetylcholine receptors it acts on."},
+            {"id": "cannabinoid", "name": "Cannabinoid signalling", "go": ["GO:0038171", "GO:0070291"],
+             "about": "The brain's own cannabinoid system, which cannabis acts on: its receptors, and the enzymes that make and break "
+                      "down its signals."},
+            {"id": "sleep", "name": "Sleep", "go": ["GO:0030431"], "orthologs": True,
+             "about": "Genes that start and keep sleep."},
+            {"id": "melatonin", "name": "Melatonin", "go": ["GO:0030186"],
+             "about": "Making and breaking down melatonin, the night signal."},
+        ],
+        "disease_explain": "Human genetics (Open Targets) ties these genes to a psychiatric, sleep or substance-use trait, but Gene "
+                           "Ontology places them in none of the stages yet. Most are GWAS loci in genes that shape how the brain "
+                           "is wired, each with a small effect.",
+    },
 }
 
 # What each mechanism means and how a change in it plays out; shown in the explorer's in-depth view
@@ -649,6 +782,7 @@ def build(theme_id):
             f"Gene Ontology stage genes with an Open Targets cancer score ≥ {theme['mechanism_min_disease']}, plus genes with "
             "human genetic evidence ≥ 0.5 for a cancer")
     return {"theme": theme_id, "name": theme["name"], "about": theme["about"], "rule": rule, "view": theme.get("view"),
+            "phases": theme.get("phases"), "view_title": theme.get("view_title"), "view_note": theme.get("view_note"),
             "diseases": theme["diseases"], "disease_ids": disease_ids,
             "mechanisms": [{**{k: m.get(k) for k in ("id", "name", "about", "go", "organ")},
                             "explain": EXPLAIN.get(theme_id, {}).get(m["id"])} for m in theme["mechanisms"]],

@@ -72,12 +72,6 @@
       && (m.score.percentile <= 20) === (m.higher === 'better'));
   });
   const inList = (el, items) => inMake(el, 'ul', 'in-list').append(...items.map((x) => { const li = document.createElement('li'); li.textContent = x; return li; }));
-  const inOpen = (parent, tab, label) => {
-    const b = inMake(parent, 'button', null, inT('Open {}', label));
-    b.type = 'button';
-    b.addEventListener('click', () => { if (!inLocked()) gx.show(tab); });
-    return b;
-  };
   // Small line icons for the groups of research databases (24×24, stroke in the current colour)
   const IN_ICONS = {
     reading: 'M7 3c0 6 10 6 10 12s-10 6-10 6M17 3c0 6-10 6-10 12s10 6 10 6M8 7h8M8 17h8M9.5 12h5',
@@ -103,7 +97,6 @@
     else inMake(t, 'span', 'in-logo-txt', d.name.split(/\s+/).map((w) => w[0]).join('').slice(0, 4).toUpperCase()).setAttribute('data-i18n-skip', '');
     return t;
   };
-  const TAB_NAMES = { clusters: 'Clusters', medicines: 'Medicines', nutrition: 'Nutrition', biomarkers: 'Biomarkers' };  // Nutrition opens in Clusters
 
   // The steps: how it works (and what imputation is), the research behind it, what it gives, the file, reading it
   const IN_STEPS = [
@@ -935,7 +928,7 @@
       if (!seen.size) inMake(a2, 'p', 'gx-note', 'No lab value or nutrient level is moved by these genes in the GWAS Catalog findings the tabs read.');
       if (!inLocked()) {
         const nav = inMake(a2, 'div', 'in-rc-nav');
-        for (const [t, label] of [['biomarkers', 'Biomarkers'], ['nutrition', 'Nutrition']]) { const b = inMake(nav, 'button', 'lc-btn', inT('Open {}', label)); b.type = 'button'; b.addEventListener('click', () => gx.show(t)); }
+        for (const [t, label] of [['biomarkers', 'Biomarkers'], ['nutrition', 'Nutrition in Clusters']]) { const b = inMake(nav, 'button', 'lc-btn', inT('Open {}', label)); b.type = 'button'; b.addEventListener('click', () => gx.show(t)); }
       }
       // --- The example gene, told for the person (intro.py CLUSTER: GTEx, UniProt, Reactome, studies in women, GWAS)
       if (deep) {
@@ -1193,16 +1186,94 @@
         });
       }
     } },
-    { title: 'Your DNA, the law and the limits', draw: (el, c) => {
-      const p = c.p || {};
-      let LAWS = [], LIM = null;
-      try { const row = (gx.rows('intro_stats') || [[]])[0].find((x) => x.kind === 'law'); LAWS = JSON.parse(row.law || '[]') || []; LIM = JSON.parse(row.limits || 'null'); } catch (e) { /* none */ }
-      const pct = (a, b) => (b ? Math.round((a / b) * 100) : 0);
+    { title: 'Your DNA and EU law', draw: (el) => {
+      let LAWS = [];
+      try { const row = (gx.rows('intro_stats') || [[]])[0].find((x) => x.kind === 'law'); LAWS = JSON.parse(row.law || '[]') || []; } catch (e) { /* none */ }
+      const Q = {};
+      for (const a of LAWS) for (const q of a.quotes) Q[a.short + ' ' + q.ref] = { ...q, act: a };
+      const slug = (k) => 'in-lw-' + k.replace(/[^A-Za-z0-9]+/g, '-');
+      // A reference chip: 'IVDR Art. 2(2)|(c)' is IVDR's quoted Art. 2(2), labelled with its point (c); a click shows the quote
+      const chip = (parent, spec) => {
+        const [key, sub] = spec.split('|'), q = Q[key];
+        const b = inMake(parent, q ? 'button' : 'span', 'in-lw-chip', key + (sub || ''));
+        b.setAttribute('data-i18n-skip', '');
+        if (q) {
+          b.type = 'button';
+          b.title = q.text.length > 220 ? q.text.slice(0, 220) + '…' : q.text;
+          b.addEventListener('click', () => {
+            const t = document.getElementById(slug(key));
+            if (!t) return;
+            t.scrollIntoView({ block: 'center', behavior: 'smooth' });
+            t.classList.remove('is-flash'); void t.offsetWidth; t.classList.add('is-flash');
+          });
+        }
+        return b;
+      };
+      const chips = (parent, specs) => { const w = inMake(parent, 'span', 'in-lw-chips'); for (const s of specs) chip(w, s); return w; };
       const sec = (n, title) => { const s = inMake(el, 'div', 'in-rc-sec in-lw-sec'); inMake(s, 'h3', null, inT('{}. {}', n, title)); return s; };
+      inMake(el, 'p', 'in-lw-lead', 'Two EU regulations frame a tool like this one. The GDPR protects genetic data; the IVDR decides when software that reads DNA is a medical device. Below: why the explorer stops where it does, what the two say in their own words, and how the explorer keeps to them.');
 
-      // 1. Your data: what happens to it (the real setup: a local server, local folders, public identifiers out)
-      const s1 = sec(1, 'Your data: what happens to it');
-      const flow = inMake(s1, 'div', 'in-lw-flow');
+      // 1. Why the explorer stops where it does: each thing it could do, the rule that would apply, what it does instead
+      const s3 = sec(1, 'Why the explorer stops where it does');
+      inMake(s3, 'p', 'gx-note', 'Each of these needs a CE-marked device: a quality system, clinical performance studies and a notified body\'s review, kept up for as long as it is on the market. That is the work of a medical device maker. The explorer stays a research reference instead.');
+      const tbl = inMake(s3, 'div', 'in-lw-table');
+      for (const t of ['What it could do', 'What the law asks of that', 'What it does instead']) inMake(tbl, 'div', 'in-lw-th', t);
+      for (const [could, ask, refs, instead] of [
+        ['Tell you your risk of a disease', 'A class C device, reviewed and CE-marked first', ['IVDR Art. 2(2)|(c)', 'IVDR Annex VIII, Rule 3', 'IVDR Art. 5(1)'], 'Shows what studies found for your genotype, with each study\'s size and evidence grade'],
+        ['Tell you which medicine or dose suits you', 'A companion diagnostic: class C', ['IVDR Art. 2(2)|(e)', 'IVDR Annex VIII, Rule 3'], 'Shows the published pharmacogenetic guidelines for your genotype, as written'],
+        ['Run as a website anyone uploads their DNA to', 'An online device must comply in full; genetic data on a server needs a legal basis', ['IVDR Art. 6(1)', 'GDPR Art. 9(1)'], 'Runs on your own computer only, served on 127.0.0.1; there is no hosted version'],
+        ['Read anyone\'s DNA file', 'Their explicit consent', ['GDPR Art. 9(1)', 'GDPR Art. 9(2)(a)'], 'Your own file, or another person\'s with their consent'],
+        ['Call its findings a diagnosis or a risk score', 'No claim of a function it doesn\'t have', ['IVDR Art. 7'], 'Says what was measured and by whom: "associated with", "studies found"']]) {
+        inMake(tbl, 'div', 'in-lw-td is-could', could);
+        const c2 = inMake(tbl, 'div', 'in-lw-td is-ask'); inMake(c2, 'span', null, ask); chips(c2, refs);
+        inMake(tbl, 'div', 'in-lw-td is-instead', instead);
+      }
+
+      // 2. What the law says, in its own words
+      if (LAWS.length) {
+        const s2 = sec(2, 'What the law says');
+        inMake(s2, 'p', 'gx-note', 'Quoted word for word from the official text in EUR-Lex. Under each quote: what it means for the explorer.');
+        const HERE = {
+          'GDPR Art. 4(13)': 'A DNA test file is genetic data: it describes one person\'s inherited characteristics.',
+          'GDPR Art. 9(1)': 'Genetic data is a special category. Processing it is forbidden unless one of the exceptions in Art. 9(2) applies.',
+          'GDPR Art. 9(2)(a)': 'For another person\'s file, their explicit consent is that exception.',
+          'GDPR Art. 2(2)(c)': 'Your own file, read by you, for yourself, on your own computer, is a purely personal activity.',
+          'GDPR Art. 5(1)(c)': 'Only what a lookup needs leaves the computer: rs numbers and gene names, never genotypes.',
+          'GDPR Art. 17(1)': 'A person added by mistake, or no longer wanted, is removed with every file made for them.',
+          'IVDR Art. 2(2)': 'Software counts, and so do a predisposition to disease (c) and the response to a treatment (e). This is the definition the explorer stays outside.',
+          'IVDR Art. 2(12)': 'The maker\'s stated purpose decides. The explorer\'s: a reference to published research, for your own reading.',
+          'IVDR Annex VIII, Rule 3': 'Genetic tests, and tests that decide a medicine, are class C: a notified body reviews them before they reach anyone.',
+          'IVDR Art. 5(1)': 'A device must meet the whole regulation before it is used, whether it is sold or given away.',
+          'IVDR Art. 6(1)': 'Offering it as an online service counts too.',
+          'IVDR Art. 7': 'Words matter: claiming a diagnosis, or functions a tool doesn\'t have, is prohibited. The explorer says "studies found", never "you have".',
+          'IVDR Art. 4(1)': 'Genetic tests used in healthcare come with information on what they mean. The explorer is not part of healthcare; every finding links to the study behind it.' };
+        const MARK = { 'IVDR Art. 2(2)': /\((?:c|e)\)[^;.]*[;.]/g, 'IVDR Annex VIII, Rule 3': /\((?:f|i)\)[^;]*;/g };
+        const grid = inMake(s2, 'div', 'in-lw-acts');
+        for (const a of LAWS) {
+          const card = inMake(grid, 'div', 'in-lw-act');
+          const h = inMake(card, 'div', 'in-lw-act-h');
+          inMake(h, 'b', null, a.short).setAttribute('data-i18n-skip', '');
+          const link = inMake(h, 'a', 'in-cl-cite', a.act); link.href = a.url; link.target = '_blank'; link.rel = 'noopener'; link.setAttribute('data-i18n-skip', '');
+          for (const q of a.quotes) {
+            const key = a.short + ' ' + q.ref;
+            const r = inMake(card, 'div', 'in-lw-q'); r.id = slug(key);
+            inMake(r, 'span', 'in-lw-ref', q.ref).setAttribute('data-i18n-skip', '');
+            const body = inMake(r, 'div');
+            const qq = inMake(body, 'q'); qq.setAttribute('data-i18n-skip', '');
+            const rx = MARK[key];
+            if (rx) {
+              let at = 0;
+              for (const m of q.text.matchAll(rx)) { qq.append(q.text.slice(at, m.index)); inMake(qq, 'mark', null, m[0]); at = m.index + m[0].length; }
+              qq.append(q.text.slice(at));
+            } else qq.textContent = q.text;
+            if (HERE[key]) inMake(body, 'p', 'in-lw-here', HERE[key]);
+          }
+        }
+      }
+
+      // 3. How it keeps to the law: where the data goes, and each measure with its article
+      const s4 = sec(LAWS.length ? 3 : 2, 'How the explorer keeps to it');
+      const flow = inMake(s4, 'div', 'in-lw-flow');
       const node = (parent, cls, title, lines) => { const n = inMake(parent, 'div', 'in-lw-node ' + (cls || '')); inMake(n, 'b', null, title); for (const l of lines) inMake(n, 'small', null, l); return n; };
       node(flow, 'is-file', 'Your raw DNA file', ['From the DNA test company']);
       inMake(flow, 'span', 'in-lw-arrow', '→');
@@ -1224,83 +1295,17 @@
       const logos = inMake(pub, 'div', 'in-lw-logos');
       for (const d of dbs.slice(0, 12)) { const t = inLogo(logos, d); t.title = d.name; }
       if (dbs.length > 12) inMake(logos, 'span', 'in-lw-more', inT('+{}', dbs.length - 12));
-      const notes = inMake(s1, 'ul', 'in-lw-points');
-      for (const [b, t] of [['Genotypes never leave.', 'Only public identifiers go out: an rs number or a gene name says nothing about whose file it came from.'],
-                            ['Results stay in data/output.', 'The explorer reads them from there and shows them only on this computer.'],
-                            ['Removing a person:', 'Abandon a run in Add a person, or delete the person\'s file in data/input and their folders in data/output.']]) {
-        const li = inMake(notes, 'li'); inMake(li, 'b', null, b); li.append(' '); inMake(li, 'span', null, t);
-      }
-
-      // 2. The law in the EU and Sweden: each rule's own words, quoted from the official text
-      if (LAWS.length) {
-        const s2 = sec(2, 'The law in the EU and Sweden');
-        inMake(s2, 'p', 'gx-note', 'Each rule in its own words, quoted from the official text (EUR-Lex, riksdagen.se). Swedish law is quoted in Swedish.');
-        const FOR = {
-          gdpr: 'Your own file, analysed by you for yourself, is the household case of Art. 2(2)(c). Another person\'s file is their genetic data (Art. 4(13)), a special category (Art. 9(1)); their explicit consent (Art. 9(2)(a)) is what lifts that ban, also for sharing their results.',
-          mdr: 'What makes software a medical device is its intended purpose (Art. 2(12)): diagnosis, prevention, prediction or prognosis of disease. This explorer is not CE-marked, is not intended for any of those purposes and does not diagnose: it lays out research findings.',
-          ivdr: 'Information on a predisposition to a disease, from a specimen, is an in vitro diagnostic purpose. The DNA test company\'s lab produced the raw file; this explorer reads research about it.',
-          gi: 'In Sweden no one may, without support in law, make a genetic test or genetic information a condition of an agreement, or search for or use it. Insurers have the exception in 2 kap. 2 §.' };
-        for (const level of ['EU', 'Sweden']) {
-          const acts = LAWS.filter((a) => a.level === level);
-          if (!acts.length) continue;
-          const band = inMake(s2, 'div', 'in-lw-band is-' + level.toLowerCase());
-          inMake(band, 'div', 'in-lw-band-label', level === 'EU' ? 'European Union · applies in every member state' : 'Sweden · adds to the EU rules');
-          const grid = inMake(band, 'div', 'in-lw-acts');
-          for (const a of acts) {
-            const card = inMake(grid, 'div', 'in-lw-act');
-            const h = inMake(card, 'div', 'in-lw-act-h');
-            inMake(h, 'b', null, a.short).setAttribute('data-i18n-skip', '');
-            const link = inMake(h, 'a', 'in-cl-cite', a.act); link.href = a.url; link.target = '_blank'; link.rel = 'noopener'; link.setAttribute('data-i18n-skip', '');
-            for (const q of a.quotes) {
-              const r = inMake(card, 'div', 'in-lw-q');
-              inMake(r, 'span', 'in-lw-ref', q.ref).setAttribute('data-i18n-skip', '');
-              const qq = inMake(r, 'q', null, q.text); qq.setAttribute('data-i18n-skip', ''); if (a.lang === 'sv') qq.lang = 'sv';
-            }
-            if (FOR[a.id]) inMake(card, 'p', 'in-lw-here', FOR[a.id]);
-          }
-        }
-      }
-
-      // 3. What the explorer gives and doesn't (green on the right), and why, in numbers
-      const s3 = sec(LAWS.length ? 3 : 2, 'What the explorer gives, and what it doesn\'t');
-      const two = inMake(s3, 'div', 'in-lw-two');
-      const side = (cls, title, items) => { const b = inMake(two, 'div', 'in-lw-side ' + cls); inMake(b, 'b', null, title); const ul = inMake(b, 'ul'); for (const t of items) inMake(ul, 'li', null, t); };
-      side('is-not', 'It doesn\'t give', ['A diagnosis', 'Treatment decisions', 'Clinical advice']);
-      side('is-yes', 'It gives', ['Research findings matched to your genotypes', 'Graded by evidence, with each source and its size', 'The choices stay yours']);
-      inMake(s3, 'span', 'in-cl-sub', 'Why, in numbers');
-      const why = inMake(s3, 'div', 'in-lw-why');
-      const card = (title) => { const b = inMake(why, 'div', 'in-lw-wcard'); inMake(b, 'b', null, title); return b; };
-      const stackBar = (b, parts) => {
-        const tot = parts.reduce((s, x) => s + x[1], 0) || 1, bar = inMake(b, 'div', 'in-stack');
-        for (const [, v, cls] of parts) if (v) inMake(bar, 'span', cls).style.width = `${(v / tot) * 100}%`;
-        const lg = inMake(b, 'div', 'in-legend');
-        for (const [t, v, cls] of parts) inMake(lg, 'span', cls, inT('{}: {}%', t, pct(v, tot)));
-      };
-      if (LIM && LIM.odds_ratios) {
-        const b = card('Most effects are small, per copy');
-        stackBar(b, [['Odds ×1.5 or more', LIM.odds_ratios - LIM.or_below_1_5, 'in-c-bad'], ['×1.2 to ×1.5', LIM.or_below_1_5 - LIM.or_below_1_2, 'in-c-warn'], ['Below ×1.2', LIM.or_below_1_2, 'in-c-ok2']]);
-        inMake(b, 'small', null, inT('{} odds ratios in the GWAS Catalog; the median is ×{} per copy of an allele.', inN(LIM.odds_ratios), LIM.or_median));
-      }
-      if (LIM && LIM.participants) {
-        const b = card('Most studies are in Europeans');
-        stackBar(b, [['Other ancestries', LIM.participants - LIM.european_participants, 'in-c-fg'], ['European', LIM.european_participants, 'in-c-ok2']]);
-        inMake(b, 'small', null, inT('Of the participants counted in {} GWAS Catalog studies (a person in several studies counts in each); {} of the studies are European only.', inN(LIM.studies), inN(LIM.european_only_studies)));
-      }
-      const tiers = p.tiers || {};
-      if (tiers.high) {
-        const b = card(inT('{}\'s filled-in calls carry a confidence', c.who));
-        stackBar(b, [['Untested', tiers.untested || 0, 'in-c-fg'], ['Low', tiers.low || 0, 'in-c-bad'], ['Medium', tiers.medium || 0, 'in-c-warn'], ['High', tiers.high, 'in-c-ok']]);
-        inMake(b, 'small', null, 'Only high-confidence calls are used for conclusions from a single variant; each is marked imputed.');
-      }
-      if (p.measured) {
-        const b = card('A chip reads part of the genome');
-        const G = 3.1e9, kept = p.kept || 0;
-        stackBar(b, [['Not read', G - p.measured - kept, 'in-c-fg'], ['Filled in by imputation', kept, 'in-c-ok2'], ['Measured by the chip', p.measured, 'in-c-ok']]);
-        inMake(b, 'small', null, inT('{} positions measured and {} filled in, of the 3.1 billion letters in a genome. Rare variants, and changes the chip can\'t see, stay unread.', inN(p.measured), inN(kept)));
-      }
-      if (!inLocked()) {
-        const nav = inMake(el, 'div', 'in-nav');
-        for (const t of ['medicines', 'nutrition', 'biomarkers', 'clusters']) inOpen(nav, t, TAB_NAMES[t]);
+      const ms = inMake(s4, 'div', 'in-lw-measures');
+      for (const [b, t, refs] of [
+        ['Your file stays on your computer.', 'The explorer is served on 127.0.0.1 only; its makers receive nothing.', ['GDPR Art. 2(2)(c)', 'IVDR Art. 6(1)']],
+        ['Only public identifiers leave.', 'rs numbers and gene names go to the research databases. They say nothing about whose file they came from.', ['GDPR Art. 5(1)(c)']],
+        ['Removing a person removes everything.', 'Abandon deletes all an unfinished run made. For a finished person, delete their file in data/input and their files in data/output.', ['GDPR Art. 17(1)']],
+        ['Another person\'s file needs their consent.', 'Add a person is for your own file, or for someone who has given explicit consent.', ['GDPR Art. 9(2)(a)']],
+        ['It claims no medical purpose.', 'It lays out published research, graded by evidence, and leaves the reading to you.', ['IVDR Art. 2(12)', 'IVDR Art. 7']]]) {
+        const m = inMake(ms, 'div', 'in-lw-measure');
+        inMake(m, 'span', 'in-lw-tick', '✓');
+        const body = inMake(m, 'div');
+        inMake(body, 'b', null, b); inMake(body, 'p', null, t); chips(body, refs);
       }
     } },
   ];

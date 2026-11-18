@@ -1629,5 +1629,22 @@
 "IGF-1 level": "IGF-1-nivå",
 "IL-6 level": "IL-6-nivå",
 "CRP level": "CRP-nivå",
-"Achilles tendon injury": "hälseneskada"
+"Achilles tendon injury": "hälseneskada",
+"major depressive disorder": "egentlig depression",
+"anxiety disorder": "ångestsyndrom",
+"post-traumatic stress disorder": "posttraumatiskt stressyndrom",
+"bipolar disorder": "bipolär sjukdom",
+"ADHD": "ADHD",
+"obsessive-compulsive disorder": "tvångssyndrom",
+"neuroticism": "neuroticism",
+"chronotype": "kronotyp",
+"sleep duration": "sömnlängd",
+"alcohol drinking": "alkoholkonsumtion",
+"nicotine dependence": "nikotinberoende",
+"cigarettes per day": "cigaretter per dag",
+"cannabis dependence": "cannabisberoende",
+"coffee consumption": "kaffedrickande",
+"caffeine metabolite level": "nivå av koffeinmetaboliter",
+"cognitive function": "kognitiv förmåga",
+"risk-taking": "risktagande"
 }

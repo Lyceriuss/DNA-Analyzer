@@ -565,6 +565,43 @@
   .th-ex .th-label { font-size: 12px; }
   .th-fibre { display: grid; gap: 4px; padding: 6px 0; border-bottom: 1px solid var(--color-border-line); }
   .th-fibre-name { font-weight: var(--cds-font-weight-medium); }
+  /* Mind: the clinical path, a row per ICD-10 group across the four steps */
+  .th-cl { display: grid; border: 1px solid var(--color-border-line); border-radius: 10px; overflow: hidden; }
+  .th-cl-row { display: grid; grid-template-columns: 1.3fr 1.2fr 1fr 1.2fr 1.3fr; gap: 12px; padding: 10px 14px;
+    border-top: 1px solid var(--color-border-line); font-size: 13px; cursor: pointer; align-items: start; }
+  .th-cl-row:hover { background: color-mix(in srgb, var(--color-fg) 4%, var(--color-panel)); }
+  .th-cl-row:focus-visible { outline: 2px solid var(--color-accent, var(--color-fg)); outline-offset: -2px; }
+  .th-cl-on { background: color-mix(in srgb, var(--color-fg) 7%, var(--color-panel)); }
+  .th-cl-head { border-top: 0; cursor: default; background: color-mix(in srgb, var(--color-fg) 5%, var(--color-panel)); }
+  .th-cl-head:hover { background: color-mix(in srgb, var(--color-fg) 5%, var(--color-panel)); }
+  .th-cl-head .th-cl-cell { display: grid; }
+  .th-cl-head b { font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; }
+  .th-cl-head span { color: var(--color-fg-muted); font-size: 12px; }
+  .th-cl-head .th-cl-step b::before { content: '→ '; color: var(--color-fg-muted); }
+  .th-cl-cell { display: grid; gap: 3px; align-content: start; min-width: 0; }
+  .th-cl-name { font-size: 14px; }
+  .th-cl-codes { display: flex; flex-wrap: wrap; gap: 4px; }
+  .th-cl-code { font: 12px var(--cds-font-mono, monospace); padding: 0 6px; border-radius: 4px;
+    border: 1px solid var(--color-border-line); color: var(--color-fg-muted); }
+  .th-cl-test, .th-cl-mech { line-height: 1.35; }
+  .th-cl-differs { color: var(--color-bad); font-weight: var(--cds-font-weight-medium); }
+  .th-cl-detail { display: grid; gap: 14px; padding: 12px 14px 16px; border-top: 1px dashed var(--color-border-line);
+    background: color-mix(in srgb, var(--color-fg) 3%, var(--color-panel)); cursor: default; font-size: 14px; }
+  .th-cl-sec { display: grid; gap: 6px; }
+  .th-cl-icd summary { cursor: pointer; }
+  .th-cl-icd ul { margin: 4px 0 0; padding-left: 18px; columns: 2; font-size: 13px; }
+  .th-cl-paper { display: grid; gap: 4px; }
+  .th-cl-paper .gx-note { margin: 0; }
+  .th-cl-quote { margin: 0; padding: 2px 0 2px 10px; border-left: 3px solid var(--color-border-line); font-size: 13px; }
+  .th-cl-drug { display: grid; gap: 2px; padding: 4px 0; border-bottom: 1px solid var(--color-border-line); }
+  .th-cl-guide { font-size: 13px; color: var(--color-fg-muted); }
+  .th-cl-guide.th-cl-differs { color: var(--color-bad); }
+  .th-cl-rec { margin: 2px 0 0; color: var(--color-fg); }
+  @media (max-width: 760px) {
+    .th-cl-row { grid-template-columns: 1fr 1fr; }
+    .th-cl-head { display: none; }
+    .th-cl-icd ul { columns: 1; }
+  }
   /* Side panel: ranked organs with their bars */
   .th-organ-list { display: grid; }
   .th-organ-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(4rem, 7rem) 2ch; gap: var(--cds-gap-sm); align-items: center;
@@ -619,11 +656,43 @@
   .th-imp-medium { border-color: var(--color-warn, #b8860b); color: var(--color-warn, #b8860b); }
   .th-b-untested { background: var(--color-fg-muted); opacity: 0.35; }
 /* Muscle theme: the popular sport genes */
-.th-sport-topic { margin: 18px 0 6px; font-size: 14px; }
-.th-sport-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 360px), 1fr)); gap: 8px 18px; }
-.th-sport-row { display: grid; grid-template-columns: 28px 1fr; gap: 8px; align-items: start; padding: 8px 0; border-top: 1px solid var(--color-border-line); font-size: 13px; line-height: 1.45; }
-.th-sport-row .md-grade { margin-top: 2px; }
-.th-sport-row .nt-src { display: inline-block; margin-top: 2px; font-size: 12px; }
+.th-sp-legend { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 10px 0 4px; font-size: 12px; color: var(--color-fg-muted); }
+.th-sp-legend-item { display: inline-flex; gap: 6px; align-items: center; }
+.th-sp-topic { margin-top: 18px; }
+.th-sp-topic h3 { margin: 0 0 6px; font-size: 15px; }
+.th-sp-count { color: var(--color-fg-muted); font-weight: normal; }
+.th-sp-table { border: 1px solid var(--color-border-line); border-radius: 10px; overflow: hidden; }
+.th-sp-row { display: grid; grid-template-columns: 52px minmax(110px, 1fr) minmax(150px, 1.6fr) minmax(130px, 1.1fr) minmax(90px, 0.8fr) minmax(130px, 1.2fr) 56px;
+  gap: 10px; align-items: center; padding: 8px 12px; font-size: 13px; line-height: 1.35; }
+.th-sp-head { background: color-mix(in srgb, var(--color-fg) 5%, var(--color-panel)); color: var(--color-fg-muted); font-size: 11px;
+  letter-spacing: 0.05em; text-transform: uppercase; }
+.th-sp-head span:last-child, .th-sp-papers { text-align: right; }
+.th-sp-item { border-top: 1px solid var(--color-border-line); }
+.th-sp-item > summary { cursor: pointer; list-style: none; }
+.th-sp-item > summary::-webkit-details-marker { display: none; }
+.th-sp-item > summary:hover { background: color-mix(in srgb, var(--color-fg) 4%, var(--color-panel)); }
+.th-sp-item[open] > summary { background: color-mix(in srgb, var(--color-fg) 3%, var(--color-panel)); }
+.th-sp-grade { display: inline-flex; gap: 6px; align-items: center; }
+.th-sp-star { color: var(--color-warn, #b8860b); }
+.th-sp-gene, .th-sp-change, .th-sp-copies, .th-sp-af { display: grid; gap: 1px; min-width: 0; }
+.th-sp-gene .lc-link { justify-self: start; font-weight: var(--cds-font-weight-medium); }
+.th-sp-gt { display: inline-flex; gap: 6px; align-items: baseline; }
+.th-sp-copies .th-imp { justify-self: start; }
+.th-sp-dots { letter-spacing: 1px; color: var(--color-fg); }
+.th-sp-afbar { display: block; height: 4px; border-radius: 2px; background: var(--color-border-line); overflow: hidden; max-width: 90px; }
+.th-sp-afbar span { display: block; height: 100%; background: var(--color-fg-muted); }
+.th-sp-ev { display: flex; flex-wrap: wrap; gap: 4px; }
+.th-sp-tag { padding: 0 6px; border-radius: 8px; border: 1px solid var(--color-border-line); font-size: 11px; white-space: nowrap; }
+.th-sp-body { display: grid; gap: 8px; padding: 2px 12px 12px 74px; font-size: 13px; line-height: 1.45; }
+.th-sp-src { display: grid; gap: 2px; }
+.th-sp-src ul { margin: 0; padding-left: 18px; }
+.th-sp-body .nt-sub { margin: 0; }
+@media (max-width: 760px) {
+  .th-sp-head { display: none; }
+  .th-sp-row { grid-template-columns: 52px 1fr 1fr; }
+  .th-sp-change, .th-sp-ev { grid-column: 2 / -1; }
+  .th-sp-body { padding-left: 12px; }
+}
 .th-off { display: none; }
 /* Fitness theme: what the results mean */
 .th-mean-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); gap: 10px; margin-top: 10px; }
@@ -1407,6 +1476,34 @@
   .in-yt-genes button { cursor: pointer; font: inherit; font-size: 12px; }
 
   /* The last step: your data, the law, the limits */
+  .in-lw-lead { margin: 4px 0 12px; font-size: 14px; line-height: 1.55; max-width: 880px; }
+  .in-lw-chips { display: inline-flex; flex-wrap: wrap; gap: 4px; margin-left: 6px; vertical-align: middle; }
+  .in-lw-chip { font: inherit; font-size: 11px; padding: 1px 7px; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--gof) 45%, transparent); background: color-mix(in srgb, var(--gof) 10%, transparent); color: var(--color-fg); white-space: nowrap; }
+  button.in-lw-chip { cursor: pointer; }
+  button.in-lw-chip:hover { background: color-mix(in srgb, var(--gof) 24%, transparent); }
+  .in-lw-acts { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 12px; margin-top: 6px; }
+  .in-lw-act { display: grid; gap: 8px; align-content: start; padding: 10px 12px; border-radius: 8px; background: var(--color-panel); }
+  .in-lw-act-h { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; }
+  .in-lw-act-h b { font-size: 15px; }
+  .in-lw-q { display: grid; grid-template-columns: 112px 1fr; gap: 8px; font-size: 12.5px; line-height: 1.5; padding: 6px; border-radius: 6px; scroll-margin: 80px; }
+  .in-lw-q.is-flash { animation: in-lw-flash 1.6s ease-out; }
+  @keyframes in-lw-flash { from { background: color-mix(in srgb, var(--gof) 30%, transparent); } to { background: transparent; } }
+  .in-lw-ref { font-weight: 600; color: var(--color-fg-muted); }
+  .in-lw-q q { font-family: Georgia, 'Times New Roman', serif; font-size: 13px; }
+  .in-lw-q mark { background: color-mix(in srgb, var(--color-warn) 28%, transparent); color: inherit; border-radius: 3px; padding: 0 2px; }
+  .in-lw-here { margin: 6px 0 0; font-size: 12px; padding: 5px 8px; border-left: 3px solid var(--gof); border-radius: 4px; background: var(--color-bg); line-height: 1.45; }
+  .in-lw-table { display: grid; grid-template-columns: 1fr 1.25fr 1fr; gap: 1px; margin-top: 6px; border-radius: 10px; overflow: hidden; background: var(--color-border-line); font-size: 13px; }
+  .in-lw-th { padding: 7px 10px; background: var(--color-panel); font-size: 11px; text-transform: uppercase; letter-spacing: .04em; color: var(--color-fg-muted); }
+  .in-lw-td { padding: 8px 10px; background: var(--color-bg); line-height: 1.45; }
+  .in-lw-td.is-could { background: color-mix(in srgb, var(--color-bad) 6%, var(--color-bg)); }
+  .in-lw-td.is-ask .in-lw-chips { display: flex; margin: 4px 0 0; }
+  .in-lw-td.is-instead { background: color-mix(in srgb, var(--color-ok) 8%, var(--color-bg)); }
+  .in-lw-measures { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 8px; margin-top: 12px; }
+  .in-lw-measure { display: grid; grid-template-columns: 22px 1fr; gap: 6px; padding: 8px 10px; border-radius: 8px; background: var(--color-panel); font-size: 13px; }
+  .in-lw-measure p { margin: 2px 0 4px; font-size: 12px; color: var(--color-fg-muted); line-height: 1.45; }
+  .in-lw-measure .in-lw-chips { margin-left: 0; }
+  .in-lw-tick { color: var(--color-ok); font-weight: 700; font-size: 15px; }
+  @media (max-width: 760px) { .in-lw-table { grid-template-columns: 1fr; } .in-lw-th { display: none; } .in-lw-q { grid-template-columns: 1fr; } .in-lw-acts { grid-template-columns: 1fr; } }
   .in-lw-sec h3 { margin-bottom: 6px; }
   .in-lw-flow { display: flex; flex-wrap: wrap; align-items: stretch; gap: 10px; }
   .in-lw-node { display: grid; gap: 2px; align-content: center; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--color-border-line); background: var(--color-panel); min-width: 120px; }
@@ -1426,33 +1523,9 @@
   .in-lw-logos { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
   .in-lw-logos .in-logo { width: 34px; height: 22px; }
   .in-lw-more { font-size: 11px; color: var(--color-fg-muted); align-self: center; }
-  .in-lw-points { list-style: none; margin: 10px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 8px; font-size: 13px; }
-  .in-lw-points li { padding: 6px 10px; border-left: 3px solid var(--color-ok); border-radius: 4px; background: var(--color-panel); line-height: 1.45; }
-  .in-lw-band { margin-top: 10px; padding: 10px 12px 12px; border-radius: 12px; border: 1px solid var(--color-border-line); }
-  .in-lw-band.is-eu { background: color-mix(in srgb, var(--gof) 6%, transparent); }
-  .in-lw-band.is-sweden { background: color-mix(in srgb, var(--color-warn) 6%, transparent); margin-left: 24px; }
-  .in-lw-band-label { font-size: 11px; text-transform: uppercase; letter-spacing: .04em; color: var(--color-fg-muted); margin-bottom: 8px; }
-  .in-lw-acts { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 10px; }
-  .in-lw-act { display: grid; gap: 6px; align-content: start; padding: 10px 12px; border-radius: 8px; background: var(--color-panel); }
-  .in-lw-act-h { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; }
-  .in-lw-act-h b { font-size: 15px; }
-  .in-lw-q { display: grid; grid-template-columns: 92px 1fr; gap: 8px; font-size: 12px; line-height: 1.45; }
-  .in-lw-ref { font-weight: 600; color: var(--color-fg-muted); }
-  .in-lw-q q { font-style: italic; }
-  .in-lw-here { margin: 2px 0 0; font-size: 12px; padding: 6px 8px; border-radius: 6px; background: var(--color-bg); line-height: 1.45; }
-  .in-lw-two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 6px 0 12px; }
-  .in-lw-side { padding: 10px 14px; border-radius: 10px; border: 1px solid var(--color-border-line); }
-  .in-lw-side ul { margin: 6px 0 0; padding-left: 18px; font-size: 13px; line-height: 1.6; }
-  .in-lw-side.is-not { border-color: color-mix(in srgb, var(--color-bad) 45%, transparent); background: color-mix(in srgb, var(--color-bad) 6%, transparent); }
-  .in-lw-side.is-yes { border-color: color-mix(in srgb, var(--color-ok) 55%, transparent); background: color-mix(in srgb, var(--color-ok) 8%, transparent); }
-  .in-lw-why { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px; margin-top: 6px; }
-  .in-lw-wcard { display: grid; gap: 6px; align-content: start; padding: 10px 12px; border-radius: 8px; background: var(--color-panel); font-size: 13px; }
-  .in-lw-wcard small { font-size: 11px; color: var(--color-fg-muted); line-height: 1.45; }
-  .in-lw-wcard .in-legend { font-size: 11px; margin-top: 0; }
   .in-c-fg { --in-c: var(--color-fg-muted); }
   .in-stack .in-c-fg { background: var(--color-fg-muted); } .in-stack .in-c-ok { background: var(--color-ok); } .in-stack .in-c-ok2 { background: color-mix(in srgb, var(--color-ok) 55%, transparent); }
   .in-stack .in-c-warn { background: var(--color-warn); } .in-stack .in-c-bad { background: var(--color-bad); }
-  @media (max-width: 760px) { .in-lw-two { grid-template-columns: 1fr; } .in-lw-band.is-sweden { margin-left: 0; } .in-lw-q { grid-template-columns: 1fr; } }
   /* Sources and glossary tab */
   .so-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px; margin-bottom: 12px; }
   .so-head h3 { margin: 0; font-size: 18px; }
@@ -1688,7 +1761,7 @@
       <h2>Body map</h2>
       <p class="gx-note">Where in the body the theme's genes act. Each gene is placed by its mechanisms and the conditions it is linked to.
         Select an organ to narrow the mechanisms, connections and gene panel to it.</p>
-      <div class="th-body" data-draw="th-body" data-source="theme_meta theme_genes fd_genes fd_explain"></div>
+      <div class="th-body" data-draw="th-body" data-source="theme_meta theme_genes fd_genes fd_explain med_guidance med_genes"></div>
     </div>
     <div class="gx-card th-off" id="fd-view">
       <h2>How the cycle works, gene by gene</h2>
@@ -1889,6 +1962,7 @@
   window.GX_SETTINGS = {"intro_required": false, "intro_min_seconds": 6};
   window.GX_SOURCES = {"groups": [{"id": "reading", "title": "Your DNA, completed", "sv": "Ditt DNA, kompletterat", "ids": ["1000g", "ensembl", "mygene"]}, {"id": "health", "title": "Links to health", "sv": "Kopplingar till hälsa", "ids": ["clinvar", "gwas", "pgs", "opentargets", "europepmc", "medgen"]}, {"id": "body", "title": "Inside the cell", "sv": "Inuti cellen", "ids": ["go", "uniprot", "mavedb", "string", "omnipath", "reactome", "rhea", "gtex", "hpa", "pubchem"]}, {"id": "advice", "title": "Doses, intakes and prevention", "sv": "Doser, intag och förebyggande", "ids": ["clinpgx", "cpic", "chembl", "nnr", "iarc", "ecac"]}], "databases": [{"id": "1000g", "name": "1000 Genomes Project", "org": "International Genome Sample Resource (EMBL-EBI)", "url": "https://www.internationalgenome.org/", "what": "Full genomes of 3,202 people from 26 populations: the reference panel imputation reads the missing positions from, and allele frequencies per ancestry.", "sv": "Hela genom från 3 202 personer i 26 populationer: referenspanelen som imputeringen läser de saknade positionerna från, och allelfrekvenser per härkomst.", "access": "bulk", "tabs": ["home", "clusters", "medicines", "nutrition", "biomarkers"], "refs": ["panel_raw", "panel_bref3", "panel_sites", "panel_populations"], "hosts": ["ftp.1000genomes.ebi.ac.uk"], "gives": "Reference genomes and allele frequencies", "gives_sv": "Referensgenom och allelfrekvenser", "takes": "The full genomes of 3,202 people and how common each variant is in five ancestries.", "use": "fill in the positions your chip didn't measure, and tell common variants from rare ones.", "takes_sv": "De fullständiga genomen från 3 202 personer och hur vanlig varje variant är i fem härkomster.", "use_sv": "fylla i positionerna ditt chip inte mätte, och skilja vanliga varianter från sällsynta.", "logo": "1000g.ico", "logo_from": "https://www.internationalgenome.org/sites/1000genomes.org/themes/custom/one_thousand_genomes/favicon.ico", "versions": ["1000 Genomes high coverage, 3,202 samples; chrX in three ploidy parts", "20220422 phased SNV/INDEL/SV panel (manifest 20220804; chrX v2)", "3,202 samples with population and parents", "73.5 million sites; frequencies over 2,504 unrelated samples; rsIDs from Ensembl 115 (dbSNP 156)"]}, {"id": "clinvar", "name": "ClinVar", "org": "NCBI, US National Library of Medicine", "url": "https://www.ncbi.nlm.nih.gov/clinvar/", "what": "Variants submitted by clinical laboratories with their significance: disease-causing, risk factor or drug response, with a review status in stars.", "sv": "Varianter inskickade av kliniska laboratorier med deras betydelse: sjukdomsorsakande, riskfaktor eller läkemedelssvar, med en granskningsstatus i stjärnor.", "access": "bulk", "tabs": ["clusters", "medicines", "nutrition", "biomarkers"], "refs": ["clinvar_grch38"], "hosts": ["ftp.ncbi.nlm.nih.gov"], "gives": "Disease-causing and drug-response variants", "gives_sv": "Sjukdomsorsakande varianter och läkemedelssvar", "takes": "Every variant clinical labs have classified, with its significance and review stars.", "use": "flag disease-causing and drug-response variants you carry.", "takes_sv": "Varje variant som kliniska laboratorier har klassat, med betydelse och granskningsstjärnor.", "use_sv": "flagga sjukdomsorsakande varianter och läkemedelssvar som du bär på.", "logo": "clinvar.ico", "logo_from": "https://www.ncbi.nlm.nih.gov/favicon.ico", "versions": ["weekly release (##fileDate in the file)"]}, {"id": "gwas", "name": "GWAS Catalog", "org": "EMBL-EBI and NHGRI", "url": "https://www.ebi.ac.uk/gwas/", "what": "Genome-wide association studies: which variants are linked to a trait or a lab value, the allele that raises or lowers it, and how strongly.", "sv": "Genomomfattande associationsstudier: vilka varianter som är kopplade till en egenskap eller ett labbvärde, vilken allel som höjer eller sänker det, och hur starkt.", "access": "bulk + API", "tabs": ["clusters", "nutrition", "biomarkers", "profile"], "refs": ["gwas_catalog"], "hosts": ["www.ebi.ac.uk"], "gives": "Variants linked to traits and lab values", "gives_sv": "Varianter kopplade till egenskaper och labbvärden", "takes": "Variants that large studies tied to a trait or lab value, with the allele that raises or lowers it.", "use": "show which way your variants push a lab value or trait.", "takes_sv": "Varianter som stora studier kopplat till en egenskap eller ett labbvärde, med allelen som höjer eller sänker det.", "use_sv": "visa åt vilket håll dina varianter drar ett labbvärde eller en egenskap.", "logo": "gwas.ico", "logo_from": "https://www.ebi.ac.uk/gwas/assets/images/favicon.ico", "versions": ["all associations, full and ontology-annotated (date inside the zip)"]}, {"id": "pgs", "name": "PGS Catalog", "org": "EMBL-EBI and the University of Cambridge", "url": "https://www.pgscatalog.org/", "what": "Published polygenic scores: the weights that add up many variants into one genetic score for a blood level or a trait.", "sv": "Publicerade polygena poäng: vikterna som summerar många varianter till en genetisk poäng för en blodnivå eller en egenskap.", "access": "bulk", "tabs": ["nutrition", "biomarkers", "clusters"], "refs": ["nutrition_pgs", "pgs_scoring_genomewide"], "hosts": ["ftp.ebi.ac.uk", "www.pgscatalog.org"], "gives": "Polygenic scores", "gives_sv": "Polygena poäng", "takes": "Published scores that weigh up to a million variants into one number.", "use": "place you among Europeans for nutrient levels, lab values, fitness and cancer risk.", "takes_sv": "Publicerade poäng som väger samman upp till en miljon varianter till ett tal.", "use_sv": "placera dig bland européer för näringsnivåer, labbvärden, kondition och cancerrisk.", "logo": "pgs.png", "logo_from": "https://www.pgscatalog.org/static/catalog/imgs/favicons/apple-touch-icon.png", "versions": ["PGS Catalog harmonised scoring files named in nutrients.json", "PGS002143, PGS002168 (fitness); the 10 cancer scores in cluster_analysis/nutrition/cancers.json (GRCh38 harmonised, with each score's Catalog record)"]}, {"id": "clinpgx", "name": "ClinPGx (PharmGKB)", "org": "Stanford University", "url": "https://www.clinpgx.org/", "what": "How genes change the response to medicines: clinical annotations per variant, dosing guidelines (CPIC, DPWG and others) and drug labels (FDA, EMA, Health Canada, Swissmedic and others).", "sv": "Hur gener ändrar svaret på läkemedel: kliniska annoteringar per variant, doseringsriktlinjer (CPIC, DPWG med flera) och läkemedelsetiketter (FDA, EMA, Health Canada, Swissmedic med flera).", "access": "bulk + API", "tabs": ["medicines"], "refs": ["clinpgx"], "hosts": ["api.clinpgx.org", "www.clinpgx.org"], "gives": "Drug annotations, guidelines and labels", "gives_sv": "Läkemedelsannoteringar, riktlinjer och etiketter", "takes": "How variants change the response to medicines, with dosing guidelines and drug labels.", "use": "list every medicine your genes have a finding for.", "takes_sv": "Hur varianter ändrar svaret på läkemedel, med doseringsriktlinjer och läkemedelsetiketter.", "use_sv": "lista varje läkemedel dina gener har ett fynd för.", "logo": "clinpgx.png", "logo_from": "https://www.clinpgx.org/apple-touch-icon.png", "versions": ["ClinPGx (PharmGKB) bulk files"]}, {"id": "cpic", "name": "CPIC", "org": "Clinical Pharmacogenetics Implementation Consortium", "url": "https://cpicpgx.org/", "what": "Peer-reviewed dosing recommendations per metaboliser type, and the rules that turn star alleles into a type.", "sv": "Granskade doseringsrekommendationer per metaboliseringstyp, och reglerna som gör stjärnalleler till en typ.", "access": "API, saved", "tabs": ["medicines"], "refs": ["cpic_recommendations"], "hosts": ["api.cpicpgx.org"], "gives": "Dosing per metaboliser type", "gives_sv": "Dosering per metaboliseringstyp", "takes": "The rules that turn star alleles into a metaboliser type, and the dose advice per type.", "use": "give you a type and the dosing advice for it.", "takes_sv": "Reglerna som gör stjärnalleler till en metaboliseringstyp, och dosråden per typ.", "use_sv": "ge dig en typ och doseringsrådet för den.", "logo": "cpic.ico", "logo_from": "https://cpicpgx.org/favicon.ico", "versions": []}, {"id": "chembl", "name": "ChEMBL", "org": "EMBL-EBI", "url": "https://www.ebi.ac.uk/chembl/", "what": "The WHO ATC classification of medicines, so a medicine can be found by its class or code.", "sv": "WHO:s ATC-klassificering av läkemedel, så att ett läkemedel kan hittas via sin klass eller kod.", "access": "bulk", "tabs": ["medicines"], "refs": ["chembl_atc"], "hosts": ["www.ebi.ac.uk"], "gives": "Medicine classes (ATC)", "gives_sv": "Läkemedelsklasser (ATC)", "takes": "The WHO ATC classes of medicines.", "use": "let you find a medicine by its class or code.", "takes_sv": "WHO:s ATC-klasser för läkemedel.", "use_sv": "låta dig hitta ett läkemedel via dess klass eller kod.", "logo": "chembl.ico", "logo_from": "https://www.ebi.ac.uk/chembl/favicon.ico", "versions": ["ChEMBL ATC classes (CC BY-SA 3.0)"]}, {"id": "ensembl", "name": "Ensembl", "org": "EMBL-EBI", "url": "https://www.ensembl.org/", "what": "The genome itself: where each gene lies (GTF), each variant's identity and position (dbSNP), what a variant does to its gene (VEP) and which variants are inherited together (LD).", "sv": "Själva genomet: var varje gen ligger (GTF), varje variants identitet och position (dbSNP), vad en variant gör med sin gen (VEP) och vilka varianter som ärvs tillsammans (LD).", "access": "bulk + API", "tabs": ["clusters", "nutrition", "biomarkers", "lifecycle"], "refs": ["gtf_grch38", "dbsnp_ensembl"], "hosts": ["ftp.ensembl.org", "rest.ensembl.org"], "gives": "Genes, variants and their consequences", "gives_sv": "Gener, varianter och deras följder", "takes": "Where every gene lies, each variant's ID and position, and what a variant does to its gene.", "use": "place your variants in genes and see which ones change a protein.", "takes_sv": "Var varje gen ligger, varje variants ID och position, och vad en variant gör med sin gen.", "use_sv": "placera dina varianter i gener och se vilka som ändrar ett protein.", "logo": "ensembl.png", "logo_from": "https://static.ensembl.org/i/e-ensembl.png", "versions": ["Ensembl 115", "Ensembl 115 (dbSNP 156)"]}, {"id": "uniprot", "name": "UniProt", "org": "UniProt Consortium (EMBL-EBI, SIB, PIR)", "url": "https://www.uniprot.org/", "what": "Proteins: their function and cofactors, and curated effects of protein changes found in people.", "sv": "Proteiner: deras funktion och kofaktorer, och kurerade effekter av proteinförändringar hos människor.", "access": "bulk + API", "tabs": ["clusters", "nutrition", "lifecycle"], "refs": ["uniprot_humsavar"], "hosts": ["rest.uniprot.org", "ftp.uniprot.org", "www.ebi.ac.uk"], "gives": "Protein function and curated variant effects", "gives_sv": "Proteinfunktion och kurerade varianteffekter", "takes": "What each protein does, and curated effects of protein changes.", "use": "say what a protein change in you does.", "takes_sv": "Vad varje protein gör, och kurerade effekter av proteinförändringar.", "use_sv": "säga vad en proteinförändring hos dig gör.", "logo": "uniprot.ico", "logo_from": "https://www.uniprot.org/favicon.ico", "versions": ["UniProt release in the file header"]}, {"id": "mavedb", "name": "MaveDB", "org": "Brotman Baty Institute and partners", "url": "https://www.mavedb.org/", "what": "Laboratory measurements of how each possible protein change affects the protein's function (deep mutational scans).", "sv": "Laboratoriemätningar av hur varje möjlig proteinförändring påverkar proteinets funktion (djupa mutationsskanningar).", "access": "API", "tabs": ["clusters"], "refs": [], "hosts": ["api.mavedb.org"], "gives": "Measured effects of protein changes", "gives_sv": "Uppmätta effekter av proteinförändringar", "takes": "Lab measurements of thousands of single protein changes.", "use": "use a measured effect when one exists.", "takes_sv": "Labbmätningar av tusentals enskilda proteinförändringar.", "use_sv": "använda en uppmätt effekt när det finns en.", "logo": "mavedb.png", "logo_from": "https://www.mavedb.org/mavedb-icon-apple-touch.png", "versions": []}, {"id": "gtex", "name": "GTEx", "org": "Genotype-Tissue Expression project (NIH)", "url": "https://gtexportal.org/", "what": "How much each gene is made in 54 tissues, and which variants make it more or less active (eQTLs).", "sv": "Hur mycket varje gen tillverkas i 54 vävnader, och vilka varianter som gör den mer eller mindre aktiv (eQTL).", "access": "bulk + API", "tabs": ["clusters", "nutrition", "biomarkers"], "refs": ["gtex_median_tpm"], "hosts": ["gtexportal.org", "storage.googleapis.com"], "gives": "Gene activity per tissue", "gives_sv": "Genaktivitet per vävnad", "takes": "Which variants make a gene more or less active, tissue by tissue.", "use": "find variants that turn a gene up or down.", "takes_sv": "Vilka varianter som gör en gen mer eller mindre aktiv, vävnad för vävnad.", "use_sv": "hitta varianter som skruvar upp eller ner en gen.", "logo": "gtex.ico", "logo_from": "https://gtexportal.org/favicon.ico", "versions": ["GTEx v8"]}, {"id": "hpa", "name": "Human Protein Atlas", "org": "KTH, Uppsala University and SciLifeLab", "url": "https://www.proteinatlas.org/", "what": "Where in the body each gene is mostly made, tissue by tissue.", "sv": "Var i kroppen varje gen främst tillverkas, vävnad för vävnad.", "access": "API", "tabs": ["nutrition", "biomarkers"], "refs": [], "hosts": ["www.proteinatlas.org"], "gives": "Where in the body a gene is made", "gives_sv": "Var i kroppen en gen tillverkas", "takes": "Where in the body each gene is mostly made.", "use": "show the organs a step happens in.", "takes_sv": "Var i kroppen varje gen främst tillverkas.", "use_sv": "visa organen där ett steg sker.", "logo": "hpa.png", "logo_from": "https://www.proteinatlas.org/images_static/apple-touch-icon.png", "versions": []}, {"id": "opentargets", "name": "Open Targets Platform", "org": "EMBL-EBI, Wellcome Sanger Institute and partners", "url": "https://platform.opentargets.org/", "what": "Which genes are linked to a disease, scored by genetic, clinical and literature evidence.", "sv": "Vilka gener som är kopplade till en sjukdom, med poäng från genetiska, kliniska och litteraturbaserade belägg.", "access": "API", "tabs": ["clusters"], "refs": [], "hosts": ["api.platform.opentargets.org"], "gives": "Genes linked to a disease", "gives_sv": "Gener kopplade till en sjukdom", "takes": "Genes ranked by how strongly they are linked to each disease.", "use": "choose the genes in each health theme.", "takes_sv": "Gener rangordnade efter hur starkt de är kopplade till varje sjukdom.", "use_sv": "välja generna i varje hälsotema.", "logo": "opentargets.png", "logo_from": "https://platform.opentargets.org/favicon.png", "versions": []}, {"id": "go", "name": "Gene Ontology (QuickGO)", "org": "Gene Ontology Consortium, served by EMBL-EBI", "url": "https://www.ebi.ac.uk/QuickGO/", "what": "Which genes take part in a biological process (DNA repair, sperm production …), from experiments and curation.", "sv": "Vilka gener som deltar i en biologisk process (DNA-reparation, spermieproduktion …), från experiment och kurering.", "access": "API", "tabs": ["clusters"], "refs": [], "hosts": ["www.ebi.ac.uk"], "gives": "Genes in a biological process", "gives_sv": "Gener i en biologisk process", "takes": "Which genes take part in each biological process.", "use": "group a theme's genes by what they do: repair, growth, hormones.", "takes_sv": "Vilka gener som deltar i varje biologisk process.", "use_sv": "gruppera ett temas gener efter vad de gör: reparation, tillväxt, hormoner.", "logo": "go.png", "logo_from": "https://geneontology.org/img/go-logo-icon.png", "versions": []}, {"id": "string", "name": "STRING", "org": "STRING Consortium (SIB, EMBL, CPR, KU)", "url": "https://string-db.org/", "what": "Which proteins work together, with a confidence score.", "sv": "Vilka proteiner som arbetar tillsammans, med ett konfidensvärde.", "access": "API", "tabs": ["clusters", "profile"], "refs": [], "hosts": ["string-db.org"], "gives": "Proteins that work together", "gives_sv": "Proteiner som arbetar tillsammans", "takes": "Which proteins work together.", "use": "draw the gene networks in Clusters and Profile.", "takes_sv": "Vilka proteiner som arbetar tillsammans.", "use_sv": "rita gennätverken i Kluster och Profil.", "logo": "string.png", "logo_from": "https://string-db.org/images/favicon.png", "versions": []}, {"id": "reactome", "name": "Reactome", "org": "OICR, EMBL-EBI, NYU and OHSU", "url": "https://reactome.org/", "what": "Pathways and their reactions step by step: how a nutrient is taken up, carried and converted, and what each step needs.", "sv": "Reaktionsvägar och deras reaktioner steg för steg: hur ett näringsämne tas upp, transporteras och omvandlas, och vad varje steg behöver.", "access": "bulk + API", "tabs": ["clusters", "nutrition", "biomarkers", "lifecycle"], "refs": ["reactome_genes"], "hosts": ["reactome.org"], "gives": "Pathways, step by step", "gives_sv": "Reaktionsvägar, steg för steg", "takes": "Pathways as ordered reactions: what goes in, what comes out, which proteins do it.", "use": "lay out how a nutrient is taken up and used, and where your variants act.", "takes_sv": "Reaktionsvägar som ordnade reaktioner: vad som går in, vad som kommer ut, vilka proteiner som gör det.", "use_sv": "visa hur ett näringsämne tas upp och används, och var dina varianter verkar.", "logo": "reactome.png", "logo_from": "https://reactome.org/templates/favourite/images/logo/icon.png", "versions": ["Reactome current release"]}, {"id": "rhea", "name": "Rhea", "org": "SIB Swiss Institute of Bioinformatics", "url": "https://www.rhea-db.org/", "what": "The chemical reactions enzymes carry out.", "sv": "De kemiska reaktioner som enzymer utför.", "access": "API", "tabs": ["lifecycle"], "refs": [], "hosts": ["www.rhea-db.org"], "gives": "Enzyme reactions", "gives_sv": "Enzymreaktioner", "takes": "The chemical reactions enzymes carry out.", "use": "show the chemistry each enzyme does.", "takes_sv": "De kemiska reaktioner som enzymer utför.", "use_sv": "visa kemin varje enzym utför.", "logo": "rhea.png", "logo_from": "https://www.rhea-db.org/style/images/rhea_logo.png", "versions": []}, {"id": "omnipath", "name": "OmniPath", "org": "Saez-Rodriguez group, Heidelberg University", "url": "https://omnipathdb.org/", "what": "Which genes switch a gene on or off.", "sv": "Vilka gener som slår på eller av en gen.", "access": "API", "tabs": ["lifecycle"], "refs": [], "hosts": ["omnipathdb.org"], "gives": "Gene regulators", "gives_sv": "Genregulatorer", "takes": "Which genes switch a gene on or off.", "use": "show what regulates a gene.", "takes_sv": "Vilka gener som slår på eller av en gen.", "use_sv": "visa vad som reglerar en gen.", "logo": "omnipath.png", "logo_from": "https://omnipathdb.org/apple-touch-icon.png", "versions": []}, {"id": "mygene", "name": "MyGene.info", "org": "Su and Wu labs, Scripps Research", "url": "https://mygene.info/", "what": "Gene names, summaries and identifiers, gathered from the main gene databases.", "sv": "Gennamn, sammanfattningar och identifierare, samlade från de stora gendatabaserna.", "access": "API", "tabs": ["profile"], "refs": [], "hosts": ["mygene.info"], "gives": "Gene names and summaries", "gives_sv": "Gennamn och sammanfattningar", "takes": "Gene names, aliases and short summaries.", "use": "put a readable name and description on every gene.", "takes_sv": "Gennamn, alias och korta sammanfattningar.", "use_sv": "ge varje gen ett läsbart namn och en beskrivning.", "logo": "mygene.png", "logo_from": "https://mygene.info/static/img/MyGene.info/apple-touch-icon.png", "versions": []}, {"id": "europepmc", "name": "Europe PMC", "org": "EMBL-EBI", "url": "https://europepmc.org/", "what": "Research papers that name a variant, for the literature behind a finding.", "sv": "Forskningsartiklar som nämner en variant, för litteraturen bakom ett fynd.", "access": "API", "tabs": ["clusters", "lifecycle"], "refs": [], "hosts": ["www.ebi.ac.uk", "europepmc.org"], "gives": "Papers behind a finding", "gives_sv": "Artiklar bakom ett fynd", "takes": "Research papers that name a variant.", "use": "show the studies behind a finding.", "takes_sv": "Forskningsartiklar som nämner en variant.", "use_sv": "visa studierna bakom ett fynd.", "versions": []}, {"id": "nnr", "name": "Nordic Nutrition Recommendations 2023", "org": "Nordic Council of Ministers, published by Livsmedelsverket", "url": "https://www.livsmedelsverket.se/", "what": "Recommended intakes and upper limits per nutrient, by sex and age.", "sv": "Rekommenderat intag och övre gränser per näringsämne, efter kön och ålder.", "access": "bulk", "tabs": ["nutrition"], "refs": ["nnr_2023"], "hosts": ["www.livsmedelsverket.se"], "gives": "Recommended intakes", "gives_sv": "Rekommenderat intag", "takes": "Recommended daily intakes and upper limits.", "use": "show the intake target next to each nutrient.", "takes_sv": "Rekommenderat dagligt intag och övre gränser.", "use_sv": "visa intagsmålet bredvid varje näringsämne.", "logo": "nnr.png", "logo_from": "https://www.livsmedelsverket.se/images/logo.png", "versions": ["NNR 2023 summary and errata 2025-09 (parsed into nnr_2023.json, in git)"]}, {"id": "iarc", "name": "IARC Monographs", "org": "International Agency for Research on Cancer (WHO)", "url": "https://monographs.iarc.who.int/", "what": "Which agents cause which cancers in humans, classified by the strength of the evidence.", "sv": "Vilka agens som orsakar vilka cancerformer hos människor, klassade efter hur starka beläggen är.", "access": "API, saved", "tabs": ["home", "clusters"], "refs": [], "hosts": ["monographs.iarc.who.int"], "gives": "Known causes of each cancer", "gives_sv": "Kända orsaker till varje cancerform", "takes": "The causes of each cancer with sufficient evidence in humans.", "use": "name the avoidable causes of the cancers in the cancer theme.", "takes_sv": "Orsakerna till varje cancerform med tillräckliga belägg hos människor.", "use_sv": "namnge de undvikbara orsakerna till cancerformerna i cancertemat.", "logo": "iarc.svg", "logo_from": "https://monographs.iarc.who.int/wp-content/themes/iarc-theme-new/images/layout/logo.svg", "versions": []}, {"id": "ecac", "name": "European Code Against Cancer", "org": "International Agency for Research on Cancer (WHO) and the European Commission", "url": "https://cancer-code-europe.iarc.who.int/", "what": "Fourteen recommendations for the public on how to lower the risk of cancer (5th edition), in every EU language.", "sv": "Fjorton rekommendationer till allmänheten om hur man sänker risken för cancer (5:e upplagan), på alla EU-språk.", "access": "API, saved", "tabs": ["home"], "refs": [], "hosts": ["cancer-code-europe.iarc.who.int"], "gives": "How to lower the risk of cancer", "gives_sv": "Hur man sänker risken för cancer", "takes": "Its 14 recommendations, in English and Swedish.", "use": "show what lowers the risk of each cancer, quoted as written.", "takes_sv": "Dess 14 rekommendationer, på engelska och svenska.", "use_sv": "visa vad som sänker risken för varje cancerform, citerat som det står.", "logo": "ecac.svg", "logo_from": "https://cancer-code-europe.iarc.who.int/wp-content/uploads/2025/08/european-code-against-cancer-iarc-eu-favicon.svg", "versions": []}, {"id": "medgen", "name": "MedGen", "org": "NCBI, US National Library of Medicine", "url": "https://www.ncbi.nlm.nih.gov/medgen/", "what": "Definitions of medical conditions, gathered from OMIM, GeneReviews and other curated sources.", "sv": "Definitioner av medicinska tillstånd, samlade från OMIM, GeneReviews och andra kurerade källor.", "access": "API", "tabs": ["home"], "refs": [], "hosts": ["eutils.ncbi.nlm.nih.gov"], "gives": "What a condition is", "gives_sv": "Vad ett tillstånd är", "takes": "The definition of a condition, such as acute alcohol sensitivity.", "use": "say what a buildup does, in a curated definition.", "takes_sv": "Definitionen av ett tillstånd, till exempel akut alkoholkänslighet.", "use_sv": "säga vad en ansamling gör, med en kurerad definition.", "logo": "medgen.ico", "logo_from": "https://www.ncbi.nlm.nih.gov/favicon.ico", "versions": []}, {"id": "pubchem", "name": "PubChem", "org": "NCBI, US National Library of Medicine", "url": "https://pubchem.ncbi.nlm.nih.gov/", "what": "Chemistry of each substance: properties, metabolism and toxicology, from curated sources such as HSDB.", "sv": "Kemin för varje ämne: egenskaper, ämnesomsättning och toxikologi, från kurerade källor som HSDB.", "access": "API", "tabs": ["home"], "refs": [], "hosts": ["pubchem.ncbi.nlm.nih.gov"], "gives": "How fast the body clears a substance", "gives_sv": "Hur snabbt kroppen gör sig av med ett ämne", "takes": "How fast the body clears alcohol, and its density.", "use": "work out how long one drink takes to pass through the chain.", "takes_sv": "Hur snabbt kroppen gör sig av med alkohol, och dess densitet.", "use_sv": "räkna ut hur lång tid en drink tar genom kedjan.", "logo": "pubchem.png", "logo_from": "https://pubchem.ncbi.nlm.nih.gov/pcfe/favicon/apple-touch-icon.png", "versions": []}], "tools": [{"name": "Beagle 5.5", "what": "The imputation program.", "sv": "Imputeringsprogrammet.", "refs": ["beagle", "bref3_jar"], "versions": ["27Feb25.75f", "Beagle 5.5 (27Feb25.75f)"]}, {"name": "Genetic maps (GRCh38)", "what": "Where DNA is usually cut and recombined between generations, which imputation needs.", "sv": "Var DNA vanligtvis klipps och kombineras om mellan generationer, vilket imputeringen behöver.", "refs": ["genetic_map_grch38"], "versions": ["Beagle PLINK maps, GRCh38"]}, {"name": "UCSC liftOver", "what": "Moves positions from the older genome build (GRCh37) that some DNA files use to the current one (GRCh38).", "sv": "Flyttar positioner från den äldre genomversionen (GRCh37) som vissa DNA-filer använder till den aktuella (GRCh38).", "refs": ["liftover_chain"], "versions": ["UCSC hg19ToHg38"]}], "glossary": [{"term": "SNP", "sv_term": "SNP", "text": "Single-nucleotide polymorphism: one position in the DNA where people commonly differ by one letter. Consumer tests measure several hundred thousand of them.", "sv": "Singelnukleotidpolymorfism: en position i DNA där människor ofta skiljer sig åt med en bokstav. Konsumenttester mäter flera hundra tusen av dem."}, {"term": "Allele", "sv_term": "Allel", "text": "One of the versions of a position, for example A or G.", "sv": "En av versionerna av en position, till exempel A eller G."}, {"term": "Genotype", "sv_term": "Genotyp", "text": "The two alleles a person has at a position, one from each parent, for example AG.", "sv": "De två alleler en person har på en position, en från varje förälder, till exempel AG."}, {"term": "rsID", "sv_term": "rsID", "text": "A variant's number in dbSNP, such as rs4149056: the same everywhere, so every database can be joined on it.", "sv": "En variants nummer i dbSNP, till exempel rs4149056: detsamma överallt, så alla databaser kan kopplas ihop på det."}, {"term": "Chip", "sv_term": "Chip", "text": "The genotyping array a consumer test uses: it measures a fixed set of positions, not the whole genome.", "sv": "Genotypningsmatrisen ett konsumenttest använder: den mäter en fast uppsättning positioner, inte hela genomet."}, {"term": "Imputation", "sv_term": "Imputering", "text": "Filling in positions the chip didn't measure, from reference genomes that share the same stretches of DNA.", "sv": "Att fylla i positioner chipet inte mätte, från referensgenom som delar samma DNA-sträckor."}, {"term": "Reference panel", "sv_term": "Referenspanel", "text": "The full genomes imputation compares with: here the 1000 Genomes Project's 3,202 people.", "sv": "De fullständiga genom som imputeringen jämför med: här 1000 Genomes-projektets 3 202 personer."}, {"term": "Genotype probability (GP)", "sv_term": "Genotypsannolikhet (GP)", "text": "How likely imputation's best guess is. Calls below 0.9 are not kept.", "sv": "Hur sannolik imputeringens bästa gissning är. Anrop under 0,9 sparas inte."}, {"term": "Confidence tier", "sv_term": "Säkerhetsnivå", "text": "How often calls like this one came back right when measured positions were hidden and re-imputed: high (at least 98%), medium (at least 90%), low or untested.", "sv": "Hur ofta anrop som detta blev rätt när uppmätta positioner doldes och imputerades på nytt: hög (minst 98 %), medel (minst 90 %), låg eller otestad."}, {"term": "Not detected, not excluded", "sv_term": "Inte påvisad, inte utesluten", "text": "A rare variant imputation found no sign of, in a range where it misses too many real carriers to rule it out.", "sv": "En sällsynt variant som imputeringen inte såg några tecken på, i ett intervall där den missar för många verkliga bärare för att kunna utesluta den."}, {"term": "GRCh38", "sv_term": "GRCh38", "text": "The current version of the human reference genome, which every position here refers to.", "sv": "Den aktuella versionen av människans referensgenom, som varje position här avser."}, {"term": "Protein change", "sv_term": "Proteinförändring", "text": "A variant that swaps one building block of the protein (missense) or stops it early (a stop).", "sv": "En variant som byter ut en byggsten i proteinet (missense) eller avbryter det i förtid (ett stopp)."}, {"term": "eQTL", "sv_term": "eQTL", "text": "A variant that makes a gene more or less active in a tissue, without changing the protein.", "sv": "En variant som gör en gen mer eller mindre aktiv i en vävnad, utan att ändra proteinet."}, {"term": "Loss of function (LoF)", "sv_term": "Funktionsförlust (LoF)", "text": "The variant makes the gene's protein work less, or the gene less active.", "sv": "Varianten gör att genens protein fungerar sämre, eller att genen blir mindre aktiv."}, {"term": "Gain of function (GoF)", "sv_term": "Funktionsökning (GoF)", "text": "The variant makes the gene's protein work more, or the gene more active.", "sv": "Varianten gör att genens protein fungerar mer, eller att genen blir mer aktiv."}, {"term": "Star allele", "sv_term": "Stjärnallel", "text": "A named version of a drug gene, such as CYP2C19*2, defined by one or more variants.", "sv": "En namngiven version av en läkemedelsgen, till exempel CYP2C19*2, definierad av en eller flera varianter."}, {"term": "Metaboliser type", "sv_term": "Metaboliseringstyp", "text": "How fast a person's drug gene clears a medicine: poor, intermediate, normal, rapid or ultrarapid. Dosing guidelines are written per type.", "sv": "Hur snabbt en persons läkemedelsgen gör sig av med ett läkemedel: långsam, intermediär, normal, snabb eller ultrasnabb. Doseringsriktlinjer skrivs per typ."}, {"term": "GWAS", "sv_term": "GWAS", "text": "Genome-wide association study: compares many people's variants with a trait to find the variants linked to it.", "sv": "Genomomfattande associationsstudie: jämför många människors varianter med en egenskap för att hitta de varianter som är kopplade till den."}, {"term": "Polygenic score", "sv_term": "Polygen poäng", "text": "Many variants' small effects added up into one number, placed among Europeans as a percentile.", "sv": "Många varianters små effekter summerade till ett tal, placerat bland européer som en percentil."}, {"term": "Percentile", "sv_term": "Percentil", "text": "Where a person falls among others: the 80th percentile is higher than 80 of 100 Europeans.", "sv": "Var en person hamnar bland andra: den 80:e percentilen är högre än 80 av 100 européer."}, {"term": "Pathogenic variant", "sv_term": "Patogen variant", "text": "A variant ClinVar's submitters classify as causing disease.", "sv": "En variant som ClinVars inskickare klassar som sjukdomsorsakande."}, {"term": "Evidence grade", "sv_term": "Evidensgrad", "text": "How strong the evidence behind a finding is: A+ guideline-grade or expert-reviewed, A replicated, B one publication, C a single study.", "sv": "Hur starkt underlaget bakom ett fynd är: A+ riktlinjenivå eller expertgranskat, A replikerat, B en publikation, C en enskild studie."}, {"term": "Pathway", "sv_term": "Reaktionsväg", "text": "A chain of reactions in the body, each run by proteins, that together do one job, such as taking up iron.", "sv": "En kedja av reaktioner i kroppen, var och en utförd av proteiner, som tillsammans gör ett jobb, till exempel att ta upp järn."}, {"term": "Deep mutational scan", "sv_term": "Djup mutationsskanning", "text": "A laboratory experiment that measures every possible change of a protein, one at a time.", "sv": "Ett laboratorieexperiment som mäter varje möjlig förändring av ett protein, en i taget."}]};
   window.GX_PREVENTION = {"recommendations": [{"n": 1, "topic": "Smoking", "topic_sv": "Rökning", "text": "Do not smoke. Do not use any form of tobacco, or vaping products. If you smoke, you should quit.", "text_sv": "Rök inte. Använd inte någon form av tobak eller någon vejpingprodukt. Om du röker borde du sluta.", "items": [], "items_sv": []}, {"n": 2, "topic": "Exposure to other people’s tobacco smoke", "topic_sv": "Exponering för andra människors tobaksrök", "text": "Keep your home and car free of tobacco smoke.", "text_sv": "Håll ditt hem och din bil fria från tobaksrök.", "items": [], "items_sv": []}, {"n": 3, "topic": "Overweight and obesity", "topic_sv": "Övervikt och fetma", "text": "Take action to avoid or manage overweight and obesity:", "text_sv": "Saker du kan göra för att undvika eller hantera övervikt och fetma:", "items": ["Limit food high in calories, sugar, fat, and salt.", "Limit drinks high in sugar. Drink mostly water and unsweetened drinks.", "Limit ultra-processed foods."], "items_sv": ["Begränsa intaget av mat som innehåller många kalorier eller mycket socker, fett och salt.", "Begränsa intaget av drycker som innehåller mycket socker. Drick helst vatten och osötade drycker.", "Begränsa intaget av ultraprocessad mat."]}, {"n": 4, "topic": "Physical activity", "topic_sv": "Fysisk aktivitet", "text": "Be physically active in everyday life. Limit the time you spend sitting.", "text_sv": "Var fysiskt aktiv i vardagen. Begränsa den tid som du sitter ned.", "items": [], "items_sv": []}, {"n": 5, "topic": "Diet", "topic_sv": "Kost", "text": "Eat whole grains, vegetables, legumes, and fruits as a major part of your daily diet. Limit red meat, and avoid processed meat.", "text_sv": "Gör fullkornsprodukter, grönsaker, baljväxter och frukt till en stor del av din dagliga kost. Begränsa intaget av rött kött och undvik bearbetat kött.", "items": [], "items_sv": []}, {"n": 6, "topic": "Alcohol", "topic_sv": "Alkohol", "text": "Avoid alcoholic drinks.", "text_sv": "Undvik alkoholhaltiga drycker.", "items": [], "items_sv": []}, {"n": 7, "topic": "Breastfeeding", "topic_sv": "Amning", "text": "Breastfeed your baby for as long as possible.", "text_sv": "Amma ditt barn så länge som möjligt.", "items": [], "items_sv": []}, {"n": 8, "topic": "Sun exposure", "topic_sv": "Solexponering", "text": "Avoid too much sun exposure, especially for children. Use sun protection. Never use sunbeds.", "text_sv": "Undvik att vistas för mycket i solen. Detta gäller särskilt barn. Använd solskyddsprodukter. Sola aldrig i solarium.", "items": [], "items_sv": []}, {"n": 9, "topic": "Cancer-causing factors at work", "topic_sv": "Cancerframkallande faktorer på arbetsplatsen", "text": "Inform yourself about cancer-causing factors at work, and call on your employer to protect you against them. Always follow health and safety instructions at your workplace.", "text_sv": "Ta reda på vilka cancerframkallande faktorer som kan finnas på din arbetsplats och be din arbetsgivare att skydda dig mot dem. Följ alltid hälso- och säkerhetsinstruktionerna på arbetsplatsen.", "items": [], "items_sv": []}, {"n": 10, "topic": "Indoor radon gas", "topic_sv": "Radongas inomhus", "text": "Inform yourself about radon gas levels in your area by checking a local radon map. Seek professional help to measure levels in your home and, if necessary, reduce them.", "text_sv": "Ta reda på om det förekommer radongas i ditt närområde och på vilka nivåer genom att konsultera en lokal radonkarta. Be om professionell hjälp med att mäta nivåerna i ditt hem och vid behov att sänka dem.", "items": [], "items_sv": []}, {"n": 11, "topic": "Air pollution", "topic_sv": "Luftföroreningar", "text": "Take action to reduce exposure to air pollution by:", "text_sv": "Minska exponeringen för luftföroreningar genom att", "items": ["Using public transportation, and walking or cycling instead of using a car.", "Choosing low-traffic routes when walking, cycling, or exercising.", "Keeping your home free of smoke by not burning materials such as coal or wood.", "Supporting policies that improve air quality."], "items_sv": ["använda kollektivtrafik och gå eller cykla i stället för att köra bil,", "välja vägar med lite trafik när du promenerar, cyklar eller tränar,", "hålla ditt hem fritt från rök genom att inte elda material som kol eller ved,", "stödja politik som syftar till att förbättra luftkvaliteten."]}, {"n": 12, "topic": "Cancer-causing infections", "topic_sv": "Infektioner som kan orsaka cancer", "text": "", "text_sv": "", "items": ["Vaccinate girls and boys against hepatitis B virus and human papillomavirus (HPV) at the age recommended in your country.", "Take part in testing and treatment for hepatitis B and C viruses, human immunodeficiency virus (HIV), and Helicobacter pylori , as recommended in your country."], "items_sv": ["Vaccinera flickor och pojkar mot hepatit B-virus och humant papillomvirus (HPV) vid den ålder som rekommenderas i ditt land.", "Delta i testning för och behandling av hepatit B- och C-virus, humant immunbristvirus (hiv) och Helicobacter pylori, enligt rekommendationerna i ditt land."]}, {"n": 13, "topic": "Hormone replacement therapy", "topic_sv": "Hormonbehandling", "text": "If you decide to use hormone replacement therapy (for menopausal symptoms) after a thorough discussion with your health-care professional, limit its use to the shortest duration possible.", "text_sv": "Om du efter nära samråd med vårdpersonal påbörjar en hormonbehandling (för klimakteriebesvär) bör denna behandling pågå under så kort tid som möjligt.", "items": [], "items_sv": []}, {"n": 14, "topic": "Organized cancer screening programmes", "topic_sv": "Organiserade cancerscreeningprogram", "text": "Take part in organized cancer screening programmes, as recommended in your country, for:", "text_sv": "Delta i de organiserade cancerscreeningprogram som rekommenderas i ditt land för följande cancertyper:", "items": ["Bowel cancer.", "Breast cancer.", "Cervical cancer.", "Lung cancer."], "items_sv": ["Tjock- och ändtarmscancer", "Bröstcancer", "Livmoderhalscancer", "Lungcancer"]}], "cancers": {"breast carcinoma": {"name": "Breast cancer", "sv": "Bröstcancer", "iarc_sites": ["Breast"], "agents": ["Alcoholic beverages", "Estrogen–progestogen menopausal therapy"], "recommendations": [{"n": 6, "agents": ["Alcoholic beverages"]}, {"n": 13, "agents": ["Estrogen–progestogen menopausal therapy"]}]}, "prostate carcinoma": {"name": "Prostate cancer", "sv": "Prostatacancer", "iarc_sites": ["Prostate"], "agents": [], "recommendations": []}, "colorectal cancer": {"name": "Colorectal cancer", "sv": "Tjock- och ändtarmscancer", "iarc_sites": ["Colon", "Rectum"], "agents": ["Alcoholic beverages", "Processed meat (consumption of)", "Tobacco smoking"], "recommendations": [{"n": 1, "agents": ["Tobacco smoking"]}, {"n": 5, "agents": ["Processed meat (consumption of)"]}, {"n": 6, "agents": ["Alcoholic beverages"]}]}, "lung carcinoma": {"name": "Lung cancer", "sv": "Lungcancer", "iarc_sites": ["Lung"], "agents": ["Aluminium production", "Asbestos (all forms)", "Outdoor air pollution", "Painter (occupational exposure as a)", "Radon-222", "Rubber manufacturing industry", "Silica dust, crystalline", "Tobacco smoke, secondhand", "Tobacco smoking", "Welding fumes"], "recommendations": [{"n": 1, "agents": ["Tobacco smoking"]}, {"n": 2, "agents": ["Tobacco smoke, secondhand"]}, {"n": 9, "agents": ["Aluminium production", "Asbestos (all forms)", "Painter (occupational exposure as a)", "Rubber manufacturing industry", "Silica dust, crystalline", "Welding fumes"]}, {"n": 10, "agents": ["Radon-222"]}, {"n": 11, "agents": ["Outdoor air pollution"]}]}, "cutaneous melanoma": {"name": "Cutaneous melanoma", "sv": "Hudmelanom", "iarc_sites": ["Skin (melanoma)"], "agents": ["Solar radiation", "Ultraviolet-emitting tanning devices"], "recommendations": [{"n": 8, "agents": ["Solar radiation", "Ultraviolet-emitting tanning devices"]}]}, "ovarian cancer": {"name": "Ovarian cancer", "sv": "Äggstockscancer", "iarc_sites": ["Ovary"], "agents": ["Asbestos (all forms)", "Estrogen therapy, postmenopausal", "Tobacco smoking"], "recommendations": [{"n": 1, "agents": ["Tobacco smoking"]}, {"n": 9, "agents": ["Asbestos (all forms)"]}, {"n": 13, "agents": ["Estrogen therapy, postmenopausal"]}]}, "exocrine pancreatic carcinoma": {"name": "Pancreatic cancer", "sv": "Bukspottkörtelcancer", "iarc_sites": ["Pancreas"], "agents": ["Tobacco smoking", "Tobacco, smokeless"], "recommendations": [{"n": 1, "agents": ["Tobacco smoking", "Tobacco, smokeless"]}]}, "basal cell carcinoma": {"name": "Basal cell carcinoma", "sv": "Basalcellscancer", "iarc_sites": ["Skin (malignant non-melanoma)"], "agents": ["Coal-tar distillation", "Solar radiation"], "recommendations": [{"n": 8, "agents": ["Solar radiation"]}, {"n": 9, "agents": ["Coal-tar distillation"]}]}, "urinary bladder carcinoma": {"name": "Bladder cancer", "sv": "Urinblåsecancer", "iarc_sites": ["Urinary bladder"], "agents": ["Aluminium production", "Firefighter (occupational exposure as a)", "Painter (occupational exposure as a)", "Rubber manufacturing industry", "Tobacco smoking"], "recommendations": [{"n": 1, "agents": ["Tobacco smoking"]}, {"n": 9, "agents": ["Aluminium production", "Firefighter (occupational exposure as a)", "Painter (occupational exposure as a)", "Rubber manufacturing industry"]}]}, "renal cell carcinoma": {"name": "Kidney cancer", "sv": "Njurcancer", "iarc_sites": ["Kidney"], "agents": ["Tobacco smoking", "Trichloroethylene"], "recommendations": [{"n": 1, "agents": ["Tobacco smoking"]}, {"n": 9, "agents": ["Trichloroethylene"]}]}}, "sources": {"iarc": "https://monographs.iarc.who.int/wp-content/uploads/2019/07/Classifications_by_cancer_site.pdf", "ecac": {"en": "https://cancer-code-europe.iarc.who.int/", "sv": "https://cancer-code-europe.iarc.who.int/sv/startsida/"}}};
+  window.GX_MIND = {"source": {"icd": "https://clinicaltables.nlm.nih.gov/apidoc/icd10cm/v3/doc.html", "papers": "https://europepmc.org", "atc": "https://www.ebi.ac.uk/chembl/"}, "groups": {"substance": {"icd": [{"category": "F10", "codes": [["F10.10", "Alcohol abuse, uncomplicated"], ["F10.11", "Alcohol abuse, in remission"], ["F10.120", "Alcohol abuse with intoxication, uncomplicated"], ["F10.121", "Alcohol abuse with intoxication delirium"], ["F10.129", "Alcohol abuse with intoxication, unspecified"], ["F10.130", "Alcohol abuse with withdrawal, uncomplicated"], ["F10.131", "Alcohol abuse with withdrawal delirium"], ["F10.132", "Alcohol abuse with withdrawal with perceptual disturbance"], ["F10.139", "Alcohol abuse with withdrawal, unspecified"], ["F10.14", "Alcohol abuse with alcohol-induced mood disorder"], ["F10.150", "Alcohol abuse with alcohol-induced psychotic disorder with delusions"], ["F10.151", "Alcohol abuse with alcohol-induced psychotic disorder with hallucinations"], ["F10.159", "Alcohol abuse with alcohol-induced psychotic disorder, unspecified"], ["F10.180", "Alcohol abuse with alcohol-induced anxiety disorder"], ["F10.181", "Alcohol abuse with alcohol-induced sexual dysfunction"], ["F10.182", "Alcohol abuse with alcohol-induced sleep disorder"], ["F10.188", "Alcohol abuse with other alcohol-induced disorder"], ["F10.19", "Alcohol abuse with unspecified alcohol-induced disorder"], ["F10.20", "Alcohol dependence, uncomplicated"], ["F10.21", "Alcohol dependence, in remission"], ["F10.220", "Alcohol dependence with intoxication, uncomplicated"], ["F10.221", "Alcohol dependence with intoxication delirium"], ["F10.229", "Alcohol dependence with intoxication, unspecified"], ["F10.230", "Alcohol dependence with withdrawal, uncomplicated"], ["F10.231", "Alcohol dependence with withdrawal delirium"], ["F10.232", "Alcohol dependence with withdrawal with perceptual disturbance"], ["F10.239", "Alcohol dependence with withdrawal, unspecified"], ["F10.24", "Alcohol dependence with alcohol-induced mood disorder"], ["F10.250", "Alcohol dependence with alcohol-induced psychotic disorder with delusions"], ["F10.251", "Alcohol dependence with alcohol-induced psychotic disorder with hallucinations"], ["F10.259", "Alcohol dependence with alcohol-induced psychotic disorder, unspecified"], ["F10.26", "Alcohol dependence with alcohol-induced persisting amnestic disorder"], ["F10.27", "Alcohol dependence with alcohol-induced persisting dementia"], ["F10.280", "Alcohol dependence with alcohol-induced anxiety disorder"], ["F10.281", "Alcohol dependence with alcohol-induced sexual dysfunction"], ["F10.282", "Alcohol dependence with alcohol-induced sleep disorder"], ["F10.288", "Alcohol dependence with other alcohol-induced disorder"], ["F10.29", "Alcohol dependence with unspecified alcohol-induced disorder"], ["F10.90", "Alcohol use, unspecified, uncomplicated"], ["F10.91", "Alcohol use, unspecified, in remission"], ["F10.920", "Alcohol use, unspecified with intoxication, uncomplicated"], ["F10.921", "Alcohol use, unspecified with intoxication delirium"], ["F10.929", "Alcohol use, unspecified with intoxication, unspecified"], ["F10.930", "Alcohol use, unspecified with withdrawal, uncomplicated"], ["F10.931", "Alcohol use, unspecified with withdrawal delirium"], ["F10.932", "Alcohol use, unspecified with withdrawal with perceptual disturbance"], ["F10.939", "Alcohol use, unspecified with withdrawal, unspecified"], ["F10.94", "Alcohol use, unspecified with alcohol-induced mood disorder"], ["F10.950", "Alcohol use, unspecified with alcohol-induced psychotic disorder with delusions"], ["F10.951", "Alcohol use, unspecified with alcohol-induced psychotic disorder with hallucinations"], ["F10.959", "Alcohol use, unspecified with alcohol-induced psychotic disorder, unspecified"], ["F10.96", "Alcohol use, unspecified with alcohol-induced persisting amnestic disorder"], ["F10.97", "Alcohol use, unspecified with alcohol-induced persisting dementia"], ["F10.980", "Alcohol use, unspecified with alcohol-induced anxiety disorder"], ["F10.981", "Alcohol use, unspecified with alcohol-induced sexual dysfunction"], ["F10.982", "Alcohol use, unspecified with alcohol-induced sleep disorder"], ["F10.988", "Alcohol use, unspecified with other alcohol-induced disorder"], ["F10.99", "Alcohol use, unspecified with unspecified alcohol-induced disorder"]]}, {"category": "F12", "codes": [["F12.10", "Cannabis abuse, uncomplicated"], ["F12.11", "Cannabis abuse, in remission"], ["F12.120", "Cannabis abuse with intoxication, uncomplicated"], ["F12.121", "Cannabis abuse with intoxication delirium"], ["F12.122", "Cannabis abuse with intoxication with perceptual disturbance"], ["F12.129", "Cannabis abuse with intoxication, unspecified"], ["F12.13", "Cannabis abuse with withdrawal"], ["F12.150", "Cannabis abuse with psychotic disorder with delusions"], ["F12.151", "Cannabis abuse with psychotic disorder with hallucinations"], ["F12.159", "Cannabis abuse with psychotic disorder, unspecified"], ["F12.180", "Cannabis abuse with cannabis-induced anxiety disorder"], ["F12.188", "Cannabis abuse with other cannabis-induced disorder"], ["F12.19", "Cannabis abuse with unspecified cannabis-induced disorder"], ["F12.20", "Cannabis dependence, uncomplicated"], ["F12.21", "Cannabis dependence, in remission"], ["F12.220", "Cannabis dependence with intoxication, uncomplicated"], ["F12.221", "Cannabis dependence with intoxication delirium"], ["F12.222", "Cannabis dependence with intoxication with perceptual disturbance"], ["F12.229", "Cannabis dependence with intoxication, unspecified"], ["F12.23", "Cannabis dependence with withdrawal"], ["F12.250", "Cannabis dependence with psychotic disorder with delusions"], ["F12.251", "Cannabis dependence with psychotic disorder with hallucinations"], ["F12.259", "Cannabis dependence with psychotic disorder, unspecified"], ["F12.280", "Cannabis dependence with cannabis-induced anxiety disorder"], ["F12.288", "Cannabis dependence with other cannabis-induced disorder"], ["F12.29", "Cannabis dependence with unspecified cannabis-induced disorder"], ["F12.90", "Cannabis use, unspecified, uncomplicated"], ["F12.91", "Cannabis use, unspecified, in remission"], ["F12.920", "Cannabis use, unspecified with intoxication, uncomplicated"], ["F12.921", "Cannabis use, unspecified with intoxication delirium"], ["F12.922", "Cannabis use, unspecified with intoxication with perceptual disturbance"], ["F12.929", "Cannabis use, unspecified with intoxication, unspecified"], ["F12.93", "Cannabis use, unspecified with withdrawal"], ["F12.950", "Cannabis use, unspecified with psychotic disorder with delusions"], ["F12.951", "Cannabis use, unspecified with psychotic disorder with hallucinations"], ["F12.959", "Cannabis use, unspecified with psychotic disorder, unspecified"], ["F12.980", "Cannabis use, unspecified with anxiety disorder"], ["F12.988", "Cannabis use, unspecified with other cannabis-induced disorder"], ["F12.99", "Cannabis use, unspecified with unspecified cannabis-induced disorder"]]}, {"category": "F15", "codes": [["F15.10", "Other stimulant abuse, uncomplicated"], ["F15.11", "Other stimulant abuse, in remission"], ["F15.120", "Other stimulant abuse with intoxication, uncomplicated"], ["F15.121", "Other stimulant abuse with intoxication delirium"], ["F15.122", "Other stimulant abuse with intoxication with perceptual disturbance"], ["F15.129", "Other stimulant abuse with intoxication, unspecified"], ["F15.13", "Other stimulant abuse with withdrawal"], ["F15.14", "Other stimulant abuse with stimulant-induced mood disorder"], ["F15.150", "Other stimulant abuse with stimulant-induced psychotic disorder with delusions"], ["F15.151", "Other stimulant abuse with stimulant-induced psychotic disorder with hallucinations"], ["F15.159", "Other stimulant abuse with stimulant-induced psychotic disorder, unspecified"], ["F15.180", "Other stimulant abuse with stimulant-induced anxiety disorder"], ["F15.181", "Other stimulant abuse with stimulant-induced sexual dysfunction"], ["F15.182", "Other stimulant abuse with stimulant-induced sleep disorder"], ["F15.188", "Other stimulant abuse with other stimulant-induced disorder"], ["F15.19", "Other stimulant abuse with unspecified stimulant-induced disorder"], ["F15.20", "Other stimulant dependence, uncomplicated"], ["F15.21", "Other stimulant dependence, in remission"], ["F15.220", "Other stimulant dependence with intoxication, uncomplicated"], ["F15.221", "Other stimulant dependence with intoxication delirium"], ["F15.222", "Other stimulant dependence with intoxication with perceptual disturbance"], ["F15.229", "Other stimulant dependence with intoxication, unspecified"], ["F15.23", "Other stimulant dependence with withdrawal"], ["F15.24", "Other stimulant dependence with stimulant-induced mood disorder"], ["F15.250", "Other stimulant dependence with stimulant-induced psychotic disorder with delusions"], ["F15.251", "Other stimulant dependence with stimulant-induced psychotic disorder with hallucinations"], ["F15.259", "Other stimulant dependence with stimulant-induced psychotic disorder, unspecified"], ["F15.280", "Other stimulant dependence with stimulant-induced anxiety disorder"], ["F15.281", "Other stimulant dependence with stimulant-induced sexual dysfunction"], ["F15.282", "Other stimulant dependence with stimulant-induced sleep disorder"], ["F15.288", "Other stimulant dependence with other stimulant-induced disorder"], ["F15.29", "Other stimulant dependence with unspecified stimulant-induced disorder"], ["F15.90", "Other stimulant use, unspecified, uncomplicated"], ["F15.91", "Other stimulant use, unspecified, in remission"], ["F15.920", "Other stimulant use, unspecified with intoxication, uncomplicated"], ["F15.921", "Other stimulant use, unspecified with intoxication delirium"], ["F15.922", "Other stimulant use, unspecified with intoxication with perceptual disturbance"], ["F15.929", "Other stimulant use, unspecified with intoxication, unspecified"], ["F15.93", "Other stimulant use, unspecified with withdrawal"], ["F15.94", "Other stimulant use, unspecified with stimulant-induced mood disorder"], ["F15.950", "Other stimulant use, unspecified with stimulant-induced psychotic disorder with delusions"], ["F15.951", "Other stimulant use, unspecified with stimulant-induced psychotic disorder with hallucinations"], ["F15.959", "Other stimulant use, unspecified with stimulant-induced psychotic disorder, unspecified"], ["F15.980", "Other stimulant use, unspecified with stimulant-induced anxiety disorder"], ["F15.981", "Other stimulant use, unspecified with stimulant-induced sexual dysfunction"], ["F15.982", "Other stimulant use, unspecified with stimulant-induced sleep disorder"], ["F15.988", "Other stimulant use, unspecified with other stimulant-induced disorder"], ["F15.99", "Other stimulant use, unspecified with unspecified stimulant-induced disorder"]]}, {"category": "F17", "codes": [["F17.200", "Nicotine dependence, unspecified, uncomplicated"], ["F17.201", "Nicotine dependence, unspecified, in remission"], ["F17.203", "Nicotine dependence unspecified, with withdrawal"], ["F17.208", "Nicotine dependence, unspecified, with other nicotine-induced disorders"], ["F17.209", "Nicotine dependence, unspecified, with unspecified nicotine-induced disorders"], ["F17.210", "Nicotine dependence, cigarettes, uncomplicated"], ["F17.211", "Nicotine dependence, cigarettes, in remission"], ["F17.213", "Nicotine dependence, cigarettes, with withdrawal"], ["F17.218", "Nicotine dependence, cigarettes, with other nicotine-induced disorders"], ["F17.219", "Nicotine dependence, cigarettes, with unspecified nicotine-induced disorders"], ["F17.220", "Nicotine dependence, chewing tobacco, uncomplicated"], ["F17.221", "Nicotine dependence, chewing tobacco, in remission"], ["F17.223", "Nicotine dependence, chewing tobacco, with withdrawal"], ["F17.228", "Nicotine dependence, chewing tobacco, with other nicotine-induced disorders"], ["F17.229", "Nicotine dependence, chewing tobacco, with unspecified nicotine-induced disorders"], ["F17.290", "Nicotine dependence, other tobacco product, uncomplicated"], ["F17.291", "Nicotine dependence, other tobacco product, in remission"], ["F17.293", "Nicotine dependence, other tobacco product, with withdrawal"], ["F17.298", "Nicotine dependence, other tobacco product, with other nicotine-induced disorders"], ["F17.299", "Nicotine dependence, other tobacco product, with unspecified nicotine-induced disorders"]]}], "screens": [{"name": "AUDIT", "pmid": "8329970", "title": "Development of the Alcohol Use Disorders Identification Test (AUDIT): WHO Collaborative Project on Early Detection of Persons with Harmful Alcohol Consumption--II.", "authors": "Saunders JB, Aasland OG, Babor TF, de la Fuente JR, Grant M.", "journal": "Addiction (Abingdon, England)", "year": "1993", "doi": "10.1111/j.1360-0443.1993.tb02093.x", "quotes": ["Responses to each question are scored from 0 to 4, giving a maximum possible score of 40.", "Among those diagnosed as having hazardous or harmful alcohol use, 92% had an AUDIT score of 8 or more, and 94% of those with non-hazardous consumption had a score of less than 8."], "url": "https://europepmc.org/article/MED/8329970"}, {"name": "Fagerström Test for Nicotine Dependence", "pmid": "1932883", "title": "The Fagerström Test for Nicotine Dependence: a revision of the Fagerström Tolerance Questionnaire.", "authors": "Heatherton TF, Kozlowski LT, Frecker RC, Fagerström KO.", "journal": "British journal of addiction", "year": "1991", "doi": "10.1111/j.1360-0443.1991.tb01879.x", "quotes": [], "url": "https://europepmc.org/article/MED/1932883"}, {"name": "CUDIT-R", "pmid": "20347232", "title": "An improved brief measure of cannabis misuse: the Cannabis Use Disorders Identification Test-Revised (CUDIT-R).", "authors": "Adamson SJ, Kay-Lambkin FJ, Baker AL, Lewin TJ, Thornton L, Kelly BJ, Sellman JD.", "journal": "Drug and alcohol dependence", "year": "2010", "doi": "10.1016/j.drugalcdep.2010.02.017", "quotes": ["High sensitivity (91%) and specificity (90%) were achieved."], "url": "https://europepmc.org/article/MED/20347232"}], "classes": [{"atc": "N07B", "name": "DRUGS USED IN ADDICTIVE DISORDERS"}], "drugs": {"acamprosate": "N07BB03", "buprenorphine": "N07BC01", "buprenorphine, combinations": "N07BC51", "calcium carbimide": "N07BB02", "cytisine": "N07BA04", "diamorphine": "N07BC06", "disulfiram": "N07BB01", "levacetylmethadol": "N07BC03", "levomethadone": "N07BC05", "lofexidine": "N07BC04", "methadone": "N07BC02", "nalmefene": "N07BB05", "naltrexone": "N07BB04", "nicotine": "N07BA01", "ondelopran": "N07BB06", "varenicline": "N07BA03"}}, "psychotic": {"icd": [{"category": "F20", "codes": [["F20.0", "Paranoid schizophrenia"], ["F20.1", "Disorganized schizophrenia"], ["F20.2", "Catatonic schizophrenia"], ["F20.3", "Undifferentiated schizophrenia"], ["F20.5", "Residual schizophrenia"], ["F20.81", "Schizophreniform disorder"], ["F20.89", "Other schizophrenia"], ["F20.9", "Schizophrenia, unspecified"]]}], "screens": [{"name": "Prodromal Questionnaire, brief (PQ-B)", "pmid": "21511440", "title": "Psychosis risk screening with the Prodromal Questionnaire--brief version (PQ-B).", "authors": "Loewy RL, Pearson R, Vinogradov S, Bearden CE, Cannon TD.", "journal": "Schizophrenia research", "year": "2011", "doi": "10.1016/j.schres.2011.03.029", "quotes": ["Endorsement of three or more positive symptoms on the PQ-B differentiated between those with prodromal syndrome and psychotic syndrome diagnoses on the SIPS versus those with no SIPS diagnoses with 89% sensitivity, 58% specificity, and a positive Likelihood Ratio of 2.12.", "A Distress Score measuring the distress or impairment associated with endorsed positive symptoms increased the specificity to 68%, while retaining similar sensitivity of 88%."], "url": "https://europepmc.org/article/MED/21511440"}], "classes": [{"atc": "N05A", "name": "ANTIPSYCHOTICS"}], "drugs": {"acepromazine": "N05AA04", "acetophenazine": "N05AB07", "amisulpride": "N05AL05", "aripiprazole": "N05AX12", "asenapine": "N05AH05", "benperidol": "N05AD07", "brexpiprazole": "N05AX16", "bromperidol": "N05AD06", "butaperazine": "N05AB09", "cariprazine": "N05AX15", "chlorproethazine": "N05AA07", "chlorpromazine": "N05AA01", "chlorprothixene": "N05AF03", "clopenthixol": "N05AF02", "clotiapine": "N05AH06", "clozapine": "N05AH02", "cyamemazine": "N05AA06", "dixyrazine": "N05AB01", "droperidol": "N05AD08", "fluanisone": "N05AD09", "flupentixol": "N05AF01", "fluphenazine": "N05AB02", "fluspirilene": "N05AG01", "haloperidol": "N05AD01", "iloperidone": "N05AX14", "levomepromazine": "N05AA02", "levosulpiride": "N05AL07", "lithium": "N05AN01", "loxapine": "N05AH01", "lumateperone": "N05AD10", "lurasidone": "N05AE05", "melperone": "N05AD03", "mesoridazine": "N05AC03", "molindone": "N05AE02", "moperone": "N05AD04", "mosapramine": "N05AX10", "olanzapine": "N05AH03", "olanzapine and samidorphan": "N05AH53", "oxypertine": "N05AE01", "paliperidone": "N05AX13", "penfluridol": "N05AG03", "perazine": "N05AB10", "periciazine": "N05AC01", "perphenazine": "N05AB03", "pimavanserin": "N05AX17", "pimozide": "N05AG02", "pipamperone": "N05AD05", "pipotiazine": "N05AC04", "prochlorperazine": "N05AB04", "promazine": "N05AA03", "prothipendyl": "N05AX07", "quetiapine": "N05AH04", "remoxipride": "N05AL04", "risperidone": "N05AX08", "sertindole": "N05AE03", "sulpiride": "N05AL01", "sultopride": "N05AL02", "thiopropazate": "N05AB05", "thioproperazine": "N05AB08", "thioridazine": "N05AC02", "tiapride": "N05AL03", "tiotixene": "N05AF04", "trifluoperazine": "N05AB06", "trifluperidol": "N05AD02", "triflupromazine": "N05AA05", "veralipride": "N05AL06", "ziprasidone": "N05AE04", "zotepine": "N05AX11", "zuclopenthixol": "N05AF05"}}, "bipolar": {"icd": [{"category": "F31", "codes": [["F31.0", "Bipolar disorder, current episode hypomanic"], ["F31.10", "Bipolar disorder, current episode manic without psychotic features, unspecified"], ["F31.11", "Bipolar disorder, current episode manic without psychotic features, mild"], ["F31.12", "Bipolar disorder, current episode manic without psychotic features, moderate"], ["F31.13", "Bipolar disorder, current episode manic without psychotic features, severe"], ["F31.2", "Bipolar disorder, current episode manic severe with psychotic features"], ["F31.30", "Bipolar disorder, current episode depressed, mild or moderate severity, unspecified"], ["F31.31", "Bipolar disorder, current episode depressed, mild"], ["F31.32", "Bipolar disorder, current episode depressed, moderate"], ["F31.4", "Bipolar disorder, current episode depressed, severe, without psychotic features"], ["F31.5", "Bipolar disorder, current episode depressed, severe, with psychotic features"], ["F31.60", "Bipolar disorder, current episode mixed, unspecified"], ["F31.61", "Bipolar disorder, current episode mixed, mild"], ["F31.62", "Bipolar disorder, current episode mixed, moderate"], ["F31.63", "Bipolar disorder, current episode mixed, severe, without psychotic features"], ["F31.64", "Bipolar disorder, current episode mixed, severe, with psychotic features"], ["F31.70", "Bipolar disorder, currently in remission, most recent episode unspecified"], ["F31.71", "Bipolar disorder, in partial remission, most recent episode hypomanic"], ["F31.72", "Bipolar disorder, in full remission, most recent episode hypomanic"], ["F31.73", "Bipolar disorder, in partial remission, most recent episode manic"], ["F31.74", "Bipolar disorder, in full remission, most recent episode manic"], ["F31.75", "Bipolar disorder, in partial remission, most recent episode depressed"], ["F31.76", "Bipolar disorder, in full remission, most recent episode depressed"], ["F31.77", "Bipolar disorder, in partial remission, most recent episode mixed"], ["F31.78", "Bipolar disorder, in full remission, most recent episode mixed"], ["F31.81", "Bipolar II disorder"], ["F31.89", "Other bipolar disorder"], ["F31.9", "Bipolar disorder, unspecified"]]}], "screens": [{"name": "Mood Disorder Questionnaire (MDQ)", "pmid": "11058490", "title": "Development and validation of a screening instrument for bipolar spectrum disorder: the Mood Disorder Questionnaire.", "authors": "Hirschfeld RM, Williams JB, Spitzer RL, Calabrese JR, Flynn L, Keck PE, Lewis L, McElroy SL, Post RM, Rapport DJ, Russell JM, Sachs GS, Zajecka J.", "journal": "The American journal of psychiatry", "year": "2000", "doi": "10.1176/appi.ajp.157.11.1873", "quotes": ["A Mood Disorder Questionnaire screening score of 7 or more items yielded good sensitivity (0.73) and very good specificity (0.90)."], "url": "https://europepmc.org/article/MED/11058490"}], "classes": [{"atc": "N03AF", "name": "Carboxamide derivatives"}, {"atc": "N03AG", "name": "Fatty acid derivatives"}, {"atc": "N03AX09", "name": "lamotrigine"}, {"atc": "N05A", "name": "ANTIPSYCHOTICS"}, {"atc": "N05AN", "name": "Lithium"}], "drugs": {"acepromazine": "N05AA04", "acetophenazine": "N05AB07", "aminobutyric acid": "N03AG03", "amisulpride": "N05AL05", "aripiprazole": "N05AX12", "asenapine": "N05AH05", "benperidol": "N05AD07", "brexpiprazole": "N05AX16", "bromperidol": "N05AD06", "butaperazine": "N05AB09", "carbamazepine": "N03AF01", "cariprazine": "N05AX15", "chlorproethazine": "N05AA07", "chlorpromazine": "N05AA01", "chlorprothixene": "N05AF03", "clopenthixol": "N05AF02", "clotiapine": "N05AH06", "clozapine": "N05AH02", "cyamemazine": "N05AA06", "dixyrazine": "N05AB01", "droperidol": "N05AD08", "eslicarbazepine": "N03AF04", "fluanisone": "N05AD09", "flupentixol": "N05AF01", "fluphenazine": "N05AB02", "fluspirilene": "N05AG01", "haloperidol": "N05AD01", "iloperidone": "N05AX14", "lamotrigine": "N03AX09", "levomepromazine": "N05AA02", "levosulpiride": "N05AL07", "lithium": "N05AN01", "loxapine": "N05AH01", "lumateperone": "N05AD10", "lurasidone": "N05AE05", "melperone": "N05AD03", "mesoridazine": "N05AC03", "molindone": "N05AE02", "moperone": "N05AD04", "mosapramine": "N05AX10", "olanzapine": "N05AH03", "olanzapine and samidorphan": "N05AH53", "oxcarbazepine": "N03AF02", "oxypertine": "N05AE01", "paliperidone": "N05AX13", "penfluridol": "N05AG03", "perazine": "N05AB10", "periciazine": "N05AC01", "perphenazine": "N05AB03", "pimavanserin": "N05AX17", "pimozide": "N05AG02", "pipamperone": "N05AD05", "pipotiazine": "N05AC04", "prochlorperazine": "N05AB04", "progabide": "N03AG05", "promazine": "N05AA03", "prothipendyl": "N05AX07", "quetiapine": "N05AH04", "remoxipride": "N05AL04", "risperidone": "N05AX08", "rufinamide": "N03AF03", "sertindole": "N05AE03", "sulpiride": "N05AL01", "sultopride": "N05AL02", "thiopropazate": "N05AB05", "thioproperazine": "N05AB08", "thioridazine": "N05AC02", "tiagabine": "N03AG06", "tiapride": "N05AL03", "tiotixene": "N05AF04", "trifluoperazine": "N05AB06", "trifluperidol": "N05AD02", "triflupromazine": "N05AA05", "valproic acid": "N03AG01", "valpromide": "N03AG02", "veralipride": "N05AL06", "vigabatrin": "N03AG04", "ziprasidone": "N05AE04", "zotepine": "N05AX11", "zuclopenthixol": "N05AF05"}}, "depressive": {"icd": [{"category": "F32", "codes": [["F32.0", "Major depressive disorder, single episode, mild"], ["F32.1", "Major depressive disorder, single episode, moderate"], ["F32.2", "Major depressive disorder, single episode, severe without psychotic features"], ["F32.3", "Major depressive disorder, single episode, severe with psychotic features"], ["F32.4", "Major depressive disorder, single episode, in partial remission"], ["F32.5", "Major depressive disorder, single episode, in full remission"], ["F32.81", "Premenstrual dysphoric disorder"], ["F32.89", "Other specified depressive episodes"], ["F32.9", "Major depressive disorder, single episode, unspecified"], ["F32.A", "Depression, unspecified"]]}, {"category": "F33", "codes": [["F33.0", "Major depressive disorder, recurrent, mild"], ["F33.1", "Major depressive disorder, recurrent, moderate"], ["F33.2", "Major depressive disorder, recurrent severe without psychotic features"], ["F33.3", "Major depressive disorder, recurrent, severe with psychotic symptoms"], ["F33.40", "Major depressive disorder, recurrent, in remission, unspecified"], ["F33.41", "Major depressive disorder, recurrent, in partial remission"], ["F33.42", "Major depressive disorder, recurrent, in full remission"], ["F33.8", "Other recurrent depressive disorders"], ["F33.9", "Major depressive disorder, recurrent, unspecified"]]}], "screens": [{"name": "PHQ-9", "pmid": "11556941", "title": "The PHQ-9: validity of a brief depression severity measure.", "authors": "Kroenke K, Spitzer RL, Williams JB.", "journal": "Journal of general internal medicine", "year": "2001", "doi": "10.1046/j.1525-1497.2001.016009606.x", "quotes": ["Using the MHP reinterview as the criterion standard, a PHQ-9 score > or =10 had a sensitivity of 88% and a specificity of 88% for major depression.", "PHQ-9 scores of 5, 10, 15, and 20 represented mild, moderate, moderately severe, and severe depression, respectively."], "url": "https://europepmc.org/article/MED/11556941"}], "classes": [{"atc": "N06A", "name": "ANTIDEPRESSANTS"}], "drugs": {"agomelatine": "N06AX22", "alaproclate": "N06AB07", "amineptine": "N06AA19", "amitriptyline": "N06AA09", "amoxapine": "N06AA17", "bifemelane": "N06AX08", "brexanolone": "N06AX29", "bupropion": "N06AX12", "bupropion and dextromethorphan": "N06AX62", "butriptyline": "N06AA15", "citalopram": "N06AB04", "clomipramine": "N06AA04", "desipramine": "N06AA01", "desvenlafaxine": "N06AX23", "dibenzepin": "N06AA08", "dimetacrine": "N06AA18", "dosulepin": "N06AA16", "doxepin": "N06AA12", "duloxetine": "N06AX21", "escitalopram": "N06AB10", "esketamine": "N06AX27", "etoperidone": "N06AB09", "fluoxetine": "N06AB03", "fluvoxamine": "N06AB08", "gepirone": "N06AX19", "hyperici herba": "N06AX25", "imipramine": "N06AA02", "imipramine oxide": "N06AA03", "iprindole": "N06AA13", "iproclozide": "N06AF06", "iproniazide": "N06AF05", "isocarboxazid": "N06AF01", "levomilnacipran": "N06AX28", "lofepramine": "N06AA07", "maprotiline": "N06AA21", "medifoxamine": "N06AX13", "melitracen": "N06AA14", "mianserin": "N06AX03", "milnacipran": "N06AX17", "minaprine": "N06AX07", "mirtazapine": "N06AX11", "moclobemide": "N06AG02", "nefazodone": "N06AX06", "nialamide": "N06AF02", "nomifensine": "N06AX04", "nortriptyline": "N06AA10", "opipramol": "N06AA05", "oxaflozane": "N06AX10", "oxitriptan": "N06AX01", "paroxetine": "N06AB05", "phenelzine": "N06AF03", "pivagabine": "N06AX15", "protriptyline": "N06AA11", "quinupramine": "N06AA23", "reboxetine": "N06AX18", "sertraline": "N06AB06", "tianeptine": "N06AX14", "toloxatone": "N06AG03", "tranylcypromine": "N06AF04", "trazodone": "N06AX05", "trimipramine": "N06AA06", "tryptophan": "N06AX02", "venlafaxine": "N06AX16", "vilazodone": "N06AX24", "viloxazine": "N06AX09", "vortioxetine": "N06AX26", "zimeldine": "N06AB02", "zuranolone": "N06AX31"}}, "anxiety": {"icd": [{"category": "F41", "codes": [["F41.0", "Panic disorder [episodic paroxysmal anxiety]"], ["F41.1", "Generalized anxiety disorder"], ["F41.3", "Other mixed anxiety disorders"], ["F41.8", "Other specified anxiety disorders"], ["F41.9", "Anxiety disorder, unspecified"]]}], "screens": [{"name": "GAD-7", "pmid": "16717171", "title": "A brief measure for assessing generalized anxiety disorder: the GAD-7.", "authors": "Spitzer RL, Kroenke K, Williams JB, Löwe B.", "journal": "Archives of internal medicine", "year": "2006", "doi": "10.1001/archinte.166.10.1092", "quotes": ["A cut point was identified that optimized sensitivity (89%) and specificity (82%)."], "url": "https://europepmc.org/article/MED/16717171"}], "classes": [{"atc": "N05BA", "name": "Benzodiazepine derivatives"}, {"atc": "N06A", "name": "ANTIDEPRESSANTS"}], "drugs": {"adinazolam": "N05BA07", "agomelatine": "N06AX22", "alaproclate": "N06AB07", "alprazolam": "N05BA12", "amineptine": "N06AA19", "amitriptyline": "N06AA09", "amoxapine": "N06AA17", "bentazepam": "N05BA24", "bifemelane": "N06AX08", "brexanolone": "N06AX29", "bromazepam": "N05BA08", "bupropion": "N06AX12", "bupropion and dextromethorphan": "N06AX62", "butriptyline": "N06AA15", "camazepam": "N05BA15", "chlordiazepoxide": "N05BA02", "citalopram": "N06AB04", "clobazam": "N05BA09", "clomipramine": "N06AA04", "clotiazepam": "N05BA21", "cloxazolam": "N05BA22", "desipramine": "N06AA01", "desvenlafaxine": "N06AX23", "diazepam": "N05BA01", "dibenzepin": "N06AA08", "dimetacrine": "N06AA18", "dosulepin": "N06AA16", "doxepin": "N06AA12", "duloxetine": "N06AX21", "escitalopram": "N06AB10", "esketamine": "N06AX27", "ethyl loflazepate": "N05BA18", "etizolam": "N05BA19", "etoperidone": "N06AB09", "fludiazepam": "N05BA17", "fluoxetine": "N06AB03", "fluvoxamine": "N06AB08", "gepirone": "N06AX19", "halazepam": "N05BA13", "hyperici herba": "N06AX25", "imipramine": "N06AA02", "imipramine oxide": "N06AA03", "iprindole": "N06AA13", "iproclozide": "N06AF06", "iproniazide": "N06AF05", "isocarboxazid": "N06AF01", "ketazolam": "N05BA10", "levomilnacipran": "N06AX28", "lofepramine": "N06AA07", "lorazepam": "N05BA06", "lorazepam, combinations": "N05BA56", "maprotiline": "N06AA21", "medazepam": "N05BA03", "medifoxamine": "N06AX13", "melitracen": "N06AA14", "mexazolam": "N05BA25", "mianserin": "N06AX03", "milnacipran": "N06AX17", "minaprine": "N06AX07", "mirtazapine": "N06AX11", "moclobemide": "N06AG02", "nefazodone": "N06AX06", "nialamide": "N06AF02", "nomifensine": "N06AX04", "nordazepam": "N05BA16", "nortriptyline": "N06AA10", "opipramol": "N06AA05", "oxaflozane": "N06AX10", "oxazepam": "N05BA04", "oxitriptan": "N06AX01", "paroxetine": "N06AB05", "phenelzine": "N06AF03", "pinazepam": "N05BA14", "pivagabine": "N06AX15", "potassium clorazepate": "N05BA05", "prazepam": "N05BA11", "protriptyline": "N06AA11", "quinupramine": "N06AA23", "reboxetine": "N06AX18", "sertraline": "N06AB06", "tianeptine": "N06AX14", "tofisopam": "N05BA23", "toloxatone": "N06AG03", "tranylcypromine": "N06AF04", "trazodone": "N06AX05", "trimipramine": "N06AA06", "tryptophan": "N06AX02", "venlafaxine": "N06AX16", "vilazodone": "N06AX24", "viloxazine": "N06AX09", "vortioxetine": "N06AX26", "zimeldine": "N06AB02", "zuranolone": "N06AX31"}}, "ocd": {"icd": [{"category": "F42", "codes": [["F42.2", "Mixed obsessional thoughts and acts"], ["F42.3", "Hoarding disorder"], ["F42.4", "Excoriation (skin-picking) disorder"], ["F42.8", "Other obsessive-compulsive disorder"], ["F42.9", "Obsessive-compulsive disorder, unspecified"]]}], "screens": [{"name": "OCI-R", "pmid": "12501574", "title": "The Obsessive-Compulsive Inventory: development and validation of a short version.", "authors": "Foa EB, Huppert JD, Leiberg S, Langner R, Kichic R, Hajcak G, Salkovskis PM.", "journal": "Psychological assessment", "year": "2002", "doi": "10.1037/1040-3590.14.4.485", "quotes": [], "url": "https://europepmc.org/article/MED/12501574"}], "classes": [{"atc": "N06A", "name": "ANTIDEPRESSANTS"}], "drugs": {"agomelatine": "N06AX22", "alaproclate": "N06AB07", "amineptine": "N06AA19", "amitriptyline": "N06AA09", "amoxapine": "N06AA17", "bifemelane": "N06AX08", "brexanolone": "N06AX29", "bupropion": "N06AX12", "bupropion and dextromethorphan": "N06AX62", "butriptyline": "N06AA15", "citalopram": "N06AB04", "clomipramine": "N06AA04", "desipramine": "N06AA01", "desvenlafaxine": "N06AX23", "dibenzepin": "N06AA08", "dimetacrine": "N06AA18", "dosulepin": "N06AA16", "doxepin": "N06AA12", "duloxetine": "N06AX21", "escitalopram": "N06AB10", "esketamine": "N06AX27", "etoperidone": "N06AB09", "fluoxetine": "N06AB03", "fluvoxamine": "N06AB08", "gepirone": "N06AX19", "hyperici herba": "N06AX25", "imipramine": "N06AA02", "imipramine oxide": "N06AA03", "iprindole": "N06AA13", "iproclozide": "N06AF06", "iproniazide": "N06AF05", "isocarboxazid": "N06AF01", "levomilnacipran": "N06AX28", "lofepramine": "N06AA07", "maprotiline": "N06AA21", "medifoxamine": "N06AX13", "melitracen": "N06AA14", "mianserin": "N06AX03", "milnacipran": "N06AX17", "minaprine": "N06AX07", "mirtazapine": "N06AX11", "moclobemide": "N06AG02", "nefazodone": "N06AX06", "nialamide": "N06AF02", "nomifensine": "N06AX04", "nortriptyline": "N06AA10", "opipramol": "N06AA05", "oxaflozane": "N06AX10", "oxitriptan": "N06AX01", "paroxetine": "N06AB05", "phenelzine": "N06AF03", "pivagabine": "N06AX15", "protriptyline": "N06AA11", "quinupramine": "N06AA23", "reboxetine": "N06AX18", "sertraline": "N06AB06", "tianeptine": "N06AX14", "toloxatone": "N06AG03", "tranylcypromine": "N06AF04", "trazodone": "N06AX05", "trimipramine": "N06AA06", "tryptophan": "N06AX02", "venlafaxine": "N06AX16", "vilazodone": "N06AX24", "viloxazine": "N06AX09", "vortioxetine": "N06AX26", "zimeldine": "N06AB02", "zuranolone": "N06AX31"}}, "stress": {"icd": [{"category": "F43", "codes": [["F43.0", "Acute stress reaction"], ["F43.10", "Post-traumatic stress disorder, unspecified"], ["F43.11", "Post-traumatic stress disorder, acute"], ["F43.12", "Post-traumatic stress disorder, chronic"], ["F43.20", "Adjustment disorder, unspecified"], ["F43.21", "Adjustment disorder with depressed mood"], ["F43.22", "Adjustment disorder with anxiety"], ["F43.23", "Adjustment disorder with mixed anxiety and depressed mood"], ["F43.24", "Adjustment disorder with disturbance of conduct"], ["F43.25", "Adjustment disorder with mixed disturbance of emotions and conduct"], ["F43.29", "Adjustment disorder with other symptoms"], ["F43.81", "Prolonged grief disorder"], ["F43.89", "Other reactions to severe stress"], ["F43.9", "Reaction to severe stress, unspecified"]]}], "screens": [{"name": "PCL-5", "pmid": "26606250", "title": "The Posttraumatic Stress Disorder Checklist for DSM-5 (PCL-5): Development and Initial Psychometric Evaluation.", "authors": "Blevins CA, Weathers FW, Davis MT, Witte TK, Domino JL.", "journal": "Journal of traumatic stress", "year": "2015", "doi": "10.1002/jts.22059", "quotes": [], "url": "https://europepmc.org/article/MED/26606250"}], "classes": [{"atc": "N06A", "name": "ANTIDEPRESSANTS"}], "drugs": {"agomelatine": "N06AX22", "alaproclate": "N06AB07", "amineptine": "N06AA19", "amitriptyline": "N06AA09", "amoxapine": "N06AA17", "bifemelane": "N06AX08", "brexanolone": "N06AX29", "bupropion": "N06AX12", "bupropion and dextromethorphan": "N06AX62", "butriptyline": "N06AA15", "citalopram": "N06AB04", "clomipramine": "N06AA04", "desipramine": "N06AA01", "desvenlafaxine": "N06AX23", "dibenzepin": "N06AA08", "dimetacrine": "N06AA18", "dosulepin": "N06AA16", "doxepin": "N06AA12", "duloxetine": "N06AX21", "escitalopram": "N06AB10", "esketamine": "N06AX27", "etoperidone": "N06AB09", "fluoxetine": "N06AB03", "fluvoxamine": "N06AB08", "gepirone": "N06AX19", "hyperici herba": "N06AX25", "imipramine": "N06AA02", "imipramine oxide": "N06AA03", "iprindole": "N06AA13", "iproclozide": "N06AF06", "iproniazide": "N06AF05", "isocarboxazid": "N06AF01", "levomilnacipran": "N06AX28", "lofepramine": "N06AA07", "maprotiline": "N06AA21", "medifoxamine": "N06AX13", "melitracen": "N06AA14", "mianserin": "N06AX03", "milnacipran": "N06AX17", "minaprine": "N06AX07", "mirtazapine": "N06AX11", "moclobemide": "N06AG02", "nefazodone": "N06AX06", "nialamide": "N06AF02", "nomifensine": "N06AX04", "nortriptyline": "N06AA10", "opipramol": "N06AA05", "oxaflozane": "N06AX10", "oxitriptan": "N06AX01", "paroxetine": "N06AB05", "phenelzine": "N06AF03", "pivagabine": "N06AX15", "protriptyline": "N06AA11", "quinupramine": "N06AA23", "reboxetine": "N06AX18", "sertraline": "N06AB06", "tianeptine": "N06AX14", "toloxatone": "N06AG03", "tranylcypromine": "N06AF04", "trazodone": "N06AX05", "trimipramine": "N06AA06", "tryptophan": "N06AX02", "venlafaxine": "N06AX16", "vilazodone": "N06AX24", "viloxazine": "N06AX09", "vortioxetine": "N06AX26", "zimeldine": "N06AB02", "zuranolone": "N06AX31"}}, "sleep": {"icd": [{"category": "F51", "codes": [["F51.01", "Primary insomnia"], ["F51.02", "Adjustment insomnia"], ["F51.03", "Paradoxical insomnia"], ["F51.04", "Psychophysiologic insomnia"], ["F51.05", "Insomnia due to other mental disorder"], ["F51.09", "Other insomnia not due to a substance or known physiological condition"], ["F51.11", "Primary hypersomnia"], ["F51.12", "Insufficient sleep syndrome"], ["F51.13", "Hypersomnia due to other mental disorder"], ["F51.19", "Other hypersomnia not due to a substance or known physiological condition"], ["F51.3", "Sleepwalking [somnambulism]"], ["F51.4", "Sleep terrors [night terrors]"], ["F51.5", "Nightmare disorder"], ["F51.8", "Other sleep disorders not due to a substance or known physiological condition"], ["F51.9", "Sleep disorder not due to a substance or known physiological condition, unspecified"]]}, {"category": "G47", "codes": [["G47.00", "Insomnia, unspecified"], ["G47.01", "Insomnia due to medical condition"], ["G47.09", "Other insomnia"], ["G47.10", "Hypersomnia, unspecified"], ["G47.11", "Idiopathic hypersomnia with long sleep time"], ["G47.12", "Idiopathic hypersomnia without long sleep time"], ["G47.13", "Recurrent hypersomnia"], ["G47.14", "Hypersomnia due to medical condition"], ["G47.19", "Other hypersomnia"], ["G47.20", "Circadian rhythm sleep disorder, unspecified type"], ["G47.21", "Circadian rhythm sleep disorder, delayed sleep phase type"], ["G47.22", "Circadian rhythm sleep disorder, advanced sleep phase type"], ["G47.23", "Circadian rhythm sleep disorder, irregular sleep wake type"], ["G47.24", "Circadian rhythm sleep disorder, free running type"], ["G47.25", "Circadian rhythm sleep disorder, jet lag type"], ["G47.26", "Circadian rhythm sleep disorder, shift work type"], ["G47.27", "Circadian rhythm sleep disorder in conditions classified elsewhere"], ["G47.29", "Other circadian rhythm sleep disorder"], ["G47.30", "Sleep apnea, unspecified"], ["G47.31", "Primary central sleep apnea"], ["G47.32", "High altitude periodic breathing"], ["G47.33", "Obstructive sleep apnea (adult) (pediatric)"], ["G47.34", "Idiopathic sleep related nonobstructive alveolar hypoventilation"], ["G47.35", "Congenital central alveolar hypoventilation syndrome"], ["G47.36", "Sleep related hypoventilation in conditions classified elsewhere"], ["G47.37", "Central sleep apnea in conditions classified elsewhere"], ["G47.39", "Other sleep apnea"], ["G47.411", "Narcolepsy with cataplexy"], ["G47.419", "Narcolepsy without cataplexy"], ["G47.421", "Narcolepsy in conditions classified elsewhere with cataplexy"], ["G47.429", "Narcolepsy in conditions classified elsewhere without cataplexy"], ["G47.50", "Parasomnia, unspecified"], ["G47.51", "Confusional arousals"], ["G47.52", "REM sleep behavior disorder"], ["G47.53", "Recurrent isolated sleep paralysis"], ["G47.54", "Parasomnia in conditions classified elsewhere"], ["G47.59", "Other parasomnia"], ["G47.61", "Periodic limb movement disorder"], ["G47.62", "Sleep related leg cramps"], ["G47.63", "Sleep related bruxism"], ["G47.69", "Other sleep related movement disorders"], ["G47.8", "Other sleep disorders"], ["G47.9", "Sleep disorder, unspecified"]]}], "screens": [{"name": "Insomnia Severity Index (ISI)", "pmid": "11438246", "title": "Validation of the Insomnia Severity Index as an outcome measure for insomnia research.", "authors": "Bastien CH, Vallières A, Morin CM.", "journal": "Sleep medicine", "year": "2001", "doi": "10.1016/s1389-9457(00)00065-4", "quotes": ["The results from Study 2 also indicated that the ISI is a valid and sensitive measure to detect changes in perceived sleep difficulties with treatment."], "url": "https://europepmc.org/article/MED/11438246"}, {"name": "Morningness–Eveningness Questionnaire (MEQ)", "pmid": "1027738", "title": "A self-assessment questionnaire to determine morningness-eveningness in human circadian rhythms.", "authors": "Horne JA, Ostberg O.", "journal": "International journal of chronobiology", "year": "1976", "doi": null, "quotes": [], "url": "https://europepmc.org/article/MED/1027738"}], "classes": [{"atc": "N05C", "name": "HYPNOTICS AND SEDATIVES"}], "drugs": {"acetylglycinamide chloral hydrate": "N05CC03", "allobarbital": "N05CA21", "amobarbital": "N05CA02", "aprobarbital": "N05CA05", "apronal": "N05CM12", "barbital": "N05CA04", "barbiturates in combination with other drugs": "N05CB02", "bromides": "N05CM11", "bromisoval": "N05CM03", "brotizolam": "N05CD09", "butobarbital": "N05CA03", "carbromal": "N05CM04", "chloral hydrate": "N05CC01", "chloralodol": "N05CC02", "cinolazepam": "N05CD13", "clomethiazole": "N05CM02", "clomethiazole, combinations": "N05CX04", "combinations of barbiturates": "N05CB01", "cyclobarbital": "N05CA10", "daridorexant": "N05CJ03", "dexmedetomidine": "N05CM18", "dichloralphenazone": "N05CC04", "dipiperonylaminoethanol, combinations": "N05CX06", "doxefazepam": "N05CD12", "emepronium, combinations": "N05CX05", "estazolam": "N05CD04", "eszopiclone": "N05CF04", "etallobarbital": "N05CA20", "ethchlorvynol": "N05CM08", "flunitrazepam": "N05CD03", "flurazepam": "N05CD01", "glutethimide": "N05CE01", "heptabarbital": "N05CA11", "hexapropymate": "N05CM10", "hexobarbital": "N05CA16", "lemborexant": "N05CJ02", "loprazolam": "N05CD11", "lormetazepam": "N05CD06", "melatonin": "N05CH01", "meprobamate, combinations": "N05CX01", "methaqualone": "N05CM01", "methaqualone, combinations": "N05CX02", "methohexital": "N05CA15", "methylpentynol": "N05CM15", "methylpentynol, combinations": "N05CX03", "methyprylon": "N05CE02", "midazolam": "N05CD08", "niaprazine": "N05CM16", "nimetazepam": "N05CD15", "nitrazepam": "N05CD02", "paraldehyde": "N05CC05", "pentobarbital": "N05CA01", "propiomazine": "N05CM06", "proxibarbal": "N05CA22", "pyrithyldione": "N05CE03", "quazepam": "N05CD10", "ramelteon": "N05CH02", "remimazolam": "N05CD14", "reposal": "N05CA12", "scopolamine": "N05CM05", "secobarbital": "N05CA06", "suvorexant": "N05CJ01", "talbutal": "N05CA07", "tasimelteon": "N05CH03", "temazepam": "N05CD07", "thiopental": "N05CA19", "triazolam": "N05CD05", "triclofos": "N05CM07", "valerianae radix": "N05CM09", "valnoctamide": "N05CM13", "vinbarbital": "N05CA09", "vinylbital": "N05CA08", "zaleplon": "N05CF03", "zolpidem": "N05CF02", "zopiclone": "N05CF01"}}, "neurodev": {"icd": [{"category": "F84", "codes": [["F84.0", "Autistic disorder"], ["F84.2", "Rett's syndrome"], ["F84.3", "Other childhood disintegrative disorder"], ["F84.5", "Asperger's syndrome"], ["F84.8", "Other pervasive developmental disorders"], ["F84.9", "Pervasive developmental disorder, unspecified"]]}, {"category": "F90", "codes": [["F90.0", "Attention-deficit hyperactivity disorder, predominantly inattentive type"], ["F90.1", "Attention-deficit hyperactivity disorder, predominantly hyperactive type"], ["F90.2", "Attention-deficit hyperactivity disorder, combined type"], ["F90.8", "Attention-deficit hyperactivity disorder, other type"], ["F90.9", "Attention-deficit hyperactivity disorder, unspecified type"]]}], "screens": [{"name": "Adult ADHD Self-Report Scale (ASRS)", "pmid": "15841682", "title": "The World Health Organization Adult ADHD Self-Report Scale (ASRS): a short screening scale for use in the general population.", "authors": "Kessler RC, Adler L, Ames M, Demler O, Faraone S, Hiripi E, Howes MJ, Jin R, Secnik K, Spencer T, Ustun TB, Walters EE.", "journal": "Psychological medicine", "year": "2005", "doi": "10.1017/s0033291704002892", "quotes": ["However, because of the wide variation in symptom-level concordance, the unweighted six-question ASRS screener outperformed the unweighted 18-question ASRS in sensitivity (68.7% v. 56.3%), specificity (99.5% v. 98.3%), total classification accuracy (97.9% v. 96.2%), and kappa (0.76 v. 0.58)."], "url": "https://europepmc.org/article/MED/15841682"}, {"name": "AQ-10", "pmid": "22265366", "title": "Toward brief “Red Flags” for autism screening: The Short Autism Spectrum Quotient and the Short Quantitative Checklist for Autism in toddlers in 1,000 cases and 3,000 controls [corrected].", "authors": "Allison C, Auyeung B, Baron-Cohen S.", "journal": "Journal of the American Academy of Child and Adolescent Psychiatry", "year": "2012", "doi": "10.1016/j.jaac.2011.11.003", "quotes": ["At a cut-point of 6 on the AQ-10 adult, sensitivity was 0.88, specificity was 0.91, and positive predictive value (PPV) was 0.85.", "At a cut-point of 6 on the AQ-10 adolescent, sensitivity was 0.93, specificity was 0.95, and PPV was 0.86.", "At a cut-point of 6 on the AQ-10 child, sensitivity was 0.95, specificity was 0.97, and PPV was 0.94."], "url": "https://europepmc.org/article/MED/22265366"}], "classes": [{"atc": "N06BA", "name": "Centrally acting sympathomimetics"}], "drugs": {"amfetamine": "N06BA01", "armodafinil": "N06BA13", "atomoxetine": "N06BA09", "dexamfetamine": "N06BA02", "dexmethylphenidate": "N06BA11", "dexmethylphenidate and serdexmethylphenidate": "N06BA15", "fencamfamin": "N06BA06", "fenetylline": "N06BA10", "fenozolone": "N06BA08", "lisdexamfetamine": "N06BA12", "metamfetamine": "N06BA03", "methylphenidate": "N06BA04", "modafinil": "N06BA07", "pemoline": "N06BA05", "solriamfetol": "N06BA14"}}}};
   // Calculations from the attached datasets
 
   // Shared helpers
@@ -2569,6 +2643,177 @@
   const thFigure = (half) => d3.line().curve(d3.curveCatmullRomClosed.alpha(0.5))(
     [...half, [120, 336], ...half.slice().reverse().map(([x, y]) => [240 - x, y])]);
 
+  // The clinical path (mind theme): one row per ICD-10 diagnostic group, walked through the four steps a clinician takes.
+  // Screening tests, codes and drug classes are public (themes/mind_clinical.json, window.GX_MIND); the genes and the
+  // calls are the person's (theme_genes), and the medicines' guidance is the Medicines tab's (med_guidance, med_genes).
+  const CL_STEPS = [['Diagnosis', 'ICD-10'], ['1 · Screen', 'Validated test'], ['2 · Genetics', 'Genes tied to it'],
+                    ['3 · Mechanisms', 'What those genes do'], ['4 · Medicines', 'Response to treatment']];
+  const CL_GUIDE = { differs: 'differs', typical: 'typical', no_action: 'typical', summary: 'no gene-specific advice', unreadable: 'not readable from the file', unclear: 'unclear' };
+  const thClinical = (el, s, who) => {
+    const MIND = window.GX_MIND;
+    const groups = (MIND && MIND.groups) || {};
+    const med = gx.rows('med_guidance', 'med_genes');
+    const [guides, mgenes] = med || [[], []];
+    const phen = new Map(mgenes.map((g) => [g.gene, g.phenotype]));
+    const mechName = new Map(s.facets.map((f) => [f.facet, f.facet_name]));
+    const conditions = (id) => Object.entries(s.stats.disease_organs || {}).filter(([, o]) => o === id).map(([d]) => d);
+    const changed = (g) => ['LoF', 'GoF', 'altered', 'variant'].includes(thCall(g));
+    const callRank = { LoF: 0, GoF: 1, altered: 2, variant: 3, normal: 4 };
+    const byCall = (a, b) => (callRank[thCall(a)] ?? 5) - (callRank[thCall(b)] ?? 5) || a.gene.localeCompare(b.gene);
+    const chip = (parent, g) => {
+      const b = thMake(parent, 'button', 'lc-chip th-gene lc-' + (TH_CLASS[thCall(g)] || 'untested'), thLabel(g));
+      b.type = 'button';
+      b.addEventListener('click', (e) => { e.stopPropagation(); thPick(g.gene); });
+    };
+    const link = (parent, text, href) => { const a = thMake(parent, 'a', null, text); a.href = href; a.target = '_blank'; a.rel = 'noopener'; return a; };
+    // Per group: its genes (joined on one of its conditions), their mechanisms, and its medicines with guidance
+    const rows = s.organs.map((o) => {
+      const G = groups[o.id] || { icd: [], screens: [], drugs: {}, classes: [] };
+      const genes = s.genes.filter((g) => (g.ev.organs || []).includes(o.id)).sort(byCall);
+      const mech = new Map();
+      for (const g of genes) for (const f of g.fl) if (f !== 'disease') { if (!mech.has(f)) mech.set(f, []); mech.get(f).push(g); }
+      const mechs = [...mech.entries()].sort((a, b) => b[1].length - a[1].length);
+      const drugs = new Map();
+      for (const x of guides) {
+        if (x.kind !== 'guideline') continue;
+        const d = x.drug.toLowerCase();
+        if (!(d in (G.drugs || {}))) continue;
+        if (!drugs.has(d)) drugs.set(d, []);
+        drugs.get(d).push(x);
+      }
+      const differs = [...drugs.entries()].filter(([, xs]) => xs.some((x) => x.status === 'differs')).map(([d]) => d);
+      return { o, G, genes, mechs, drugs, differs };
+    });
+
+    const box = thMake(el, 'div', 'th-cl');
+    const head = thMake(box, 'div', 'th-cl-row th-cl-head');
+    CL_STEPS.forEach(([t, sub], i) => {
+      const c = thMake(head, 'div', 'th-cl-cell');
+      thMake(c, 'b', null, t);
+      thMake(c, 'span', null, sub);
+      if (i) c.classList.add('th-cl-step');
+    });
+    for (const r of rows) {
+      const sel = s.organ && s.organ.id === r.o.id;
+      const row = thMake(box, 'div', 'th-cl-row' + (sel ? ' th-cl-on' : ''));
+      row.tabIndex = 0;
+      row.setAttribute('role', 'button');
+      row.setAttribute('aria-expanded', String(!!sel));
+      const pick = () => dash.setParams({ th_organ: sel ? null : r.o.id, th_gene: null });
+      row.addEventListener('click', pick);
+      row.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(); } });
+      // Diagnosis
+      const d = thMake(row, 'div', 'th-cl-cell');
+      thMake(d, 'b', 'th-cl-name', r.o.name);
+      const codes = thMake(d, 'div', 'th-cl-codes');
+      for (const c of r.G.icd) thMake(codes, 'span', 'th-cl-code', c.category);
+      // 1 Screen
+      const sc = thMake(row, 'div', 'th-cl-cell');
+      for (const t of r.G.screens) thMake(sc, 'div', 'th-cl-test', t.name);
+      // 2 Genetics
+      const ge = thMake(row, 'div', 'th-cl-cell');
+      const nChanged = r.genes.filter(changed).length;
+      thMake(ge, 'div', null, `${r.genes.length} genes`);
+      if (r.genes.length) {
+        thBalance(ge, r.genes, 'no call');
+        thMake(ge, 'span', 'gx-note', `${nChanged} changed in ${who}`);
+      }
+      // 3 Mechanisms
+      const me = thMake(row, 'div', 'th-cl-cell');
+      if (r.mechs.length) for (const [f, gs] of r.mechs.slice(0, 3)) thMake(me, 'div', 'th-cl-mech', `${mechName.get(f) || f} · ${gs.length}`);
+      else thMake(me, 'span', 'gx-note', 'No known mechanism yet');
+      // 4 Medicines
+      const md = thMake(row, 'div', 'th-cl-cell');
+      if (!r.drugs.size) thMake(md, 'span', 'gx-note', 'No pharmacogenetic guideline');
+      else {
+        thMake(md, 'div', null, r.drugs.size === 1 ? '1 medicine with a guideline' : `${r.drugs.size} medicines with a guideline`);
+        if (r.differs.length) thMake(md, 'div', 'th-cl-differs', `${r.differs.length} ${r.differs.length === 1 ? 'differs' : 'differ'} for ${who}: ${r.differs.slice(0, 3).join(', ')}${r.differs.length > 3 ? '…' : ''}`);
+        else thMake(md, 'span', 'gx-note', `typical for ${who}`);
+      }
+      if (sel) thClinicalDetail(box, r, who, { conditions, chip, link, changed, phen, mechName });
+    }
+    thMake(el, 'p', 'gx-note', 'Sources: ICD-10 codes from NLM Clinical Tables (ICD-10-CM); screening tests from their validation papers ' +
+      '(Europe PMC), quoted as written; genes from Open Targets and Gene Ontology; drug classes from the WHO ATC classification ' +
+      '(ChEMBL), with the CPIC and DPWG guidelines of the Medicines tab.');
+  };
+  const thClinicalDetail = (box, r, who, h) => {
+    const det = thMake(box, 'div', 'th-cl-detail');
+    det.addEventListener('click', (e) => e.stopPropagation());
+    thMake(det, 'p', null, r.o.about);
+    // Diagnosis: the codes
+    const dx = thMake(det, 'section', 'th-cl-sec');
+    thMake(dx, 'span', 'gx-label', 'Diagnosis: ICD-10');
+    for (const c of r.G.icd) {
+      const dd = thMake(dx, 'details', 'th-cl-icd');
+      thMake(dd, 'summary', null, `${c.category} · ${c.codes.length} codes`);
+      const ul = thMake(dd, 'ul', null);
+      for (const [code, title] of c.codes) thMake(ul, 'li', null, `${code} ${title}`);
+    }
+    // 1 Screen: each test, its validation paper and what it says about scoring
+    const sc = thMake(det, 'section', 'th-cl-sec');
+    thMake(sc, 'span', 'gx-label', '1 · Screen');
+    for (const t of r.G.screens) {
+      const d = thMake(sc, 'div', 'th-cl-paper');
+      thMake(d, 'b', null, t.name);
+      const cite = thMake(d, 'p', 'gx-note');
+      h.link(cite, `${t.title}`, t.url);
+      thMake(cite, 'span', null, ` ${t.authors || ''} ${t.journal || ''} ${t.year || ''}`);
+      for (const q of t.quotes) thMake(d, 'blockquote', 'th-cl-quote', q);
+      if (!t.quotes.length) thMake(d, 'p', 'gx-note', 'The abstract gives no cut-off; the paper has the scoring.');
+    }
+    // 2 Genetics: per condition, the genes joined on it, changed ones first
+    const ge = thMake(det, 'section', 'th-cl-sec');
+    thMake(ge, 'span', 'gx-label', '2 · Genetics');
+    thMake(ge, 'p', 'gx-note', `Genes with human genetic evidence (Open Targets) for the group's conditions. ${who}'s calls colour them: ` +
+      'red less active, blue more active, grey a carried trait-linked variant, green typical. Select a gene for its evidence.');
+    for (const cond of h.conditions(r.o.id)) {
+      const gs = r.genes.filter((g) => (g.ev.joined_by || []).includes(cond));
+      if (!gs.length) continue;
+      const line = thMake(ge, 'div', 'th-fibre');
+      thMake(line, 'span', 'th-fibre-name', `${cond} · ${gs.length}`);
+      const chips = thMake(line, 'div', 'th-genes');
+      const show = gs.filter(h.changed).slice(0, 12);
+      for (const g of show) h.chip(chips, g);
+      thMake(chips, 'span', 'gx-note', show.length ? `${gs.filter(h.changed).length} changed of ${gs.length}` : `none changed in ${who}`);
+    }
+    // 3 Mechanisms: what the group's genes do, with the changed genes in each
+    const me = thMake(det, 'section', 'th-cl-sec');
+    thMake(me, 'span', 'gx-label', '3 · Mechanisms');
+    if (!r.mechs.length) thMake(me, 'p', 'gx-note', 'Gene Ontology places none of these genes in a mechanism of this theme yet.');
+    for (const [f, gs] of r.mechs.slice(0, 6)) {
+      const line = thMake(me, 'div', 'th-fibre');
+      thMake(line, 'span', 'th-fibre-name', `${h.mechName.get(f) || f} · ${gs.length}`);
+      const chips = thMake(line, 'div', 'th-genes');
+      for (const g of gs.filter(h.changed).slice(0, 10)) h.chip(chips, g);
+    }
+    // 4 Medicines: the group's drug classes and every guideline for their drugs, those that differ for the person first
+    const md = thMake(det, 'section', 'th-cl-sec');
+    thMake(md, 'span', 'gx-label', '4 · Medicines');
+    thMake(md, 'p', 'gx-note', 'Drug classes (ATC): ' + r.G.classes.map((c) => `${c.atc} ${c.name.charAt(0) + c.name.slice(1).toLowerCase()}`).join(' · '));
+    if (!r.drugs.size) thMake(md, 'p', 'gx-note', 'No CPIC or DPWG guideline covers a medicine of these classes.');
+    const order = { differs: 0, typical: 1, no_action: 1, unclear: 2, summary: 3, unreadable: 4 };
+    const list = [...r.drugs.entries()].sort((a, b) => Math.min(...a[1].map((x) => order[x.status] ?? 5)) - Math.min(...b[1].map((x) => order[x.status] ?? 5)) || a[0].localeCompare(b[0]));
+    for (const [drug, xs] of list) {
+      const d = thMake(md, 'div', 'th-cl-drug');
+      thMake(d, 'b', null, drug);
+      for (const x of xs.sort((a, b) => (order[a.status] ?? 5) - (order[b.status] ?? 5))) {
+        const p = thMake(d, 'div', 'th-cl-guide th-cl-' + (CL_GUIDE[x.status] === 'differs' ? 'differs' : 'plain'));
+        const genes = x.genes.split(';').map((g) => `${g}${h.phen.get(g) ? ` (${h.phen.get(g)})` : ''}`).join(', ');
+        thMake(p, 'span', null, `${x.source} · ${genes} · ${CL_GUIDE[x.status] || x.status}`);
+        if (x.status === 'differs') {
+          let recs = [];
+          try { recs = typeof x.recs === 'string' ? JSON.parse(x.recs) : x.recs || []; } catch (e) { recs = []; }
+          for (const rc of recs.slice(0, 2)) if (rc.recommendation) thMake(p, 'p', 'th-cl-rec', rc.recommendation);
+        }
+      }
+    }
+    if (r.drugs.size) {
+      const go = thMake(md, 'button', 'lc-btn', 'Open Medicines');
+      go.type = 'button';
+      go.addEventListener('click', () => gx.show('medicines'));
+    }
+  };
+
   dash.draw('th-body', (el) => {
     el.replaceChildren();
     const s = thSel();
@@ -2581,21 +2826,26 @@
     const male = s.stats.sex === 'XY';
     const cell = s.stats.view === 'cell';
     const exertion = s.stats.view === 'exertion';
-    const SHAPES = cell ? CELL_SHAPES() : exertion ? EXERTION_SHAPES(s.organs) : male ? XY_SHAPES : XX_SHAPES;
-    const unit = cell || exertion ? 'stage' : 'organ';
+    // Phased: stages in columns over time (the training session, the mind theme's day)
+    const phased = exertion || !!(s.stats.phases && s.stats.phases.length);
+    const phases = s.stats.phases && s.stats.phases.length ? s.stats.phases : EX_PHASES;
+    const SHAPES = cell ? CELL_SHAPES() : phased ? EXERTION_SHAPES(s.organs, phases) : male ? XY_SHAPES : XX_SHAPES;
+    const unit = cell || phased ? 'stage' : 'organ';
     const card = el.closest('.gx-card');
     if (card) {
       const h = card.querySelector('h2'), note = card.querySelector('.gx-note');
-      if (h) h.textContent = cell ? 'Life of a cell' : exertion ? 'A training session' : 'Body map';
+      if (h) h.textContent = cell ? 'Life of a cell' : exertion ? 'A training session' : s.stats.view_title || 'Body map';
       if (note) note.textContent = cell
         ? 'The stages every cell lives through, and where the theme\'s genes act in them. Cancer starts when a cell slips past the ' +
           'checkpoints, repair, ageing and death. Select a stage to narrow the mechanisms, connections and gene panel to it.'
+        : !exertion && s.stats.view_note ? s.stats.view_note
         : exertion
         ? 'Before, during and after exertion: what you bring to a session, what your muscle fibres are built for, and how you ' +
           'recover. Select a stage to narrow the mechanisms, connections and gene panel to it.'
         : 'Where in the body the theme\'s genes act. Each gene is placed by its mechanisms and the conditions it is linked to. ' +
           'Select an organ to narrow the mechanisms, connections and gene panel to it.';
     }
+    if (s.stats.view === 'clinical') { thClinical(el, s, who); return; }
 
     const per = new Map(s.organs.map((o) => [o.id, { o, all: 0, lof: 0, gof: 0, norm: 0, variant: 0, genes: [] }]));
     for (const g of s.genes) {
@@ -2621,13 +2871,13 @@
     const box = thMake(grid, 'div', 'th-body-svg');
     const info = thMake(grid, 'div', 'th-organ');
     const svg = d3.select(box).append('svg').attr('viewBox', '0 0 760 432').attr('width', '100%')
-      .attr('role', 'group').attr('aria-label', `${s.theme.theme_name}: ${unit}s`).classed('th-ex', exertion);
+      .attr('role', 'group').attr('aria-label', `${s.theme.theme_name}: ${unit}s`).classed('th-ex', phased);
     const tip = gx.tip(box);
 
     const defs = svg.append('defs');
     // Body, the pelvis it zooms from and the panel the organs sit in; the cell map draws its paths instead
     if (cell) drawCellPaths(svg);
-    else if (exertion) drawExertionFrame(svg);
+    else if (phased) drawExertionFrame(svg, phases);
     else {
     const glow = defs.append('radialGradient').attr('id', 'th-glow');
     glow.append('stop').attr('offset', '0%').style('stop-color', 'var(--color-fg)').style('stop-opacity', 0.16);
@@ -2724,8 +2974,8 @@
       thMake(info, 'h3', null, `All ${unit}s`);
       thMake(info, 'p', 'gx-note', `▼ less active and ▲ more active are ${who}'s gene calls; ● counts genes where ${who} carries an allele ` +
         `that a GWAS or ClinVar links to one of the theme's conditions. Shading is stronger where more of these gather, red where less-active genes ` +
-        `lead and blue where more-active ones do. Select ${cell || exertion ? 'a stage' : 'an organ'} to focus the page on it.`);
-      if (exertion) thMake(info, 'p', 'gx-note', `How to read the list: the number is how many of the stage's genes ${who} carries in a changed form ` +
+        `lead and blue where more-active ones do. Select ${cell || phased ? 'a stage' : 'an organ'} to focus the page on it.`);
+      if (phased) thMake(info, 'p', 'gx-note', `How to read the list: the number is how many of the stage's genes ${who} carries in a changed form ` +
         `(red, blue or grey); green are genes ${who} carries in their typical form. A high number means the stage has more places where ` +
         `${who}'s genes differ from most people's, not that it works better or worse: the colour mix says which way it leans.`);
       // Muscle: what the fibres are built for, from the person's calls on the fibre and aerobic genes
@@ -2795,32 +3045,37 @@
     endAngle: b * Math.PI / 180 }), at: CELL_C });
   // Muscle theme: a training session in three columns (before, during, after), each stage a tile, in the order the theme
   // lists them. Tiles are buttons like the organs on the body maps.
-  const EX_COLS = { before: 14, during: 266, after: 518 };
-  const EX_W = 228, EX_TOP = 44, EX_BOTTOM = 426;
+  // Any phased theme (the mind theme's day) uses the same layout, with the columns its stats name.
+  const EX_PHASES = [{ id: 'before', name: 'Before' }, { id: 'during', name: 'During' }, { id: 'after', name: 'After' }];
+  const EX_LEFT = 14, EX_RIGHT = 746, EX_GAP = 24, EX_TOP = 44, EX_BOTTOM = 426;
+  const exCols = (phases) => {
+    const w = (EX_RIGHT - EX_LEFT - EX_GAP * (phases.length - 1)) / phases.length;
+    return phases.map((p, i) => ({ ...p, x: EX_LEFT + i * (w + EX_GAP), w }));
+  };
   const exTile = (x, y, w, h, r = 10) => `M${x + r},${y} h${w - 2 * r} a${r},${r} 0 0 1 ${r},${r} v${h - 2 * r} ` +
     `a${r},${r} 0 0 1 -${r},${r} h-${w - 2 * r} a${r},${r} 0 0 1 -${r},-${r} v-${h - 2 * r} a${r},${r} 0 0 1 ${r},-${r} Z`;
-  const EXERTION_SHAPES = (organs) => {
+  const EXERTION_SHAPES = (organs, phases) => {
     const out = {};
-    for (const [phase, x] of Object.entries(EX_COLS)) {
-      const list = organs.filter((o) => o.phase === phase), gap = 8;
+    for (const { id, x, w } of exCols(phases)) {
+      const list = organs.filter((o) => o.phase === id), gap = 8;
       const h = (EX_BOTTOM - EX_TOP - gap * (list.length - 1)) / Math.max(1, list.length);
       list.forEach((o, i) => {
         const y = EX_TOP + i * (h + gap);
-        out[o.id] = { shapes: [{ path: exTile(x, y, EX_W, h) }], label: [x + 12, y + Math.min(26, h / 2 - 4), 'start'] };
+        out[o.id] = { shapes: [{ path: exTile(x, y, w, h) }], label: [x + 12, y + Math.min(26, h / 2 - 4), 'start'] };
       });
     }
     return out;
   };
-  const drawExertionFrame = (svg) => {
+  const drawExertionFrame = (svg, phases) => {
     svg.append('defs').append('marker').attr('id', 'th-ex-arrow').attr('viewBox', '0 0 10 10').attr('refX', 9).attr('refY', 5)
       .attr('markerWidth', 7).attr('markerHeight', 7).attr('orient', 'auto')
       .append('path').attr('d', 'M0,0 L10,5 L0,10 Z').attr('class', 'th-ex-head');
-    const heads = { before: 'Before', during: 'During', after: 'After' };
-    for (const [phase, x] of Object.entries(EX_COLS)) {
-      svg.append('text').attr('x', x + EX_W / 2).attr('y', 24).attr('text-anchor', 'middle').attr('class', 'th-ex-phase').text(heads[phase]);
+    const cols = exCols(phases);
+    for (const { name, x, w } of cols) {
+      svg.append('text').attr('x', x + w / 2).attr('y', 24).attr('text-anchor', 'middle').attr('class', 'th-ex-phase').text(name);
     }
-    for (const x of [EX_COLS.before + EX_W, EX_COLS.during + EX_W]) {
-      svg.append('path').attr('d', `M${x + 3},20 L${x + 21},20`).attr('class', 'th-ex-flow').attr('marker-end', 'url(#th-ex-arrow)');
+    for (const { x, w } of cols.slice(0, -1)) {
+      svg.append('path').attr('d', `M${x + w + 3},20 L${x + w + EX_GAP - 3},20`).attr('class', 'th-ex-flow').attr('marker-end', 'url(#th-ex-arrow)');
     }
   };
 
@@ -3016,52 +3271,113 @@
     thMake(el, 'p', 'gx-note', `The ${rows.length} SNPs that consumer fitness DNA tests report. Most come from small candidate-gene studies of athletes; ` +
       `the grade says what larger sources back: ${n('A')} have replicated genome-wide or clinical evidence (A), ${n('B')} some (B), and ${n('C')} rest on ` +
       `candidate-gene studies alone (C). The genome-wide traits are what each variant is proven to move, which is often not what the tests sell it for.`);
+    // The grades as a legend, each with its count
+    const legend = thMake(el, 'div', 'th-sp-legend');
+    for (const gr of ['A', 'B', 'C']) {
+      const item = thMake(legend, 'span', 'th-sp-legend-item');
+      thMake(item, 'span', 'md-grade md-grade-' + gr.toLowerCase(), gr);
+      thMake(item, 'span', null, `${n(gr)} · ${SPORT_GRADE[gr]}`);
+    }
+    const marked = rows.filter((x) => x.meaning).length;
+    if (marked) thMake(el, 'p', 'gx-note', `★ marks the ${marked} where ${who}'s copies matter in practice; those rows are open. Select any row for its genome-wide, ClinVar and ClinPGx findings.`);
+    const num = (v) => (v == null || v === '' ? null : Number(v));
+    const dots = (k) => (k == null ? '' : '●'.repeat(k) + '○'.repeat(2 - k));
     const topics = [...new Map(rows.map((x) => [x.topic, x])).values()].sort((a, b) => a.topic_order - b.topic_order);
     for (const t of topics) {
-      thMake(el, 'h3', 'th-sport-topic', t.topic_name);
-      const list = thMake(el, 'div', 'th-sport-list');
-      for (const s of rows.filter((x) => x.topic === t.topic).sort((a, b) => a.grade.localeCompare(b.grade))) {
-        const row = thMake(list, 'div', 'th-sport-row');
-        const g = thMake(row, 'span', 'md-grade md-grade-' + s.grade.toLowerCase(), s.grade);
+      const list = rows.filter((x) => x.topic === t.topic)
+        .sort((a, b) => a.grade.localeCompare(b.grade) || (b.meaning ? 1 : 0) - (a.meaning ? 1 : 0) || num(b.papers) - num(a.papers));
+      const sec = thMake(el, 'section', 'th-sp-topic');
+      const h = thMake(sec, 'h3', null, t.topic_name);
+      thMake(h, 'span', 'th-sp-count', ` · ${list.length}`);
+      const table = thMake(sec, 'div', 'th-sp-table');
+      const head = thMake(table, 'div', 'th-sp-row th-sp-head');
+      for (const c of ['Grade', 'Gene and SNP', 'What it changes', `${who}'s copies`, 'In Europeans', 'Evidence', 'Papers']) thMake(head, 'span', null, c);
+      for (const s of list) {
+        const copies = s.confidence === 'not_excluded' ? null : num(s.alt_copies);
+        const det = thMake(table, 'details', 'th-sp-item' + (s.meaning ? ' th-sp-marked' : ''));
+        if (s.meaning) det.open = true;
+        const row = thMake(det, 'summary', 'th-sp-row');
+        // Grade
+        const gc = thMake(row, 'span', 'th-sp-grade');
+        const g = thMake(gc, 'span', 'md-grade md-grade-' + s.grade.toLowerCase(), s.grade);
         g.title = `Evidence grade ${s.grade}: ${SPORT_GRADE[s.grade]}`;
-        const body = thMake(row, 'div');
-        const top = thMake(body, 'div');
-        const gb = thMake(top, 'button', 'lc-link', s.gene);
-        gb.type = 'button'; gb.addEventListener('click', () => thPick(s.gene));
-        thMake(top, 'span', 'nt-sub', ` · ${s.rsid} · ${who}: ${s.genotype || 'not read'}`);
-        if (s.confidence === 'high' || s.confidence === 'medium') thMake(top, 'span', 'th-imp th-imp-' + s.confidence, `imputed, ${s.confidence} confidence`);
-        // One sentence per text node, so each translates on its own
-        const what = thMake(body, 'div');
-        thMake(what, 'span', null, SPORT_CHANGE[s.consequence] || 'Near the gene');
-        if (s.amino_acids) thMake(what, 'span', null, ` (${s.amino_acids.replace('/', ' → ').replace('*', 'stop')})`);
-        thMake(what, 'span', null, '. ');
-        if (s.eur_af != null) thMake(what, 'span', null, `The ${s.alt} allele is carried by ${Math.round(100 * s.eur_af)}% of European chromosomes.`);
-        const carries = s.confidence === 'not_excluded' ? `${who}: not detected, but too rare to rule out.`
-          : s.alt_copies == null ? '' : s.alt_copies === 0 ? `${who} does not carry it.` : s.alt_copies === 1 ? `${who} carries one copy.` : `${who} carries two copies.`;
-        if (carries) { thMake(what, 'span', null, ' '); thMake(what, 'span', null, carries); }
-        const gw = thJ(s.gwas) || [];
-        if (gw.length) {
-          // Each trait its own node: the trait names translate through the terms dictionary
-          const p = thMake(body, 'div', 'nt-sub');
-          thMake(p, 'span', null, s.gwas_pubs === 1 ? 'Genome-wide, 1 publication:' : `Genome-wide, ${s.gwas_pubs} publications:`);
-          gw.slice(0, 3).forEach((a, i) => {
-            thMake(p, 'span', null, i ? '; ' : ' ');
-            thMake(p, 'span', null, a.trait);
-            if (a.allele) thMake(p, 'span', null, a.copies != null ? ` (${a.allele}, ${who} ×${a.copies})` : ` (${a.allele})`);
-          });
-          if (s.gwas_traits > 3) thMake(p, 'span', null, `; and ${s.gwas_traits - 3} more traits`);
+        if (s.meaning) thMake(gc, 'span', 'th-sp-star', '★');
+        // Gene and SNP
+        const gn = thMake(row, 'span', 'th-sp-gene');
+        const gb = thMake(gn, 'button', 'lc-link', s.gene);
+        gb.type = 'button';
+        gb.addEventListener('click', (e) => { e.preventDefault(); thPick(s.gene); });
+        thMake(gn, 'span', 'nt-sub', s.rsid);
+        // What it changes
+        const ch = thMake(row, 'span', 'th-sp-change');
+        thMake(ch, 'span', null, SPORT_CHANGE[s.consequence] || 'Near the gene');
+        if (s.amino_acids) thMake(ch, 'span', 'nt-sub', s.amino_acids.replace('/', ' → ').replace('*', 'stop'));
+        // The person's copies of the variant allele
+        const cp = thMake(row, 'span', 'th-sp-copies');
+        if (s.confidence === 'not_excluded') thMake(cp, 'span', 'nt-sub', 'not detected, too rare to rule out');
+        else if (!s.genotype) thMake(cp, 'span', 'nt-sub', 'not read');
+        else {
+          const line = thMake(cp, 'span', 'th-sp-gt');
+          thMake(line, 'b', null, s.genotype);
+          if (copies != null) {
+            const d = thMake(line, 'span', 'th-sp-dots', dots(copies));
+            d.title = copies === 0 ? `${who} does not carry ${s.alt}` : copies === 1 ? `${who} carries one copy of ${s.alt}` : `${who} carries two copies of ${s.alt}`;
+            thMake(line, 'span', 'nt-sub', `${s.alt} ×${copies}`);
+          }
+          if (s.confidence === 'high' || s.confidence === 'medium') thMake(cp, 'span', 'th-imp th-imp-' + s.confidence, `imputed, ${s.confidence} confidence`);
         }
-        for (const c of thJ(s.clinvar) || []) {
-          // ClinVar joins every submitted condition with |: the first three, and how many more
-          const conds = [...new Set(c.condition.replace(/_/g, ' ').split('|').map((x) => x.trim()).filter((x) => x && !/^not (provided|specified)$/i.test(x)))];
-          thMake(body, 'div', 'nt-low', `ClinVar: ${c.significance.replace(/_/g, ' ').split('|')[0]}, ${conds.slice(0, 3).join('; ')}` + (conds.length > 3 ? `; and ${conds.length - 3} more` : ''));
-        }
+        // How common the variant allele is
+        const af = num(s.eur_af);
+        const fq = thMake(row, 'span', 'th-sp-af');
+        if (af != null) {
+          thMake(fq, 'span', null, `${s.alt} ${Math.round(100 * af)}%`);
+          const bar = thMake(fq, 'span', 'th-sp-afbar');
+          thMake(bar, 'span', null).style.width = `${Math.round(100 * af)}%`;
+        } else thMake(fq, 'span', 'nt-sub', '–');
+        // Which larger sources back it
+        const gw = thJ(s.gwas) || [], cv = thJ(s.clinvar) || [];
         // ClinPGx: levels 1A-2B, and caffeine at any level; a level-3 single study of an unrelated drug says nothing about sport
         const px = (thJ(s.clinpgx) || []).filter((x) => x.effect && (x.level !== '3' || /caffeine/i.test(x.chemicals))).sort((a, b) => a.level.localeCompare(b.level));
-        if (px.length) thMake(body, 'div', 'nt-sub', `ClinPGx (level ${px[0].level}), ${px[0].chemicals}: ${who} may ${px[0].effect}` + (px.length > 1 ? `; and ${px.length - 1} more` : ''));
-        if (s.meaning) { const w = thMake(body, 'div', 'th-sport-mean'); thMake(w, 'b', null, `For ${who}:`); thMake(w, 'span', null, ' '); thMake(w, 'span', null, s.meaning); }
-        const a = thMake(body, 'a', 'nt-src', s.papers === 1 ? '1 sport or exercise paper (Europe PMC)' : `${s.papers} sport or exercise papers (Europe PMC)`);
+        const ev = thMake(row, 'span', 'th-sp-ev');
+        if (gw.length) thMake(ev, 'span', 'th-sp-tag', num(s.gwas_pubs) === 1 ? 'GWAS · 1 study' : `GWAS · ${s.gwas_pubs} studies`);
+        if (cv.length) thMake(ev, 'span', 'th-sp-tag', 'ClinVar');
+        if (px.length) thMake(ev, 'span', 'th-sp-tag', `ClinPGx ${px[0].level}`);
+        if (!gw.length && !cv.length && !px.length) thMake(ev, 'span', 'nt-sub', 'candidate-gene studies only');
+        // Sport papers
+        const pa = thMake(row, 'span', 'th-sp-papers');
+        const a = thMake(pa, 'a', 'nt-src', String(s.papers));
         a.href = s.papers_url; a.target = '_blank'; a.rel = 'noopener';
+        a.title = 'Sport or exercise papers that name this SNP (Europe PMC)';
+        a.addEventListener('click', (e) => e.stopPropagation());
+
+        // Opened: what it means for the person, then each source's finding
+        const body = thMake(det, 'div', 'th-sp-body');
+        if (s.meaning) { const w = thMake(body, 'div', 'th-sport-mean'); thMake(w, 'b', null, `For ${who}:`); thMake(w, 'span', null, ' '); thMake(w, 'span', null, s.meaning); }
+        if (gw.length) {
+          // Each trait its own node: the trait names translate through the terms dictionary
+          const p = thMake(body, 'div', 'th-sp-src');
+          thMake(p, 'b', null, num(s.gwas_pubs) === 1 ? 'Genome-wide, 1 publication' : `Genome-wide, ${s.gwas_pubs} publications`);
+          const ul = thMake(p, 'ul', null);
+          for (const x of gw.slice(0, 5)) {
+            const li = thMake(ul, 'li', null);
+            thMake(li, 'span', null, x.trait);
+            if (x.allele) thMake(li, 'span', 'nt-sub', x.copies != null ? ` (${x.allele}, ${who} ×${x.copies})` : ` (${x.allele})`);
+          }
+          if (num(s.gwas_traits) > 5) thMake(p, 'span', 'nt-sub', `and ${num(s.gwas_traits) - 5} more traits`);
+        }
+        for (const c of cv) {
+          // ClinVar joins every submitted condition with |: the first three, and how many more
+          const conds = [...new Set(c.condition.replace(/_/g, ' ').split('|').map((x) => x.trim()).filter((x) => x && !/^not (provided|specified)$/i.test(x)))];
+          const p = thMake(body, 'div', 'th-sp-src');
+          thMake(p, 'b', null, 'ClinVar');
+          thMake(p, 'span', null, `${c.significance.replace(/_/g, ' ').split('|')[0]}, ${conds.slice(0, 3).join('; ')}` + (conds.length > 3 ? `; and ${conds.length - 3} more` : ''));
+        }
+        if (px.length) {
+          const p = thMake(body, 'div', 'th-sp-src');
+          thMake(p, 'b', null, `ClinPGx, level ${px[0].level}`);
+          thMake(p, 'span', null, `${px[0].chemicals}: ${who} may ${px[0].effect}` + (px.length > 1 ? `; and ${px.length - 1} more` : ''));
+        }
+        if (!gw.length && !cv.length && !px.length) thMake(body, 'p', 'nt-sub', 'No genome-wide study, ClinVar entry or ClinPGx finding: the evidence is candidate-gene studies of athletes.');
       }
     }
   });
@@ -5338,12 +5654,6 @@
       && (m.score.percentile <= 20) === (m.higher === 'better'));
   });
   const inList = (el, items) => inMake(el, 'ul', 'in-list').append(...items.map((x) => { const li = document.createElement('li'); li.textContent = x; return li; }));
-  const inOpen = (parent, tab, label) => {
-    const b = inMake(parent, 'button', null, inT('Open {}', label));
-    b.type = 'button';
-    b.addEventListener('click', () => { if (!inLocked()) gx.show(tab); });
-    return b;
-  };
   // Small line icons for the groups of research databases (24×24, stroke in the current colour)
   const IN_ICONS = {
     reading: 'M7 3c0 6 10 6 10 12s-10 6-10 6M17 3c0 6-10 6-10 12s10 6 10 6M8 7h8M8 17h8M9.5 12h5',
@@ -5369,7 +5679,6 @@
     else inMake(t, 'span', 'in-logo-txt', d.name.split(/\s+/).map((w) => w[0]).join('').slice(0, 4).toUpperCase()).setAttribute('data-i18n-skip', '');
     return t;
   };
-  const TAB_NAMES = { clusters: 'Clusters', medicines: 'Medicines', nutrition: 'Nutrition', biomarkers: 'Biomarkers' };  // Nutrition opens in Clusters
 
   // The steps: how it works (and what imputation is), the research behind it, what it gives, the file, reading it
   const IN_STEPS = [
@@ -6201,7 +6510,7 @@
       if (!seen.size) inMake(a2, 'p', 'gx-note', 'No lab value or nutrient level is moved by these genes in the GWAS Catalog findings the tabs read.');
       if (!inLocked()) {
         const nav = inMake(a2, 'div', 'in-rc-nav');
-        for (const [t, label] of [['biomarkers', 'Biomarkers'], ['nutrition', 'Nutrition']]) { const b = inMake(nav, 'button', 'lc-btn', inT('Open {}', label)); b.type = 'button'; b.addEventListener('click', () => gx.show(t)); }
+        for (const [t, label] of [['biomarkers', 'Biomarkers'], ['nutrition', 'Nutrition in Clusters']]) { const b = inMake(nav, 'button', 'lc-btn', inT('Open {}', label)); b.type = 'button'; b.addEventListener('click', () => gx.show(t)); }
       }
       // --- The example gene, told for the person (intro.py CLUSTER: GTEx, UniProt, Reactome, studies in women, GWAS)
       if (deep) {
@@ -6459,16 +6768,94 @@
         });
       }
     } },
-    { title: 'Your DNA, the law and the limits', draw: (el, c) => {
-      const p = c.p || {};
-      let LAWS = [], LIM = null;
-      try { const row = (gx.rows('intro_stats') || [[]])[0].find((x) => x.kind === 'law'); LAWS = JSON.parse(row.law || '[]') || []; LIM = JSON.parse(row.limits || 'null'); } catch (e) { /* none */ }
-      const pct = (a, b) => (b ? Math.round((a / b) * 100) : 0);
+    { title: 'Your DNA and EU law', draw: (el) => {
+      let LAWS = [];
+      try { const row = (gx.rows('intro_stats') || [[]])[0].find((x) => x.kind === 'law'); LAWS = JSON.parse(row.law || '[]') || []; } catch (e) { /* none */ }
+      const Q = {};
+      for (const a of LAWS) for (const q of a.quotes) Q[a.short + ' ' + q.ref] = { ...q, act: a };
+      const slug = (k) => 'in-lw-' + k.replace(/[^A-Za-z0-9]+/g, '-');
+      // A reference chip: 'IVDR Art. 2(2)|(c)' is IVDR's quoted Art. 2(2), labelled with its point (c); a click shows the quote
+      const chip = (parent, spec) => {
+        const [key, sub] = spec.split('|'), q = Q[key];
+        const b = inMake(parent, q ? 'button' : 'span', 'in-lw-chip', key + (sub || ''));
+        b.setAttribute('data-i18n-skip', '');
+        if (q) {
+          b.type = 'button';
+          b.title = q.text.length > 220 ? q.text.slice(0, 220) + '…' : q.text;
+          b.addEventListener('click', () => {
+            const t = document.getElementById(slug(key));
+            if (!t) return;
+            t.scrollIntoView({ block: 'center', behavior: 'smooth' });
+            t.classList.remove('is-flash'); void t.offsetWidth; t.classList.add('is-flash');
+          });
+        }
+        return b;
+      };
+      const chips = (parent, specs) => { const w = inMake(parent, 'span', 'in-lw-chips'); for (const s of specs) chip(w, s); return w; };
       const sec = (n, title) => { const s = inMake(el, 'div', 'in-rc-sec in-lw-sec'); inMake(s, 'h3', null, inT('{}. {}', n, title)); return s; };
+      inMake(el, 'p', 'in-lw-lead', 'Two EU regulations frame a tool like this one. The GDPR protects genetic data; the IVDR decides when software that reads DNA is a medical device. Below: why the explorer stops where it does, what the two say in their own words, and how the explorer keeps to them.');
 
-      // 1. Your data: what happens to it (the real setup: a local server, local folders, public identifiers out)
-      const s1 = sec(1, 'Your data: what happens to it');
-      const flow = inMake(s1, 'div', 'in-lw-flow');
+      // 1. Why the explorer stops where it does: each thing it could do, the rule that would apply, what it does instead
+      const s3 = sec(1, 'Why the explorer stops where it does');
+      inMake(s3, 'p', 'gx-note', 'Each of these needs a CE-marked device: a quality system, clinical performance studies and a notified body\'s review, kept up for as long as it is on the market. That is the work of a medical device maker. The explorer stays a research reference instead.');
+      const tbl = inMake(s3, 'div', 'in-lw-table');
+      for (const t of ['What it could do', 'What the law asks of that', 'What it does instead']) inMake(tbl, 'div', 'in-lw-th', t);
+      for (const [could, ask, refs, instead] of [
+        ['Tell you your risk of a disease', 'A class C device, reviewed and CE-marked first', ['IVDR Art. 2(2)|(c)', 'IVDR Annex VIII, Rule 3', 'IVDR Art. 5(1)'], 'Shows what studies found for your genotype, with each study\'s size and evidence grade'],
+        ['Tell you which medicine or dose suits you', 'A companion diagnostic: class C', ['IVDR Art. 2(2)|(e)', 'IVDR Annex VIII, Rule 3'], 'Shows the published pharmacogenetic guidelines for your genotype, as written'],
+        ['Run as a website anyone uploads their DNA to', 'An online device must comply in full; genetic data on a server needs a legal basis', ['IVDR Art. 6(1)', 'GDPR Art. 9(1)'], 'Runs on your own computer only, served on 127.0.0.1; there is no hosted version'],
+        ['Read anyone\'s DNA file', 'Their explicit consent', ['GDPR Art. 9(1)', 'GDPR Art. 9(2)(a)'], 'Your own file, or another person\'s with their consent'],
+        ['Call its findings a diagnosis or a risk score', 'No claim of a function it doesn\'t have', ['IVDR Art. 7'], 'Says what was measured and by whom: "associated with", "studies found"']]) {
+        inMake(tbl, 'div', 'in-lw-td is-could', could);
+        const c2 = inMake(tbl, 'div', 'in-lw-td is-ask'); inMake(c2, 'span', null, ask); chips(c2, refs);
+        inMake(tbl, 'div', 'in-lw-td is-instead', instead);
+      }
+
+      // 2. What the law says, in its own words
+      if (LAWS.length) {
+        const s2 = sec(2, 'What the law says');
+        inMake(s2, 'p', 'gx-note', 'Quoted word for word from the official text in EUR-Lex. Under each quote: what it means for the explorer.');
+        const HERE = {
+          'GDPR Art. 4(13)': 'A DNA test file is genetic data: it describes one person\'s inherited characteristics.',
+          'GDPR Art. 9(1)': 'Genetic data is a special category. Processing it is forbidden unless one of the exceptions in Art. 9(2) applies.',
+          'GDPR Art. 9(2)(a)': 'For another person\'s file, their explicit consent is that exception.',
+          'GDPR Art. 2(2)(c)': 'Your own file, read by you, for yourself, on your own computer, is a purely personal activity.',
+          'GDPR Art. 5(1)(c)': 'Only what a lookup needs leaves the computer: rs numbers and gene names, never genotypes.',
+          'GDPR Art. 17(1)': 'A person added by mistake, or no longer wanted, is removed with every file made for them.',
+          'IVDR Art. 2(2)': 'Software counts, and so do a predisposition to disease (c) and the response to a treatment (e). This is the definition the explorer stays outside.',
+          'IVDR Art. 2(12)': 'The maker\'s stated purpose decides. The explorer\'s: a reference to published research, for your own reading.',
+          'IVDR Annex VIII, Rule 3': 'Genetic tests, and tests that decide a medicine, are class C: a notified body reviews them before they reach anyone.',
+          'IVDR Art. 5(1)': 'A device must meet the whole regulation before it is used, whether it is sold or given away.',
+          'IVDR Art. 6(1)': 'Offering it as an online service counts too.',
+          'IVDR Art. 7': 'Words matter: claiming a diagnosis, or functions a tool doesn\'t have, is prohibited. The explorer says "studies found", never "you have".',
+          'IVDR Art. 4(1)': 'Genetic tests used in healthcare come with information on what they mean. The explorer is not part of healthcare; every finding links to the study behind it.' };
+        const MARK = { 'IVDR Art. 2(2)': /\((?:c|e)\)[^;.]*[;.]/g, 'IVDR Annex VIII, Rule 3': /\((?:f|i)\)[^;]*;/g };
+        const grid = inMake(s2, 'div', 'in-lw-acts');
+        for (const a of LAWS) {
+          const card = inMake(grid, 'div', 'in-lw-act');
+          const h = inMake(card, 'div', 'in-lw-act-h');
+          inMake(h, 'b', null, a.short).setAttribute('data-i18n-skip', '');
+          const link = inMake(h, 'a', 'in-cl-cite', a.act); link.href = a.url; link.target = '_blank'; link.rel = 'noopener'; link.setAttribute('data-i18n-skip', '');
+          for (const q of a.quotes) {
+            const key = a.short + ' ' + q.ref;
+            const r = inMake(card, 'div', 'in-lw-q'); r.id = slug(key);
+            inMake(r, 'span', 'in-lw-ref', q.ref).setAttribute('data-i18n-skip', '');
+            const body = inMake(r, 'div');
+            const qq = inMake(body, 'q'); qq.setAttribute('data-i18n-skip', '');
+            const rx = MARK[key];
+            if (rx) {
+              let at = 0;
+              for (const m of q.text.matchAll(rx)) { qq.append(q.text.slice(at, m.index)); inMake(qq, 'mark', null, m[0]); at = m.index + m[0].length; }
+              qq.append(q.text.slice(at));
+            } else qq.textContent = q.text;
+            if (HERE[key]) inMake(body, 'p', 'in-lw-here', HERE[key]);
+          }
+        }
+      }
+
+      // 3. How it keeps to the law: where the data goes, and each measure with its article
+      const s4 = sec(LAWS.length ? 3 : 2, 'How the explorer keeps to it');
+      const flow = inMake(s4, 'div', 'in-lw-flow');
       const node = (parent, cls, title, lines) => { const n = inMake(parent, 'div', 'in-lw-node ' + (cls || '')); inMake(n, 'b', null, title); for (const l of lines) inMake(n, 'small', null, l); return n; };
       node(flow, 'is-file', 'Your raw DNA file', ['From the DNA test company']);
       inMake(flow, 'span', 'in-lw-arrow', '→');
@@ -6490,83 +6877,17 @@
       const logos = inMake(pub, 'div', 'in-lw-logos');
       for (const d of dbs.slice(0, 12)) { const t = inLogo(logos, d); t.title = d.name; }
       if (dbs.length > 12) inMake(logos, 'span', 'in-lw-more', inT('+{}', dbs.length - 12));
-      const notes = inMake(s1, 'ul', 'in-lw-points');
-      for (const [b, t] of [['Genotypes never leave.', 'Only public identifiers go out: an rs number or a gene name says nothing about whose file it came from.'],
-                            ['Results stay in data/output.', 'The explorer reads them from there and shows them only on this computer.'],
-                            ['Removing a person:', 'Abandon a run in Add a person, or delete the person\'s file in data/input and their folders in data/output.']]) {
-        const li = inMake(notes, 'li'); inMake(li, 'b', null, b); li.append(' '); inMake(li, 'span', null, t);
-      }
-
-      // 2. The law in the EU and Sweden: each rule's own words, quoted from the official text
-      if (LAWS.length) {
-        const s2 = sec(2, 'The law in the EU and Sweden');
-        inMake(s2, 'p', 'gx-note', 'Each rule in its own words, quoted from the official text (EUR-Lex, riksdagen.se). Swedish law is quoted in Swedish.');
-        const FOR = {
-          gdpr: 'Your own file, analysed by you for yourself, is the household case of Art. 2(2)(c). Another person\'s file is their genetic data (Art. 4(13)), a special category (Art. 9(1)); their explicit consent (Art. 9(2)(a)) is what lifts that ban, also for sharing their results.',
-          mdr: 'What makes software a medical device is its intended purpose (Art. 2(12)): diagnosis, prevention, prediction or prognosis of disease. This explorer is not CE-marked, is not intended for any of those purposes and does not diagnose: it lays out research findings.',
-          ivdr: 'Information on a predisposition to a disease, from a specimen, is an in vitro diagnostic purpose. The DNA test company\'s lab produced the raw file; this explorer reads research about it.',
-          gi: 'In Sweden no one may, without support in law, make a genetic test or genetic information a condition of an agreement, or search for or use it. Insurers have the exception in 2 kap. 2 §.' };
-        for (const level of ['EU', 'Sweden']) {
-          const acts = LAWS.filter((a) => a.level === level);
-          if (!acts.length) continue;
-          const band = inMake(s2, 'div', 'in-lw-band is-' + level.toLowerCase());
-          inMake(band, 'div', 'in-lw-band-label', level === 'EU' ? 'European Union · applies in every member state' : 'Sweden · adds to the EU rules');
-          const grid = inMake(band, 'div', 'in-lw-acts');
-          for (const a of acts) {
-            const card = inMake(grid, 'div', 'in-lw-act');
-            const h = inMake(card, 'div', 'in-lw-act-h');
-            inMake(h, 'b', null, a.short).setAttribute('data-i18n-skip', '');
-            const link = inMake(h, 'a', 'in-cl-cite', a.act); link.href = a.url; link.target = '_blank'; link.rel = 'noopener'; link.setAttribute('data-i18n-skip', '');
-            for (const q of a.quotes) {
-              const r = inMake(card, 'div', 'in-lw-q');
-              inMake(r, 'span', 'in-lw-ref', q.ref).setAttribute('data-i18n-skip', '');
-              const qq = inMake(r, 'q', null, q.text); qq.setAttribute('data-i18n-skip', ''); if (a.lang === 'sv') qq.lang = 'sv';
-            }
-            if (FOR[a.id]) inMake(card, 'p', 'in-lw-here', FOR[a.id]);
-          }
-        }
-      }
-
-      // 3. What the explorer gives and doesn't (green on the right), and why, in numbers
-      const s3 = sec(LAWS.length ? 3 : 2, 'What the explorer gives, and what it doesn\'t');
-      const two = inMake(s3, 'div', 'in-lw-two');
-      const side = (cls, title, items) => { const b = inMake(two, 'div', 'in-lw-side ' + cls); inMake(b, 'b', null, title); const ul = inMake(b, 'ul'); for (const t of items) inMake(ul, 'li', null, t); };
-      side('is-not', 'It doesn\'t give', ['A diagnosis', 'Treatment decisions', 'Clinical advice']);
-      side('is-yes', 'It gives', ['Research findings matched to your genotypes', 'Graded by evidence, with each source and its size', 'The choices stay yours']);
-      inMake(s3, 'span', 'in-cl-sub', 'Why, in numbers');
-      const why = inMake(s3, 'div', 'in-lw-why');
-      const card = (title) => { const b = inMake(why, 'div', 'in-lw-wcard'); inMake(b, 'b', null, title); return b; };
-      const stackBar = (b, parts) => {
-        const tot = parts.reduce((s, x) => s + x[1], 0) || 1, bar = inMake(b, 'div', 'in-stack');
-        for (const [, v, cls] of parts) if (v) inMake(bar, 'span', cls).style.width = `${(v / tot) * 100}%`;
-        const lg = inMake(b, 'div', 'in-legend');
-        for (const [t, v, cls] of parts) inMake(lg, 'span', cls, inT('{}: {}%', t, pct(v, tot)));
-      };
-      if (LIM && LIM.odds_ratios) {
-        const b = card('Most effects are small, per copy');
-        stackBar(b, [['Odds ×1.5 or more', LIM.odds_ratios - LIM.or_below_1_5, 'in-c-bad'], ['×1.2 to ×1.5', LIM.or_below_1_5 - LIM.or_below_1_2, 'in-c-warn'], ['Below ×1.2', LIM.or_below_1_2, 'in-c-ok2']]);
-        inMake(b, 'small', null, inT('{} odds ratios in the GWAS Catalog; the median is ×{} per copy of an allele.', inN(LIM.odds_ratios), LIM.or_median));
-      }
-      if (LIM && LIM.participants) {
-        const b = card('Most studies are in Europeans');
-        stackBar(b, [['Other ancestries', LIM.participants - LIM.european_participants, 'in-c-fg'], ['European', LIM.european_participants, 'in-c-ok2']]);
-        inMake(b, 'small', null, inT('Of the participants counted in {} GWAS Catalog studies (a person in several studies counts in each); {} of the studies are European only.', inN(LIM.studies), inN(LIM.european_only_studies)));
-      }
-      const tiers = p.tiers || {};
-      if (tiers.high) {
-        const b = card(inT('{}\'s filled-in calls carry a confidence', c.who));
-        stackBar(b, [['Untested', tiers.untested || 0, 'in-c-fg'], ['Low', tiers.low || 0, 'in-c-bad'], ['Medium', tiers.medium || 0, 'in-c-warn'], ['High', tiers.high, 'in-c-ok']]);
-        inMake(b, 'small', null, 'Only high-confidence calls are used for conclusions from a single variant; each is marked imputed.');
-      }
-      if (p.measured) {
-        const b = card('A chip reads part of the genome');
-        const G = 3.1e9, kept = p.kept || 0;
-        stackBar(b, [['Not read', G - p.measured - kept, 'in-c-fg'], ['Filled in by imputation', kept, 'in-c-ok2'], ['Measured by the chip', p.measured, 'in-c-ok']]);
-        inMake(b, 'small', null, inT('{} positions measured and {} filled in, of the 3.1 billion letters in a genome. Rare variants, and changes the chip can\'t see, stay unread.', inN(p.measured), inN(kept)));
-      }
-      if (!inLocked()) {
-        const nav = inMake(el, 'div', 'in-nav');
-        for (const t of ['medicines', 'nutrition', 'biomarkers', 'clusters']) inOpen(nav, t, TAB_NAMES[t]);
+      const ms = inMake(s4, 'div', 'in-lw-measures');
+      for (const [b, t, refs] of [
+        ['Your file stays on your computer.', 'The explorer is served on 127.0.0.1 only; its makers receive nothing.', ['GDPR Art. 2(2)(c)', 'IVDR Art. 6(1)']],
+        ['Only public identifiers leave.', 'rs numbers and gene names go to the research databases. They say nothing about whose file they came from.', ['GDPR Art. 5(1)(c)']],
+        ['Removing a person removes everything.', 'Abandon deletes all an unfinished run made. For a finished person, delete their file in data/input and their files in data/output.', ['GDPR Art. 17(1)']],
+        ['Another person\'s file needs their consent.', 'Add a person is for your own file, or for someone who has given explicit consent.', ['GDPR Art. 9(2)(a)']],
+        ['It claims no medical purpose.', 'It lays out published research, graded by evidence, and leaves the reading to you.', ['IVDR Art. 2(12)', 'IVDR Art. 7']]]) {
+        const m = inMake(ms, 'div', 'in-lw-measure');
+        inMake(m, 'span', 'in-lw-tick', '✓');
+        const body = inMake(m, 'div');
+        inMake(body, 'b', null, b); inMake(body, 'p', null, t); chips(body, refs);
       }
     } },
   ];

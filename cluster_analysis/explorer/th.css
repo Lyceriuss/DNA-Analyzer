@@ -76,6 +76,43 @@
   .th-ex .th-label { font-size: 12px; }
   .th-fibre { display: grid; gap: 4px; padding: 6px 0; border-bottom: 1px solid var(--color-border-line); }
   .th-fibre-name { font-weight: var(--cds-font-weight-medium); }
+  /* Mind: the clinical path, a row per ICD-10 group across the four steps */
+  .th-cl { display: grid; border: 1px solid var(--color-border-line); border-radius: 10px; overflow: hidden; }
+  .th-cl-row { display: grid; grid-template-columns: 1.3fr 1.2fr 1fr 1.2fr 1.3fr; gap: 12px; padding: 10px 14px;
+    border-top: 1px solid var(--color-border-line); font-size: 13px; cursor: pointer; align-items: start; }
+  .th-cl-row:hover { background: color-mix(in srgb, var(--color-fg) 4%, var(--color-panel)); }
+  .th-cl-row:focus-visible { outline: 2px solid var(--color-accent, var(--color-fg)); outline-offset: -2px; }
+  .th-cl-on { background: color-mix(in srgb, var(--color-fg) 7%, var(--color-panel)); }
+  .th-cl-head { border-top: 0; cursor: default; background: color-mix(in srgb, var(--color-fg) 5%, var(--color-panel)); }
+  .th-cl-head:hover { background: color-mix(in srgb, var(--color-fg) 5%, var(--color-panel)); }
+  .th-cl-head .th-cl-cell { display: grid; }
+  .th-cl-head b { font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; }
+  .th-cl-head span { color: var(--color-fg-muted); font-size: 12px; }
+  .th-cl-head .th-cl-step b::before { content: '→ '; color: var(--color-fg-muted); }
+  .th-cl-cell { display: grid; gap: 3px; align-content: start; min-width: 0; }
+  .th-cl-name { font-size: 14px; }
+  .th-cl-codes { display: flex; flex-wrap: wrap; gap: 4px; }
+  .th-cl-code { font: 12px var(--cds-font-mono, monospace); padding: 0 6px; border-radius: 4px;
+    border: 1px solid var(--color-border-line); color: var(--color-fg-muted); }
+  .th-cl-test, .th-cl-mech { line-height: 1.35; }
+  .th-cl-differs { color: var(--color-bad); font-weight: var(--cds-font-weight-medium); }
+  .th-cl-detail { display: grid; gap: 14px; padding: 12px 14px 16px; border-top: 1px dashed var(--color-border-line);
+    background: color-mix(in srgb, var(--color-fg) 3%, var(--color-panel)); cursor: default; font-size: 14px; }
+  .th-cl-sec { display: grid; gap: 6px; }
+  .th-cl-icd summary { cursor: pointer; }
+  .th-cl-icd ul { margin: 4px 0 0; padding-left: 18px; columns: 2; font-size: 13px; }
+  .th-cl-paper { display: grid; gap: 4px; }
+  .th-cl-paper .gx-note { margin: 0; }
+  .th-cl-quote { margin: 0; padding: 2px 0 2px 10px; border-left: 3px solid var(--color-border-line); font-size: 13px; }
+  .th-cl-drug { display: grid; gap: 2px; padding: 4px 0; border-bottom: 1px solid var(--color-border-line); }
+  .th-cl-guide { font-size: 13px; color: var(--color-fg-muted); }
+  .th-cl-guide.th-cl-differs { color: var(--color-bad); }
+  .th-cl-rec { margin: 2px 0 0; color: var(--color-fg); }
+  @media (max-width: 760px) {
+    .th-cl-row { grid-template-columns: 1fr 1fr; }
+    .th-cl-head { display: none; }
+    .th-cl-icd ul { columns: 1; }
+  }
   /* Side panel: ranked organs with their bars */
   .th-organ-list { display: grid; }
   .th-organ-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(4rem, 7rem) 2ch; gap: var(--cds-gap-sm); align-items: center;
@@ -130,11 +167,43 @@
   .th-imp-medium { border-color: var(--color-warn, #b8860b); color: var(--color-warn, #b8860b); }
   .th-b-untested { background: var(--color-fg-muted); opacity: 0.35; }
 /* Muscle theme: the popular sport genes */
-.th-sport-topic { margin: 18px 0 6px; font-size: 14px; }
-.th-sport-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 360px), 1fr)); gap: 8px 18px; }
-.th-sport-row { display: grid; grid-template-columns: 28px 1fr; gap: 8px; align-items: start; padding: 8px 0; border-top: 1px solid var(--color-border-line); font-size: 13px; line-height: 1.45; }
-.th-sport-row .md-grade { margin-top: 2px; }
-.th-sport-row .nt-src { display: inline-block; margin-top: 2px; font-size: 12px; }
+.th-sp-legend { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 10px 0 4px; font-size: 12px; color: var(--color-fg-muted); }
+.th-sp-legend-item { display: inline-flex; gap: 6px; align-items: center; }
+.th-sp-topic { margin-top: 18px; }
+.th-sp-topic h3 { margin: 0 0 6px; font-size: 15px; }
+.th-sp-count { color: var(--color-fg-muted); font-weight: normal; }
+.th-sp-table { border: 1px solid var(--color-border-line); border-radius: 10px; overflow: hidden; }
+.th-sp-row { display: grid; grid-template-columns: 52px minmax(110px, 1fr) minmax(150px, 1.6fr) minmax(130px, 1.1fr) minmax(90px, 0.8fr) minmax(130px, 1.2fr) 56px;
+  gap: 10px; align-items: center; padding: 8px 12px; font-size: 13px; line-height: 1.35; }
+.th-sp-head { background: color-mix(in srgb, var(--color-fg) 5%, var(--color-panel)); color: var(--color-fg-muted); font-size: 11px;
+  letter-spacing: 0.05em; text-transform: uppercase; }
+.th-sp-head span:last-child, .th-sp-papers { text-align: right; }
+.th-sp-item { border-top: 1px solid var(--color-border-line); }
+.th-sp-item > summary { cursor: pointer; list-style: none; }
+.th-sp-item > summary::-webkit-details-marker { display: none; }
+.th-sp-item > summary:hover { background: color-mix(in srgb, var(--color-fg) 4%, var(--color-panel)); }
+.th-sp-item[open] > summary { background: color-mix(in srgb, var(--color-fg) 3%, var(--color-panel)); }
+.th-sp-grade { display: inline-flex; gap: 6px; align-items: center; }
+.th-sp-star { color: var(--color-warn, #b8860b); }
+.th-sp-gene, .th-sp-change, .th-sp-copies, .th-sp-af { display: grid; gap: 1px; min-width: 0; }
+.th-sp-gene .lc-link { justify-self: start; font-weight: var(--cds-font-weight-medium); }
+.th-sp-gt { display: inline-flex; gap: 6px; align-items: baseline; }
+.th-sp-copies .th-imp { justify-self: start; }
+.th-sp-dots { letter-spacing: 1px; color: var(--color-fg); }
+.th-sp-afbar { display: block; height: 4px; border-radius: 2px; background: var(--color-border-line); overflow: hidden; max-width: 90px; }
+.th-sp-afbar span { display: block; height: 100%; background: var(--color-fg-muted); }
+.th-sp-ev { display: flex; flex-wrap: wrap; gap: 4px; }
+.th-sp-tag { padding: 0 6px; border-radius: 8px; border: 1px solid var(--color-border-line); font-size: 11px; white-space: nowrap; }
+.th-sp-body { display: grid; gap: 8px; padding: 2px 12px 12px 74px; font-size: 13px; line-height: 1.45; }
+.th-sp-src { display: grid; gap: 2px; }
+.th-sp-src ul { margin: 0; padding-left: 18px; }
+.th-sp-body .nt-sub { margin: 0; }
+@media (max-width: 760px) {
+  .th-sp-head { display: none; }
+  .th-sp-row { grid-template-columns: 52px 1fr 1fr; }
+  .th-sp-change, .th-sp-ev { grid-column: 2 / -1; }
+  .th-sp-body { padding-left: 12px; }
+}
 .th-off { display: none; }
 /* Fitness theme: what the results mean */
 .th-mean-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); gap: 10px; margin-top: 10px; }

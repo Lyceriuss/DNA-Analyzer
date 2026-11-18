@@ -553,6 +553,177 @@
   const thFigure = (half) => d3.line().curve(d3.curveCatmullRomClosed.alpha(0.5))(
     [...half, [120, 336], ...half.slice().reverse().map(([x, y]) => [240 - x, y])]);
 
+  // The clinical path (mind theme): one row per ICD-10 diagnostic group, walked through the four steps a clinician takes.
+  // Screening tests, codes and drug classes are public (themes/mind_clinical.json, window.GX_MIND); the genes and the
+  // calls are the person's (theme_genes), and the medicines' guidance is the Medicines tab's (med_guidance, med_genes).
+  const CL_STEPS = [['Diagnosis', 'ICD-10'], ['1 · Screen', 'Validated test'], ['2 · Genetics', 'Genes tied to it'],
+                    ['3 · Mechanisms', 'What those genes do'], ['4 · Medicines', 'Response to treatment']];
+  const CL_GUIDE = { differs: 'differs', typical: 'typical', no_action: 'typical', summary: 'no gene-specific advice', unreadable: 'not readable from the file', unclear: 'unclear' };
+  const thClinical = (el, s, who) => {
+    const MIND = window.GX_MIND;
+    const groups = (MIND && MIND.groups) || {};
+    const med = gx.rows('med_guidance', 'med_genes');
+    const [guides, mgenes] = med || [[], []];
+    const phen = new Map(mgenes.map((g) => [g.gene, g.phenotype]));
+    const mechName = new Map(s.facets.map((f) => [f.facet, f.facet_name]));
+    const conditions = (id) => Object.entries(s.stats.disease_organs || {}).filter(([, o]) => o === id).map(([d]) => d);
+    const changed = (g) => ['LoF', 'GoF', 'altered', 'variant'].includes(thCall(g));
+    const callRank = { LoF: 0, GoF: 1, altered: 2, variant: 3, normal: 4 };
+    const byCall = (a, b) => (callRank[thCall(a)] ?? 5) - (callRank[thCall(b)] ?? 5) || a.gene.localeCompare(b.gene);
+    const chip = (parent, g) => {
+      const b = thMake(parent, 'button', 'lc-chip th-gene lc-' + (TH_CLASS[thCall(g)] || 'untested'), thLabel(g));
+      b.type = 'button';
+      b.addEventListener('click', (e) => { e.stopPropagation(); thPick(g.gene); });
+    };
+    const link = (parent, text, href) => { const a = thMake(parent, 'a', null, text); a.href = href; a.target = '_blank'; a.rel = 'noopener'; return a; };
+    // Per group: its genes (joined on one of its conditions), their mechanisms, and its medicines with guidance
+    const rows = s.organs.map((o) => {
+      const G = groups[o.id] || { icd: [], screens: [], drugs: {}, classes: [] };
+      const genes = s.genes.filter((g) => (g.ev.organs || []).includes(o.id)).sort(byCall);
+      const mech = new Map();
+      for (const g of genes) for (const f of g.fl) if (f !== 'disease') { if (!mech.has(f)) mech.set(f, []); mech.get(f).push(g); }
+      const mechs = [...mech.entries()].sort((a, b) => b[1].length - a[1].length);
+      const drugs = new Map();
+      for (const x of guides) {
+        if (x.kind !== 'guideline') continue;
+        const d = x.drug.toLowerCase();
+        if (!(d in (G.drugs || {}))) continue;
+        if (!drugs.has(d)) drugs.set(d, []);
+        drugs.get(d).push(x);
+      }
+      const differs = [...drugs.entries()].filter(([, xs]) => xs.some((x) => x.status === 'differs')).map(([d]) => d);
+      return { o, G, genes, mechs, drugs, differs };
+    });
+
+    const box = thMake(el, 'div', 'th-cl');
+    const head = thMake(box, 'div', 'th-cl-row th-cl-head');
+    CL_STEPS.forEach(([t, sub], i) => {
+      const c = thMake(head, 'div', 'th-cl-cell');
+      thMake(c, 'b', null, t);
+      thMake(c, 'span', null, sub);
+      if (i) c.classList.add('th-cl-step');
+    });
+    for (const r of rows) {
+      const sel = s.organ && s.organ.id === r.o.id;
+      const row = thMake(box, 'div', 'th-cl-row' + (sel ? ' th-cl-on' : ''));
+      row.tabIndex = 0;
+      row.setAttribute('role', 'button');
+      row.setAttribute('aria-expanded', String(!!sel));
+      const pick = () => dash.setParams({ th_organ: sel ? null : r.o.id, th_gene: null });
+      row.addEventListener('click', pick);
+      row.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(); } });
+      // Diagnosis
+      const d = thMake(row, 'div', 'th-cl-cell');
+      thMake(d, 'b', 'th-cl-name', r.o.name);
+      const codes = thMake(d, 'div', 'th-cl-codes');
+      for (const c of r.G.icd) thMake(codes, 'span', 'th-cl-code', c.category);
+      // 1 Screen
+      const sc = thMake(row, 'div', 'th-cl-cell');
+      for (const t of r.G.screens) thMake(sc, 'div', 'th-cl-test', t.name);
+      // 2 Genetics
+      const ge = thMake(row, 'div', 'th-cl-cell');
+      const nChanged = r.genes.filter(changed).length;
+      thMake(ge, 'div', null, `${r.genes.length} genes`);
+      if (r.genes.length) {
+        thBalance(ge, r.genes, 'no call');
+        thMake(ge, 'span', 'gx-note', `${nChanged} changed in ${who}`);
+      }
+      // 3 Mechanisms
+      const me = thMake(row, 'div', 'th-cl-cell');
+      if (r.mechs.length) for (const [f, gs] of r.mechs.slice(0, 3)) thMake(me, 'div', 'th-cl-mech', `${mechName.get(f) || f} · ${gs.length}`);
+      else thMake(me, 'span', 'gx-note', 'No known mechanism yet');
+      // 4 Medicines
+      const md = thMake(row, 'div', 'th-cl-cell');
+      if (!r.drugs.size) thMake(md, 'span', 'gx-note', 'No pharmacogenetic guideline');
+      else {
+        thMake(md, 'div', null, r.drugs.size === 1 ? '1 medicine with a guideline' : `${r.drugs.size} medicines with a guideline`);
+        if (r.differs.length) thMake(md, 'div', 'th-cl-differs', `${r.differs.length} ${r.differs.length === 1 ? 'differs' : 'differ'} for ${who}: ${r.differs.slice(0, 3).join(', ')}${r.differs.length > 3 ? '…' : ''}`);
+        else thMake(md, 'span', 'gx-note', `typical for ${who}`);
+      }
+      if (sel) thClinicalDetail(box, r, who, { conditions, chip, link, changed, phen, mechName });
+    }
+    thMake(el, 'p', 'gx-note', 'Sources: ICD-10 codes from NLM Clinical Tables (ICD-10-CM); screening tests from their validation papers ' +
+      '(Europe PMC), quoted as written; genes from Open Targets and Gene Ontology; drug classes from the WHO ATC classification ' +
+      '(ChEMBL), with the CPIC and DPWG guidelines of the Medicines tab.');
+  };
+  const thClinicalDetail = (box, r, who, h) => {
+    const det = thMake(box, 'div', 'th-cl-detail');
+    det.addEventListener('click', (e) => e.stopPropagation());
+    thMake(det, 'p', null, r.o.about);
+    // Diagnosis: the codes
+    const dx = thMake(det, 'section', 'th-cl-sec');
+    thMake(dx, 'span', 'gx-label', 'Diagnosis: ICD-10');
+    for (const c of r.G.icd) {
+      const dd = thMake(dx, 'details', 'th-cl-icd');
+      thMake(dd, 'summary', null, `${c.category} · ${c.codes.length} codes`);
+      const ul = thMake(dd, 'ul', null);
+      for (const [code, title] of c.codes) thMake(ul, 'li', null, `${code} ${title}`);
+    }
+    // 1 Screen: each test, its validation paper and what it says about scoring
+    const sc = thMake(det, 'section', 'th-cl-sec');
+    thMake(sc, 'span', 'gx-label', '1 · Screen');
+    for (const t of r.G.screens) {
+      const d = thMake(sc, 'div', 'th-cl-paper');
+      thMake(d, 'b', null, t.name);
+      const cite = thMake(d, 'p', 'gx-note');
+      h.link(cite, `${t.title}`, t.url);
+      thMake(cite, 'span', null, ` ${t.authors || ''} ${t.journal || ''} ${t.year || ''}`);
+      for (const q of t.quotes) thMake(d, 'blockquote', 'th-cl-quote', q);
+      if (!t.quotes.length) thMake(d, 'p', 'gx-note', 'The abstract gives no cut-off; the paper has the scoring.');
+    }
+    // 2 Genetics: per condition, the genes joined on it, changed ones first
+    const ge = thMake(det, 'section', 'th-cl-sec');
+    thMake(ge, 'span', 'gx-label', '2 · Genetics');
+    thMake(ge, 'p', 'gx-note', `Genes with human genetic evidence (Open Targets) for the group's conditions. ${who}'s calls colour them: ` +
+      'red less active, blue more active, grey a carried trait-linked variant, green typical. Select a gene for its evidence.');
+    for (const cond of h.conditions(r.o.id)) {
+      const gs = r.genes.filter((g) => (g.ev.joined_by || []).includes(cond));
+      if (!gs.length) continue;
+      const line = thMake(ge, 'div', 'th-fibre');
+      thMake(line, 'span', 'th-fibre-name', `${cond} · ${gs.length}`);
+      const chips = thMake(line, 'div', 'th-genes');
+      const show = gs.filter(h.changed).slice(0, 12);
+      for (const g of show) h.chip(chips, g);
+      thMake(chips, 'span', 'gx-note', show.length ? `${gs.filter(h.changed).length} changed of ${gs.length}` : `none changed in ${who}`);
+    }
+    // 3 Mechanisms: what the group's genes do, with the changed genes in each
+    const me = thMake(det, 'section', 'th-cl-sec');
+    thMake(me, 'span', 'gx-label', '3 · Mechanisms');
+    if (!r.mechs.length) thMake(me, 'p', 'gx-note', 'Gene Ontology places none of these genes in a mechanism of this theme yet.');
+    for (const [f, gs] of r.mechs.slice(0, 6)) {
+      const line = thMake(me, 'div', 'th-fibre');
+      thMake(line, 'span', 'th-fibre-name', `${h.mechName.get(f) || f} · ${gs.length}`);
+      const chips = thMake(line, 'div', 'th-genes');
+      for (const g of gs.filter(h.changed).slice(0, 10)) h.chip(chips, g);
+    }
+    // 4 Medicines: the group's drug classes and every guideline for their drugs, those that differ for the person first
+    const md = thMake(det, 'section', 'th-cl-sec');
+    thMake(md, 'span', 'gx-label', '4 · Medicines');
+    thMake(md, 'p', 'gx-note', 'Drug classes (ATC): ' + r.G.classes.map((c) => `${c.atc} ${c.name.charAt(0) + c.name.slice(1).toLowerCase()}`).join(' · '));
+    if (!r.drugs.size) thMake(md, 'p', 'gx-note', 'No CPIC or DPWG guideline covers a medicine of these classes.');
+    const order = { differs: 0, typical: 1, no_action: 1, unclear: 2, summary: 3, unreadable: 4 };
+    const list = [...r.drugs.entries()].sort((a, b) => Math.min(...a[1].map((x) => order[x.status] ?? 5)) - Math.min(...b[1].map((x) => order[x.status] ?? 5)) || a[0].localeCompare(b[0]));
+    for (const [drug, xs] of list) {
+      const d = thMake(md, 'div', 'th-cl-drug');
+      thMake(d, 'b', null, drug);
+      for (const x of xs.sort((a, b) => (order[a.status] ?? 5) - (order[b.status] ?? 5))) {
+        const p = thMake(d, 'div', 'th-cl-guide th-cl-' + (CL_GUIDE[x.status] === 'differs' ? 'differs' : 'plain'));
+        const genes = x.genes.split(';').map((g) => `${g}${h.phen.get(g) ? ` (${h.phen.get(g)})` : ''}`).join(', ');
+        thMake(p, 'span', null, `${x.source} · ${genes} · ${CL_GUIDE[x.status] || x.status}`);
+        if (x.status === 'differs') {
+          let recs = [];
+          try { recs = typeof x.recs === 'string' ? JSON.parse(x.recs) : x.recs || []; } catch (e) { recs = []; }
+          for (const rc of recs.slice(0, 2)) if (rc.recommendation) thMake(p, 'p', 'th-cl-rec', rc.recommendation);
+        }
+      }
+    }
+    if (r.drugs.size) {
+      const go = thMake(md, 'button', 'lc-btn', 'Open Medicines');
+      go.type = 'button';
+      go.addEventListener('click', () => gx.show('medicines'));
+    }
+  };
+
   dash.draw('th-body', (el) => {
     el.replaceChildren();
     const s = thSel();
@@ -565,21 +736,26 @@
     const male = s.stats.sex === 'XY';
     const cell = s.stats.view === 'cell';
     const exertion = s.stats.view === 'exertion';
-    const SHAPES = cell ? CELL_SHAPES() : exertion ? EXERTION_SHAPES(s.organs) : male ? XY_SHAPES : XX_SHAPES;
-    const unit = cell || exertion ? 'stage' : 'organ';
+    // Phased: stages in columns over time (the training session, the mind theme's day)
+    const phased = exertion || !!(s.stats.phases && s.stats.phases.length);
+    const phases = s.stats.phases && s.stats.phases.length ? s.stats.phases : EX_PHASES;
+    const SHAPES = cell ? CELL_SHAPES() : phased ? EXERTION_SHAPES(s.organs, phases) : male ? XY_SHAPES : XX_SHAPES;
+    const unit = cell || phased ? 'stage' : 'organ';
     const card = el.closest('.gx-card');
     if (card) {
       const h = card.querySelector('h2'), note = card.querySelector('.gx-note');
-      if (h) h.textContent = cell ? 'Life of a cell' : exertion ? 'A training session' : 'Body map';
+      if (h) h.textContent = cell ? 'Life of a cell' : exertion ? 'A training session' : s.stats.view_title || 'Body map';
       if (note) note.textContent = cell
         ? 'The stages every cell lives through, and where the theme\'s genes act in them. Cancer starts when a cell slips past the ' +
           'checkpoints, repair, ageing and death. Select a stage to narrow the mechanisms, connections and gene panel to it.'
+        : !exertion && s.stats.view_note ? s.stats.view_note
         : exertion
         ? 'Before, during and after exertion: what you bring to a session, what your muscle fibres are built for, and how you ' +
           'recover. Select a stage to narrow the mechanisms, connections and gene panel to it.'
         : 'Where in the body the theme\'s genes act. Each gene is placed by its mechanisms and the conditions it is linked to. ' +
           'Select an organ to narrow the mechanisms, connections and gene panel to it.';
     }
+    if (s.stats.view === 'clinical') { thClinical(el, s, who); return; }
 
     const per = new Map(s.organs.map((o) => [o.id, { o, all: 0, lof: 0, gof: 0, norm: 0, variant: 0, genes: [] }]));
     for (const g of s.genes) {
@@ -605,13 +781,13 @@
     const box = thMake(grid, 'div', 'th-body-svg');
     const info = thMake(grid, 'div', 'th-organ');
     const svg = d3.select(box).append('svg').attr('viewBox', '0 0 760 432').attr('width', '100%')
-      .attr('role', 'group').attr('aria-label', `${s.theme.theme_name}: ${unit}s`).classed('th-ex', exertion);
+      .attr('role', 'group').attr('aria-label', `${s.theme.theme_name}: ${unit}s`).classed('th-ex', phased);
     const tip = gx.tip(box);
 
     const defs = svg.append('defs');
     // Body, the pelvis it zooms from and the panel the organs sit in; the cell map draws its paths instead
     if (cell) drawCellPaths(svg);
-    else if (exertion) drawExertionFrame(svg);
+    else if (phased) drawExertionFrame(svg, phases);
     else {
     const glow = defs.append('radialGradient').attr('id', 'th-glow');
     glow.append('stop').attr('offset', '0%').style('stop-color', 'var(--color-fg)').style('stop-opacity', 0.16);
@@ -708,8 +884,8 @@
       thMake(info, 'h3', null, `All ${unit}s`);
       thMake(info, 'p', 'gx-note', `▼ less active and ▲ more active are ${who}'s gene calls; ● counts genes where ${who} carries an allele ` +
         `that a GWAS or ClinVar links to one of the theme's conditions. Shading is stronger where more of these gather, red where less-active genes ` +
-        `lead and blue where more-active ones do. Select ${cell || exertion ? 'a stage' : 'an organ'} to focus the page on it.`);
-      if (exertion) thMake(info, 'p', 'gx-note', `How to read the list: the number is how many of the stage's genes ${who} carries in a changed form ` +
+        `lead and blue where more-active ones do. Select ${cell || phased ? 'a stage' : 'an organ'} to focus the page on it.`);
+      if (phased) thMake(info, 'p', 'gx-note', `How to read the list: the number is how many of the stage's genes ${who} carries in a changed form ` +
         `(red, blue or grey); green are genes ${who} carries in their typical form. A high number means the stage has more places where ` +
         `${who}'s genes differ from most people's, not that it works better or worse: the colour mix says which way it leans.`);
       // Muscle: what the fibres are built for, from the person's calls on the fibre and aerobic genes
@@ -779,32 +955,37 @@
     endAngle: b * Math.PI / 180 }), at: CELL_C });
   // Muscle theme: a training session in three columns (before, during, after), each stage a tile, in the order the theme
   // lists them. Tiles are buttons like the organs on the body maps.
-  const EX_COLS = { before: 14, during: 266, after: 518 };
-  const EX_W = 228, EX_TOP = 44, EX_BOTTOM = 426;
+  // Any phased theme (the mind theme's day) uses the same layout, with the columns its stats name.
+  const EX_PHASES = [{ id: 'before', name: 'Before' }, { id: 'during', name: 'During' }, { id: 'after', name: 'After' }];
+  const EX_LEFT = 14, EX_RIGHT = 746, EX_GAP = 24, EX_TOP = 44, EX_BOTTOM = 426;
+  const exCols = (phases) => {
+    const w = (EX_RIGHT - EX_LEFT - EX_GAP * (phases.length - 1)) / phases.length;
+    return phases.map((p, i) => ({ ...p, x: EX_LEFT + i * (w + EX_GAP), w }));
+  };
   const exTile = (x, y, w, h, r = 10) => `M${x + r},${y} h${w - 2 * r} a${r},${r} 0 0 1 ${r},${r} v${h - 2 * r} ` +
     `a${r},${r} 0 0 1 -${r},${r} h-${w - 2 * r} a${r},${r} 0 0 1 -${r},-${r} v-${h - 2 * r} a${r},${r} 0 0 1 ${r},-${r} Z`;
-  const EXERTION_SHAPES = (organs) => {
+  const EXERTION_SHAPES = (organs, phases) => {
     const out = {};
-    for (const [phase, x] of Object.entries(EX_COLS)) {
-      const list = organs.filter((o) => o.phase === phase), gap = 8;
+    for (const { id, x, w } of exCols(phases)) {
+      const list = organs.filter((o) => o.phase === id), gap = 8;
       const h = (EX_BOTTOM - EX_TOP - gap * (list.length - 1)) / Math.max(1, list.length);
       list.forEach((o, i) => {
         const y = EX_TOP + i * (h + gap);
-        out[o.id] = { shapes: [{ path: exTile(x, y, EX_W, h) }], label: [x + 12, y + Math.min(26, h / 2 - 4), 'start'] };
+        out[o.id] = { shapes: [{ path: exTile(x, y, w, h) }], label: [x + 12, y + Math.min(26, h / 2 - 4), 'start'] };
       });
     }
     return out;
   };
-  const drawExertionFrame = (svg) => {
+  const drawExertionFrame = (svg, phases) => {
     svg.append('defs').append('marker').attr('id', 'th-ex-arrow').attr('viewBox', '0 0 10 10').attr('refX', 9).attr('refY', 5)
       .attr('markerWidth', 7).attr('markerHeight', 7).attr('orient', 'auto')
       .append('path').attr('d', 'M0,0 L10,5 L0,10 Z').attr('class', 'th-ex-head');
-    const heads = { before: 'Before', during: 'During', after: 'After' };
-    for (const [phase, x] of Object.entries(EX_COLS)) {
-      svg.append('text').attr('x', x + EX_W / 2).attr('y', 24).attr('text-anchor', 'middle').attr('class', 'th-ex-phase').text(heads[phase]);
+    const cols = exCols(phases);
+    for (const { name, x, w } of cols) {
+      svg.append('text').attr('x', x + w / 2).attr('y', 24).attr('text-anchor', 'middle').attr('class', 'th-ex-phase').text(name);
     }
-    for (const x of [EX_COLS.before + EX_W, EX_COLS.during + EX_W]) {
-      svg.append('path').attr('d', `M${x + 3},20 L${x + 21},20`).attr('class', 'th-ex-flow').attr('marker-end', 'url(#th-ex-arrow)');
+    for (const { x, w } of cols.slice(0, -1)) {
+      svg.append('path').attr('d', `M${x + w + 3},20 L${x + w + EX_GAP - 3},20`).attr('class', 'th-ex-flow').attr('marker-end', 'url(#th-ex-arrow)');
     }
   };
 
@@ -1000,52 +1181,113 @@
     thMake(el, 'p', 'gx-note', `The ${rows.length} SNPs that consumer fitness DNA tests report. Most come from small candidate-gene studies of athletes; ` +
       `the grade says what larger sources back: ${n('A')} have replicated genome-wide or clinical evidence (A), ${n('B')} some (B), and ${n('C')} rest on ` +
       `candidate-gene studies alone (C). The genome-wide traits are what each variant is proven to move, which is often not what the tests sell it for.`);
+    // The grades as a legend, each with its count
+    const legend = thMake(el, 'div', 'th-sp-legend');
+    for (const gr of ['A', 'B', 'C']) {
+      const item = thMake(legend, 'span', 'th-sp-legend-item');
+      thMake(item, 'span', 'md-grade md-grade-' + gr.toLowerCase(), gr);
+      thMake(item, 'span', null, `${n(gr)} · ${SPORT_GRADE[gr]}`);
+    }
+    const marked = rows.filter((x) => x.meaning).length;
+    if (marked) thMake(el, 'p', 'gx-note', `★ marks the ${marked} where ${who}'s copies matter in practice; those rows are open. Select any row for its genome-wide, ClinVar and ClinPGx findings.`);
+    const num = (v) => (v == null || v === '' ? null : Number(v));
+    const dots = (k) => (k == null ? '' : '●'.repeat(k) + '○'.repeat(2 - k));
     const topics = [...new Map(rows.map((x) => [x.topic, x])).values()].sort((a, b) => a.topic_order - b.topic_order);
     for (const t of topics) {
-      thMake(el, 'h3', 'th-sport-topic', t.topic_name);
-      const list = thMake(el, 'div', 'th-sport-list');
-      for (const s of rows.filter((x) => x.topic === t.topic).sort((a, b) => a.grade.localeCompare(b.grade))) {
-        const row = thMake(list, 'div', 'th-sport-row');
-        const g = thMake(row, 'span', 'md-grade md-grade-' + s.grade.toLowerCase(), s.grade);
+      const list = rows.filter((x) => x.topic === t.topic)
+        .sort((a, b) => a.grade.localeCompare(b.grade) || (b.meaning ? 1 : 0) - (a.meaning ? 1 : 0) || num(b.papers) - num(a.papers));
+      const sec = thMake(el, 'section', 'th-sp-topic');
+      const h = thMake(sec, 'h3', null, t.topic_name);
+      thMake(h, 'span', 'th-sp-count', ` · ${list.length}`);
+      const table = thMake(sec, 'div', 'th-sp-table');
+      const head = thMake(table, 'div', 'th-sp-row th-sp-head');
+      for (const c of ['Grade', 'Gene and SNP', 'What it changes', `${who}'s copies`, 'In Europeans', 'Evidence', 'Papers']) thMake(head, 'span', null, c);
+      for (const s of list) {
+        const copies = s.confidence === 'not_excluded' ? null : num(s.alt_copies);
+        const det = thMake(table, 'details', 'th-sp-item' + (s.meaning ? ' th-sp-marked' : ''));
+        if (s.meaning) det.open = true;
+        const row = thMake(det, 'summary', 'th-sp-row');
+        // Grade
+        const gc = thMake(row, 'span', 'th-sp-grade');
+        const g = thMake(gc, 'span', 'md-grade md-grade-' + s.grade.toLowerCase(), s.grade);
         g.title = `Evidence grade ${s.grade}: ${SPORT_GRADE[s.grade]}`;
-        const body = thMake(row, 'div');
-        const top = thMake(body, 'div');
-        const gb = thMake(top, 'button', 'lc-link', s.gene);
-        gb.type = 'button'; gb.addEventListener('click', () => thPick(s.gene));
-        thMake(top, 'span', 'nt-sub', ` · ${s.rsid} · ${who}: ${s.genotype || 'not read'}`);
-        if (s.confidence === 'high' || s.confidence === 'medium') thMake(top, 'span', 'th-imp th-imp-' + s.confidence, `imputed, ${s.confidence} confidence`);
-        // One sentence per text node, so each translates on its own
-        const what = thMake(body, 'div');
-        thMake(what, 'span', null, SPORT_CHANGE[s.consequence] || 'Near the gene');
-        if (s.amino_acids) thMake(what, 'span', null, ` (${s.amino_acids.replace('/', ' → ').replace('*', 'stop')})`);
-        thMake(what, 'span', null, '. ');
-        if (s.eur_af != null) thMake(what, 'span', null, `The ${s.alt} allele is carried by ${Math.round(100 * s.eur_af)}% of European chromosomes.`);
-        const carries = s.confidence === 'not_excluded' ? `${who}: not detected, but too rare to rule out.`
-          : s.alt_copies == null ? '' : s.alt_copies === 0 ? `${who} does not carry it.` : s.alt_copies === 1 ? `${who} carries one copy.` : `${who} carries two copies.`;
-        if (carries) { thMake(what, 'span', null, ' '); thMake(what, 'span', null, carries); }
-        const gw = thJ(s.gwas) || [];
-        if (gw.length) {
-          // Each trait its own node: the trait names translate through the terms dictionary
-          const p = thMake(body, 'div', 'nt-sub');
-          thMake(p, 'span', null, s.gwas_pubs === 1 ? 'Genome-wide, 1 publication:' : `Genome-wide, ${s.gwas_pubs} publications:`);
-          gw.slice(0, 3).forEach((a, i) => {
-            thMake(p, 'span', null, i ? '; ' : ' ');
-            thMake(p, 'span', null, a.trait);
-            if (a.allele) thMake(p, 'span', null, a.copies != null ? ` (${a.allele}, ${who} ×${a.copies})` : ` (${a.allele})`);
-          });
-          if (s.gwas_traits > 3) thMake(p, 'span', null, `; and ${s.gwas_traits - 3} more traits`);
+        if (s.meaning) thMake(gc, 'span', 'th-sp-star', '★');
+        // Gene and SNP
+        const gn = thMake(row, 'span', 'th-sp-gene');
+        const gb = thMake(gn, 'button', 'lc-link', s.gene);
+        gb.type = 'button';
+        gb.addEventListener('click', (e) => { e.preventDefault(); thPick(s.gene); });
+        thMake(gn, 'span', 'nt-sub', s.rsid);
+        // What it changes
+        const ch = thMake(row, 'span', 'th-sp-change');
+        thMake(ch, 'span', null, SPORT_CHANGE[s.consequence] || 'Near the gene');
+        if (s.amino_acids) thMake(ch, 'span', 'nt-sub', s.amino_acids.replace('/', ' → ').replace('*', 'stop'));
+        // The person's copies of the variant allele
+        const cp = thMake(row, 'span', 'th-sp-copies');
+        if (s.confidence === 'not_excluded') thMake(cp, 'span', 'nt-sub', 'not detected, too rare to rule out');
+        else if (!s.genotype) thMake(cp, 'span', 'nt-sub', 'not read');
+        else {
+          const line = thMake(cp, 'span', 'th-sp-gt');
+          thMake(line, 'b', null, s.genotype);
+          if (copies != null) {
+            const d = thMake(line, 'span', 'th-sp-dots', dots(copies));
+            d.title = copies === 0 ? `${who} does not carry ${s.alt}` : copies === 1 ? `${who} carries one copy of ${s.alt}` : `${who} carries two copies of ${s.alt}`;
+            thMake(line, 'span', 'nt-sub', `${s.alt} ×${copies}`);
+          }
+          if (s.confidence === 'high' || s.confidence === 'medium') thMake(cp, 'span', 'th-imp th-imp-' + s.confidence, `imputed, ${s.confidence} confidence`);
         }
-        for (const c of thJ(s.clinvar) || []) {
-          // ClinVar joins every submitted condition with |: the first three, and how many more
-          const conds = [...new Set(c.condition.replace(/_/g, ' ').split('|').map((x) => x.trim()).filter((x) => x && !/^not (provided|specified)$/i.test(x)))];
-          thMake(body, 'div', 'nt-low', `ClinVar: ${c.significance.replace(/_/g, ' ').split('|')[0]}, ${conds.slice(0, 3).join('; ')}` + (conds.length > 3 ? `; and ${conds.length - 3} more` : ''));
-        }
+        // How common the variant allele is
+        const af = num(s.eur_af);
+        const fq = thMake(row, 'span', 'th-sp-af');
+        if (af != null) {
+          thMake(fq, 'span', null, `${s.alt} ${Math.round(100 * af)}%`);
+          const bar = thMake(fq, 'span', 'th-sp-afbar');
+          thMake(bar, 'span', null).style.width = `${Math.round(100 * af)}%`;
+        } else thMake(fq, 'span', 'nt-sub', '–');
+        // Which larger sources back it
+        const gw = thJ(s.gwas) || [], cv = thJ(s.clinvar) || [];
         // ClinPGx: levels 1A-2B, and caffeine at any level; a level-3 single study of an unrelated drug says nothing about sport
         const px = (thJ(s.clinpgx) || []).filter((x) => x.effect && (x.level !== '3' || /caffeine/i.test(x.chemicals))).sort((a, b) => a.level.localeCompare(b.level));
-        if (px.length) thMake(body, 'div', 'nt-sub', `ClinPGx (level ${px[0].level}), ${px[0].chemicals}: ${who} may ${px[0].effect}` + (px.length > 1 ? `; and ${px.length - 1} more` : ''));
-        if (s.meaning) { const w = thMake(body, 'div', 'th-sport-mean'); thMake(w, 'b', null, `For ${who}:`); thMake(w, 'span', null, ' '); thMake(w, 'span', null, s.meaning); }
-        const a = thMake(body, 'a', 'nt-src', s.papers === 1 ? '1 sport or exercise paper (Europe PMC)' : `${s.papers} sport or exercise papers (Europe PMC)`);
+        const ev = thMake(row, 'span', 'th-sp-ev');
+        if (gw.length) thMake(ev, 'span', 'th-sp-tag', num(s.gwas_pubs) === 1 ? 'GWAS · 1 study' : `GWAS · ${s.gwas_pubs} studies`);
+        if (cv.length) thMake(ev, 'span', 'th-sp-tag', 'ClinVar');
+        if (px.length) thMake(ev, 'span', 'th-sp-tag', `ClinPGx ${px[0].level}`);
+        if (!gw.length && !cv.length && !px.length) thMake(ev, 'span', 'nt-sub', 'candidate-gene studies only');
+        // Sport papers
+        const pa = thMake(row, 'span', 'th-sp-papers');
+        const a = thMake(pa, 'a', 'nt-src', String(s.papers));
         a.href = s.papers_url; a.target = '_blank'; a.rel = 'noopener';
+        a.title = 'Sport or exercise papers that name this SNP (Europe PMC)';
+        a.addEventListener('click', (e) => e.stopPropagation());
+
+        // Opened: what it means for the person, then each source's finding
+        const body = thMake(det, 'div', 'th-sp-body');
+        if (s.meaning) { const w = thMake(body, 'div', 'th-sport-mean'); thMake(w, 'b', null, `For ${who}:`); thMake(w, 'span', null, ' '); thMake(w, 'span', null, s.meaning); }
+        if (gw.length) {
+          // Each trait its own node: the trait names translate through the terms dictionary
+          const p = thMake(body, 'div', 'th-sp-src');
+          thMake(p, 'b', null, num(s.gwas_pubs) === 1 ? 'Genome-wide, 1 publication' : `Genome-wide, ${s.gwas_pubs} publications`);
+          const ul = thMake(p, 'ul', null);
+          for (const x of gw.slice(0, 5)) {
+            const li = thMake(ul, 'li', null);
+            thMake(li, 'span', null, x.trait);
+            if (x.allele) thMake(li, 'span', 'nt-sub', x.copies != null ? ` (${x.allele}, ${who} ×${x.copies})` : ` (${x.allele})`);
+          }
+          if (num(s.gwas_traits) > 5) thMake(p, 'span', 'nt-sub', `and ${num(s.gwas_traits) - 5} more traits`);
+        }
+        for (const c of cv) {
+          // ClinVar joins every submitted condition with |: the first three, and how many more
+          const conds = [...new Set(c.condition.replace(/_/g, ' ').split('|').map((x) => x.trim()).filter((x) => x && !/^not (provided|specified)$/i.test(x)))];
+          const p = thMake(body, 'div', 'th-sp-src');
+          thMake(p, 'b', null, 'ClinVar');
+          thMake(p, 'span', null, `${c.significance.replace(/_/g, ' ').split('|')[0]}, ${conds.slice(0, 3).join('; ')}` + (conds.length > 3 ? `; and ${conds.length - 3} more` : ''));
+        }
+        if (px.length) {
+          const p = thMake(body, 'div', 'th-sp-src');
+          thMake(p, 'b', null, `ClinPGx, level ${px[0].level}`);
+          thMake(p, 'span', null, `${px[0].chemicals}: ${who} may ${px[0].effect}` + (px.length > 1 ? `; and ${px.length - 1} more` : ''));
+        }
+        if (!gw.length && !cv.length && !px.length) thMake(body, 'p', 'nt-sub', 'No genome-wide study, ClinVar entry or ClinPGx finding: the evidence is candidate-gene studies of athletes.');
       }
     }
   });

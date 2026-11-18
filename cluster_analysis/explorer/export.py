@@ -336,7 +336,8 @@ def api_theme_rows(graph, xref, status, with_lifecycle=(), order=0, person=None,
              "by_confidence": (xref or {}).get("by_confidence"), "rule": graph["rule"],
              "chip_reach": theme_reach(list(graph["genes"]), reach),
              "person": person, "sex": graph.get("sex"), "organs": graph.get("organs", []),
-             "disease_organs": graph.get("disease_organs", {}), "view": graph.get("view")}
+             "disease_organs": graph.get("disease_organs", {}), "view": graph.get("view"), "phases": graph.get("phases"),
+             "view_title": graph.get("view_title"), "view_note": graph.get("view_note")}
     meta = [{"theme": tid, "theme_name": graph["name"], "about": graph["about"], "theme_order": order, "facet": f["id"],
              "facet_name": f["name"], "facet_about": f.get("about"), "organ": f.get("organ"),
              "facet_explain": f.get("explain") or (graph.get("disease_explain") if f["id"] == "disease" else None),
