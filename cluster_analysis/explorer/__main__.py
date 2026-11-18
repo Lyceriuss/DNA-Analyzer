@@ -39,7 +39,7 @@ PUBLISH = os.path.join(OUT, "publish")
 RECORD = os.path.join(OUT, "published.json")
 LIFECYCLES = os.path.join(ROOT, gbuild.OUTPUT, "lifecycles_XY_full.json")
 ARTIFACT = "https://claude.ai/artifact/Rsz3RYugnZyvWnixS9168o"
-TABS = ["home", "clusters", "medicines", "nutrition", "lifecycle", "biomarkers", "profile", "sources"]
+TABS = ["home", "clusters", "medicines", "nutrition", "lifecycle", "biomarkers", "sources"]
 
 
 def run(*args):

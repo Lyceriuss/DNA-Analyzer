@@ -993,8 +993,8 @@
         if (!inLocked()) {
           const nav = inMake(answer, 'div', 'in-rc-nav');
           const go = (label, fn) => { const b = inMake(nav, 'button', 'lc-btn', label); b.type = 'button'; b.addEventListener('click', fn); };
-          go('AMH, estradiol and SHBG', () => { dash.setParams({ bm_view: 'lab', lb_n: 'female_hormones' }); gx.show('biomarkers'); });
-          if (sigRows.some((r) => r.tissue === 'Thyroid')) go('Thyroid (TSH)', () => { dash.setParams({ bm_view: 'lab', lb_n: 'thyroid' }); gx.show('biomarkers'); });
+          go('AMH, estradiol and SHBG', () => { dash.setParams({ lb_n: 'female_hormones' }); gx.show('biomarkers'); });
+          if (sigRows.some((r) => r.tissue === 'Thyroid')) go('Thyroid (TSH)', () => { dash.setParams({ lb_n: 'thyroid' }); gx.show('biomarkers'); });
           if (g.has_lifecycle) go(inT('{} in Gene pathway', g.gene), () => { dash.setParams({ lc_gene: g.gene, lc_role: 1 }); gx.show('lifecycle'); });
           const ph = fdChains.find((p) => (p.chains || '').includes(`"gene": "${g.gene}"`));
           if (ph && T === 'fertility_female' && sex === 'female') go(ph.name, () => { dash.setParams({ theme: T }); gx.show('clusters'); if (window.gxFertility) window.gxFertility.open(ph.phase); });
@@ -1182,7 +1182,7 @@
         stepY(5, 'Look for studies measured in people with your genotype', '3', (d) => inMake(d, 'p', 'gx-note', 'Each variant in the panel links its paper. Look for studies that report outcomes per genotype, and note how many people they followed.'));
         stepY(6, 'Check the lab values that would show it', null, (d) => {
           inMake(d, 'p', 'gx-note', 'Where a change should move something measurable, the Biomarkers tab reads those tests through the genes.');
-          if (!inLocked()) { const bt = inMake(d, 'button', 'lc-btn', 'Open Biomarkers'); bt.type = 'button'; bt.addEventListener('click', () => { dash.setParams({ bm_view: 'lab' }); gx.show('biomarkers'); }); }
+          if (!inLocked()) { const bt = inMake(d, 'button', 'lc-btn', 'Open Biomarkers'); bt.type = 'button'; bt.addEventListener('click', () => { gx.show('biomarkers'); }); }
         });
       }
     } },

@@ -120,6 +120,189 @@
     }
   };
 
+  // Lab tests read as a lab report: panels of analytes, each with the code it is ordered under (LOINC), the sample, the
+  // person's genetic baseline and the genes that move the reading. The clinical side (what the test is, why it is
+  // ordered, how to prepare, what results mean) is MedlinePlus's, quoted as written (nutrition/lab_clinical.py → GX_LAB).
+  const LB_PANELS = ['Heart and vessels', 'Metabolism', 'Liver and kidneys', 'Blood', 'Hormones'];
+  const lbClin = (key) => ((window.GX_LAB || {}).tests || {})[key] || { markers: {} };
+  const lbPage = (url) => ((window.GX_LAB || {}).pages || {})[url];
+  // Which of a test's genes move the reading for the person: the notes whose gene carries a finding that shifts it
+  const lbMoved = (note, finds) => finds.filter((f) => ((f.gene || '').split(/[\s,;-]+/).includes(note.gene) || f.step_gene === note.gene)
+    && f.xy && f.xy !== 'typical');
+  // The sample code of a marker: the part of the test field ("P-LDL, P-HDL, ...") that names it, else the one in its place
+  // when the field lists one per marker
+  const lbCode = (n, m, i, count) => {
+    const parts = (n.test || '').split(/,\s*/).filter(Boolean);
+    const low = (s) => s.toLowerCase().replace(/[^a-z0-9]/g, '');
+    const hit = parts.find((p) => low(p).includes(low(m.id)) || low(p).includes(low(m.name)));
+    return hit || (parts.length === count ? parts[i] : null);
+  };
+  const lbLevel = (parent, m) => {
+    const c = ntMake(parent, 'span', 'lb-level');
+    if (!m || !m.score) { ntMake(c, 'span', 'nt-sub', 'No genetic score'); return; }
+    ntBar(c, m);
+    const s = ntSide(m), tl = ntMake(c, 'small', s.bad ? 'nt-low' : s.good ? 'nt-high' : 'nt-sub');
+    ntMake(tl, 'span', null, ntBand(m.score.percentile));
+    ntMake(tl, 'span', null, ' · ');
+    ntMake(tl, 'span', null, ntPos(m.score.percentile));
+  };
+  const lbGenes = (parent, notes, finds, who) => {
+    const c = ntMake(parent, 'span', 'lb-genes');
+    if (!notes.length) { ntMake(c, 'span', 'nt-sub', '–'); return; }
+    for (const note of notes) {
+      const on = lbMoved(note, finds).length > 0;
+      const g = ntMake(c, 'span', `lb-gene lb-gene-${note.kind}${on ? ' lb-gene-on' : ''}`, note.gene);
+      g.title = note.kind === 'test'
+        ? (on ? `${note.gene}: ${who}'s variants shift the reading without the body being affected` : `${note.gene} can shift the reading without the body being affected; ${who} has the usual copies`)
+        : (on ? `${note.gene}: ${who}'s variants move the level for real` : `${note.gene} moves the level for real; ${who} has the usual copies`);
+    }
+  };
+
+  const lbReport = (el, rows, finds, nuts, who, cur, pick) => {
+    // Every analyte, test by test
+    const items = [];
+    for (const n of rows) {
+      const ms = ntJ(n.markers) || [], clin = lbClin('lab:' + n.id), notes = ntJ(n.notes) || [];
+      const fs = finds.filter((f) => f.nutrient === n.id);
+      ms.forEach((m, i) => items.push({ n, m, c: clin.markers[m.id] || {}, code: lbCode(n, m, i, ms.length), notes: i === 0 ? notes : [], allNotes: notes, fs, panel: n.group, lab: true }));
+    }
+    for (const n of nuts) {
+      const ms = ntJ(n.markers) || [], clin = lbClin('nut:' + n.id);
+      ms.forEach((m) => { if (clin.markers[m.id]) items.push({ n, m, c: clin.markers[m.id], code: null, notes: [], allNotes: [], fs: [], panel: 'Vitamins and minerals', lab: false }); });
+    }
+    const shifted = rows.filter((n) => (ntJ(n.notes) || []).some((x) => x.kind === 'test' && lbMoved(x, finds.filter((f) => f.nutrient === n.id)).length));
+    const real = rows.filter((n) => (ntJ(n.notes) || []).some((x) => x.kind === 'body' && lbMoved(x, finds.filter((f) => f.nutrient === n.id)).length));
+    const low = items.filter((x) => x.m.score && ntSide(x.m).bad);
+    const panels = [...LB_PANELS, 'Vitamins and minerals'].filter((p) => items.some((x) => x.panel === p));
+    ntMake(el, 'p', null, ntT(`{} analytes in {} panels, each with the code it is ordered under (LOINC) and ${who}'s genetic baseline: where ${who}'s genes put the value among Europeans.`, items.length, panels.length));
+    const sum = ntMake(el, 'div', 'lb-sum');
+    const fact = (cls, label, list, text) => {
+      if (!list.length) return;
+      const d = ntMake(sum, 'div', 'lb-fact ' + cls);
+      ntMake(d, 'b', null, ntT(label, list.length));
+      ntMake(d, 'span', 'nt-sub', text);
+      const pills = ntMake(d, 'div', 'md-pills');
+      for (const x of list) {
+        const b = ntMake(pills, 'button', 'md-pill', x.name);
+        b.type = 'button';
+        b.addEventListener('click', () => {
+          if (x.lab === false) { dash.setParams({ nt_n: x.n.id }); gx.show('nutrition'); return; }
+          pick(x.n || x); document.getElementById('lb-detail').scrollIntoView({ behavior: 'smooth' });
+        });
+      }
+    };
+    fact('lb-fact-test', shifted.length === 1 ? '1 test reads differently' : '{} tests read differently', shifted,
+      `${who}'s variants shift the reading without the body being affected: ${who}'s normal may sit outside the usual reference range.`);
+    fact('lb-fact-body', real.length === 1 ? '1 test worth following up' : '{} tests worth following up', real,
+      `${who}'s variants move the level for real, in genes known to drive it.`);
+    fact('lb-fact-low', low.length === 1 ? '1 analyte leans the unfavourable way' : '{} analytes lean the unfavourable way', low.map((x) => ({ ...x, name: x.m.name })),
+      `${who}'s genetic baseline is in the lowest or highest fifth of Europeans, on the unfavourable side.`);
+    if (!sum.children.length) ntMake(sum, 'p', 'nt-sub', `${who}'s genes point to typical readings throughout.`);
+    const leg = ntMake(el, 'div', 'lb-legend');
+    ntMake(ntMake(leg, 'span', 'lb-legend-item'), 'span', 'lb-gene lb-gene-test', 'Gene');
+    ntMake(leg, 'span', null, 'shifts the reading only: the body is not affected');
+    ntMake(ntMake(leg, 'span', 'lb-legend-item'), 'span', 'lb-gene lb-gene-body', 'Gene');
+    ntMake(leg, 'span', null, 'moves the level for real');
+    ntMake(ntMake(leg, 'span', 'lb-legend-item'), 'span', 'lb-gene lb-gene-body lb-gene-on', 'Gene');
+    ntMake(leg, 'span', null, ntT(`bold: ${who}'s own variants move it`));
+    for (const p of panels) {
+      const sec = ntMake(el, 'section', 'lb-panel');
+      const list = items.filter((x) => x.panel === p);
+      const h = ntMake(sec, 'h3');
+      ntMake(h, 'span', null, p);
+      ntMake(h, 'span', 'th-sp-count', ' · ' + list.length);
+      if (p === 'Vitamins and minerals') ntMake(sec, 'p', 'nt-sub lb-panel-note', 'The nutrients\' blood tests. Select one to open it under Nutrition, with how the nutrient is taken up and converted.');
+      const tab = ntMake(sec, 'div', 'lb-table');
+      const hd = ntMake(tab, 'div', 'lb-row lb-head');
+      for (const t of ['Analyte', 'Sample', `${who}'s genetic baseline`, 'Genes that move the reading']) ntMake(hd, 'span', null, t);
+      for (const x of list) {
+        const b = ntMake(tab, 'button', 'lb-row' + (x.lab && x.n.id === cur ? ' lb-on' : ''));
+        b.type = 'button';
+        const a = ntMake(b, 'span', 'lb-cell');
+        ntMake(a, 'b', null, x.m.name);
+        if (x.c.loinc) ntMake(a, 'span', 'th-cl-code', 'LOINC ' + x.c.loinc).title = x.c.loinc_name || '';
+        const s = ntMake(b, 'span', 'lb-cell');
+        if (x.code) ntMake(s, 'span', null, x.code);
+        if (x.c.sample) ntMake(s, 'span', 'nt-sub', x.c.sample);
+        lbLevel(ntMake(b, 'span', 'lb-cell'), x.m);
+        const g = ntMake(b, 'span', 'lb-cell');
+        if (x.lab) lbGenes(g, x.notes, x.fs, who);
+        else ntMake(g, 'span', 'nt-sub', 'Nutrition →');
+        b.addEventListener('click', () => {
+          if (!x.lab) { dash.setParams({ nt_n: x.n.id }); gx.show('nutrition'); return; }
+          pick(x.n); document.getElementById('lb-detail').scrollIntoView({ behavior: 'smooth' });
+        });
+      }
+    }
+  };
+
+  // The clinical path of one test: why it is ordered → before the test → the person's genetic baseline → reading their
+  // result → what results mean. The first, second and last are MedlinePlus's words; the middle two are the person's.
+  const lbPath = (el, n, finds, who) => {
+    const ms = ntJ(n.markers) || [], clin = lbClin('lab:' + n.id), notes = ntJ(n.notes) || [];
+    const urls = [...new Set(ms.map((m) => (clin.markers[m.id] || {}).page).filter(Boolean))];
+    const pg = lbPage(urls[0]);
+    if (pg && pg.what && pg.what.text.length) { const w = ntMake(el, 'p', 'nt-why lb-what'); ntQuote(w, pg.what.text.join(' '), 320); }
+    const box = ntMake(el, 'div', 'nt-block');
+    ntMake(box, 'span', 'gx-label', 'The clinical path');
+    const path = ntMake(box, 'div', 'lb-path');
+    const step = (no, title) => { const s = ntMake(path, 'div', 'lb-step'); const h = ntMake(s, 'div', 'lb-step-head'); ntMake(h, 'span', 'lb-step-no', String(no)); ntMake(h, 'b', null, title); return s; };
+    // A section's first paragraphs; one that leads into a list ("Anyone age 19 or younger:") goes with the list under
+    // "In full", where every paragraph and list item stands as MedlinePlus wrote it
+    const paras = (parent, sec, k = 2) => {
+      if (!sec) { ntMake(parent, 'p', 'nt-sub', 'MedlinePlus has no page for this test.'); return; }
+      const lead = sec.text.filter((t) => !/:\s*$/.test(t));
+      lead.slice(0, k).forEach((t) => ntQuote(ntMake(parent, 'p', 'nt-why'), t, 240));
+      if (sec.list.length || lead.length > k) {
+        const d = ntMake(parent, 'details', 'lb-why');
+        ntMake(d, 'summary', null, sec.list.length ? ntT(sec.list.length === 1 ? 'In full (1 listed item)' : 'In full ({} listed items)', sec.list.length) : 'In full');
+        for (const t of sec.text) ntMake(d, 'p', 'nt-why nt-quote', t);
+        if (sec.list.length) { const ul = ntMake(d, 'ul'); for (const li of sec.list) ntMake(ul, 'li', null, li); }
+      }
+    };
+    const s1 = step(1, 'Why it is ordered');
+    paras(s1, pg && pg.used, 1);
+    if (pg && pg.why && pg.why.list.length) {
+      const d = ntMake(s1, 'details', 'lb-why');
+      ntMake(d, 'summary', null, ntT(pg.why.list.length === 1 ? 'When it is ordered (1 reason)' : 'When it is ordered ({} reasons)', pg.why.list.length));
+      if (pg.why.text[0]) ntMake(d, 'p', 'nt-why nt-quote', pg.why.text[0]);
+      const ul = ntMake(d, 'ul');
+      for (const li of pg.why.list) ntMake(ul, 'li', null, li);
+    }
+    const s2 = step(2, 'Before the test');
+    paras(s2, pg && pg.prepare, 2);
+    const s3 = step(3, `${who}'s genetic baseline`);
+    for (const m of ms) {
+      const d = ntMake(s3, 'div', 'lb-base');
+      ntMake(d, 'b', null, m.name);
+      lbLevel(d, m);
+    }
+    const s4 = step(4, `Reading ${who}'s result`);
+    const moved = notes.map((x) => ({ x, fs: lbMoved(x, finds) })).filter((o) => o.fs.length);
+    if (!notes.length) ntMake(s4, 'p', 'nt-why', `No gene is listed as moving this test: read ${who}'s value against the usual reference range.`);
+    else if (!moved.length) ntMake(s4, 'p', 'nt-why', `${who} has the usual copies of the genes known to move this test: read the value against the usual reference range.`);
+    for (const { x } of moved) {
+      const d = ntMake(s4, 'p', 'nt-why ' + (x.kind === 'test' ? 'lb-read-test' : 'lb-read-body'));
+      ntMake(d, 'b', null, x.kind === 'test' ? `${who}'s normal may differ` : 'Worth following up');
+      ntMake(d, 'span', null, ' · ' + x.gene + ': ');
+      ntMake(d, 'span', null, x.text);
+    }
+    const s5 = step(5, 'What the results mean');
+    paras(s5, pg && pg.results, 2);
+    // Sources: each marker's LOINC code and the MedlinePlus pages quoted
+    const src = ntMake(box, 'div', 'lb-src nt-src');
+    for (const m of ms) {
+      const c = clin.markers[m.id];
+      if (c && c.loinc) ntMake(src, 'span', null, ntT('LOINC {} · {}', c.loinc, c.loinc_name || m.name));
+    }
+    for (const u of urls) {
+      const p = lbPage(u);
+      if (!p) continue;
+      const a = ntMake(src, 'a', null, ntT('MedlinePlus: {} (in English)', p.title));
+      a.href = p.url; a.target = '_blank'; a.rel = 'noopener';
+    }
+  };
+
   // One tab drawn from a nutrition.py output: Nutrition (nutrients.json) and Biomarkers (labtests.json)
   const ntTab = (K) => {
   let all = false;
@@ -136,6 +319,12 @@
       el.replaceChildren();
       const who = ntWho(rows), low = ntLow(rows), cur = dash.params()[K.param] || (low[0] || rows[0]).id;
       ntMake(el, 'h3', null, K.title(who));
+      if (K.lab) {
+        const more = gx.rows(K.finds, 'nut_nutrients');
+        if (!more) return;
+        lbReport(el, rows, more[0], more[1], who, cur, pick);
+        return;
+      }
       ntMake(el, 'p', null, low.length ? K.low(who)
         : `${who}'s genes point to typical levels throughout.`);
       if (low.length) {
@@ -203,6 +392,10 @@
       const head = ntMake(el, 'div', 'nt-head');
       ntMake(head, 'h2', null, n.name);
       if (t) ntMake(head, 'span', 'nt-sub', ntT(`Intake target: {} (NNR 2023, ${n.sex === 'women' ? 'women' : 'men'} {})`, ntTarget(t), n.age));
+      if (K.lab) {
+        if (n.group) ntMake(head, 'span', 'nt-sub', n.group);
+        lbPath(el, n, finds.filter((x) => x.nutrient === n.id), who);
+      }
 
       // One variant per locus and marker pair; a variant found for two markers (omega-3 and DHA) is listed once
       const byRs = new Map();
@@ -366,7 +559,7 @@
     param: 'nt_n', title: (who) => `${who} and nutrition`, how: 'How it is taken up and converted (Reactome)',
     low: (who) => `${who}'s genes lower these nutrients' blood levels the unfavourable way. Select one to see where in its uptake and conversion the genes act:` });
   ntTab({ over: 'lb-overview', detail: 'lb-detail', card: 'lb-detail', main: 'lab_tests', finds: 'lab_findings', steps: 'lab_steps',
-    param: 'lb_n', title: (who) => `${who}'s lab tests`, how: 'How it is made and regulated (Reactome)',
+    param: 'lb_n', lab: true, title: (who) => `${who}'s lab tests`, how: 'How it is made and regulated (Reactome)',
     low: (who) => `${who}'s genes move these lab values the unfavourable way. Select one to see which genes act and how:` });
   ntTab({ over: 'fit-overview', detail: 'fit-detail', card: 'fit-detail', main: 'fit_tests', finds: 'fit_findings', steps: 'fit_steps',
     param: 'fit_n', title: (who) => `${who}'s strength and fitness scores`, how: 'How it works in the body (Reactome)', measured: true,

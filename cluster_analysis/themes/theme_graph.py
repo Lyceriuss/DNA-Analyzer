@@ -61,7 +61,7 @@ UNIPROT_SLOW = ['protein_name:"slow skeletal"', 'protein_name:"MyHC-slow"', 'pro
 
 THEMES = {
     "fertility_female": {
-        "name": "Female fertility",
+        "name": "Fertility",
         "sex": "XX",
         "person": "data/input/MyHeritage_raw_dna_data_XX.csv",
         "about": "The XX reproductive system: desire, the hypothalamus–pituitary signals, the ovaries and their eggs and hormones, "
@@ -118,7 +118,7 @@ THEMES = {
         ],
     },
     "fertility_male": {
-        "name": "Male fertility",
+        "name": "Fertility",
         "sex": "XY",
         "person": "data/input/MyHeritage_raw_dna_data_XY.csv",
         "about": "The XY reproductive system: desire, the hypothalamus–pituitary signals, the testes and the testosterone and sperm "
@@ -170,7 +170,7 @@ THEMES = {
         ],
     },
     "cancer": {
-        "name": "Cancer and senescence",
+        "name": "Cancer",
         "person": "data/input/MyHeritage_raw_dna_data_XY.csv",
         "view": "cell",
         "about": "Every cell lives through the same stages: it rests or grows, copies its DNA and divides, passes checkpoints, meets "
@@ -368,7 +368,7 @@ THEMES = {
                            "places them in none of the stages yet. Most are GWAS loci near a gene whose role in muscle is still unclear.",
     },
     "mind": {
-        "name": "Mind, mood and sleep",
+        "name": "Psychology",
         "person": "data/input/MyHeritage_raw_dna_data_XY.csv",
         "view": "clinical",
         "view_title": "The clinical path",

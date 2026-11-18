@@ -55,6 +55,7 @@ def assemble():
     page = page.replace("// @sources", f"window.GX_SOURCES = {json.dumps(sources_catalog(), ensure_ascii=False)};")
     page = page.replace("// @prevention", f"window.GX_PREVENTION = {json.dumps(prevention(), ensure_ascii=False)};")
     page = page.replace("// @mind", f"window.GX_MIND = {json.dumps(mind_clinical(), ensure_ascii=False)};")
+    page = page.replace("// @lab", f"window.GX_LAB = {json.dumps(lab_clinical(), ensure_ascii=False)};")
     return page + "\n"
 
 
@@ -75,6 +76,16 @@ def prevention():
     with open(os.path.join(HERE, "..", "themes", "cancer_prevention.json"), encoding="utf-8") as f:
         d = json.load(f)
     return {"recommendations": d["recommendations"], "cancers": d["cancers"], "sources": d["sources"]}
+
+
+def lab_clinical():
+    """nutrition/lab_clinical.json: per lab test marker its LOINC code and MedlinePlus page (what the test is, why it is
+    ordered, how to prepare, what the results mean); public, the same for everyone."""
+    path = os.path.join(HERE, "..", "nutrition", "lab_clinical.json")
+    if not os.path.exists(path):
+        return None
+    with open(path, encoding="utf-8") as f:
+        return json.load(f)
 
 
 def mind_clinical():

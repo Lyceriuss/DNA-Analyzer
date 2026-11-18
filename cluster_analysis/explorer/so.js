@@ -3,7 +3,7 @@
   // is one whole text, so the Swedish layer swaps it (the build adds sources.json's Swedish to the page's dictionary).
   const SO = window.GX_SOURCES || { databases: [], tools: [], glossary: [] };
   const soMake = (parent, tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; parent.appendChild(e); return e; };
-  const SO_TABS = { home: 'Home', clusters: 'Clusters', medicines: 'Medicines', nutrition: 'Clusters: Nutrition', biomarkers: 'Biomarkers', lifecycle: 'Gene pathway', profile: 'Biomarkers: Body systems' };
+  const SO_TABS = { home: 'Home', clusters: 'Clusters', medicines: 'Medicines', nutrition: 'Clusters: Nutrition', biomarkers: 'Biomarkers', lifecycle: 'Gene pathway' };
   const SO_ACCESS = { bulk: 'Downloaded file', 'bulk + API': 'Downloaded file and API', API: 'API, cached', 'API, saved': 'API, saved as a file' };
   let soQuery = '';
 

@@ -72,3 +72,71 @@
   .nt-side-good > .gx-label { border-color: var(--color-ok); color: var(--color-ok); }
   .nt-side-bad > .gx-label { border-color: var(--color-warn); color: var(--color-warn); }
   .nt-find-good { box-shadow: inset 3px 0 0 var(--color-ok); }
+  /* Biomarkers: the lab report (panels of analytes) and each test's clinical path */
+  .lb-sum { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 10px; margin: 10px 0; }
+  .lb-fact { display: grid; gap: 4px; align-content: start; padding: 8px 12px; border-radius: 8px; background: var(--color-bg);
+    border: 1px solid var(--color-border-line); border-left: 3px solid var(--color-border-line); }
+  .lb-fact .md-pills { margin: 2px 0 0; }
+  .lb-fact-test { border-left-color: var(--color-fg-muted); }
+  .lb-fact-body, .lb-fact-low { border-left-color: var(--color-warn); }
+  .lb-legend { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; margin: 4px 0 2px; font-size: 12px; color: var(--color-fg-muted); }
+  .lb-legend-item { display: inline-flex; margin-left: 8px; }
+  .lb-legend-item:first-child { margin-left: 0; }
+  .lb-panel { margin-top: 18px; }
+  .lb-panel h3 { margin: 0 0 6px; font-size: 15px; }
+  .lb-panel-note { margin: -2px 0 6px; }
+  .lb-table { border: 1px solid var(--color-border-line); border-radius: 10px; overflow: hidden; }
+  .lb-row { display: grid; grid-template-columns: minmax(150px, 1.3fr) minmax(110px, 0.9fr) minmax(170px, 1.3fr) minmax(150px, 1.2fr);
+    gap: 12px; align-items: center; width: 100%; padding: 8px 12px; font: inherit; font-size: 13px; text-align: left; color: var(--color-fg);
+    background: none; border: 0; border-top: 1px solid var(--color-border-line); cursor: pointer; }
+  .lb-row:hover { background: color-mix(in srgb, var(--color-fg) 4%, var(--color-panel)); }
+  .lb-row:focus-visible { outline: 2px solid var(--color-fg); outline-offset: -2px; }
+  .lb-on { background: color-mix(in srgb, var(--color-fg) 7%, var(--color-panel)); box-shadow: inset 3px 0 0 var(--color-fg); }
+  .lb-head { border-top: 0; cursor: default; font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--color-fg-muted);
+    background: color-mix(in srgb, var(--color-fg) 5%, var(--color-panel)); }
+  .lb-head:hover { background: color-mix(in srgb, var(--color-fg) 5%, var(--color-panel)); }
+  .lb-cell { display: grid; gap: 2px; justify-items: start; min-width: 0; }
+  .lb-level { display: grid; gap: 1px; width: 100%; max-width: 240px; }
+  .lb-level .nt-bar { height: 5px; margin: 3px 0 2px; }
+  .lb-level .nt-bar i { top: -3px; height: 11px; }
+  .lb-level small { font-size: 12px; }
+  .lb-genes { display: flex; flex-wrap: wrap; gap: 4px; }
+  .lb-gene { font-size: 11px; padding: 0 6px; border-radius: 9px; border: 1px solid var(--color-border-line); color: var(--color-fg-muted); white-space: nowrap; }
+  .lb-gene-test { border-style: dashed; border-color: var(--color-fg-muted); }
+  .lb-gene-body { border-color: var(--color-fg-muted); }
+  .lb-gene-on { font-weight: 700; color: var(--color-fg); border-color: var(--color-fg); }
+  .lb-gene-body.lb-gene-on { color: var(--color-warn); border-color: var(--color-warn); }
+  .lb-what { margin-top: 6px; }
+  .lb-path { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0; margin-top: 6px;
+    border: 1px solid var(--color-border-line); border-radius: 10px; overflow: hidden; }
+  .lb-step { display: grid; gap: 4px; align-content: start; padding: 10px 12px; min-width: 0; border-left: 1px solid var(--color-border-line); }
+  .lb-step:first-child { border-left: 0; }
+  .lb-step:nth-child(3), .lb-step:nth-child(4) { background: color-mix(in srgb, var(--color-fg) 4%, var(--color-panel)); }
+  .lb-step-head { display: flex; gap: 8px; align-items: center; font-size: 13px; }
+  .lb-step-no { display: inline-grid; place-items: center; flex: none; width: 20px; height: 20px; border-radius: 50%; font-size: 11px; font-weight: 700;
+    border: 1px solid var(--color-fg-muted); color: var(--color-fg-muted); }
+  .lb-step .nt-why { margin: 0; max-width: none; }
+  .lb-why summary { cursor: pointer; font-size: 12px; color: var(--color-fg-muted); }
+  .lb-why ul { margin: 4px 0 0; padding-left: 18px; font-size: 12px; line-height: 1.4; }
+  .lb-base { display: grid; gap: 1px; }
+  .lb-base b { font-size: 12px; }
+  .lb-read-test { padding-left: 8px; border-left: 3px dashed var(--color-fg-muted); }
+  .lb-read-body { padding-left: 8px; border-left: 3px solid var(--color-warn); }
+  .lb-src { display: flex; flex-wrap: wrap; gap: 2px 16px; margin-top: 6px; }
+  @media (max-width: 1000px) {
+    .lb-path { grid-template-columns: 1fr 1fr; }
+    .lb-step { border-left: 0; border-top: 1px solid var(--color-border-line); }
+  }
+  @media (max-width: 700px) {
+    .lb-row { grid-template-columns: 1fr 1fr; }
+    .lb-head { display: none; }
+    .lb-path { grid-template-columns: 1fr; }
+  }
+  /* Biomarkers: the introduction */
+  .lb-intro { display: grid; gap: 8px; margin-bottom: var(--cds-gap-md); }
+  .lb-intro h2 { margin: 0; font-size: var(--cds-font-size-heading, 18px); }
+  .lb-intro-lead { margin: 0; max-width: 90ch; line-height: 1.55; }
+  .lb-intro-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 10px; }
+  .lb-intro-grid > div { padding: 10px 12px; border: 1px solid var(--color-border-line); border-radius: 8px; background: var(--color-panel); }
+  .lb-intro-grid b { font-size: 13px; }
+  .lb-intro-grid p { margin: 4px 0 0; font-size: 13px; line-height: 1.5; color: var(--color-fg-muted); }

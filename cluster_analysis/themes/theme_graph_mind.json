@@ -1,6 +1,6 @@
 {
  "theme": "mind",
- "name": "Mind, mood and sleep",
+ "name": "Psychology",
  "about": "Mental health along the path a clinician takes. For each diagnostic group of ICD-10 (substance use, psychosis, bipolar disorder, depression, anxiety, obsessive-compulsive and stress-related disorders, sleep, and neurodevelopmental conditions): the validated screening test, the genes human genetics ties to it, the mechanisms those genes act through, and the medicines whose response the person's genes change. Genes come from Open Targets and Gene Ontology.",
  "rule": "Gene Ontology stage genes (broad brain stages only where GTEx shows the gene expressed in the cortex), plus genes with human genetic evidence ≥ 0.5 for a psychiatric, sleep, caffeine or substance-use trait (≥ 0.8 for behaviour and level traits such as chronotype, neuroticism or alcohol drinking)",
  "view": "clinical",
