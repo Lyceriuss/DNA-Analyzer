@@ -15,6 +15,7 @@ Architecture overview with diagrams: [docs/architecture/](../docs/architecture/R
 | `medicines/` | Drug genes, star alleles and guidelines (Medicines tab) |
 | `nutrition/` | Nutrients (Nutrition, a choice in Clusters) and lab tests (Biomarkers tab): `nutrients.json`, `labtests.json`, NNR 2023 |
 | `explorer/` | The explorer page, its dataset export, the build, and the localhost / agent commands |
+| `agent/` | The Ask tab's research agent (Claude through the user's Anthropic API key): public-facts tools over a local index (`python -m cluster_analysis.agent index`), the loop, the answer check and the local fill; also an MCP server. See [docs/architecture/agent.md](../docs/architecture/agent.md) |
 | `library/` | The old 247-SNP library (`snp_traits.json`, `proxies.json`), its reader (`analyzer.py`, `normalizer.py`, `proxy_handler.py`, `domain_mapper.py`) and tools: modules, biomarkers, audits. No tab is drawn from it any more; being phased out in favour of the API-based packages above |
 
 Reading a DNA file and imputing it live in `genome/` at the repo root.
@@ -58,7 +59,10 @@ GWAS mapped genes and top traits are listed alongside for manual review. Run it 
 
 ## Privacy rule
 
-Only **public identifiers** (gene symbols, rsIDs) are sent to the APIs, and always for the *whole library*, never for a subset that depends on a person. Genotypes and per-person results never leave the machine: `overlay.py` makes no network calls.
+Only **public identifiers** (gene symbols, rsIDs) are sent to the APIs, and always for the *whole library*, never for a subset that depends on a person. Genotypes and per-person results never leave the machine: `overlay.py` makes no network calls. The Ask tab is the exception
+the user sets up: with `share_results` on (the default), the interpreted results for the items a question touches go to
+the model they connect (their own API key or Claude Code login), never the DNA file. See
+[docs/architecture/agent.md](../docs/architecture/agent.md), "What is sent".
 
 ## Data sources
 

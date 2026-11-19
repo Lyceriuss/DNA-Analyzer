@@ -93,6 +93,7 @@ Tools, not databases:
 | Beagle 5.5 | The imputation program. | `beagle`, `bref3_jar` |
 | Genetic maps (GRCh38) | Where DNA is usually cut and recombined between generations, which imputation needs. | `genetic_map_grch38` |
 | UCSC liftOver | Moves positions from the older genome build (GRCh37) that some DNA files use to the current one (GRCh38). | `liftover_chain` |
+| Claude (Anthropic API) | The Ask tab's research agent (`cluster_analysis/agent`), on the model the user connects: reads the question, works through the explorer's tools, researches and writes the answer, checked against what the tools returned. With `share_results` on, it also receives the interpreted results for the items a question touches, never the DNA file. | – |
 
 Downloads: `scripts/fetch_imputation_reference.sh` (imputation) and `scripts/fetch_pgx_reference.sh` (medicines).
 Every bulk file, with its URL, version and how it is made, is listed in `genome/references.json`. Check them with

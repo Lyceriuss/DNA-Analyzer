@@ -13,6 +13,7 @@ data, to the Gene Cluster Explorer.
 | [medicines.md](medicines.md) | Drug genes, star alleles, ClinPGx annotations, guidelines, drug labels and ClinVar drug response |
 | [nutrition.md](nutrition.md) | Per nutrient: the uptake and conversion steps, where the person's variants act on them and how, and the net effect on the blood level |
 | [explorer.md](explorer.md) | The datasets the explorer reads, its tabs, and how a new version is published |
+| [agent.md](agent.md) | The Ask tab's research agent: Claude on public facts only, answers checked against their sources, filled in on this machine |
 | [migration.md](migration.md) | Moving off claude.ai: what is tied to it, the standalone build, and the steps to a self-hosted service |
 
 ## The whole system

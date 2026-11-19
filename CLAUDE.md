@@ -10,7 +10,13 @@
 - **Facts come from sources, not from a language model.** Effects, frequencies, pathways and citations are fetched from
   the APIs and bulk files in `docs/architecture/sources.md` at build time. Curated configs (`nutrients.json`,
   `labtests.json`, theme graphs) only choose which tests, genes or traits to use.
-- Health advice in the outputs is intended; don't add disclaimers.
+- Outputs speak in risk and evidence, never clinical advice (the user's rule, 2026-11-19): no "see a doctor", "ask for a
+  test", dose or drug instructions; guidelines are reported as facts about the guideline, prevention as risk factors.
+  No disclaimers either. For Ask, `cluster_analysis/agent/language.py` holds the rule and the check that enforces it.
+- **Ask and the model the user connects.** With `share_results` on (the default, `cluster_analysis/agent/settings.py`),
+  the interpreted results for the items a question touches go to the user's own model (their API key or Claude Code
+  login) so the summary can weave them; never the DNA file. Off, the model sees public facts only. Public tools never
+  read personal data (`tests/test_agent.py`); see "What is sent" in `docs/architecture/agent.md`.
 - Use the global Python; no virtual environments.
 - Respect API rate limits and bot checks (`cluster_analysis/sources.py` waits on 429/503).
 - Commit or push only when asked.
@@ -18,7 +24,7 @@
 ## Layout
 
 `genome/` reads and imputes DNA files. `cluster_analysis/` holds the analysis, one package per feature (`themes`,
-`evidence`, `lifecycle`, `medicines`, `nutrition`), the explorer (`explorer/`) and the old SNP library (`library/`:
+`evidence`, `lifecycle`, `medicines`, `nutrition`, `agent`), the explorer (`explorer/`) and the old SNP library (`library/`:
 `snp_traits.json`, its reader and tools; no tab is drawn from it any more, being phased out). The packages meet only through
 files (the person's calls, each package's outputs, the explorer's datasets), so each can be replaced on its own: keep it
 that way. The PDF report was removed on 2026-11-13. Details: `cluster_analysis/README.md` and `docs/architecture/`.
