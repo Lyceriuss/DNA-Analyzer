@@ -11,6 +11,12 @@ carry an X-GX header, which a page on another site can't send without a CORS pre
     POST /api/dismiss           {"id"}: hides a finished run (the person stays)
     POST /api/abandon           {"id"}: stops an unfinished run if it runs and removes the person with all it made
 
+First run and results files:
+    GET  /api/setup             {"knowledge": installed release or null, "source", "job": download progress, "profiles"}
+    POST /api/setup/knowledge   installs the knowledge bundle (data/knowledge/*.zip or DNA_KNOWLEDGE_URL) in the background
+    GET  /api/results?id=P      P's results file, as a download (explorer/results.py)
+    POST /api/results/import[?as=ID]   a results file's bytes -> {"id"}; the datasets are then rebuilt
+
 The Ask tab's research agent (cluster_analysis/agent), one question at a time:
     GET  /api/agent/status      {"key", "backend": "api" | "claude-code" | null, "index", "model", "effort", "running", "answers"}
     POST /api/agent/key         {"key", "remember"}: the Anthropic API key, in memory or (remember) in data/output/agent
@@ -41,6 +47,66 @@ MAX_BYTES = 300 * 1024 * 1024
 
 def busy():
     return next((r["id"] for r in pipeline.status()["runs"] if r["state"] == "running"), None)
+
+
+class Setup:
+    """First run: the knowledge bundle (cluster_analysis/knowledge.py), from a file the installer placed in
+    data/knowledge/ or from DNA_KNOWLEDGE_URL, installed in a background thread with its progress."""
+    LOCAL = os.path.join(ROOT, "data", "knowledge")
+    job = {"state": "idle", "done": 0, "total": 0, "error": None}
+    lock = threading.Lock()
+
+    @classmethod
+    def source(cls):
+        from cluster_analysis import knowledge
+        return knowledge.included(cls.LOCAL) or os.environ.get("DNA_KNOWLEDGE_URL") or None
+
+    update = None
+    asked = False
+
+    @classmethod
+    def check_update(cls):
+        """Once per start, in the background: the update feed (DNA_UPDATE_URL), if the app has one."""
+        from cluster_analysis import version
+        try:
+            cls.update = version.check()
+        except Exception:
+            cls.update = None
+
+    @classmethod
+    def status(cls):
+        from cluster_analysis import knowledge, version
+        if not cls.asked:
+            cls.asked = True
+            threading.Thread(target=cls.check_update, daemon=True).start()
+        k = knowledge.installed()
+        src = cls.source()
+        return {"knowledge": k and {x: k.get(x) for x in ("version", "installed", "added")},
+                "source": src and ("download" if re.match(r"^https?://", src) else "included"),
+                "job": dict(cls.job), "profiles": len(pipeline.profiles()), "version": version.VERSION,
+                "update": cls.update if cls.update and cls.update.get("newer") else None}
+
+    @classmethod
+    def start(cls):
+        from cluster_analysis import knowledge
+        src = cls.source()
+        if not src:
+            raise ValueError("No knowledge bundle to install: none was included and DNA_KNOWLEDGE_URL isn't set.")
+        with cls.lock:
+            if cls.job["state"] == "running":
+                return
+            cls.job.update(state="running", done=0, total=0, error=None)
+
+        def progress(done, total):
+            cls.job.update(done=done, total=total)
+
+        def work():
+            try:
+                knowledge.install(src, expect_sha256=os.environ.get("DNA_KNOWLEDGE_SHA256"), progress=progress)
+                cls.job["state"] = "done"
+            except Exception as e:
+                cls.job.update(state="failed", error=f"{type(e).__name__}: {e}")
+        threading.Thread(target=work, daemon=True).start()
 
 
 class Agent:
@@ -321,6 +387,35 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             if not self._local():
                 return self._json(403, {"error": "local only"})
             return self._agent_get(url)
+        if url.path == "/api/setup":
+            if not self._local():
+                return self._json(403, {"error": "local only"})
+            return self._json(200, Setup.status())
+        if url.path == "/api/results":
+            # One person's results file, as a download (explorer/results.py). GET, so a link can save it; the Host
+            # check keeps other sites out, and a cross-site link could only make the browser save it, never read it
+            if not self._local():
+                return self._json(403, {"error": "local only"})
+            from cluster_analysis.explorer import results
+            pid = urllib.parse.parse_qs(url.query).get("id", [""])[0]
+            if not pipeline.ID_RE.match(pid):
+                return self._json(400, {"error": "no such person"})
+            path = os.path.join(UPLOADS, f"{pid}{results.SUFFIX}")
+            os.makedirs(UPLOADS, exist_ok=True)
+            try:
+                results.export(pid, path)
+            except SystemExit as e:
+                return self._json(404, {"error": str(e)})
+            data = open(path, "rb").read()
+            os.remove(path)
+            self.send_response(200)
+            self.send_header("Content-Type", "application/gzip")
+            self.send_header("Content-Disposition", f'attachment; filename="{pid}{results.SUFFIX}"')
+            self.send_header("Content-Length", str(len(data)))
+            self.send_header("Cache-Control", "no-store")
+            self.end_headers()
+            self.wfile.write(data)
+            return
         if self.path.split("?")[0] == "/api/status":
             if not self._local():
                 return self._json(403, {"error": "local only"})
@@ -351,7 +446,30 @@ class Handler(http.server.SimpleHTTPRequestHandler):
                 except Exception as e:  # not a DNA file at all
                     return self._json(200, {"token": token, "info": {"file": name, "problems": [f"The file couldn't be read as a DNA file ({e})."]}})
                 return self._json(200, {"token": token, "info": info})
+            if url.path == "/api/results/import":
+                from cluster_analysis.explorer import results
+                data = self._body()
+                folder = os.path.join(UPLOADS, secrets.token_hex(8))
+                os.makedirs(folder, exist_ok=True)
+                path = os.path.join(folder, "results.gz")
+                open(path, "wb").write(data)
+                try:
+                    as_id = urllib.parse.parse_qs(url.query).get("as", [None])[0]
+                    try:
+                        pid = results.import_(path, as_id, {p["id"] for p in pipeline.profiles()})
+                    except (OSError, EOFError, json.JSONDecodeError):
+                        raise ValueError("This isn't a results file.")
+                finally:
+                    import shutil
+                    shutil.rmtree(folder, ignore_errors=True)
+                if busy():
+                    return self._json(200, {"id": pid, "rebuild": False})
+                spawn(["rebuild"])
+                return self._json(200, {"id": pid, "rebuild": True})
             req = json.loads(self._body() or b"{}")
+            if url.path == "/api/setup/knowledge":
+                Setup.start()
+                return self._json(200, Setup.status())
             if url.path.startswith("/api/agent/"):
                 return self._agent_post(url.path, req)
             pid = str(req.get("id") or "")
@@ -369,6 +487,8 @@ class Handler(http.server.SimpleHTTPRequestHandler):
                 args = ["add", os.path.join(folder, files[0]), "--id", pid]
                 if req.get("sex") in ("female", "male"):
                     args += ["--sex", req["sex"]]
+                if req.get("lite"):
+                    args += ["--lite"]
                 spawn(args)
                 return self._json(200, {"ok": True})
             run = pipeline.Run(pid).s if pipeline.ID_RE.match(pid) else None
@@ -381,7 +501,8 @@ class Handler(http.server.SimpleHTTPRequestHandler):
                 src = os.path.join(ROOT, reg["dna"]) if reg else run.get("src")
                 if not src or not os.path.exists(src):
                     return self._json(400, {"error": "The file isn't there any more; start again with the file."})
-                spawn(["add", src, "--id", pid] + (["--sex", run["sex"]] if run.get("sex") else []))
+                spawn(["add", src, "--id", pid] + (["--sex", run["sex"]] if run.get("sex") else [])
+                      + (["--lite"] if run.get("lite") else []))
                 return self._json(200, {"ok": True})
             if url.path == "/api/cancel":
                 if run.get("pid"):

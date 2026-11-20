@@ -71,6 +71,10 @@ def person(p):
     s = _load(os.path.join(folder, "summary.json")) or {}
     cal = _load(os.path.join(folder, "calibration.json")) or {}
     chroms = s.get("chroms", {})
+    # Lite mode (genome/lite.py): measured calls only, no imputation summary
+    lite = _load(os.path.join(folder, "lite.json")) if not s else None
+    if lite:
+        s = {"totals": {"calls": lite.get("calls")}, "not_lifted": lite.get("not_lifted")}
     # Confident guesses (GP at or above the run's threshold) among the hidden chip SNPs: the share that were right
     cells = cal.get("cells", {}).values()
     n, right = sum(c["n"] for c in cells), sum(c["right"] for c in cells)
@@ -86,6 +90,7 @@ def person(p):
             "validation": {"hidden": cal.get("hidden"), "confident": n, "right": round(right / n, 4) if n else None},
             "example_gt": json.dumps(genotypes_at(p["dna"], [r for c in CLUSTER.values() for r in c["variants"]])),
             # the slide's worked example is this profile (data/input/intro_example.json): no separate marker for it
+            "lite": bool(lite),
             "is_example": pid == (_load(os.path.join(ROOT, "data", "input", "intro_example.json")) or {}).get("profile")}
 
 

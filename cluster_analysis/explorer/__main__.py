@@ -5,6 +5,7 @@
     python -m cluster_analysis.explorer serve     # export if needed, build the site (page, runtime, d3, datasets) and
                                                   # serve it on http://127.0.0.1:8000 (this machine only: the data
                                                   # holds genotypes). No internet needed, no size limit.
+    python -m cluster_analysis.explorer results export --person ID   # one person's results as a file (results.py)
     python -m cluster_analysis.explorer check     # render every tab for every profile in English and Swedish in
                                                   # headless Chrome, report script errors
 
@@ -74,6 +75,10 @@ def serve_dir(directory, port):
 
 
 def serve(a):
+    # An installed app ships its knowledge bundle: unpacked before the first page build, which would otherwise look
+    # its public data up live (cluster_analysis/knowledge.py)
+    from cluster_analysis import knowledge
+    knowledge.ensure_included()
     site()
     # The site plus the API behind "Add a person" (explorer/server.py)
     from cluster_analysis.explorer import server
@@ -216,6 +221,13 @@ def main():
     p.add_argument("--record", nargs="*", metavar="NAME=URL", help="datasets now live, with their asset URL")
     p.add_argument("--page", action="store_true", help="the page is now live")
     p.set_defaults(fn=publish)
+    p = sub.add_parser("results", help="one person's results as a file, or such a file imported (explorer/results.py)")
+    p.add_argument("action", choices=("export", "import", "list"))
+    p.add_argument("file", nargs="?")
+    p.add_argument("--person")
+    p.add_argument("--out")
+    p.add_argument("--as", dest="as_id")
+    p.set_defaults(fn=lambda a: __import__("cluster_analysis.explorer.results", fromlist=["main"]).main(a))
     a = ap.parse_args()
     a.fn(a)
 

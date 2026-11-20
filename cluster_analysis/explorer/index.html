@@ -24,6 +24,7 @@
   .gx-tab { font: inherit; background: none; border: 0; border-bottom: 2px solid transparent; color: var(--color-fg-muted);
             padding: var(--cds-pad-sm) var(--cds-pad-md); cursor: pointer; margin-bottom: -1px; }
   .gx-tab[aria-selected="true"] { color: var(--color-fg); border-bottom-color: var(--color-fg); }
+  @media (pointer: coarse) { .gx-tab { min-height: 44px; } }   /* touch: a finger-sized target */
   .gx-tab:focus-visible, .gx-chip:focus-visible { outline: 2px solid var(--color-fg); outline-offset: 2px; }
   .gx-page { display: grid; gap: var(--cds-gap-md); }
   .gx-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr)); gap: var(--cds-gap-md); }
@@ -675,6 +676,11 @@
 .th-prev p { margin: 0; font-size: 13px; line-height: 1.5; }
 .th-prev-chips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: auto; padding-top: 4px; }
 .th-prev-chip { font-size: 11px; padding: 1px 8px; border-radius: 10px; background: color-mix(in srgb, var(--grade-a) 16%, transparent); }
+/* Phones: the drawings keep a readable size and scroll sideways instead of shrinking their labels */
+@media (max-width: 640px) {
+  .th-body-svg, .th-cycle-svg { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .th-body-svg svg { min-width: 600px; }
+}
   /* Female fertility in depth (fd.js) */
   .fd-pick { display: flex; flex-wrap: wrap; gap: 6px; }
   .fd-pick-btn { font: inherit; font-size: 13px; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--color-border-line); background: none;
@@ -1739,11 +1745,52 @@
   .gx-add-specs i { font-style: normal; font-size: 10px; color: var(--color-fg-muted); text-transform: uppercase; letter-spacing: .04em; }
   .gx-add-specs b { font-size: 13px; font-variant-numeric: tabular-nums; }
   .gx-add-plan { height: 12px; }
+  /* Lite (measured variants) or with imputation */
+  .gx-add-modes { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .gx-add-mode { display: grid; gap: 4px; align-content: start; text-align: left; padding: 12px 14px; border-radius: 10px; cursor: pointer;
+                 border: 2px solid var(--color-border-line); background: var(--color-bg); color: inherit; font: inherit; min-height: 44px; }
+  .gx-add-mode.is-on { border-color: var(--gof); background: color-mix(in srgb, var(--gof) 8%, var(--color-bg)); }
+  .gx-add-mode:disabled { cursor: not-allowed; opacity: .6; }
+  .gx-add-mode:focus-visible { outline: 2px solid var(--gof); outline-offset: 2px; }
+  .gx-add-mode .gx-note { margin: 0; font-size: 12px; }
+  .gx-add-mode-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2px 10px; align-items: baseline; }
+  .gx-add-mode-time { font-size: 12px; color: var(--color-fg-muted); font-variant-numeric: tabular-nums; }
+  @media (max-width: 560px) { .gx-add-modes { grid-template-columns: 1fr; } }
   .gx-add-abandon { color: var(--color-bad); border-color: color-mix(in srgb, var(--color-bad) 45%, transparent); margin-right: auto; }
   @media (max-width: 760px) { .gx-add-body { grid-template-columns: 1fr; } }
   @media (max-width: 560px) {
     .gx-add-how, .gx-add-tiles, .gx-add-form { grid-template-columns: 1fr; }
   }
+  /* First run and results files (fr.js) */
+  .fr-card { display: grid; gap: 12px; }
+  .fr-card h2 { margin: 0; }
+  .fr-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+  .fr-step { display: grid; grid-template-columns: 28px 1fr; gap: 12px; align-items: start; padding: 12px 14px; border-radius: 10px; background: var(--color-bg); }
+  .fr-step > div { display: grid; gap: 6px; min-width: 0; }
+  .fr-step .gx-note { margin: 0; }
+  .fr-mark { width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--color-border-line); display: grid; place-items: center;
+             font-size: 14px; font-weight: 700; color: var(--color-bg); counter-increment: fr; }
+  .fr-steps { counter-reset: fr; }
+  .fr-mark:empty::before { content: counter(fr); color: var(--color-fg-muted); }
+  .fr-step.is-done .fr-mark { background: var(--color-good, var(--gof)); border-color: transparent; }
+  .fr-where { margin: 0; padding: 0; list-style: none; display: grid; gap: 4px; }
+  .fr-where li { display: grid; grid-template-columns: 7.5rem 1fr; gap: 8px; font-size: var(--cds-font-size-caption); }
+  .fr-where span { color: var(--color-fg-muted); }
+  .fr-row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .fr-go, .fr-ghost, .fr-file { font: inherit; border-radius: 8px; cursor: pointer; min-height: 40px; padding: 0 14px; }
+  .fr-go { justify-self: start; background: var(--gof); color: #fff; border: 0; font-weight: 600; }
+  .fr-go:disabled { opacity: .6; cursor: default; }
+  .fr-ghost, .fr-file { background: transparent; color: inherit; border: 1px solid var(--color-border-line); }
+  .fr-go:focus-visible, .fr-ghost:focus-visible, .fr-file:focus-visible { outline: 2px solid var(--gof); outline-offset: 2px; }
+  .fr-bar { height: 8px; border-radius: 4px; background: var(--color-border-line); overflow: hidden; max-width: 28rem; }
+  .fr-bar i { display: block; height: 100%; background: var(--gof); transition: width .4s ease; }
+  .fr-bad, .fr-msg.is-bad { color: var(--color-bad); margin: 0; }
+  .gx-files { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; justify-content: flex-end; }
+  .gx-files:empty { display: none; }
+  .fr-file { min-height: 32px; padding: 0 10px; font-size: var(--cds-font-size-caption); text-decoration: none; display: inline-flex; align-items: center; }
+  .fr-update { border-color: var(--gof); color: var(--gof); font-weight: 600; }
+  .fr-msg { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); flex-basis: 100%; text-align: right; }
+  @media (max-width: 560px) { .fr-where li { grid-template-columns: 1fr; gap: 0; } .fr-step { grid-template-columns: 1fr; } .fr-mark { display: none; } }
   /* Ask (ask.js): the question bar, the sources in use, the quick answer's cards, the deep analysis */
   .ak-main { display: grid; gap: var(--cds-gap-sm); }
   .ak-off { color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); margin: 0; }
@@ -2050,6 +2097,7 @@
         </div>
       </div>
       <div class="gx-add" id="gx-add"></div>
+      <div class="gx-files" id="gx-files"></div>
     </div>
     <p class="gx-lede">Every tab reads the selected person's genome through public research sources: Clusters (with Nutrition), Medicines,
       Biomarkers and Gene pathway. Home explains how.</p>
@@ -2064,6 +2112,14 @@
     <button class="gx-tab" role="tab" data-tab="ask" aria-selected="false">Ask</button>
     <button class="gx-tab" role="tab" data-tab="sources" aria-selected="false">Sources</button>
   </nav>
+
+  <!-- First run (fr.js): shown by the local server's page when no one has been added yet -->
+  <section class="gx-card fr-card" id="gx-first" hidden aria-labelledby="fr-title">
+    <h2 id="fr-title">Welcome</h2>
+    <p class="gx-note">Everything runs on this computer. The DNA file and the results stay in the app's data folder; the
+      analysis looks up only public research data.</p>
+    <ol class="fr-steps" id="fr-steps"></ol>
+  </section>
 
   <section class="gx-page" id="home" data-page="home">
     <div class="gx-card in-card">
@@ -6115,7 +6171,8 @@
       stage(1, 'Read', inN(p.measured), fmt ? inT('SNPs measured in {}\'s {} file: single positions where people\'s DNA differs by one letter', c.who, fmt) : inT('SNPs measured in {}\'s file: single positions where people\'s DNA differs by one letter', c.who));
       // Confident calls only: most filled-in positions are rare variants called "not detected, not excluded", which add nothing
       const conf = p.tiers ? (p.tiers.high || 0) + (p.tiers.medium || 0) : null;
-      stage(2, 'After imputation', conf ? inMillions(conf) : '—', inT('confident calls added by imputation, {} of the tested ones right', inPct(v.right, 1)));
+      if (p.lite) stage(2, 'No imputation', inN(p.measured), inT('{} was added with the measured variants only: every result reads them. Adding {} again with imputation fills in the positions between them.', c.who, c.who));
+      else stage(2, 'After imputation', conf ? inMillions(conf) : '—', inT('confident calls added by imputation, {} of the tested ones right', inPct(v.right, 1)));
       const tg = inCount('theme_genes');
       stage(3, 'Results', inN(inDistinct(tg, 'gene')), 'genes read against the research, each finding with an evidence grade');
       inText(el, 'Genetic data is sensitive health data under the GDPR, so the analysis runs where the DNA file is stored: on this computer. Nothing is sent anywhere, and deleting the DNA file and the results folder removes everything.');
@@ -6127,12 +6184,16 @@
       if (conf && p.measured) inBars(sec, 'Calls before and after imputation', [
         { label: 'Measured by the chip', value: p.measured, cls: 'in-c-fg' },
         { label: 'Confident calls added by imputation', value: conf, cls: 'in-c-ok' }]);
-      inText(sec, inT('To check the guesses, every tenth measured position was hidden from {}\'s file, imputed as if it had never been read, and compared with the real answer.', c.who));
-      inFacts(sec, [[inPct(v.right, 1), 'of the confident guesses were right']]);
-      inStack(sec, inT('{}\'s imputed calls by confidence', c.who), [
-        { label: 'High', value: t.high, cls: 'in-c-ok' }, { label: 'Medium', value: t.medium, cls: 'in-c-ok2' },
-        { label: 'Low', value: t.low, cls: 'in-c-warn' }, { label: 'Untested', value: t.untested, cls: 'in-c-fg' }]);
-      inText(sec, 'Only high-confidence calls are used for conclusions from a single variant, and each is marked "imputed".');
+      if (p.lite) inText(sec, inT('{} was added without it: the results read the {} measured positions only. Scores built from many variants use fewer of them, and a drug gene whose common variant the chip lacks is shown as not determined.', c.who, inN(p.measured)));
+      else {
+        inText(sec, inT('To check the guesses, every tenth measured position was hidden from {}\'s file, imputed as if it had never been read, and compared with the real answer.', c.who));
+        inFacts(sec, [[inPct(v.right, 1), 'of the confident guesses were right']]);
+        inStack(sec, inT('{}\'s imputed calls by confidence', c.who), [
+          { label: 'High', value: t.high, cls: 'in-c-ok' }, { label: 'Medium', value: t.medium, cls: 'in-c-ok2' },
+          { label: 'Low', value: t.low, cls: 'in-c-warn' }, { label: 'Untested', value: t.untested, cls: 'in-c-fg' }]
+          .filter((x) => x.value > 0));  // a tier with no calls (one panel's run has no medium or low tier) isn't listed
+        inText(sec, 'Only high-confidence calls are used for conclusions from a single variant, and each is marked "imputed".');
+      }
       // The rare positions imputation can't tell about: not calls, so not in the chart; said once, plainly
       if (t.not_excluded) inText(sec, inT('At {} rare positions imputation can\'t tell whether {} carries the variant: it misses too many real carriers there. Those positions aren\'t used; a rare variant that matters (a drug gene, a disease variant) is shown as "not detected, not excluded".', inMillions(t.not_excluded), c.who));
     } },
@@ -7442,7 +7503,7 @@
       if (run.eta != null) return Math.max(0, run.eta - (Date.now() - (run._seen || Date.now())) / 1000);
       let s = 0;
       for (const st of run.stages) {
-        if (st.state === 'done') continue;
+        if (st.state === 'done' || (st.id === 'impute' && run.lite)) continue;
         const t = typ(st.id), part = st.parts ? st.done_parts / st.parts.length : 0;
         if (st.state === 'running' && st.started) {
           const took = (Date.now() - new Date(st.started).getTime()) / 1000;
@@ -7524,7 +7585,7 @@
       drop.addEventListener('drop', (e) => { e.preventDefault(); drop.classList.remove('is-over'); if (e.dataTransfer.files[0]) send(e.dataTransfer.files[0]); });
       const how = make(dialog, 'ol', 'gx-add-how');
       for (const [b, t] of [['Read', 'The file is checked: its format, its calls and the sex its X chromosome shows.'],
-                            ['Impute', 'The positions the test didn\'t measure are filled in from reference genomes, about half an hour.'],
+                            ['Impute (optional)', 'The positions the test didn\'t measure can be filled in from reference genomes, about half an hour. Without it, the measured positions are used and a result is ready in minutes.'],
                             ['Analyse', 'Every tab is worked out for the person and they appear in the profile switcher.']]) {
         const li = make(how, 'li'); make(li, 'b', null, b); make(li, 'span', null, t);
       }
@@ -7613,10 +7674,35 @@
         sex.value = upload.sex || '';
         make(sl, 'span', 'gx-note', 'The file has too few X chromosome calls to read sex from. It decides the fertility theme and the nutrient intake group.');
       }
+      // Lite (measured variants only) is the default; imputation only where this computer can run it
+      const blocked = (state.imputation || {}).problems || [];
+      if (upload.lite === undefined) upload.lite = true;
+      const took = (lite) => mins((lite ? ['check', 'register', 'analyse', 'explorer'] : ['check', 'register', 'impute', 'analyse', 'explorer']).reduce((s, k) => s + typ(k), 0));
+      const modes = make(dialog, 'div', 'gx-add-modes');
+      modes.setAttribute('role', 'radiogroup');
+      const machineBox = document.createElement('div');
+      let note;
+      const mode = (lite, title, text) => {
+        const off = !lite && blocked.length;
+        const b = make(modes, 'button', 'gx-add-mode' + (upload.lite === lite ? ' is-on' : ''));
+        b.type = 'button'; b.disabled = !!off;
+        b.setAttribute('role', 'radio'); b.setAttribute('aria-checked', String(upload.lite === lite));
+        const h = make(b, 'span', 'gx-add-mode-head'); make(h, 'b', null, title); make(h, 'span', 'gx-add-mode-time', fill('about {}', took(lite)));
+        make(b, 'span', 'gx-note', off ? blocked[0] : text);
+        b.addEventListener('click', () => {
+          upload.lite = lite;
+          for (const o of modes.children) { const on = o === b; o.classList.toggle('is-on', on); o.setAttribute('aria-checked', String(on)); }
+          machineBox.hidden = lite;
+          note.textContent = fill('Takes about {}. The explorer stays usable meanwhile, and the run carries on if this window is closed.', took(lite));
+        });
+      };
+      mode(true, 'Measured variants', 'The positions the test measured. Ready in minutes, on any computer.');
+      mode(false, 'With imputation', 'Fills in the positions between them from 3,202 reference genomes, for fuller scores. Needs Java, the 14 GB reference panel and 8 GB or more of memory.');
       const err = make(dialog, 'p', 'gx-add-bad'); err.hidden = true;
       const foot = make(dialog, 'div', 'gx-add-foot');
-      machinePanel(foot.parentNode.insertBefore(document.createElement('div'), foot));
-      make(foot, 'span', 'gx-note', fill('Takes about {}. The explorer stays usable meanwhile, and the run carries on if this window is closed.', mins(['check', 'register', 'impute', 'analyse', 'explorer'].reduce((s, k) => s + typ(k), 0))));
+      machinePanel(foot.parentNode.insertBefore(machineBox, foot));
+      machineBox.hidden = upload.lite;
+      note = make(foot, 'span', 'gx-note', fill('Takes about {}. The explorer stays usable meanwhile, and the run carries on if this window is closed.', took(upload.lite)));
       const back = make(foot, 'button', 'gx-add-ghost', 'Choose another file'); back.type = 'button';
       back.addEventListener('click', () => { view = 'pick'; upload = null; render(); });
       const go = make(foot, 'button', 'gx-add-go', 'Start'); go.type = 'button';
@@ -7633,7 +7719,7 @@
       go.addEventListener('click', async () => {
         go.disabled = true;
         try {
-          await api('start', { token: upload.token, id: name.value.trim(), sex: sex.value });
+          await api('start', { token: upload.token, id: name.value.trim(), sex: sex.value, lite: !!upload.lite });
           watching = name.value.trim(); upload = null; view = 'progress';
           await refresh(); render();
         } catch (e) { err.hidden = false; err.textContent = e.message; go.disabled = false; }
@@ -7738,6 +7824,11 @@
         make(el, 'p', null, st.state === 'done' ? fill('The file was copied to {} and {} was added to the profile list.', st.detail, run.id) : 'Copying the file into the project\'s data folder.');
       },
       impute(el, run, f, st) {
+        if (run.lite || f.skipped) {
+          make(el, 'h3', null, 'Measured variants only');
+          make(el, 'p', 'gx-note', 'This person was added without imputation: every result is read from the positions the test measured. Scores built from many variants use the ones measured, so they can differ from an imputed run. Adding the person again with imputation fills in the rest.');
+          return;
+        }
         make(el, 'h3', null, 'Filling in the gaps');
         const frac = st.state === 'done' ? 1 : (st.done_parts || 0) / ((st.parts || []).length || 1);
         illustrate(el, frac, st.state === 'running');
@@ -7991,7 +8082,142 @@
       clearTimeout(timer);
       timer = setTimeout(async () => { await refresh(); poll(); }, state.busy || (dialog && dialog.open) ? 2000 : 20000);
     };
+    // The first-run card (fr.js) opens the dialog too
+    window.gxAdd = { open: () => open('pick') };
     refresh().then(() => { if (state.enabled) poll(); });
+  })();
+</script>
+
+<script>
+  // First run and results files (explorer/server.py: /api/setup, /api/results). Only with the local server: a page
+  // opened from disk has no API and shows neither.
+  (() => {
+    const first = document.getElementById('gx-first'), steps = document.getElementById('fr-steps');
+    const files = document.getElementById('gx-files');
+    if (!first || !files) return;
+    const make = (p, tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; p.appendChild(e); return e; };
+    const fill = (tpl, ...v) => { let i = 0; return tpl.replace(/\{\}/g, () => String(v[i++])); };
+    const post = async (path, body, raw) => {
+      const r = await fetch('/api/' + path, { method: 'POST', headers: { 'X-GX': '1', 'Content-Type': raw ? 'application/octet-stream' : 'application/json' },
+                                             body: raw ? body : JSON.stringify(body || {}) });
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(j.error || fill('The server answered {}.', r.status));
+      return j;
+    };
+    let setup = null, timer = null, message = null;
+
+    // --- Opening a results file (made by this app on another computer, or kept as a backup)
+    const openResults = () => {
+      const input = document.createElement('input');
+      input.type = 'file'; input.accept = '.gz';
+      input.addEventListener('change', async () => {
+        const f = input.files[0];
+        if (!f) return;
+        say(fill('Opening {}…', f.name));
+        try {
+          const r = await post('results/import', f, true);
+          say(fill('{} was opened. The page reloads when the explorer has been rebuilt with them (a minute or two).', r.id));
+          waitFor(r.id);
+        } catch (e) { say(e.message, true); }
+      });
+      input.click();
+    };
+    const waitFor = (id) => {
+      const t = setInterval(async () => {
+        try {
+          const p = await (await fetch('data/profiles.json', { cache: 'no-store' })).json();
+          if (p.some((x) => x.id === id)) { clearInterval(t); try { localStorage.setItem('gx-person', id); } catch (e) { /* no storage */ } location.reload(); }
+        } catch (e) { /* still rebuilding */ }
+      }, 3000);
+    };
+    const say = (text, bad) => {
+      if (!message) { message = make(files, 'span', 'fr-msg'); message.setAttribute('role', 'status'); }
+      message.textContent = text;
+      message.classList.toggle('is-bad', !!bad);
+    };
+
+    // --- The header's results buttons: save the selected person's results, open a results file
+    const tools = () => {
+      const keep = message;
+      files.replaceChildren();
+      const who = window.gx && gx.who();
+      if (setup.profiles && who) {
+        const a = make(files, 'a', 'fr-file', 'Save results');
+        a.href = '/api/results?id=' + encodeURIComponent(who);
+        a.title = fill('{}\'s results as one file, to keep or to open on another device. It holds genotypes: keep it private.', who);
+      }
+      const b = make(files, 'button', 'fr-file', 'Open results');
+      b.type = 'button';
+      b.title = 'A results file saved by this app';
+      b.addEventListener('click', openResults);
+      if (setup.update && setup.update.url) {
+        const u = make(files, 'a', 'fr-file fr-update', fill('Version {} is out', setup.update.latest));
+        u.href = setup.update.url; u.target = '_blank'; u.rel = 'noopener';
+        u.title = fill('This is version {}. The new installer keeps the people and results already here.', setup.version);
+      }
+      if (keep) files.appendChild(keep);
+    };
+
+    // --- The welcome card, while no one has been added
+    const card = () => {
+      first.hidden = setup.profiles > 0;
+      if (first.hidden) return;
+      steps.replaceChildren();
+      const step = (done, title) => {
+        const li = make(steps, 'li', 'fr-step' + (done ? ' is-done' : ''));
+        make(li, 'span', 'fr-mark', done ? '✓' : '').setAttribute('aria-hidden', 'true');
+        const body = make(li, 'div');
+        make(body, 'b', null, title);
+        return body;
+      };
+      // 1. The knowledge bundle
+      const k = setup.knowledge, job = setup.job || {};
+      const s1 = step(!!k, 'Research data');
+      if (k) make(s1, 'p', 'gx-note', fill('Release {} is installed: the public lookups the analysis needs, so it starts without asking the research sources one by one.', k.version));
+      else if (job.state === 'running') {
+        const pct = job.total ? Math.round(job.done / job.total * 100) : 0;
+        make(s1, 'p', 'gx-note', job.total ? fill('Installing… {}%', pct) : 'Installing…');
+        const bar = make(s1, 'div', 'fr-bar'); make(bar, 'i').style.width = pct + '%';
+      } else if (setup.source) {
+        make(s1, 'p', 'gx-note', setup.source === 'download'
+          ? 'The public research data the analysis reads (UniProt, Ensembl, Reactome, Europe PMC and more), downloaded once.'
+          : 'The public research data the analysis reads (UniProt, Ensembl, Reactome, Europe PMC and more), included with the app.');
+        if (job.state === 'failed') make(s1, 'p', 'fr-bad', job.error);
+        const go = make(s1, 'button', 'fr-go', job.state === 'failed' ? 'Try again' : 'Install');
+        go.type = 'button';
+        go.addEventListener('click', async () => { go.disabled = true; try { setup = await post('setup/knowledge'); } catch (e) { setup.job = { state: 'failed', error: e.message }; } render(); });
+      } else make(s1, 'p', 'gx-note', 'Not installed: the first analysis looks each lookup up at the research sources, which can take hours.');
+      // 2. The raw file
+      const s2 = step(false, 'A raw DNA file');
+      make(s2, 'p', 'gx-note', 'MyHeritage, AncestryDNA and 23andMe let their customers download their raw data from the DNA settings of their account: a .csv, .txt or .zip file. That file is what the app reads.');
+      // 3. Add the person, or open results made elsewhere
+      const s3 = step(false, 'Add a person');
+      make(s3, 'p', 'gx-note', 'The file is read on this computer. With only the measured variants a result is ready in minutes.');
+      const row = make(s3, 'div', 'fr-row');
+      const add = make(row, 'button', 'fr-go', '+ Add a person'); add.type = 'button';
+      add.disabled = !window.gxAdd;
+      add.addEventListener('click', () => window.gxAdd && window.gxAdd.open());
+      const open = make(row, 'button', 'fr-ghost', 'Open a results file'); open.type = 'button';
+      open.addEventListener('click', openResults);
+    };
+
+    const render = () => {
+      tools(); card();
+      clearTimeout(timer);
+      if (setup.job && setup.job.state === 'running') timer = setTimeout(refresh, 1000);
+    };
+    const refresh = async () => {
+      try {
+        const r = await fetch('/api/setup', { cache: 'no-store' });
+        if (!r.ok) return;
+        setup = await r.json();
+      } catch (e) { return; }
+      render();
+    };
+    refresh();
+    // The selected person changes the save link
+    const prof = document.querySelector('[data-draw="gx-profile"]');
+    if (prof) new MutationObserver(() => setup && tools()).observe(prof, { childList: true, subtree: true, attributes: true });
   })();
 </script>
 

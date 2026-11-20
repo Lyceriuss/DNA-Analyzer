@@ -1,0 +1,30 @@
+  /* First run and results files (fr.js) */
+  .fr-card { display: grid; gap: 12px; }
+  .fr-card h2 { margin: 0; }
+  .fr-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+  .fr-step { display: grid; grid-template-columns: 28px 1fr; gap: 12px; align-items: start; padding: 12px 14px; border-radius: 10px; background: var(--color-bg); }
+  .fr-step > div { display: grid; gap: 6px; min-width: 0; }
+  .fr-step .gx-note { margin: 0; }
+  .fr-mark { width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--color-border-line); display: grid; place-items: center;
+             font-size: 14px; font-weight: 700; color: var(--color-bg); counter-increment: fr; }
+  .fr-steps { counter-reset: fr; }
+  .fr-mark:empty::before { content: counter(fr); color: var(--color-fg-muted); }
+  .fr-step.is-done .fr-mark { background: var(--color-good, var(--gof)); border-color: transparent; }
+  .fr-where { margin: 0; padding: 0; list-style: none; display: grid; gap: 4px; }
+  .fr-where li { display: grid; grid-template-columns: 7.5rem 1fr; gap: 8px; font-size: var(--cds-font-size-caption); }
+  .fr-where span { color: var(--color-fg-muted); }
+  .fr-row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .fr-go, .fr-ghost, .fr-file { font: inherit; border-radius: 8px; cursor: pointer; min-height: 40px; padding: 0 14px; }
+  .fr-go { justify-self: start; background: var(--gof); color: #fff; border: 0; font-weight: 600; }
+  .fr-go:disabled { opacity: .6; cursor: default; }
+  .fr-ghost, .fr-file { background: transparent; color: inherit; border: 1px solid var(--color-border-line); }
+  .fr-go:focus-visible, .fr-ghost:focus-visible, .fr-file:focus-visible { outline: 2px solid var(--gof); outline-offset: 2px; }
+  .fr-bar { height: 8px; border-radius: 4px; background: var(--color-border-line); overflow: hidden; max-width: 28rem; }
+  .fr-bar i { display: block; height: 100%; background: var(--gof); transition: width .4s ease; }
+  .fr-bad, .fr-msg.is-bad { color: var(--color-bad); margin: 0; }
+  .gx-files { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; justify-content: flex-end; }
+  .gx-files:empty { display: none; }
+  .fr-file { min-height: 32px; padding: 0 10px; font-size: var(--cds-font-size-caption); text-decoration: none; display: inline-flex; align-items: center; }
+  .fr-update { border-color: var(--gof); color: var(--gof); font-weight: 600; }
+  .fr-msg { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); flex-basis: 100%; text-align: right; }
+  @media (max-width: 560px) { .fr-where li { grid-template-columns: 1fr; gap: 0; } .fr-step { grid-template-columns: 1fr; } .fr-mark { display: none; } }

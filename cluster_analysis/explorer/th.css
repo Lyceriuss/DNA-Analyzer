@@ -221,3 +221,8 @@
 .th-prev p { margin: 0; font-size: 13px; line-height: 1.5; }
 .th-prev-chips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: auto; padding-top: 4px; }
 .th-prev-chip { font-size: 11px; padding: 1px 8px; border-radius: 10px; background: color-mix(in srgb, var(--grade-a) 16%, transparent); }
+/* Phones: the drawings keep a readable size and scroll sideways instead of shrinking their labels */
+@media (max-width: 640px) {
+  .th-body-svg, .th-cycle-svg { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .th-body-svg svg { min-width: 600px; }
+}

@@ -11,7 +11,7 @@ def person_label(path):
     """XY from data/input/MyHeritage_raw_dna_data_XY.csv, and from its imputed version too; otherwise the file's name
     without its extensions (data/input/XX.txt.zip -> XX)."""
     name = re.sub(r"^MyHeritage_raw_dna_data_", "", os.path.basename(path or ""))
-    return re.sub(r"(\.imputed)?(\.(csv|txt|tsv))?(\.(gz|zip))?$", "", name, flags=re.I)
+    return re.sub(r"(\.(imputed|measured))?(\.(csv|txt|tsv))?(\.(gz|zip))?$", "", name, flags=re.I)
 
 
 def imputed_path(path):
@@ -26,8 +26,13 @@ def imputed_path(path):
     p = os.path.join(folder, f"MyHeritage_raw_dna_data_{person}.imputed.csv")
     if path and os.path.exists(p):
         return p
+    # Lite mode (genome/lite.py): the measured calls moved to this build, no imputation
+    lite = os.path.join(folder, f"MyHeritage_raw_dna_data_{person}.measured.csv")
+    if path and gbuild.BUILD != "GRCh37" and os.path.exists(lite):
+        return lite
     if path and gbuild.BUILD != "GRCh37":
-        raise SystemExit(f"{person} has no {gbuild.BUILD} imputation yet: python -m genome.impute {path} --panel {gbuild.panel_name()}")
+        raise SystemExit(f"{person} has no {gbuild.BUILD} imputation yet: python -m genome.impute {path} --panel {gbuild.panel_name()}"
+                         f" (or python -m genome.lite {path} for the measured calls only)")
     return path
 
 

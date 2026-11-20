@@ -24,6 +24,7 @@
   .gx-tab { font: inherit; background: none; border: 0; border-bottom: 2px solid transparent; color: var(--color-fg-muted);
             padding: var(--cds-pad-sm) var(--cds-pad-md); cursor: pointer; margin-bottom: -1px; }
   .gx-tab[aria-selected="true"] { color: var(--color-fg); border-bottom-color: var(--color-fg); }
+  @media (pointer: coarse) { .gx-tab { min-height: 44px; } }   /* touch: a finger-sized target */
   .gx-tab:focus-visible, .gx-chip:focus-visible { outline: 2px solid var(--color-fg); outline-offset: 2px; }
   .gx-page { display: grid; gap: var(--cds-gap-md); }
   .gx-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr)); gap: var(--cds-gap-md); }
@@ -333,6 +334,7 @@
   /* @include in.css */
   /* @include so.css */
   /* @include ad.css */
+  /* @include fr.css */
   /* @include ask.css */
   .th-b-untested { background: var(--color-fg-muted); opacity: 0.35; }
 </style>
@@ -351,6 +353,7 @@
         </div>
       </div>
       <div class="gx-add" id="gx-add"></div>
+      <div class="gx-files" id="gx-files"></div>
     </div>
     <p class="gx-lede">Every tab reads the selected person's genome through public research sources: Clusters (with Nutrition), Medicines,
       Biomarkers and Gene pathway. Home explains how.</p>
@@ -365,6 +368,8 @@
     <button class="gx-tab" role="tab" data-tab="ask" aria-selected="false">Ask</button>
     <button class="gx-tab" role="tab" data-tab="sources" aria-selected="false">Sources</button>
   </nav>
+
+  <!-- @include fr.html -->
 
   <!-- @include in.html -->
 
@@ -570,6 +575,10 @@
 
 <script>
   // @include ad.js
+</script>
+
+<script>
+  // @include fr.js
 </script>
 
 <script>

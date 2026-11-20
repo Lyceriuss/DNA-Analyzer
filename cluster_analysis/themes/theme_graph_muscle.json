@@ -4,6 +4,9 @@
  "about": "A training session in three phases. Before: the nutrients, hormones and growth brakes you bring to it. During: what the muscle fibres are built for, fast-twitch power or slow-twitch endurance, how they burn fuel, and the strength and mass the genes allow. After: the damage, the inflammation that signals repair, rebuilding and breakdown, tendons and oxidative stress. Genes are placed by Gene Ontology and joined by human genetics from Open Targets.",
  "rule": "Gene Ontology stage genes (fibre types from UniProt's curated notes; broad stages only where GTEx shows the gene expressed in skeletal muscle), plus genes with human genetic evidence ≥ 0.5 for a muscle condition (≥ 0.8 for level traits such as grip strength or lean mass)",
  "view": "exertion",
+ "phases": null,
+ "view_title": null,
+ "view_note": null,
  "diseases": {
   "EFO_0006941": "grip strength",
   "EFO_0004980": "appendicular lean mass",

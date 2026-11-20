@@ -48,6 +48,10 @@ python -m cluster_analysis.explorer check        # render every tab, profile and
 ```
 
 Edit the parts (`explorer/*.js|css|html`) and `explorer/page.html`, never `explorer/index.html`: `build` writes it.
+
+Shipping (`docs/architecture/production.md`): `python -m cluster_analysis.knowledge build` packs the lookup cache as
+the knowledge bundle (public lookups only; Ask's readings and searches stay out), `scripts/build_desktop.py --release
+--installer [--target linux]` builds the installers on D:. The build copies only files git doesn't ignore.
 The localhost site is the explorer: no page size limit, no internet needed (d3 is in `explorer/runtime/`), served on
 127.0.0.1 only because the datasets hold genotypes.
 

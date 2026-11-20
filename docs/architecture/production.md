@@ -171,6 +171,50 @@ writes the datasets: the Python pipeline on the desktop, a browser engine on the
    small.
 6. **First-run screen**, references and bundle download with progress, and an empty start.
 
+**Done (2026-11-20):**
+
+- **Knowledge bundle:** `python -m cluster_analysis.knowledge build | install | status`. It packs this machine's
+  lookup cache as `knowledge-<date>.zip` (+ `.sha256`): the protein records cut to the fields read, Ensembl's batched
+  lookups repacked as sorted, deduplicated chunks (no chunk shows which ids were asked together), and Ask's
+  model-written readings and search results left out. First build: 9.2 GB of cache, 361 MB packed, 3.3 GB unpacked.
+  `install` unpacks into `DNA_CACHE_DIR` and keeps files already there; once a bundle is installed, a lookup it
+  lacks is logged to `misses.log` in the cache (`status` lists them) and still fetched live.
+  `knowledge fill` first runs the public sample (HG00096) through every step with the current code, so the bundle
+  holds every lookup the code makes, not a snapshot of what this machine happened to ask: the first bundle, built
+  without it, missed 9 lookup batches in a fresh install's run (Ensembl VEP for eQTL variants added since this
+  machine's last gene-calls run, one STRING network). After `fill`, the rebuilt bundle (362 MB packed, 3.3 GB
+  unpacked) served a fresh install's whole lite run with no live lookup at all. Lookups a bundle brought (its
+  repacked chunks) are folded back in on the next build, not packed twice.
+- **Lite mode:** `pipeline add --lite`, and the first choice in the Add-a-person dialog ("Measured variants",
+  with "With imputation" offered only where Java, Beagle and the panel are present). `genome/lite.py` moves the
+  measured calls to GRCh38 with the same chain file imputation uses and writes them in the imputed file's format,
+  all "measured" (`<person>.measured.csv`, which `loader.imputed_path` reads when there is no imputed file). The
+  profile carries `"lite": true`; Home says the person has no imputation.
+- **Lite mode's quality,** measured on HG00096 (same file, lite vs imputed, 2026-11-20):
+
+  | | Lite vs imputed |
+  |---|---|
+  | Lab-test scores (19) | 17% of the variants; median shift 10 percentile points, up to 72; 6 change band (≤20 / middle / ≥80) |
+  | Cancer scores (8) | 53% of the variants; median shift 6 points, up to 22; 1 changes band |
+  | Drug genes (12) | 11 identical; CYP2C19 read *1/*1 "Normal" because the chip lacks rs4244285 (*2) |
+
+  The CYP2C19 result was wrong, not just less complete, so the medicines caller now refuses to call a gene when a
+  defining variant the file doesn't read belongs to an allele that changes function and that 1% or more of any
+  ancestry carries (`medicines.unread_common`): "Not determined: a common variant isn't read", with the variant,
+  the allele and its frequency, and no guidance treating the gene as typical. On HG00096 lite this covers CYP2C19
+  (*2), CYP2C9 (*3), CYP2D6 (*41) and DPYD (HapB3); the imputed run is unchanged. For the web app: drug genes are
+  safe to show with this rule; polygenic scores built from a few hundred variants move too much on a chip alone to
+  be shown as bands without a "based on N of M variants" mark.
+- **Results file:** `python -m cluster_analysis.explorer results export --person ID | import FILE [--as ID] | list`,
+  and "Save results" / "Open results" in the page header. One person's rows from every dataset, gzipped (2 MB for
+  the HG00096 sample); an import is kept in `data/output/imported_GRCh38/` and merged on every export. Refused when
+  made on another genome build.
+- **First run:** with no one added, Home opens with a welcome card: the research data (install the bundle from
+  `data/knowledge/` or `DNA_KNOWLEDGE_URL`, with progress), where to get a raw file, and Add a person or Open a
+  results file.
+- **Phones:** measured at 390 px in a frame for every tab: no tab makes the page scroll sideways. The body-map and
+  cell drawings now keep a readable size and scroll inside their box; the tabs are finger-sized on touch screens.
+
 ### Phase 1: desktop installers
 
 1. **Windows:** the current build (`scripts/build_desktop.py`) wrapped in a per-user installer (Inno Setup or
@@ -181,6 +225,38 @@ writes the datasets: the Python pipeline on the desktop, a browser engine on the
 3. **Signing and updates:** a Windows code-signing certificate; checksums and signatures for Linux; an update check
    against our site that downloads a new version and keeps the data folder.
 4. **macOS** after these: the same bundle, with notarization.
+
+**Done (2026-11-20):** `python scripts/build_desktop.py --release --installer [--target linux]`, version from
+`cluster_analysis/version.py` (0.1.0).
+
+- **Windows:** an Inno Setup installer, `DNA-Analyzer-0.1.0-setup.exe`, 1.0 GB, per-user (no administrator), into
+  `%LOCALAPPDATA%\DNA-Analyzer`, with a Start-menu entry. An update replaces the program, the references and the
+  bundle; it never touches `data/input`, `data/output`, the cache or the profile list. The uninstaller asks whether
+  to delete the people and results (default: keep). Tested: silent install in 96 s; first start unpacks the
+  bundle and serves the page in 105 s (25 s after that); the HG00096 sample added in lite mode through the page's
+  API, all 8 steps, in 20 minutes with no live lookup; a silent uninstall keeps `data/` and removes the program and
+  the Start-menu entry.
+- **Linux:** `DNA-Analyzer-0.1.0-linux-x86_64.tar.gz`, 1.17 GB: CPython 3.10.22 from python-build-standalone, the
+  packages resolved for manylinux with `uv` (pip reads the dependencies' platform markers for the build machine),
+  the Temurin 17 JRE, `start.sh`, and `install.sh`, which installs into `~/.local/share/DNA-Analyzer` with a menu
+  entry and keeps the data and the profile list on update. Checked by listing it (executable bits, Linux
+  libraries, no personal files); **not yet run on Linux** (WSL is hung on this machine).
+- **Only files git doesn't ignore are packed**, so nothing under an ignored path (data/, caches) can reach an
+  installer; the release folder was checked for profiles, inputs, outputs and paths to this machine.
+- **Updates:** the page asks `DNA_UPDATE_URL` (a small JSON on our site: version, installer URLs, checksums,
+  notes) once per start and shows "Version X is out" in the header. No feed exists yet.
+
+**Still open:**
+- **Size.** Most of the 1 GB is references already compressed: ClinVar (193 MB), Ensembl2Reactome (183 MB, every
+  species: human rows only would be a fraction), the two GWAS Catalog zips (136 MB), the gene annotation (100 MB),
+  the imputation map and Beagle (134 MB, only for the imputation upgrade), plus the 361 MB bundle.
+- **Signing.** `SIGNTOOL` is passed to Inno Setup when set; it needs a code-signing certificate. Until then Windows
+  SmartScreen warns on the download.
+- **AppImage.** It mounts read-only, and the app writes next to its code (`data/`, `profiles.json`): it needs one
+  configurable data folder (production need 2) first. The tarball installs fine without it.
+- **The imputation upgrade** as a download (panel, sites, Beagle) for installs that want it; today a release build
+  offers imputation only where the panel is already on disk.
+- **Run the Linux tarball** on a Linux machine.
 
 ### Phase 2: the web app
 

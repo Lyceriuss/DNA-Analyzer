@@ -126,7 +126,8 @@
       stage(1, 'Read', inN(p.measured), fmt ? inT('SNPs measured in {}\'s {} file: single positions where people\'s DNA differs by one letter', c.who, fmt) : inT('SNPs measured in {}\'s file: single positions where people\'s DNA differs by one letter', c.who));
       // Confident calls only: most filled-in positions are rare variants called "not detected, not excluded", which add nothing
       const conf = p.tiers ? (p.tiers.high || 0) + (p.tiers.medium || 0) : null;
-      stage(2, 'After imputation', conf ? inMillions(conf) : '—', inT('confident calls added by imputation, {} of the tested ones right', inPct(v.right, 1)));
+      if (p.lite) stage(2, 'No imputation', inN(p.measured), inT('{} was added with the measured variants only: every result reads them. Adding {} again with imputation fills in the positions between them.', c.who, c.who));
+      else stage(2, 'After imputation', conf ? inMillions(conf) : '—', inT('confident calls added by imputation, {} of the tested ones right', inPct(v.right, 1)));
       const tg = inCount('theme_genes');
       stage(3, 'Results', inN(inDistinct(tg, 'gene')), 'genes read against the research, each finding with an evidence grade');
       inText(el, 'Genetic data is sensitive health data under the GDPR, so the analysis runs where the DNA file is stored: on this computer. Nothing is sent anywhere, and deleting the DNA file and the results folder removes everything.');
@@ -138,12 +139,16 @@
       if (conf && p.measured) inBars(sec, 'Calls before and after imputation', [
         { label: 'Measured by the chip', value: p.measured, cls: 'in-c-fg' },
         { label: 'Confident calls added by imputation', value: conf, cls: 'in-c-ok' }]);
-      inText(sec, inT('To check the guesses, every tenth measured position was hidden from {}\'s file, imputed as if it had never been read, and compared with the real answer.', c.who));
-      inFacts(sec, [[inPct(v.right, 1), 'of the confident guesses were right']]);
-      inStack(sec, inT('{}\'s imputed calls by confidence', c.who), [
-        { label: 'High', value: t.high, cls: 'in-c-ok' }, { label: 'Medium', value: t.medium, cls: 'in-c-ok2' },
-        { label: 'Low', value: t.low, cls: 'in-c-warn' }, { label: 'Untested', value: t.untested, cls: 'in-c-fg' }]);
-      inText(sec, 'Only high-confidence calls are used for conclusions from a single variant, and each is marked "imputed".');
+      if (p.lite) inText(sec, inT('{} was added without it: the results read the {} measured positions only. Scores built from many variants use fewer of them, and a drug gene whose common variant the chip lacks is shown as not determined.', c.who, inN(p.measured)));
+      else {
+        inText(sec, inT('To check the guesses, every tenth measured position was hidden from {}\'s file, imputed as if it had never been read, and compared with the real answer.', c.who));
+        inFacts(sec, [[inPct(v.right, 1), 'of the confident guesses were right']]);
+        inStack(sec, inT('{}\'s imputed calls by confidence', c.who), [
+          { label: 'High', value: t.high, cls: 'in-c-ok' }, { label: 'Medium', value: t.medium, cls: 'in-c-ok2' },
+          { label: 'Low', value: t.low, cls: 'in-c-warn' }, { label: 'Untested', value: t.untested, cls: 'in-c-fg' }]
+          .filter((x) => x.value > 0));  // a tier with no calls (one panel's run has no medium or low tier) isn't listed
+        inText(sec, 'Only high-confidence calls are used for conclusions from a single variant, and each is marked "imputed".');
+      }
       // The rare positions imputation can't tell about: not calls, so not in the chart; said once, plainly
       if (t.not_excluded) inText(sec, inT('At {} rare positions imputation can\'t tell whether {} carries the variant: it misses too many real carriers there. Those positions aren\'t used; a rare variant that matters (a drug gene, a disease variant) is shown as "not detected, not excluded".', inMillions(t.not_excluded), c.who));
     } },

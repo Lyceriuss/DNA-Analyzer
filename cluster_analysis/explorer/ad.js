@@ -31,7 +31,7 @@
       if (run.eta != null) return Math.max(0, run.eta - (Date.now() - (run._seen || Date.now())) / 1000);
       let s = 0;
       for (const st of run.stages) {
-        if (st.state === 'done') continue;
+        if (st.state === 'done' || (st.id === 'impute' && run.lite)) continue;
         const t = typ(st.id), part = st.parts ? st.done_parts / st.parts.length : 0;
         if (st.state === 'running' && st.started) {
           const took = (Date.now() - new Date(st.started).getTime()) / 1000;
@@ -113,7 +113,7 @@
       drop.addEventListener('drop', (e) => { e.preventDefault(); drop.classList.remove('is-over'); if (e.dataTransfer.files[0]) send(e.dataTransfer.files[0]); });
       const how = make(dialog, 'ol', 'gx-add-how');
       for (const [b, t] of [['Read', 'The file is checked: its format, its calls and the sex its X chromosome shows.'],
-                            ['Impute', 'The positions the test didn\'t measure are filled in from reference genomes, about half an hour.'],
+                            ['Impute (optional)', 'The positions the test didn\'t measure can be filled in from reference genomes, about half an hour. Without it, the measured positions are used and a result is ready in minutes.'],
                             ['Analyse', 'Every tab is worked out for the person and they appear in the profile switcher.']]) {
         const li = make(how, 'li'); make(li, 'b', null, b); make(li, 'span', null, t);
       }
@@ -202,10 +202,35 @@
         sex.value = upload.sex || '';
         make(sl, 'span', 'gx-note', 'The file has too few X chromosome calls to read sex from. It decides the fertility theme and the nutrient intake group.');
       }
+      // Lite (measured variants only) is the default; imputation only where this computer can run it
+      const blocked = (state.imputation || {}).problems || [];
+      if (upload.lite === undefined) upload.lite = true;
+      const took = (lite) => mins((lite ? ['check', 'register', 'analyse', 'explorer'] : ['check', 'register', 'impute', 'analyse', 'explorer']).reduce((s, k) => s + typ(k), 0));
+      const modes = make(dialog, 'div', 'gx-add-modes');
+      modes.setAttribute('role', 'radiogroup');
+      const machineBox = document.createElement('div');
+      let note;
+      const mode = (lite, title, text) => {
+        const off = !lite && blocked.length;
+        const b = make(modes, 'button', 'gx-add-mode' + (upload.lite === lite ? ' is-on' : ''));
+        b.type = 'button'; b.disabled = !!off;
+        b.setAttribute('role', 'radio'); b.setAttribute('aria-checked', String(upload.lite === lite));
+        const h = make(b, 'span', 'gx-add-mode-head'); make(h, 'b', null, title); make(h, 'span', 'gx-add-mode-time', fill('about {}', took(lite)));
+        make(b, 'span', 'gx-note', off ? blocked[0] : text);
+        b.addEventListener('click', () => {
+          upload.lite = lite;
+          for (const o of modes.children) { const on = o === b; o.classList.toggle('is-on', on); o.setAttribute('aria-checked', String(on)); }
+          machineBox.hidden = lite;
+          note.textContent = fill('Takes about {}. The explorer stays usable meanwhile, and the run carries on if this window is closed.', took(lite));
+        });
+      };
+      mode(true, 'Measured variants', 'The positions the test measured. Ready in minutes, on any computer.');
+      mode(false, 'With imputation', 'Fills in the positions between them from 3,202 reference genomes, for fuller scores. Needs Java, the 14 GB reference panel and 8 GB or more of memory.');
       const err = make(dialog, 'p', 'gx-add-bad'); err.hidden = true;
       const foot = make(dialog, 'div', 'gx-add-foot');
-      machinePanel(foot.parentNode.insertBefore(document.createElement('div'), foot));
-      make(foot, 'span', 'gx-note', fill('Takes about {}. The explorer stays usable meanwhile, and the run carries on if this window is closed.', mins(['check', 'register', 'impute', 'analyse', 'explorer'].reduce((s, k) => s + typ(k), 0))));
+      machinePanel(foot.parentNode.insertBefore(machineBox, foot));
+      machineBox.hidden = upload.lite;
+      note = make(foot, 'span', 'gx-note', fill('Takes about {}. The explorer stays usable meanwhile, and the run carries on if this window is closed.', took(upload.lite)));
       const back = make(foot, 'button', 'gx-add-ghost', 'Choose another file'); back.type = 'button';
       back.addEventListener('click', () => { view = 'pick'; upload = null; render(); });
       const go = make(foot, 'button', 'gx-add-go', 'Start'); go.type = 'button';
@@ -222,7 +247,7 @@
       go.addEventListener('click', async () => {
         go.disabled = true;
         try {
-          await api('start', { token: upload.token, id: name.value.trim(), sex: sex.value });
+          await api('start', { token: upload.token, id: name.value.trim(), sex: sex.value, lite: !!upload.lite });
           watching = name.value.trim(); upload = null; view = 'progress';
           await refresh(); render();
         } catch (e) { err.hidden = false; err.textContent = e.message; go.disabled = false; }
@@ -327,6 +352,11 @@
         make(el, 'p', null, st.state === 'done' ? fill('The file was copied to {} and {} was added to the profile list.', st.detail, run.id) : 'Copying the file into the project\'s data folder.');
       },
       impute(el, run, f, st) {
+        if (run.lite || f.skipped) {
+          make(el, 'h3', null, 'Measured variants only');
+          make(el, 'p', 'gx-note', 'This person was added without imputation: every result is read from the positions the test measured. Scores built from many variants use the ones measured, so they can differ from an imputed run. Adding the person again with imputation fills in the rest.');
+          return;
+        }
         make(el, 'h3', null, 'Filling in the gaps');
         const frac = st.state === 'done' ? 1 : (st.done_parts || 0) / ((st.parts || []).length || 1);
         illustrate(el, frac, st.state === 'running');
@@ -580,5 +610,7 @@
       clearTimeout(timer);
       timer = setTimeout(async () => { await refresh(); poll(); }, state.busy || (dialog && dialog.open) ? 2000 : 20000);
     };
+    // The first-run card (fr.js) opens the dialog too
+    window.gxAdd = { open: () => open('pick') };
     refresh().then(() => { if (state.enabled) poll(); });
   })();

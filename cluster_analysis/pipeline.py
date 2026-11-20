@@ -174,7 +174,7 @@ def eta(s, pl):
     now_t = time.time()
     left = 0.0
     for st in s["stages"]:
-        if st["state"] == "done":
+        if st["state"] == "done" or (st["id"] == "impute" and s.get("lite")):
             continue
         k = st["id"]
         if st["state"] != "running":
@@ -269,7 +269,10 @@ class Run:
         os.makedirs(STATE_DIR, exist_ok=True)
         self.path = os.path.join(STATE_DIR, pid + ".json")
         self.log_path = os.path.join(STATE_DIR, pid + ".log")
-        self.s = json.load(open(self.path, encoding="utf-8")) if os.path.exists(self.path) else None
+        self.s = None
+        if os.path.exists(self.path):
+            with open(self.path, encoding="utf-8") as f:
+                self.s = json.load(f)
 
     def new(self, pid, src, sex):
         stages = [{"id": "check", "label": "Checking the file"}, {"id": "register", "label": "Adding the person"},
@@ -302,7 +305,15 @@ class Run:
         self.s["progress"] = round(min(done, 1.0), 4)
         self.s["updated"] = now()
         tmp = self.path + ".tmp"
-        json.dump(self.s, open(tmp, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+        with open(tmp, "w", encoding="utf-8") as f:
+            json.dump(self.s, f, ensure_ascii=False, indent=1)
+        # Windows refuses to replace a file another process has open (the server reading the status): try again shortly
+        for i in range(20):
+            try:
+                os.replace(tmp, self.path)
+                return
+            except PermissionError:
+                time.sleep(0.05 * (i + 1))
         os.replace(tmp, self.path)
 
     def log(self, line):
@@ -348,9 +359,26 @@ def stream(run, sid, cmd, on_line=None):
 
 # --- the stages -----------------------------------------------------------------------------------------------------
 
-def preflight(src):
+def imputation_problems():
+    """What stops imputation on this machine (Java, Beagle, the panel); empty when it can run. Lite mode needs none."""
     from genome import impute
     problems = []
+    if shutil.which("java") is None:
+        problems.append("Java isn't installed: imputation runs Beagle, which needs Java 11 or newer.")
+    if not os.path.exists(os.path.join(impute.REF, "beagle.jar")):
+        problems.append("Beagle is missing (data/reference/imputation/beagle.jar).")
+    P = impute.panel(gbuild.panel_name())
+    if not os.path.isdir(P["dir"]):
+        problems.append(f"The reference panel ({P['label']}, about 14 GB) isn't on this computer.")
+    return problems
+
+
+def preflight(src, lite=False):
+    from genome import impute
+    problems = []
+    if lite:
+        free = shutil.disk_usage(ROOT).free / 1e9
+        return [f"Only {free:.1f} GB free on {os.path.splitdrive(ROOT)[0] or ROOT}; a person needs about 1 GB."] if free < 1 else []
     if shutil.which("java") is None:
         problems.append("Java isn't installed: imputation runs Beagle, which needs Java 11 or newer.")
     if not os.path.exists(os.path.join(impute.REF, "beagle.jar")):
@@ -365,13 +393,17 @@ def preflight(src):
     return problems
 
 
-def add(src, pid, sex=None):
+def add(src, pid, sex=None, lite=False):
+    """lite: the measured variants only, no imputation (minutes instead of an hour; no Java, panel or large memory).
+    The imputation can be added later by adding the person again without it."""
     run = Run(pid)
     if run.s and run.s["state"] == "running" and pid_alive(run.s.get("pid")):
         raise SystemExit(f"{pid} is already being added")
     if not (run.s and run.s["state"] in ("failed", "cancelled")):
         run.new(pid, src, sex)
-    else:  # resume: the stages done stay done
+        run.s["lite"] = bool(lite)
+    else:  # resume: the stages done stay done, in the mode the run started in
+        lite = run.s.get("lite", False)
         run.s.update(state="running", error=None, ended=None, pid=os.getpid())
         for st in run.s["stages"]:
             if st["state"] in ("failed", "running"):
@@ -392,7 +424,7 @@ def add(src, pid, sex=None):
             sex = info["sex"] or sex   # the X chromosome decides when it can; the dialog asks only when it can't
             if sex not in ("female", "male"):
                 raise RuntimeError("Sex couldn't be read from the DNA; choose it in the dialog.")
-            pre = preflight(src)
+            pre = preflight(src, lite)
             if pre:
                 raise RuntimeError(pre[0])
             run.s["sex"] = sex
@@ -407,13 +439,28 @@ def add(src, pid, sex=None):
             run.begin(sid)
             if os.path.abspath(src) != os.path.abspath(dest):
                 shutil.copyfile(src, dest)
-            register(pid, sex, os.path.relpath(dest, ROOT).replace(os.sep, "/"))
+            register(pid, sex, os.path.relpath(dest, ROOT).replace(os.sep, "/"), lite)
             if os.path.abspath(src).startswith(os.path.join(STATE_DIR, "uploads")):
                 shutil.rmtree(os.path.dirname(os.path.abspath(src)), ignore_errors=True)
             run.finish(sid, os.path.relpath(dest, ROOT).replace(os.sep, "/"))
         # impute
         sid = "impute"
         st = run.stage(sid)
+        if st["state"] != "done" and lite:
+            # No imputation: the measured calls moved to the analysis build (genome/lite.py), under a minute
+            run.begin(sid, "Moving the measured calls to the analysis build")
+            f = run.facts("impute")
+            f["skipped"] = True
+
+            def on_lite(line):
+                m = re.match(r"([\d,]+) measured calls written", line)
+                if m:
+                    f["measured"] = num(m.group(1))
+                m = re.match(r"([\d,]+) calls couldn't be moved to", line)
+                if m:
+                    f["lost"] = num(m.group(1))
+            stream(run, sid, [sys.executable, "-m", "genome.lite", dest], on_lite)
+            run.finish(sid, "Measured variants only")
         if st["state"] != "done":
             from genome import impute
             P = impute.panel(gbuild.panel_name())
@@ -716,10 +763,11 @@ def _write_profiles(raw, data, rows):
     open(PROFILES, "wb").write(out.encode())
 
 
-def register(pid, sex, dna):
+def register(pid, sex, dna, lite=False):
     raw = open(PROFILES, "rb").read().decode()
     data = json.loads(raw)
-    _write_profiles(raw, data, [p for p in data["profiles"] if p["id"] != pid] + [{"id": pid, "sex": sex, "dna": dna, "added": now()[:10]}])
+    row = {"id": pid, "sex": sex, "dna": dna, "added": now()[:10], **({"lite": True} if lite else {})}
+    _write_profiles(raw, data, [p for p in data["profiles"] if p["id"] != pid] + [row])
 
 
 def record_timings(s):
@@ -759,7 +807,8 @@ def status():
         for f in os.listdir(STATE_DIR):
             if f.endswith(".json") and f != "timings.json":
                 try:
-                    s = json.load(open(os.path.join(STATE_DIR, f), encoding="utf-8"))
+                    with open(os.path.join(STATE_DIR, f), encoding="utf-8") as fh:
+                        s = json.load(fh)
                 except (OSError, json.JSONDecodeError):
                     continue
                 if s.get("state") == "running" and not pid_alive(s.get("pid")):
@@ -773,6 +822,7 @@ def status():
                 "validate" in (s.get("facts", {}).get("impute", {}).get("part") or "validate")
             s["eta"] = eta(s, plan(m, validate=needs))
     return {"runs": sorted(out, key=lambda s: s.get("started") or "", reverse=True), "machine": m, "plan": pl,
+            "imputation": {"problems": imputation_problems()},
             "typical": {k: pl[k] for k in ("check", "register", "impute", "analyse", "explorer")}}
 
 
@@ -783,6 +833,7 @@ if __name__ == "__main__":
     ap.add_argument("file", nargs="?")
     ap.add_argument("--id")
     ap.add_argument("--sex", choices=("female", "male"))
+    ap.add_argument("--lite", action="store_true", help="add: measured variants only, no imputation")
     a = ap.parse_args()
     if a.command == "inspect":
         print(json.dumps(inspect(a.file), indent=1, ensure_ascii=False))
@@ -802,4 +853,4 @@ if __name__ == "__main__":
     else:
         if not a.file or not a.id or not ID_RE.match(a.id):
             raise SystemExit("add needs FILE and --id (letters, digits, _ and -, up to 32)")
-        add(a.file, a.id, a.sex)
+        add(a.file, a.id, a.sex, a.lite)

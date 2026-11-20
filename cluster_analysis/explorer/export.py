@@ -442,7 +442,10 @@ if __name__ == "__main__":
         merged["lab_tests"], merged["lab_findings"] = trim_findings(merged.get("lab_tests", []), merged.get("lab_findings", []))
         merged["fit_tests"], merged["fit_findings"] = trim_findings(merged.get("fit_tests", []), merged.get("fit_findings", []))
         merged["can_tests"], merged["can_findings"] = trim_findings(merged.get("can_tests", []), merged.get("can_findings", []))
-        merged["profiles"] = [{"id": p["id"], "sex": p.get("sex")} for p in people]
+        merged["profiles"] = [{"id": p["id"], "sex": p.get("sex"), **({"lite": True} if p.get("lite") else {})} for p in people]
+        # People imported from a results file (explorer/results.py): their rows as they came
+        from cluster_analysis.explorer import results
+        results.merge(merged, {p["id"] for p in people})
         # The introduction (Home tab): the method's numbers and each person's (cluster_analysis/explorer/intro.py)
         from cluster_analysis.explorer import intro
         merged["intro_stats"] = intro.rows(people)

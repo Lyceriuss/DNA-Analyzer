@@ -31,6 +31,10 @@ def _cached(namespace, key, fetch):
     if os.path.exists(path):
         with open(path, "r", encoding="utf-8") as f:
             return json.load(f)
+    if os.path.exists(os.path.join(CACHE_DIR, "knowledge_installed.json")):
+        # A lookup the knowledge bundle lacked: logged on this machine, for the next release (knowledge.py status)
+        with open(os.path.join(CACHE_DIR, "misses.log"), "a", encoding="utf-8") as f:
+            f.write(f"{time.strftime('%Y-%m-%d')}\t{namespace}\t{key[:200]!r}\n")
     data = fetch()
     with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False)

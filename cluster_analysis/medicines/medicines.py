@@ -317,6 +317,27 @@ def site_freqs(where):
     return {rs: f for rs, f in known.items() if f}
 
 
+def unread_common(gene, missing, freqs, floor=0.01):
+    """[(allele, rsid, function, {population: frequency})] for the gene's defining variants the file doesn't read
+    whose allele changes function and is carried by `floor` or more of some 1000 Genomes ancestry."""
+    out = []
+    for name, rsid, alt, fn in STAR[gene]:
+        if rsid in missing and not fn.lower().startswith(("normal", "increased")):
+            f = allele_freq(freqs.get(rsid), alt)
+            if f and max(f.values()) >= floor:
+                out.append((name, rsid, fn, f))
+    return out
+
+
+def cached_freqs():
+    """Every frequency looked up so far (FREQ_CACHE, shipped with the references), also for variants a file lacks."""
+    try:
+        with open(FREQ_CACHE, encoding="utf-8") as f:
+            return {rs: v for rs, v in json.load(f).items() if v}
+    except (OSError, ValueError):
+        return {}
+
+
 def allele_freq(site, allele):
     """{population: frequency of allele} from a site_freqs entry; the complement is tried for the other strand."""
     if not site:
@@ -362,6 +383,21 @@ def build(dna):
                           "note": CAVEATS.get(gene), "typical": None, "ancestry": across})
             continue
         alleles, pheno, snps, note, missing = d
+        # A defining variant the file doesn't read, of an allele that changes function and that 1% or more of any
+        # ancestry carries: the call at the measured variants can't rule it out, so the gene isn't called (a chip
+        # without CYP2C19*2's rs4244285 would otherwise read "Normal metaboliser" for one person in four)
+        unread = unread_common(gene, missing, cached_freqs())
+        if unread:
+            genes.append({"gene": gene, "alleles": None, "phenotype": "Not determined: a common variant isn't read",
+                          "snps": json.dumps(snps), "typical": None, "imputed": any(s["confidence"] == "high" for s in snps),
+                          "ancestry": across,
+                          "note": " ".join(x for x in (
+                              "This file doesn't read " + "; ".join(
+                                  f"{rsid}, which defines {name} ({fn.lower()}, carried by {f['EUR']:.0%} of Europeans and "
+                                  f"up to {max(f.values()):.0%} in other ancestries)" for name, rsid, fn, f in unread)
+                              + f". At the variants it reads the gene would be {'/'.join(alleles)}, which can't rule those out.",
+                              CAVEATS.get(gene)) if x)})
+            continue
         star[gene] = alleles
         typical = pheno.startswith(("Normal", "Rapid acetylator")) or gene == "CYP3A5" and pheno.startswith("Poor")
         genes.append({"gene": gene, "alleles": "/".join(alleles), "phenotype": pheno, "snps": json.dumps(snps),
