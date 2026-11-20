@@ -1,0 +1,8 @@
+# Never in the image: people's DNA files, results and caches (mounted at run time instead), and the repo's history
+data/
+cluster_analysis/cache/
+docs/outreach/
+.git/
+**/__pycache__/
+*.pyc
+.claude/

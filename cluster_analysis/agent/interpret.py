@@ -21,7 +21,7 @@ import sys
 from concurrent.futures import ThreadPoolExecutor
 
 from cluster_analysis import sources
-from cluster_analysis.agent import language, morsels
+from cluster_analysis.agent import cost, language, morsels
 
 MODEL_API = os.environ.get("DNA_AGENT_SMALL_MODEL", "claude-haiku-5-5")
 MODEL_CC = os.environ.get("DNA_AGENT_SMALL_CC", "haiku")
@@ -100,9 +100,7 @@ def _ask(prompt, system=None, schema=None):
                                      messages=[{"role": "user", "content": prompt}],
                                      output_config={"format": {"type": "json_schema", "schema": schema}})
         text = next(b.text for b in msg.content if b.type == "text")
-        u = msg.usage
-        return json.loads(text), {"input": u.input_tokens + (u.cache_read_input_tokens or 0) + (u.cache_creation_input_tokens or 0),
-                                  "output": u.output_tokens}
+        return json.loads(text), cost.of(MODEL_API, msg.usage)
     cli = run.claude_cli()
     if not cli:
         raise RuntimeError("No API key and no Claude Code command line.")
@@ -113,9 +111,7 @@ def _ask(prompt, system=None, schema=None):
     d = json.loads(p.stdout)
     if d.get("is_error") or not d.get("structured_output"):
         raise RuntimeError(str(d.get("result"))[:300])
-    u = d.get("usage") or {}
-    return d["structured_output"], {"input": u.get("input_tokens", 0) + u.get("cache_read_input_tokens", 0) + u.get("cache_creation_input_tokens", 0),
-                                    "output": u.get("output_tokens", 0)}
+    return d["structured_output"], cost.of(MODEL_CC, d.get("usage") or {})
 
 
 def _batch(ms):
@@ -135,15 +131,15 @@ def cluster(theme, emit=lambda ev: None):
     Returns the tokens used ({input, output}; zero when everything was cached)."""
     have, _ = morsels.cached(theme)
     todo = [m for ms in have.values() for m in ms if cached(fid(m)) is None]
-    usage = {"input": 0, "output": 0}
+    usage = cost.new()
     if not todo:
         return usage
     batches = [todo[i:i + BATCH] for i in range(0, len(todo), BATCH)]
     emit({"type": "step", "step": "interpret", "sources": ["claude"], "findings": len(todo), "calls": len(batches)})
     with ThreadPoolExecutor(max_workers=4) as pool:
         for u in pool.map(_batch, batches):
-            usage = {k: usage[k] + u[k] for k in usage}
-            emit({"type": "usage", **usage, "cache_read": 0, "cache_write": 0})
+            usage = cost.add(usage, u)
+            emit({"type": "usage", **usage})
     return usage
 
 
@@ -169,7 +165,7 @@ def summary(result, person):
         g = next((g for g in r["groups"] if _mine(g["label"], labs)), None)
         if not g:
             continue
-        out.append({"gene": f["gene"], "genotype": f["genotype"], "reading": g["reading"], "direction": g["direction"],
+        out.append({"gene": f["gene"], "rsid": f.get("rsid"), "genotype": f["genotype"], "reading": g["reading"], "direction": g["direction"],
                     "takeaway": g.get("takeaway") or "", "type": f["type"], "year": f["year"], "url": f["url"],
                     "title": f["title"], "numbers": f["numbers"]})
     return out

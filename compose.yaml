@@ -1,0 +1,26 @@
+# The explorer for developers:   docker compose up --build    then open http://127.0.0.1:8000
+#
+# The working copy is mounted at /app, so code edits apply on a restart, and data/ and the lookup cache stay on the
+# host. The reference panel (impute tier, ~14 GB) is mounted read-only from DNA_REFERENCE_DIR (default D:/DNA-Analyzer-
+# reference; set it in .env on another machine). Ask uses ANTHROPIC_API_KEY from the host's environment or .env
+# (Claude Code isn't available inside the container).
+services:
+  explorer:
+    build: .
+    image: dna-analyzer:dev
+    ports:
+      - "127.0.0.1:8000:8000"   # this machine only: the datasets hold genotypes
+    volumes:
+      - .:/app
+      - ${DNA_REFERENCE_DIR:-D:/DNA-Analyzer-reference}:/ref:ro
+    environment:
+      DNA_PANEL_ROOT: /ref/1kGP_high_coverage_GRCh38
+      DNA_PANEL_DIR_1KGP_HC: /ref/1kGP_high_coverage_GRCh38/bref3
+      DNA_ENSEMBL_DIR: /ref/ensembl_grch38
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+    # Docker keeps container output in its disk image: capped, so a long run can't fill the disk
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "2"

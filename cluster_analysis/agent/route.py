@@ -17,7 +17,7 @@ import hashlib
 import json
 import os
 
-from cluster_analysis.agent import terms
+from cluster_analysis.agent import cost, terms
 
 PKG = terms.PKG
 CACHE = os.path.join(terms.ROOT, "data", "output", "agent", "routes2")
@@ -85,30 +85,26 @@ def _ask(question):
         msg = client.messages.create(model=interpret.MODEL_API, max_tokens=2000, system=SYSTEM,
                                      messages=[{"role": "user", "content": prompt}],
                                      output_config={"format": {"type": "json_schema", "schema": schema}})
-        u = msg.usage
-        return json.loads(next(b.text for b in msg.content if b.type == "text")), \
-            {"input": u.input_tokens + (u.cache_read_input_tokens or 0) + (u.cache_creation_input_tokens or 0), "output": u.output_tokens}
+        return json.loads(next(b.text for b in msg.content if b.type == "text")), cost.of(interpret.MODEL_API, msg.usage)
     p = subprocess.run([run.claude_cli(), "-p", prompt, "--output-format", "json", "--json-schema", json.dumps(schema), "--tools", "",
                         "--model", interpret.MODEL_CC, "--system-prompt", SYSTEM, "--no-session-persistence"],
                        stdin=subprocess.DEVNULL, capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=120)
     d = json.loads(p.stdout)
     if d.get("is_error") or not d.get("structured_output"):
         raise RuntimeError(str(d.get("result"))[:300])
-    u = d.get("usage") or {}
-    return d["structured_output"], {"input": u.get("input_tokens", 0) + u.get("cache_read_input_tokens", 0) + u.get("cache_creation_input_tokens", 0),
-                                    "output": u.get("output_tokens", 0)}
+    return d["structured_output"], cost.of(interpret.MODEL_CC, d.get("usage") or {})
 
 
 def understand(question):
     """The model's reading of the question (cached per question): (intent, usage)."""
     from cluster_analysis.agent import run
     if not run.backend():
-        return None, {"input": 0, "output": 0}
+        return None, cost.new()
     os.makedirs(CACHE, exist_ok=True)
     path = os.path.join(CACHE, hashlib.sha1(terms.norm(question).encode("utf-8")).hexdigest()[:16] + ".json")
     if os.path.exists(path):
         with open(path, encoding="utf-8") as f:
-            return json.load(f), {"input": 0, "output": 0, "cached": True}
+            return json.load(f), {**cost.new(), "cached": True}
     intent, usage = _ask(question)
     with open(path, "w", encoding="utf-8") as f:
         json.dump(intent, f, ensure_ascii=False)

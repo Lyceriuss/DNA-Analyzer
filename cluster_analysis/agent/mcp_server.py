@@ -12,6 +12,7 @@ data/output/agent/mcp_turn.json.
 """
 import json
 import os
+from typing import Literal
 
 from mcp.server.mcpserver import MCPServer
 
@@ -31,6 +32,9 @@ def _load():
     for k in ("cards", "views", "findings"):
         ctx[k] = d.get(k) or []
     ctx["understood"], ctx["answer"] = d.get("understood"), d.get("answer")
+    ctx["spent"], ctx["rejections"], ctx["outward"] = d.get("spent", 0), d.get("rejections", 0), d.get("outward", 0)
+    ctx["outward_args"] = d.get("outward_args") or []
+    ctx["lookup_args"], ctx["trace"], ctx["question"] = d.get("lookup_args") or [], d.get("trace") or [], d.get("question")
     return ctx
 
 
@@ -40,7 +44,10 @@ CTX = _load()
 def _save():
     os.makedirs(os.path.dirname(TURN), exist_ok=True)
     out = {"person": CTX["person"], "share": CTX["share"], "ledger": CTX["ledger"].to_json(), "cards": CTX["cards"], "views": CTX["views"],
-           "findings": CTX["findings"], "understood": CTX["understood"], "answer": CTX["answer"]}
+           "findings": CTX["findings"], "understood": CTX["understood"], "answer": CTX["answer"],
+           "spent": CTX.get("spent", 0), "rejections": CTX.get("rejections", 0), "outward": CTX.get("outward", 0),
+           "outward_args": CTX.get("outward_args", []), "lookup_args": CTX.get("lookup_args", []), "trace": CTX.get("trace", []),
+           "question": CTX.get("question")}
     tmp = TURN + ".tmp"
     with open(tmp, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False)
@@ -54,8 +61,9 @@ PY = {"string": "str", "integer": "int", "array": "list[str]"}
 def _register(name, schema, desc):
     """A typed wrapper per tool, so the MCP schema shows its real parameters."""
     params, names = [], []
-    for k, spec in schema["properties"].items():
-        t = PY[spec["type"]]
+    # Required parameters first: Python allows no required parameter after an optional one
+    for k, spec in sorted(schema["properties"].items(), key=lambda kv: kv[0] not in schema["required"]):
+        t = f"Literal[{', '.join(map(repr, spec['enum']))}]" if spec.get("enum") else PY[spec["type"]]
         params.append(f"{k}: {t}" if k in schema["required"] else f"{k}: {t} | None = None")
         names.append(k)
     src = (f"def {name}({', '.join(params)}):\n"
@@ -63,7 +71,7 @@ def _register(name, schema, desc):
            f"    text, err = tools.call(CTX, {name!r}, args)\n"
            f"    _save()\n"
            f"    return ('NOT ACCEPTED: ' + text) if err else text\n")
-    ns = {"tools": tools, "CTX": CTX, "_save": _save}
+    ns = {"tools": tools, "CTX": CTX, "_save": _save, "Literal": Literal}
     exec(src, ns)
     server.add_tool(ns[name], name=name, description=desc)
 

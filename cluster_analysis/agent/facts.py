@@ -73,12 +73,32 @@ def study_ref(led, row):
                    f"https://www.ebi.ac.uk/gwas/studies/{row['study']}")
 
 
+def _compact(x):
+    """Drops empty fields (None, "", [], {}) at every depth; 0 and False stay."""
+    if isinstance(x, dict):
+        out = {k: _compact(v) for k, v in x.items()}
+        return {k: v for k, v in out.items() if v not in (None, "", [], {})}
+    if isinstance(x, (list, tuple)):
+        return [_compact(v) for v in x]
+    return x
+
+
 def clip(obj):
-    """A tool result as JSON text, cut to MAX_CHARS with a note (lists are shortened first)."""
-    text = json.dumps(obj, ensure_ascii=False, separators=(",", ":"))
+    """A tool result as JSON text without empty fields, cut to MAX_CHARS with a note."""
+    text = json.dumps(_compact(obj), ensure_ascii=False, separators=(",", ":"))
     if len(text) <= MAX_CHARS:
         return text
     return text[:MAX_CHARS] + ' ... [cut: the result was longer; ask for less, e.g. a lower limit]'
+
+
+def _short(s, n):
+    s = (s or "").strip()
+    return s if len(s) <= n else s[:n].rsplit(" ", 1)[0] + "…"
+
+
+def _first(s):
+    """A text's first sentence."""
+    return re.split(r"(?<=\.)\s+(?=[A-Z])", (s or "").strip())[0]
 
 
 # --- Themes ------------------------------------------------------------------------------------------------------
@@ -122,8 +142,8 @@ def themes(led, theme=None):
             count[m] = count.get(m, 0) + 1
     led.ref(f"Theme:{theme}", f"Explorer theme {g['name']} (Gene Ontology, Open Targets)", None)
     return {"theme": theme, "name": g["name"], "about": g.get("about"), "rule": g.get("rule"),
-            "phases": [{"id": o["id"], "phase": o.get("phase"), "name": o["name"], "about": o.get("about")} for o in g.get("organs") or []],
-            "mechanisms": [{"id": m["id"], "name": m["name"], "about": m.get("about"), "phase": m.get("organ"),
+            "phases": [{"id": o["id"], "phase": o.get("phase"), "name": o["name"]} for o in g.get("organs") or []],
+            "mechanisms": [{"id": m["id"], "name": m["name"], "about": _short(m.get("about"), 70), "phase": m.get("organ"),
                             "genes": count.get(m["id"], 0)} for m in g.get("mechanisms") or []],
             "traits": sorted(set((g.get("diseases") or {}).values()))}
 
@@ -153,7 +173,10 @@ def theme_genes(led, theme, mechanism=None, trait=None, limit=30):
     led.ref(f"Theme:{theme}", f"Explorer theme {g['name']} (Gene Ontology, Open Targets)", None)
     for r in rows[:limit]:
         led.genes.add(r["gene"])
-    return {"theme": theme, "mechanism": mechanism, "trait": trait, "total": len(rows), "genes": rows[:int(limit)]}
+    slim = [{"gene": r["gene"], "mechanisms": sorted(r["mechanisms"]),
+             "evidence": (r["mechanisms"].get(mechanism) or {}).get("evidence") if mechanism else None,
+             "traits": {k: v.get("genetic") for k, v in r["traits"].items() if v.get("genetic")}} for r in rows[:int(limit)]]
+    return {"theme": theme, "mechanism": mechanism, "trait": trait, "total": len(rows), "genes": slim}
 
 
 # --- Genes and variants -------------------------------------------------------------------------------------------
@@ -185,7 +208,7 @@ def gene(led, symbol, limit=15):
         t = traits.setdefault(r["trait"], {"trait": r["trait"], "variants": set(), "best_p": r["p"], "studies": set()})
         t["variants"].add(r["rsid"])
         t["studies"].add(r["study"])
-    top_traits = sorted(traits.values(), key=lambda t: (-len(t["studies"]), t["best_p"]))[:25]
+    top_traits = sorted(traits.values(), key=lambda t: (-len(t["studies"]), t["best_p"]))[:12]
     seen, top = set(), []
     for r in rows:
         if r["rsid"] in seen:
@@ -194,9 +217,9 @@ def gene(led, symbol, limit=15):
         top.append({"rsid": r["rsid"], "trait": r["trait"], "p": r["p"], "context": r["context"]})
         if len(top) >= limit:
             break
-    cv = index.query("SELECT rsid, significance, condition, stars FROM clinvar WHERE gene = ? AND stars >= 1 ORDER BY stars DESC LIMIT 15", symbol)
+    cv = index.query("SELECT rsid, significance, condition, stars FROM clinvar WHERE gene = ? AND stars >= 1 ORDER BY stars DESC LIMIT 8", symbol)
     led.genes.add(symbol)
-    return {"gene": symbol, "protein": {k: (v[:1500] if isinstance(v, str) else v) for k, v in up.items()},
+    return {"gene": symbol, "protein": {k: (v[:700] if isinstance(v, str) else v) for k, v in up.items()},
             "themes": in_themes,
             "gwas_traits": [{"trait": t["trait"], "variants": len(t["variants"]), "studies": len(t["studies"]), "best_p": t["best_p"]} for t in top_traits],
             "gwas_variants": top, "gwas_variant_total": len(seen),
@@ -230,13 +253,11 @@ def variant(led, rsid, limit=25):
         if key in seen:
             continue
         seen.add(key)
-        ci = (r["ci"] or "").lower()
-        assoc.append({"trait": r["trait"], "reported": r["reported"], "effect_allele": r["allele"], "p": r["p"],
+        assoc.append({"trait": r["trait"], "reported": r["reported"] if (r["reported"] or "").lower() != (r["trait"] or "").lower() else None,
+                      "effect_allele": r["allele"], "p": r["p"],
                       "or_or_beta": r["size"], "ci": r["ci"] or None,
-                      "direction": "increase" if "increase" in ci else "decrease" if "decrease" in ci else None,
-                      "allele_freq_in_study": r["raf"], "sample": (r["sample"] or "")[:160], "study": r["study"],
-                      "ref": study_ref(led, r), "paper": pmid_ref(led, r["pmid"], None, r["year"], r["journal"]),
-                      "author": f"{r['author']} {r['year']}"})
+                      "allele_freq_in_study": r["raf"], "sample": (r["sample"] or "")[:70], "study": r["study"],
+                      "ref": study_ref(led, r), "paper": pmid_ref(led, r["pmid"], None, r["year"], r["journal"]), "year": r["year"]})
         if len(assoc) >= limit:
             break
     genes = sorted({x["gene"] for x in index.query("SELECT gene FROM genes WHERE rsid = ?", rsid)})
@@ -252,11 +273,11 @@ def variant(led, rsid, limit=25):
         for t in gts:
             led.text(rid, t["text"])
         pgx.append({"ref": rid, "level": r["Level of Evidence"], "drugs": r["Drug(s)"], "phenotype": r.get("Phenotype(s)"),
-                    "genotypes": gts})
+                    "genotypes": [{"genotype": g["genotype"], "text": _short(_first(g["text"]), 200)} for g in gts]})
     fe = next((x for x in _function_evidence() if x["rsid"] == rsid), None)
     lit = _literature().get(rsid) or {}
     papers = [{"ref": pmid_ref(led, p["pmid"], p.get("title"), p.get("year"), p.get("journal")), "title": p.get("title"),
-               "year": p.get("year"), "cited": p.get("cited")} for p in (lit.get("papers") or [])[:8]]
+               "year": p.get("year"), "cited": p.get("cited")} for p in (lit.get("papers") or [])[:5]]
     quotes = []
     for q in lit.get("quotes") or []:
         rid = pmid_ref(led, q["pmid"]) if q.get("pmid") else None
@@ -300,7 +321,7 @@ def trait_variants(led, trait, limit=25):
     """The GWAS Catalog's traits matching a phrase, and their strongest variants."""
     like = f"%{trait.strip()}%"
     traits = index.query("SELECT trait, COUNT(DISTINCT rsid) AS variants, COUNT(DISTINCT study) AS studies FROM gwas "
-                         "WHERE trait LIKE ? OR reported LIKE ? GROUP BY trait ORDER BY studies DESC LIMIT 15", like, like)
+                         "WHERE trait LIKE ? OR reported LIKE ? GROUP BY trait ORDER BY studies DESC LIMIT 8", like, like)
     rows = index.query("SELECT * FROM gwas WHERE trait LIKE ? OR reported LIKE ? ORDER BY p LIMIT 400", like, like)
     out, seen = [], set()
     for r in rows:
@@ -309,7 +330,7 @@ def trait_variants(led, trait, limit=25):
         seen.add(r["rsid"])
         out.append({"rsid": r["rsid"], "gene": r["mapped"], "trait": r["trait"], "reported": r["reported"],
                     "effect_allele": r["allele"], "p": r["p"], "or_or_beta": r["size"], "ci": r["ci"] or None,
-                    "sample": (r["sample"] or "")[:120], "ref": study_ref(led, r), "paper": pmid_ref(led, r["pmid"])})
+                    "sample": (r["sample"] or "")[:60], "ref": study_ref(led, r), "paper": pmid_ref(led, r["pmid"])})
         if len(out) >= limit:
             break
     return {"query": trait, "traits": traits, "variants": out}
@@ -336,7 +357,7 @@ def search_papers(led, query, limit=8, sort="relevance"):
         if not r.get("pmid"):
             continue
         hits.append({"ref": pmid_ref(led, r["pmid"], r.get("title"), r.get("pubYear"), r.get("journalTitle")),
-                     "title": html.unescape(r.get("title") or ""), "authors": (r.get("authorString") or "")[:120], "journal": r.get("journalTitle"),
+                     "title": html.unescape(r.get("title") or ""), "authors": (r.get("authorString") or "").split(",")[0], "journal": r.get("journalTitle"),
                      "year": r.get("pubYear"), "cited": r.get("citedByCount"), "open_full_text": r.get("isOpenAccess") == "Y",
                      "types": r.get("pubType")})
     return {"query": query, "total": (d or {}).get("hitCount"), "papers": hits,

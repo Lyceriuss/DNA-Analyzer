@@ -17,7 +17,7 @@ import re
 from concurrent.futures import ThreadPoolExecutor
 
 from cluster_analysis import sources
-from cluster_analysis.agent import interpret, language
+from cluster_analysis.agent import cost, interpret, language
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 PKG = os.path.join(ROOT, "cluster_analysis")
@@ -157,15 +157,15 @@ def ensure(domain=None, universe=None, emit=lambda ev: None):
     """Writes the readings a domain is missing (all its categories, never a person's selection): tokens used."""
     uni = universe if universe is not None else UNIVERSES[domain]()
     todo = [(k, f) for k, f in uni.items() if cached(k) is None]
-    usage = {"input": 0, "output": 0}
+    usage = cost.new()
     if not todo:
         return usage
     batches = [todo[i:i + BATCH] for i in range(0, len(todo), BATCH)]
     emit({"type": "step", "step": "interpret", "sources": ["claude"], "findings": len(todo), "calls": len(batches)})
     with ThreadPoolExecutor(max_workers=4) as pool:
         for u in pool.map(_batch, batches):
-            usage = {k: usage[k] + u[k] for k in usage}
-            emit({"type": "usage", **usage, "cache_read": 0, "cache_write": 0})
+            usage = cost.add(usage, u)
+            emit({"type": "usage", **usage})
     return usage
 
 

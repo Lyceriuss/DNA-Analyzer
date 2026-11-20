@@ -434,7 +434,7 @@ def condition(person, items=(), **_):
         z = (carried - exp) / math.sqrt(var) if var else 0.0
         pct = round(100 * 0.5 * (1 + math.erf(z / math.sqrt(2))))
         lvl = band(pct)
-        cards.append(card("condition", it["id"], it["label"], level=lvl, value=pct,
+        cards.append(card("condition", it["id"], it["label"], level=lvl, value=pct, higher="worse",
                           headline=f"You carry {int(carried)} risk alleles at the {n} strongest known {it['label']} variants; "
                                    f"the European average is {exp:.0f}, which puts you near the {ordinal(pct)} percentile.",
                           rows=top,

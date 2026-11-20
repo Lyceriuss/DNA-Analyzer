@@ -49,21 +49,21 @@ def t_resolve(ctx, text, kind="any"):
 
 
 def t_gene(ctx, symbol):
-    return facts.gene(ctx["ledger"], symbol, limit=10)
+    return facts.gene(ctx["ledger"], symbol, limit=8)
 
 
 def t_variant(ctx, rsid):
-    return facts.variant(ctx["ledger"], rsid, limit=15)
+    return facts.variant(ctx["ledger"], rsid, limit=10)
 
 
-def t_cluster(ctx, theme, mechanism=None, trait=None, limit=25):
+def t_cluster(ctx, theme, mechanism=None, trait=None, limit=15):
     if not mechanism and not trait:
         return facts.themes(ctx["ledger"], theme)
     return facts.theme_genes(ctx["ledger"], theme, mechanism, trait, limit)
 
 
 def t_trait_variants(ctx, trait):
-    return facts.trait_variants(ctx["ledger"], trait, limit=20)
+    return facts.trait_variants(ctx["ledger"], trait, limit=12)
 
 
 def t_search_papers(ctx, query, limit=8):
@@ -110,7 +110,7 @@ def t_drug(ctx, name):
         for t in full:
             ctx["ledger"].text(rid, t["text"])
         # The model gets each genotype's effect, shortened (the boilerplate after the first sentence dropped)
-        gts = [{"genotype": t["genotype"], "text": re.split(r"(?<=\.)\s", t["text"])[0][:220]} for t in full]
+        gts = [{"genotype": t["genotype"], "text": re.split(r"(?<=\.)\s", t["text"])[0][:180]} for t in full]
         ann.append({"ref": rid, "gene": r["Gene"], "variant": r["Variant/Haplotypes"], "level": r["Level of Evidence"],
                     "category": r["Phenotype Category"], "phenotype": r.get("Phenotype(s)"), "genotypes": gts})
     ann.sort(key=lambda a: a["level"])
@@ -119,7 +119,7 @@ def t_drug(ctx, name):
     if os.path.exists(path):
         with open(path, encoding="utf-8") as f:
             cpic = sorted({r["guideline"]["name"] for r in json.load(f) if (r.get("drug") or {}).get("name") == drug})
-    return {"drug": drug, "asked_as": name, "guidelines": cpic, "annotations": ann[:15], "annotation_total": len(ann),
+    return {"drug": drug, "asked_as": name, "guidelines": cpic, "annotations": ann[:10], "annotation_total": len(ann),
             "note": "Levels: 1A/1B guideline-grade, 2A/2B moderate, 3 single studies, 4 case reports."}
 
 
@@ -199,7 +199,14 @@ def t_my_scores(ctx, domain, ids=None):
 
 
 def t_my_cluster(ctx, theme, mechanism=None):
-    cards = providers.themes(ctx["person"], theme=theme, mechanism=mechanism, level="mechanism" if mechanism else "theme")
+    # Several mechanisms in one call ("tendons,regeneration,hypertrophy"): one card set per mechanism
+    mechs = [m.strip() for m in (mechanism or "").split(",") if m.strip()]
+    if len(mechs) > 1:
+        cards = []
+        for m in mechs[:8]:
+            cards += providers.themes(ctx["person"], theme=theme, mechanism=m, level="mechanism")
+    else:
+        cards = providers.themes(ctx["person"], theme=theme, mechanism=mechanism, level="mechanism" if mechanism else "theme")
     cards += providers.findings(ctx["person"], theme=theme, words=ctx.get("words", ()))
     ctx["cards"] += cards
     return _shape(cards)
@@ -347,7 +354,7 @@ def t_show_nutrient(ctx, name):
     return {"shown": True}
 
 
-def t_recent_papers(ctx, query, since_year=2023, limit=8):
+def t_recent_papers(ctx, query, since_year=2023, limit=6):
     """The newest papers on a topic (Europe PMC, newest first, from since_year), each with the sentences that carry its
     finding (evidence.pick: outcomes and effects, not methods)."""
     from cluster_analysis import sources
@@ -396,26 +403,84 @@ def t_show_papers(ctx, pmids, title=None):
 
 # --- Control ----------------------------------------------------------------------------------------------------------
 
-def t_understand(ctx, reading, plan):
-    ctx["understood"] = {"reading": reading, "plan": plan}
-    return {"ok": True, "next": "Run the plan with the tools."}
+AIMS = ("strategies", "risk", "explain", "research", "other")
+OUTWARD = ("search_papers", "research_genotypes", "recent_papers", "read_paper")
+MIN_OUTWARD = 2  # outward lookups before a strategies answer is accepted
 
 
-def t_answer(ctx, explanation, followups=None, highlights=None, summary=None):
-    """The general explanation, for anyone: every [PMID:…] or [ClinPGx:…] it cites must be one a tool returned."""
-    if not (summary or "").strip():
-        return {"error": "Write the summary first: 2-4 sentences that weave together what the person's results and the "
-                         "evidence mean for their question."}
-    said = language.advice(explanation + " " + summary)
-    if said:
-        return {"error": "This gives clinical advice (" + "; ".join(said[:5]) + "). Rephrase in risk and evidence: what the "
-                         "genotype means for risk, exposure or response, and guidelines as facts about the guideline."}
-    cited = set(re.findall(r"\[((?:PMID|ClinPGx|GWAS|ClinVar|UniProt):[^\]\s]+)\]", explanation))
-    missing = sorted(c for c in cited if c not in ctx["ledger"].refs)
-    if missing:
-        return {"error": f"These citations were not returned by any tool in this conversation: {', '.join(missing)}. "
-                         "Cite only refs the tools gave, or remove them."}
-    # Highlights: the answer's key figures as tiles, each tied to a source whose text gives the figure
+def _aim(aim):
+    """The aim as one of AIMS; a free-text aim (an MCP client may not enforce the enum) is read by its words."""
+    a = (aim or "").strip().lower()
+    if a in AIMS:
+        return a
+    for key, pat in (("strategies", r"strateg|what works|to do|how to|approach|stay|keep|improv|reach|avoid|lean|lose|gain"),
+                     ("research", r"research|studies|papers|latest"), ("risk", r"risk|prone|propens|chance|likel"),
+                     ("explain", r"explain|how does|how do|what is|look")):
+        if re.search(pat, a):
+            return key
+    return "other"
+
+
+STOP = {"and", "the", "for", "with", "diet", "diets", "intake", "training", "based", "eating", "low", "high"}
+
+
+def _words(s):
+    return {w for w in re.findall(r"[a-z]{4,}", (s or "").lower())} - STOP
+
+
+def researched(ctx, strategy):
+    """Whether an outward lookup this turn was about the strategy: its words in a query, topic or find list."""
+    want = _words(strategy) or {w for w in re.findall(r"[a-z]{3,}", strategy.lower())}
+    return any(want & _words(json.dumps(a, ensure_ascii=False)) for a in ctx.get("outward_args", []))
+
+
+def _stems(s):
+    """Words cut to five letters, so 'fibre' meets 'fibres' and 'regeneration' meets 'regenerate'."""
+    return {w[:5] for w in re.findall(r"[a-z]{3,}", (s or "").lower())} - {w[:5] for w in STOP}
+
+
+def _area_ids(area):
+    """The cluster mechanism ids an area names: by a mechanism's id or name, or by a phase (id or name) and the
+    mechanisms in it ('hormones' -> testosterone, gh; 'fibre type' -> fast, slow)."""
+    want, ids = _stems(area), set()
+    for g in facts._theme_graphs().values():
+        for m in g.get("mechanisms") or []:
+            if want & (_stems(m["id"]) | _stems(m["name"])):
+                ids.add(m["id"])
+        for o in g.get("organs") or []:
+            if want & (_stems(o["id"]) | _stems(o["name"])):
+                ids |= {m["id"] for m in g.get("mechanisms") or [] if m.get("organ") == o["id"]}
+    return ids
+
+
+def covered(ctx, area):
+    """Whether a lookup this turn read the area: one of its mechanism ids, or its words, in a lookup's arguments."""
+    ids, want = _area_ids(area), _stems(area)
+    for a in ctx.get("lookup_args", []):
+        read = {x.strip() for x in str(a.get("mechanism") or "").split(",") if x.strip()}
+        if ids & read or want & _stems(json.dumps(a, ensure_ascii=False)):
+            return True
+    return False
+
+
+def t_understand(ctx, reading, plan, aim="other", strategies=None, areas=None):
+    aim = _aim(aim)
+    ctx["understood"] = {"reading": reading, "plan": plan, "aim": aim, "strategies": [s for s in (strategies or []) if s.strip()][:6],
+                         "areas": [s for s in (areas or []) if s.strip()][:8]}
+    nxt = "Run the plan with the tools."
+    if aim == "strategies":
+        nxt += (" A strategies question needs the studies of how people with the person's genotypes respond: research "
+                "outward (search_papers, research_genotypes, read_paper) before answering.")
+    return {"ok": True, "next": nxt}
+
+
+MAX_REJECTIONS = 2  # after this many rejected answers, the next is accepted without what it couldn't support
+CITE = r"\[((?:PMID|ClinPGx|GWAS|ClinVar|UniProt|Reactome):[^\]\s]+)\]"
+
+
+def _highlights(ctx, highlights):
+    """The highlight tiles that hold, and the reasons the others don't: each figure must be in its source's text, or
+    in the person's own named result ('yours', sharing on)."""
     from cluster_analysis.agent import interpret
     tiles, bad = [], []
     for h in (highlights or [])[:6]:
@@ -424,7 +489,16 @@ def t_answer(ctx, explanation, followups=None, highlights=None, summary=None):
             bad.append(f"{h!r}: write it as 'label | value | source ref'")
             continue
         label, value, src = parts
-        # The person's own result as the source (sharing on): its figures must be in their results from this turn
+        if language.advice(label + " " + value):
+            bad.append(f"{label}: clinical advice")
+            continue
+        asked = language.ranks_asked(ctx.get("question"), (ctx.get("understood") or {}).get("aim"))
+        rp = language.rank_problems(value, asked) + language.rank_problems(label, asked)
+        if src.lower() in ("yours", "your result", "your results") and not asked and re.search(r"\b(top|bottom)\s+\d", value, re.I):
+            rp.append("the question doesn't ask where the person ranks")
+        if rp:
+            bad.append(f"{label}: {rp[0]}")
+            continue
         if src.lower() in ("yours", "your result", "your results"):
             if not ctx.get("share"):
                 bad.append(f"{label}: the person's results are not shared with you, so they can't be a highlight")
@@ -432,44 +506,132 @@ def t_answer(ctx, explanation, followups=None, highlights=None, summary=None):
             # The result the label names (its words in the result's title), and only that result's figures
             want = {w for w in re.findall(r"[a-z0-9]{3,}", label.lower())} - {"genetic", "score", "your", "baseline", "result", "level", "blood"}
             match = [c for c in interpreted(ctx["cards"]) if want & set(re.findall(r"[a-z0-9]{3,}", (c["result"] or "").lower()))]
-            mine = set().union(*[interpret.figures(json.dumps(c, ensure_ascii=False)) for c in match]) if match else set()
             if not match:
                 bad.append(f"{label}: no result of the person's matches this label; name it as the result is named")
                 continue
+            mine = set().union(*[interpret.figures(json.dumps(c, ensure_ascii=False)) for c in match])
             if not interpret.figures(value) <= mine:
                 bad.append(f"{label}: the figure {value!r} is not in the person's {match[0]['result']} result")
-                continue
-            if language.advice(label + " " + value):
-                bad.append(f"{label}: clinical advice")
                 continue
             tiles.append({"label": label, "value": value, "source": "yours"})
             continue
         if src not in ctx["ledger"].refs:
             bad.append(f"{label}: {src} was not returned by a tool")
             continue
-        pool = interpret.figures(" ".join(ctx["ledger"].texts.get(src, [])))
-        if not interpret.figures(value) <= pool:
+        if not interpret.figures(value) <= interpret.figures(" ".join(ctx["ledger"].texts.get(src, []))):
             bad.append(f"{label}: the figure {value!r} is not in {src}'s text")
             continue
-        if language.advice(label + " " + value):
-            bad.append(f"{label}: clinical advice")
-            continue
         tiles.append({"label": label, "value": value, "source": src})
-        cited.add(src)
-    if bad:
-        return {"error": "Highlights not accepted: " + "; ".join(bad)}
-    cited |= set(re.findall(r"\[((?:PMID|ClinPGx|GWAS|ClinVar|UniProt|Reactome):[^\]\s]+)\]", summary))
+    return tiles, bad
+
+
+def _links(ctx, links):
+    """The answer's logic web: each link ties an area or strategy to the person's genes, the evidence refs and the
+    finding. Genes must come from this turn's tools; refs must be ones a tool returned."""
+    known = set(ctx["ledger"].genes) | set(ctx["ledger"].variants)
+    for c in ctx["cards"]:
+        known |= set(re.findall(r"\b[A-Z][A-Z0-9-]{1,9}\b|\brs\d+\b", json.dumps(c, ensure_ascii=False)))
+    web, bad = [], []
+    for raw in (links or [])[:12]:
+        parts = [x.strip() for x in str(raw).split("|")]
+        if len(parts) != 4:
+            bad.append(f"{raw!r}: write it as 'area or strategy | genes | refs | finding'")
+            continue
+        node, genes, refs, finding = parts
+        gs = [g for g in re.split(r"[,;\s]+", genes) if g and g.lower() not in ("none", "-", "n/a")
+              and not re.fullmatch(r"[ACGT]{1,2}|[ACGT]/[ACGT]|\*\d+/\*\d+", g)]
+        rs = [r for r in re.split(r"[,;\s]+", refs) if r and r.lower() not in ("none", "-", "n/a")]
+        # A link keeps what holds: a gene or ref no tool returned is left out of it, not the whole link
+        unknown = [g for g in gs if g not in known] + [r for r in rs if r not in ctx["ledger"].refs]
+        web.append({"node": node, "genes": [g for g in gs if g in known], "refs": [r for r in rs if r in ctx["ledger"].refs],
+                     "finding": finding, **({"left_out": unknown} if unknown else {})})
+    return web, bad
+
+
+def t_answer(ctx, explanation, followups=None, highlights=None, summary=None, links=None):
+    """The answer: every [PMID:…] or [ClinPGx:…] it cites must be one a tool returned, every highlight figure must be
+    in its source, and nothing may read as clinical advice. All problems are reported at once."""
+    summary = (summary or "").strip()
+    hard, soft = [], []
+    if not summary:
+        hard.append("Write the summary first: 2-4 sentences that weave together what the person's results and the "
+                    "evidence mean for their question.")
+    if ((ctx.get("understood") or {}).get("aim") == "strategies" and ctx.get("outward", 0) < MIN_OUTWARD
+            and ctx.get("spent", 0) < budget_of(ctx)):
+        hard.append("This asks what works for the person, and the answer has no research behind it yet: look outward "
+                    "for how people with their genotypes respond to the strategies (search_papers for trials and "
+                    "meta-analyses by genotype, research_genotypes with the strategy as the topic, read_paper for the "
+                    "sizes), then lead the summary with what that evidence says.")
+    if (ctx.get("understood") or {}).get("aim") == "strategies" and ctx.get("spent", 0) < budget_of(ctx):
+        todo = [s for s in ctx["understood"].get("strategies") or [] if not researched(ctx, s)]
+        if todo:
+            hard.append("You listed these strategies but haven't researched them: " + ", ".join(todo) + ". Search each "
+                        "(search_papers with the strategy and the person's genes or 'genotype'), then answer; if nothing "
+                        "by genotype exists, say so in the answer.")
+    u = ctx.get("understood") or {}
+    asked = language.ranks_asked(ctx.get("question"), u.get("aim"))
+    ranks = language.rank_problems(summary, asked) + language.rank_problems(explanation, asked)
+    if ranks:
+        hard.append("Ranks: " + "; ".join(dict.fromkeys(ranks)) + ".")
+    if ctx.get("spent", 0) < budget_of(ctx):
+        unread = [a for a in u.get("areas") or [] if not covered(ctx, a)]
+        if unread:
+            soft.append("You listed these areas but haven't read them: " + ", ".join(unread) + ". Read each (my_cluster with "
+                        "the mechanism ids, comma-separated; gene; search_papers), then answer.")
+    web, web_bad = _links(ctx, links)
+    nodes = (u.get("areas") or []) + (u.get("strategies") or [])
+    if nodes or u.get("aim") in ("strategies", "explain"):
+        if not web and not web_bad:
+            soft.append("Add links: one per area and strategy, 'area or strategy | the person's genes behind it | refs | "
+                        "the finding in a few words', so the answer can be drawn as a web.")
+        missing_nodes = [n for n in nodes if not any(_words(n) & _words(w["node"]) for w in web)]
+        if web and missing_nodes:
+            soft.append("Links missing for: " + ", ".join(missing_nodes) + " (a link may say 'none' for genes or refs, and "
+                        "what wasn't found).")
+    if web_bad:
+        soft.append("Links not accepted: " + "; ".join(web_bad))
+    said = language.advice(explanation + " " + summary + " " + " ".join(w["finding"] for w in web))
+    if said:
+        hard.append("It gives clinical advice (" + "; ".join(said[:5]) + "). Rephrase in risk and evidence: what the "
+                    "genotype means for risk, exposure or response, and guidelines as facts about the guideline.")
+    cited = set(re.findall(CITE, explanation)) | set(re.findall(CITE, summary))
     missing = sorted(c for c in cited if c not in ctx["ledger"].refs)
     if missing:
-        return {"error": f"These citations were not returned by any tool: {', '.join(missing)}."}
-    ctx["answer"] = {"summary": summary.strip(), "explanation": explanation, "followups": (followups or [])[:4], "highlights": tiles,
-                     "refs": {c: ctx["ledger"].refs[c] for c in sorted(cited)}}
+        soft.append(f"These citations were not returned by any tool in this conversation: {', '.join(missing)}. "
+                    "Cite only refs the tools gave, or remove them.")
+    tiles, bad = _highlights(ctx, highlights)
+    if bad:
+        soft.append("Highlights not accepted: " + "; ".join(bad))
+    ctx["rejections"] = ctx.get("rejections", 0) + (1 if hard or soft else 0)
+    if hard or (soft and ctx["rejections"] <= MAX_REJECTIONS):
+        left = MAX_REJECTIONS - ctx["rejections"] + 1
+        return {"error": " ".join(hard + soft) + (f" Fix all of these in one go." if left > 0 else "")}
+    dropped = []
+    if soft:  # out of retries: keep what holds, drop what the tools didn't support
+        for c in missing:
+            explanation = explanation.replace(f"[{c}]", "")
+            summary = summary.replace(f"[{c}]", "")
+        cited -= set(missing)
+        dropped = missing + [b.split(":")[0] for b in bad] + [b.split(":")[0] for b in web_bad]
+    cited |= {x["source"] for x in tiles if x["source"] != "yours"}
+    cited |= {r for w in web for r in w["refs"] if r in ctx["ledger"].refs}
+    ctx["answer"] = {"summary": summary, "explanation": explanation, "followups": (followups or [])[:4], "highlights": tiles,
+                     "links": web, "refs": {c: ctx["ledger"].refs[c] for c in sorted(cited)}, "dropped": dropped}
     return {"ok": True}
-
 
 TOOLS = {
     "understand": (CONTROL, t_understand, *_s("Call this FIRST: your reading of the question and your plan, shown to the person before you work.",
-                                               reading=S("One sentence to the person: what you understood they want, and what a genome can and can't answer about it."),
+                                               reading=S("One sentence to the person: what you understood they want, in their own terms, and what a genome can and can't answer about it."),
+                                               aim=S("What they want out of the answer: strategies (what works, what to do or think about, how to reach a goal), "
+                                                     "risk (am I prone to, do I have), explain (how a gene, drug or process works for me), research (the studies), other",
+                                                     enum=list(AIMS)),
+                                               strategies=A("For a strategies question: 3-6 candidate strategies you will research, the ones the person named and the "
+                                                            "ones their genes' mechanisms bear on (an appetite gene: fasting or meal timing; an insulin gene: "
+                                                            "carbohydrate quality), e.g. 'intermittent fasting', 'endurance training'. Each must be searched before you answer.",
+                                                            optional=True),
+                                               areas=A("The areas the answer must cover, each read before you answer: for a question on a cluster, its mechanisms "
+                                                       "that bear on the question, by id (catalogue), e.g. for building muscle: hypertrophy, synthesis, fast, "
+                                                       "tendons, regeneration, inflammation, testosterone. Every area also gets a link in the answer.", optional=True),
                                                plan=A("2-6 steps, each naming the tool or part of the explorer it uses and why."))),
     "catalogue": (PUBLIC, t_catalogue, *_s("The explorer's clusters with their mechanisms, its cancer types, lab tests, nutrients and fitness tests (ids to use).")),
     "resolve": (PUBLIC, t_resolve, *_s("Find what a name refers to in the explorer (a drug by any name, a gene, a test, a condition, a mechanism).",
@@ -492,7 +654,7 @@ TOOLS = {
     "nutrient": (PUBLIC, t_nutrient, *_s("A nutrient for everyone: its blood tests and its uptake and conversion steps with the genes acting at each (the explorer's Nutrition module).", name=S("nutrient name, e.g. vitamin D"))),
     "recent_papers": (PUBLIC, t_recent_papers, *_s("The newest papers on a topic, a gene or a muscle group (Europe PMC, newest first), each with the sentences that carry its finding.",
                                                    query=S("topic, e.g. ACTN3 AND training, or hamstring injury genetics"), since_year=I("first year, default 2023", optional=True),
-                                                   limit=I("max papers, default 8", optional=True))),
+                                                   limit=I("max papers, default 6", optional=True))),
     "my_nutrient": (PERSONAL, t_my_nutrient, *_s("Read the person's genetic baseline for a nutrient and their variants at its steps. They see it; you get its shape.", name=S("nutrient name"))),
     "show_nutrient": (VIEW, t_show_nutrient, *_s("Draw the nutrient's uptake and conversion steps in the answer, with the person's variants marked at each step.", name=S("nutrient name"))),
     "show_papers": (VIEW, t_show_papers, *_s("Show a research digest in the answer: the papers (from recent_papers, search_papers or read_paper) with their key findings.",
@@ -501,8 +663,8 @@ TOOLS = {
     "my_medicines": (PERSONAL, t_my_medicines, *_s("Read the person's medicine overview: every gene whose result changes dosing guidance. They see it; you get its shape.")),
     "my_scores": (PERSONAL, t_my_scores, *_s("Read the person's genetic scores in a domain (cancer, lab, nutrient, fitness), all or some ids.",
                                              domain=S("domain", enum=["cancer", "lab", "nutrient", "fitness"]), ids=A("ids from the catalogue", optional=True))),
-    "my_cluster": (PERSONAL, t_my_cluster, *_s("Read the person's genes in a cluster (or one mechanism) and the study findings for their genotypes.",
-                                               theme=S("theme id"), mechanism=S("mechanism id", optional=True))),
+    "my_cluster": (PERSONAL, t_my_cluster, *_s("Read the person's genes in a cluster, or in one or more of its mechanisms, and the study findings for their genotypes.",
+                                               theme=S("theme id"), mechanism=S("mechanism id, or several comma-separated (e.g. tendons,regeneration,hypertrophy)", optional=True))),
     "my_gene": (PERSONAL, t_my_gene, *_s("Read the person's result for one gene across the clusters, tables and pathways.", symbol=S("HGNC symbol"))),
     "my_condition": (PERSONAL, t_my_condition, *_s("Read the person's inherited risk for a condition (GWAS risk alleles, ClinVar).", name=S("condition in English"))),
     "show_cluster": (VIEW, t_show_cluster, *_s("Draw the cluster around a gene (its network neighbours in the theme, coloured by the person's results) or a mechanism, in the answer.",
@@ -510,16 +672,32 @@ TOOLS = {
     "show_pathway": (VIEW, t_show_pathway, *_s("Draw a gene's pathway (its Reactome steps, inputs and outputs) in the answer.", gene=S("HGNC symbol"))),
     "show_medicine": (VIEW, t_show_medicine, *_s("Show the explorer's medicine view for a drug in the answer.", name=S("drug name"))),
     "answer": (CONTROL, t_answer, *_s("Finish: the summary (2-4 sentences weaving the person's results and the evidence into what they mean for the question), highlights, then the supporting explanation, citing refs the tools returned as [PMID:123] or [ClinPGx:…], and 2-4 follow-up questions.",
-                                      summary=S("2-4 sentences, the narrative: what the person's results together mean for their question, the strongest signal first, in risk language."),
+                                      summary=S("2-4 sentences, the narrative, answering the question as asked in the first sentence: for a strategies question, which strategies the evidence links to the person's genotypes and how people with them responded; their propensity after, only as context. In risk and evidence language."),
                                       explanation=S("The supporting detail, plain words, 3-8 sentences."), followups=A("follow-up questions", optional=True),
+                                      links=A("The logic web, one per area and strategy from understand: 'area or strategy | the person's genes behind it "
+                                              "(symbols or rsIDs from this turn's tools, or none) | refs (PMID:…, comma-separated, or none) | the finding in a "
+                                              "few words', e.g. 'tendons | COL5A1, COL1A1 | PMID:123 | carriers had fewer tendon injuries in one cohort'.", optional=True),
                                       highlights=A("2-5 key figures as 'label | value | source'; the value is a short figure (e.g. 'OR 0.71', '80th percentile'). The source is a ref a tool returned (its text must give the figure), or 'yours' for the person's own result (its figure must be in their results), e.g. 'ACTN3 T allele and power | OR 0.71 | PMID:41009985', 'LDL cholesterol score | 80th percentile | yours'", optional=True))),
 }
 
 KIND = {name: spec[0] for name, spec in TOOLS.items()}
 
 
-def schemas():
-    return [{"name": n, "description": d, "input_schema": schema} for n, (_, _, schema, d) in TOOLS.items()]
+# Programmatic tool calling (API backend): these lookups are called from Claude's code, not directly. Their results
+# go to the running script, which keeps what matters and prints it; only the printout enters the model's context.
+# Personal tools, views, understand and answer stay direct, so what reaches the screen and the checks is unchanged.
+CODE_EXECUTION = "code_execution_20260120"
+SCRIPTED = ("gene", "variant", "cluster", "trait_variants", "search_papers", "research_genotypes", "recent_papers")
+
+
+def schemas(ptc=False):
+    out = [{"name": n, "description": d, "input_schema": schema} for n, (_, _, schema, d) in TOOLS.items()]
+    if ptc:
+        for s in out:
+            if s["name"] in SCRIPTED:
+                s["allowed_callers"] = [CODE_EXECUTION]
+        out.insert(0, {"type": CODE_EXECUTION, "name": "code_execution"})
+    return out
 
 
 def new_context(person, session=None, share=None):
@@ -535,12 +713,82 @@ def interpreted(cards):
     touch."""
     out = []
     for c in cards:
+        score = c["provider"] in ("cancer", "lab", "nutrient", "fitness", "condition") and isinstance(c.get("value"), (int, float))
         out.append({"result": c["title"], "kind": c["provider"], "level": c["level"],
-                    "percentile": c["value"] if c["provider"] in ("cancer", "lab", "nutrient", "fitness", "condition") else None,
-                    "higher_is": c.get("higher"), "summary": c.get("headline"),
-                    "details": [{k: r.get(k) for k in ("label", "value", "note") if r.get(k)} for r in (c.get("rows") or [])[:8]],
-                    "unknown": (c.get("unknown") or [None])[0]})
+                    "rank": _rank(c) if score else None,
+                    "higher_is": c.get("higher"), "summary": _ranked(c.get("headline"), c.get("higher")),
+                    "details": [{k: _ranked(r.get(k), c.get("higher")) if isinstance(r.get(k), str) else r.get(k) for k in ("label", "value", "note") if r.get(k)}
+                                for r in (c.get("rows") or [])[:10] if (r.get("label") or "").lower() != "percentile"],
+                    "unknown": (c.get("unknown") or [None])[0],
+                    "studies": [{"gene": m.get("gene"), "rsid": m.get("rsid"), "groups": m.get("labels"), "sentence": (m.get("sentence") or "")[:220],
+                                 "ref": f"PMID:{m['pmid']}" if m.get("pmid") else None} for m in (c.get("findings") or [])[:6]] or None})
     return out
+
+
+def _rank(c):
+    """A score's rank for the model: 'bottom 2% of Europeans (the unfavourable end: a higher genetic risk than 98%)'."""
+    p, h = round(c["value"]), c.get("higher")
+    words = language.rank_words(p, h)
+    if h == "worse":
+        side = f"a lower genetic risk or level than {100 - p}% of Europeans" if p <= 40 else f"a higher genetic risk or level than {p}% of Europeans"
+    elif h == "better":
+        side = f"higher than {p}% of Europeans" if p >= 60 else f"lower than {100 - p}% of Europeans"
+    else:
+        side = None
+    if words.startswith("normal"):
+        return words
+    return f"{words} of Europeans" + (f" ({side})" if side else "")
+
+
+def _ranked(s, higher=None):
+    """'near the 98th percentile' -> 'in the bottom 2%' (a risk): ranks as people read them, top the favourable end."""
+    if not s:
+        return s
+    s = re.sub(r"\b(?:at|near) the (\d{1,3})(?:st|nd|rd|th) percentile", lambda m: "in the " + language.rank_words(int(m.group(1)), higher), s)
+    return re.sub(r"\b(?:the )?(\d{1,3})(?:st|nd|rd|th) percentile", lambda m: language.rank_words(int(m.group(1)), higher), s)
+
+
+def _trace(ctx, name, args, out, error, cards=()):
+    """The turn's record of every call for the person's screen: what was asked and what came back, or why it was
+    refused. Never sent to the model."""
+    ctx.setdefault("trace", []).append({"name": name, "args": args, "ok": not error, "error": error,
+                                        "note": None if error else _note(name, out, cards, ctx)})
+
+
+def _note(name, out, cards, ctx):
+    """One line on what a call returned."""
+    if name == "understand":
+        u = ctx.get("understood") or {}
+        return "; ".join(x for x in (f"aim: {u.get('aim')}", ("areas: " + ", ".join(u["areas"])) if u.get("areas") else "",
+                                     ("strategies: " + ", ".join(u["strategies"])) if u.get("strategies") else "") if x)
+    if name == "answer":
+        a = ctx.get("answer") or {}
+        return "accepted" + (f"; dropped what the tools didn't support: {', '.join(a['dropped'])}" if a.get("dropped") else "")
+    if cards:
+        return "on your screen: " + "; ".join(c["title"] for c in cards[:5]) + (f" (+{len(cards) - 5} more)" if len(cards) > 5 else "")
+    if isinstance(out, dict):
+        if name == "research_genotypes":
+            n = sum(len(v.get("findings") or []) for v in out.get("variants") or [])
+            return f"{n} study sentences naming a genotype group" if n else "no study reports results by genotype for these"
+        bits = [f"{len(v)} {k.replace('_', ' ')}" for k, v in out.items() if isinstance(v, list) and v and k not in ("rsids", "find")]
+        titles = [p.get("title") for p in (out.get("papers") or [])[:2] if isinstance(p, dict) and p.get("title")]
+        if name == "read_paper":
+            return (out.get("title") or "")[:90] + (f" · {len(out.get('paragraphs') or [])} full-text passages" if out.get("paragraphs") else "")
+        if not bits:
+            filled = [k for k, v in out.items() if v not in (None, "", [], {})]
+            return ("returned " + ", ".join(filled[:4])) if filled else "nothing found"
+        return " · ".join(bits[:4]) + (": " + "; ".join(t[:70] for t in titles) if titles else "")
+    if isinstance(out, list):
+        return f"{len(out)} items"
+    return None
+
+
+CALL_BUDGET = 10  # lookups per turn (public and personal tools)
+DEEP_BUDGET = 20  # for a strategies or research question, which has to look outward
+
+
+def budget_of(ctx):
+    return DEEP_BUDGET if (ctx.get("understood") or {}).get("aim") in ("strategies", "research") else CALL_BUDGET
 
 
 def call(ctx, name, args):
@@ -548,6 +796,16 @@ def call(ctx, name, args):
     if name not in TOOLS:
         return f"No tool {name!r}.", True
     kind, fn, schema, _ = TOOLS[name]
+    if kind in (PUBLIC, PERSONAL):
+        budget = budget_of(ctx)
+        ctx["spent"] = ctx.get("spent", 0) + 1
+        if ctx["spent"] > budget:
+            return (f"The lookup budget for this turn ({budget}) is used. Call answer now with what you have; "
+                    "say plainly what the evidence gathered can't tell."), True
+        ctx.setdefault("lookup_args", []).append({"tool": name, **args})
+        if name in OUTWARD:
+            ctx["outward"] = ctx.get("outward", 0) + 1
+            ctx.setdefault("outward_args", []).append({k: v for k, v in args.items() if k in ("query", "topic", "find")})
     args = {k: v for k, v in (args or {}).items() if k in schema["properties"]}
     missing = [k for k in schema["required"] if k not in args]
     if missing:
@@ -556,9 +814,18 @@ def call(ctx, name, args):
     try:
         out = fn(ctx, **args)
     except Exception as e:
+        _trace(ctx, name, args, None, f"{name} failed: {type(e).__name__}: {str(e)[:300]}")
         return f"{name} failed: {type(e).__name__}: {str(e)[:300]}", True
+    _trace(ctx, name, args, out, out.get("error") if isinstance(out, dict) and "error" in out and len(out) <= 2 else None,
+           ctx["cards"][before:])
     # Sharing on: a personal tool also gives the model the interpreted results it just put on the screen
     if kind == PERSONAL and ctx.get("share") and isinstance(out, dict):
+        for c in ctx["cards"][before:]:
+            for m in c.get("findings") or []:
+                pmid = m.get("pmid") or (re.search(r"MED/(\d+)|pubmed/(\d+)", m.get("url") or "") or [None, None])[1]
+                if pmid:
+                    ctx["ledger"].ref(f"PMID:{pmid}", f"PMID {pmid}: {m.get('title') or ''}", m.get("url") or f"https://europepmc.org/article/MED/{pmid}")
+                    ctx["ledger"].text(f"PMID:{pmid}", m.get("sentence") or "")
         out = {**out, "results": interpreted(ctx["cards"][before:]),
                "note": "The person's interpreted results for this item, shared so you can weave them into the summary."}
     err = isinstance(out, dict) and "error" in out and len(out) <= 2

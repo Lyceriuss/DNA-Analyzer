@@ -210,3 +210,80 @@
     .ak-var { grid-template-columns: 1fr 1fr; }
     .ak-read { grid-column: 1 / -1; }
   }
+  /* Every step, the logic web and the scores (2026-11-20) */
+  .ak-chiprow { display: flex; flex-wrap: wrap; gap: 4px; margin: 4px 0; }
+  .ak-area { border-color: var(--color-ok); }
+  .ak-strat { border-style: dashed; }
+  .ak-trace > summary { cursor: pointer; font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); margin-top: 4px; }
+  .ak-step-body { display: grid; gap: 1px; min-width: 0; }
+  .ak-step-head { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .ak-step-note { color: var(--color-fg-muted); font-size: 11px; overflow-wrap: anywhere; }
+  .ak-why { color: var(--color-warn); }
+  .ak-web svg { width: 100%; height: auto; }
+  .ak-web-node { fill: var(--color-fg); font-size: 12px; font-weight: 600; }
+  .ak-web-empty { fill: var(--color-fg-muted); font-weight: 400; }
+  .ak-web-gene { fill: var(--color-warn); font-size: 12px; }
+  .ak-web-ref { fill: var(--color-ok); font-size: 11px; }
+  .ak-web-list li { font-size: var(--cds-font-size-caption); }
+  .ak-scores { border-top: 1px solid var(--color-border-line); padding-top: var(--cds-pad-sm); display: grid; gap: var(--cds-gap-sm); }
+  .ak-scores > summary { cursor: pointer; font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+  .ak-tile-good { border-top: 3px solid var(--color-ok); }
+  .ak-tile-bad { border-top: 3px solid var(--color-warn); }
+  /* Scores as the explorer's scale (fd.css), the areas network */
+  .ak-score-head { display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+  .ak-score-v { font-size: 18px; }
+  .ak-score-good .ak-score-v { color: var(--color-ok); }
+  .ak-score-bad .ak-score-v { color: var(--color-warn); }
+  .ak-area-label { fill: var(--color-fg-muted); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
+  /* Wide screens (2026-11-20): the answer uses the width; long text keeps a readable line, the rest goes to grids */
+  .ak-turn { max-width: 1400px; }
+  .ak-turn .ak-read-q, .ak-turn .ak-summary-box { max-width: none; }
+  .ak-summary-box p, .ak-reading { max-width: 110ch; }
+  .ak-tiles { grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr)); }
+  .ak-yours { grid-template-columns: repeat(auto-fill, minmax(min(100%, 460px), 1fr)); align-items: start; }
+  .ak-yours > .ak-yours-head, .ak-yours > .ak-meta, .ak-yours > .ak-tag { grid-column: 1 / -1; }
+  .ak-explain { display: block; columns: 2 440px; column-gap: 36px; }
+  .ak-explain > .ak-tag { display: block; column-span: all; margin-bottom: 8px; }
+  .ak-explain > p, .ak-explain > ul { break-inside: avoid; margin: 0 0 10px; }
+  .ak-views { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 520px), 1fr)); gap: var(--cds-gap-sm); align-items: start; }
+  /* The web keeps its drawn size (text at page size): it doesn't stretch to a wide column */
+  .ak-web svg { width: min(100%, 760px); max-height: 460px; }
+  .ak-views > .gx-chip { justify-self: start; align-self: start; }
+  .ak-web .ak-web-list { columns: 2 380px; column-gap: 28px; }
+  .ak-web .ak-web-list li { break-inside: avoid; }
+  @media (min-width: 1300px) {
+    .ak-web { grid-template-columns: minmax(0, 760px) minmax(0, 1fr); column-gap: var(--cds-gap-md); align-items: center; }
+    .ak-web > figcaption, .ak-web > p { grid-column: 1 / -1; }
+    .ak-web .ak-web-list { columns: auto; }
+  }
+  /* The person's genotype, coloured by its call (th.js colours: LoF red, GoF blue, typical green) */
+  .ak-fn-lof { --fn: var(--color-bad); } .ak-fn-gof { --fn: var(--gof, #3b82f6); } .ak-fn-norm { --fn: var(--typical, var(--color-ok)); }
+  .ak-fn-alt { --fn: var(--color-fg); } .ak-fn-unk { --fn: var(--color-fg-muted); }
+  .ak-geno { display: inline-flex; align-items: baseline; gap: 6px; padding: 2px 9px; border-radius: 6px; border: 1.5px solid var(--fn);
+             background: color-mix(in srgb, var(--fn) 16%, transparent); }
+  .ak-geno b { font-family: ui-monospace, Consolas, monospace; font-size: 15px; letter-spacing: 0.04em; color: var(--fn); }
+  .ak-geno-fn { font-size: 11px; font-weight: 600; color: var(--fn); }
+  .ak-geno-v { font-size: 10px; color: var(--color-fg-muted); }
+  .ak-fn-alt.ak-geno { border-style: dotted; }
+  .ak-fn-legend { display: inline-flex; flex-wrap: wrap; gap: 10px; font-size: 11px; color: var(--color-fg-muted); }
+  .ak-fn-key { display: inline-flex; align-items: center; gap: 4px; }
+  .ak-fn-key i { width: 9px; height: 9px; border-radius: 2px; background: var(--fn); display: inline-block; }
+  text.ak-web-gene.ak-fn-lof, text.ak-web-gene.ak-fn-gof, text.ak-web-gene.ak-fn-norm, text.ak-web-gene.ak-fn-alt, text.ak-web-gene.ak-fn-unk { fill: var(--fn); font-weight: 600; }
+  .ak-fn-var { --fn: color-mix(in srgb, var(--color-warn) 70%, var(--color-fg-muted)); }
+  .ak-fn-var.ak-geno { border-style: dashed; }
+  text.ak-web-gene.ak-fn-var { fill: var(--fn); font-weight: 600; }
+  /* The person's DNA at a glance: a headline card per key gene, glowing in its call's colour */
+  .ak-hero { display: grid; gap: 8px; }
+  .ak-hero-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 14px; }
+  .ak-hero-card { display: grid; gap: 4px; align-content: start; padding: 14px 18px; border-radius: 14px; border: 2px solid var(--fn);
+                  background: color-mix(in srgb, var(--fn) 9%, var(--color-panel, var(--color-bg)));
+                  box-shadow: 0 0 22px color-mix(in srgb, var(--fn) 38%, transparent), inset 0 0 14px color-mix(in srgb, var(--fn) 14%, transparent); }
+  .ak-hero-top { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+  .ak-hero-gene { font-size: 15px; font-weight: 800; letter-spacing: 0.03em; color: var(--color-fg); }
+  .ak-hero-var { font-size: 11px; color: var(--color-fg-muted); font-family: ui-monospace, Consolas, monospace; }
+  .ak-hero-gt { font: 800 44px/1.05 ui-monospace, Consolas, monospace; letter-spacing: 0.04em; color: var(--fn);
+                text-shadow: 0 0 10px color-mix(in srgb, var(--fn) 75%, transparent), 0 0 28px color-mix(in srgb, var(--fn) 45%, transparent); }
+  .ak-hero-call { font-size: 15px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--fn); }
+  .ak-hero-text { font-size: 13px; color: var(--color-fg); }
+  .ak-hero-more { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+  .ak-hero-more .ak-geno b { font-size: 13px; }

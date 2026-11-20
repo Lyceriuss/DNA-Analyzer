@@ -1,6 +1,10 @@
-pandas
-numpy
-requests
-networkx
-pyliftover   # GRCh37 -> GRCh38 lift (genome/impute.py, genome/sample_person.py)
-pdfplumber   # nutrition reference: reads the NNR 2023 tables from Livsmedelsverket's PDF
+# Pinned to the versions the tests and the explorer check run against (Python 3.10). Java 11+ is needed too, for
+# Beagle (imputation); the Docker image and the desktop app bring their own.
+pandas==2.2.2
+numpy==2.1.0
+requests==2.31.0
+networkx==3.4.2
+pyliftover==0.4.1   # GRCh37 -> GRCh38 lift (genome/impute.py, genome/sample_person.py)
+pdfplumber==0.11.10 # nutrition reference: reads the NNR 2023 tables from Livsmedelsverket's PDF
+anthropic==2.10.0   # Ask with an API key (cluster_analysis/agent)
+mcp==2.3.0          # Ask's tools as an MCP server, for Claude Code or any MCP client (cluster_analysis/agent/mcp_server.py)

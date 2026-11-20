@@ -120,7 +120,7 @@ writes when "remember" is ticked. Otherwise the server keeps it in memory.
 
 | Backend | When | How |
 |---|---|---|
-| `api` | an API key is set (`ANTHROPIC_API_KEY`, the Ask tab, or `data/output/agent/api_key`) | the loop below, on the Messages API, billed to the key |
+| `api` | an API key is set (`ANTHROPIC_API_KEY`, the Ask tab, or `data/output/agent/api_key`) | the loop below, on the Messages API, billed to the key; with `DNA_AGENT_PTC=1` the bulky lookups run inside Claude's code execution as a script (programmatic tool calling, a prototype: ask-decisions.md D25) |
 | `claude-code` | no key, and the Claude Code CLI is found (`claude` on PATH, `DNA_CLAUDE_CLI`, or the VS Code extension's copy) | `run.run_claude_code` starts a headless `claude -p` with this system prompt, no built-in tools, and only the MCP tools (`--strict-mcp-config`, `--permission-mode dontAsk`); it runs on the user's Claude plan, counting toward its usage limits, and needs no key |
 
 In both, the MCP server's or the loop's `submit_answer` runs the same check. MCP clients don't enforce the answer

@@ -14,6 +14,33 @@
       return j;
     };
     const fmtN = (n) => Number(n || 0).toLocaleString('en-US');
+    // Tokens as billed: fresh input, cached input (a cache read costs a fraction of fresh input), output, and the
+    // turn's cost on the API (on a Claude Code login it comes out of the plan instead). Older turns: in and out.
+    const usd = (u) => (u && u.usd ? (u.usd < 0.01 ? fill('≈ ${}', u.usd.toFixed(4)) : fill('≈ ${}', u.usd.toFixed(3))) : '');
+    // Ranks as people read them (the user's rule, 2026-11-20): Top is the favourable end, Bottom the unfavourable one.
+    // Higher better: 95 -> Top 5%, 19 -> Bottom 19%. Higher worse (a risk): 3 -> Top 3%, 98 -> Bottom 2%.
+    const ORD = (n) => { n = Math.round(n); const s = (n % 100 >= 11 && n % 100 <= 13) ? 'th' : ({ 1: 'st', 2: 'nd', 3: 'rd' }[n % 10] || 'th'); return n + s; };
+    const rankWords = (p, higher) => {
+      p = Math.round(p);
+      if (p > 40 && p < 60) return 'Normal';
+      const high = p >= 60, share = high ? Math.max(100 - p, 1) : Math.max(p, 1);
+      if (higher !== 'better' && higher !== 'worse') return fill(high ? 'Highest {}%' : 'Lowest {}%', share);
+      return fill(high === (higher === 'better') ? 'Top {}%' : 'Bottom {}%', share);
+    };
+    const rankSide = (p, higher) => {
+      if (p > 40 && p < 60) return fill('baseline ({})', ORD(p));
+      if (higher === 'worse') return p <= 40 ? 'lowest genetic risk among Europeans' : 'highest genetic risk among Europeans';
+      if (higher === 'better') return p >= 60 ? 'of Europeans, the favourable end' : 'of Europeans, the unfavourable end';
+      return 'of Europeans';
+    };
+    const rankText = (s, higher) => (s || '').replace(/\b(?:at|near) the (\d{1,3})(?:st|nd|rd|th) percentile/g, (m, n) => 'in the ' + rankWords(+n, higher).toLowerCase())
+      .replace(/\b(?:the )?(\d{1,3})(?:st|nd|rd|th) percentile/g, (m, n) => rankWords(+n, higher).toLowerCase());
+    const tokLine = (u) => {
+      u = u || {};
+      if (u.cache_read == null) return fill('{} tokens in, {} out', fmtN(u.input), fmtN(u.output));
+      const cached = (u.cache_read || 0) + (u.cache_write || 0);
+      return [fill('{} new + {} cached tokens in, {} out', fmtN(u.input), fmtN(cached), fmtN(u.output)), usd(u)].filter(Boolean).join(' · ');
+    };
     const EXAMPLES = ['What medicines should I watch out for?', 'What is my response to paracetamol?',
                       'Show me the cluster for ACTN3', 'What way of working out would suit me best?'];
     const STRIP = ['opentargets', 'gwas', 'pgs', 'clinvar', '1000g', 'clinpgx', 'cpic', 'chembl', 'uniprot', 'go', 'string',
@@ -46,8 +73,12 @@
       my_nutrient: (i) => fill('Your {} baseline and variants', i.name), show_nutrient: (i) => fill('Drew how {} is converted', i.name),
       recent_papers: (i) => fill('Latest research: {}{}', i.query, i.since_year ? ' (since ' + i.since_year + ')' : ''),
       show_papers: (i) => fill('Showed {} papers', (i.pmids || []).length),
+      script: () => 'Wrote a script that runs the lookups and keeps what matters',
     };
     const KIND_TAG = { public: 'research', personal: 'yours', view: 'view', control: '' };
+    const KIND_OF = { my_medicine: 'personal', my_medicines: 'personal', my_scores: 'personal', my_cluster: 'personal', my_gene: 'personal',
+      my_condition: 'personal', my_nutrient: 'personal', show_cluster: 'view', show_pathway: 'view', show_medicine: 'view', show_nutrient: 'view',
+      show_papers: 'view', understand: 'control', answer: 'control', script: 'control' };
     const S = { status: null, offline: false, draft: '', error: null, keyOpen: false, session: null, turns: [],
                 live: null, running: false, job: null, lit: new Set(), used: new Set() };
     const redraw = () => dash.draw('ak-main');
@@ -72,7 +103,7 @@
             if (ev.type === 'start') S.session = ev.session;
             if (ev.type === 'understood') S.live.understood = ev;
             if (ev.type === 'tool') {
-              S.live.steps.push({ name: ev.name, input: ev.input, kind: ev.kind, ok: null });
+              S.live.steps.push({ name: ev.name, input: ev.input, kind: ev.kind, via: ev.via, ok: null });
               S.lit = new Set(TOOL_SRC[ev.name] || []); (TOOL_SRC[ev.name] || []).forEach((x) => S.used.add(x));
             }
             if (ev.type === 'tool_done') { const st = [...S.live.steps].reverse().find((x) => x.name === ev.name && x.ok === null); if (st) { st.ok = ev.ok; st.error = ev.error; } }
@@ -150,17 +181,31 @@
       if (!u) { make(r, 'p', 'ak-off', 'Claude is reading the question…'); }
       else {
         if (u.reading) make(r, 'p', 'ak-reading', u.reading);
+        if (u.aim || (u.areas || []).length || (u.strategies || []).length) {
+          const row = make(r, 'div', 'ak-chiprow');
+          if (u.aim) make(row, 'span', 'ak-lvchip', fill('aim: {}', u.aim));
+          for (const a of u.areas || []) make(row, 'span', 'ak-gene-chip ak-area', a);
+          for (const s of u.strategies || []) make(row, 'span', 'ak-gene-chip ak-strat', s);
+        }
         if ((u.plan || []).length) { const ol = make(r, 'ol', 'ak-plan'); for (const p of u.plan) make(ol, 'li', live ? null : 'ak-done', p); }
       }
-      const done = steps.filter((s) => s.name !== 'understand');
+      const done = steps.filter((s) => s.name !== 'understand' || s.ok === false);
       if (done.length) {
-        const ul = make(r, 'ul', 'ak-steps');
+        const det = make(r, 'details', 'ak-trace');
+        if (live) det.open = true;
+        const bad = done.filter((s) => s.ok === false).length;
+        make(det, 'summary', null, fill('Every step ({}){}', done.length, bad ? fill(' · {} sent back', bad) : ''));
+        const ul = make(det, 'ul', 'ak-steps');
         for (const s of done) {
           const li = make(ul, 'li', 'ak-step ' + (s.ok === false ? 'ak-bad' : s.ok === null && live ? 'ak-live' : ''));
           make(li, 'span', 'ak-dot');
-          if (KIND_TAG[s.kind]) make(li, 'span', 'ak-kind ak-kind-' + s.kind, KIND_TAG[s.kind]);
-          make(li, 'span', null, (STEP[s.name] || (() => s.name))(s.input || {}));
-          if (s.ok === false && s.error) make(li, 'span', 'ak-note', ' · ' + s.error.slice(0, 120));
+          const body = make(li, 'div', 'ak-step-body');
+          const head = make(body, 'div', 'ak-step-head');
+          if (KIND_TAG[s.kind || KIND_OF[s.name]]) make(head, 'span', 'ak-kind ak-kind-' + (s.kind || KIND_OF[s.name]), KIND_TAG[s.kind || KIND_OF[s.name]]);
+          make(head, 'span', null, s.name === 'answer' && s.ok === false ? 'Draft answer sent back' : (STEP[s.name] || (() => s.name))(s.input || {}));
+          if (s.via === 'script') make(head, 'span', 'ak-note', ' · in the script');
+          if (s.note) make(body, 'span', 'ak-step-note', s.note);
+          if (s.ok === false && s.error) make(body, 'span', 'ak-step-note ak-why', s.error);
         }
       }
     };
@@ -284,32 +329,206 @@
       }
     };
     // The key figures: the answer's highlights (each tied to its source) and the person's own numbers (from their results)
-    const ORD = (n) => { n = Math.round(n); const s = (n % 100 >= 11 && n % 100 <= 13) ? 'th' : ({ 1: 'st', 2: 'nd', 3: 'rd' }[n % 10] || 'th'); return n + s; };
+    const tile = (g, a, h, who) => {
+      const r = (a.refs || {})[h.source];
+      const tl = make(g, 'div', 'ak-tile');
+      make(tl, 'span', 'ak-tile-v' + (h.value.length > 16 ? ' ak-tile-v-long' : ''), h.value);
+      make(tl, 'span', 'ak-tile-l', h.label);
+      if (h.source === 'yours') tl.classList.add('ak-tile-you');
+      const s = make(tl, r && r.url ? 'a' : 'span', 'ak-tile-s', h.source === 'yours' ? fill('{}\'s genes', who) : h.source.replace(':', ' '));
+      if (r && r.url) { s.href = r.url; s.target = '_blank'; s.rel = 'noopener'; s.title = r.label; }
+    };
+    const SCORED = ['cancer', 'lab', 'nutrient', 'fitness', 'condition'];
     const tilesBox = (box, t, who) => {
       const a = t.answer || {};
-      const hs = a.highlights || [];
-      const nums = (t.cards || []).filter((c) => ['cancer', 'lab', 'nutrient', 'fitness', 'condition'].includes(c.provider) && typeof c.value === 'number' && !String(c.id).includes(':variants'));
-      if (!hs.length && !nums.length) return;
+      const hs = (a.highlights || []).filter((h) => h.source !== 'yours');
+      if (!hs.length) return;
       const g = make(box, 'div', 'ak-tiles');
-      for (const h of hs) {
-        const r = (a.refs || {})[h.source];
-        const tl = make(g, 'div', 'ak-tile');
-        make(tl, 'span', 'ak-tile-v' + (h.value.length > 16 ? ' ak-tile-v-long' : ''), h.value);
-        make(tl, 'span', 'ak-tile-l', h.label);
-        if (h.source === 'yours') tl.classList.add('ak-tile-you');
-        const s = make(tl, r && r.url ? 'a' : 'span', 'ak-tile-s', h.source === 'yours' ? fill('{}\'s genes', who) : h.source.replace(':', ' '));
-        if (r && r.url) { s.href = r.url; s.target = '_blank'; s.rel = 'noopener'; s.title = r.label; }
+      for (const h of hs) tile(g, a, h, who);
+    };
+    // The person's scores: context, not the answer. Last, as Top/Bottom X%; folded away unless the question asked
+    const scoresBox = (box, t, who) => {
+      const a = t.answer || {};
+      const nums = (t.cards || []).filter((c) => SCORED.includes(c.provider) && typeof c.value === 'number' && !String(c.id).includes(':variants'));
+      const mine = (a.highlights || []).filter((h) => h.source === 'yours');
+      const readings = (t.written || []).filter((x) => x.source === 'score');
+      if (!nums.length && !mine.length && !readings.length) return;
+      const host = make(box, t.ranks_asked ? 'section' : 'details', 'ak-scores');
+      if (t.ranks_asked) make(host, 'span', 'ak-tag', fill('{}\'s genetic scores', who));
+      else make(host, 'summary', null, fill('{}\'s genetic scores ({}) · context, not the answer', who, nums.length || readings.length));
+      if (mine.length) { const g = make(host, 'div', 'ak-tiles'); for (const h of mine) tile(g, a, h, who); }
+      const panels = make(host, 'div', 'fd-panels');
+      for (const c of nums.slice(0, 8)) scorePanel(panels, c, who);
+      if (readings.length) yoursBox(host, readings, who);
+    };
+    // One score as the explorer draws it in Female fertility: a scale from the unfavourable to the favourable end with
+    // the person's dot, Top/Bottom X% (Normal in the middle, with the baseline percentile), and the variants behind it
+    const VAR_RE = /^(.+?) \((rs\d+)\): (\d) of 2 copies of (\w+), which (raises|lowers) it/;
+    const scorePanel = (parent, c, who) => {
+      const higher = c.higher || (c.provider === 'condition' || c.provider === 'cancer' ? 'worse' : null);
+      const p = c.value, worse = higher === 'worse', better = higher === 'better';
+      const mid = p > 40 && p < 60, good = worse ? p <= 40 : better ? p >= 60 : null;
+      const row = make(parent, 'div', 'fd-panel ak-score ak-score-' + (mid || good === null ? 'mid' : good ? 'good' : 'bad'));
+      const head = make(row, 'div', 'ak-score-head');
+      make(head, 'b', 'ak-score-v', rankWords(p, higher));
+      make(head, 'span', null, c.title);
+      make(row, 'span', 'ak-note', rankSide(p, higher));
+      const scale = make(row, 'div', 'fd-scale' + (worse || better ? ' is-graded' : ''));
+      const ends = make(scale, 'div', 'fd-scale-ends');
+      make(ends, 'span', null, worse ? 'Higher risk' : 'Lower');
+      make(ends, 'span', null, worse ? 'Lower risk' : 'Higher');
+      const track = make(scale, 'div', 'fd-track');
+      make(track, 'i', 'fd-mid');
+      const dot = make(track, 'b', 'fd-dot'); dot.style.left = (worse ? 100 - p : p) + '%';
+      dot.title = fill('{}: {}', who, rankWords(p, higher));
+      // Why it sits there: the variants listed with the score, coloured by whether they push it the favourable way
+      const vars = [];
+      for (const r of c.rows || []) {
+        const m = String(r.value || '').match(VAR_RE);
+        if (m) { if (+m[3] > 0) vars.push({ gene: m[1].split(' - ')[0], rsid: m[2], txt: fill('{} ×{}', m[4], m[3]), good: better || worse ? (m[5] === 'raises') === better : null, raw: r.value }); continue; }
+        const k = String(r.value || '').match(/^(\d) of 2 risk copies/);
+        const g = String(r.label || '').match(/^(.+?) \((rs\d+)\)/);
+        if (k && g && +k[1] > 0) vars.push({ gene: g[1].split(' - ').pop(), rsid: g[2], txt: fill('risk ×{}', k[1]), good: false, raw: r.label + ': ' + r.value });
       }
-      for (const c of nums.slice(0, 4)) {
-        const tl = make(g, 'div', 'ak-tile ak-tile-you ak-tile-' + c.level);
-        make(tl, 'span', 'ak-tile-v', ORD(c.value));
-        make(tl, 'span', 'ak-tile-l', fill('{}\'s {}', who, c.title));
-        make(tl, 'span', 'ak-tile-s', 'percentile among Europeans · your genes');
+      if (vars.length) {
+        const chips = make(row, 'div', 'fd-tops');
+        for (const v of vars.slice(0, 6)) {
+          const ch = make(chips, 'span', 'fd-top' + (v.good === true ? ' is-good' : v.good === false ? ' is-bad' : ''));
+          make(ch, 'b', null, v.gene); make(ch, 'span', null, v.txt); ch.title = v.raw;
+        }
       }
+    };
+    // The cluster areas the answer read: the person's changed genes in each mechanism, grouped, with their STRING links
+    const areasView = (box, v, who) => {
+      const links = dash.data('theme_links'), genes = dash.data('theme_genes');
+      const wrap = make(box, 'figure', 'ak-view');
+      make(wrap, 'figcaption', 'ak-tag', fill('{}\'s genes in the areas read · {} cluster', who, v.theme));
+      if (links.status !== 'ok' || genes.status !== 'ok') { make(wrap, 'p', 'ak-off', 'Loading the cluster…'); return; }
+      const ids = (v.mechanisms || []).map((m) => m.id);
+      const name = new Map((v.mechanisms || []).map((m) => [m.id, m.name]));
+      const changed = (g) => ['LoF', 'GoF', 'altered'].includes(g.function) || g.notable;
+      const rows = genes.data.filter((g) => g.person === who && g.theme === v.theme && changed(g));
+      const nodes = [], seen = new Set();
+      for (const id of ids) {
+        const inArea = rows.filter((g) => { try { return JSON.parse(g.facets || '[]').includes(id) || g.primary === id; } catch (e) { return g.primary === id; } })
+          .sort((a, b) => (b.notable - a.notable) || ((b.best_score || 0) - (a.best_score || 0))).slice(0, 6);
+        for (const g of inArea) if (!seen.has(g.gene)) { seen.add(g.gene); nodes.push({ id: g.gene, area: id, fn: g.function, notable: g.notable }); }
+      }
+      if (!nodes.length) { make(wrap, 'p', 'ak-off', fill('No changed genes of {}\'s in these areas.', who)); return; }
+      const inSet = new Set(nodes.map((n) => n.id));
+      const edges = links.data.filter((l) => l.theme === v.theme && (!l.person || l.person === who) && inSet.has(l.a) && inSet.has(l.b))
+        .map((l) => ({ source: l.a, target: l.b, w: l.score }));
+      const W = 620, H = 360, areas = [...new Set(nodes.map((n) => n.area))];
+      const cols = Math.min(areas.length, 4), rowsN = Math.ceil(areas.length / cols);
+      const center = new Map(areas.map((a, i) => [a, [W * ((i % cols) + 0.5) / cols, H * (Math.floor(i / cols) + 0.5) / rowsN]]));
+      const sim = d3.forceSimulation(nodes).force('link', d3.forceLink(edges).id((d) => d.id).distance(60).strength(0.05))
+        .force('charge', d3.forceManyBody().strength(-90)).force('collide', d3.forceCollide(24))
+        .force('x', d3.forceX((n) => center.get(n.area)[0]).strength(0.35)).force('y', d3.forceY((n) => center.get(n.area)[1]).strength(0.35)).stop();
+      for (let i = 0; i < 260; i++) sim.tick();
+      nodes.forEach((n) => { n.x = Math.max(30, Math.min(W - 30, n.x)); n.y = Math.max(26, Math.min(H - 14, n.y)); });
+      const svg = d3.select(wrap).append('svg').attr('viewBox', `0 0 ${W} ${H}`).attr('class', 'ak-graph').attr('role', 'img')
+        .attr('aria-label', fill('{}\'s changed genes in the areas read, grouped by mechanism', who));
+      svg.append('g').selectAll('line').data(edges).join('line').attr('x1', (e) => e.source.x).attr('y1', (e) => e.source.y)
+        .attr('x2', (e) => e.target.x).attr('y2', (e) => e.target.y).attr('stroke', 'var(--color-border-line)').attr('stroke-width', (e) => 0.5 + e.w * 1.5);
+      for (const a of areas) {
+        const pts = nodes.filter((n) => n.area === a), x = d3.mean(pts, (n) => n.x), y = d3.min(pts, (n) => n.y) - 20;
+        svg.append('text').attr('x', x).attr('y', Math.max(12, y)).attr('text-anchor', 'middle').attr('class', 'ak-area-label').text(name.get(a) || a);
+      }
+      const col = (f) => (f === 'LoF' ? 'var(--color-bad)' : f === 'GoF' || f === 'altered' ? 'var(--color-warn)' : 'var(--color-fg-muted)');
+      const g = svg.append('g').selectAll('g').data(nodes).join('g').attr('transform', (n) => `translate(${n.x},${n.y})`);
+      g.append('circle').attr('r', (n) => (n.notable ? 9 : 6)).attr('fill', (n) => col(n.fn));
+      g.append('text').attr('y', -11).attr('text-anchor', 'middle').attr('font-size', 10).attr('fill', 'var(--color-fg)').text((n) => n.id);
+      make(wrap, 'p', 'ak-off', fill('Red: less active, amber: more active or changed; larger: notable. Lines: STRING interactions. Up to six genes per area.'));
+      const b = make(wrap, 'button', 'gx-chip', fill('Open the {} cluster', v.theme)); b.type = 'button';
+      b.addEventListener('click', () => go({ tab: 'clusters', params: { theme: v.theme } }));
+    };
+    // How it ties together: each area or strategy, the person's genes behind it, the studies, and the finding
+    const webBox = (box, t, who) => {
+      const links = (t.answer || {}).links || [];
+      if (!links.length) return;
+      const refs = (t.answer || {}).refs || {};
+      const wrap = make(box, 'figure', 'ak-view ak-web');
+      make(wrap, 'figcaption', 'ak-tag', 'How it ties together');
+      const nodes = links.map((l) => l.node);
+      // At most three genes per link in the drawing (the list beneath names them all), so the columns stay readable
+      const shown = (l) => l.genes.slice(0, 3);
+      const genes = [...new Set(links.flatMap(shown))];
+      const studies = [...new Set(links.flatMap((l) => l.refs))];
+      const rows = Math.max(nodes.length, genes.length, studies.length, 1);
+      const W = 640, H = rows * 30 + 16, X = [8, 300, 470];
+      const y = (i, n) => 8 + (i + 0.5) * ((H - 16) / Math.max(n, 1));
+      const pos = new Map();
+      nodes.forEach((n, i) => pos.set('n:' + i, [X[0], y(i, nodes.length)]));
+      genes.forEach((g, i) => pos.set('g:' + g, [X[1], y(i, genes.length)]));
+      studies.forEach((s, i) => pos.set('s:' + s, [X[2], y(i, studies.length)]));
+      const edges = [];
+      links.forEach((l, i) => {
+        if (l.genes.length) shown(l).forEach((g) => { edges.push(['n:' + i, 'g:' + g, false]); l.refs.forEach((s) => edges.push(['g:' + g, 's:' + s, false])); });
+        else l.refs.forEach((s) => edges.push(['n:' + i, 's:' + s, true]));
+      });
+      const svg = d3.select(wrap).append('svg').attr('viewBox', `0 0 ${W} ${H}`).attr('class', 'ak-graph').attr('role', 'img')
+        .attr('aria-label', 'Areas and strategies, the genes behind them and the studies');
+      const ex = (k, side) => pos.get(k)[0] + (side && k.startsWith('n:') ? 190 : side && k.startsWith('g:') ? 70 : 0);
+      svg.append('g').selectAll('path').data(edges).join('path')
+        .attr('d', ([a, b]) => { const x1 = ex(a, true), y1 = pos.get(a)[1], x2 = pos.get(b)[0] - 4, y2 = pos.get(b)[1]; const m = (x1 + x2) / 2; return `M${x1},${y1} C${m},${y1} ${m},${y2} ${x2},${y2}`; })
+        .attr('fill', 'none').attr('stroke', 'var(--color-border-line)').attr('stroke-width', 1.5).attr('stroke-dasharray', (e) => (e[2] ? '4 3' : null));
+      const label = (k, text, cls, url) => {
+        const [x, yy] = pos.get(k);
+        const g = svg.append(url ? 'a' : 'g');
+        if (url) g.attr('href', url).attr('target', '_blank');
+        g.append('text').attr('x', x).attr('y', yy + 4).attr('class', cls).text(text.length > 30 ? text.slice(0, 29) + '…' : text);
+      };
+      nodes.forEach((n, i) => label('n:' + i, n, 'ak-web-node' + (links[i].genes.length || links[i].refs.length ? '' : ' ak-web-empty')));
+      const fnOf = (t.answer || {}).calls || {};
+      genes.forEach((g) => label('g:' + g, g, 'ak-web-gene' + (fnOf[g] ? ' ak-fn-' + FN_CLASS[fnOf[g]] : '')));
+      studies.forEach((s) => label('s:' + s, s.replace(':', ' '), 'ak-web-ref', (refs[s] || {}).url));
+      const ul = make(wrap, 'ul', 'ak-list ak-web-list');
+      for (const l of links) {
+        const li = make(ul, 'li');
+        make(li, 'b', null, l.node + ': ');
+        li.appendChild(document.createTextNode(l.finding + ' '));
+        if (l.genes.length) make(li, 'span', 'ak-note', fill('({})', l.genes.join(', ')));
+      }
+      make(wrap, 'p', 'ak-off', fill('Left: what the question needs covered. Middle: {}\'s genes behind it, coloured by {}\'s call (red less active, blue more active, green typical). Right: the studies. Dashed: no gene of {}\'s read for it.', who, who, who));
     };
     // For the person: one row per finding, with the gene and variants, their own genotype and the evidence level as
     // chips, the effect in a word or two, the source's sentence beneath, and an edge coloured by direction
     const DIR = { good: 'Favourable', bad: 'Worth attention', info: 'Good to know' };
+    // What a genotype does to its gene, as the Clusters tab colours it: LoF red, GoF blue, typical green
+    const FN_CLASS = { LoF: 'lof', GoF: 'gof', altered: 'alt', normal: 'norm', variant: 'var', unknown: 'unk' };
+    const FN_SHORT = { LoF: 'LoF', GoF: 'GoF', altered: 'changed', normal: 'normal', variant: 'carrier', unknown: 'no call' };
+    // The person's DNA at a glance: one headline card per key gene, the genotype large and glowing in its call's colour
+    const HERO_WORD = { LoF: 'Less active', GoF: 'More active', normal: 'Typical', altered: 'Changed', variant: 'Carrier', unknown: 'No call' };
+    const heroBox = (box, t, who) => {
+      const hs = t.hero || [];
+      if (!hs.length) return;
+      const sec = make(box, 'section', 'ak-hero');
+      make(sec, 'span', 'ak-tag', fill('{}\'s DNA at a glance', who));
+      const row = make(sec, 'div', 'ak-hero-row');
+      for (const h of hs) {
+        const m = h.main || {}, fn = m.function || 'unknown';
+        const c = make(row, 'div', 'ak-hero-card ak-fn-' + FN_CLASS[fn]);
+        const top = make(c, 'div', 'ak-hero-top');
+        make(top, 'span', 'ak-hero-gene', h.gene);
+        if (m.variant) make(top, 'span', 'ak-hero-var', m.variant);
+        make(c, 'b', 'ak-hero-gt', m.label || '?');
+        make(c, 'span', 'ak-hero-call', HERO_WORD[fn]);
+        if (m.text && m.text.toLowerCase() !== HERO_WORD[fn].toLowerCase()) make(c, 'span', 'ak-hero-text', m.text);
+        c.title = [m.basis ? fill('Call: {} ({})', fn, m.basis) : null, m.evidence].filter(Boolean).join(' — ');
+        if ((h.variants || []).length) {
+          const more = make(c, 'div', 'ak-hero-more');
+          for (const v of h.variants) genoBadge(more, v.genotype, v.variant, v);
+        }
+      }
+    };
+    const genoBadge = (parent, gt, variant, call) => {
+      const fn = (call && call.function) || 'unknown';
+      const b = make(parent, 'span', 'ak-geno ak-fn-' + FN_CLASS[fn]);
+      make(b, 'b', null, gt || '?');
+      make(b, 'span', 'ak-geno-fn', FN_SHORT[fn] + (call && call.text && call.text !== FN_SHORT[fn] ? ' · ' + call.text : ''));
+      if (variant) make(b, 'span', 'ak-geno-v', variant);
+      b.title = [call && call.basis ? fill('Call: {} ({})', fn, call.basis) : null, call && call.evidence].filter(Boolean).join(' — ');
+    };
     const LEVEL = { '1A': 'guideline', '1B': 'guideline', '2A': 'moderate', '2B': 'moderate', '3': 'single studies', '4': 'case reports' };
     const yoursBox = (box, items, who) => {
       const fy = make(box, 'section', 'ak-yours');
@@ -317,6 +536,10 @@
       make(head, 'span', 'ak-tag', fill('For {}', who));
       const counts = { good: 0, bad: 0, info: 0 };
       items.forEach((x) => { counts[x.direction || 'info']++; });
+      const legend = make(head, 'span', 'ak-fn-legend');
+      for (const [fn, words] of [['LoF', 'less active'], ['GoF', 'more active'], ['normal', 'typical'], ['altered', 'changed'], ['variant', 'carrier, effect not measured']]) {
+        const l = make(legend, 'span', 'ak-fn-key ak-fn-' + FN_CLASS[fn]); make(l, 'i'); l.appendChild(document.createTextNode(words));
+      }
       const sum = make(head, 'span', 'ak-yours-sum');
       for (const k of ['bad', 'good', 'info']) if (counts[k]) { const c = make(sum, 'span', 'ak-dir ak-dir-' + k, fill('{} {}', counts[k], DIR[k].toLowerCase())); }
       const order = { bad: 0, good: 1, info: 2 };
@@ -328,8 +551,9 @@
         if (x.gene) make(top, 'span', 'ak-gene-chip', x.gene.split(';')[0]);
         const vs = x.variants || [];
         const gts = x.genotypes || (x.genotype ? [x.genotype] : []);
-        if (vs.length) vs.forEach((v, j) => { const c = make(top, 'span', 'ak-gtchip'); make(c, 'span', 'ak-muted', v + ' '); make(c, 'b', null, gts[j] || ''); });
-        else if (gts.length) make(top, 'span', 'ak-gtchip', fill('yours: {}', gts[0]));
+        const calls = x.calls || [];
+        if (vs.length) vs.forEach((v, j) => genoBadge(top, gts[j], v, calls[j] || calls[0]));
+        else if (gts.length) genoBadge(top, gts[0], null, calls[0]);
         if (x.level) make(top, 'span', 'ak-lvchip', fill('level {} · {}', x.level, LEVEL[x.level] || ''));
         else if (x.source === 'study') make(top, 'span', 'ak-lvchip', [x.type, x.year].filter(Boolean).join(', '));
         else if (x.source) make(top, 'span', 'ak-lvchip', x.source);
@@ -350,7 +574,8 @@
     const turnBox = (box, t, who, i) => {
       const w = make(box, 'article', 'ak-turn');
       make(w, 'h3', 'ak-question', t.question);
-      readBox(w, t.understood, (t.calls || []).map((c) => ({ ...c, input: c.args, ok: true })), false);
+      heroBox(w, t, who);
+      readBox(w, t.understood, t.trace ? t.trace.map((c) => ({ ...c, input: c.args })) : (t.calls || []).map((c) => ({ ...c, input: c.args, ok: true })), false);
       const a = t.answer || {};
       if (a.summary) {
         const sm = make(w, 'section', 'ak-summary-box');
@@ -358,19 +583,25 @@
         prose(sm, a.summary, a.refs);
       } else if (!a.explanation) make(w, 'p', 'ak-err', 'No summary was written for this turn.');
       tilesBox(w, t, who);
-      if ((t.written || []).length) yoursBox(w, t.written, who);
+      webBox(w, t, who);
+      const findings = (t.written || []).filter((x) => x.source !== 'score');
+      if (findings.length) yoursBox(w, findings, who);
       if (a.explanation) {
         const det = make(w, 'section', 'ak-explain');
         make(det, 'span', 'ak-tag', 'The evidence in more detail');
         prose(det, a.explanation, a.refs);
       }
+      // The views side by side where the screen is wide enough
+      const vw = (t.views || []).length ? make(w, 'div', 'ak-views') : null;
       for (const v of t.views || []) {
-        if (v.view === 'cluster') clusterView(w, v, who);
-        else if (v.view === 'pathway') pathwayView(w, v, who);
-        else if (v.view === 'nutrient') nutrientView(w, v, who);
-        else if (v.view === 'papers') papersView(w, v);
-        else if (v.view === 'medicine') { const b = make(w, 'button', 'gx-chip', fill('Open {} in Medicines', v.drug)); b.type = 'button'; b.addEventListener('click', () => go({ tab: 'medicines', params: { md_drug: v.drug } })); }
+        if (v.view === 'cluster') clusterView(vw, v, who);
+        else if (v.view === 'pathway') pathwayView(vw, v, who);
+        else if (v.view === 'nutrient') nutrientView(vw, v, who);
+        else if (v.view === 'papers') papersView(vw, v);
+        else if (v.view === 'areas') areasView(vw, v, who);
+        else if (v.view === 'medicine') { const b = make(vw, 'button', 'gx-chip', fill('Open {} in Medicines', v.drug)); b.type = 'button'; b.addEventListener('click', () => go({ tab: 'medicines', params: { md_drug: v.drug } })); }
       }
+      scoresBox(w, t, who);
       // Sources: every ref the answer cites and every source behind the person's results, one list
       const refs = Object.entries(a.refs || {}).map(([id, r]) => ({ id, label: r.label, url: r.url }));
       for (const x of t.written || []) if (x.url && !refs.some((r) => r.url === x.url)) refs.push({ id: x.source || 'ClinPGx', label: x.title || x.gene, url: x.url });
@@ -381,18 +612,18 @@
         for (const r of refs) {
           const li = make(ol, 'li');
           make(li, 'span', 'ak-lvchip', r.id.split(':')[0]);
-          const x = make(li, r.url ? 'a' : 'span', null, ' ' + (r.label || r.id).replace(/^(PMID|ClinPGx|GWAS|Reactome|ClinVar|UniProt)[ :]\S*:\s*/, ''));
+          const x = make(li, r.url ? 'a' : 'span', null, ' ' + (r.label || r.id).replace(/^(PMID|ClinPGx|GWAS|Reactome|ClinVar|UniProt)[ :]\S*:\s*/, '').replace(/<[^>]+>/g, ''));
           if (r.url) { x.href = r.url; x.target = '_blank'; x.rel = 'noopener'; }
         }
       }
       if ((t.cards || []).length) {
         const det = make(w, 'details', 'ak-details'); make(det, 'summary', null, fill('{}\'s results behind it ({})', who, t.cards.length));
         const ul = make(det, 'ul', 'ak-list');
-        for (const c of t.cards.slice(0, 14)) { const li = make(ul, 'li'); make(li, 'b', null, c.title + ': '); li.appendChild(document.createTextNode(c.headline || '')); }
+        for (const c of t.cards.slice(0, 14)) { const li = make(ul, 'li'); make(li, 'b', null, c.title + ': '); li.appendChild(document.createTextNode(rankText(c.headline, c.higher))); }
       }
       const tk = t.tokens || {}, wt = t.written_tokens || {};
-      make(w, 'p', 'ak-meta', fill('{} · {} s · {} tokens in, {} out{} · {}', t.model || 'Claude', t.seconds, fmtN(tk.input), fmtN(tk.output),
-        (wt.input || wt.output) ? fill(' · readings {} tokens once', fmtN(wt.input + wt.output)) : '',
+      make(w, 'p', 'ak-meta', fill('{} · {} s · {}{} · {}', t.model || 'Claude', t.seconds, tokLine(tk),
+        (wt.input || wt.output) ? fill(' · readings, written once for everyone: {}', tokLine(wt)) : '',
         t.shared ? 'interpreted results for these items were shared with the model; the DNA file stayed on this machine' : 'your genotypes stayed on this machine'));
       if (i === S.turns.length - 1 && !S.running && (a.followups || []).length) {
         const f = make(w, 'div', 'ak-row ak-follow');
@@ -415,7 +646,7 @@
         make(w, 'h3', 'ak-question', S.live.question);
         readBox(w, S.live.understood, S.live.steps, true);
         const u = S.live.usage;
-        make(w, 'p', 'ak-meta', S.live.writing ? 'Writing your readings…' : u ? fill('Working · {} tokens in, {} out so far', fmtN(u.input), fmtN(u.output)) : 'Working…');
+        make(w, 'p', 'ak-meta', S.live.writing ? 'Writing your readings…' : u ? fill('Working · {} so far', tokLine(u)) : 'Working…');
         const st = make(w, 'button', 'ak-btn ak-btn-quiet', 'Stop'); st.type = 'button'; st.addEventListener('click', () => api('stop', { job: S.job }).catch(() => {}));
       }
       if (S.error) make(main, 'p', 'ak-err', S.error);

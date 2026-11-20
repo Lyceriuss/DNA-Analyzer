@@ -15,6 +15,7 @@ data, to the Gene Cluster Explorer.
 | [explorer.md](explorer.md) | The datasets the explorer reads, its tabs, and how a new version is published |
 | [agent.md](agent.md) | The Ask tab's research agent: Claude on public facts only, answers checked against their sources, filled in on this machine |
 | [migration.md](migration.md) | Moving off claude.ai: what is tied to it, the standalone build, and the steps to a self-hosted service |
+| [production.md](production.md) | From dev to production: what other people need to run it, and the ways to ship it (Docker, a desktop app, lite mode) |
 
 ## The whole system
 

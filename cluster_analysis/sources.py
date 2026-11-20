@@ -13,7 +13,8 @@ import time
 
 import requests
 
-CACHE_DIR = os.path.join(os.path.dirname(__file__), "cache")
+# The lookup cache: here by default; DNA_CACHE_DIR moves it (the desktop app keeps it in its data folder)
+CACHE_DIR = os.environ.get("DNA_CACHE_DIR") or os.path.join(os.path.dirname(__file__), "cache")
 STRING_API = "https://string-db.org/api/json"
 MYGENE_API = "https://mygene.info/v3/query"
 GWAS_API = "https://www.ebi.ac.uk/gwas/rest/api/v2/associations"

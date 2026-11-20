@@ -54,14 +54,55 @@ class TestHighlights(unittest.TestCase):
         """'yours' as a source: the figure must be in the person's result the label names, only when sharing is on."""
         score = providers.card("nutrient", "b12:score", "Vitamin B12", level="high", value=73, headline="73rd percentile")
         ctx = tools.new_context("P", share=True)
-        ctx["cards"] = [score]
-        ok = lambda hs: tools.call(ctx, "answer", {"summary": "S.", "explanation": "E.", "highlights": hs})[0]
-        self.assertIn('"ok"', ok(["Vitamin B12 score | 73rd percentile | yours"]))
-        self.assertIn("not in the person", ok(["Vitamin B12 score | 42nd percentile | yours"]))
-        self.assertIn("no result", ok(["Made up | 73rd percentile | yours"]))
+        ctx["cards"], ctx["question"] = [score], "Where does my vitamin B12 score rank?"
+        def ok(hs):  # each check on its own first attempt (the third rejection is accepted without what failed)
+            ctx["rejections"] = 0
+            return tools.call(ctx, "answer", {"summary": "S.", "explanation": "E.", "highlights": hs})[0]
+        self.assertIn('"ok"', ok(["Vitamin B12 score | top 27% | yours"]))
+        self.assertIn("not in the person", ok(["Vitamin B12 score | top 58% | yours"]))
+        self.assertIn("no result", ok(["Made up | top 27% | yours"]))
+        self.assertIn("top X%", ok(["Vitamin B12 score | 73rd percentile | yours"]))  # ranks read as top/bottom X%
         blind = tools.new_context("P", share=False)
-        blind["cards"] = [score]
-        self.assertIn("not shared", tools.call(blind, "answer", {"summary": "S.", "explanation": "E.", "highlights": ["Vitamin B12 | 73rd | yours"]})[0])
+        blind["cards"], blind["question"] = [score], ctx["question"]
+        self.assertIn("not shared", tools.call(blind, "answer", {"summary": "S.", "explanation": "E.", "highlights": ["Vitamin B12 | top 27% | yours"]})[0])
+
+
+class TestRanks(unittest.TestCase):
+    """Where a score ranks is said only when asked, as top/bottom X% (agent/language.py)."""
+
+    def test_rank_words(self):
+        from cluster_analysis.agent import language
+        self.assertEqual([language.rank_words(p) for p in (95, 19, 65, 8, 50, 100)],
+                         ["top 5%", "bottom 19%", "top 35%", "bottom 8%", "normal (near the European baseline)", "top 1%"])
+
+    def test_top_is_the_favourable_end(self):
+        from cluster_analysis.agent import language
+        # A risk: low is good (top), high is bad (bottom); no better side: highest/lowest
+        self.assertEqual([language.rank_words(p, "worse") for p in (3, 98, 76, 55)], ["top 3%", "bottom 2%", "bottom 24%", "normal (near the European baseline)"])
+        self.assertEqual([language.rank_words(p, None) for p in (95, 3)], ["highest 5%", "lowest 3%"])
+        risk = providers.card("condition", "ra", "Rheumatoid arthritis", level="high", value=98, higher="worse",
+                              headline="You carry 172 risk alleles, which puts you near the 98th percentile.")
+        r = tools.interpreted([risk])[0]
+        self.assertTrue(r["rank"].startswith("bottom 2% of Europeans"))
+        self.assertIn("in the bottom 2%", r["summary"])
+
+    def test_unasked_ranks_are_refused(self):
+        ctx = tools.new_context("P", share=True)
+        ctx["question"] = "What could help me build muscle?"
+        text = tools.call(ctx, "answer", {"summary": "Your lean mass is in the top 5% of Europeans.", "explanation": "E."})[0]
+        self.assertIn("doesn't ask where the person ranks", text)
+        text = tools.call(ctx, "answer", {"summary": "Lean mass sits at the 95th percentile.", "explanation": "E."})[0]
+        self.assertIn("leave ranks out", text)
+
+    def test_interpreted_results_say_top_or_bottom(self):
+        card = providers.card("fitness", "grip", "Grip strength", level="lowered", value=19, higher="better",
+                              headline="The genes put grip strength at the 19th percentile of Europeans.",
+                              rows=[{"label": "Percentile", "value": 19}, {"label": "Variant", "value": "FOXP1 (rs17008201): 1 of 2 copies"}])
+        r = tools.interpreted([card])[0]
+        self.assertTrue(r["rank"].startswith("bottom 19% of Europeans"))
+        self.assertIn("in the bottom 19%", r["summary"])
+        self.assertNotIn("percentile", json.dumps(r).lower())
+        self.assertEqual(len(r["details"]), 1)
 
 
 class TestRiskLanguage(unittest.TestCase):

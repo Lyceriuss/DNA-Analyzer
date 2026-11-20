@@ -111,8 +111,9 @@ class Agent:
             doms, conds = categories.domains_of(res["cards"])
             if not themes and not doms and not conds:
                 return
-            usage = {"input": 0, "output": 0}
-            add = lambda u: {k: usage[k] + u[k] for k in usage}
+            from cluster_analysis.agent import cost
+            usage = cost.new()
+            add = lambda u: cost.add(usage, u)
             if run.backend():
                 # Whole domains and clusters, never the person's selection: the choice stays on this machine
                 for th in themes:
@@ -223,6 +224,10 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         # The datasets change when a person is added: the page must not keep stale copies
         if self.path.startswith("/datasets/") or self.path.endswith(".json"):
             self.send_header("Cache-Control", "no-store")
+        # The page holds all the code: the browser asks for it again on every load (a 304 when it hasn't changed),
+        # so a rebuilt page shows without a hard reload
+        elif self.path.split("?")[0] in ("/", "/index.html") or self.path.split("?")[0].endswith((".html", ".js", ".css")):
+            self.send_header("Cache-Control", "no-cache")
         super().end_headers()
 
     def _agent_get(self, url):
@@ -238,6 +243,15 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             if url.path == "/api/agent/session":
                 from cluster_analysis.agent import session as sess
                 s = sess.Session.load(q.get("id", ""))
+                from cluster_analysis.agent import converse
+                for t in s.turns:  # answers saved before the calls and the headline existed
+                    try:
+                        if any(x.get("source") != "score" and "calls" not in x for x in t.get("written") or []):
+                            converse.attach_calls(s.person, t["written"], t.get("answer"))
+                        if "hero" not in t:
+                            t["hero"] = converse.genotype_hero(s.person, t.get("question"), t.get("answer"), t.get("written"))
+                    except Exception:
+                        pass
                 return self._json(200, {"id": s.id, "person": s.person, "turns": s.turns})
             if url.path == "/api/agent/sessions":
                 from cluster_analysis.agent import session as sess
@@ -405,5 +419,6 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 
 def make(directory, port):
     handler = functools.partial(Handler, directory=directory)
-    # 127.0.0.1 only: the datasets hold genotypes
-    return http.server.ThreadingHTTPServer(("127.0.0.1", port), handler)
+    # 127.0.0.1 only: the datasets hold genotypes. Inside a container the server must listen on its own network
+    # (DNA_BIND_HOST=0.0.0.0), and the container publishes the port on the host's 127.0.0.1 only (compose.yaml)
+    return http.server.ThreadingHTTPServer((os.environ.get("DNA_BIND_HOST", "127.0.0.1"), port), handler)

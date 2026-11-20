@@ -20,3 +20,4 @@ data/reference/
 
 # Explorer build output (cluster_analysis/explorer/build.py)
 cluster_analysis/explorer/build/
+dist/

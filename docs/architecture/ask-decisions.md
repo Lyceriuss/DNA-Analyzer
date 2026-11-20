@@ -631,7 +631,154 @@ somewhere else in their results.
 | Score cards were coloured without regard to which way is better (a high HDL score marked worth attention) | `_score_direction` uses `higher` |
 | The explanation said "I did not look up studies … the food links are general nutrition knowledge" | the prompt requires every link from a result to the question's subject to come from a cited tool result: research it or leave it out |
 
+### D25. Token cost: count it as billed, cap it, send less (2026-11-20)
+
+**Where the tokens went:** every tool call is a round trip that resends the system prompt (~1,100 tokens), the 27
+tool definitions (~3,100) and every earlier result (1,000-3,000 each). The counter added cache reads to input, so the
+tab showed "196k tokens" for a turn that was mostly cheap cache reads.
+
+**Measured** (Claude Code, Sonnet, 2026-11-20, priced at API rates):
+
+| Question | Fresh in | Cache read | Cache write | Out | Cost |
+|---|---|---|---|---|---|
+| ADRB2 pathway (88k "in" before) | 8 | 37,251 | 14,503 | 753 | $0.048 |
+| Food, 9 lookups | 16 | 149,719 | 24,442 | 431 | $0.080 |
+
+Cache writes are 75% of the cost: every new tool result is written to the cache at 1.25 times the input price, then
+re-read on every later step. So the lever is how much new content a turn adds, not the raw total.
+
+**Decisions:**
+- **`agent/cost.py`** records fresh input, cache reads, cache writes, output and the cost at API prices; the tab's
+  token line shows them. On a Claude Code login the cost is what the same turn would cost on the API.
+- **A lookup budget** of 10 public and personal calls per turn (`tools.CALL_BUDGET`); views, understand and answer
+  don't count. Past it, the model is told to answer with what it has. The prompt asks for about 8 and for
+  independent calls in one step.
+- **The answer check reports every problem at once.** After two rejections, the third answer is accepted without
+  the citations and highlight figures the tools didn't support (`answer.dropped` lists them). Advice is never
+  accepted. The 196k food turn came from serial rejections.
+- **Smaller results for the model:** empty fields dropped everywhere (`facts.clip`), shorter lists and texts in
+  gene, variant, cluster, trait_variants, drug and recent_papers. The six largest results are ~27% smaller. The ledger
+  still holds every source's full text, so the citation and figure checks are unchanged.
+- **Programmatic tool calling, a prototype** (`DNA_AGENT_PTC=1`, API backend only). The lookups gene, variant,
+  cluster, trait_variants, search_papers, research_genotypes and recent_papers become functions inside Claude's code
+  execution (`allowed_callers`). A script runs several, filters, and prints what matters; only the printout enters
+  the context, and results of programmatic calls aren't billed as tokens. Personal tools, views, understand and
+  answer stay direct, so the screen, the privacy split and the checks are unchanged; the harness still runs every
+  call and records it in the ledger. Code execution has its own container-time price.
+  Not measured yet: no API key is set here. Claude Code has no equivalent; a local tool that runs model-written
+  Python next to the DNA file would need a sandbox.
+
+### D26. The question's aim: a strategies question is answered with strategies, researched outward (2026-11-20)
+
+**The failure:** "what do I have to think about to stay skinny based on my genes" was read as "which of your results
+bear on body weight". The answer led with the person's obesity allele count, ran one research call, and said no
+genotype-specific diet evidence existed. Three causes:
+- `understand` had no field for what the person wants out of the answer, so the goal became a risk question.
+- The prompt told the model to stop when the person's own results answered the question, and the obesity card
+  looked like an answer.
+- "Lead with the strongest signal" and "no 'what to do' section" pushed the risk to the top.
+
+**Decisions:**
+- `understand` takes an `aim`: strategies, risk, explain, research, other. An MCP client may not enforce the enum,
+  so the MCP wrapper declares it as a `Literal` and a free-text aim is read by its words (`tools._aim`).
+- For a strategies question, `understand` lists 3-6 candidate `strategies`: the ones the person named and the ones
+  their genes' mechanisms bear on (an appetite gene: fasting, meal timing). `answer` is refused until there are at
+  least two outward lookups and every listed strategy has appeared in a search query, topic or find list
+  (`tools.researched`), unless the budget is spent. Finding no genotype evidence for a strategy is reported as such.
+- The summary answers the question as asked in its first sentence: strategies and how people with the genotypes
+  responded, with size and evidence strength; the person's propensity follows as context. Strategies are reported as
+  evidence ("in trials, carriers of … lost …"), not instructions, which keeps D22.
+- The lookup budget is 20 for strategies and research questions, 10 otherwise.
+
+**Measured** on the same question (Claude Code, Sonnet), before raising the budget from 16 to 20:
+
+| Version | Aim | Outward lookups | Leads with | Cost |
+|---|---|---|---|---|
+| Before | none | 1 | the obesity allele count | $0.043 |
+| Aim and outward rule | strategies | 7 | activity and carbohydrate quality | $0.110 |
+| Plus listed strategies | strategies | 12 | activity × FTO: OR 1.30 inactive vs 1.22 active, a 27% attenuation (Kilpeläinen 2011); protein, calorie restriction, fasting and sleep searched | $0.111 |
+
+The last run ran out of budget before reading the one FTO × eating-window study it found, hence 20.
+
+### D27. Ranks only when asked, areas covered, the logic web, every step shown (2026-11-20)
+
+**The failure:** "What could help me build muscle?" put the person's percentiles in the summary and the tiles
+("95th percentile, higher is better", "19th"). It contradicted itself and didn't say why a score was high, though the
+variants behind it were in the result. It never read tendons, recovery or inflammation. The steps showed only their
+names.
+
+**Ranks** (the user's rule): where a score ranks is said only when the question asks how the person ranks, scores or
+compares, or is a risk question (`language.ranks_asked`). "Top" is the favourable end and "bottom" the unfavourable one
+(the user, after "3rd" read like a race placing): a risk at the 3rd percentile is "top 3%", at the 98th "bottom 2%";
+a level with a better side the same way; a score with no better side "highest/lowest X%"; 41-59 "around the middle".
+Never "the 95th percentile", and it comes last. Condition cards (risk-allele counts) now carry `higher: worse`. `language.rank_problems` sends an answer back for an ordinal percentile, or for
+an unasked personal rank. The interpreted results the model gets carry `rank` ("bottom 19% of Europeans") instead of
+the percentile, and their texts are rewritten the same way. The tab shows the person's scores as Top/Bottom X% tiles
+in a last section, folded away unless the question asked. Unasked, the scores take at most one sentence at the end of
+the summary, and the last section of the explanation. When a score is mentioned, the variants behind it are named.
+
+**Areas:** `understand` lists the areas the answer must cover; for a cluster question, its mechanisms (building muscle:
+growth on load, protein synthesis, fibre type, tendons, regeneration, inflammation, hormones). An area counts as read
+when a lookup named one of its mechanism ids, matched by mechanism or phase name (`tools._area_ids`: "fibre type"
+-> fast, slow; "hormones" -> testosterone, gh), or by its words. `my_cluster` takes several mechanisms at once.
+Unread areas send the answer back within the retry limit; a strict word match looped four times and cost $0.19
+before this.
+
+**The logic web:** `answer.links`, one per area and strategy: "area or strategy | the person's genes | refs |
+finding". Genes must have come from this turn's tools and refs from the ledger. What doesn't hold is left out of the
+link (`left_out`), not the whole link; a genotype ("CC") isn't a gene. The tab draws it in three columns (areas and
+strategies, the person's genes, the studies) with each finding listed beneath. With sharing on, the studies behind
+the person's own cluster results enter the ledger, so they can be cited.
+
+**Every step:** `tools.call` records a trace of every call: its arguments and one line on what came back ("6
+papers: …", "on your screen: Fitness: Tendons …"), or why it was refused. Drafts the answer check sent back show
+with their reasons. The tab lists them under "Every step (N)". The trace is never sent to the model.
+
+**Measured** on the same question (Claude Code, Sonnet):
+
+| Version | Ranks in the text | Areas linked | Time | Cost |
+|---|---|---|---|---|
+| Before | 95th, 19th percentile in the summary and tiles | none | | |
+| Areas by strict words | none | 8 | 323 s | $0.191 |
+| Areas by mechanism | none | 3 (links with an unknown gene dropped whole) | 137 s | $0.068 |
+| Links keep what holds | none; scores last | 11 | | |
+
+### D28. The person's genotype, prominent and coloured by its call (2026-11-20)
+
+**The problem:** the person's genotype on each finding row was a small grey chip ("rsID AG"), so where they
+stand, and whether the gene works as usual, was hard to find.
+
+**Decision:** every finding row carries a call per variant (`converse.attach_calls`), shown as a large badge: the
+genotype in the call's colour, the call and its meaning, the variant beneath, the evidence on hover. The colours are
+the Clusters tab's (th.js): LoF less active red, GoF more active blue, typical green, changed with unclear direction
+neutral and dotted. A legend heads the findings, and the web's genes take the same colours (`answer.calls`).
+
+**Where a call comes from**, in order:
+1. A medicine gene's CPIC result: poor, intermediate, slow or decreased is less active; rapid or increased more active.
+2. The explorer's call for the variant (`gene_function`, then `theme_genes`), with its basis and evidence.
+3. With no call: the copies of the variant allele, from the agent's index (1000 Genomes), else Ensembl's record
+   (`sources.ensembl_vep`, cached and rate-limited, public variant ids fetched once per turn). No copies is the usual
+   genotype (green); one or two is "carrier · 1 copy of T" (amber, dashed), its effect on the gene not measured. A
+   site with more alleles takes the one with a European frequency as the variant allele.
+
+### D29. The person's DNA at a glance (2026-11-20)
+
+**The problem:** after D28 the genotype was clear on each finding row, but an answer still didn't say at a glance
+what the person's DNA is for the genes it is about; the summary's "rsID is GG" was the only sign.
+
+**Decision:** a headline card per key gene, first under the question (`converse.genotype_hero`, at most four): the
+genes the question names, then the web's, then the findings'. Each shows the gene, the person's genotype large and
+glowing in the colour of its call (D28), the call in words ("LESS ACTIVE", "TYPICAL", "CARRIER") and its meaning
+("Intermediate metaboliser"), and the gene's other variants as coloured chips. A medicine gene leads with its star
+alleles and CPIC result; any other gene with its most telling variant (LoF or GoF first). It is built on this
+machine for the screen and never sent to the model. Saved answers get their calls and headline when the conversation
+is opened (`/api/agent/session`).
+
 ## Open
+
+- Measure programmatic tool calling with an API key on the same questions (D25), then decide whether it becomes the
+  API default.
+- Tool search (load tool definitions on demand) would save ~2,000 tokens per step on 27 tools.
 
 - The hybrid resolution index (D17 proposal): exact hash maps for ids, character trigrams for typos, local embeddings
   for meaning, with the model choosing among real candidates. `resolve` today is the term index plus Open Targets.

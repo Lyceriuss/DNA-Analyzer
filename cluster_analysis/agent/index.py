@@ -25,7 +25,7 @@ import zipfile
 from genome import build as gbuild
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-PATH = os.path.join(ROOT, "cluster_analysis", "cache", "agent_index.sqlite")
+PATH = os.path.join(os.environ.get("DNA_CACHE_DIR") or os.path.join(ROOT, "cluster_analysis", "cache"), "agent_index.sqlite")
 GWAS = os.path.join(ROOT, "data", "reference", "gwas_associations_ontology.zip")
 GWS = 5e-8
 CLINVAR_KEEP = re.compile(r"athogenic|risk_factor|drug_response|protective|association|Affects", re.I)
