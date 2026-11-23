@@ -14,6 +14,20 @@ def person_label(path):
     return re.sub(r"(\.(imputed|measured))?(\.(csv|txt|tsv))?(\.(gz|zip))?$", "", name, flags=re.I)
 
 
+def imputation_complete(csv):
+    """Whether an imputed CSV was written to the end. genome/impute.py writes it under a temporary name (.partial,
+    never read here) and renames it when complete, then writes summary.json with its totals. A file written in place
+    by an older version and stopped half way has no summary with totals at least as new as itself: not complete."""
+    import json
+    summary = os.path.join(os.path.dirname(csv), "summary.json")
+    try:
+        with open(summary, encoding="utf-8") as f:
+            done = "totals" in json.load(f)
+        return done and os.path.getmtime(summary) >= os.path.getmtime(csv) - 1
+    except (OSError, ValueError):
+        return False
+
+
 def imputed_path(path):
     """The imputed version of a raw data file (genome/impute.py) on the build in genome/build.py, or the file itself
     when it hasn't been imputed (GRCh37 only: a raw MyHeritage file is GRCh37, so on GRCh38 it must be imputed)."""
@@ -24,7 +38,7 @@ def imputed_path(path):
     if gbuild.panel_name() != "1kg_phase3":
         folder = os.path.join(folder, gbuild.panel_name())
     p = os.path.join(folder, f"MyHeritage_raw_dna_data_{person}.imputed.csv")
-    if path and os.path.exists(p):
+    if path and os.path.exists(p) and imputation_complete(p):
         return p
     # Lite mode (genome/lite.py): the measured calls moved to this build, no imputation
     lite = os.path.join(folder, f"MyHeritage_raw_dna_data_{person}.measured.csv")

@@ -12,7 +12,8 @@ The explorer's "Add a person" dialog runs the same through the local server (exp
 
 Stages, each resumable (a run that stopped or failed starts again at the stage it reached):
   check     the file's format and calls, Java, Beagle and the reference panel, free disk
-  register  the file copied to data/input/<id>.<ext>, the person added to profiles.json
+  register  the file copied to data/input/<id>.<ext>, the person added to profiles.json, marked pending: until the
+            run is done no listing shows them (profiles.load), the explorer included
   impute    genome/impute.py: Beagle per chromosome, then the confidence-tiered CSV (~15 minutes)
   analyse   profiles.py run, one step at a time (themes, gene calls, systems, medicines, nutrition, lab tests, fitness,
             cancers); lookups come from the shared cache, so mostly offline
@@ -399,7 +400,8 @@ def add(src, pid, sex=None, lite=False):
     run = Run(pid)
     if run.s and run.s["state"] == "running" and pid_alive(run.s.get("pid")):
         raise SystemExit(f"{pid} is already being added")
-    if not (run.s and run.s["state"] in ("failed", "cancelled")):
+    # A run marked running whose process is gone (killed, or the computer restarted) resumes like a failed one
+    if not (run.s and run.s["state"] in ("failed", "cancelled", "running")):
         run.new(pid, src, sex)
         run.s["lite"] = bool(lite)
     else:  # resume: the stages done stay done, in the mode the run started in
@@ -410,6 +412,10 @@ def add(src, pid, sex=None, lite=False):
                 st["state"] = "pending"
         run.save()
     run.log(f"--- {now()} {'resumed' if run.s['started'] != run.s['updated'] else 'started'}: {pid} from {src}")
+    # Until the run is done the person is unfinished: left out of every listing (profiles.load) but this run's own
+    # analysis and export, which see them through this variable
+    from cluster_analysis.profiles import RUNNING_ENV
+    os.environ[RUNNING_ENV] = ",".join(filter(None, [os.environ.get(RUNNING_ENV), pid]))
     sid = None
     try:
         # check
@@ -578,6 +584,7 @@ def add(src, pid, sex=None, lite=False):
             run.save()
             stream(run, sid, [sys.executable, "-m", "cluster_analysis.explorer", "site"])
             run.finish(sid, "Done")
+        register(pid, sex, os.path.relpath(dest, ROOT).replace(os.sep, "/"), lite, pending=False)
         run.s.update(state="done", ended=now())
         run.save()
         record_timings(run.s)
@@ -760,14 +767,26 @@ def _write_profiles(raw, data, rows):
     out = "{\n  \"about\": " + json.dumps(data["about"], ensure_ascii=False) + ",\n  \"profiles\": [\n" + body + "\n  ]\n}\n"
     if "\r\n" in raw:
         out = out.replace("\n", "\r\n")
-    open(PROFILES, "wb").write(out.encode())
+    with open(PROFILES + ".tmp", "wb") as f:   # whole or not at all: the server reads it while a run writes it
+        f.write(out.encode())
+    for i in range(20):   # Windows refuses to replace a file another process has open: try again shortly
+        try:
+            os.replace(PROFILES + ".tmp", PROFILES)
+            return
+        except PermissionError:
+            time.sleep(0.05 * (i + 1))
+    os.replace(PROFILES + ".tmp", PROFILES)
 
 
-def register(pid, sex, dna, lite=False):
+def register(pid, sex, dna, lite=False, pending=True):
+    """The person in profiles.json; pending until the run is done (profiles.finished), so no page lists them before."""
     raw = open(PROFILES, "rb").read().decode()
     data = json.loads(raw)
-    row = {"id": pid, "sex": sex, "dna": dna, "added": now()[:10], **({"lite": True} if lite else {})}
-    _write_profiles(raw, data, [p for p in data["profiles"] if p["id"] != pid] + [row])
+    old = next((p for p in data["profiles"] if p["id"] == pid), {})
+    row = {**{k: v for k, v in old.items() if k not in ("lite", "pending")}, "id": pid, "sex": sex, "dna": dna,
+           "added": old.get("added") or now()[:10], **({"lite": True} if lite else {}), **({"pending": True} if pending else {})}
+    rows = [row if p["id"] == pid else p for p in data["profiles"]]
+    _write_profiles(raw, data, rows if old else rows + [row])
 
 
 def record_timings(s):

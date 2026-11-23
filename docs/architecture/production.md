@@ -50,7 +50,8 @@ for a hosted service.
 6. **Machine requirements, measured.** The pipeline already measures the machine and estimates times
    (`pipeline machine`). Publish minimums for RAM, disk and time, and refuse to impute where Beagle can't fit.
 7. **Ask setup.**
-   - **The API key in the OS keychain**, not in a plain file under `data/output`.
+   - **The API key encrypted at rest**, not in a plain file under `data/output`. Done 2026-11-23: DPAPI on
+     Windows, mode 600 on Linux (`agent/keystore.py`).
    - **The cost per question shown before the first one.** The token line already shows it after.
    - **Ask stays optional.** The rest of the explorer works without a model.
 8. **Security for a local app.** It already binds to 127.0.0.1, checks a header against cross-site requests, and
@@ -127,7 +128,7 @@ API, logged, so gaps can be found and added in the next release.
   - a 31 MB Java runtime from jlink, which runs Beagle 5.5
   - the code, unfrozen, so the pipeline's own `python -m` steps work
   - the analysis references (0.98 GB)
-  - `launch.py` and `Start.cmd`
+  - `launch.py` and `Troubleshoot (console).cmd`
   Tested: the bundle's Python loads only its own code; the launcher builds the page, picks a free port, waits and
   opens it; the pipeline finds Java, the panel and the disks. It starts with no profiles.
 - **Found on the way:** a fresh install failed twice. The export needed the Gene pathway file built for one developer
@@ -245,6 +246,46 @@ writes the datasets: the Python pipeline on the desktop, a browser engine on the
   installer; the release folder was checked for profiles, inputs, outputs and paths to this machine.
 - **Updates:** the page asks `DNA_UPDATE_URL` (a small JSON on our site: version, installer URLs, checksums,
   notes) once per start and shows "Version X is out" in the header. No feed exists yet.
+
+**Unfinished runs kept out of sight (2026-11-23).** Testing the installed app showed the site usable with no one
+added (a default name and zeros), and a person whose run had stopped shown from a half-written imputed file.
+- **The page is locked to its first-run screen** (`explorer/fr.js`, `.gx-locked` in `fr.css`) while the built page
+  lists no one: the server's `/api/setup` and `/api/status` report `shown`, the people in the site's
+  `data/profiles.json`. Only the welcome steps (research data, "Add a person", "Open a results file") and the run's
+  progress show; the page reloads, unlocked, once the first person is in. With someone shown, the explorer stays
+  usable while another is added. A page without the server's API (opened from disk) isn't locked.
+- **Only finished people are listed.** `pipeline.register` marks a new person `pending` in `profiles.json`, and the
+  end of the run removes the mark. `profiles.load()` lists a person only without the mark and without a run record
+  (`data/output/pipeline/<id>.json`) that isn't done, so a run registered by an older version counts as unfinished
+  too; people added by hand have neither and are listed. A run's own analysis and export see their person through
+  `DNA_PROFILE_RUNNING`. `explorer serve` exports again when the datasets list someone unfinished. A stopped run
+  shows as stopped, with Resume and Abandon, and a run left "running" by a killed process resumes where it was.
+- **Files are written whole or not at all:** the imputed CSV, `summary.json` and `calibration.json`
+  (`genome/impute.py`) and the lite CSV (`genome/lite.py`) under a `.partial` name, renamed when complete.
+  `genome/loader.imputed_path` takes an imputed CSV only with a `summary.json` holding totals at least as new as it,
+  which also rejects a half file an older version wrote in place.
+
+**Using it like an app; the API key encrypted (2026-11-23).** How to use it, in `README.txt` in the program folder
+and on the installer's last page: 1. install with the setup.exe; 2. start it from the icon on the desktop or in the
+Start menu; 3. the browser opens on the app.
+- **Shortcuts:** a desktop shortcut (now ticked by default) and a Start-menu entry, both with the app's icon
+  (`app.ico`, drawn by `build_desktop.icon()`, which needs Pillow on the build machine) and run through
+  `pythonw.exe`, so no console window. "Stop DNA-Analyzer" in the Start menu stops it; the uninstaller and an
+  update stop it first.
+- **`launch.py`** (now `scripts/launch.py`, copied into the build): before, every start picked a new free port and
+  started another server in a console window (closing it stopped the app). Now `data/server.json` names the running
+  server's port and process: started again, it only opens the browser on it. Otherwise the server starts on port 8470
+  (a free one if taken; `DNA_PORT`), with its output in `data/logs/server.log` (the launcher's in `launch.log`,
+  errors also in a message box), and the browser opens when it answers. `Troubleshoot (console).cmd` and `start.sh` still run it in
+  a console until that is closed; the Linux menu entry runs in the background. The one-time setup, unpacking the
+  included knowledge bundle (`knowledge.ensure_included`), was already done once and skipped after (a version
+  comparison); the page itself is rebuilt from its parts on each start, so an update shows.
+- **The API key at rest** (`agent/keystore.py`): on Windows encrypted with DPAPI for the current user (ctypes, no
+  new package); on Linux a file only its owner can read (mode 600), protected by file permissions only. A key saved
+  as plain text by an earlier version is rewritten encrypted when first read. The server never returns it (the
+  status says only whether one is set); it lives under `data/output/agent`, so it is in no results file, no
+  knowledge bundle (built from the lookup cache only) and no installer (`data\` is excluded). `tests/test_api_key.py`
+  and `tests/test_launch.py`.
 
 **Still open:**
 - **Size.** Most of the 1 GB is references already compressed: ClinVar (193 MB), Ensembl2Reactome (183 MB, every

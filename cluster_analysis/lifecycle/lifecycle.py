@@ -11,6 +11,16 @@ by molecules/proteins passed from one step to the next (transport steps included
 product goes is part of its life). Beyond the pathway the chain is extended through shared
 molecules (ChEBI) until it reaches a building block nothing in the body makes, or an exit.
 Public identifiers only are sent to Reactome; the genotype overlay runs offline.
+
+The app ships the walks for every library gene, built without anyone's DNA, as cluster_analysis/lifecycle/lifecycles.json
+(LIFECYCLES): explorer/export.py overlays each person's own calls on it, so the file holds no genotype and reaches every
+install (tests/test_lifecycles.py checks both). To regenerate it (API lookups are cached; never pass --dna here):
+
+    GENES=$(python -c "import json; print(' '.join(lc['gene'] for lc in json.load(open('cluster_analysis/lifecycle/lifecycles.json', encoding='utf-8'))))")
+    python -m cluster_analysis.lifecycle.lifecycle $GENES --out cluster_analysis/lifecycle/lifecycles.json
+
+--dna only adds one person's calls to the printed text and the file, for a look at a single person: keep such a file
+in data/output (ignored by git), never in the repo.
 """
 import argparse
 import json
@@ -24,6 +34,8 @@ from cluster_analysis.lifecycle.gene_trace import (CURRENCY, HUB_LIMIT, COFACTOR
 
 REACTOME = "https://reactome.org/ContentService"
 OUTPUT_DIR = gbuild.OUTPUT
+# The shipped walks, person-free (see the docstring)
+LIFECYCLES = os.path.join(os.path.dirname(os.path.abspath(__file__)), "lifecycles.json")
 MAX_PATHWAY_STEPS = 10
 MAX_EXTENSION = 4
 
@@ -338,7 +350,7 @@ def to_text(lc):
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("genes", nargs="+")
-    ap.add_argument("--dna", default="data/input/MyHeritage_raw_dna_data_XY.csv")
+    ap.add_argument("--dna", help="one person's DNA file: their calls on each enzyme (not for the shipped file)")
     ap.add_argument("--out")
     args = ap.parse_args()
     status = person_status(args.dna) if args.dna else {}

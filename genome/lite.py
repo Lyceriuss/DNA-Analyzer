@@ -10,7 +10,6 @@ reads it when there is no imputed file, so the whole analysis runs on the measur
 takes its place. No Java, panel or large memory: under a minute.
 """
 import argparse
-import json
 import os
 
 from genome import build as gbuild
@@ -35,17 +34,17 @@ def write(dna):
     path = out_path(dna)
     os.makedirs(os.path.dirname(path), exist_ok=True)
     n = 0
-    with open(path + ".tmp", "w", encoding="utf-8", newline="\n") as f:
+    # Under a temporary name until complete (genome/loader.py never reads it): a stopped run leaves no partial file
+    with open(path + impute.PARTIAL, "w", encoding="utf-8", newline="\n") as f:
         f.write(f"# {person}'s measured calls only (lite mode, genome/lite.py), forward strand, {gbuild.BUILD}. No imputation.\n")
         f.write("RSID,CHROMOSOME,POSITION,RESULT,SOURCE,GP,EUR_AF,CONFIDENCE\n")
         for chrom in impute.CHROMS:
             for pos, rsid, gt in calls.get(chrom, []):
                 f.write(f'"{rsid}","{chrom}","{pos}","{gt}",measured,,,measured\n')
                 n += 1
-    os.replace(path + ".tmp", path)
-    with open(os.path.join(os.path.dirname(path), "lite.json"), "w", encoding="utf-8") as f:
-        json.dump({"person": person, "source": os.path.basename(dna), "build": gbuild.BUILD, "calls": n,
-                   "not_lifted": dict(lost)}, f, indent=1)
+    impute.publish(path + impute.PARTIAL, path)
+    impute.dump_json({"person": person, "source": os.path.basename(dna), "build": gbuild.BUILD, "calls": n,
+                      "not_lifted": dict(lost)}, os.path.join(os.path.dirname(path), "lite.json"))
     if lost:
         print(f"{sum(lost.values()):,} calls couldn't be moved to {gbuild.BUILD}: {dict(lost)}")
     print(f"{n:,} measured calls written to {path}")

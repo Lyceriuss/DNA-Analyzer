@@ -41,6 +41,12 @@
       return s;
     };
     const current = () => state.runs.find((r) => r.id === watching) || state.runs.find((r) => r.state === 'running') || null;
+    // Whether the page shows anyone yet (explorer/server.py "shown"): until a first run finishes, it shows only the
+    // first-run screen (fr.js), so the dialog doesn't promise a usable explorer meanwhile
+    const usable = () => !state.shown || state.shown.length > 0;
+    const meanwhile = (t) => (usable()
+      ? fill('Takes about {}. The explorer stays usable meanwhile, and the run carries on if this window is closed.', t)
+      : fill('Takes about {}. The explorer opens when it is done, and the run carries on if this window is closed.', t));
 
     // --- the header: a button, or the run's progress
     const header = () => {
@@ -221,7 +227,7 @@
           upload.lite = lite;
           for (const o of modes.children) { const on = o === b; o.classList.toggle('is-on', on); o.setAttribute('aria-checked', String(on)); }
           machineBox.hidden = lite;
-          note.textContent = fill('Takes about {}. The explorer stays usable meanwhile, and the run carries on if this window is closed.', took(lite));
+          note.textContent = meanwhile(took(lite));
         });
       };
       mode(true, 'Measured variants', 'The positions the test measured. Ready in minutes, on any computer.');
@@ -230,7 +236,7 @@
       const foot = make(dialog, 'div', 'gx-add-foot');
       machinePanel(foot.parentNode.insertBefore(machineBox, foot));
       machineBox.hidden = upload.lite;
-      note = make(foot, 'span', 'gx-note', fill('Takes about {}. The explorer stays usable meanwhile, and the run carries on if this window is closed.', took(upload.lite)));
+      note = make(foot, 'span', 'gx-note', meanwhile(took(upload.lite)));
       const back = make(foot, 'button', 'gx-add-ghost', 'Choose another file'); back.type = 'button';
       back.addEventListener('click', () => { view = 'pick'; upload = null; render(); });
       const go = make(foot, 'button', 'gx-add-go', 'Start'); go.type = 'button';
@@ -556,7 +562,8 @@
         again.disabled = !!state.busy;
         again.addEventListener('click', async () => { again.disabled = true; try { await api('resume', { id: run.id }); await refresh(); render(); } catch (e) { alert(e.message); again.disabled = false; } });
       } else {
-        make(foot, 'span', 'gx-note', 'You can close this window and keep using the explorer; the progress stays in the header.');
+        make(foot, 'span', 'gx-note', usable() ? 'You can close this window and keep using the explorer; the progress stays in the header.'
+          : 'You can close this window; the progress stays in the header, and the explorer opens when the run is done.');
         abandonButton(foot, run);
         const stop = make(foot, 'button', 'gx-add-ghost', 'Pause'); stop.type = 'button';
         stop.addEventListener('click', async () => {
@@ -601,6 +608,8 @@
       try { state = await api('status'); } catch (e) { state = { enabled: false, runs: [] }; }
       for (const r of state.runs || []) r._seen = Date.now();
       header(); plus();
+      // The first-run screen (fr.js) shows the run too
+      document.dispatchEvent(new CustomEvent('gx-add-status', { detail: state }));
       if (dialog && dialog.open && view === 'progress') {
         const run = current(), key = JSON.stringify(run, (k, v) => (k === 'eta' || k === '_seen' ? undefined : v)) + picked;
         if (key !== drawn) { drawn = key; const top = dialog.scrollTop; render(); dialog.scrollTop = top; } else timeText(run);
@@ -611,6 +620,6 @@
       timer = setTimeout(async () => { await refresh(); poll(); }, state.busy || (dialog && dialog.open) ? 2000 : 20000);
     };
     // The first-run card (fr.js) opens the dialog too
-    window.gxAdd = { open: () => open('pick') };
+    window.gxAdd = { open: () => open('pick'), progress: (id) => open('progress', id), state: () => state };
     refresh().then(() => { if (state.enabled) poll(); });
   })();

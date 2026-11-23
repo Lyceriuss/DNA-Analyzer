@@ -387,8 +387,8 @@ if __name__ == "__main__":
         people = prof.load()
         if args.dna:
             people = [p for p in people if p["id"] == person_label(args.dna)] or [{"id": person_label(args.dna), "sex": None, "dna": args.dna}]
-        # A fresh install has no lifecycles yet (they come with the knowledge bundle, docs/architecture/production.md):
-        # the Gene pathway tab is then empty, the rest is exported as usual
+        # The app ships them without genotypes (cluster_analysis/lifecycle/lifecycles.json); without the file the
+        # Gene pathway tab is empty, the rest is exported as usual
         lifecycles = json.load(open(args.lifecycles, encoding="utf-8")) if os.path.exists(args.lifecycles) else []
         graphs = prof.theme_graphs()
         reach = chip_reach()

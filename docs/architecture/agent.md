@@ -112,7 +112,9 @@ Ensembl isn't used, so the agent keeps working when rest.ensembl.org is down.
   the tool calls and the model's text.
 
 **The key:** the loop takes it from `ANTHROPIC_API_KEY`, or from `data/output/agent/api_key`, which the Ask tab
-writes when "remember" is ticked. Otherwise the server keeps it in memory.
+writes when "remember" is ticked: encrypted with DPAPI for the Windows user, or mode 600 on Linux (protected by file
+permissions only; `agent/keystore.py`, which also rewrites an older plain-text file encrypted). Otherwise the server
+keeps it in memory. No endpoint returns it: the status says only whether one is set.
 
 ## Two backends
 
@@ -146,4 +148,4 @@ the MCP server the same way.
 | `data/output/agent/answers/` | no | answer templates (no genotypes, but the user's questions) |
 | `data/output/agent/fills/` | no | per-person readings (personal) |
 | `data/output/agent/runs/` | no | step logs |
-| `data/output/agent/api_key` | no | the remembered key |
+| `data/output/agent/api_key` | no | the remembered key (encrypted on Windows) |

@@ -1,9 +1,14 @@
   // First run and results files (explorer/server.py: /api/setup, /api/results). Only with the local server: a page
   // opened from disk has no API and shows neither.
+  // Until the page lists a person (setup.shown: the site rebuilt after a first run finished, or a results file opened),
+  // it is locked to this first-run screen: the tabs, the introduction and the profile switcher are hidden (.gx-locked,
+  // fr.css), the welcome card and the run's progress stay. When the first person is ready the page reloads, unlocked.
   (() => {
     const first = document.getElementById('gx-first'), steps = document.getElementById('fr-steps');
     const files = document.getElementById('gx-files');
     if (!first || !files) return;
+    const root = document.querySelector('.gx');
+    let runs = null;   // the Add-a-person runs (ad.js), for the card's progress line
     const make = (p, tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; p.appendChild(e); return e; };
     const fill = (tpl, ...v) => { let i = 0; return tpl.replace(/\{\}/g, () => String(v[i++])); };
     const post = async (path, body, raw) => {
@@ -50,7 +55,7 @@
       const keep = message;
       files.replaceChildren();
       const who = window.gx && gx.who();
-      if (setup.profiles && who) {
+      if (setup.shown && who) {
         const a = make(files, 'a', 'fr-file', 'Save results');
         a.href = '/api/results?id=' + encodeURIComponent(who);
         a.title = fill('{}\'s results as one file, to keep or to open on another device. It holds genotypes: keep it private.', who);
@@ -67,9 +72,12 @@
       if (keep) files.appendChild(keep);
     };
 
-    // --- The welcome card, while no one has been added
+    // --- The welcome card, while the page lists no one
+    const locked = () => !!setup && setup.shown === 0;
     const card = () => {
-      first.hidden = setup.profiles > 0;
+      const lock = locked();
+      if (root) root.classList.toggle('gx-locked', lock);
+      first.hidden = !lock;
       if (first.hidden) return;
       steps.replaceChildren();
       const step = (done, title) => {
@@ -108,21 +116,47 @@
       add.addEventListener('click', () => window.gxAdd && window.gxAdd.open());
       const open = make(row, 'button', 'fr-ghost', 'Open a results file'); open.type = 'button';
       open.addEventListener('click', openResults);
+      // The person being added: the explorer opens when their run is done
+      const run = runs && (runs.find((r) => r.state === 'running') || runs.find((r) => r.state === 'failed' || r.state === 'cancelled'));
+      if (run) {
+        add.disabled = !window.gxAdd || run.state === 'running';
+        const line = make(s3, 'div', 'fr-run' + (run.state === 'running' ? '' : ' is-bad'));
+        line.setAttribute('role', 'status');
+        if (run.state === 'running') {
+          make(line, 'b', null, fill('Adding {} · {}%', run.id, Math.floor((run.progress || 0) * 100)));
+          const bar = make(line, 'div', 'fr-bar'); make(bar, 'i').style.width = `${(run.progress || 0) * 100}%`;
+          make(line, 'p', 'gx-note', 'The explorer opens here when the run is done.');
+        } else {
+          make(line, 'b', null, fill('Adding {} stopped', run.id));
+          make(line, 'p', 'gx-note', 'It can carry on from the stage it reached, or be abandoned.');
+        }
+        const see = make(line, 'button', 'fr-ghost', run.state === 'running' ? 'Show progress' : 'Resume or abandon'); see.type = 'button';
+        see.addEventListener('click', () => window.gxAdd && window.gxAdd.progress(run.id));
+      }
     };
 
     const render = () => {
       tools(); card();
       clearTimeout(timer);
       if (setup.job && setup.job.state === 'running') timer = setTimeout(refresh, 1000);
+      else if (locked()) timer = setTimeout(refresh, 4000);   // until the first person is ready
     };
+    let wasLocked = false;
     const refresh = async () => {
       try {
         const r = await fetch('/api/setup', { cache: 'no-store' });
         if (!r.ok) return;
         setup = await r.json();
       } catch (e) { return; }
+      // The first person is ready: the page is loaded again with them (its datasets were rebuilt)
+      if (wasLocked && setup.shown > 0) { location.reload(); return; }
+      wasLocked = locked();
       render();
     };
+    document.addEventListener('gx-add-status', (e) => {
+      runs = (e.detail || {}).runs || null;
+      if (setup && locked()) card();
+    });
     refresh();
     // The selected person changes the save link
     const prof = document.querySelector('[data-draw="gx-profile"]');

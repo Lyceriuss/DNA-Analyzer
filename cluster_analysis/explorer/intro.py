@@ -88,10 +88,9 @@ def person(p):
             "not_lifted": sum((s.get("not_lifted") or {}).values()), "imputed": s.get("totals", {}).get("imputed"),
             "kept": s.get("totals", {}).get("imputed_kept"), "min_gp": s.get("min_gp"), "tiers": s.get("tiers"),
             "validation": {"hidden": cal.get("hidden"), "confident": n, "right": round(right / n, 4) if n else None},
+            # the person's own calls at every example gene's variants ("Reading a cluster" reads the one for their sex)
             "example_gt": json.dumps(genotypes_at(p["dna"], [r for c in CLUSTER.values() for r in c["variants"]])),
-            # the slide's worked example is this profile (data/input/intro_example.json): no separate marker for it
-            "lite": bool(lite),
-            "is_example": pid == (_load(os.path.join(ROOT, "data", "input", "intro_example.json")) or {}).get("profile")}
+            "lite": bool(lite)}
 
 
 # The introduction's teaching example: the alcohol chain, ADH1B then ALDH2, one well-studied variant each, shown as
@@ -350,12 +349,14 @@ def pairs():
     return {"channels": [n for _, n in CHANNELS], "pairs": out, "pathways": table, "min_score": PAIR_SCORE}
 
 
-# "Reading a cluster" (Home, step 5): what a cluster gene's call means for the person, told for the example gene the slide
-# picks (the changed gene with the most confident partners). As for the alcohol example, the choices here are the gene,
-# its partners, the person's variants to look up, the tissues, the studies and the regex anchors that find each number
-# in the study's own text; every number and sentence is read from GTEx, UniProt, Reactome, Europe PMC and the GWAS Catalog.
+# "Reading a cluster" (Home, step 5): what a cluster gene's call means for the person, told for one example gene per
+# fertility theme: the slide picks the one of the selected person's theme (their sex) and reads it from their own rows.
+# As for the alcohol example, the choices here are the gene, its partners, the variants to look up, the tissues, the
+# studies and the regex anchors that find each number in the study's own text; every number and sentence is read from
+# GTEx, UniProt, Reactome, Europe PMC and the GWAS Catalog, and an item whose anchor doesn't match is left out.
 CLUSTER = {
     "ESR1": {
+        "theme": "fertility_female", "people": "women",
         "acc": "P03372", "reactome": "R-HSA-9018519",
         "partners": {"NCOA1": "Q15788", "ESR2": "Q92731", "PGR": "P06401", "GREB1": "Q4ZG55"},
         "variants": ["rs2234693", "rs9340799", "rs851982", "rs851984"],
@@ -379,12 +380,63 @@ CLUSTER = {
              "outcomes": ["Endometriosis-related infertility", "IVF failure"], "labels": ["AA", "AG", "GG"],
              "sentence": r"After controlling for age, infertile women with ESR1 rs9340799 GG genotype presented 4-fold increased risk of endometriosis \(OR [^)]*\)",
              "n": r"We included (\d+) infertile women with endometriosis, (\d+) infertile women with at least one IVF failure and also (\d+) fertile women"},
-            {"id": "meta", "pmid": "31821471", "rsid": "rs2234693", "name": "PvuII", "measure": "Endometriosis, meta-analysis",
+            {"id": "meta", "kind": "quote", "pmid": "31821471", "rsid": "rs2234693", "name": "PvuII", "measure": "Endometriosis, meta-analysis",
              "sentence": r"(\d+) showed a significant trend towards the lack of an association: [^;]*?estrogen receptor 1 \(ESR1\) rs2234693"},
         ],
         # GWAS Catalog associations of the person's alleles, per copy (trait, first author, the allele the effect is for)
         "gwas": [("rs851982", "Female infertility (idiopathic, defined by coding in electronic health record)", "Venkatesh SS"),
                  ("rs2234693", "Heel bone mineral density", "Morris JA")],
+    },
+    # FSHB, the FSH beta chain: its promoter variant -211G>T (rs10835638), and the GWAS signal near it in men (rs11031006)
+    "FSHB": {
+        "theme": "fertility_male", "people": "men",
+        "acc": "P01225", "reactome": "R-HSA-375281", "reactome_sentences": [1, 3],
+        "partners": {"FSHR": "P23945", "LHCGR": "P22888", "GNRHR": "P30968", "GNRH1": "P01148", "LHB": "P01229"},
+        # The path in men, brain to testes: which genes in which order (curated); each label is kept only when its UniProt
+        # text holds the backing words (check), and that sentence is shown with it. "measures" are the Grigorova table
+        # rows measured along the branch, by FSHB genotype
+        "path": [
+            [{"gene": "GNRH1", "acc": "P01148", "label": "Brain: GnRH", "check": r"hypothalamic"},
+             {"gene": "GNRHR", "acc": "P30968", "check_acc": "P01148", "check_gene": "GNRH1", "label": "Pituitary: GnRH receptor",
+              "check": r"pituitary gonadotrope cells"},
+             {"gene": "FSHB", "acc": "P01225", "check_acc": "P30968", "check_gene": "GNRHR", "label": "FSH",
+              "check": r"follicle-stimulating hormone \(FSH\)"},
+             {"gene": "FSHR", "acc": "P23945", "label": "FSH receptor on the Sertoli cells", "check": r"Sertoli"},
+             {"gene": None, "acc": "P01225", "check_gene": "FSHB", "label": "Sperm production", "check": r"spermatogenesis",
+              "measures": ["FSH", "Inhibin-B", "Total testes volume", "Sperm concentration", "Total sperm count per ejaculate"]}],
+            [{"gene": "LHB", "acc": "P01229", "label": "LH", "check": r"luteinizing hormone"},
+             {"gene": "LHCGR", "acc": "P22888", "check_acc": "P01229", "check_gene": "LHB", "label": "LH receptor on the Leydig cells",
+              "check": r"Leydig"},
+             {"gene": None, "acc": "P01229", "check_gene": "LHB", "label": "Testosterone", "check": r"testosterone",
+              "measures": ["Total testosterone", "LH"]}],
+        ],
+        "variants": ["rs10835638", "rs11031006"],
+        "tissues": ["Pituitary", "Testis", "Prostate"],
+        # Controlled studies in men by -211G>T genotype; what they found is read from their text
+        "studies": [
+            {"id": "baltic", "kind": "table", "pmid": "21733993", "pmcid": "PMC3298437", "rsid": "rs10835638", "name": "-211G>T",
+             "measure": "Reproductive measures in young men, adjusted medians",
+             "table": r"Table 2\. Male reproductive parameters in the Baltic young men cohort stratified by the FSHB rs10835638",
+             "labels": ["TT", "GT", "GG"], "order": [2, 1, 0], "count": r"No\. of men (\d+) (\d+) (\d+)",
+             "rows": ["FSH", "Inhibin-B", "Total testes volume", "Total testosterone", "LH", "Sperm concentration", "Total sperm count per ejaculate"],
+             "answer": ["FSH", "Total testes volume"],
+             "sentence": r"Serum hormones directly correlated with the T-allele dosage of rs10835638 included FSH .*?nmol/liter\)\.",
+             "n": r"n = \d+; GG carriers, n = (\d+); GT carriers, n = (\d+); TT carriers, n = (\d+)"},
+            {"id": "danish", "kind": "quote", "pmid": "33236519", "rsid": "rs10835638", "name": "-211G>T",
+             "measure": "Testis size and function in men from the general population",
+             "sentence": r"The studied polymorphisms have only minor modulating influence on testis size and function in healthy men\.",
+             "n": r"A cross-sectional study of (\d+) Danish men"},
+            {"id": "sicily", "kind": "quote", "pmid": "28281143", "rsid": "rs10835638", "name": "-211G>T",
+             "measure": "Hormones in men with normal or abnormal semen",
+             "sentence": r"Decreasing serum levels of FSH and LH were observed across the three FSHB -211 genotype subgroups \(p < [\d.]+ and p < [\d.]+, respectively\)\.",
+             "n": r"(\d+) men with abnormal conventional sperm parameters or normozoospermia"},
+            {"id": "casecontrol", "kind": "quote", "pmid": "28764642", "rsid": "rs10835638", "name": "-211G>T",
+             "measure": "Infertile against fertile men",
+             "sentence": r"In the FSHB or FSHR gene single nucleotide polymorphism \(SNP\) evaluation, no statistically-significant difference was found in the frequency of allelic variants or in genotype distribution between cases and controls\.",
+             "n": r"case-control study of (\d+) infertile men and (\d+) fertile controls"},
+        ],
+        "gwas": [("rs10835638", "Follicle stimulating hormone levels in idiopathic male infertility", "Schubert M"),
+                 ("rs11031006", "Follicle stimulating hormone levels", "Venkatesh SS")],
     },
 }
 TAGS = re.compile(r"</?[A-Za-z][A-Za-z0-9]*(\s[^<>]*)?/?>")
@@ -407,6 +459,7 @@ def gtex_tissues(gene, rsid, tissues):
     """GTEx v8: the variant's effect on the gene's expression (NES of the alternative allele) in each tissue, measured
     whether significant or not, with the tissue's sample size and the gene's median expression there."""
     from cluster_analysis import sources
+    import requests
     from cluster_analysis.evidence.gene_calls import _gtex
     def fetch():
         v = (_gtex("dataset/variant", {"snpId": rsid, "datasetId": "gtex_v8"}).get("data") or [{}])[0].get("variantId")
@@ -418,19 +471,24 @@ def gtex_tissues(gene, rsid, tissues):
                if r.get("geneSymbol") == gene}
         tpm = {x["tissueSiteDetailId"]: x["median"] for x in _gtex("expression/medianGeneExpression", {"gencodeId": g, "datasetId": "gtex_v8"}).get("data") or []}
         size = {x["tissueSiteDetailId"]: (x.get("eqtlSampleSummary") or {}).get("totalCount") for x in _gtex("dataset/tissueSiteDetail", {"datasetId": "gtex_v8"}).get("data") or []}
-        rows = []
+        rows, untested = [], []
         for t in sorted(set(tissues) | sig):
-            d = _gtex("association/dyneqtl", {"gencodeId": g, "variantId": v, "tissueSiteDetailId": t, "datasetId": "gtex_v8"})
+            # GTEx tests a variant only in tissues that make enough of the gene; elsewhere it answers 400
+            try:
+                d = _gtex("association/dyneqtl", {"gencodeId": g, "variantId": v, "tissueSiteDetailId": t, "datasetId": "gtex_v8"})
+            except requests.HTTPError:
+                untested.append({"tissue": t, "tpm": tpm.get(t)})
+                continue
             rows.append({"tissue": t, "nes": d.get("nes"), "p": d.get("pValue"), "significant": t in sig, "tpm": tpm.get(t), "n": size.get(t)})
         _, _, ref, alt, _ = v.split("_")
-        return {"variant": v, "ref": ref, "alt": alt, "rows": rows, "top_tpm": sorted(tpm.items(), key=lambda x: -x[1])[:5]}
+        return {"variant": v, "ref": ref, "alt": alt, "rows": rows, "untested": untested, "top_tpm": sorted(tpm.items(), key=lambda x: -x[1])[:5]}
     return sources._cached("gtex_tissues", f"{gene}|{rsid}|{','.join(sorted(tissues))}", fetch)
 
 
 def _study(st):
     a = europepmc_abstract_raw(st["pmid"]) or {}
     t = (europepmc_fulltext(st["pmcid"]) or {}).get("text", "") if st.get("pmcid") else ""
-    out = {k: st[k] for k in ("id", "pmid", "rsid", "name", "measure") if k in st}
+    out = {k: st[k] for k in ("id", "kind", "pmid", "rsid", "name", "measure") if k in st}
     out.update(study=f"{(a.get('authors') or '').split(',')[0].strip()} {a.get('year')}", title=a.get("title"))
     hit = re.search(st["sentence"], a.get("abstract", "")) or re.search(st["sentence"], t)
     out["finding"] = hit.group(0) if hit else None
@@ -438,7 +496,29 @@ def _study(st):
         m = re.search(st["n"], a.get("abstract", "")) or re.search(st["n"], t)
         out["n"] = sum(int(x) for x in m.groups()) if m else None
         out["n_groups"] = [int(x) for x in m.groups()] if m else None
-    if st["id"] == "dose":
+    if st.get("kind") == "table":
+        # A table of measures by genotype: each row's adjusted median per genotype group, with the additive and the
+        # recessive model's P, read from the paper's own table (its columns as the labels say)
+        m = re.search(st["table"], t)
+        seg = t[m.start():m.start() + 12000] if m else ""
+        cnt = re.search(st["count"], seg)
+        num = r"(−?[\d.]+)"
+        pval = r"([\d.]+) × 10 −(\d+)"
+        rows = []
+        for name in st["rows"]:
+            r = re.search(r"(?<![/\w])" + re.escape(name) + r" \(([^)]+)\) (?:[a-d] )?Mean \( sd \) .*?Adjusted median \(95% CI\) "
+                          + r" ".join([num + r" \([^)]*\)"] * 3) + " " + pval + " " + num + " " + pval + " " + num, seg)
+            if not r:
+                continue
+            g = r.groups()
+            vals = [float(g[1 + i]) for i in st["order"]]
+            rows.append({"measure": name, "unit": g[0], "values": vals, "answer": name in st.get("answer", []),
+                         "p_additive": float(f"{g[4]}e-{g[5]}"), "p_recessive": float(f"{g[7]}e-{g[8]}")})
+        if not rows:
+            return None
+        out.update(labels=[st["labels"][i] for i in st["order"]], rows=rows,
+                   group_n=[int(cnt.group(1 + i)) for i in st["order"]] if cnt else None)
+    elif st["id"] == "dose":
         m = re.search(st["groups"], t)
         if not m:
             return None
@@ -467,9 +547,9 @@ def _study(st):
     return out
 
 
-# The slide's example is the same for every profile: one woman's genotypes at the example gene, named only in the local,
-# gitignored data/input/intro_example.json ({"profile": id}), so no one's genotypes or id sit in the repo. Without that setting
-# (or the profile), the example takes the most common European genotype at each variant (1000 Genomes via Ensembl).
+# The slide reads the selected person's own genotypes at the example gene (their example_gt) and their own theme rows;
+# these sit only in the datasets on their machine. A person without the theme (an older export) gets the example drawn
+# from the theme graph with the most common European genotype at each variant (1000 Genomes via Ensembl).
 def genotypes_at(dna, rsids):
     """The person's calls at these rsIDs, from their imputed file (or the raw file before imputation)."""
     from genome.loader import imputed_path
@@ -502,48 +582,118 @@ def eur_common(rsid):
     return (best["genotype"].replace("|", ""), round(best["frequency"], 3)) if best else (None, None)
 
 
-def cluster_example(people):
-    """The example woman for the slide: her fertility theme rows (as the Clusters tab draws them, from the last export of
-    the datasets) and her genotypes at the example gene's variants; the 1000 Genomes fallback without one."""
+def cluster_example(gene):
+    """The last-resort example for the gene's theme, the same for everyone: the network from the theme graph that ships
+    with the app (the gene, its curated partners and its most confident STRING partners) and the most common European
+    genotypes at its variants. The slide uses it only for a person whose own rows lack the theme."""
     from cluster_analysis import profiles as prof
-    gene = next(iter(CLUSTER))
     c = CLUSTER[gene]
-    graph = next((x for x in prof.theme_graphs() if x["theme"] == "fertility_female"), None)
+    graph = next((x for x in prof.theme_graphs() if x["theme"] == c["theme"]), None)
     if not graph:
         return None
     facets = {m["id"]: m["name"] for m in graph["mechanisms"]}
     facets.setdefault("disease", graph.get("disease_name") or "Disease link, mechanism not yet known")
-    rsids = c["variants"]
-    pid = (_load(os.path.join(ROOT, "data", "input", "intro_example.json")) or {}).get("profile")
-    person = next((x for x in people if x["id"] == pid and x.get("sex") == "female"), None)
-    out = {"gene": gene, "theme": "fertility_female", "theme_name": graph["name"], "facets": facets}
-    ds = os.path.join(ROOT, gbuild.EXPLORER, "datasets")
+    out = {"gene": gene, "theme": c["theme"], "theme_name": graph["name"], "facets": facets}
     # The cycle phases' chains (fertility_deep, the same for everyone): where the gene sits in the cycle
-    ph = _load(os.path.join(ds, "fd_phases.json")) or []
+    ph = (_load(os.path.join(ROOT, gbuild.EXPLORER, "datasets", "fd_phases.json")) or []) if c["theme"] == "fertility_female" else []
     first = next((r["person"] for r in ph if r.get("person")), None)
     out["phases"] = [{k: r[k] for k in ("phase", "name", "chains")} for r in ph if r.get("person") == first]
-    tg = [r for r in (_load(os.path.join(ds, "theme_genes.json")) or []) if person and r.get("person") == person["id"] and r["theme"] == "fertility_female"]
-    if person and tg:
-        keep = {r["gene"] for r in tg if r.get("notable")}
-        out["genes"] = [{k: v for k, v in r.items() if k != "person" and (k != "evidence" or r["gene"] == gene)} for r in tg if r["gene"] in keep]
-        out["links"] = [{k: l[k] for k in ("a", "b", "score")} for l in (_load(os.path.join(ds, "theme_links.json")) or [])
-                        if l.get("person") == person["id"] and l["theme"] == "fertility_female" and l["a"] in keep and l["b"] in keep]
-        out["genotypes"] = genotypes_at(person["dna"], rsids)
-        out["source"] = "profile"
-    else:
-        names = [gene] + list(c["partners"])
-        out["genes"] = [{"gene": n, "primary": graph["genes"].get(n, {}).get("primary") or "disease", "notable": True} for n in names]
-        pt = (pairs() or {}).get("pairs", {})
-        out["links"] = [{"a": a, "b": b, "score": pt[f"{min(a, b)}|{max(a, b)}"][4] / 100} for i, a in enumerate(names) for b in names[i + 1:]
-                        if f"{min(a, b)}|{max(a, b)}" in pt]
-        gts = {r: eur_common(r) for r in rsids}
-        out["genotypes"] = {r: g for r, (g, _) in gts.items() if g}
-        out["frequency"] = {r: f for r, (_, f) in gts.items() if f}
-        out["source"] = "1000 Genomes Europeans"
+    glinks = graph.get("links") or []
+    top = sorted((l for l in glinks if gene in (l["a"], l["b"])), key=lambda l: -l["score"])
+    names = list(dict.fromkeys([gene] + [p for p in c["partners"] if p in graph["genes"]]
+                               + [l["b"] if l["a"] == gene else l["a"] for l in top]))[:10]
+    out["genes"] = [{"gene": n, "primary": graph["genes"].get(n, {}).get("primary") or "disease", "notable": True} for n in names]
+    keep = set(names)
+    out["links"] = [{"a": l["a"], "b": l["b"], "score": l["score"]} for l in glinks if l["a"] in keep and l["b"] in keep]
+    gts = {r: eur_common(r) for r in c["variants"]}
+    out["genotypes"] = {r: g for r, (g, _) in gts.items() if g}
+    out["frequency"] = {r: f for r, (_, f) in gts.items() if f}
+    out["source"] = "1000 Genomes Europeans"
+    return out
+
+
+# UniProt's function texts speak of both sexes in one entry. For a man's or a woman's example, the sentences about the
+# other sex are left out and those about their own come first; a sentence naming both ("In males, ...; while in females,
+# ...") is cut at the clause, marked with an ellipsis. "Follicle-stimulating hormone" is a hormone's name, not a female word.
+SEX_WORDS = {
+    "male": re.compile(r"\b(males?|men|testi(?:s|cular|es)|Sertoli|Leydig|spermat\w*|sperm|testosterone|androgens?)\b", re.I),
+    "female": re.compile(r"\b(females?|women|ovar\w*|granulosa|oocytes?|ovulat\w*|uter\w*|estrous|menstrual|luteal|corpus luteum"
+                         r"|pregnan\w*|follicular|follicles?(?!-stimulating))\b", re.I),
+}
+
+
+def uniprot_sentences(acc, kinds=("FUNCTION",)):
+    """The entry's sentences, each text closed with a period so one text never runs into the next. A tissue list
+    (TISSUE SPECIFICITY) comes as one sentence prefixed "Tissue: "."""
+    e = uniprot_full(acc) or {}
+    out = []
+    for cm in e.get("comments", []):
+        if cm.get("commentType") not in kinds:
+            continue
+        for x in cm.get("texts", []):
+            t = re.sub(r"\s*\((?:PubMed:\d+[,; ]*)+\)", "", x["value"]).strip()
+            if not t:
+                continue
+            if cm["commentType"] == "TISSUE SPECIFICITY":
+                out.append("Tissue: " + t.rstrip("."))
+                continue
+            t = t if t.endswith(".") else t + "."
+            out += [s.strip() for s in re.split(r"(?<=\.)\s+(?=[A-Z])", t) if s.strip()]
+    return out
+
+
+def tissues_for(sentence, sex):
+    """A "Tissue: a, b and c" line cut to the items that aren't the other sex's, marked with an ellipsis when cut."""
+    other = "female" if sex == "male" else "male"
+    items = [i.strip() for i in re.split(r",\s*|\s+and\s+", sentence[len("Tissue: "):]) if i.strip()]
+    keep = [i for i in items if not SEX_WORDS[other].search(i)]
+    return "Tissue: " + ", ".join(keep) + (" …" if len(keep) < len(items) else "")
+
+
+def for_sex(sentences, sex, n=2):
+    """Up to n sentences for one sex: its own first, then the neutral ones among the entry's opening sentences (its core
+    function); never the other sex's."""
+    other = "female" if sex == "male" else "male"
+    own, neutral = [], []
+    for i, s in enumerate(sentences):
+        mine, theirs = SEX_WORDS[sex].search(s), SEX_WORDS[other].search(s)
+        if mine and theirs:
+            # one clause per sex, joined by "; while in ..." or "; in ...": keep this sex's clause
+            parts = [p.strip() for p in re.split(r";\s*(?:while\s+)?(?=in\s+(?:fe)?males\b)", s, flags=re.I)]
+            keep = [p for p in parts if SEX_WORDS[sex].search(p) and not SEX_WORDS[other].search(p)]
+            if keep:
+                c = keep[0].rstrip(".")
+                own.append(c + (" …" if c != s.rstrip(".") else "."))
+        elif mine:
+            own.append(s)
+        elif not theirs and i < 2:
+            neutral.append(s)
+    return " ".join((own + neutral)[:n])
+
+
+def male_path(spec):
+    """The example's path in men (curated: which genes, in which order), each label kept only when its gene's UniProt
+    text holds the words that back it; the backing sentence goes with it, verbatim."""
+    out = []
+    for branch in spec:
+        nodes = []
+        for node in branch:
+            gene, acc, label, check = node["gene"], node["acc"], node["label"], node["check"]
+            src_acc = node.get("check_acc", acc)
+            sents = uniprot_sentences(src_acc, ("FUNCTION", "TISSUE SPECIFICITY"))
+            hit = next((s for s in sents if re.search(check, s, re.I)), None)
+            if not hit:
+                continue   # no source for the label: left out
+            clause = tissues_for(hit, "male") if hit.startswith("Tissue: ") else (for_sex([hit], "male", 1) or hit)
+            nodes.append({"gene": gene, "label": label, "source": clause, "source_gene": node.get("check_gene", gene),
+                          "measures": node.get("measures", [])})
+        out.append(nodes)
     return out
 
 
 def cluster(people=()):
+    """Per example gene: its facts (UniProt, Reactome, GTEx, studies, GWAS) and, under _examples by theme, the fallback
+    example. The person's side (their theme rows and example_gt) is read by the slide from their own datasets."""
     out = {}
     from cluster_analysis.nutrition.nutrient_steps import summary as reactome_summary
     rows_ = gwas_rows({r for c in CLUSTER.values() for r, _, _ in c["gwas"]})
@@ -560,11 +710,16 @@ def cluster(people=()):
                 r = hits[0]
                 gw.append({"rsid": rsid, "trait": trait, "allele": r["STRONGEST SNP-RISK ALLELE"].split("-")[-1], "estimate": float(r["OR or BETA"]) if r["OR or BETA"] else None,
                            "ci": r["95% CI (TEXT)"], "p": r["P-VALUE"], "author": r["FIRST AUTHOR"], "year": r["DATE"][:4], "pmid": r["PUBMEDID"], "sample": r["INITIAL SAMPLE SIZE"]})
-        out[gene] = {"function": fn(c["acc"]), "partners": {g: fn(a) for g, a in c["partners"].items()},
-                     "reactome": {"id": c["reactome"], "summary": " ".join(re.split(r"(?<=\.)\s+", reactome_summary(c["reactome"]))[:1])},
+        s0, s1 = c.get("reactome_sentences", [0, 1])
+        out[gene] = {"theme": c["theme"], "people": c["people"], "variants": c["variants"],
+                     "function": fn(c["acc"]), "partners": {g: fn(a) for g, a in c["partners"].items()},
+                     "partners_sex": {sex: {g: for_sex(uniprot_sentences(a), sex) or fn(a) for g, a in c["partners"].items()}
+                                      for sex in ("male", "female")},
+                     "path": male_path(c["path"]) if c.get("path") else None,
+                     "reactome": {"id": c["reactome"], "summary": " ".join(re.split(r"(?<=\.)\s+", reactome_summary(c["reactome"]))[s0:s1])},
                      "gtex": {r: gtex_tissues(gene, r, c["tissues"]) for r in c["variants"]},
                      "studies": [x for x in (_study(st) for st in c["studies"]) if x], "gwas": gw}
-    out["_example"] = cluster_example(people)
+    out["_examples"] = {c["theme"]: cluster_example(gene) for gene, c in CLUSTER.items()}
     return out
 
 

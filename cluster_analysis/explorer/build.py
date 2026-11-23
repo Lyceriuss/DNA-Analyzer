@@ -26,6 +26,7 @@ import os
 import re
 import shutil
 import sys
+import urllib.parse
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 LIMIT = 262144  # bytes, JSON-encoded: the artifact's per-document limit
@@ -143,6 +144,14 @@ def minify(page):
     return re.sub(r"(<style>)(.*?)(</style>)", lambda m: m.group(1) + minify_css(m.group(2)) + m.group(3), page, flags=re.S)
 
 
+# The tab's and the app window's icon: a double helix on teal, like the installer's app.ico (build_desktop.py icon)
+FAVICON = "data:image/svg+xml," + urllib.parse.quote(
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#1f8a80"/>'
+    '<path d="M22 10c0 15 20 15 20 22s-20 7-20 22M42 10c0 15-20 15-20 22s20 7 20 22" fill="none" stroke="#fff" '
+    'stroke-width="5" stroke-linecap="round"/><path d="M25 18h14M25 46h14M28 32h8" stroke="#bfe9e3" stroke-width="4" '
+    'stroke-linecap="round"/></svg>')
+
+
 def standalone(page, data_dir, out):
     """The page with the standalone runtime and design tokens loaded before its own styles and scripts."""
     os.makedirs(os.path.join(out, "data"), exist_ok=True)
@@ -165,6 +174,7 @@ def standalone(page, data_dir, out):
         names.append(name)
     head = ('<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
             '<meta name="viewport" content="width=device-width, initial-scale=1">\n<title>Gene Cluster Explorer</title>\n'
+            f'<link rel="icon" href="{FAVICON}">\n'
             '<link rel="stylesheet" href="tokens.css">\n'
             '<script src="d3.min.js"></script>\n'
             '<script src="runtime.js"></script>\n</head>\n<body>\n')

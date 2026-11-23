@@ -3,7 +3,7 @@
     python -m cluster_analysis.agent ask "What workouts suit me best?" [--lang sv] [--person XY]
 
 The key comes from ANTHROPIC_API_KEY, or the file data/output/agent/api_key (written by the explorer's Ask tab when
-"remember" is ticked). Only the question and the public facts the tools return are sent: the person's genome is read
+"remember" is ticked; encrypted with DPAPI on Windows, mode 600 elsewhere: agent/keystore.py). Only the question and the public facts the tools return are sent: the person's genome is read
 after the run, on this machine (answer.fill).
 
 Each step is reported through emit(event) (the Ask tab shows them live) and kept in data/output/agent/runs/<id>.jsonl.
@@ -60,12 +60,17 @@ Name genes and variants as the sources do. Write all text fields in {language}."
 
 
 def api_key():
+    """ANTHROPIC_API_KEY, or the key saved by the Ask tab (agent/keystore.py: encrypted with DPAPI on Windows)."""
     key = os.environ.get("ANTHROPIC_API_KEY")
     if key:
         return key
-    if os.path.exists(KEY_FILE):
-        return open(KEY_FILE, encoding="utf-8").read().strip() or None
-    return None
+    from cluster_analysis.agent import keystore
+    return keystore.read(KEY_FILE)
+
+
+def save_api_key(key):
+    from cluster_analysis.agent import keystore
+    keystore.write(KEY_FILE, key)
 
 
 # --- The other way in: Claude Code on the user's Claude plan, no API key ---------------------------------------------

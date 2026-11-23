@@ -38,12 +38,39 @@ STEPS = ("themes", "genes", "systems", "medicines", "nutrition", "labtests", "fi
 THEME_SEX = {"XX": "female", "XY": "male"}   # theme_graph.py marks a theme's body layout as XX or XY
 
 
-def load():
-    return json.load(open(PATH, encoding="utf-8"))["profiles"]
+RUNS = os.path.join(os.path.dirname(HERE), "data", "output", "pipeline")   # cluster_analysis/pipeline.py's run records
+# The people a pipeline run is analysing and exporting right now (comma-separated ids): listed by load() although
+# their run hasn't finished
+RUNNING_ENV = "DNA_PROFILE_RUNNING"
+
+
+def finished(p):
+    """Whether a person's run finished: no `pending` mark in profiles.json (pipeline.register sets it, the end of the
+    run removes it) and no run record that isn't done. People added by hand have neither: finished."""
+    if p.get("pending"):
+        return False
+    path = os.path.join(RUNS, p["id"] + ".json")
+    if not os.path.exists(path):
+        return True
+    try:
+        with open(path, encoding="utf-8") as f:
+            return json.load(f).get("state") == "done"
+    except (OSError, ValueError):
+        return False
+
+
+def load(unfinished=False):
+    """The people in profiles.json whose run finished (see finished), plus the one a running pipeline names in
+    DNA_PROFILE_RUNNING. unfinished=True: everyone listed, however far their run got."""
+    rows = json.load(open(PATH, encoding="utf-8"))["profiles"]
+    if unfinished:
+        return rows
+    running = set(filter(None, os.environ.get(RUNNING_ENV, "").split(",")))
+    return [p for p in rows if p["id"] in running or finished(p)]
 
 
 def get(pid):
-    return next((p for p in load() if p["id"] == pid), None)
+    return next((p for p in load(unfinished=True) if p["id"] == pid), None)
 
 
 def applies(theme_sex, sex):
@@ -79,7 +106,7 @@ def x_heterozygosity(dna):
 
 
 def check():
-    for p in load():
+    for p in load(unfinished=True):
         h = x_heterozygosity(p["dna"])
         dna_sex = None if h is None else "female" if h > 0.05 else "male"
         flag = "" if dna_sex in (None, p["sex"]) else f"  <- profiles.json says {p['sex']}"
@@ -88,7 +115,8 @@ def check():
 
 def run(pids, steps):
     py = [sys.executable, "-m"]
-    for p in load():
+    # Named people are run however far their run got (the pipeline analyses its person this way); all: the finished
+    for p in load(unfinished=bool(pids)):
         if pids and p["id"] not in pids:
             continue
         od = out_dir(p["id"])
@@ -119,7 +147,8 @@ def run(pids, steps):
                               "--dna", p["dna"], "--out-dir", od, "--sex", "women" if p["sex"] == "female" else "men"])
         for c in cmds:
             print(f"\n== {p['id']}: {' '.join(c[2:])}", flush=True)
-            subprocess.run(c, check=True, env={**os.environ, "PYTHONIOENCODING": "utf-8"})
+            running = ",".join(filter(None, [os.environ.get(RUNNING_ENV)] + list(pids or [])))
+            subprocess.run(c, check=True, env={**os.environ, "PYTHONIOENCODING": "utf-8", RUNNING_ENV: running})
 
 
 if __name__ == "__main__":

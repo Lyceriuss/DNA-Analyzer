@@ -28,3 +28,8 @@
   .fr-update { border-color: var(--gof); color: var(--gof); font-weight: 600; }
   .fr-msg { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); flex-basis: 100%; text-align: right; }
   @media (max-width: 560px) { .fr-where li { grid-template-columns: 1fr; gap: 0; } .fr-step { grid-template-columns: 1fr; } .fr-mark { display: none; } }
+  /* Locked to the first-run screen (fr.js) until the page lists a person: the views, the introduction and the switcher wait */
+  .gx.gx-locked .gx-tabs, .gx.gx-locked .gx-page, .gx.gx-locked .gx-lede, .gx.gx-locked .gx-profile { display: none !important; }
+  .fr-run { display: grid; gap: 6px; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--color-border-line); }
+  .fr-run .fr-ghost { justify-self: start; }
+  .fr-run.is-bad > b { color: var(--color-bad); }

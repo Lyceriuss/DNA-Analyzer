@@ -20,8 +20,8 @@ flowchart TB
     EXT -->|yes| STEPS["ordered steps"]
     UP --> RH["Rhea<br/>reaction equations"]
     G --> OP["OmniPath<br/>directed, signed regulators"]
-    STEPS & RH & OP --> LC["lifecycles_XY_full.json"]
-    CALLS["XY's calls (offline)"] --> OVER["genotype + evidence call<br/>on each library enzyme"]
+    STEPS & RH & OP --> LC["lifecycle/lifecycles.json<br/>(shipped, no genotypes)"]
+    CALLS["each person's calls (offline)"] --> OVER["genotype + evidence call<br/>on each library enzyme"]
     LC --> OVER
     OVER --> EXP["explorer/export.py --lifecycles"]
     EXP --> D1["lifecycle_steps"]
@@ -34,9 +34,14 @@ first word of each library `gene` field as the symbol: the rest is an alias in b
 alias on its own can name a different protein (DAO is D-amino acid oxidase). TNF is listed as "TNF-alpha" and needs
 its official symbol. Reactome returns 503s under load; rerun the failed genes and merge.
 
+The file is built without a DNA file and committed, so every install has the Gene pathway tab and the introduction's
+alcohol-chain example (ADH1B, ALDH2): `explorer/export.py --lifecycles` puts each person's own calls on it.
+`tests/test_lifecycles.py` checks it holds no genotype. (Until 2026-11-23 it was built with XY's DNA and lived only
+in data/output, so fresh installs had neither.)
+
 ```bash
 GENES=$(python -c "import json; print(' '.join(sorted({v['gene'].split()[0] for v in json.load(open('cluster_analysis/library/snp_traits.json', encoding='utf-8')).values()})))")
-python -m cluster_analysis.lifecycle.lifecycle $GENES TNF --dna data/input/MyHeritage_raw_dna_data_XY.csv --out data/output/cluster_analysis/lifecycles_XY_full.json
+python -m cluster_analysis.lifecycle.lifecycle $GENES TNF --out cluster_analysis/lifecycle/lifecycles.json   # no --dna: the file ships
 python -m cluster_analysis.lifecycle.gene_trace ALDH2 --dna data/input/MyHeritage_raw_dna_data_XY.csv     # upstream / downstream trace of one gene
 ```
 

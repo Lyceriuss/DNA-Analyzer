@@ -3,7 +3,8 @@
 Only on 127.0.0.1, and every API call must come from the page itself: the Host header must be this machine and POSTs
 carry an X-GX header, which a page on another site can't send without a CORS preflight this server never answers.
 
-    GET  /api/status            {"enabled": true, "runs": [...], "typical": {stage: seconds}, "busy": id or null}
+    GET  /api/status            {"enabled": true, "runs": [...], "typical": {stage: seconds}, "busy": id or null,
+                                 "profiles": every id taken, "shown": the people the built page lists}
     POST /api/upload?name=F     the file's bytes -> {"token", "info": pipeline.inspect(...)}
     POST /api/start             {"token", "id", "sex"} -> starts cluster_analysis.pipeline add in the background
     POST /api/resume            {"id"}: a failed or stopped run carries on from the stage it reached
@@ -12,14 +13,19 @@ carry an X-GX header, which a page on another site can't send without a CORS pre
     POST /api/abandon           {"id"}: stops an unfinished run if it runs and removes the person with all it made
 
 First run and results files:
-    GET  /api/setup             {"knowledge": installed release or null, "source", "job": download progress, "profiles"}
+    GET  /api/setup             {"knowledge": installed release or null, "source", "job": download progress,
+                                 "profiles": people whose run finished, "shown": people the built page lists}
+
+The page is locked to its first-run screen (fr.js) while "shown" is 0: until a person's run has finished and the
+site has been rebuilt with them, there is nothing to show but the welcome and the run's progress.
     POST /api/setup/knowledge   installs the knowledge bundle (data/knowledge/*.zip or DNA_KNOWLEDGE_URL) in the background
     GET  /api/results?id=P      P's results file, as a download (explorer/results.py)
     POST /api/results/import[?as=ID]   a results file's bytes -> {"id"}; the datasets are then rebuilt
 
 The Ask tab's research agent (cluster_analysis/agent), one question at a time:
     GET  /api/agent/status      {"key", "backend": "api" | "claude-code" | null, "index", "model", "effort", "running", "answers"}
-    POST /api/agent/key         {"key", "remember"}: the Anthropic API key, in memory or (remember) in data/output/agent
+    POST /api/agent/key         {"key", "remember"}: the Anthropic API key, in memory or (remember) in data/output/agent,
+                                encrypted (agent/keystore.py); no endpoint returns it, status says only whether one is set
     POST /api/agent/ask         {"question", "lang"} -> {"job"}: runs the agent in the background
     GET  /api/agent/events?job=J&after=N   {"events", "next", "done", "answer"}
     POST /api/agent/stop        {"job"}
@@ -45,8 +51,26 @@ UPLOADS = os.path.join(pipeline.STATE_DIR, "uploads")
 MAX_BYTES = 300 * 1024 * 1024
 
 
+SITE = None   # the folder served (make), whose data/profiles.json is what the page lists
+
+
 def busy():
     return next((r["id"] for r in pipeline.status()["runs"] if r["state"] == "running"), None)
+
+
+def shown():
+    """The people the built page lists: its data/profiles.json, which explorer export fills with the finished people
+    only (cluster_analysis/profiles.load) and the imported ones."""
+    try:
+        with open(os.path.join(SITE, "data", "profiles.json"), encoding="utf-8") as f:
+            return [p["id"] for p in json.load(f)]
+    except (OSError, ValueError, TypeError, KeyError):
+        return []
+
+
+def finished():
+    from cluster_analysis import profiles
+    return [p["id"] for p in profiles.load()]
 
 
 class Setup:
@@ -83,7 +107,7 @@ class Setup:
         src = cls.source()
         return {"knowledge": k and {x: k.get(x) for x in ("version", "installed", "added")},
                 "source": src and ("download" if re.match(r"^https?://", src) else "included"),
-                "job": dict(cls.job), "profiles": len(pipeline.profiles()), "version": version.VERSION,
+                "job": dict(cls.job), "profiles": len(finished()), "shown": len(shown()), "version": version.VERSION,
                 "update": cls.update if cls.update and cls.update.get("newer") else None}
 
     @classmethod
@@ -338,9 +362,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
                 return self._json(400, {"error": "That doesn't look like an Anthropic API key (sk-ant-…)."})
             Agent.key = key
             if req.get("remember"):
-                os.makedirs(os.path.dirname(run.KEY_FILE), exist_ok=True)
-                with open(run.KEY_FILE, "w", encoding="utf-8") as f:
-                    f.write(key)
+                run.save_api_key(key)   # encrypted at rest (agent/keystore.py); never sent back to the page
             return self._json(200, {"ok": True})
         if path == "/api/agent/settings":
             from cluster_analysis.agent import settings
@@ -422,7 +444,8 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             st = pipeline.status()
             for r in st["runs"]:
                 r.pop("src", None)
-            return self._json(200, {"enabled": True, **st, "busy": busy(), "profiles": [p["id"] for p in pipeline.profiles()]})
+            return self._json(200, {"enabled": True, **st, "busy": busy(), "profiles": [p["id"] for p in pipeline.profiles()],
+                                    "shown": shown()})
         return super().do_GET()
 
     def do_POST(self):
@@ -539,6 +562,8 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 
 
 def make(directory, port):
+    global SITE
+    SITE = directory
     handler = functools.partial(Handler, directory=directory)
     # 127.0.0.1 only: the datasets hold genotypes. Inside a container the server must listen on its own network
     # (DNA_BIND_HOST=0.0.0.0), and the container publishes the port on the host's 127.0.0.1 only (compose.yaml)

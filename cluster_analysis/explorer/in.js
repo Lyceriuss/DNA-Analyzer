@@ -122,6 +122,14 @@
         inMake(s, 'div', 'in-stage-big', big);
         inMake(s, 'small', null, small);
       };
+      if (!c.p) {
+        // No one added yet: what each stage does, with no one's numbers
+        stage(1, 'Read', 'DNA file', 'The positions the DNA test measured: single places where people\'s DNA differs by one letter');
+        stage(2, 'Imputation', 'Optional', 'The positions between them filled in from reference genomes, or the measured ones only');
+        stage(3, 'Results', 'Every tab', 'The genes read against the research, each finding with an evidence grade');
+        inText(el, 'Genetic data is sensitive health data under the GDPR, so the analysis runs where the DNA file is stored: on this computer. Nothing is sent anywhere, and deleting the DNA file and the results folder removes everything.');
+        return;
+      }
       const fmt = { myheritage: 'MyHeritage', ancestry: 'AncestryDNA', '23andme': '23andMe' }[p.format] || p.format;
       stage(1, 'Read', inN(p.measured), fmt ? inT('SNPs measured in {}\'s {} file: single positions where people\'s DNA differs by one letter', c.who, fmt) : inT('SNPs measured in {}\'s file: single positions where people\'s DNA differs by one letter', c.who));
       // Confident calls only: most filled-in positions are rare variants called "not detected, not excluded", which add nothing
@@ -215,7 +223,7 @@
           seg.style.width = `${(n[g] / total) * 100}%`;
           if (n[g] / total >= 0.08) inMake(seg, 'i', null, g);
         }
-        inText(sec, inT('{} findings for {} in Medicines, Nutrition, Biomarkers and training, by grade. The tabs show the grade next to every finding, strongest first.', inN(total), c.who));
+        if (c.p) inText(sec, inT('{} findings for {} in Medicines, Nutrition, Biomarkers and training, by grade. The tabs show the grade next to every finding, strongest first.', inN(total), c.who));
       }
       // A grade is how much evidence there is, not how much a finding matters
       const note = inMake(sec, 'div', 'in-gnote');
@@ -228,7 +236,8 @@
       inMake(note, 'p', null, 'A grade measures how much evidence there is, not how much a finding matters. A single study can find something with a large effect, and every A+ guideline started as one C-grade study that others went on to repeat. The C findings are where tomorrow\'s guidelines come from: worth reading, with that in mind.');
     } },
     { title: 'What your DNA can do for you', draw: (el, c) => {
-      inText(el, inT('One example of what the explorer reads from {}\'s own variants: cancer, from the medicines that need a different dose to the cancers the genes lean toward.', c.who));
+      inText(el, c.p ? inT('One example of what the explorer reads from {}\'s own variants: cancer, from the medicines that need a different dose to the cancers the genes lean toward.', c.who)
+        : 'One example of what the explorer reads from a person\'s own variants: cancer, from the medicines that need a different dose to the cancers the genes lean toward. Once someone is added, this shows their own.');
       const tg = inCount('theme_genes'), tm = inCount('theme_meta'), mgd = inCount('med_guidance'), names = inCount('med_names');
       const mg = inCount('med_genes');
       const nn = inCount('nut_nutrients'), ft = inCount('fit_tests'), sp = inCount('sport_snps');
@@ -264,7 +273,9 @@
       const mgBy = new Map((mg || []).map((g) => [g.gene, g]));
       const cancer = inMake(el, 'div', 'in-area in-cancer');
       inMake(cancer, 'h3', null, 'Cancer: the genes tested before treatment');
-      inMake(cancer, 'p', null, inT('Before chemotherapy and some hormone and targeted treatments, oncologists test a few genes that decide how the body clears the medicine: a slow clearer can get a toxic dose from a standard one. Here is what {}\'s DNA says for each:', c.who));
+      inMake(cancer, 'p', null, c.p
+        ? inT('Before chemotherapy and some hormone and targeted treatments, oncologists test a few genes that decide how the body clears the medicine: a slow clearer can get a toxic dose from a standard one. Here is what {}\'s DNA says for each:', c.who)
+        : 'Before chemotherapy and some hormone and targeted treatments, oncologists test a few genes that decide how the body clears the medicine: a slow clearer can get a toxic dose from a standard one. With a person added, their type for each of these genes shows here.');
       const cards = inMake(cancer, 'div', 'in-ccards');
       const CONF = { measured: ['Measured', 'ok'], high: ['Imputed, high confidence', 'ok'], medium: ['Imputed, medium confidence', 'warn'], not_excluded: ['Not detected, can\'t be ruled out', 'bad'] };
       // Most decisive genes first: an unusual type, then a variant that can't be ruled out
@@ -355,7 +366,9 @@
       inMake(cannot, 'h4', null, 'What it can\'t tell');
       const item = (col, head, text) => { const d = inMake(col, 'div', 'in-canlim-item'); inMake(d, 'b', null, head); if (text) inMake(d, 'p', null, text); return d; };
       if (cst.n_genes) item(can, 'A broad read of the cancer genes', inT('{} genes research links to cancer, grouped by the {} stages of a cell\'s life they act on (repair, checkpoints, clearing toxins and more).', inN(cst.n_genes), nMech));
-      item(can, 'Safer dosing', inT('The {} genes that decide how cancer medicines are cleared, read before any treatment starts, so a standard dose that would be toxic can be adjusted in time.', shown.length));
+      item(can, 'Safer dosing', shown.length
+        ? inT('The {} genes that decide how cancer medicines are cleared, read before any treatment starts, so a standard dose that would be toxic can be adjusted in time.', shown.length)
+        : 'The genes that decide how cancer medicines are cleared, read before any treatment starts, so a standard dose that would be toxic can be adjusted in time.');
       if (nCancers) item(can, 'Screening at the right time', inT('A genetic risk ranking for {} cancer types, so screening can start on time for the ones that stand out.', nCancers));
       // What lowers the risk, in one line: the full list is in the cancer theme (th.js, th-prevention)
       const nRecs = new Set(Object.values(PV.cancers).flatMap((c) => c.recommendations.map((r) => r.n))).size;
@@ -369,7 +382,9 @@
       const more = inMake(cancer, 'div', 'in-deeper');
       const txt = inMake(more, 'div');
       inMake(txt, 'h4', null, 'This is the overview. The cancer theme goes deeper.');
-      inMake(txt, 'p', null, inT('Under Clusters, the cancer theme follows a cell through its life (resting, copying its DNA, checkpoints, repair, programmed death) and shows each of {} cancer genes where it acts, which of {}\'s variants change it and the evidence behind each call. It also lists the disease variants checked, and the variants behind every bar above.', inN(cg.length), c.who));
+      inMake(txt, 'p', null, c.p && cg.length
+        ? inT('Under Clusters, the cancer theme follows a cell through its life (resting, copying its DNA, checkpoints, repair, programmed death) and shows each of {} cancer genes where it acts, which of {}\'s variants change it and the evidence behind each call. It also lists the disease variants checked, and the variants behind every bar above.', inN(cg.length), c.who)
+        : 'Under Clusters, the cancer theme follows a cell through its life (resting, copying its DNA, checkpoints, repair, programmed death) and shows each cancer gene where it acts, which of a person\'s variants change it and the evidence behind each call.');
       if (!inLocked()) {
         const b = inMake(more, 'button', 'in-next', 'Open the cancer theme');
         b.type = 'button';
@@ -584,25 +599,39 @@
       }
     } },
     { title: 'Reading a cluster', draw: (el, c) => {
-      // The worked example (intro.py): one woman's female fertility theme and genotypes, the same whoever is selected.
-      // Without it (an older export), the selected person's own theme is used.
+      // The worked example (intro.py CLUSTER): one gene per fertility theme, ESR1 for women and FSHB for men, read from the
+      // selected person's own theme rows and their own genotypes at its variants (example_gt). A person whose rows lack the
+      // theme gets the last-resort example (_examples): the theme graph with the most common European genotypes.
       let exAll = null;
       try { const row = (gx.rows('intro_stats') || [[]])[0].find((x) => x.kind === 'cluster'); exAll = row && row.cluster ? JSON.parse(row.cluster) : null; } catch (e) { /* none */ }
-      const EX = exAll && exAll._example;
-      const r = EX ? [Object.entries(EX.facets).map(([facet, facet_name]) => ({ theme: EX.theme, theme_name: EX.theme_name, facet, facet_name })),
-                      EX.genes.map((x) => ({ ...x, theme: EX.theme })), EX.links.map((x) => ({ ...x, theme: EX.theme }))]
-        : gx.rows('theme_meta', 'theme_genes', 'theme_links');
+      const prof = dash.data('profiles'), sex = prof.status === 'ok' ? ((prof.data.find((p) => p.id === c.who) || {}).sex) : null;
+      const ownR = gx.rows('theme_meta', 'theme_genes', 'theme_links');
+      const ownThemes = new Set(ownR ? ownR[0].map((m) => m.theme) : []);
+      const exGenes = exAll ? Object.keys(exAll).filter((k) => k[0] !== '_' && exAll[k].theme) : [];
+      const want = sex === 'female' ? 'fertility_female' : sex === 'male' ? 'fertility_male' : null;
+      const exGene = exGenes.find((k) => exAll[k].theme === want) || exGenes.find((k) => ownThemes.has(exAll[k].theme)) || exGenes[0];
+      const XT = exGene ? exAll[exGene].theme : null;
+      const mineRows = !!(ownR && XT && ownR[1].some((x) => x.theme === XT && x.gene === exGene));
+      const FB = !mineRows && XT ? ((exAll._examples || {})[XT] || null) : null;
+      let mineGt = {};
+      try { mineGt = JSON.parse((c.p || {}).example_gt || '{}') || {}; } catch (e) { /* none */ }
+      const EX = XT && (mineRows || FB) ? { gene: exGene, theme: XT, source: mineRows ? 'profile' : FB.source,
+                                            genotypes: mineRows ? mineGt : FB.genotypes, phases: FB ? FB.phases : null } : null;
+      const PROFILE = !!EX && EX.source === 'profile';
+      const r = FB ? [Object.entries(FB.facets).map(([facet, facet_name]) => ({ theme: FB.theme, theme_name: FB.theme_name, facet, facet_name })),
+                      FB.genes.map((x) => ({ ...x, theme: FB.theme })), FB.links.map((x) => ({ ...x, theme: FB.theme }))]
+        : ownR;
       if (!r) { if (gx.failed('theme_meta', 'theme_genes', 'theme_links')) gx.failLine(el); return; }
       const [meta, genes, links] = r;
-      // The labels: "the example" for the worked example, else the person
-      const EXW = EX ? 'the example' : c.who, WL = EX ? 'example' : c.who;
-      const prof = dash.data('profiles'), sex = prof.status === 'ok' ? ((prof.data.find((p) => p.id === c.who) || {}).sex) : null;
+      // The labels: "the example" for the last-resort example, else the person
+      const EXW = EX && !PROFILE ? 'the example' : c.who, WL = EX && !PROFILE ? 'example' : c.who;
       const themes = [...new Set(meta.map((m) => m.theme))];
       const T = EX ? EX.theme : themes.find((t) => t === (sex === 'female' ? 'fertility_female' : 'fertility_male')) || themes[0];
       const tname = (meta.find((m) => m.theme === T) || {}).theme_name || T;
       const facetName = new Map(meta.filter((m) => m.theme === T).map((m) => [m.facet, m.facet_name]));
       const call = (g) => (g.genotype || (g.call_source === 'api' && g.function) ? (g.function || 'normal') : g.carried > 0 ? 'variant' : null);
-      const shown = genes.filter((g) => g.theme === T && g.notable);
+      // the network's genes, as the Clusters tab shows them; the example gene among them even when it isn't notable
+      const shown = genes.filter((g) => g.theme === T && (g.notable || (EX && g.gene === EX.gene)));
       const byName = new Map(shown.map((g) => [g.gene, g]));
       const tl = links.filter((l) => l.theme === T && byName.has(l.a) && byName.has(l.b));
       const partnersOf = (name) => tl.filter((l) => l.a === name || l.b === name).map((l) => ({ g: byName.get(l.a === name ? l.b : l.a), score: l.score }))
@@ -622,18 +651,39 @@
       let ev = {}; try { ev = JSON.parse(g.evidence || '{}'); } catch (e) { /* no evidence */ }
 
       const deep = (exAll || {})[g.gene] || null;
-      // An example without a profile behind it (the most common European genotypes): its call is read from GTEx, as the
-      // tab reads expression calls: the copies of the allele that changes expression where GTEx finds it significant
-      if (EX && deep && !call(g)) {
+      const MEN = !!deep && deep.people === 'men';
+      // The last-resort example (the most common European genotypes): its call is read from GTEx, as the tab reads
+      // expression calls: the copies of the allele that changes expression where GTEx finds it significant
+      if (EX && !PROFILE && deep && !call(g)) {
         const v = Object.keys(deep.gtex || {})[0], G = v && deep.gtex[v], sig = G ? G.rows.filter((x) => x.significant) : [];
         const n = ((EX.genotypes || {})[v] || '').split('').filter((x) => G && x === G.alt).length;
         if (n && sig.length) Object.assign(g, { rsid: v, genotype: EX.genotypes[v], function: sig[0].nes > 0 ? 'GoF' : 'LoF', basis: 'expression', dose: n });
       }
-      inText(el, EX && deep
-        ? inT('The Clusters tab draws each health theme as a network of genes. A worked example, the same for every profile: one woman\'s {} theme, where {} is one of the most connected changed genes. What its call means for her, from the measurements and studies behind it:', tname.toLowerCase(), g.gene)
+      inText(el, EX && deep && !PROFILE
+        ? inT('The Clusters tab draws each health theme as a network of genes. A worked example, the same for every profile: the {} theme read with the most common European genotypes, where {} is one of the most connected genes. What its call means, from the measurements and studies behind it:', tname.toLowerCase(), g.gene)
+        : EX && deep
+        ? (MEN
+          ? inT('The Clusters tab draws each health theme as a network of genes. A worked example from {}\'s own {} theme: {}, a gene that studies in men have measured by genotype. What its call means for {}, from the measurements and studies behind it:', c.who, tname.toLowerCase(), g.gene, c.who)
+          : inT('The Clusters tab draws each health theme as a network of genes. A worked example from {}\'s own {} theme: {}, a gene that studies in women have measured by genotype. What its call means for {}, from the measurements and studies behind it:', c.who, tname.toLowerCase(), g.gene, c.who))
         : deep
         ? inT('The Clusters tab draws each health theme as a network of genes. In {}\'s {} theme, {} is one of the most connected changed genes. What its call means for {}, from the measurements and studies behind it:', c.who, tname.toLowerCase(), g.gene, c.who)
         : inT('The Clusters tab draws each health theme as a network of genes, with a panel describing the gene you select. Here is {}\'s {} theme, with {} selected.', c.who, tname.toLowerCase(), g.gene));
+      // Why this gene: chosen to show every step of a reading with real data, not because it stands out for the person.
+      // Its reach and the studies' measures come from the data below
+      if (EX && deep) {
+        const why = inMake(el, 'div', 'in-rc-why');
+        inMake(why, 'h3', null, inT('Why {}?', g.gene));
+        const ul = inMake(why, 'ul');
+        const li = (head, text) => { const x = inMake(ul, 'li'); inMake(x, 'b', null, head); inMake(x, 'span', null, text); };
+        const ms = (deep.studies || []).map((s) => s.measure).filter(Boolean).map((m) => m.charAt(0).toLowerCase() + m.slice(1));
+        li('A hub of the theme', inT('{} links to {} of the genes shown in this {} network, so it shows how a cluster hangs together.', g.gene, partnersOf(g.gene).length, tname.toLowerCase()));
+        if (ms.length) li(MEN ? 'Measured in men' : 'Measured in women', (MEN
+          ? inT('Studies compared men by their {} genotypes: {}.', g.gene, ms.join('; '))
+          : inT('Studies compared women by their {} genotypes: {}.', g.gene, ms.join('; '))));
+        li('A worked example, not a warning', PROFILE
+          ? inT('It was chosen because every step of a reading can be shown for it with real data, not because {}\'s result stands out. The same reading works for any gene in Clusters.', c.who)
+          : 'It was chosen because every step of a reading can be shown for it with real data. The same reading works for any gene in Clusters.');
+      }
       const grid = inMake(el, 'div', 'in-rc');
 
       // --- the network, drawn small from the person's own data, with numbered marks
@@ -935,7 +985,7 @@
         const nav = inMake(a2, 'div', 'in-rc-nav');
         for (const [t, label] of [['biomarkers', 'Biomarkers'], ['nutrition', 'Nutrition in Clusters']]) { const b = inMake(nav, 'button', 'lc-btn', inT('Open {}', label)); b.type = 'button'; b.addEventListener('click', () => gx.show(t)); }
       }
-      // --- The example gene, told for the person (intro.py CLUSTER: GTEx, UniProt, Reactome, studies in women, GWAS)
+      // --- The example gene, told for the person (intro.py CLUSTER: GTEx, UniProt, Reactome, studies by genotype, GWAS)
       if (deep) {
         const D = deep, who = EXW;
         const gt = new Map(EX ? Object.entries(EX.genotypes || {}) : (ev.findings || []).map((f) => [f.rsid, f.genotype]));
@@ -944,8 +994,13 @@
         const copies = (rsid, allele) => (gt.get(rsid) || '').split('').filter((x) => x === allele).length;
         const tis = (t) => t.replace(/_/g, ' ').replace('Breast Mammary Tissue', 'Breast');
         const fmtP = (p) => (p == null ? '—' : p < 0.001 ? d3.format('.1e')(p) : d3.format('.2~g')(p));
-        const cite = (parent, s) => { const a = inMake(parent, 'a', 'in-cl-cite', s.n ? inT('{}, {} women', s.study, inN(s.n)) : s.study); a.href = `https://pubmed.ncbi.nlm.nih.gov/${s.pmid}/`; a.target = '_blank'; a.rel = 'noopener'; return a; };
-        const callG = D.gtex[g.rsid], callAlt = callG && callG.alt;
+        const cite = (parent, s) => {
+          const a = inMake(parent, 'a', 'in-cl-cite', s.n ? (MEN ? inT('{}, {} men', s.study, inN(s.n)) : inT('{}, {} women', s.study, inN(s.n))) : s.study);
+          a.href = `https://pubmed.ncbi.nlm.nih.gov/${s.pmid}/`; a.target = '_blank'; a.rel = 'noopener'; return a;
+        };
+        // The variant GTEx is read for: the one behind the call, else the gene's first variant GTEx has
+        const vG = D.gtex[g.rsid] ? g.rsid : Object.keys(D.gtex || {}).find((rs) => D.gtex[rs] && D.gtex[rs].rows.length);
+        const callG = vG && D.gtex[vG], callAlt = callG && callG.alt;
         const reproductive = (callG ? callG.rows : []).filter((r) => r.tissue !== 'Thyroid' && !r.significant);
         const sigRows = (callG ? callG.rows : []).filter((r) => r.significant);
         const studies = D.studies || [], st = (id) => studies.find((s) => s.id === id);
@@ -955,22 +1010,39 @@
         // The answer, top right: each line read from the facts below
         answer.className = 'in-cl-answer';
         inMake(answer, 'div', 'in-chart-title', inT('What {} {} means for {}', g.gene, fnText.toLowerCase(), who));
-        if (EX && EX.source !== 'profile') inMake(answer, 'p', 'gx-note', 'The example\'s genotypes are the most common ones among Europeans (1000 Genomes).');
-        // The selected person's own calls at the same variants, beside the example (the studies were in women)
-        let mineGt = {};
-        try { mineGt = JSON.parse((c.p || {}).example_gt || '{}') || {}; } catch (e) { /* none */ }
+        if (EX && !PROFILE) inMake(answer, 'p', 'gx-note', 'The example\'s genotypes are the most common ones among Europeans (1000 Genomes).');
+        // The last-resort example: the selected person's own calls at the same variants, beside it
         const myRs = Object.keys(D.gtex || {}).filter((rs) => mineGt[rs]);
-        const pg = (rs) => ((c.p || {}).is_example ? undefined : mineGt[rs]);   // the example's own profile: no second tag
-        if (EX && myRs.length && !(c.p || {}).is_example) {
+        const pg = (rs) => (PROFILE ? undefined : mineGt[rs]);   // the example is the person: no second tag
+        if (EX && !PROFILE && myRs.length) {
           const m = inMake(answer, 'div', 'in-cl-me');
           inMake(m, 'b', null, inT('{} has:', c.who));
           for (const rs of myRs) inMake(m, 'span', same(mineGt[rs], gt.get(rs)) ? 'is-same' : null, `${rs} ${mineGt[rs]}`).setAttribute('data-i18n-skip', '');
-          if (sex !== 'female') inMake(m, 'small', null, 'The studies below were done in women.');
+          if (MEN && sex !== 'male') inMake(m, 'small', null, 'The studies below were done in men.');
+          else if (!MEN && sex !== 'female') inMake(m, 'small', null, 'The studies below were done in women.');
         }
         const ul = inMake(answer, 'ul', 'in-cl-points');
         const point = (cls, head, text) => { const li = inMake(ul, 'li', cls); inMake(li, 'b', null, head); inMake(li, 'span', null, text); };
         if (sigRows.length) point('is-gtex', 'Where it acts', inT('{} copy of {} at {}: {} {} expression in {} (GTEx). In {} it was measured and is not distinguishable from zero.',
-          copies(g.rsid, callAlt), callAlt, g.rsid, sigRows[0].nes > 0 ? 'more' : 'less', g.gene, sigRows.map((r) => tis(r.tissue)).join(', '), reproductive.map((r) => tis(r.tissue).toLowerCase()).join(', ')));
+          copies(vG, callAlt), callAlt, vG, sigRows[0].nes > 0 ? 'more' : 'less', g.gene, sigRows.map((r) => tis(r.tissue)).join(', '), reproductive.map((r) => tis(r.tissue).toLowerCase()).join(', ')));
+        else if (callG && callG.rows.length) {
+          // No significant effect anywhere GTEx tested: say where the gene is made and what was measured there
+          const top = [...callG.rows].sort((a, b) => (b.tpm || 0) - (a.tpm || 0))[0];
+          point('is-gtex', 'Where it acts', inT('{} is made mostly in the {}. GTEx measured {} at {} there and found no change in {} expression distinguishable from zero (p {}).',
+            g.gene, tis(top.tissue).toLowerCase(), callAlt, vG, g.gene, fmtP(top.p)));
+        }
+        // Studies that report measures per genotype: the person's group against the most common one
+        const ALT = (s) => s.labels[s.labels.length - 1][0];
+        for (const s of studies.filter((x) => x.kind === 'table')) {
+          const mine = s.labels.findIndex((l) => same(l, gt.get(s.rsid)));
+          if (mine < 0) continue;
+          const ns = s.group_n || [], ref = ns.length ? ns.indexOf(Math.max(...ns)) : 0, other = mine === ref ? s.labels.length - 1 : ref;
+          for (const r of s.rows.filter((x) => x.answer)) {
+            point(mine === ref ? 'is-ok' : 'is-warn', inT('{} {}', s.name, gt.get(s.rsid)), mine === ref
+              ? inT('{}: {} {} with {}, the most common form in the study; {} with {} ({}).', r.measure, d3.format('~g')(r.values[mine]), r.unit, s.labels[mine], d3.format('~g')(r.values[other]), s.labels[other], s.study)
+              : inT('{}: {} {} with {}, against {} with {}, the most common form in the study ({}).', r.measure, d3.format('~g')(r.values[mine]), r.unit, s.labels[mine], d3.format('~g')(r.values[other]), s.labels[other], s.study));
+          }
+        }
         const dose = st('dose');
         if (dose) {
           const mine = dose.groups.find((x) => same(x.label, gt.get(dose.rsid))), top = dose.groups.reduce((a, b) => (b.value > a.value ? b : a));
@@ -991,14 +1063,21 @@
         for (const w of D.gwas || []) {
           const n = copies(w.rsid, w.allele);
           if (n && w.estimate != null && !/unit/.test(w.ci)) point('is-warn', inT('{} {}', w.rsid, gt.get(w.rsid)), inT('{} copy of {}: {} odds ×{} per copy, a small effect ({} {}).', n, w.allele, w.trait.split(' (')[0].toLowerCase(), w.estimate, w.author, w.year));
+          else if (n && w.estimate != null && /unit/.test(w.ci)) point('is-warn', inT('{} {}', w.rsid, gt.get(w.rsid)), /decrease/.test(w.ci)
+            ? inT('{} copy of {}: {} lower by {} per copy, in the study\'s units ({} {}).', n, w.allele, w.trait.split(' (')[0].toLowerCase(), d3.format('.3~f')(w.estimate), w.author, w.year)
+            : inT('{} copy of {}: {} higher by {} per copy, in the study\'s units ({} {}).', n, w.allele, w.trait.split(' (')[0].toLowerCase(), d3.format('.3~f')(w.estimate), w.author, w.year));
         }
         const nStudy = studies.map((s) => s.n).filter(Boolean);
-        if (nStudy.length) point('is-note', 'How strong', inT('The genotype studies followed {} to {} women; the GWAS effects come from up to {} people.', inN(Math.min(...nStudy)), inN(Math.max(...nStudy)),
-          inN(Math.max(...(D.gwas || []).map((w) => +((w.sample.match(/[\d,]+/g) || []).map((x) => +x.replace(/,/g, '')).reduce((a, b) => a + b, 0)))))));
+        const nGwas = inN(Math.max(0, ...(D.gwas || []).map((w) => +((w.sample.match(/[\d,]+/g) || []).map((x) => +x.replace(/,/g, '')).reduce((a, b) => a + b, 0)))));
+        if (nStudy.length) point('is-note', 'How strong', MEN
+          ? inT('The genotype studies followed {} to {} men; the GWAS effects come from up to {} people.', inN(Math.min(...nStudy)), inN(Math.max(...nStudy)), nGwas)
+          : inT('The genotype studies followed {} to {} women; the GWAS effects come from up to {} people.', inN(Math.min(...nStudy)), inN(Math.max(...nStudy)), nGwas));
         if (!inLocked()) {
           const nav = inMake(answer, 'div', 'in-rc-nav');
           const go = (label, fn) => { const b = inMake(nav, 'button', 'lc-btn', label); b.type = 'button'; b.addEventListener('click', fn); };
-          go('AMH, estradiol and SHBG', () => { dash.setParams({ lb_n: 'female_hormones' }); gx.show('biomarkers'); });
+          // the theme's hormone tests in Biomarkers
+          const [lbN, lbLabel] = MEN ? ['testosterone', 'Testosterone and SHBG'] : ['female_hormones', 'AMH, estradiol and SHBG'];
+          go(lbLabel, () => { dash.setParams({ lb_n: lbN }); gx.show('biomarkers'); });
           if (sigRows.some((r) => r.tissue === 'Thyroid')) go('Thyroid (TSH)', () => { dash.setParams({ lb_n: 'thyroid' }); gx.show('biomarkers'); });
           if (g.has_lifecycle) go(inT('{} in Gene pathway', g.gene), () => { dash.setParams({ lc_gene: g.gene, lc_role: 1 }); gx.show('lifecycle'); });
           const ph = fdChains.find((p) => (p.chains || '').includes(`"gene": "${g.gene}"`));
@@ -1009,7 +1088,7 @@
         const s1 = inMake(el, 'div', 'in-rc-sec');
         inMake(s1, 'h3', null, inT('1. What "{}" rests on', fnText.toLowerCase()));
         if (callG) {
-          inText(s1, inT('GTEx measured how {}\'s expression changes with each copy of {} at {} in donated tissue. {} has {} {}.', g.gene, callAlt, g.rsid, who.charAt(0).toUpperCase() + who.slice(1), copies(g.rsid, callAlt) === 1 ? '1 copy' : inT('{} copies', copies(g.rsid, callAlt)), callAlt));
+          inText(s1, inT('GTEx measured how {}\'s expression changes with each copy of {} at {} in donated tissue. {} has {} {}.', g.gene, callAlt, vG, who.charAt(0).toUpperCase() + who.slice(1), copies(vG, callAlt) === 1 ? '1 copy' : inT('{} copies', copies(vG, callAlt)), callAlt));
           const tb = inMake(s1, 'div', 'in-cl-gtex');
           const hd = inMake(tb, 'div', 'in-cl-grow is-head');
           for (const t of ['Tissue', inT('How much {} the tissue makes (median TPM)', g.gene), inT('Effect of each {} (NES)', callAlt), 'p']) inMake(hd, 'span', null, t);
@@ -1026,6 +1105,9 @@
           }
           inMake(s1, 'p', 'gx-note', inT('{} is made mostly in {}. A filled dot is an effect GTEx counts as significant; a hollow one was measured but is within chance.', g.gene,
             (callG.top_tpm || []).slice(0, 3).map(([t]) => tis(t).toLowerCase()).join(', ')));
+          // tissues GTEx did not test the variant in (it tests only where the tissue makes enough of the gene)
+          if ((callG.untested || []).length) inMake(s1, 'p', 'gx-note', inT('No GTEx test of the variant in {}, where the median TPM of {} is {}.',
+            callG.untested.map((u) => tis(u.tissue).toLowerCase()).join(', '), g.gene, callG.untested.map((u) => d3.format('.2~f')(u.tpm || 0)).join(', ')));
           const vs = inMake(s1, 'div', 'in-cl-vars');
           for (const [rs, v] of Object.entries(D.gtex)) {
             if (!v) continue;
@@ -1037,9 +1119,52 @@
 
         // 2. The mechanism: estradiol, the receptor, its partners and targets, and the cycle step it feeds
         const s2 = inMake(el, 'div', 'in-rc-sec');
-        inMake(s2, 'h3', null, inT('2. What {} does, and with whom', g.gene));
-        const rq = inMake(s2, 'q', 'in-cl-quote', D.reactome.summary); rq.setAttribute('data-i18n-skip', '');   // Reactome's own words
-        const ra = inMake(s2, 'a', 'in-cl-cite', 'Reactome'); ra.href = `https://reactome.org/content/detail/${D.reactome.id}`; ra.target = '_blank'; ra.rel = 'noopener';
+        inMake(s2, 'h3', null, inT('2. What {} does', g.gene));
+        // Men: the gene's path from the brain to the testes, two branches (intro.py male_path: each label backed by a
+        // UniProt sentence, shown on hover and listed below), each ending in what the study measured along it by genotype
+        const base = studies.find((s) => s.kind === 'table');
+        if (MEN && D.path && D.path.length) {
+          const pw = inMake(s2, 'div', 'in-cl-route');
+          inMake(pw, 'p', 'in-cl-fn', inT('How {} works in men: from the brain to the testes, in two branches. FSH drives sperm production; its sister hormone LH drives testosterone.', g.gene));
+          const myGt = base ? gt.get(base.rsid) : null, cites = new Map();
+          for (const branch of D.path) {
+            const row = inMake(pw, 'div', 'in-cl-rrow');
+            branch.forEach((n, i) => {
+              if (i) inMake(row, 'span', 'in-cl-arrow', '→');
+              const gr = n.gene ? genes.find((x) => x.theme === T && x.gene === n.gene) : null, f = gr ? call(gr) : null;
+              const box = inMake(row, 'div', 'in-cl-rnode ' + (n.gene ? 'is-' + ({ LoF: 'lof', GoF: 'gof', normal: 'norm' }[f] || 'none') : 'is-end') + (n.gene === g.gene ? ' is-sel' : ''));
+              inMake(box, 'b', null, n.label);
+              if (n.gene) inMake(box, 'small', null, n.gene === g.gene && myGt ? `${n.gene} · ${base.rsid} ${myGt}` : n.gene).setAttribute('data-i18n-skip', '');
+              box.title = `${n.source} (UniProt, ${n.source_gene})`;
+              cites.set(n.source, n.source_gene);
+              if (!base || !(n.measures || []).length) return;
+              const ms = inMake(box, 'div', 'in-cl-rmeas');
+              inMake(ms, 'span', 'in-tag', inT('Measured by {} genotype', g.gene));
+              for (const m of n.measures) {
+                const r = (base.rows || []).find((x) => x.measure === m);
+                if (!r) continue;
+                const sig = r.p_additive < 0.05, line = inMake(ms, 'div', 'in-cl-rm' + (sig ? ' is-sig' : ''));
+                inMake(line, 'span', null, inT('{} ({})', m, r.unit));
+                const vals = inMake(line, 'span', 'in-cl-rvals');
+                base.labels.forEach((l, k) => inMake(vals, 'b', same(l, myGt) ? 'is-mine' : null, `${l} ${d3.format('~g')(r.values[k])}`).setAttribute('data-i18n-skip', ''));
+                inMake(line, 'small', null, sig ? inT('p {}: a real difference', fmtP(r.p_additive)) : inT('p {}: within chance', fmtP(r.p_additive)));
+              }
+            });
+          }
+          if (base) inMake(pw, 'p', 'gx-note', inT('The measurements are the adjusted medians in {} young men by their {} genotype ({}); {} has {}. TT is rare: {} of the {} men.',
+            inN(base.n), base.name, base.study, who.charAt(0).toUpperCase() + who.slice(1), myGt || '—', base.labels.indexOf('TT') >= 0 ? (base.group_n || base.n_groups || [])[base.labels.indexOf('TT')] : '—', inN(base.n)));
+          const src = inMake(pw, 'details', 'in-cl-rsrc');
+          inMake(src, 'summary', null, 'What each step rests on (UniProt)');
+          for (const [s, gn] of cites) { const d = inMake(src, 'div'); inMake(d, 'b', null, gn).setAttribute('data-i18n-skip', ''); inMake(d, 'q', null, s).setAttribute('data-i18n-skip', ''); }
+        }
+        // The gene's job in Reactome's words: the lead for women; for men, after the path
+        if (D.reactome && D.reactome.summary) {
+          const rp = inMake(s2, 'div', MEN && D.path ? 'in-cl-path' : null);
+          if (MEN && D.path) inMake(rp, 'span', 'in-tag', 'In its pathway');
+          inMake(rp, MEN && D.path ? 'q' : 'p', MEN && D.path ? 'in-cl-quote' : 'in-cl-fn', D.reactome.summary).setAttribute('data-i18n-skip', '');   // Reactome's own words
+          const ra = inMake(rp, 'a', 'in-cl-cite', 'Reactome'); ra.href = `https://reactome.org/content/detail/${D.reactome.id}`; ra.target = '_blank'; ra.rel = 'noopener';
+        }
+        inMake(s2, 'h4', 'in-cl-sub', inT('With whom: {}\'s partners in the network', g.gene));
         const chain = inMake(s2, 'div', 'in-cl-chain');
         const node = (label, sub, cls) => { const n = inMake(chain, 'div', 'in-cl-node ' + (cls || '')); inMake(n, 'b', null, label); if (sub) inMake(n, 'small', null, sub); return n; };
         const arrow = () => inMake(chain, 'span', 'in-cl-arrow', '→');
@@ -1055,7 +1180,8 @@
           const k = kind(g, p.g), d = pairOf(g.gene, p.g.gene);
           const card = inMake(grp, 'div', 'in-cl-pcard');
           const h = inMake(card, 'div'); chip(h, p.g); inMake(h, 'span', 'in-rc-kind ' + KIND_CLASS[k], k);
-          inMake(card, 'p', null, D.partners[p.g.gene]).setAttribute('data-i18n-skip', '');   // UniProt's own words
+          // UniProt's own words, the sentences about the person's sex first and none about the other (intro.py for_sex)
+          inMake(card, 'p', null, ((D.partners_sex || {})[MEN ? 'male' : 'female'] || {})[p.g.gene] || D.partners[p.g.gene]).setAttribute('data-i18n-skip', '');
           const dir = dirOf(g.gene, p.g.gene);
           inMake(card, 'small', null, [dir ? inT('{} (OmniPath)', dir) : null, d ? inT('STRING {}: experiments {}, databases {}', (d[4] / 100).toFixed(2), (d[0] / 100).toFixed(2), (d[1] / 100).toFixed(2)) : null,
             d && d[6].length ? inT('shared pathway: {}', PW[d[6][0]]) : null].filter(Boolean).join(' · '));
@@ -1069,9 +1195,9 @@
           inMake(bp, 'span', null, MEAN[k0]);
         }
 
-        // 3. Studies in women, by the person's genotypes
+        // 3. Studies in women (ESR1) or men (FSHB), by the person's genotypes
         const s3 = inMake(el, 'div', 'in-rc-sec');
-        inMake(s3, 'h3', null, inT('3. Measured in women with {}\'s genotypes', who));
+        inMake(s3, 'h3', null, MEN ? inT('3. Measured in men with {}\'s genotypes', who) : inT('3. Measured in women with {}\'s genotypes', who));
         const cards = inMake(s3, 'div', 'in-cl-studies');
         const card = (s, title) => { const b = inMake(cards, 'div', 'in-cl-study'); inMake(b, 'b', null, title); return b; };
         const quote = (b, s) => { if (s.finding) inMake(b, 'q', null, s.finding.replace(/: [^:]*?(estrogen receptor 1)/, ': … $1')).setAttribute('data-i18n-skip', ''); cite(b, s); };
@@ -1129,15 +1255,44 @@
           }
           quote(b, odds);
         }
-        const meta = st('meta');
-        if (meta) { const b = card(meta, inT('{} {} · {}', meta.name, meta.rsid, meta.measure)); quote(b, meta); }
+        // Measures per genotype from a paper's table: one row per measure, a bar per genotype group
+        for (const s of studies.filter((x) => x.kind === 'table')) {
+          const mineI = s.labels.findIndex((l) => same(l, gt.get(s.rsid))), youI = s.labels.findIndex((l) => same(l, pg(s.rsid)));
+          const b = card(s, inT('{} {} · {}', s.name, s.rsid, s.measure));
+          const ns = s.group_n || [];
+          if (ns.length === s.labels.length) inMake(b, 'p', 'in-cl-explain', MEN
+            ? inT('{} men by genotype: {}. The values are the paper\'s adjusted medians.', inN(ns.reduce((x, y) => x + y, 0)), s.labels.map((l, i) => `${l} ${inN(ns[i])}`).join(' · '))
+            : inT('{} women by genotype: {}. The values are the paper\'s adjusted medians.', inN(ns.reduce((x, y) => x + y, 0)), s.labels.map((l, i) => `${l} ${inN(ns[i])}`).join(' · ')));
+          b.classList.add('is-table');
+          const tg = inMake(b, 'div', 'in-cl-tgrid');
+          for (const r of s.rows) {
+            const m = inMake(tg, 'div', 'in-cl-tm');
+            const u = inMake(m, 'span', 'in-cl-sub', r.measure); inMake(u, 'small', null, ` (${r.unit})`).setAttribute('data-i18n-skip', '');
+            const max = Math.max(...r.values);
+            r.values.forEach((v, i) => {
+              const row = inMake(m, 'div', 'in-cl-bar' + (i === mineI ? ' is-mine' : ''));
+              const lab = inMake(row, 'span', null, i === mineI ? inT('{} ({})', s.labels[i], WL) : s.labels[i]);
+              if (EX && i === youI) inMake(lab, 'em', 'in-cl-you', c.who).setAttribute('data-i18n-skip', '');
+              inMake(inMake(row, 'span', 'in-cl-track'), 'i').style.width = `${(v / max) * 100}%`;
+              inMake(row, 'b', null, d3.format('~g')(v));
+            });
+            inMake(m, 'small', 'in-cl-pp', inT('p {} per copy of {}; p {} for two copies against fewer', fmtP(r.p_additive), ALT(s), fmtP(r.p_recessive)));
+          }
+          quote(b, s);
+        }
+        // Studies quoted in their own words: a finding with no per-genotype numbers to draw
+        for (const s of studies.filter((x) => x.kind === 'quote' || (!x.kind && x.id === 'meta'))) {
+          const b = card(s, inT('{} {} · {}', s.name, s.rsid, s.measure)); quote(b, s);
+        }
         if ((D.gwas || []).length) {
           const b = card(null, 'GWAS Catalog, per copy');
           for (const w of D.gwas) {
             const n = copies(w.rsid, w.allele), r = inMake(b, 'div', 'in-cl-gw');
             inMake(r, 'b', null, `${w.rsid} ${gt.get(w.rsid) || '—'}`).setAttribute('data-i18n-skip', '');
             r.append(/unit/.test(w.ci)
-              ? inT('each {} {} {} by {} SD; {} has {}.', w.allele, /decrease/.test(w.ci) ? 'lowers' : 'raises', w.trait.toLowerCase(), d3.format('.3~f')(w.estimate), who, n)
+              ? (/decrease/.test(w.ci)
+                ? inT('each {} lowers {} by {}, in the study\'s units; {} has {}.', w.allele, w.trait.toLowerCase(), d3.format('.3~f')(w.estimate), who, n)
+                : inT('each {} raises {} by {}, in the study\'s units; {} has {}.', w.allele, w.trait.toLowerCase(), d3.format('.3~f')(w.estimate), who, n))
               : inT('each {} multiplies the odds of {} by {}; {} has {}.', w.allele, w.trait.split(' (')[0].toLowerCase(), w.estimate, who, n));
             r.append(' ');
             const a = inMake(r, 'a', 'in-cl-cite', inT('{} {}', w.author, w.year)); a.href = `https://pubmed.ncbi.nlm.nih.gov/${w.pmid}/`; a.target = '_blank'; a.rel = 'noopener';

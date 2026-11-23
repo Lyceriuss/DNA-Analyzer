@@ -39,7 +39,7 @@ flowchart TB
     T1["theme_graph.py fertility_female"] --> X1["theme_XX_fertility_female.json"]
     T2["theme_graph.py fertility_male"] --> X2["theme_XY_fertility_male.json"]
     T3["theme_graph.py cancer"] --> X3["theme_XY_cancer.json"]
-    LC["lifecycles_XY_full.json"] --> E
+    LC["lifecycle/lifecycles.json"] --> E
     X1 & X2 & X3 --> E["explorer/export.py out/bundle.json<br/>--lifecycles … --dna …"]
     TH["themes.json (muscle)"] --> E
     EVJ["function_evidence.json,<br/>literature.json"] --> E
@@ -57,7 +57,7 @@ python -m cluster_analysis.medicines.medicines
 python -m cluster_analysis.nutrition.nutrition
 python -m cluster_analysis.library.overlay data/input/MyHeritage_raw_dna_data_XY.csv --dashboard out   # Profile tab datasets
 python -m cluster_analysis.explorer.export out/bundle.json \
-    --lifecycles data/output/cluster_analysis/lifecycles_XY_full.json      # every profile; the 207-gene walk
+    --lifecycles cluster_analysis/lifecycle/lifecycles.json      # every profile; the shipped, person-free walks
 ```
 
 Gene rows carry the evidence call (`function`: GoF / LoF / normal / altered / unknown) and what it means for the

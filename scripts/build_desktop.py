@@ -14,7 +14,10 @@ What goes in:
                frozen: the pipeline's own `python -m` steps run unchanged.
   data/        empty input and output folders; the analysis references (GRCh37 extras and the panel left out); with
                --release the knowledge bundle in data/knowledge/, installed on first start from the page.
-  launch.py    starts the explorer on a free port, waits until it answers and opens the browser.
+  launch.py    scripts/launch.py: opens the browser on the running app, or starts it (no window from the shortcuts;
+               output in data/logs/) and opens the browser when it answers.
+  app.ico      the icon of the shortcuts and the installer, drawn here (icon(); needs Pillow on the build machine).
+  README.txt   how to use it, in three lines.
 
 Never copied: anyone's DNA files, results, profiles or the lookup cache. The app starts with no people. A test build
 (no --release) points settings.json at this machine's imputation panel and, with --cache, its lookup cache.
@@ -156,9 +159,12 @@ def code(app):
         dest = os.path.join(app, f)
         os.makedirs(os.path.dirname(dest), exist_ok=True)
         shutil.copy2(os.path.join(ROOT, f), dest)
-    for f in ("requirements.txt", "README.md", "LICENSE"):
+    for f in ("requirements.txt", "LICENSE"):
         if os.path.exists(os.path.join(ROOT, f)):
             shutil.copy2(os.path.join(ROOT, f), app)
+    # The repository's README is for developers; the program folder gets how to use it
+    with open(os.path.join(app, "README.txt"), "w", encoding="utf-8", newline="\n") as f:
+        f.write(README.format(name=APP_NAME, version=VERSION, lower=APP_NAME.lower()))
     # No one's profile ships: the app starts empty, and "Add a person" fills it
     with open(os.path.join(app, "cluster_analysis", "profiles.json"), encoding="utf-8") as f:
         prof = json.load(f)
@@ -194,43 +200,26 @@ def knowledge(app, path):
 
 # --- Launchers -------------------------------------------------------------------------------
 
-LAUNCH = r'''"""Starts the explorer on this machine and opens it in the browser. Closing this window stops it."""
-import json, os, socket, subprocess, sys, time, urllib.request, webbrowser
+LAUNCH = os.path.join(ROOT, "scripts", "launch.py")
 
-APP = os.path.dirname(os.path.abspath(__file__))
-os.environ["PATH"] = os.path.join(APP, "jre", "bin") + os.pathsep + os.environ.get("PATH", "")
-os.environ.setdefault("PYTHONIOENCODING", "utf-8")
-# The app's own lookup cache, in its data folder (the knowledge bundle is installed there)
-os.environ.setdefault("DNA_CACHE_DIR", os.path.join(APP, "data", "cache"))
-# settings.json: the update feed, and for a test build this machine's panel and cache
-try:
-    with open(os.path.join(APP, "settings.json"), encoding="utf-8") as f:
-        for k, v in json.load(f).get("env", {}).items():
-            os.environ.setdefault(k, v)
-except (OSError, ValueError):
-    pass
+README = """{name} {version}
 
-s = socket.socket(); s.bind(("127.0.0.1", 0)); port = s.getsockname()[1]; s.close()
-url = f"http://127.0.0.1:{port}/"
-print(f"{NAME} is starting...", flush=True)
-proc = subprocess.Popen([sys.executable, "-m", "cluster_analysis.explorer", "serve", "--port", str(port)], cwd=APP)
-for _ in range(600):
-    if proc.poll() is not None:
-        sys.exit(f"{NAME} stopped while starting (exit code {proc.returncode}).")
-    try:
-        urllib.request.urlopen(url, timeout=1); break
-    except OSError:
-        time.sleep(0.5)
-webbrowser.open(url)
-print(f"\n{NAME} is running at {url}\nIt runs on this computer only. Close this window to stop it.", flush=True)
-try:
-    proc.wait()
-except KeyboardInterrupt:
-    proc.terminate()
-'''
+How to use it:
+1. Install it: run {name}-{version}-setup.exe (on Linux: ./install.sh).
+2. Start it from the {name} icon on the desktop or in the Start menu (on Linux: the applications menu).
+3. Your browser opens on the app. It runs on this computer only: your DNA file is never uploaded.
+
+Starting it again while it runs just opens the browser on it. To stop it: "Stop {name}" in the Start menu
+(on Linux: {lower} --stop); signing out stops it too. For troubleshooting only, "Troubleshoot (console).cmd"
+(start.sh) runs it in a console window that shows what it does, until that window is closed.
+
+Your people, DNA files and results are in the data folder next to this file, and a log in data/logs/ if something
+goes wrong. An update keeps them; uninstalling asks before deleting them.
+"""
 
 LINUX_START = """#!/bin/sh
-# Starts {name}: the explorer on this computer, opened in the browser. Ctrl+C stops it.
+# Starts {name}: the explorer on this computer, opened in the browser. In a terminal Ctrl+C stops it;
+# with --background it runs on (--stop stops it). See launch.py.
 HERE="$(dirname "$(readlink -f "$0")")"
 exec "$HERE/python/bin/python3" "$HERE/launch.py" "$@"
 """
@@ -262,20 +251,53 @@ cat > "${{XDG_DATA_HOME:-$HOME/.local/share}}/applications/{lower}.desktop" <<EO
 Type=Application
 Name={name}
 Comment=Reads a DNA file on this computer
-Exec=$DEST/start.sh
-Terminal=true
+Exec=$DEST/start.sh --background
+Icon=$DEST/app.png
+Terminal=false
 Categories=Science;
 EOF
 echo "{name} {version} installed in $DEST. Start it from the menu or with: {lower}"
 """
 
 
+def icon(folder):
+    """The app's icon, drawn: a double helix on a rounded teal square. app.ico (16-256 px) for Windows, app.png for
+    Linux menus."""
+    try:
+        from PIL import Image, ImageDraw
+    except ImportError:
+        sys.exit("Pillow not found (pip install pillow): it draws the app icon (only needed to build)")
+    import math
+    s = 1024   # drawn large, scaled down smooth
+    img = Image.new("RGBA", (s, s), (0, 0, 0, 0))
+    d = ImageDraw.Draw(img)
+    d.rounded_rectangle((32, 32, s - 32, s - 32), radius=200, fill=(15, 118, 110, 255))
+    top, bottom, cx, amp, w = 150, s - 150, s / 2, 230, 64
+    n = 400
+    strands = [[(cx + amp * math.sin(2 * math.pi * 1.25 * t / n + ph), top + (bottom - top) * t / n) for t in range(n + 1)]
+               for ph in (0, math.pi)]
+    # The rungs first, so the strands lie over them
+    for i in range(1, 10):
+        t = round(n * i / 10)
+        (x1, y), (x2, _) = strands[0][t], strands[1][t]
+        if abs(x1 - x2) > 2 * w:
+            d.line((x1, y, x2, y), fill=(204, 251, 241, 255), width=w // 2)
+    for pts, col in zip(strands, ((255, 255, 255, 255), (153, 246, 228, 255))):
+        for x, y in pts:   # a chain of discs: a smooth thick curve (wide polylines fray at the joints)
+            d.ellipse((x - w / 2, y - w / 2, x + w / 2, y + w / 2), fill=col)
+    big = img.resize((256, 256), Image.LANCZOS)
+    ico = os.path.join(folder, "app.ico")
+    big.save(ico, sizes=[(16, 16), (24, 24), (32, 32), (48, 48), (64, 64), (128, 128), (256, 256)])
+    big.save(os.path.join(folder, "app.png"))
+    return ico
+
+
 def launcher(app, target, test_env):
     step("the launcher")
-    with open(os.path.join(app, "launch.py"), "w", encoding="utf-8", newline="\n") as f:
-        f.write(f"NAME = {APP_NAME!r}\n" + LAUNCH)
+    shutil.copyfile(LAUNCH, os.path.join(app, "launch.py"))
+    icon(app)
     if target == "windows":
-        with open(os.path.join(app, "Start.cmd"), "w", encoding="utf-8", newline="\r\n") as f:
+        with open(os.path.join(app, "Troubleshoot (console).cmd"), "w", encoding="utf-8", newline="\r\n") as f:
             f.write(f'@echo off\ntitle {APP_NAME}\n"%~dp0python\\python.exe" "%~dp0launch.py"\n')
     else:
         for name, text in (("start.sh", LINUX_START), ("install.sh", LINUX_INSTALL)):
@@ -312,8 +334,12 @@ LZMAUseSeparateProcess=yes
 ArchitecturesAllowed=x64compatible
 ArchitecturesInstallIn64BitMode=x64compatible
 UninstallDisplayName={{#AppName}}
+UninstallDisplayIcon={{app}}\app.ico
+SetupIconFile={app}\app.ico
 WizardStyle=modern
 {sign}
+[Messages]
+FinishedLabel=[name] is installed.%n%nStart it from the [name] icon on the desktop or in the Start menu: your browser opens on the app. It runs on this computer only.%n%nTo stop it, choose "Stop [name]" in the Start menu.
 [Files]
 ; The program: replaced on every update
 Source: "{app}\*"; DestDir: "{{app}}"; Excludes: "\data\*,\cluster_analysis\profiles.json"; Flags: recursesubdirs ignoreversion
@@ -327,13 +353,19 @@ Name: "{{app}}\data\input"
 Name: "{{app}}\data\output"
 Name: "{{app}}\data\cache"
 [Icons]
-Name: "{{userprograms}}\{{#AppName}}"; Filename: "{{app}}\python\python.exe"; Parameters: {q3}{{app}}\launch.py{q3}; WorkingDir: "{{app}}"; Comment: "Reads a DNA file on this computer"
-Name: "{{userdesktop}}\{{#AppName}}"; Filename: "{{app}}\python\python.exe"; Parameters: {q3}{{app}}\launch.py{q3}; WorkingDir: "{{app}}"; Tasks: desktopicon
+; pythonw: no console window; the launcher opens the browser on the running app or starts it (launch.py)
+Name: "{{userprograms}}\{{#AppName}}"; Filename: "{{app}}\python\pythonw.exe"; Parameters: {q3}{{app}}\launch.py{q3}; WorkingDir: "{{app}}"; IconFilename: "{{app}}\app.ico"; Comment: "Reads a DNA file on this computer"
+Name: "{{userdesktop}}\{{#AppName}}"; Filename: "{{app}}\python\pythonw.exe"; Parameters: {q3}{{app}}\launch.py{q3}; WorkingDir: "{{app}}"; IconFilename: "{{app}}\app.ico"; Comment: "Reads a DNA file on this computer"; Tasks: desktopicon
+Name: "{{userprograms}}\Stop {{#AppName}}"; Filename: "{{app}}\python\pythonw.exe"; Parameters: {q3}{{app}}\launch.py{q}{q} --stop{q}; WorkingDir: "{{app}}"; IconFilename: "{{app}}\app.ico"; Comment: "Stops {{#AppName}} running in the background"
 [Tasks]
-Name: "desktopicon"; Description: "A desktop shortcut"; Flags: unchecked
+Name: "desktopicon"; Description: "A desktop shortcut"
 [Run]
-Filename: "{{app}}\python\python.exe"; Parameters: {q3}{{app}}\launch.py{q3}; WorkingDir: "{{app}}"; Description: "Start {{#AppName}}"; Flags: postinstall nowait skipifsilent
+Filename: "{{app}}\python\pythonw.exe"; Parameters: {q3}{{app}}\launch.py{q3}; WorkingDir: "{{app}}"; Description: "Start {{#AppName}}"; Flags: postinstall nowait skipifsilent
+[UninstallRun]
+; A running server holds the program's files
+Filename: "{{app}}\python\pythonw.exe"; Parameters: {q3}{{app}}\launch.py{q}{q} --stop{q}; WorkingDir: "{{app}}"; Flags: runhidden waituntilterminated; RunOnceId: "StopServer"
 [UninstallDelete]
+Type: files; Name: "{{app}}\data\server.json"
 Type: filesandordirs; Name: "{{app}}\python"
 Type: filesandordirs; Name: "{{app}}\jre"
 Type: filesandordirs; Name: "{{app}}\cluster_analysis"
@@ -341,6 +373,19 @@ Type: filesandordirs; Name: "{{app}}\genome"
 Type: filesandordirs; Name: "{{app}}\data\reference"
 Type: filesandordirs; Name: "{{app}}\data\knowledge"
 [Code]
+// An update: a running server holds the program's files, so it is stopped first (an older launcher without
+// --stop would start one instead, so it is left alone)
+function PrepareToInstall(var NeedsRestart: Boolean): String;
+var
+  Launch: AnsiString;
+  Code: Integer;
+begin
+  Result := '';
+  if LoadStringFromFile(ExpandConstant('{{app}}\launch.py'), Launch) and (Pos('--stop', Launch) > 0) then
+    Exec(ExpandConstant('{{app}}\python\pythonw.exe'), AddQuotes(ExpandConstant('{{app}}\launch.py')) + ' --stop',
+         ExpandConstant('{{app}}'), SW_HIDE, ewWaitUntilTerminated, Code);
+end;
+
 // The data folder (people, DNA files, results) is the person's: removed only when they say so
 procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
 begin
@@ -358,16 +403,22 @@ end;
 """
 
 
-def installer_windows(app, out):
-    iscc = next((p for p in ISCC if os.path.exists(p)), None)
-    if not iscc:
-        sys.exit("Inno Setup 6 not found: winget install JRSoftware.InnoSetup --scope user")
+def write_iss(app, out):
+    """The Inno Setup script for the staged folder `app`, written to out/<name>.iss (no build: see installer_windows)."""
     sign = ""
     if os.environ.get("SIGNTOOL"):   # e.g. signtool sign /fd sha256 /tr http://timestamp... /f cert.pfx /p ... $f
         sign = f"SignTool=custom {os.environ['SIGNTOOL']}\nSignedUninstaller=yes"
     iss = os.path.join(out, f"{APP_NAME}.iss")
     with open(iss, "w", encoding="utf-8-sig", newline="\r\n") as f:
-        f.write(ISS.format(name=APP_NAME, version=VERSION, app=app, out=out, sign=sign, q3='"' * 3))
+        f.write(ISS.format(name=APP_NAME, version=VERSION, app=app, out=out, sign=sign, q='"', q3='"' * 3))
+    return iss
+
+
+def installer_windows(app, out):
+    iscc = next((p for p in ISCC if os.path.exists(p)), None)
+    if not iscc:
+        sys.exit("Inno Setup 6 not found: winget install JRSoftware.InnoSetup --scope user")
+    iss = write_iss(app, out)
     step("the installer (Inno Setup)")
     args = [iscc, "/Q"]
     if os.environ.get("SIGNTOOL"):

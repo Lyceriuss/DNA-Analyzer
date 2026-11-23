@@ -38,7 +38,8 @@ DATASETS = os.path.join(OUT, "datasets")
 SITE = os.path.join(OUT, "site")
 PUBLISH = os.path.join(OUT, "publish")
 RECORD = os.path.join(OUT, "published.json")
-LIFECYCLES = os.path.join(ROOT, gbuild.OUTPUT, "lifecycles_XY_full.json")
+# The gene pathway walks shipped with the app, without anyone's genotype: export overlays each person's calls
+LIFECYCLES = os.path.join(ROOT, "cluster_analysis", "lifecycle", "lifecycles.json")
 ARTIFACT = "https://claude.ai/artifact/Rsz3RYugnZyvWnixS9168o"
 TABS = ["home", "clusters", "medicines", "nutrition", "lifecycle", "biomarkers", "ask", "sources"]
 
@@ -57,8 +58,20 @@ def build(_=None):
     run(os.path.join(HERE, "build.py"))
 
 
+def unfinished_shown():
+    """People the datasets list whose run hasn't finished (written by an older version, or before a run was stopped):
+    the datasets are then exported again without them (cluster_analysis/profiles.load lists the finished only)."""
+    from cluster_analysis import profiles
+    try:
+        listed = {p["id"] for p in json.load(open(os.path.join(DATASETS, "profiles.json"), encoding="utf-8"))}
+    except (OSError, ValueError, TypeError, KeyError):
+        return set()
+    done = {p["id"] for p in profiles.load()}
+    return ({p["id"] for p in profiles.load(unfinished=True)} - done) & listed
+
+
 def site():
-    if not os.path.exists(os.path.join(DATASETS, "profiles.json")):
+    if not os.path.exists(os.path.join(DATASETS, "profiles.json")) or unfinished_shown():
         export()
     run(os.path.join(HERE, "build.py"), "--standalone", DATASETS, SITE)
 

@@ -346,6 +346,27 @@ def held_out(vcf, chrom, masked):
             for pos, _, ref, alt, _, copies, gp in records(vcf) if (pos, ref, alt) in masked]
 
 
+PARTIAL = ".partial"   # a file being written; renamed to its own name only when complete (genome/loader.py never reads it)
+
+
+def publish(tmp, path):
+    """tmp renamed to path, whole. Windows refuses to replace a file another process has open: try again shortly."""
+    for i in range(20):
+        try:
+            os.replace(tmp, path)
+            return
+        except PermissionError:
+            time.sleep(0.05 * (i + 1))
+    os.replace(tmp, path)
+
+
+def dump_json(obj, path):
+    """A JSON file written all or nothing: a run stopped half way leaves the old file or none, never half of one."""
+    with open(path + PARTIAL, "w") as f:
+        json.dump(obj, f, indent=1)
+    publish(path + PARTIAL, path)
+
+
 def remove(path):
     """Delete a temporary file. On Windows a virus scanner can hold a file Beagle just wrote for a moment, so retry,
     and leave it in place rather than stop the run."""
@@ -444,7 +465,7 @@ def run_calibrate(args, out_dir):
     rows = [(t, i, g, freqs.at(c, p).get((r, a))) for c, p, r, a, t, i, g in hidden]
     cal = calibrate(rows, args.min_gp)
     cal["hidden"] = len(rows)
-    json.dump(cal, open(os.path.join(out_dir, "calibration.json"), "w"), indent=1)
+    dump_json(cal, os.path.join(out_dir, "calibration.json"))   # its presence tells the pipeline the test is done
     print_calibration(cal)
 
 
@@ -465,7 +486,9 @@ def run_finalize(args, person, out_dir, calls, chroms):
     watched = watch.rsids()
     tiers, carrier_tiers, skipped = Counter(), Counter(), 0
     csv = os.path.join(out_dir, f"MyHeritage_raw_dna_data_{person}.imputed.csv")
-    with open(csv, "w", encoding="utf-8", newline="\n") as f:
+    # Written under a temporary name and renamed when complete: a stopped run never leaves a partial file that
+    # would be read as the person's imputation
+    with open(csv + PARTIAL, "w", encoding="utf-8", newline="\n") as f:
         f.write(f"# Imputed from {person}'s MyHeritage file with Beagle 5.5 and the {args.P['label']} panel; "
                 f"forward strand, {args.P['build']}.\n")
         f.write(f"# Imputed rows have GP >= {args.min_gp}. EUR_AF is the 1000 Genomes European frequency of the alternative allele.\n")
@@ -512,7 +535,8 @@ def run_finalize(args, person, out_dir, calls, chroms):
     summary["carrier_tiers"] = dict(carrier_tiers)
     summary["not_excluded_written"] = tiers["not_excluded"] - skipped  # the rest: counted, not in the CSV
     summary["totals"] = {k: sum(s.get(k, 0) for s in summary["chroms"].values()) for k in ("calls", "imputed", "imputed_kept")}
-    json.dump(summary, open(summary_path, "w"), indent=1)
+    publish(csv + PARTIAL, csv)
+    dump_json(summary, summary_path)
     print(f"\nWrote {csv}\nImputed calls by confidence (all / carrying the minor allele):")
     for t, n in tiers.most_common():
         print(f"{t:>13}: {n:>12,} / {carrier_tiers[t]:,}")
@@ -575,7 +599,7 @@ def main():
         run_beagle(target, chrom, out_dir, args.threads, args.memory, P)
         remove(target)
         summary["chroms"][chrom] = stats
-    json.dump(summary, open(os.path.join(out_dir, "summary.json"), "w"), indent=1)
+    dump_json(summary, os.path.join(out_dir, "summary.json"))
     run_finalize(args, person, out_dir, calls, chroms)
 
 
