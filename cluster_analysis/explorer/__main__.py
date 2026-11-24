@@ -70,9 +70,26 @@ def unfinished_shown():
     return ({p["id"] for p in profiles.load(unfinished=True)} - done) & listed
 
 
+STAMP = os.path.join(DATASETS, "version.txt")   # the app version that last exported the datasets
+
+
+def exported_by():
+    try:
+        with open(STAMP, encoding="utf-8") as f:
+            return f.read().strip()
+    except OSError:
+        return None
+
+
 def site():
-    if not os.path.exists(os.path.join(DATASETS, "profiles.json")) or unfinished_shown():
+    """The page rebuilt from its parts (a few seconds). The datasets are exported again first when there are none, when
+    they list someone whose run didn't finish, or when another version of the app wrote them: an update's new or
+    changed datasets then reach the people already added, once, on the first start after it."""
+    from cluster_analysis.version import VERSION
+    if not os.path.exists(os.path.join(DATASETS, "profiles.json")) or unfinished_shown() or exported_by() != VERSION:
         export()
+        with open(STAMP, "w", encoding="utf-8") as f:
+            f.write(VERSION)
     run(os.path.join(HERE, "build.py"), "--standalone", DATASETS, SITE)
 
 

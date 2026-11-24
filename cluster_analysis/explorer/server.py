@@ -32,6 +32,14 @@ The Ask tab's research agent (cluster_analysis/agent), one question at a time:
     POST /api/agent/settings    {"share_results"}: whether interpreted results go to the model (agent/settings.py)
     GET  /api/agent/answer?id=A the saved answer (no personal data)
     GET  /api/agent/fill?id=A&person=P     the answer read for that person, on this machine
+
+The app's life and the person's data:
+    POST /api/ping, /api/bye    {"page"}: an open window checks in, or closes (Lifetime: the app stops by itself when
+                                no window is open and nothing is working, with DNA_AUTOSTOP=1)
+    POST /api/quit              stops runs in progress (Resume carries them on) and the server
+    POST /api/delete            {"id"}: deletes one person and everything about them (pipeline.remove)
+    POST /api/delete-all        {"confirm": "delete everything"}: every person, the Ask folder with the saved key,
+                                and the lookups keyed by what someone asked (pipeline.remove_all)
 """
 import functools
 import http.server
@@ -264,6 +272,77 @@ class Agent:
                 "quick": state.get("quick"), "turn": state.get("turn") if state["done"] else None}
 
 
+class Lifetime:
+    """When the app stops by itself (DNA_AUTOSTOP=1, set by the desktop launcher; never for `explorer serve` run by
+    hand). Each open window checks in every 20 s (POST /api/ping) and says goodbye when it closes (/api/bye), so a
+    closed window counts at once. One that stopped checking in without a goodbye (minimised for a game, which browsers
+    slow or freeze, or a crashed browser) still counts as open for SEEN seconds: a minimised window keeps its app. The
+    app stops when no window is open, no request has come for IDLE seconds, and nothing is working: no person being
+    added, no question being researched, no research data being installed. Quit (POST /api/quit) stops it at once,
+    and stops a run in progress (Resume carries it on later)."""
+    IDLE = 120
+    SEEN = 1800
+    pages = {}          # page id -> last check-in (time.time())
+    last = None         # the last request of any kind
+    server = None
+    lock = threading.Lock()
+
+    @classmethod
+    def touch(cls, page=None, bye=False):
+        import time
+        with cls.lock:
+            cls.last = time.time()
+            if page:
+                if bye:
+                    cls.pages.pop(page, None)
+                else:
+                    cls.pages[page] = cls.last
+
+    @classmethod
+    def working(cls):
+        return bool(busy() or Agent.running or Setup.job.get("state") == "running"
+                    or any(not j.get("done") for j in list(Agent.jobs.values())))
+
+    @classmethod
+    def idle(cls, now):
+        with cls.lock:
+            open_pages = [p for p, t in cls.pages.items() if now - t < cls.SEEN]
+            return not open_pages and (cls.last is None or now - cls.last > cls.IDLE)
+
+    @classmethod
+    def watch(cls, srv):
+        """The watchdog thread (DNA_AUTOSTOP=1 only)."""
+        import time
+        cls.server, cls.last = srv, time.time()
+
+        def loop():
+            while True:
+                time.sleep(15)
+                if cls.idle(time.time()) and not cls.working():
+                    print("No window open and nothing working: stopping.", flush=True)
+                    srv.shutdown()
+                    return
+        threading.Thread(target=loop, daemon=True, name="autostop").start()
+
+    @classmethod
+    def quit(cls):
+        """Stops every run in progress (marked stopped, so Resume carries it on), then the server."""
+        for r in pipeline.status()["runs"]:
+            if r.get("state") == "running" and r.get("pid"):
+                kill_tree(r["pid"])
+                run = pipeline.Run(r["id"])
+                run.s.update(state="cancelled", ended=pipeline.now())
+                for st in run.s["stages"]:
+                    if st["state"] == "running":
+                        st["state"] = "pending"
+                run.save()
+        for j in list(Agent.jobs.values()):
+            j["stop"] = True
+        srv = cls.server
+        if srv:
+            threading.Thread(target=srv.shutdown, daemon=True).start()
+
+
 def spawn(args):
     """The pipeline in its own process group, so it outlives a page reload and can be stopped as a whole."""
     flags = subprocess.CREATE_NEW_PROCESS_GROUP if os.name == "nt" else 0
@@ -404,6 +483,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         return self._json(404, {"error": "unknown"})
 
     def do_GET(self):
+        Lifetime.touch()
         url = urllib.parse.urlparse(self.path)
         if url.path.startswith("/api/agent/"):
             if not self._local():
@@ -449,6 +529,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         return super().do_GET()
 
     def do_POST(self):
+        Lifetime.touch()
         url = urllib.parse.urlparse(self.path)
         if not url.path.startswith("/api/") or not self._local() or self.headers.get("X-GX") != "1":
             return self._json(403, {"error": "not allowed"})
@@ -490,6 +571,27 @@ class Handler(http.server.SimpleHTTPRequestHandler):
                 spawn(["rebuild"])
                 return self._json(200, {"id": pid, "rebuild": True})
             req = json.loads(self._body() or b"{}")
+            if url.path in ("/api/ping", "/api/bye"):
+                Lifetime.touch(str(req.get("page") or "")[:40] or None, bye=url.path == "/api/bye")
+                return self._json(200, {"ok": True, "autostop": os.environ.get("DNA_AUTOSTOP") == "1",
+                                        "working": Lifetime.working()})
+            if url.path == "/api/quit":
+                Lifetime.quit()
+                return self._json(200, {"ok": True})
+            if url.path == "/api/delete":
+                pid = str(req.get("id") or "")
+                if not pipeline.ID_RE.match(pid):
+                    return self._json(400, {"error": "No such person."})
+                out = pipeline.remove(pid)
+                if out["rebuild"] and not busy():
+                    spawn(["rebuild"])
+                return self._json(200, out)
+            if url.path == "/api/delete-all":
+                if req.get("confirm") != "delete everything":
+                    return self._json(400, {"error": "Not confirmed."})
+                out = pipeline.remove_all()
+                spawn(["rebuild"])
+                return self._json(200, out)
             if url.path == "/api/setup/knowledge":
                 Setup.start()
                 return self._json(200, Setup.status())
@@ -567,4 +669,8 @@ def make(directory, port):
     handler = functools.partial(Handler, directory=directory)
     # 127.0.0.1 only: the datasets hold genotypes. Inside a container the server must listen on its own network
     # (DNA_BIND_HOST=0.0.0.0), and the container publishes the port on the host's 127.0.0.1 only (compose.yaml)
-    return http.server.ThreadingHTTPServer((os.environ.get("DNA_BIND_HOST", "127.0.0.1"), port), handler)
+    srv = http.server.ThreadingHTTPServer((os.environ.get("DNA_BIND_HOST", "127.0.0.1"), port), handler)
+    Lifetime.server = srv
+    if os.environ.get("DNA_AUTOSTOP") == "1":
+        Lifetime.watch(srv)
+    return srv

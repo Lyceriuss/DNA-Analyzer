@@ -286,6 +286,21 @@ Start menu; 3. the browser opens on the app.
   status says only whether one is set); it lives under `data/output/agent`, so it is in no results file, no
   knowledge bundle (built from the lookup cache only) and no installer (`data\` is excluded). `tests/test_api_key.py`
   and `tests/test_launch.py`.
+- **Starting, stopping, deleting (2026-11-24, 0.1.8).** The first start took 1.5 minutes with nothing on screen
+  (unpacking 46k lookups, exporting, building the page). The launcher now opens the app window at once on a
+  "Starting" page (a file in `data/`), which asks the app every half second and moves to it when it answers.
+  Started from the shortcut (`DNA_AUTOSTOP=1`), the app stops by itself: each window checks in every 20 s
+  (`/api/ping`, `/api/bye` on close; one that stopped without a goodbye, minimised or frozen, counts for 30
+  minutes), and when none is open, no request has come for 2 minutes and nothing is
+  working (a person being added, a question researched, the bundle installed) it shuts down (`server.Lifetime`). A
+  window whose app stopped says so and reloads when it is started again. The header's **App** menu (`ap.js`):
+  *Delete <person>* (`pipeline.remove`: their DNA file in the app's input folder, imputation, the per-person site
+  file in `data/reference`, results, run record, imported results file, Ask fills and sessions), *Delete
+  everything* (`pipeline.remove_all`: every person, `data/output/agent` with the saved key, uploads and run records,
+  the cache's private namespaces and its misses log; the public lookups, references and this machine's timings
+  stay; typing DELETE confirms) and *Quit* (stops runs, marked stopped so Resume carries them on). The datasets
+  record the version that exported them (`datasets/version.txt`); another version exports them again once on its
+  first start, so an update's changed datasets reach the people already added. `tests/test_delete.py`.
 
 **Still open:**
 - **Size.** Most of the 1 GB is references already compressed: ClinVar (193 MB), Ensembl2Reactome (183 MB, every
@@ -317,6 +332,62 @@ Start menu; 3. the browser opens on the app.
    page should say so and offer the results file as a backup.
 4. **Opening a desktop result on a phone:** import the results file. No pairing or network link to the desktop is
    needed, and nothing goes through our servers.
+
+### Imputation without the 12 GB panel: measured 2026-11-24
+
+An installed app has no panel (12 GB of bref3, 31 GB raw), so on anyone else's computer the desktop app runs in lite
+mode, and a phone can't hold it either. Two measurements say a panel cut to the positions we need is enough.
+
+**What the analysis reads** (every step for one test profile, traced through `genome.loader.iter_calls`):
+- the theme graphs scan every row of the imputed file for SNPs in theme genes (hundreds of thousands per theme), of
+  which those ClinVar or the GWAS Catalog list can become findings;
+- gene calls ask for 2.5 million rsIDs (every protein variant UniProt lists for the genes), nutrition, lab tests,
+  fitness, cancers, medicines and sport 2k to 35k each: 2.58 million in all, of which only a few percent are in an
+  imputed file at all; the rest are too rare to impute;
+- the two genome-wide fitness scores (`pgs_ref` PGS002143, PGS002168) read 1.03 million positions; the cancer one 804.
+
+**Accuracy on a reduced panel** (chr22; HG00096, a panel sample, left out of the reference and imputed from its
+MyHeritage-layout chip positions; its own panel haplotypes are the truth; `scripts/spike/spike_extract.py`, `spike_impute.py`). The reduced panel kept the 8,093 chip positions and every 10th other SNV (91,782 targets) of
+925,730: 17 MB compressed for 6,402 haplotypes.
+
+| imputation | MAF ≥ 5%: exact, r² | 1-5%: r² | 0.5-1%: carriers found | time |
+|---|---|---|---|---|
+| Beagle 5.5, full panel | 95.5%, 0.933 | 0.877 | 66% | 10 s |
+| Beagle 5.5, reduced panel | 95.5%, 0.934 | 0.876 | 66% | 11 s |
+| Li-Stephens prototype, 64 haplotypes per window | 93.7%, 0.912 | 0.876 | 43% | 4 s |
+| Li-Stephens prototype, 200 haplotypes per window | 94.8%, 0.926 | 0.867 | 61% | 15 s |
+
+(one person, one chromosome; below 0.5% the carriers are too few to compare: 24 and 52.)
+
+**What follows:**
+1. **Desktop: an imputation pack.** Beagle with a panel cut to the chip positions of the supported formats plus the
+   positions the analysis reads loses nothing. Counted against the panel's site list (`scripts/spike/pack_size.py`):
+   the MyHeritage layout's 580,490 positions and the 120,561 traced rsIDs the panel has make 691,258 positions, 1.1%
+   of its 64 million SNVs; the theme genes' ClinVar/GWAS variants (roughly 100k) and the two fitness scores (1.03
+   million) bring it to about 0.8 or 1.8 million. **Built** (`scripts/spike/build_pack.py`, chr1-22): 3.29 million
+   candidate positions, of which 1.69 million are biallelic SNVs in the panel; 2.0 GB as VCF.gz, **978 MB as bref3**
+   (a cut panel loses bref3's long shared runs: ~580 bytes a position against ~170 in the full panel). LZMA, as the
+   installer compresses, shrinks it 3.5x (chr22: 15.0 to 4.3 MB), so the installer grows by about 280 MB. The two
+   genome-wide fitness scores are 57% of the positions (chr22): without them about 430 MB on disk. chrX is not built
+   yet (its panel file is a `.v2`, and men need the pipeline's three-part split). Java and Beagle already ship.
+   **Validated genome-wide** (`scripts/spike/validate_pack.py`, chr1-22, HG00096 left out, scored against its panel
+   genotypes at all 1,680,923 pack positions, chip positions included): full panel 99.20% exact, r² 0.9877, 99.29% of
+   non-reference genotypes found; pack 99.19%, r² 0.9875, 99.30%. The pack is as good as the 12 GB panel.
+   Still to do before it ships: chrX, the chip layouts of 23andMe and AncestryDNA (only MyHeritage's is in the
+   pack; a file from another chip loses the markers the pack lacks), and the pipeline pointed at the pack when the
+   full panel is absent. Every desktop
+   install could then impute instead of falling back to lite mode. To build: the union of the chip layouts
+   (MyHeritage, 23andMe v5, AncestryDNA v2), the analysis positions (the trace above, mapped to panel positions),
+   converted to bref3; then a run per chromosome compared with the full panel for the test profiles, scored on their masked chip positions.
+2. **Phones: imputation in the browser is plausible.** The prototype is a plain diploid Li-Stephens model on the
+   64-200 reference haplotypes that best match the person in each window. It comes within 1-2 points of Beagle on
+   common variants; rare ones need work. In numpy it takes 15 s for chr22 on this PC, so roughly 15-20 min
+   genome-wide, longer on a phone in WebAssembly: run in short bursts, saving its progress, so the phone doesn't
+   overheat and the run survives the screen locking. Phasing first (then the model is linear in the haplotypes, as
+   Beagle's is) would make it several times faster. The phone would download the reduced panel once (estimated
+   100-200 MB, less without the two genome-wide fitness scores, which fall back to their lead variants).
+3. **Order:** the desktop imputation pack first (it reuses Beagle, and the accuracy is measured above), then the
+   phone web app in lite mode, then the browser imputer, checked against Beagle on the reduced panel.
 
 ### Phase 3: Ask on the web and on phones
 

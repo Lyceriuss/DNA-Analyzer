@@ -267,7 +267,7 @@
     const svg = (p, tag, attrs) => { const e = document.createElementNS(SVGNS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); p.appendChild(e); return e; };
     const CHR = Array.from({ length: 22 }, (_, i) => String(i + 1)).concat('X');
     const GENOME = 3.1e9;   // letters in one copy of the human genome (GRCh38, about 3.1 billion)
-    const STEPS = [['themes', 'Health themes'], ['genes', 'Gene calls'], ['systems', 'Body systems'], ['medicines', 'Medicines'],
+    const STEPS = [['themes', 'Health themes'], ['genes', 'Gene calls'], ['medicines', 'Medicines'],
                    ['nutrition', 'Nutrition'], ['labtests', 'Lab tests'], ['fitness', 'Fitness'], ['cancers', 'Cancer risk']];
     const SOURCES = ['ClinVar', 'GWAS Catalog', 'UniProt', 'GTEx', 'Ensembl VEP', 'Reactome', 'STRING', 'CPIC', 'DPWG', 'Drug labels',
                      'ClinPGx', '1000 Genomes', 'Europe PMC'];

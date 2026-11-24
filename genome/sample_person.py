@@ -26,12 +26,47 @@ PANEL = os.environ.get("DNA_PANEL_ROOT", r"D:\DNA-Analyzer-reference\1kGP_high_c
 CHROMS = [str(c) for c in range(1, 23)] + ["X"]
 
 
+MANIFEST_CHROM = {"XY": "X", "0": None, "Y": None, "MT": None}   # Y and MT are left out, as panel_sites does
+
+
+def manifest_rows(path):
+    """(name, chrom, GRCh37 pos) per locus of an Illumina manifest CSV (GSA, OmniExpress ...; zipped or not), the
+    [Assay] section's Name, Chr and MapInfo, one per position. The Name is an rsID or a chr:pos name, as the chip
+    companies write them."""
+    import zipfile
+    if path.endswith(".zip"):
+        z = zipfile.ZipFile(path)
+        f = io.TextIOWrapper(z.open(z.namelist()[0]), encoding="utf-8", errors="replace")
+    else:
+        f = open(path, encoding="utf-8", errors="replace")
+    seen = set()
+    with f:
+        for line in f:
+            if line.startswith("[Assay]"):
+                break
+        cols = f.readline().rstrip("\r\n").split(",")
+        ni, ci, pi, bi = cols.index("Name"), cols.index("Chr"), cols.index("MapInfo"), cols.index("GenomeBuild")
+        for line in f:
+            if line.startswith("[Controls]"):
+                break
+            p = line.rstrip("\r\n").split(",")
+            if len(p) <= pi or p[bi] != "37" or not p[pi].isdigit():
+                continue
+            chrom = MANIFEST_CHROM.get(p[ci], p[ci])
+            if chrom is None or (chrom, p[pi]) in seen:
+                continue
+            seen.add((chrom, p[pi]))
+            yield p[ni], chrom, int(p[pi])
+
+
 def layout(path):
-    """{chrom: [(GRCh37 pos, rsid, GRCh38 pos or None, strand)]} for the layout file's calls."""
+    """{chrom: [(GRCh37 pos, rsid, GRCh38 pos or None, strand)]} for the layout file's calls: a raw chip file, or an
+    Illumina manifest CSV (manifest_rows)."""
     from pyliftover import LiftOver
     lo = LiftOver(os.path.join(REF, "hg19ToHg38.over.chain.gz"))
     out = {c: [] for c in CHROMS}
-    for rsid, chrom, pos, _ in formats.rows(path):
+    src = manifest_rows(path) if "manifest" in os.path.basename(path).lower() else ((r, c, p) for r, c, p, _ in formats.rows(path))
+    for rsid, chrom, pos in src:
         if chrom not in out or pos is None:
             continue
         hits = lo.convert_coordinate(f"chr{chrom}", pos - 1)
@@ -75,8 +110,11 @@ def genotypes(job):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("sample", help="1000 Genomes sample ID, e.g. HG00096")
-    ap.add_argument("--layout", required=True, help="a raw chip file whose rsIDs and positions to use")
+    ap.add_argument("--layout", required=True, help="a raw chip file whose rsIDs and positions to use, or an Illumina "
+                    "manifest CSV (zipped or not; a file name with 'manifest' in it)")
     ap.add_argument("--out", required=True)
+    ap.add_argument("--format", choices=("myheritage", "23andme", "ancestry"), default="myheritage",
+                    help="the raw file's format (genome/formats.py)")
     ap.add_argument("--processes", type=int, default=6)
     a = ap.parse_args()
     print("Lifting the layout to GRCh38 ...", flush=True)
@@ -88,10 +126,22 @@ def main():
         got = dict(pool.imap_unordered(genotypes, jobs))
     n = called = 0
     tmp = a.out + ".part"
+    src = os.path.basename(a.layout)
     with open(tmp, "w", encoding="utf-8", newline="\n") as f:
-        f.write(f"# Test file: 1000 Genomes sample {a.sample} (public), at the positions of a MyHeritage chip.\n")
-        f.write("# Made by genome/sample_person.py; GRCh37, forward strand.\n")
-        f.write('RSID,CHROMOSOME,POSITION,RESULT\n')
+        if a.format == "23andme":
+            # 23andMe's download: comment lines, a commented header, tab-separated, "--" for no call
+            f.write(f"# Test file in 23andMe's raw data format: 1000 Genomes sample {a.sample} (public), at the positions\n"
+                    f"# of {src}. Made by genome/sample_person.py; not a 23andMe file. GRCh37, forward strand.\n"
+                    "# rsid\tchromosome\tposition\tgenotype\n")
+        elif a.format == "ancestry":
+            # AncestryDNA's download: comment lines, a header row, tab-separated alleles, 0 for no call, X as 23
+            f.write(f"#Test file in AncestryDNA's raw data format: 1000 Genomes sample {a.sample} (public), at the\n"
+                    f"#positions of {src}. Made by genome/sample_person.py; not an AncestryDNA file. GRCh37, forward strand.\n"
+                    "rsid\tchromosome\tposition\tallele1\tallele2\n")
+        else:
+            f.write(f"# Test file: 1000 Genomes sample {a.sample} (public), at the positions of {src}.\n")
+            f.write("# Made by genome/sample_person.py; GRCh37, forward strand.\n")
+            f.write('RSID,CHROMOSOME,POSITION,RESULT\n')
         for c in CHROMS:
             for pos, rsid, p38, strand in lay[c]:
                 gt = got.get(c, {}).get(p38) if p38 else None
@@ -99,7 +149,13 @@ def main():
                     gt = gt.translate(COMP)
                 n += 1
                 called += bool(gt)
-                f.write(f'"{rsid}","{c}","{pos}","{gt or "--"}"\n')
+                if a.format == "23andme":
+                    f.write(f"{rsid}\t{c}\t{pos}\t{gt or '--'}\n")
+                elif a.format == "ancestry":
+                    a1, a2 = (gt[0], gt[1]) if gt else ("0", "0")
+                    f.write(f"{rsid}\t{'23' if c == 'X' else c}\t{pos}\t{a1}\t{a2}\n")
+                else:
+                    f.write(f'"{rsid}","{c}","{pos}","{gt or "--"}"\n')
     os.replace(tmp, a.out)
     print(f"Wrote {a.out}: {n:,} positions, {called:,} called ({called / n:.1%})")
 

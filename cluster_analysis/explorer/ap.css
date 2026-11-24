@@ -1,0 +1,27 @@
+  /* The App menu (ap.js): delete a person, delete everything, quit */
+  .gx-app:empty { display: none; }
+  .gx-app-btn { font: inherit; font-size: 13px; color: var(--color-fg); background: var(--color-panel); border: 1px solid var(--color-border-line);
+                border-radius: 999px; padding: 4px 12px; cursor: pointer; }
+  .gx-app-btn:hover { border-color: var(--color-fg-muted); }
+  .gx-app-btn:focus-visible, .gx-app-item:focus-visible, .gx-app-danger:focus-visible, .gx-app-go:focus-visible { outline: 2px solid var(--color-fg); outline-offset: 2px; }
+  .gx-app-dialog { width: min(520px, calc(100vw - 32px)); }
+  .gx-app-menu { display: grid; gap: 8px; }
+  .gx-app-item { font: inherit; text-align: left; display: grid; gap: 2px; padding: 12px 14px; border-radius: 12px; cursor: pointer;
+                 color: var(--color-fg); background: var(--color-bg); border: 1px solid var(--color-border-line); }
+  .gx-app-item span { font-size: 13px; color: var(--color-fg-muted); }
+  .gx-app-item:hover { border-color: var(--color-fg-muted); }
+  .gx-app-item.is-bad b { color: var(--color-bad); }
+  .gx-app-list { margin: 0; padding-left: 20px; display: grid; gap: 4px; }
+  .gx-app-row { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px; }
+  .gx-app-danger, .gx-app-go { font: inherit; font-size: 14px; border-radius: 999px; padding: 6px 16px; cursor: pointer; border: 1px solid transparent; }
+  .gx-app-danger { color: #fff; background: var(--color-bad); }
+  .gx-app-go { color: var(--color-bg); background: var(--color-fg); }
+  .gx-app-danger:disabled, .gx-app-go:disabled { opacity: .45; cursor: not-allowed; }
+  .gx-app-type { display: grid; gap: 6px; font-size: 13px; color: var(--color-fg-muted); }
+  .gx-app-type input { font: inherit; font-size: 15px; padding: 8px 10px; border-radius: 8px; border: 1px solid var(--color-border-line);
+                       background: var(--color-bg); color: var(--color-fg); }
+  .gx-app-status { margin: 0; font-size: 13px; color: var(--color-fg-muted); min-height: 1em; }
+  .gx-app-status:empty { display: none; }
+  .gx-app-gone { position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 50; display: grid; gap: 4px; padding: 14px 18px; border-radius: 14px;
+                 background: var(--color-panel); color: var(--color-fg); border: 1px solid var(--color-bad); box-shadow: 0 8px 30px rgb(0 0 0 / 35%); }
+  .gx-app-gone span { color: var(--color-fg-muted); font-size: 14px; }

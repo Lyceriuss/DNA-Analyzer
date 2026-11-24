@@ -260,36 +260,101 @@ echo "{name} {version} installed in $DEST. Start it from the menu or with: {lowe
 """
 
 
-def icon(folder):
-    """The app's icon, drawn: a double helix on a rounded teal square. app.ico (16-256 px) for Windows, app.png for
-    Linux menus."""
+def _pil():
     try:
         from PIL import Image, ImageDraw
+        return Image, ImageDraw
     except ImportError:
         sys.exit("Pillow not found (pip install pillow): it draws the app icon (only needed to build)")
+
+
+def _gradient(w, h):
+    """Teal at the top left to deep blue at the bottom right: the logo's background."""
+    Image, _ = _pil()
+    top, bottom = (13, 148, 136), (30, 58, 138)
+    g = Image.new("RGBA", (w, h))
+    px = g.load()
+    for y in range(h):
+        for x in range(w):
+            t = (y / h) * 0.75 + (x / w) * 0.25
+            px[x, y] = tuple(round(a + (b - a) * t) for a, b in zip(top, bottom)) + (255,)
+    return g
+
+
+def _helix(d, cx, top, bottom, amp, width, turns, pairs, phase):
+    """A double helix with depth: the strands' points and the base pairs' rungs drawn back to front, the back mixed
+    with the deep blue behind it. Each pair is two complementary colours."""
     import math
-    s = 1024   # drawn large, scaled down smooth
+    BASES = [(251, 191, 36), (244, 114, 182), (96, 165, 250), (52, 211, 153)]
+    items, n = [], 900
+    for strand, ph in enumerate((0.0, math.pi)):
+        for i in range(n + 1):
+            a = 2 * math.pi * turns * i / n + ph + phase
+            items.append((math.cos(a), "s", cx + amp * math.sin(a), top + (bottom - top) * i / n, strand))
+    for k in range(pairs):
+        t = (k + 0.5) / pairs
+        a = 2 * math.pi * turns * t + phase
+        y = top + (bottom - top) * t
+        x1, z1, x2, z2 = cx + amp * math.sin(a), math.cos(a), cx + amp * math.sin(a + math.pi), math.cos(a + math.pi)
+        for j in range(161):
+            u = j / 160
+            items.append((z1 + (z2 - z1) * u - 0.02, "r", x1 + (x2 - x1) * u, y, BASES[k % 4] if u < 0.5 else BASES[(k + 2) % 4]))
+    items.sort(key=lambda it: it[0])
+    for z, kind, x, y, extra in items:
+        near = (z + 1) / 2
+        base = ((255, 255, 255) if extra == 0 else (186, 230, 253)) if kind == "s" else extra
+        col = tuple(round(v * (0.5 + 0.5 * near) + b * (0.5 - 0.5 * near)) for v, b in zip(base, (22, 78, 130))) + (255,)
+        r = width / 2 * (0.8 + 0.2 * near) if kind == "s" else width * 0.22
+        d.ellipse((x - r, y - r, x + r, y + r), fill=col)
+
+
+def _logo(small=False, s=1024):
+    """The square logo: the helix on the gradient, rounded. small: the strands alone, thicker (16-32 px)."""
+    Image, ImageDraw = _pil()
+    mask = Image.new("L", (s, s), 0)
+    ImageDraw.Draw(mask).rounded_rectangle((24, 24, s - 24, s - 24), radius=220, fill=255)
     img = Image.new("RGBA", (s, s), (0, 0, 0, 0))
-    d = ImageDraw.Draw(img)
-    d.rounded_rectangle((32, 32, s - 32, s - 32), radius=200, fill=(15, 118, 110, 255))
-    top, bottom, cx, amp, w = 150, s - 150, s / 2, 230, 64
-    n = 400
-    strands = [[(cx + amp * math.sin(2 * math.pi * 1.25 * t / n + ph), top + (bottom - top) * t / n) for t in range(n + 1)]
-               for ph in (0, math.pi)]
-    # The rungs first, so the strands lie over them
-    for i in range(1, 10):
-        t = round(n * i / 10)
-        (x1, y), (x2, _) = strands[0][t], strands[1][t]
-        if abs(x1 - x2) > 2 * w:
-            d.line((x1, y, x2, y), fill=(204, 251, 241, 255), width=w // 2)
-    for pts, col in zip(strands, ((255, 255, 255, 255), (153, 246, 228, 255))):
-        for x, y in pts:   # a chain of discs: a smooth thick curve (wide polylines fray at the joints)
-            d.ellipse((x - w / 2, y - w / 2, x + w / 2, y + w / 2), fill=col)
-    big = img.resize((256, 256), Image.LANCZOS)
+    img.paste(_gradient(s, s), (0, 0), mask)
+    if small:
+        _helix(ImageDraw.Draw(img), s / 2, 170, s - 170, 250, 150, turns=1.0, pairs=0, phase=0.0)
+    else:
+        _helix(ImageDraw.Draw(img), s / 2, 140, s - 140, 250, 78, turns=1.25, pairs=9, phase=0.6)
+    return img
+
+
+def icon(folder):
+    """The app's icon, drawn: a double helix with coloured base pairs on a teal-to-blue rounded square. app.ico for
+    Windows (the strands alone at 16-32 px, where the pairs would blur), app.png for Linux menus."""
+    Image, _ = _pil()
+    big, small = _logo(), _logo(small=True)
+    frames = {sz: (small if sz <= 32 else big).resize((sz, sz), Image.LANCZOS) for sz in (16, 24, 32, 48, 64, 128, 256)}
     ico = os.path.join(folder, "app.ico")
-    big.save(ico, sizes=[(16, 16), (24, 24), (32, 32), (48, 48), (64, 64), (128, 128), (256, 256)])
-    big.save(os.path.join(folder, "app.png"))
+    frames[256].save(ico, sizes=[(sz, sz) for sz in frames], append_images=[frames[sz] for sz in frames if sz != 256])
+    frames[256].save(os.path.join(folder, "app.png"))
     return ico
+
+
+def wizard_images(folder):
+    """The install wizard's pictures, as Inno Setup wants them (24-bit BMP, at 100% and 200%): the tall one on the
+    welcome and finish pages (a long helix) and the small one at the top right of the other pages (the logo)."""
+    Image, ImageDraw = _pil()
+    os.makedirs(folder, exist_ok=True)
+    side, corner = [], []
+    for scale in (1, 2):
+        w, h, k = 164 * scale, 314 * scale, 3
+        img = _gradient(w * k, h * k)
+        _helix(ImageDraw.Draw(img), w * k / 2, 30 * scale * k, (h - 30 * scale) * k, 47 * scale * k, 13 * scale * k,
+               turns=2.6, pairs=20, phase=0.3)
+        p = os.path.join(folder, f"wizard_{scale}x.bmp")
+        img.resize((w, h), Image.LANCZOS).convert("RGB").save(p)
+        side.append(p)
+        sz = 55 * scale
+        bg = Image.new("RGBA", (sz, sz), (255, 255, 255, 255))   # the wizard's header is white
+        bg.alpha_composite(_logo(small=scale == 1).resize((sz, sz), Image.LANCZOS))
+        p = os.path.join(folder, f"wizard_small_{scale}x.bmp")
+        bg.convert("RGB").save(p)
+        corner.append(p)
+    return side, corner
 
 
 def launcher(app, target, test_env):
@@ -337,9 +402,11 @@ UninstallDisplayName={{#AppName}}
 UninstallDisplayIcon={{app}}\app.ico
 SetupIconFile={app}\app.ico
 WizardStyle=modern
+WizardImageFile={wizard}
+WizardSmallImageFile={wizard_small}
 {sign}
 [Messages]
-FinishedLabel=[name] is installed.%n%nStart it from the [name] icon on the desktop or in the Start menu: your browser opens on the app. It runs on this computer only.%n%nTo stop it, choose "Stop [name]" in the Start menu.
+FinishedLabel=[name] is installed.%n%nStart it from the [name] icon on the desktop or in the Start menu: it opens in its own window. It runs on this computer only.%n%nTo stop it, choose "Stop [name]" in the Start menu.
 [Files]
 ; The program: replaced on every update
 Source: "{app}\*"; DestDir: "{{app}}"; Excludes: "\data\*,\cluster_analysis\profiles.json"; Flags: recursesubdirs ignoreversion
@@ -409,8 +476,10 @@ def write_iss(app, out):
     if os.environ.get("SIGNTOOL"):   # e.g. signtool sign /fd sha256 /tr http://timestamp... /f cert.pfx /p ... $f
         sign = f"SignTool=custom {os.environ['SIGNTOOL']}\nSignedUninstaller=yes"
     iss = os.path.join(out, f"{APP_NAME}.iss")
+    side, corner = wizard_images(os.path.join(out, "wizard"))
     with open(iss, "w", encoding="utf-8-sig", newline="\r\n") as f:
-        f.write(ISS.format(name=APP_NAME, version=VERSION, app=app, out=out, sign=sign, q='"', q3='"' * 3))
+        f.write(ISS.format(name=APP_NAME, version=VERSION, app=app, out=out, sign=sign, q='"', q3='"' * 3,
+                           wizard=",".join(side), wizard_small=",".join(corner)))
     return iss
 
 

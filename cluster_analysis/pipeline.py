@@ -15,7 +15,7 @@ Stages, each resumable (a run that stopped or failed starts again at the stage i
   register  the file copied to data/input/<id>.<ext>, the person added to profiles.json, marked pending: until the
             run is done no listing shows them (profiles.load), the explorer included
   impute    genome/impute.py: Beagle per chromosome, then the confidence-tiered CSV (~15 minutes)
-  analyse   profiles.py run, one step at a time (themes, gene calls, systems, medicines, nutrition, lab tests, fitness,
+  analyse   profiles.py run, one step at a time (themes, gene calls, medicines, nutrition, lab tests, fitness,
             cancers); lookups come from the shared cache, so mostly offline
   explorer  explorer export (every profile's datasets) and the site rebuilt; the page picks it up on reload
 
@@ -46,7 +46,7 @@ INPUT = os.path.join(ROOT, "data", "input")
 PROFILES = os.path.join(ROOT, "cluster_analysis", "profiles.json")
 ID_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_-]{0,31}$")
 CHROMS = [str(c) for c in range(1, 23)] + ["X"]
-STEPS = [("themes", "Health themes"), ("genes", "Gene calls"), ("systems", "Body systems"), ("medicines", "Medicines"),
+STEPS = [("themes", "Health themes"), ("genes", "Gene calls"), ("medicines", "Medicines"),
          ("nutrition", "Nutrition"), ("labtests", "Lab tests"), ("fitness", "Fitness"), ("cancers", "Cancer risk")]
 # Share of the whole run each stage takes, for one progress bar (updated from timings.json once runs are recorded)
 WEIGHT = {"check": 0.01, "register": 0.01, "impute": 0.55, "analyse": 0.38, "explorer": 0.05}
@@ -747,6 +747,96 @@ def abandon(pid, force=False):
     except (OSError, ValueError):
         rebuild = False
     return {"removed": [os.path.relpath(p, ROOT).replace(os.sep, "/") for p in paths], "profile": bool(entry), "rebuild": rebuild}
+
+
+def _remove_paths(paths):
+    for p in paths:
+        for attempt in range(10):   # Beagle (java) can hold its files for a moment after it is stopped
+            try:
+                shutil.rmtree(p) if os.path.isdir(p) else os.remove(p)
+                break
+            except FileNotFoundError:
+                break
+            except OSError:
+                if attempt == 9:
+                    raise
+                time.sleep(1)
+
+
+def person_files(pid):
+    """Everything on this machine about one person: what a run writes (leftovers), an imported results file, and the
+    Ask tab's readings for them (fills named __<pid>, sessions whose person is pid)."""
+    from cluster_analysis.explorer import results
+    entry, paths = leftovers(pid)
+    # Their DNA file, whatever its name, when it is in the app's own input folder (never a file elsewhere on the disk)
+    if entry and entry.get("dna"):
+        dna = os.path.abspath(os.path.join(ROOT, entry["dna"]))
+        if os.path.dirname(dna) == os.path.abspath(INPUT):
+            paths.append(dna)
+    paths.append(os.path.join(results.IMPORTED, pid + results.SUFFIX))
+    agent = os.path.join(ROOT, "data", "output", "agent")
+    fills = os.path.join(agent, "fills")
+    if os.path.isdir(fills):
+        paths += [os.path.join(fills, n) for n in os.listdir(fills) if n.endswith(f"__{pid}.json")]
+    sessions = os.path.join(agent, "sessions")
+    if os.path.isdir(sessions):
+        for n in os.listdir(sessions):
+            try:
+                with open(os.path.join(sessions, n), encoding="utf-8") as f:
+                    if json.load(f).get("person") == pid:
+                        paths.append(os.path.join(sessions, n))
+            except (OSError, ValueError, AttributeError):
+                pass
+    return entry, [p for p in dict.fromkeys(paths) if os.path.exists(p)]
+
+
+def remove(pid):
+    """Deletes one person, finished or not: their DNA file, imputation, results, run record and Ask readings, and the
+    profile entry. Refused while their run is going (stop it first). Returns what went and whether the page lists them
+    (then the datasets are rebuilt without them)."""
+    run = Run(pid)
+    if run.s and run.s.get("state") == "running" and pid_alive(run.s.get("pid")):
+        raise ValueError(f"{pid} is being added; stop the run first.")
+    entry, paths = person_files(pid)
+    if not entry and not paths:
+        raise ValueError(f"There is no one called {pid}.")
+    _remove_paths(paths)
+    if entry:
+        unregister(pid)
+    from cluster_analysis.explorer.__main__ import DATASETS
+    try:
+        rebuild = any(r.get("id") == pid for r in json.load(open(os.path.join(DATASETS, "profiles.json"), encoding="utf-8")))
+    except (OSError, ValueError):
+        rebuild = False
+    return {"removed": [os.path.relpath(p, ROOT).replace(os.sep, "/") for p in paths], "profile": bool(entry), "rebuild": rebuild}
+
+
+def remove_all():
+    """Deletes everything personal: every person (registered or imported), the Ask tab's folder (readings, sessions,
+    the saved API key), the uploads and run records, and the lookups that were keyed by what someone asked (knowledge.
+    PRIVATE, and the log of lookups the bundle lacked). The public research data and the references stay."""
+    from cluster_analysis import knowledge, sources
+    from cluster_analysis.explorer import results
+    if any(r.get("state") == "running" and pid_alive(r.get("pid")) for r in status()["runs"]):
+        raise ValueError("A person is being added; stop the run first.")
+    ids = {p["id"] for p in profiles()} | {os.path.basename(n)[:-len(results.SUFFIX)]
+                                            for n in (os.listdir(results.IMPORTED) if os.path.isdir(results.IMPORTED) else [])
+                                            if n.endswith(results.SUFFIX)}
+    removed = []
+    for pid in sorted(ids):
+        entry, paths = person_files(pid)
+        _remove_paths(paths)
+        if entry:
+            unregister(pid)
+        removed.append(pid)
+    paths = [os.path.join(ROOT, "data", "output", "agent"), results.IMPORTED]
+    if os.path.isdir(STATE_DIR):   # the run records and uploads; this machine's timings (no one's data) stay
+        paths += [os.path.join(STATE_DIR, n) for n in os.listdir(STATE_DIR) if n != "timings.json"]
+    cache = sources.CACHE_DIR
+    if os.path.isdir(cache):
+        paths += [os.path.join(cache, n) for n in os.listdir(cache) if knowledge.private(n) or n == knowledge.MISSES]
+    _remove_paths([p for p in paths if os.path.exists(p)])
+    return {"people": removed, "rebuild": True}
 
 
 def rebuild_explorer():

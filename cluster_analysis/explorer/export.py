@@ -422,11 +422,10 @@ if __name__ == "__main__":
                     t.extend(extra)
             for name, rows in zip(("theme_meta", "theme_genes", "theme_links", "theme_pathways"), tables):
                 merged[name] += tag(rows, pid)
-        # Medicines, nutrition, lab tests and the body systems, run per profile into data/output/cluster_analysis/profiles/<id>/
+        # Medicines, nutrition, lab tests and fitness, run per profile into data/output/cluster_analysis/profiles/<id>/
         # (profiles.py run): one dataset each, rows tagged with their person. The public ones are taken once.
         for name in ("med_genes", "med_drugs", "med_guidance", "nut_nutrients", "nut_findings", "lab_tests", "lab_findings",
-                     "fit_tests", "fit_findings", "sport_snps", "can_tests", "can_findings",
-                     "sys_systems", "sys_genes", "sys_links", "sys_bridges", "fd_phases", "fd_impact"):
+                     "fit_tests", "fit_findings", "sport_snps", "can_tests", "can_findings", "fd_phases", "fd_impact"):
             merged[name] = []
             for p in people:
                 f = os.path.join(prof.PROFILE_DIR, p["id"], name + ".json")

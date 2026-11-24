@@ -2,6 +2,7 @@
 against a stand-in server: one start, a second start that only opens the browser, --stop."""
 import importlib.util
 import os
+import pathlib
 import shutil
 import socket
 import sys
@@ -79,14 +80,18 @@ class Launcher(unittest.TestCase):
     def test_start_reuse_stop(self):
         self.assertEqual(self.l.main(["--background"]), 0)
         url = f"http://127.0.0.1:{self.l.PORT}/"
-        self.assertEqual(self.opened, [url])
+        # The window opened at once on the "Starting" page, which moves to the app by itself
+        starting = os.path.join(self.l.DATA, "starting.html")
+        self.assertEqual(self.opened, [pathlib.Path(starting).as_uri()])
+        with open(starting, encoding="utf-8") as f:
+            self.assertIn(repr(url), f.read())
         state = self.l.read_state()
         self.assertEqual(state["port"], self.l.PORT)
         self.assertTrue(self.l.alive(state["pid"]))
         self.assertTrue(os.path.exists(os.path.join(self.l.LOGS, "server.log")))
         # Started again: the browser opens on the running one, nothing new starts
         self.assertEqual(self.l.main([]), 0)
-        self.assertEqual(self.opened, [url, url])
+        self.assertEqual(self.opened[1:], [url])
         self.assertEqual(self.l.read_state()["pid"], state["pid"])
         # Stopped
         self.l.main(["--stop"])

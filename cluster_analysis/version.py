@@ -4,7 +4,7 @@ import json
 import os
 import urllib.request
 
-VERSION = "0.1.5"
+VERSION = "0.1.9"
 NAME = "DNA-Analyzer"   # until the product name is chosen
 
 

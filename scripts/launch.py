@@ -49,6 +49,47 @@ def app_browser():
     return next((p for p in map(shutil.which, ("google-chrome", "chromium", "chromium-browser", "microsoft-edge")) if p), None)
 
 
+# Shown at once while the server starts (the first start unpacks the research data and builds the page: a minute or
+# two): it asks the app every half second and moves to it when it answers. A file, since nothing serves pages yet.
+STARTING = """<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Gene Cluster Explorer</title>
+<style>
+  html, body {{ height: 100%; margin: 0; }}
+  body {{ display: grid; place-items: center; background: #1b1b1b; color: #e8e8e8;
+         font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }}
+  @media (prefers-color-scheme: light) {{ body {{ background: #f7f7f5; color: #222; }} p {{ color: #555; }} }}
+  main {{ text-align: center; max-width: 420px; padding: 0 16px; }}
+  h1 {{ font-size: 20px; font-weight: 600; margin: 18px 0 6px; }}
+  p {{ margin: 4px 0; color: #aaa; }}
+  .ring {{ width: 44px; height: 44px; margin: 0 auto; border-radius: 50%; border: 4px solid rgba(20, 148, 136, .25);
+          border-top-color: #149488; animation: spin 1s linear infinite; }}
+  @keyframes spin {{ to {{ transform: rotate(360deg); }} }}
+  #slow {{ visibility: hidden; }}
+</style></head><body><main>
+<div class="ring" role="progressbar" aria-label="Starting"></div>
+<h1>Starting {name}</h1>
+<p>The first start unpacks the research data and prepares the page: a minute or two. Later starts take seconds.</p>
+<p id="slow">Still working. If nothing happens, the log is in {logs}.</p>
+</main><script>
+  const url = {url!r}, t0 = Date.now();
+  const tryIt = () => fetch(url + "api/setup", {{ mode: "no-cors", cache: "no-store" }})
+    .then(() => location.replace(url))
+    .catch(() => {{ if (Date.now() - t0 > 300000) document.getElementById("slow").style.visibility = "visible"; setTimeout(tryIt, 500); }});
+  tryIt();
+</script></body></html>
+"""
+
+
+def starting_page(url):
+    """The "Starting" page for url, written to the data folder; its file:// address."""
+    import html
+    import pathlib
+    os.makedirs(DATA, exist_ok=True)
+    p = os.path.join(DATA, "starting.html")
+    with open(p, "w", encoding="utf-8") as f:
+        f.write(STARTING.format(name=html.escape(name()), logs=html.escape(LOGS), url=url))
+    return pathlib.Path(p).as_uri()
+
+
 def open_page(url):
     """The page in its own app window when Edge or Chrome is there, else in the default browser."""
     exe = app_browser()
@@ -255,11 +296,16 @@ def start(background):
         logf = open(out, "w", encoding="utf-8")
         kw = {"stdout": logf, "stderr": subprocess.STDOUT, "stdin": subprocess.DEVNULL}
         kw.update({"creationflags": NO_WINDOW} if WINDOWS else {"start_new_session": True})
+        # Nothing to close in the background: it stops by itself once no window is open and nothing is working
+        # (explorer/server.py Lifetime). The console mode stops when its window is closed.
+        kw["env"] = {**os.environ, "DNA_AUTOSTOP": "1"}
     else:
         kw = {}
     log(f"starting the server on {url}")
     proc = subprocess.Popen(cmd, cwd=APP, **kw)
     write_state(port, proc.pid)
+    # The window opens now, on the "Starting" page, which moves to the app by itself when it answers
+    open_page(starting_page(url))
     if not wait(port, proc):
         if proc.poll() is None:
             proc.kill()
@@ -267,7 +313,6 @@ def start(background):
         tell(f"{name()} stopped while starting (exit code {proc.returncode}). What happened is in {out if background else 'this window'}"
              f"{'' if background else ' and ' + os.path.join(LOGS, 'launch.log')}.", error=True)
         return 1
-    open_page(url)
     if background:
         log(f"running at {url} (process {proc.pid})")
         return 0
@@ -293,8 +338,9 @@ def main(argv=None):
         if answers(port):
             log(f"already running at {url}: opening the browser")
             open_page(url)
-        else:   # a second click while the first start is under way: that launcher opens the browser
+        else:   # a second click while the first start is under way: the "Starting" page again (the first may be hidden)
             log(f"already starting at {url}")
+            open_page(starting_page(url))
         return 0
     return start(background="--background" in argv or not sys.stdout)
 

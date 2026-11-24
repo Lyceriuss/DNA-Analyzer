@@ -76,12 +76,23 @@ DEFAULT_PANEL = "1kg_phase3"
 PAR = PANELS[DEFAULT_PANEL]["par"]  # GRCh37, the build of consumer raw files
 
 
+PACK = os.path.join(REF, "pack")   # the high-coverage panel cut to the app's positions (scripts/spike/build_pack.py)
+
+
 def panel(name=DEFAULT_PANEL):
-    """A panel's settings, its directory taken from DNA_PANEL_DIR_<NAME> when that is set."""
+    """A panel's settings, its directory taken from DNA_PANEL_DIR_<NAME> when that is set.
+
+    Without the full high-coverage panel (12 GB, a developer's machine only), the pack the installer ships takes its
+    place: the same panel cut to the chip positions of the supported formats and the positions the analysis reads,
+    with its own site list. Imputed at those positions it is as accurate as the full panel (docs/architecture/
+    production.md, "Imputation without the 12 GB panel"); it has the same name, so outputs land where they always do."""
     p = dict(PANELS[name], name=name)
     p["dir"] = os.environ.get(f"DNA_PANEL_DIR_{name.upper()}", p["dir"])
     # The site list (positions, alleles, rsIDs, population frequencies) sits next to the panel's folder
     p["sites"] = os.path.normpath(os.path.join(p["dir"], "..", "sites.vcf.gz"))
+    if name == "1kgp_hc" and not os.path.isdir(p["dir"]) and os.path.exists(os.path.join(PACK, "sites.vcf.gz")):
+        p.update(dir=PACK, sites=os.path.join(PACK, "sites.vcf.gz"), pack=True,
+                 label=p["label"] + ", the app's pack (the positions it reads)")
     return p
 EUR_AF = re.compile(r"(?:^|;)EUR_AF=([\d.e-]+)(?:;|$)")
 

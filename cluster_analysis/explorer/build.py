@@ -21,12 +21,12 @@ index.html, which this script writes. settings.json goes in at `// @settings`, a
                               site has no size limit.
 """
 import argparse
+import base64
 import json
 import os
 import re
 import shutil
 import sys
-import urllib.parse
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 LIMIT = 262144  # bytes, JSON-encoded: the artifact's per-document limit
@@ -144,12 +144,10 @@ def minify(page):
     return re.sub(r"(<style>)(.*?)(</style>)", lambda m: m.group(1) + minify_css(m.group(2)) + m.group(3), page, flags=re.S)
 
 
-# The tab's and the app window's icon: a double helix on teal, like the installer's app.ico (build_desktop.py icon)
-FAVICON = "data:image/svg+xml," + urllib.parse.quote(
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#1f8a80"/>'
-    '<path d="M22 10c0 15 20 15 20 22s-20 7-20 22M42 10c0 15-20 15-20 22s20 7 20 22" fill="none" stroke="#fff" '
-    'stroke-width="5" stroke-linecap="round"/><path d="M25 18h14M25 46h14M28 32h8" stroke="#bfe9e3" stroke-width="4" '
-    'stroke-linecap="round"/></svg>')
+# The tab's and the app window's icon: the app's logo at 64 px (runtime/icon.png, drawn by scripts/build_desktop.py
+# _logo(small=True), the strands-only version that stays clear at 16-32 px)
+with open(os.path.join(HERE, "runtime", "icon.png"), "rb") as _f:
+    FAVICON = "data:image/png;base64," + base64.b64encode(_f.read()).decode()
 
 
 def standalone(page, data_dir, out):
