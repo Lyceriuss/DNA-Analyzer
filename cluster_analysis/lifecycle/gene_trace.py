@@ -294,7 +294,8 @@ def person_status(dna_path):
                               "interpretation": r["Interpretation"], **fc,
                               "library_function": fc["function"], "function": ec["function"], "basis": ec["basis"],
                               "evidence": ec["detail"],
-                              "outcome": outcome(ec["function"], traits[r["RSID"]].get("polarity"))})
+                              "outcome": outcome(ec["function"], traits[r["RSID"]].get("polarity"),
+                                                 traits[r["RSID"]].get("polarity_source"))})
     return status
 
 

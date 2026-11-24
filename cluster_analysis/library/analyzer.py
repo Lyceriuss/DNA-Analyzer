@@ -11,11 +11,15 @@ OUTCOMES = ("positive", "negative", "neutral", "typical", "unclear", "unknown")
 EFFECTS = ("GoF", "LoF", "altered")
 
 
-def outcome(function, polarity):
-    """positive | negative | neutral | typical | unclear | unknown for one evidence call (see genotype_effects.py)."""
+def outcome(function, polarity, source=None, drafts=False):
+    """positive | negative | neutral | typical | unclear | unknown for one evidence call (see genotype_effects.py).
+    Only a polarity reviewed by hand counts: the drafted ones ("library wording", "library ratings") were made from
+    the LLM-written library, so they read unclear. drafts=True reads them anyway (the library audit reviews them)."""
     if function == "normal":
         return "typical"
     if function in EFFECTS:
+        if source != "reviewed" and not drafts:
+            return "unclear"
         return (polarity or {}).get(function, "unclear")
     return "unknown"
 
@@ -86,7 +90,7 @@ def run_analysis(dna_filepath, traits_filepath):
                 "User_Genotype": user_gt,
                 # Evidence call for the gene (GoF / LoF / normal / altered / unknown) and what it means for the person
                 "Function": function,
-                "Outcome": outcome(function, polarity),
+                "Outcome": outcome(function, polarity, info.get("polarity_source")),
                 "Basis": info.get('function_basis', 'none'),
                 "Interpretation": interpretation,
                 # "carrier" / "rare_variant" entries are reported on their own page, not counted

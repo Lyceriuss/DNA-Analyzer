@@ -51,21 +51,23 @@ Details that matter:
 - **UniProt text** only counts its function parts: in "low enzyme activity; may increase the tendency to develop
   hypertension" the first part decides.
 
-The library's wording-based call is kept as `library_function` for comparison, and the explorer marks the library
-sentence as a note written with an LLM.
+The library's wording-based call is kept as `library_function` for comparison. The library's sentences are not shown
+in the explorer and are not sent to Ask's model (since 0.1.10): they were written with an LLM and are not evidence.
 
 ## From the call to positive or negative
 
 The report and the explorer read each genotype as positive or negative for the person in two steps: the evidence call
 above says what the genotype does to the gene, and the library entry's `polarity` says whether that is good or bad.
-The call is evidence; the polarity is a best-effort reading of the trait.
+The call is evidence; the polarity is a reading of the trait. Only a polarity set by hand (`polarity_source:
+reviewed`) gives positive or negative: the first drafts came from the LLM-written library, so an effect with only a
+drafted polarity reads *unclear* (`analyzer.outcome()`; the library audit still reads the drafts, to review them).
 
 ```mermaid
 flowchart TB
     EC["evidence_call()<br/>per library genotype"] --> FN["snp_traits.json → function<br/>GoF / LoF / normal / altered / unknown"]
-    OLD["first drafts, 2026-11-07<br/>(library wording, direction of the old ratings)"] --> POL["polarity<br/>{LoF: negative}"]
-    HAND["set by hand<br/>(polarity_source: reviewed)"] --> POL
-    FN -->|"effect without a polarity"| NONE["reads unclear<br/>(listed by genotype_effects.py)"]
+    OLD["first drafts, 2026-11-07<br/>(library wording, direction of the old ratings)"] -->|"audit only"| POL
+    HAND["set by hand<br/>(polarity_source: reviewed)"] --> POL["polarity<br/>{LoF: negative}"]
+    FN -->|"effect without a reviewed polarity"| NONE["reads unclear<br/>(listed by genotype_effects.py)"]
     FN & POL --> OUT["outcome: positive / negative /<br/>neutral / unclear / typical / unknown"]
 ```
 

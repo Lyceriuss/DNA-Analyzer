@@ -183,7 +183,7 @@ def evidence_call(rsid, genotype, ev, vep):
             sign = signs.pop()
             return call(g["effect_allele"], sign, "expression",
                         f"{g['effect_allele']} {'raises' if sign > 0 else 'lowers'} {rows[0]['gene']} expression in "
-                        f"{g['n_tissues']} tissues (strongest: {tissues})")
+                        + (f"1 tissue ({tissues})" if g["n_tissues"] == 1 else f"{g['n_tissues']} tissues (strongest: {tissues})"))
         return call(g["effect_allele"], 0, "expression", f"{g['effect_allele']} raises {rows[0]['gene']} expression in some "
                                                          f"tissues and lowers it in others ({tissues})")
     out["dose"] = sum(1 for a in gt if a != common)

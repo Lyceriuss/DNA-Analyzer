@@ -355,7 +355,7 @@
     };
     for (const g of groups.slice(0, mdShown)) {
       const open = f.open.has(g.drug);
-      const box = mdMake(el, 'div', 'md-drug');
+      const box = mdMake(el, 'div', 'md-drug' + (g.status === 'differs' ? ' md-drug-differs' : ''));
       const head = mdMake(box, 'div', 'md-drug-head');
       mdMake(head, 'span', 'md-drug-name', g.drug);
       if (g.best < MD_GRADES.length) mdTag(head, MD_GRADES[g.best]);

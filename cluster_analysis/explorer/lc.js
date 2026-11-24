@@ -197,8 +197,7 @@
     if (!f.genotype) lead = `${gx.who()}'s file has no usable call at this gene's library SNP, so its activity in ${gx.who()} is not known.`;
     else lead = `At ${f.rsid} ${gx.who()} is ${f.genotype}: ` + (f.dose ? `${copies} of the less common ${f.minor} allele. ` : `both copies are the common ${f.common} allele. `) +
       (fn === 'unknown' ? 'No measured, curated or expression evidence shows this SNP changing the gene, so no effect on its activity is claimed. '
-        : `By the evidence (${LC_BASIS[f.basis] || LC_BASIS.none}) this reads as ${lcFnText(f, fn).replace(/ \((LoF|GoF)\)/, '').toLowerCase()}: ${f.fn_evidence}. `) +
-      `The library's note, written with an LLM and not itself evidence: "${f.interpretation}".`;
+        : `By the evidence (${LC_BASIS[f.basis] || LC_BASIS.none}) this reads as ${lcFnText(f, fn).replace(/ \((LoF|GoF)\)/, '').toLowerCase()}: ${f.fn_evidence}.`);
     if (f.genotype && f.minor_af >= 0.4) lead += ` Both forms are common in Europeans (${f.minor} ${pctFmt(f.minor_af)}).`;
     make(el, 'p', 'lc-lead', lead);
 
@@ -207,8 +206,8 @@
     const row = (k, v) => { const li = make(ul, 'li'); make(li, 'span', null, k); make(li, 'span', null, v); };
     row('Best evidence', ev.tier_name || 'No functional evidence collected');
     if (f.outcome && f.outcome !== 'typical' && f.outcome !== 'unknown') row(`Effect on ${gx.who()}`, `${(LC_OUTCOME[f.outcome] || f.outcome).replace('{who}', gx.who())}` +
-      (f.polarity_source ? ` (whether ${f.function === 'GoF' ? 'more' : f.function === 'LoF' ? 'less' : 'changed'} function is good or bad: ${LC_POLARITY[f.polarity_source] || f.polarity_source}; the ${f.function} call is from the evidence)` : ''));
-    row('Library reading', `${f.interpretation}${f.n_snps > 1 ? ` (strongest of ${f.n_snps} SNPs)` : ''}`);
+      (f.polarity_source && f.outcome !== 'unclear' ? ` (whether ${f.function === 'GoF' ? 'more' : f.function === 'LoF' ? 'less' : 'changed'} function is good or bad: ${LC_POLARITY[f.polarity_source] || f.polarity_source}; the ${f.function} call is from the evidence)` : ''));
+    if (f.n_snps > 1) row('SNPs', `${f.rsid}, the strongest of ${f.n_snps} at this gene`);
     if (ev.protein_change || ev.consequence) row('Change', [ev.protein_change, pretty(ev.consequence)].filter(Boolean).join(', '));
     if (ev.mavedb) {
       const sc = ev.mavedb.map((m) => m.score), lo = ev.mavedb.reduce((a, b) => (b.score < a.score ? b : a));
@@ -218,7 +217,7 @@
     }
     if (ev.gtex) {
       const g = ev.gtex, x = exprShift(f, g);
-      row('Expression', `${x.lead} Each ${g.allele} allele ${g.direction} it in ${g.n_tissues} tissues (strongest in ${g.tissue}, ` +
+      row('Expression', `${x.lead} Each ${g.allele} allele ${g.direction} it in ${g.n_tissues === 1 ? 'one tissue (' + g.tissue + ', ' : `${g.n_tissues} tissues (strongest in ${g.tissue}, `}` +
         `effect ${d3.format('+.2f')(g.nes)} per copy on GTEx's normalised scale).` + (x.conflict ? ` ⚠ ${x.conflict}` : ''));
     }
     if (ev.uniprot) row('Curated (UniProt)', ev.uniprot.join('; '));
@@ -237,8 +236,8 @@
     const pw = block('Pathway');
     make(pw, 'p', null, `${r.pathway}${r.top_pathway && r.top_pathway !== r.pathway ? ' (' + r.top_pathway + ')' : ''}.` +
       (r.other_pathways ? ` ${s.gene} also works in ${r.other_pathways} more pathways not drawn here.` : ''));
-    make(pw, 'p', 'gx-muted', `Starts: ${r.start.replace(/^Starts at /, '')}`);
-    make(pw, 'p', 'gx-muted', `Ends: ${r.end}`);
+    make(pw, 'p', 'gx-muted', /^Starts\b/.test(r.start) ? r.start : `Starts: ${r.start}`);
+    make(pw, 'p', 'gx-muted', /^Ends\b/.test(r.end) ? r.end : `Ends: ${r.end}`);
 
     if (r.cofactors) make(block('Needs'), 'p', null, `${r.cofactors}${r.vitamins ? ' → from ' + r.vitamins : ''}`);
 
@@ -509,7 +508,7 @@
           cg.on('mousemove', (event) => {
             event.stopPropagation();
             tip.show(event, c.g.gene, !c.g.lib ? ['Not in the library'] : !f || !f.genotype ? [`In the library, no call in ${gx.who()}`] :
-              [`${FN_TEXT[f.function] || ''}${f.function !== 'normal' && f.dose ? ' ×' + f.dose : ''} · ${f.rsid} ${f.genotype}`, f.interpretation,
+              [`${FN_TEXT[f.function] || ''}${f.function !== 'normal' && f.dose ? ' ×' + f.dose : ''} · ${f.rsid} ${f.genotype}`,
                 opens ? 'Select to open its pathway' : ''].filter(Boolean));
           });
           if (opens) cg.on('click', (event) => { event.stopPropagation(); tip.hide(); openGene(c.g.gene); });
@@ -625,7 +624,8 @@
       make(head, 'span', 'lc-call ' + FN_CLASS[f.function], FN_TEXT[f.function] + (f.function !== 'normal' && f.dose ? ` ×${f.dose}` : ''));
       if (f.has_lifecycle && g.gene !== s.gene) { const b = make(head, 'button', 'lc-btn', 'Open its pathway'); b.type = 'button'; b.addEventListener('click', () => openGene(g.gene)); }
       const ev = f.ev || {}, lit = f.lit || {};
-      make(card, 'p', 'gx-note', [`Library: ${f.interpretation}`, ev.protein_change, pretty(ev.consequence)].filter(Boolean).join(' · '));
+      const change = [ev.protein_change, pretty(ev.consequence)].filter(Boolean).join(' · ');
+      if (change) make(card, 'p', 'gx-note', change);
 
       // How much
       const how = make(card, 'div', 'lc-how');
@@ -655,14 +655,13 @@
             (ev.gtex ? '; Expression shows the effect on how much protein is made.' : '.'));
         const tbl = make(body, 'table', 'gx-table lc-ladder');
         const hr = make(make(tbl, 'thead'), 'tr');
-        for (const h of ['Genotype', `Copies of ${f.minor}`, measured ? 'Capacity' : null, 'Library reading', 'Effect'].filter(Boolean)) make(hr, 'th', null, h);
+        for (const h of ['Genotype', `Copies of ${f.minor}`, measured ? 'Capacity' : null, 'Effect'].filter(Boolean)) make(hr, 'th', null, h);
         const tb = make(tbl, 'tbody');
         for (const r of ladder) {
           const tr = make(tb, 'tr', r === mine ? 'is-hp tone-' + FN_CLASS[f.function] : null);
           make(tr, 'td', null, r.genotype + (r === mine ? ` · ${gx.who()}` : ''));
           make(tr, 'td', null, String(r.dose));
           if (measured) make(tr, 'td', null, r.capacity ? pctR(r.capacity) : '—');
-          make(tr, 'td', null, r.text);
           make(tr, 'td', null, r.function === 'normal' ? 'Typical' : !r.function || r.function === 'unknown' ? '—'
             : `${r.function} · ${(LC_OUTCOME[r.outcome] || 'Unknown').replace(' for {who}', '').toLowerCase()}`);
         }

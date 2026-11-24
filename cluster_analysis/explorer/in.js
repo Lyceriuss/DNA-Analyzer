@@ -816,8 +816,6 @@
         block(7, (m) => inMake(m, 'p', null, inT('Effect on {}: {}.', c.who, OUT[g.outcome] || g.outcome)),
           'Whether the change is good or bad for the person, where the trait says which way is better. Often it is unclear, and it says so.');
       }
-      if (g.call_source !== 'api' && g.genotype) block(8, (m) => inMake(m, 'p', 'gx-note', inT('Library note for {} {}: {}.', g.rsid, g.genotype, g.interpretation)),
-        'A note from the old SNP library, which is being phased out. The call above comes from the evidence, not from the note.');
       if (g.has_lifecycle) block(9, (m) => {
         const b = inMake(m, 'button', 'lc-btn', 'Open its pathway'); b.type = 'button';
         b.addEventListener('click', () => { if (!inLocked()) { dash.setParams({ lc_gene: g.gene, lc_role: 1 }); gx.show('lifecycle'); } });

@@ -121,8 +121,8 @@ def genotype_ladder(rsid, common, minor, traits, ev):
         if not set(oriented) <= {common, minor} or gt in rows:
             continue
         fn = (entry.get("function") or {}).get(key, "unknown")
-        rows[gt] = {"genotype": gt, "dose": oriented.count(minor), "text": text, "function": fn,
-                    "outcome": outcome(fn, entry.get("polarity"))}
+        rows[gt] = {"genotype": gt, "dose": oriented.count(minor), "function": fn,
+                    "outcome": outcome(fn, entry.get("polarity"), entry.get("polarity_source"))}
     mave = [m["score"] for m in (ev.get("mavedb") or [])]
     for r in rows.values():
         if mave:
@@ -164,7 +164,7 @@ def lifecycle_rows(lifecycles, status=None):
                 "gene": lc["gene"], "role": ri, "pathway": (role.get("pathway") or {}).get("name", "Unmapped"),
                 "top_pathway": (role.get("pathway") or {}).get("top", ""), "n_steps": len(role["steps"]),
                 "start": role["start"], "end": role["end"], "genotype": fp.get("genotype"), "function": fp.get("function"),
-                "outcome": fp.get("outcome"), "interpretation": fp.get("interpretation"),
+                "outcome": fp.get("outcome"),
                 "cofactors": ", ".join(lc.get("cofactors") or []), "vitamins": ", ".join(lc.get("cofactor_vitamins") or []),
                 "regulation": lc.get("regulation") or "",
                 "regulators": json.dumps([{"gene": r["gene"], "effect": r["effect"], "lib": r["in_library"]}
@@ -193,7 +193,7 @@ def lifecycle_rows(lifecycles, status=None):
                          "basis": p.get("basis"), "fn_evidence": p.get("evidence"), "library_function": p.get("library_function"),
                          "common": p.get("common"), "minor": p.get("minor"), "minor_af": p.get("minor_af"),
                          "outcome": p.get("outcome"), "polarity_source": (traits.get(p.get("rsid")) or {}).get("polarity_source"),
-                         "interpretation": p.get("interpretation"), "n_snps": p.get("n_snps"),
+                         "n_snps": p.get("n_snps"),
                          "evidence": json.dumps(evidence_summary(ev, p.get("genotype")) if ev else {}),
                          "ladder": json.dumps(genotype_ladder(p.get("rsid"), p.get("common"), p.get("minor"), traits,
                                                               evidence_summary(ev, p.get("genotype")) if ev else {})),
@@ -218,7 +218,7 @@ def theme_rows(themes, status, with_lifecycle=()):
                           "evidence": json.dumps(m["facets"]), "rsid": p.get("rsid"), "genotype": p.get("genotype"),
                           "function": p.get("function") if p.get("genotype") else None, "dose": p.get("dose"),
                           "basis": p.get("basis"), "fn_evidence": p.get("evidence"),
-                          "minor": p.get("minor"), "interpretation": p.get("interpretation"), "outcome": p.get("outcome"),
+                          "minor": p.get("minor"), "outcome": p.get("outcome"),
                           "has_lifecycle": g in with_lifecycle})
         links += [{"theme": tid, **l} for l in t["links"]]
         pathways += [{"theme": tid, "pathway": x["pathway"], "genes": json.dumps(x["genes"]), "n": len(x["genes"]),
@@ -288,7 +288,7 @@ def gene_status(lib, api):
     if not use_api:
         return lib
     return {"rsid": api.get("rsid"), "genotype": api.get("genotype"), "function": api["function"], "dose": api.get("dose"),
-            "basis": api.get("basis"), "evidence": api.get("detail"), "minor": None, "interpretation": None, "outcome": None,
+            "basis": api.get("basis"), "evidence": api.get("detail"), "minor": None, "outcome": None,
             "source": "api"}
 
 
@@ -363,7 +363,7 @@ def api_theme_rows(graph, xref, status, with_lifecycle=(), order=0, person=None,
                       "rsid": p.get("rsid"), "genotype": p.get("genotype"),
                       "function": p.get("function") if p.get("genotype") or p.get("source") == "api" else None,
                       "basis": p.get("basis"), "fn_evidence": p.get("evidence"), "call_source": p.get("source") or ("library" if p else None),
-                      "dose": p.get("dose"), "minor": p.get("minor"), "interpretation": p.get("interpretation"), "outcome": p.get("outcome"),
+                      "dose": p.get("dose"), "minor": p.get("minor"), "outcome": p.get("outcome"),
                       "has_lifecycle": sym in with_lifecycle, "source": "api", "notable": is_notable, "carried": carried,
                       "best_score": g["best_score"]})
     links = [{"theme": tid, **l} for l in graph["links"] if l["a"] in notable and l["b"] in notable]

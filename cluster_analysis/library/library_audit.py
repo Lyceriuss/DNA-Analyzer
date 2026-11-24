@@ -118,7 +118,7 @@ def audit():
         ev_dir = ev["function"] if ev["function"] in ("GoF", "LoF", "altered") else "normal" if ev["function"] == "normal" else None
         p_common = af.get(common, 0)
         flags = []
-        common_reading = outcome(functions.get(hom_common, "unknown"), t.get("polarity"))
+        common_reading = outcome(functions.get(hom_common, "unknown"), t.get("polarity"), drafts=True)
         if common_reading == "negative" and p_common ** 2 >= 0.25:
             flags.append(f"{hom_common} ({p_common ** 2:.0%} of Europeans) reads negative")
         effects = {f for f in functions.values() if f in ("GoF", "LoF", "altered")}

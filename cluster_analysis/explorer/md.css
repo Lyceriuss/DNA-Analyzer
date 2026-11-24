@@ -1,4 +1,4 @@
-  .md-summary p { margin: 0 0 var(--cds-gap-sm); }
+  .md-summary p { margin: 0 0 var(--cds-gap-sm); max-width: 110ch; }
   .md-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: var(--cds-gap-sm); }
   .md-pill { border: 1px solid var(--color-border-line); background: transparent; color: var(--color-fg); border-radius: 12px;
     padding: 2px 10px; font: inherit; font-size: 12px; cursor: pointer; }
@@ -19,9 +19,14 @@
   .md-select { padding: 6px 8px; border-radius: var(--cds-radius); border: 1px solid var(--color-border-line); background: var(--color-bg);
     color: var(--color-fg); font: inherit; }
   .md-check { display: inline-flex; gap: 6px; align-items: center; font-size: 13px; }
-  .md-drug { border-top: 1px solid var(--color-border-line); padding: var(--cds-pad-sm) 0; }
-  .md-drug-head { display: flex; flex-wrap: wrap; gap: 8px; align-items: baseline; }
-  .md-drug-name { font-weight: 700; text-transform: capitalize; }
+  /* Each medicine is its own card, so a long list reads as separate medicines, not one wall of findings */
+  .md-drug { border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); background: var(--color-bg);
+    padding: var(--cds-pad-md) var(--cds-pad-lg); margin-top: var(--cds-gap-sm); }
+  .md-drug.md-drug-differs { box-shadow: inset 3px 0 0 var(--color-warn); }
+  .md-drug-head { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .md-drug-name { font-weight: 700; font-size: var(--cds-font-size-heading); text-transform: capitalize; }
+  /* Guideline and study texts keep a readable line length on wide screens */
+  .md-ann, .md-aka, .md-none-note { max-width: 110ch; }
   .md-status { font-size: 12px; border-radius: 10px; padding: 0 8px; border: 1px solid var(--color-ok); color: var(--color-ok); }
   .md-status.md-differs { border-color: var(--color-warn); color: var(--color-warn); }
   .md-status.md-weaker { border-style: dashed; border-color: var(--color-warn); color: var(--color-fg-muted); }
@@ -53,7 +58,7 @@
   .md-none-note { margin: 4px 0 0; font-size: 13px; color: var(--color-fg-muted); }
   .md-toggle { margin-top: 6px; }
   /* The search and the kind of effect share a row; the other options sit below */
-  .md-search-wrap { position: relative; flex: 0 1 560px; min-width: 0; display: flex; align-items: center; }
+  .md-search-wrap { position: relative; flex: 0 1 720px; min-width: 0; display: flex; align-items: center; }
   .md-break { flex-basis: 100%; height: 0; }
   .md-controls .md-select { align-self: stretch; }
   .md-search-wrap .md-search { flex: 1 1 auto; font-size: 16px; padding: 12px 14px 12px 44px; border-width: 2px;

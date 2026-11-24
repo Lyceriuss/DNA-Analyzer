@@ -68,7 +68,7 @@
     const card = (label, x, here) => {
       const d = ntMake(c, 'div', 'nt-card' + (here ? ' nt-card-here' : x ? '' : ' nt-card-na'));
       ntMake(d, 'span', 'nt-card-label', label);
-      if (!x) { ntMake(d, 'span', 'nt-card-name', 'N/A'); return; }
+      if (!x) { ntMake(d, 'span', 'nt-card-name', label === 'Step before' ? 'Where the pathway starts' : 'Where the pathway ends'); return; }
       ntMake(d, 'span', 'nt-card-name', x.name);
       const gs = ntMake(d, 'span', 'nt-card-genes');
       for (const gene of x.genes.split(' ').filter(Boolean).slice(0, 4)) {
@@ -359,7 +359,7 @@
       const det = ntJ(f.detail) || {};
       const top = ntMake(d, 'div');
       ntMake(top, 'b', null, `${f.step_gene || f.gene || ''} ${det.change || f.rsid}`);
-      ntMake(top, 'span', 'nt-sub', ` · ${f.rsid} · ${who}: ${f.genotype || '–'}`);
+      ntMake(top, 'span', 'nt-sub', `${det.change ? ` · ${f.rsid}` : ''} · ${who}: ${f.genotype || '–'}`);
       if (f.confidence === 'high') ntMake(top, 'span', 'th-imp th-imp-high', 'imputed, high confidence');
       if (f.mechanism === 'protein') {
         ntMake(d, 'div', null, !det.change ? 'Changes the protein.' : ntT(det.copies === 2 ? `Changes the protein: {} ({}). ${who} carries the change on both copies.`

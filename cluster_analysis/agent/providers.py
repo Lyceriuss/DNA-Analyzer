@@ -258,7 +258,7 @@ def themes(person, theme=None, mechanism=None, level=None, **_):
             continue
         if level in ("mechanism", "phase") and mechanism and mechanism not in mechs and mechanism not in (ev.get("organs") or []):
             continue
-        if r.get("function") not in ("LoF", "GoF", "altered") and not r.get("interpretation"):
+        if r.get("function") not in ("LoF", "GoF", "altered"):
             continue
         strength = 3 if r["gene"] in graded else 2 if any(v.get("evidence") == "human experiment" for v in (ev.get("mechanisms") or {}).values()) \
             else 1 + min(1, max([d.get("genetic") or 0 for d in (ev.get("diseases") or {}).values()] or [0]))
@@ -304,14 +304,14 @@ def gene(person, symbol=None, **_):
     meds = [r for r in rows("med_genes", person) if r["gene"] == symbol]
     r_ = []
     for r in mine[:4]:
-        r_.append({"label": f"In the {r['theme']} cluster", "value": r.get("interpretation") or r.get("function") or "typical",
+        r_.append({"label": f"In the {r['theme']} cluster", "value": r.get("function") or "typical",
                    "note": f"{r.get('rsid') or ''} {r.get('genotype') or ''}".strip()})
     for r in sport:
         r_.append({"label": f"{r['rsid']} ({r.get('topic_name')})", "value": r.get("meaning") or r.get("genotype"), "note": r.get("grade")})
     for r in meds:
         r_.append({"label": "Drug response", "value": f"{r['alleles']}: {r['phenotype']}"})
     for r in life[:3]:
-        r_.append({"label": f"Pathway: {r['pathway']}", "value": r.get("interpretation") or r.get("function") or "", "note": r.get("top_pathway")})
+        r_.append({"label": f"Pathway: {r['pathway']}", "value": r.get("function") or "", "note": r.get("top_pathway")})
     protein = (pub.get("protein") or {}).get("function")
     known = ([f"What the protein does (UniProt): {protein[:400]}"] if protein else []) + \
             [f"Strongest GWAS traits: " + ", ".join(t["trait"] for t in pub.get("gwas_traits", [])[:6])] if pub.get("gwas_traits") else []

@@ -26,12 +26,12 @@
   .lc-call.norm { border-color: var(--typical); background: color-mix(in srgb, var(--typical) 22%, transparent); }
   .lc-call.altered { border-style: dotted; border-color: var(--color-fg); }
   .lc-call.unknown { border-style: dashed; color: var(--color-fg-muted); }
-  .gx-card.lc-tone-gof { border-color: var(--gof); box-shadow: inset 4px 0 0 var(--gof);
-                         background: color-mix(in srgb, var(--gof) 6%, var(--color-panel)); }
-  .gx-card.lc-tone-lof { border-color: var(--color-bad); box-shadow: inset 4px 0 0 var(--color-bad);
-                         background: color-mix(in srgb, var(--color-bad) 6%, var(--color-panel)); }
-  .gx-card.lc-tone-norm { border-color: var(--typical); box-shadow: inset 4px 0 0 var(--typical);
-                          background: color-mix(in srgb, var(--typical) 6%, var(--color-panel)); }
+  .gx-card.lc-tone-gof { border-color: color-mix(in srgb, var(--gof) 40%, var(--color-border-line)); box-shadow: inset 4px 0 0 var(--gof);
+                         background: color-mix(in srgb, var(--gof) 3%, var(--color-panel)); }
+  .gx-card.lc-tone-lof { border-color: color-mix(in srgb, var(--color-bad) 40%, var(--color-border-line)); box-shadow: inset 4px 0 0 var(--color-bad);
+                         background: color-mix(in srgb, var(--color-bad) 3%, var(--color-panel)); }
+  .gx-card.lc-tone-norm { border-color: color-mix(in srgb, var(--typical) 40%, var(--color-border-line)); box-shadow: inset 4px 0 0 var(--typical);
+                          background: color-mix(in srgb, var(--typical) 3%, var(--color-panel)); }
   .lc-lead { margin: 0; max-width: 70ch; }
   .lc-ev { display: grid; gap: var(--cds-gap-xs); margin: 0; padding: 0; list-style: none; }
   .lc-ev li { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: var(--cds-gap-sm); font-size: var(--cds-font-size-caption);

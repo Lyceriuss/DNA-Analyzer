@@ -5039,11 +5039,11 @@
             "TT": "ε2/ε2: very low LDL, small risk of a remnant-cholesterol disorder"
         },
         "function": {
-            "CC": "unknown",
-            "CT": "unknown",
-            "TT": "unknown"
+            "CC": "normal",
+            "CT": "LoF",
+            "TT": "LoF"
         },
-        "function_basis": "none",
+        "function_basis": "curated",
         "polarity": {},
         "polarity_source": null
     },
@@ -5059,11 +5059,11 @@
             "TT": "Typical activity (1298 A/A)"
         },
         "function": {
-            "GG": "unknown",
-            "GT": "unknown",
-            "TT": "unknown"
+            "GG": "normal",
+            "GT": "normal",
+            "TT": "normal"
         },
-        "function_basis": "none",
+        "function_basis": "measured",
         "polarity": {},
         "polarity_source": null
     },
@@ -5119,11 +5119,11 @@
             "TT": "Reduced first-phase insulin; higher type 2 diabetes risk"
         },
         "function": {
-            "GG": "unknown",
-            "GT": "unknown",
-            "TT": "unknown"
+            "GG": "normal",
+            "GT": "LoF",
+            "TT": "LoF"
         },
-        "function_basis": "none",
+        "function_basis": "expression",
         "polarity": {},
         "polarity_source": null
     },
@@ -5159,11 +5159,11 @@
             "TT": "Slower vitamin K breakdown; higher warfarin dose needed"
         },
         "function": {
-            "CC": "unknown",
-            "CT": "unknown",
-            "TT": "unknown"
+            "CC": "normal",
+            "CT": "LoF",
+            "TT": "LoF"
         },
-        "function_basis": "none",
+        "function_basis": "curated",
         "polarity": {},
         "polarity_source": null
     },
@@ -5179,11 +5179,11 @@
             "AA": "Higher bilirubin (Gilbert-type); irinotecan caution"
         },
         "function": {
-            "GG": "unknown",
-            "AG": "unknown",
-            "AA": "unknown"
+            "GG": "normal",
+            "AG": "LoF",
+            "AA": "LoF"
         },
-        "function_basis": "none",
+        "function_basis": "expression",
         "polarity": {},
         "polarity_source": null
     },
@@ -5311,11 +5311,11 @@
             "CC": "Two copies"
         },
         "function": {
-            "TT": "unknown",
-            "CT": "unknown",
-            "CC": "unknown"
+            "TT": "normal",
+            "CT": "LoF",
+            "CC": "LoF"
         },
-        "function_basis": "none",
+        "function_basis": "curated",
         "polarity": {},
         "polarity_source": null
     },

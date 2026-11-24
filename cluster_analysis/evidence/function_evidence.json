@@ -10,7 +10,7 @@
     "variant_id": "chr11_34438684_C_T_b38",
     "effect_allele": "T",
     "own_gene": true,
-    "n_tissues": 26,
+    "n_tissues": 25,
     "other_genes": [
      "ABTB2"
     ],
@@ -103,7 +103,7 @@
     "variant_id": "chr5_150848436_C_T_b38",
     "effect_allele": "T",
     "own_gene": true,
-    "n_tissues": 60,
+    "n_tissues": 7,
     "other_genes": [
      "RBM22",
      "RPS14",
@@ -216,7 +216,7 @@
     "variant_id": "chr7_150856517_C_T_b38",
     "effect_allele": "T",
     "own_gene": true,
-    "n_tissues": 25,
+    "n_tissues": 5,
     "other_genes": [
      "TMEM176A",
      "TMEM176B"
@@ -269,7 +269,7 @@
     "variant_id": "chr17_30197993_A_C_b38",
     "effect_allele": "C",
     "own_gene": true,
-    "n_tissues": 82,
+    "n_tissues": 2,
     "other_genes": [
      "ANKRD13B",
      "BLMH",
@@ -859,7 +859,7 @@
     "variant_id": "chr11_101062681_C_A_b38",
     "effect_allele": "A",
     "own_gene": true,
-    "n_tissues": 9,
+    "n_tissues": 6,
     "other_genes": [
      "PGR-AS1",
      "RP11-748H22.1",
@@ -934,7 +934,7 @@
     "variant_id": "chr7_87509329_A_G_b38",
     "effect_allele": "G",
     "own_gene": true,
-    "n_tissues": 6,
+    "n_tissues": 1,
     "other_genes": [
      "ABCB4",
      "RUNDC3B",
@@ -1146,7 +1146,7 @@
     "variant_id": "chr15_74720644_T_C_b38",
     "effect_allele": "C",
     "own_gene": false,
-    "n_tissues": 6,
+    "n_tissues": 5,
     "other_genes": [
      "RP11-10O17.1",
      "UBL7"
@@ -1281,7 +1281,7 @@
     "variant_id": "chr1_112913924_A_T_b38",
     "effect_allele": "T",
     "own_gene": true,
-    "n_tissues": 28,
+    "n_tissues": 9,
     "other_genes": [
      "AKR7A2P1",
      "LRIG2",
@@ -1343,7 +1343,7 @@
     "variant_id": "chr3_49357401_G_A_b38",
     "effect_allele": "A",
     "own_gene": true,
-    "n_tissues": 250,
+    "n_tissues": 13,
     "other_genes": [
      "ACTBP13",
      "AMT",
@@ -1409,7 +1409,7 @@
     "variant_id": "chr21_45537880_T_C_b38",
     "effect_allele": "C",
     "own_gene": true,
-    "n_tissues": 3,
+    "n_tissues": 1,
     "other_genes": [
      "COL18A1"
     ],
@@ -1717,7 +1717,7 @@
     "variant_id": "chr3_9757089_C_G_b38",
     "effect_allele": "G",
     "own_gene": true,
-    "n_tissues": 16,
+    "n_tissues": 3,
     "other_genes": [
      "CRELD1",
      "RPUSD3",
@@ -1824,7 +1824,7 @@
     "variant_id": "chr2_38071060_G_C_b38",
     "effect_allele": "C",
     "own_gene": true,
-    "n_tissues": 14,
+    "n_tissues": 2,
     "other_genes": [
      "CYP1B1-AS1",
      "RMDN2",
@@ -1936,7 +1936,7 @@
     "variant_id": "chr1_196690107_C_T_b38",
     "effect_allele": "T",
     "own_gene": true,
-    "n_tissues": 32,
+    "n_tissues": 2,
     "other_genes": [
      "CFHR1",
      "CFHR3"
@@ -2034,7 +2034,7 @@
     "variant_id": "chr11_14893332_A_G_b38",
     "effect_allele": "G",
     "own_gene": true,
-    "n_tissues": 17,
+    "n_tissues": 1,
     "other_genes": [
      "CALCB",
      "COPB1",
@@ -2095,6 +2095,76 @@
   "tier": 5
  },
  {
+  "rsid": "rs10929302",
+  "genes": [
+   "UGT1A1"
+  ],
+  "consequence": "intron_variant",
+  "sources": {
+   "gtex": {
+    "variant_id": "chr2_233757136_G_A_b38",
+    "effect_allele": "A",
+    "own_gene": true,
+    "n_tissues": 1,
+    "other_genes": [
+     "AC114812.8",
+     "RPL17P11",
+     "UGT1A3",
+     "UGT1A6",
+     "UGT1A7",
+     "UGT1A9"
+    ],
+    "top": [
+     {
+      "gene": "UGT1A1",
+      "tissue": "Liver",
+      "nes": -0.278991,
+      "p": 1.16776e-06
+     }
+    ]
+   },
+   "clinpgx": [
+    {
+     "level": "3",
+     "chemicals": [
+      "risperidone"
+     ],
+     "genotypes": [
+      {
+       "genotype": "AG",
+       "phenotype": "Patients with the AG genotype and autism may have an increased risk for hyperprolactinemia when treated with risperidone as compared to patients with the GG genotype. Other genetic and clinical factors may also influence risk for hyperprolactinemia."
+      },
+      {
+       "genotype": "GG",
+       "phenotype": "Patients with the GG genotype and autism may have a decreased risk for hyperprolactinemia when treated with risperidone as compared to patients with the AG genotype. Other genetic and clinical factors may also influence risk for hyperprolactinemia."
+      }
+     ]
+    },
+    {
+     "level": "2A",
+     "chemicals": [
+      "irinotecan"
+     ],
+     "genotypes": [
+      {
+       "genotype": "AA",
+       "phenotype": "Patients with the rs10929302 AA genotype may have increased risk of neutropenia when treated with irinotecan as compared to patients with the GG genotype. However, conflicting evidence has been reported. Other genetic and clinical factors may also influence irinotecan-related toxicity."
+      },
+      {
+       "genotype": "AG",
+       "phenotype": "Patients with the rs10929302 AG genotype may have decreased risk of neutropenia when treated with irinotecan as compared to patients with the AA genotype. However, conflicting evidence has been reported. Other genetic and clinical factors may also influence irinotecan-related toxicity."
+      },
+      {
+       "genotype": "GG",
+       "phenotype": "Patients with the rs10929302 GG genotype may have decreased risk of neutropenia when treated with irinotecan as compared to patients with the AA genotype. However, conflicting evidence has been reported. Other genetic and clinical factors may also influence irinotecan-related toxicity."
+      }
+     ]
+    }
+   ]
+  },
+  "tier": 3
+ },
+ {
   "rsid": "rs10993994",
   "genes": [
    "MSMB"
@@ -2105,7 +2175,7 @@
     "variant_id": "chr10_46046326_A_G_b38",
     "effect_allele": "G",
     "own_gene": true,
-    "n_tissues": 13,
+    "n_tissues": 5,
     "other_genes": [
      "AGAP10P",
      "AGAP4",
@@ -2178,7 +2248,7 @@
     "variant_id": "chr16_89919722_T_C_b38",
     "effect_allele": "C",
     "own_gene": false,
-    "n_tissues": 17,
+    "n_tissues": 12,
     "other_genes": [
      "AFG3L1P",
      "CENPBD1",
@@ -2234,7 +2304,7 @@
     "variant_id": "chr10_103086421_T_C_b38",
     "effect_allele": "C",
     "own_gene": true,
-    "n_tissues": 56,
+    "n_tissues": 2,
     "other_genes": [
      "ARL3",
      "AS3MT",
@@ -2411,6 +2481,54 @@
   "tier": 5
  },
  {
+  "rsid": "rs115545701",
+  "genes": [
+   "CFTR"
+  ],
+  "consequence": "missense_variant",
+  "sources": {
+   "uniprot": {
+    "protein_changes": [
+     "p.Arg74Trp"
+    ],
+    "curated": [
+     "Bronchiectasis with or without elevated sweat chloride 1",
+     "Bronchiectasis with or without elevated sweat chloride 1 (BESC1)",
+     "CF and CBAVD; uncertain significance",
+     "CFTR-related disorder",
+     "CFTR-related disorder (CFTR-RD)",
+     "Congenital bilateral absence of the vas deferens (CBAVD)",
+     "Congenital bilateral aplasia of vas deferens from CFTR mutation (CBAVD)",
+     "Cystic fibrosis"
+    ]
+   },
+   "clinpgx": [
+    {
+     "level": "1A",
+     "chemicals": [
+      "ivacaftor"
+     ],
+     "genotypes": [
+      {
+       "genotype": "CC",
+       "phenotype": "Patients with the CC genotype (do not carry a copy of the CFTR R74W variant) and cystic fibrosis have an unknown response to ivacaftor treatment, as response may depend on the presence of other CFTR variants. Other genetic and clinical factors may also influence response to ivacaftor."
+      },
+      {
+       "genotype": "CT",
+       "phenotype": "Patients with the CT genotype (one copy of the CFTR R74W variant) and cystic fibrosis may respond to ivacaftor treatment. FDA-approved drug labeling information and CPIC guidelines indicate use of ivacaftor in cystic fibrosis patients with at least one copy of R74W. Other genetic and clinical factor"
+      },
+      {
+       "genotype": "TT",
+       "phenotype": "Patients with the TT genotype (two copies of the CFTR R74W variant) and cystic fibrosis may respond to ivacaftor treatment. FDA-approved drug labeling information and CPIC guidelines indicate use of ivacaftor in cystic fibrosis patients with at least one copy of R74W. Other genetic and clinical fact"
+      }
+     ]
+    }
+   ]
+  },
+  "protein_change": "p.Arg74Trp",
+  "tier": 5
+ },
+ {
   "rsid": "rs11558538",
   "genes": [
    "HNMT"
@@ -2458,6 +2576,83 @@
   "tier": 3
  },
  {
+  "rsid": "rs11568820",
+  "genes": [
+   "CYP27B1"
+  ],
+  "consequence": "intron_variant",
+  "sources": {
+   "gtex": {
+    "variant_id": "chr12_47908762_C_T_b38",
+    "effect_allele": "T",
+    "own_gene": false,
+    "n_tissues": 13,
+    "other_genes": [
+     "H1FNT",
+     "RP1-228P16.1",
+     "RP11-89H19.2",
+     "VDR",
+     "ZNF641"
+    ],
+    "top": [
+     {
+      "gene": "VDR",
+      "tissue": "Cells_Cultured_fibroblasts",
+      "nes": 0.257097,
+      "p": 8.3404e-28
+     },
+     {
+      "gene": "RP1-228P16.1",
+      "tissue": "Skin_Not_Sun_Exposed_Suprapubic",
+      "nes": -0.381816,
+      "p": 1.06247e-09
+     },
+     {
+      "gene": "ZNF641",
+      "tissue": "Skin_Sun_Exposed_Lower_leg",
+      "nes": 0.196312,
+      "p": 3.19074e-09
+     },
+     {
+      "gene": "RP1-228P16.1",
+      "tissue": "Thyroid",
+      "nes": -0.331169,
+      "p": 9.2889e-09
+     },
+     {
+      "gene": "VDR",
+      "tissue": "Adipose_Subcutaneous",
+      "nes": 0.20131,
+      "p": 1.3538e-08
+     }
+    ]
+   },
+   "clinpgx": [
+    {
+     "level": "3",
+     "chemicals": [
+      "midazolam"
+     ],
+     "genotypes": [
+      {
+       "genotype": "CC",
+       "phenotype": "Patients with the CC genotype may have decreased clearance of midazolam as compared to patients with the CT or TT genotype. This SNP is present in the VDR gene, and the VDR protein is known to transcriptionally regulate intestinal CYP3A4 expression. Other genetic and clinical factors may also influe"
+      },
+      {
+       "genotype": "CT",
+       "phenotype": "Patients with the CT genotype may have increased clearance of midazolam as compared to patients with the CC genotype. This SNP is present in the VDR gene, and the VDR protein is known to transcriptionally regulate intestinal CYP3A4 expression. Other genetic and clinical factors may also influence cl"
+      },
+      {
+       "genotype": "TT",
+       "phenotype": "Patients with the TT genotype may have increased clearance of midazolam as compared to patients with the CC genotype. This SNP is present in the VDR gene, and the VDR protein is known to transcriptionally regulate intestinal CYP3A4 expression. Other genetic and clinical factors may also influence cl"
+      }
+     ]
+    }
+   ]
+  },
+  "tier": 5
+ },
+ {
   "rsid": "rs11615",
   "genes": [
    "ERCC1"
@@ -2468,7 +2663,7 @@
     "variant_id": "chr19_45420395_A_G_b38",
     "effect_allele": "G",
     "own_gene": true,
-    "n_tissues": 33,
+    "n_tissues": 1,
     "other_genes": [
      "CD3EAP",
      "ERCC2",
@@ -2647,7 +2842,7 @@
     "variant_id": "chr1_62726106_C_T_b38",
     "effect_allele": "T",
     "own_gene": false,
-    "n_tissues": 14,
+    "n_tissues": 12,
     "other_genes": [
      "ATG4C",
      "DOCK7",
@@ -2735,6 +2930,53 @@
      }
     ]
    }
+  },
+  "tier": 3
+ },
+ {
+  "rsid": "rs12255372",
+  "genes": [
+   "TCF7L2"
+  ],
+  "consequence": "intron_variant",
+  "sources": {
+   "gtex": {
+    "variant_id": "chr10_113049143_G_T_b38",
+    "effect_allele": "T",
+    "own_gene": true,
+    "n_tissues": 1,
+    "other_genes": [],
+    "top": [
+     {
+      "gene": "TCF7L2",
+      "tissue": "Artery_Aorta",
+      "nes": -0.198828,
+      "p": 1.22693e-05
+     }
+    ]
+   },
+   "clinpgx": [
+    {
+     "level": "3",
+     "chemicals": [
+      "sulfonamides, urea derivatives"
+     ],
+     "genotypes": [
+      {
+       "genotype": "GG",
+       "phenotype": "Patients with the GG genotype and type II diabetes who are treated with sulfonylureas may be more likely to achieve a HbA1c level of <7% as compared to patients with the GT or TT genotype. Other genetic and clinical factors may also influence a patient's response."
+      },
+      {
+       "genotype": "GT",
+       "phenotype": "Patients with the GT genotype and type II diabetes who are treated with sulfonylureas may be less likely to achieve a target HbA1c level of <7% as compared to patients with the GG genotype. Other genetic and clinical factors may also influence a patient's response."
+      },
+      {
+       "genotype": "TT",
+       "phenotype": "Patients with the TT genotype and type II diabetes who are treated with sulfonylureas may be less likely to achieve a target HbA1c level of <7% as compared to patients with the GG genotype. Other genetic and clinical factors may also influence a patient's response."
+      }
+     ]
+    }
+   ]
   },
   "tier": 3
  },
@@ -2828,7 +3070,7 @@
     "variant_id": "chr14_64279461_G_A_b38",
     "effect_allele": "A",
     "own_gene": true,
-    "n_tissues": 27,
+    "n_tissues": 9,
     "other_genes": [
      "MTHFD1",
      "PLEKHG3",
@@ -2882,7 +3124,7 @@
     "variant_id": "chr1_21563893_G_A_b38",
     "effect_allele": "A",
     "own_gene": true,
-    "n_tissues": 4,
+    "n_tissues": 1,
     "other_genes": [
      "NBPF3",
      "RAP1GAP",
@@ -2922,7 +3164,7 @@
     "variant_id": "chr2_27508073_T_C_b38",
     "effect_allele": "C",
     "own_gene": true,
-    "n_tissues": 51,
+    "n_tissues": 1,
     "other_genes": [
      "AC074117.10",
      "ATRAID",
@@ -2986,7 +3228,7 @@
     "variant_id": "chr10_67883321_T_C_b38",
     "effect_allele": "C",
     "own_gene": true,
-    "n_tissues": 4,
+    "n_tissues": 3,
     "other_genes": [
      "LRRTM3"
     ],
@@ -3025,7 +3267,7 @@
     "variant_id": "chr11_71456403_G_T_b38",
     "effect_allele": "T",
     "own_gene": true,
-    "n_tissues": 110,
+    "n_tissues": 3,
     "other_genes": [
      "FLJ42102",
      "KRTAP5-10",
@@ -3255,7 +3497,7 @@
     "variant_id": "chr19_45351661_T_G_b38",
     "effect_allele": "G",
     "own_gene": true,
-    "n_tissues": 47,
+    "n_tissues": 27,
     "other_genes": [
      "CD3EAP",
      "KLC3",
@@ -3615,7 +3857,7 @@
     "variant_id": "chr20_35438203_G_A_b38",
     "effect_allele": "A",
     "own_gene": true,
-    "n_tissues": 117,
+    "n_tissues": 12,
     "other_genes": [
      "CEP250",
      "CPNE1",
@@ -3659,6 +3901,51 @@
    }
   },
   "tier": 3
+ },
+ {
+  "rsid": "rs147445322",
+  "genes": [
+   "KCNQ1"
+  ],
+  "consequence": "missense_variant",
+  "sources": {
+   "uniprot": {
+    "protein_changes": [
+     "p.Asp611Asn"
+    ],
+    "curated": [
+     "Cardiac arrhythmia",
+     "Congenital long QT syndrome",
+     "Congenital long QT syndrome (RWS)",
+     "KCNQ1-related disorder",
+     "LQT1; uncertain significance",
+     "Long QT syndrome",
+     "Long QT syndrome (LQTS)",
+     "Long QT syndrome 1"
+    ]
+   }
+  },
+  "protein_change": "p.Asp107Asn",
+  "tier": 5
+ },
+ {
+  "rsid": "rs147998249",
+  "genes": [
+   "GPT"
+  ],
+  "consequence": "missense_variant",
+  "sources": {
+   "uniprot": {
+    "protein_changes": [
+     "p.Val452Leu"
+    ],
+    "curated": [
+     "found in patient with Joubert syndrome; uncertain significance"
+    ]
+   }
+  },
+  "protein_change": "p.Val452Leu",
+  "tier": 5
  },
  {
   "rsid": "rs1501299",
@@ -3817,7 +4104,7 @@
     "variant_id": "chr9_133635393_T_C_b38",
     "effect_allele": "C",
     "own_gene": true,
-    "n_tissues": 5,
+    "n_tissues": 4,
     "other_genes": [
      "FAM163B"
     ],
@@ -3941,7 +4228,7 @@
     "variant_id": "chr17_43091983_T_C_b38",
     "effect_allele": "C",
     "own_gene": true,
-    "n_tissues": 234,
+    "n_tissues": 3,
     "other_genes": [
      "AC087650.1",
      "AOC2",
@@ -3986,7 +4273,7 @@
     "variant_id": "chr2_112837290_A_G_b38",
     "effect_allele": "G",
     "own_gene": true,
-    "n_tissues": 15,
+    "n_tissues": 1,
     "other_genes": [
      "CDK8P2",
      "IL1A",
@@ -4114,7 +4401,7 @@
     "variant_id": "chr11_67585218_A_G_b38",
     "effect_allele": "G",
     "own_gene": true,
-    "n_tissues": 110,
+    "n_tissues": 28,
     "other_genes": [
      "AIP",
      "ANKRD13D",
@@ -4295,7 +4582,7 @@
     "variant_id": "chr15_78590583_G_A_b38",
     "effect_allele": "A",
     "own_gene": true,
-    "n_tissues": 61,
+    "n_tissues": 28,
     "other_genes": [
      "ADAMTS7",
      "CHRNA3",
@@ -4465,7 +4752,7 @@
     "variant_id": "chr11_61785208_G_T_b38",
     "effect_allele": "T",
     "own_gene": true,
-    "n_tissues": 81,
+    "n_tissues": 28,
     "other_genes": [
      "BEST1",
      "DAGLA",
@@ -4521,7 +4808,7 @@
     "variant_id": "chr11_61803311_T_C_b38",
     "effect_allele": "C",
     "own_gene": true,
-    "n_tissues": 83,
+    "n_tissues": 25,
     "other_genes": [
      "BEST1",
      "DAGLA",
@@ -4587,7 +4874,7 @@
     "variant_id": "chr1_114693436_G_A_b38",
     "effect_allele": "A",
     "own_gene": true,
-    "n_tissues": 3,
+    "n_tissues": 1,
     "other_genes": [
      "BCAS2"
     ],
@@ -4844,7 +5131,7 @@
     "variant_id": "chr16_48224287_C_T_b38",
     "effect_allele": "T",
     "own_gene": true,
-    "n_tissues": 15,
+    "n_tissues": 1,
     "other_genes": [
      "CTD-2600H12.2",
      "LONP2"
@@ -4995,7 +5282,7 @@
     "variant_id": "chr4_119320747_T_C_b38",
     "effect_allele": "C",
     "own_gene": true,
-    "n_tissues": 62,
+    "n_tissues": 4,
     "other_genes": [
      "C4orf3",
      "GTF2IP12",
@@ -5165,7 +5452,7 @@
     "variant_id": "chr6_26090951_C_G_b38",
     "effect_allele": "G",
     "own_gene": true,
-    "n_tissues": 36,
+    "n_tissues": 15,
     "other_genes": [
      "BTN2A3P",
      "GUSBP2",
@@ -5577,7 +5864,7 @@
     "variant_id": "chr8_142918184_A_G_b38",
     "effect_allele": "G",
     "own_gene": false,
-    "n_tissues": 51,
+    "n_tissues": 25,
     "other_genes": [
      "CTD-2292P10.4",
      "GML",
@@ -5676,7 +5963,7 @@
     "variant_id": "chr17_50200388_C_A_b38",
     "effect_allele": "A",
     "own_gene": false,
-    "n_tissues": 4,
+    "n_tissues": 2,
     "other_genes": [
      "HILS1",
      "RP11-893F2.13",
@@ -5753,6 +6040,102 @@
     }
    ]
   },
+  "tier": 5
+ },
+ {
+  "rsid": "rs1800100",
+  "genes": [
+   "CFTR"
+  ],
+  "consequence": "missense_variant",
+  "sources": {
+   "uniprot": {
+    "protein_changes": [
+     "p.Arg668Cys"
+    ],
+    "curated": [
+     "Bronchiectasis with or without elevated sweat chloride 1",
+     "Bronchiectasis with or without elevated sweat chloride 1 (BESC1)",
+     "CBAVD; uncertain significance",
+     "CFTR-related disorder",
+     "CFTR-related disorder (CFTR-RD)",
+     "Congenital bilateral absence of the vas deferens (CBAVD)",
+     "Congenital bilateral aplasia of vas deferens from CFTR mutation (CBAVD)",
+     "Cystic fibrosis"
+    ]
+   },
+   "clinpgx": [
+    {
+     "level": "1A",
+     "chemicals": [
+      "ivacaftor"
+     ],
+     "genotypes": [
+      {
+       "genotype": "CC",
+       "phenotype": "Patients with the rs1800100 CC genotype (do not have a copy of the CFTR R668C variant) and cystic fibrosis have an unknown response to ivacaftor treatment, as response may depend on the presence of other CFTR variants. Other genetic and clinical factors may also influence response to ivacaftor."
+      },
+      {
+       "genotype": "CT",
+       "phenotype": "Patients with the rs1800100 CT genotype (one copy of the CFTR R668C variant) and cystic fibrosis may respond to ivacaftor treatment. FDA-approved drug labeling information indicates use of ivacaftor in cystic fibrosis patients with at least one copy of R668C.  Other genetic and clinical factors may "
+      },
+      {
+       "genotype": "TT",
+       "phenotype": "Patients with the rs1800100 TT genotype (two copies of the CFTR R668C variant) and cystic fibrosis may respond to ivacaftor treatment. FDA-approved drug labeling information indicates use of ivacaftor in cystic fibrosis patients with at least one copy of R668C. Other genetic and clinical factors may"
+      }
+     ]
+    }
+   ]
+  },
+  "protein_change": "p.Arg668Cys",
+  "tier": 5
+ },
+ {
+  "rsid": "rs1800111",
+  "genes": [
+   "CFTR"
+  ],
+  "consequence": "missense_variant",
+  "sources": {
+   "uniprot": {
+    "protein_changes": [
+     "p.Leu997Phe"
+    ],
+    "curated": [
+     "Bronchiectasis with or without elevated sweat chloride 1",
+     "Bronchiectasis with or without elevated sweat chloride 1 (BESC1)",
+     "CF and CBAVD; uncertain significance",
+     "CFTR-related disorder",
+     "CFTR-related disorder (CFTR-RD)",
+     "Congenital bilateral absence of the vas deferens (CBAVD)",
+     "Congenital bilateral aplasia of vas deferens from CFTR mutation (CBAVD)",
+     "Cystic fibrosis"
+    ]
+   },
+   "clinpgx": [
+    {
+     "level": "1A",
+     "chemicals": [
+      "ivacaftor"
+     ],
+     "genotypes": [
+      {
+       "genotype": "CC",
+       "phenotype": "Patients with the rs1800111 CC genotype (two copies of the CFTR L997F variant) and cystic fibrosis may respond to ivacaftor treatment. FDA-approved drug labeling information indicates use of ivacaftor in cystic fibrosis patients with at least one copy of L997F. Other genetic and clinical factors may"
+      },
+      {
+       "genotype": "CG",
+       "phenotype": "Patients with the rs1800111 CG genotype (one copy of the CFTR L997F variant) and cystic fibrosis may respond to ivacaftor treatment. FDA-approved drug labeling information indicates use of ivacaftor in cystic fibrosis patients with at least one copy of L997F. Other genetic and clinical factors may a"
+      },
+      {
+       "genotype": "GG",
+       "phenotype": "Patients with the rs1800111 GG genotype (do not have a copy of the CFTR L997F variant) and cystic fibrosis have an unknown response to ivacaftor treatment, as response may depend on the presence of other CFTR variants. Other genetic and clinical factors may also influence response to ivacaftor."
+      }
+     ]
+    }
+   ]
+  },
+  "protein_change": "p.Leu997Phe",
   "tier": 5
  },
  {
@@ -5874,7 +6257,7 @@
     "variant_id": "chr11_113400106_G_A_b38",
     "effect_allele": "A",
     "own_gene": true,
-    "n_tissues": 31,
+    "n_tissues": 7,
     "other_genes": [
      "RP11-159N11.4",
      "TTC12"
@@ -6029,7 +6412,7 @@
     "variant_id": "chr11_113420866_G_A_b38",
     "effect_allele": "A",
     "own_gene": false,
-    "n_tissues": 80,
+    "n_tissues": 45,
     "other_genes": [
      "ANKK1",
      "RP11-159N11.4",
@@ -6100,7 +6483,7 @@
     "variant_id": "chr6_26092913_G_A_b38",
     "effect_allele": "A",
     "own_gene": false,
-    "n_tissues": 45,
+    "n_tissues": 33,
     "other_genes": [
      "BTN2A3P",
      "SLC17A4",
@@ -6169,7 +6552,7 @@
     "variant_id": "chr16_69711242_G_A_b38",
     "effect_allele": "A",
     "own_gene": true,
-    "n_tissues": 50,
+    "n_tissues": 1,
     "other_genes": [
      "CLEC18A",
      "CLEC18C",
@@ -6425,7 +6808,7 @@
     "variant_id": "chr6_31575254_G_A_b38",
     "effect_allele": "A",
     "own_gene": false,
-    "n_tissues": 250,
+    "n_tissues": 40,
     "other_genes": [
      "AGPAT1",
      "APOM",
@@ -6586,7 +6969,7 @@
     "variant_id": "chr4_154562556_G_A_b38",
     "effect_allele": "A",
     "own_gene": true,
-    "n_tissues": 5,
+    "n_tissues": 1,
     "other_genes": [
      "FGA",
      "FGG",
@@ -6615,7 +6998,7 @@
     "variant_id": "chr7_22727026_C_G_b38",
     "effect_allele": "G",
     "own_gene": true,
-    "n_tissues": 44,
+    "n_tissues": 1,
     "other_genes": [
      "AC073072.5",
      "STEAP1B"
@@ -6728,7 +7111,7 @@
     "variant_id": "chr11_74009120_G_A_b38",
     "effect_allele": "A",
     "own_gene": false,
-    "n_tissues": 26,
+    "n_tissues": 15,
     "other_genes": [
      "C2CD3",
      "DNAJB13",
@@ -6781,6 +7164,228 @@
   "consequence": "upstream_gene_variant",
   "sources": {},
   "tier": 5
+ },
+ {
+  "rsid": "rs1801131",
+  "genes": [
+   "MTHFR"
+  ],
+  "consequence": "missense_variant",
+  "sources": {
+   "uniprot": {
+    "protein_changes": [
+     "p.Glu429Ala"
+    ],
+    "curated": [
+     "Gastrointestinal stromal tumor",
+     "Homocystinuria due to methylene tetrahydrofolate reductase deficiency",
+     "MTHFR THERMOLABILE POLYMORPHISM",
+     "MTHFR-related disorder",
+     "Neural tube defects, folate-sensitive",
+     "Neural tube defects, folate-sensitive (NTDFS)",
+     "Schizophrenia (SCZD)",
+     "Schizophrenia, susceptibility to"
+    ],
+    "functional": [
+     "Homocystinuria due to methylene tetrahydrofolate reductase deficiency",
+     "MTHFR THERMOLABILE POLYMORPHISM"
+    ]
+   },
+   "mavedb": [
+    {
+     "set": "urn:mavedb:00000049-a-3",
+     "conditions": "MTHFR at 100ug/ml folate in A222V background",
+     "change": "p.Glu429Ala",
+     "score": 0.8363
+    },
+    {
+     "set": "urn:mavedb:00000049-a-2",
+     "conditions": "MTHFR at 25ug/ml folate in A222V background",
+     "change": "p.Glu429Ala",
+     "score": 0.7504
+    },
+    {
+     "set": "urn:mavedb:00000049-a-6",
+     "conditions": "MTHFR at 25ug/ml folate in WT background",
+     "change": "p.Glu429Ala",
+     "score": 0.8609
+    },
+    {
+     "set": "urn:mavedb:00000049-a-4",
+     "conditions": "MTHFR at 12ug/ml folate in WT background",
+     "change": "p.Glu429Ala",
+     "score": 0.8697
+    },
+    {
+     "set": "urn:mavedb:00000049-a-5",
+     "conditions": "MTHFR at 12ug/ml folate in A222V background",
+     "change": "p.Glu429Ala",
+     "score": 0.4378
+    },
+    {
+     "set": "urn:mavedb:00000049-a-8",
+     "conditions": "MTHFR at 200ug/ml folate in A222V background",
+     "change": "p.Glu429Ala",
+     "score": 0.76159529374402
+    },
+    {
+     "set": "urn:mavedb:00000049-a-7",
+     "conditions": "MTHFR at 200ug/ml folate in WT background",
+     "change": "p.Glu429Ala",
+     "score": 0.9238859367467549
+    },
+    {
+     "set": "urn:mavedb:00000049-a-1",
+     "conditions": "MTHFR at 100ug/ml folate in WT background",
+     "change": "p.Glu429Ala",
+     "score": 0.8738
+    }
+   ],
+   "gtex": {
+    "variant_id": "chr1_11794419_T_G_b38",
+    "effect_allele": "G",
+    "own_gene": true,
+    "n_tissues": 31,
+    "other_genes": [
+     "C1orf167",
+     "CLCN6",
+     "NPPA-AS1"
+    ],
+    "top": [
+     {
+      "gene": "MTHFR",
+      "tissue": "Skin_Sun_Exposed_Lower_leg",
+      "nes": 0.302269,
+      "p": 2.7654399999999998e-31
+     },
+     {
+      "gene": "MTHFR",
+      "tissue": "Cells_Cultured_fibroblasts",
+      "nes": 0.182898,
+      "p": 2.96431e-30
+     },
+     {
+      "gene": "MTHFR",
+      "tissue": "Adipose_Subcutaneous",
+      "nes": 0.321432,
+      "p": 1.0083e-23
+     },
+     {
+      "gene": "MTHFR",
+      "tissue": "Artery_Tibial",
+      "nes": 0.248325,
+      "p": 1.22107e-21
+     },
+     {
+      "gene": "MTHFR",
+      "tissue": "Skin_Not_Sun_Exposed_Suprapubic",
+      "nes": 0.233423,
+      "p": 2.6359899999999997e-20
+     }
+    ]
+   },
+   "clinpgx": [
+    {
+     "level": "3",
+     "chemicals": [
+      "methotrexate"
+     ],
+     "genotypes": [
+      {
+       "genotype": "GG",
+       "phenotype": "Patients with the GG genotype who are treated with methotrexate may have a decreased likelihood of methotrexate response as compared to patients with the GT and TT genotypes. This association has been contradicted by at least one study, and other studies have found no association of this variant wit"
+      },
+      {
+       "genotype": "GT",
+       "phenotype": "Patients with the GT genotype and Rheumatoid Arthritis who are treated with methotrexate may have an increased likelihood of methotrexate response as compared to patients with the GG genotype, but decreased response as compared to patients with the TT genotype. This association has been contradicted"
+      },
+      {
+       "genotype": "TT",
+       "phenotype": "Patients with the TT genotype and Rheumatoid Arthritis who are treated with methotrexate may have an increased likelihood of methotrexate response as compared to patients with the GT and GG genotypes. This association has been contradicted by at least one study, and other studies have found no assoc"
+      }
+     ]
+    },
+    {
+     "level": "3",
+     "chemicals": [
+      "clozapine",
+      "olanzapine"
+     ],
+     "genotypes": [
+      {
+       "genotype": "GG",
+       "phenotype": "Patients with the GG genotype and schizophrenia or schizoaffective disorder may have greater weight gain when treated with clozapine or olanzapine as compared to patients with the GT genotype. Other genetic and clinical factors may also influence weight gain when receiving clozapine or olanzapine."
+      },
+      {
+       "genotype": "GT",
+       "phenotype": "Patients with the GT genotype and schizophrenia or schizoaffective disorder may have less weight gain when treated with clozapine or olanzapine as compared to patients with the GG genotype. Other genetic and clinical factors may also influence weight gain when receiving clozapine or olanzapine."
+      }
+     ]
+    },
+    {
+     "level": "3",
+     "chemicals": [
+      "nitrous oxide"
+     ],
+     "genotypes": [
+      {
+       "genotype": "GG",
+       "phenotype": "Patients with the GG genotype may have higher homocysteine levels after nitrous oxide anesthesia as compared to patients with the TG and TT genotype.Other genetic and clinical factors may also influence a patient's homocysteine levels after nitrous oxide exposure."
+      },
+      {
+       "genotype": "GT",
+       "phenotype": "Patients with the TG genotype may have lower homocysteine levels after nitrous oxide anesthesia as compared to patients with the GG genotype. Other genetic and clinical factors may also influence a patient's homocysteine levels after nitrous oxide exposure."
+      },
+      {
+       "genotype": "TT",
+       "phenotype": "Patients with the TT genotype may have lower homocysteine levels after nitrous oxide anesthesia as compared to patients with the GG genotype. Other genetic and clinical factors may also influence a patient's homocysteine levels after nitrous oxide exposure."
+      }
+     ]
+    },
+    {
+     "level": "4",
+     "chemicals": [
+      "methotrexate"
+     ],
+     "genotypes": [
+      {
+       "genotype": "GG",
+       "phenotype": "The current evidence base suggests that there is no significant association between the rs1801131 GG genotype and methotrexate dosage in patients with ALL. However, conflicting evidence has been reported. Other genetic and clinical factors may also influence methotrexate dose requirements."
+      },
+      {
+       "genotype": "GT",
+       "phenotype": "The current evidence base suggests that there is no significant association between the rs1801131 GT genotype and methotrexate dosage in patients with ALL. However, conflicting evidence has been reported. Other genetic and clinical factors may also influence methotrexate dose requirements."
+      },
+      {
+       "genotype": "TT",
+       "phenotype": "The current evidence base suggests that there is no significant association between the rs1801131 TT genotype and methotrexate dosage in patients with ALL. However, conflicting evidence has been reported. Other genetic and clinical factors may also influence methotrexate dose requirements."
+      }
+     ]
+    },
+    {
+     "level": "4",
+     "chemicals": [
+      "methotrexate"
+     ],
+     "genotypes": [
+      {
+       "genotype": "GG",
+       "phenotype": "The current evidence base suggests that there is no significant association between the rs1801131 GG genotype and response to methotrexate in patients with blood cancers. However, conflicting evidence has been reported. Other genetic and clinical factors may also influence response to methotrexate."
+      },
+      {
+       "genotype": "GT",
+       "phenotype": "The current evidence base suggests that there is no significant association between the rs1801131 GT genotype and response to methotrexate in patients with blood cancers. However, conflicting evidence has been reported. Other genetic and clinical factors may also influence response to methotrexate."
+      },
+      {
+       "genotype": "TT",
+       "phenotype": "The current evidence base suggests that there is no significant association between the rs1801131 TT genotype and response to methotrexate in patients with blood cancers. However, conflicting evidence has been reported. Other genetic and clinical factors may also influence response to methotrexate."
+      }
+     ]
+    }
+   ]
+  },
+  "protein_change": "p.Glu429Ala",
+  "tier": 1
  },
  {
   "rsid": "rs1801133",
@@ -6838,7 +7443,7 @@
     "variant_id": "chr1_11796321_G_A_b38",
     "effect_allele": "A",
     "own_gene": true,
-    "n_tissues": 34,
+    "n_tissues": 8,
     "other_genes": [
      "C1orf167",
      "CLCN6",
@@ -7008,7 +7613,7 @@
     "variant_id": "chr22_30615623_G_C_b38",
     "effect_allele": "C",
     "own_gene": true,
-    "n_tissues": 34,
+    "n_tissues": 8,
     "other_genes": [
      "CTA-963H5.5",
      "DUSP18",
@@ -7219,7 +7824,7 @@
     "variant_id": "chr4_55435202_A_G_b38",
     "effect_allele": "G",
     "own_gene": true,
-    "n_tissues": 32,
+    "n_tissues": 12,
     "other_genes": [
      "PDCL2",
      "RN7SKP30",
@@ -7367,7 +7972,7 @@
     "variant_id": "chr3_12351626_C_G_b38",
     "effect_allele": "G",
     "own_gene": true,
-    "n_tissues": 8,
+    "n_tissues": 4,
     "other_genes": [
      "SYN2",
      "TIMP4"
@@ -7638,7 +8243,7 @@
     "variant_id": "chr11_108304735_G_A_b38",
     "effect_allele": "A",
     "own_gene": true,
-    "n_tissues": 10,
+    "n_tissues": 1,
     "other_genes": [
      "ACAT1",
      "C11orf65",
@@ -7832,7 +8437,7 @@
     "variant_id": "chr16_89919709_C_T_b38",
     "effect_allele": "T",
     "own_gene": false,
-    "n_tissues": 91,
+    "n_tissues": 38,
     "other_genes": [
      "AC137932.6",
      "CDK10",
@@ -8070,7 +8675,7 @@
     "variant_id": "chr11_66560624_C_T_b38",
     "effect_allele": "T",
     "own_gene": true,
-    "n_tissues": 116,
+    "n_tissues": 27,
     "other_genes": [
      "BBS1",
      "C11orf80",
@@ -8127,7 +8732,7 @@
     "variant_id": "chr11_112164735_T_G_b38",
     "effect_allele": "G",
     "own_gene": true,
-    "n_tissues": 49,
+    "n_tissues": 8,
     "other_genes": [
      "BCO2",
      "KCTD9P4",
@@ -8250,7 +8855,7 @@
     "variant_id": "chr17_18328782_G_A_b38",
     "effect_allele": "A",
     "own_gene": true,
-    "n_tissues": 164,
+    "n_tissues": 27,
     "other_genes": [
      "ALKBH5",
      "CCDC144B",
@@ -8501,7 +9106,7 @@
     "variant_id": "chr6_35411001_C_T_b38",
     "effect_allele": "T",
     "own_gene": true,
-    "n_tissues": 20,
+    "n_tissues": 3,
     "other_genes": [
      "DEF6",
      "RPL10A",
@@ -8603,7 +9208,7 @@
     "variant_id": "chr5_132660272_A_G_b38",
     "effect_allele": "G",
     "own_gene": true,
-    "n_tissues": 11,
+    "n_tissues": 1,
     "other_genes": [
      "AC034220.3",
      "ACSL6",
@@ -8824,6 +9429,163 @@
   "tier": 5
  },
  {
+  "rsid": "rs2108622",
+  "genes": [
+   "CYP4F2"
+  ],
+  "consequence": "missense_variant",
+  "sources": {
+   "uniprot": {
+    "protein_changes": [
+     "p.Val433Met"
+    ],
+    "curated": [
+     "CYP4F2-related disorder",
+     "risk factor for coumarin resistance; increased warfarin maintenance dose in patients on warfarin anti-coagulant therapy due to decreased vitamin K catabolism; decreased phylloquinone omega-hydroxylase activity; decreased production of 20-hydroxyeicosatetraenoic acid (20-HETE)"
+    ],
+    "functional": [
+     "risk factor for coumarin resistance; increased warfarin maintenance dose in patients on warfarin anti-coagulant therapy due to decreased vitamin K catabolism; decreased phylloquinone omega-hydroxylase activity; decreased production of 20-hydroxyeicosatetraenoic acid (20-HETE)"
+    ]
+   },
+   "gtex": {
+    "variant_id": "chr19_15879621_C_T_b38",
+    "effect_allele": "T",
+    "own_gene": true,
+    "n_tissues": 3,
+    "other_genes": [
+     "AC005336.4",
+     "CYP4F11",
+     "CYP4F12",
+     "LINC01835"
+    ],
+    "top": [
+     {
+      "gene": "CYP4F2",
+      "tissue": "Skin_Not_Sun_Exposed_Suprapubic",
+      "nes": 0.313716,
+      "p": 3.36239e-13
+     },
+     {
+      "gene": "CYP4F2",
+      "tissue": "Skin_Sun_Exposed_Lower_leg",
+      "nes": 0.271561,
+      "p": 6.61864e-09
+     },
+     {
+      "gene": "CYP4F2",
+      "tissue": "Colon_Transverse",
+      "nes": 0.198091,
+      "p": 1.54411e-06
+     }
+    ]
+   },
+   "clinpgx": [
+    {
+     "level": "3",
+     "chemicals": [
+      "Vitamin K and analogues"
+     ],
+     "genotypes": [
+      {
+       "genotype": "CC",
+       "phenotype": "Patients with the CC genotype may have decreased concentrations of Vitamin K as compared to patients with the CT or TT genotype. Other clinical and genetic factors may also influence concentrations of Vitamin K."
+      },
+      {
+       "genotype": "CT",
+       "phenotype": "Patients with the CT genotype may have increased concentrations of Vitamin K as compared to patients with the CC. Other clinical and genetic factors may also influence concentrations of Vitamin K."
+      },
+      {
+       "genotype": "TT",
+       "phenotype": "Patients with the TT genotype may have increased concentrations of Vitamin K as compared to patients with the CC genotype. Other clinical and genetic factors may also influence concentrations of Vitamin K."
+      }
+     ]
+    },
+    {
+     "level": "3",
+     "chemicals": [
+      "warfarin"
+     ],
+     "genotypes": [
+      {
+       "genotype": "CC",
+       "phenotype": "Patients with the CC genotype may have increased international normalized ratio variability (INR-var) when treated with warfarin as compared to patients with genotype TT or CT in European-Americans after the warfarin dose-titration phase. Other genetic and clinical factors may also influence the res"
+      },
+      {
+       "genotype": "CT",
+       "phenotype": "Patients with the CT genotype may have decreased international normalized ratio variability (INR-var) when treated with warfarin as compared to patients with genotype CC in European-Americans after the warfarin dose-titration phase. Other genetic and clinical factors may also influence the response "
+      },
+      {
+       "genotype": "TT",
+       "phenotype": "Patients with the TT genotype may have decreased international normalized ratio variability (INR-var) when treated with warfarin as compared to patients with genotype CC in European-Americans after the warfarin dose-titration phase. Other genetic and clinical factors may also influence the response "
+      }
+     ]
+    },
+    {
+     "level": "1A",
+     "chemicals": [
+      "warfarin"
+     ],
+     "genotypes": [
+      {
+       "genotype": "CC",
+       "phenotype": "Patients with the rs2108622 CC genotype may have decreased warfarin dosage requirements as compared to patients with the CT or TT genotype. However, conflicting evidence has been reported. Other genetic and clinical factors may also affect warfarin dosage requirements."
+      },
+      {
+       "genotype": "CT",
+       "phenotype": "Patients with the rs2108622 CT genotype may have increased warfarin dosage requirements as compared to patients with the CC genotype. However, conflicting evidence has been reported. Other genetic and clinical factors may also affect warfarin dosage requirements."
+      },
+      {
+       "genotype": "TT",
+       "phenotype": "Patients with the rs2108622 TT genotype may have increased warfarin dosage requirements as compared to patients with the CC or CT genotype. However, conflicting evidence has been reported. Other genetic and clinical factors may also affect warfarin dosage requirements."
+      }
+     ]
+    },
+    {
+     "level": "2A",
+     "chemicals": [
+      "acenocoumarol"
+     ],
+     "genotypes": [
+      {
+       "genotype": "CC",
+       "phenotype": "Patients with the rs2108622 CC genotype who are treated with acenocoumarol may require a lower dose as compared to patients with the CT or TT genotype. However, conflicting evidence has been reported. Other genetic and clinical factors may also influence required acenocoumarol dose."
+      },
+      {
+       "genotype": "CT",
+       "phenotype": "Patients with the rs2108622 CT genotype who are treated with acenocoumarol may require a lower dose as compared to patients with the TT genotype or may require a higher dose as compared to patients with the CC genotype. However, conflicting evidence has been reported. Other genetic and clinical fact"
+      },
+      {
+       "genotype": "TT",
+       "phenotype": "Patients with the rs2108622 TT genotype who are treated with acenocoumarol may require a higher dose as compared to patients with the CC genotype. However, conflicting evidence has been reported. Other genetic and clinical factors may also influence required acenocoumarol dose."
+      }
+     ]
+    },
+    {
+     "level": "3",
+     "chemicals": [
+      "phenprocoumon"
+     ],
+     "genotypes": [
+      {
+       "genotype": "CC",
+       "phenotype": "Patients with the CC genotype who are treated with phenprocoumon may require a lower dose as compared to patients with the TT genotype. Other genetic and clinical factors may also influence a patient's required phenprocoumon dose."
+      },
+      {
+       "genotype": "CT",
+       "phenotype": "Patients with the CT genotype who are treated with phenprocoumon may require a higher dose as compared to patients with the CC genotype or a lower dose as compared to patients with the TT genotype. Other genetic and clinical factors may also influence a patient's required phenprocoumon dose."
+      },
+      {
+       "genotype": "TT",
+       "phenotype": "Patients with the TT genotype who are treated with phenprocoumon may require a higher dose as compared to patients with the CC genotype. Other genetic and clinical factors may also influence a patient's required phenprocoumon dose."
+      }
+     ]
+    }
+   ]
+  },
+  "protein_change": "p.Val433Met",
+  "tier": 2
+ },
+ {
   "rsid": "rs2228145",
   "genes": [
    "IL6R"
@@ -8848,7 +9610,7 @@
     "variant_id": "chr1_154454494_A_C_b38",
     "effect_allele": "C",
     "own_gene": true,
-    "n_tissues": 10,
+    "n_tissues": 5,
     "other_genes": [
      "SHE",
      "TDRD10"
@@ -8891,6 +9653,57 @@
   "tier": 2
  },
  {
+  "rsid": "rs2228570",
+  "genes": [
+   "CYP27B1"
+  ],
+  "consequence": "start_lost",
+  "sources": {
+   "gtex": {
+    "variant_id": "chr12_47879112_A_G_b38",
+    "effect_allele": "G",
+    "own_gene": false,
+    "n_tissues": 1,
+    "other_genes": [
+     "RP1-228P16.1"
+    ],
+    "top": [
+     {
+      "gene": "RP1-228P16.1",
+      "tissue": "Spleen",
+      "nes": 0.340247,
+      "p": 7.34045e-05
+     }
+    ]
+   },
+   "clinpgx": [
+    {
+     "level": "3",
+     "chemicals": [
+      "peginterferon alfa-2b",
+      "ribavirin"
+     ],
+     "genotypes": [
+      {
+       "genotype": "AA",
+       "phenotype": "Patients with the AA genotype and chronic hepatitis C may have an increased likelihood of sustained virological response when treated with peginterferon alfa-2b and ribavirin as compared to patients with the GG genotype. Other genetic and clinical factors may also influence response to peginterferon"
+      },
+      {
+       "genotype": "AG",
+       "phenotype": "Patients with the AG genotype and chronic hepatitis C may have an increased likelihood of sustained virological response when treated with peginterferon alfa-2b and ribavirin as compared to patients with the GG genotype. Other genetic and clinical factors may also influence response to peginterferon"
+      },
+      {
+       "genotype": "GG",
+       "phenotype": "Patients with the GG genotype and chronic hepatitis C may have a decreased likelihood of sustained virological response when treated with peginterferon alfa-2b and ribavirin as compared to patients with the AA genotype. Other genetic and clinical factors may also influence response to peginterferon "
+      }
+     ]
+    }
+   ]
+  },
+  "protein_change": "p.Met1Thr",
+  "tier": 5
+ },
+ {
   "rsid": "rs2229765",
   "genes": [
    "IGF1R"
@@ -8919,7 +9732,7 @@
     "variant_id": "chr15_98934996_G_A_b38",
     "effect_allele": "A",
     "own_gene": true,
-    "n_tissues": 13,
+    "n_tissues": 1,
     "other_genes": [
      "PGPEP1L",
      "RP11-654A16.3",
@@ -9191,7 +10004,7 @@
     "variant_id": "chr1_53909897_C_A_b38",
     "effect_allele": "A",
     "own_gene": false,
-    "n_tissues": 8,
+    "n_tissues": 6,
     "other_genes": [
      "ACOT11",
      "HSPB11",
@@ -9258,7 +10071,7 @@
     "variant_id": "chr14_64442127_G_A_b38",
     "effect_allele": "A",
     "own_gene": false,
-    "n_tissues": 64,
+    "n_tissues": 29,
     "other_genes": [
      "AKAP5",
      "CTD-2555O16.2",
@@ -9392,7 +10205,7 @@
     "variant_id": "chr2_233274722_A_G_b38",
     "effect_allele": "G",
     "own_gene": true,
-    "n_tissues": 16,
+    "n_tissues": 15,
     "other_genes": [
      "SCARNA6"
     ],
@@ -9493,7 +10306,7 @@
     "variant_id": "chr2_48694236_T_C_b38",
     "effect_allele": "C",
     "own_gene": true,
-    "n_tissues": 68,
+    "n_tissues": 3,
     "other_genes": [
      "FOXN2",
      "FSHR",
@@ -9538,7 +10351,7 @@
     "variant_id": "chr2_238277948_G_C_b38",
     "effect_allele": "C",
     "own_gene": true,
-    "n_tissues": 9,
+    "n_tissues": 1,
     "other_genes": [
      "AC016757.3",
      "HES6",
@@ -9659,7 +10472,7 @@
     "variant_id": "chr6_32465390_G_T_b38",
     "effect_allele": "T",
     "own_gene": true,
-    "n_tissues": 250,
+    "n_tissues": 26,
     "other_genes": [
      "AGER",
      "BTNL2",
@@ -9726,7 +10539,7 @@
     "variant_id": "chr1_113834946_A_G_b38",
     "effect_allele": "G",
     "own_gene": false,
-    "n_tissues": 3,
+    "n_tissues": 2,
     "other_genes": [
      "AP4B1-AS1",
      "HIPK1-AS1",
@@ -9768,7 +10581,7 @@
     "variant_id": "chr10_102837723_T_C_b38",
     "effect_allele": "C",
     "own_gene": false,
-    "n_tissues": 47,
+    "n_tissues": 22,
     "other_genes": [
      "AS3MT",
      "BORCS7",
@@ -9832,7 +10645,7 @@
     "variant_id": "chr19_43551574_T_C_b38",
     "effect_allele": "C",
     "own_gene": true,
-    "n_tissues": 52,
+    "n_tissues": 9,
     "other_genes": [
      "L34079.4",
      "LYPD3",
@@ -9973,7 +10786,7 @@
     "variant_id": "chr5_140633331_A_G_b38",
     "effect_allele": "G",
     "own_gene": true,
-    "n_tissues": 207,
+    "n_tissues": 2,
     "other_genes": [
      "AC011380.8",
      "CH17-140K24.6",
@@ -10033,7 +10846,7 @@
     "variant_id": "chr5_132369766_C_G_b38",
     "effect_allele": "G",
     "own_gene": true,
-    "n_tissues": 107,
+    "n_tissues": 24,
     "other_genes": [
      "AC034220.3",
      "AC063976.7",
@@ -10111,7 +10924,7 @@
     "variant_id": "chr7_99784473_C_T_b38",
     "effect_allele": "T",
     "own_gene": false,
-    "n_tissues": 16,
+    "n_tissues": 12,
     "other_genes": [
      "ARPC1B",
      "ATP5J2",
@@ -10270,7 +11083,7 @@
     "variant_id": "chr6_108587315_G_T_b38",
     "effect_allele": "T",
     "own_gene": true,
-    "n_tissues": 6,
+    "n_tissues": 1,
     "other_genes": [
      "LINC00222",
      "ZNF259P1"
@@ -10298,7 +11111,7 @@
     "variant_id": "chr2_226229029_T_C_b38",
     "effect_allele": "C",
     "own_gene": true,
-    "n_tissues": 5,
+    "n_tissues": 2,
     "other_genes": [
      "RP11-395N3.1",
      "RP11-395N3.2"
@@ -10331,6 +11144,58 @@
   "tier": 5
  },
  {
+  "rsid": "rs3025039",
+  "genes": [
+   "COL18A1"
+  ],
+  "consequence": "3_prime_UTR_variant",
+  "sources": {
+   "clinpgx": [
+    {
+     "level": "3",
+     "chemicals": [
+      "bevacizumab"
+     ],
+     "genotypes": [
+      {
+       "genotype": "CC",
+       "phenotype": "Patients with the CC genotype and breast cancer may have better overall survival times when treated with bevacizumab (in combination with chemotherapy) as compared to patients with the TT genotype. Other genetic and clinical factors may also influence response to bevacizumab."
+      },
+      {
+       "genotype": "CT",
+       "phenotype": "Patients with the CT genotype and breast cancer may have better overall survival times when treated with bevacizumab (in combination with chemotherapy) as compared to patients with the TT genotype. Other genetic and clinical factors may also influence response to bevacizumab."
+      },
+      {
+       "genotype": "TT",
+       "phenotype": "Patients with the TT genotype and breast cancer may have poorer overall survival times when treated with bevacizumab (in combination with chemotherapy) as compared to patients with the CC or CT genotype. Other genetic and clinical factors may also influence response to bevacizumab."
+      }
+     ]
+    },
+    {
+     "level": "3",
+     "chemicals": [
+      "bevacizumab"
+     ],
+     "genotypes": [
+      {
+       "genotype": "CC",
+       "phenotype": "Patients with colorectal or breast cancer and the CC genotype may have an improved response to bevacizumab-based treatment regimens as compared to patients with the TT genotype, although this is contradicted in one study. Other clinical and genetic factors may also influence response to bevacizumab-"
+      },
+      {
+       "genotype": "CT",
+       "phenotype": "Patients with colorectal or breast cancer and the CT genotype may have an improved response to bevacizumab-based treatment regimens as compared to patients with the TT genotype, although this is contradicted in one study. Other clinical and genetic factors may also influence response to bevacizumab-"
+      },
+      {
+       "genotype": "TT",
+       "phenotype": "Patients with colorectal or breast cancer and the TT genotype may have a worse response to bevacizumab-based treatment regimens as compared to patients with the CC and CT genotype, although this is contradicted in one study. Other clinical and genetic factors may also influence response to bevacizum"
+      }
+     ]
+    }
+   ]
+  },
+  "tier": 5
+ },
+ {
   "rsid": "rs324420",
   "genes": [
    "FAAH"
@@ -10341,7 +11206,7 @@
     "variant_id": "chr1_46405089_C_A_b38",
     "effect_allele": "A",
     "own_gene": true,
-    "n_tissues": 65,
+    "n_tissues": 25,
     "other_genes": [
      "FAAHP1",
      "LINC01398",
@@ -10578,6 +11443,55 @@
   "tier": 5
  },
  {
+  "rsid": "rs35516286",
+  "genes": [
+   "CFTR"
+  ],
+  "consequence": "missense_variant",
+  "sources": {
+   "uniprot": {
+    "protein_changes": [
+     "p.Ile148Thr"
+    ],
+    "curated": [
+     "CF; uncertain significance; loss of bicarbonate transport; decreased inhibition of epithelial sodium channel (ENaC), when tested in a heterologous system; no effect on protein maturation, subcellular location at the plasma membrane, nor on chloride channel activity",
+     "CFTR-related disorder",
+     "CFTR-related disorder (CFTR-RD)",
+     "Cystic fibrosis",
+     "Cystic fibrosis (CF)"
+    ],
+    "functional": [
+     "CF; uncertain significance; loss of bicarbonate transport; decreased inhibition of epithelial sodium channel (ENaC), when tested in a heterologous system; no effect on protein maturation, subcellular location at the plasma membrane, nor on chloride channel activity"
+    ]
+   },
+   "clinpgx": [
+    {
+     "level": "1A",
+     "chemicals": [
+      "elexacaftor / tezacaftor / ivacaftor",
+      "ivacaftor"
+     ],
+     "genotypes": [
+      {
+       "genotype": "AA",
+       "phenotype": "Patients with the rs35516286 AA genotype (two copies of the CFTR I148T variant) and cystic fibrosis may respond to ivacaftor or elexacaftor / tezacaftor / ivacaftor treatment. FDA-approved drug labeling information indicate use of ivacaftor or elexacaftor / tezacaftor / ivacaftor in cystic fibrosis "
+      },
+      {
+       "genotype": "AT",
+       "phenotype": "Patients with the rs35516286 AT genotype (one copy of the CFTR I148T variant) and cystic fibrosis may respond to ivacaftor or elexacaftor / tezacaftor / ivacaftor treatment. FDA-approved drug labeling information indicate use of ivacaftor or elexacaftor / tezacaftor / ivacaftor in cystic fibrosis pa"
+      },
+      {
+       "genotype": "TT",
+       "phenotype": "Patients with the rs35516286 TT genotype (do not have a copy of the CFTR I148T variant) and cystic fibrosis have an unknown response to ivacaftor or elexacaftor / tezacaftor / ivacaftor treatment, as response may depend on the presence of other CFTR variants. Other genetic and clinical factors may a"
+      }
+     ]
+    }
+   ]
+  },
+  "protein_change": "p.Ile148Thr",
+  "tier": 2
+ },
+ {
   "rsid": "rs35652124",
   "genes": [
    "NFE2L2"
@@ -10588,7 +11502,7 @@
     "variant_id": "chr2_177265345_T_C_b38",
     "effect_allele": "C",
     "own_gene": true,
-    "n_tissues": 9,
+    "n_tissues": 2,
     "other_genes": [
      "AC074286.1",
      "AC079305.10"
@@ -10693,7 +11607,7 @@
     "variant_id": "chr5_79126136_G_A_b38",
     "effect_allele": "A",
     "own_gene": true,
-    "n_tissues": 6,
+    "n_tissues": 4,
     "other_genes": [
      "DMGDH",
      "JMY"
@@ -10796,7 +11710,7 @@
     "variant_id": "chr2_170816965_G_A_b38",
     "effect_allele": "A",
     "own_gene": true,
-    "n_tissues": 31,
+    "n_tissues": 19,
     "other_genes": [
      "AC007277.3",
      "AC007405.4",
@@ -10874,7 +11788,7 @@
     "variant_id": "chr17_30197786_A_C_b38",
     "effect_allele": "C",
     "own_gene": true,
-    "n_tissues": 81,
+    "n_tissues": 2,
     "other_genes": [
      "ANKRD13B",
      "BLMH",
@@ -11000,7 +11914,7 @@
     "variant_id": "chr22_42128945_C_T_b38",
     "effect_allele": "T",
     "own_gene": true,
-    "n_tissues": 250,
+    "n_tissues": 29,
     "other_genes": [
      "CCDC134",
      "CENPM",
@@ -11291,7 +12205,7 @@
     "variant_id": "chr2_113129630_T_C_b38",
     "effect_allele": "C",
     "own_gene": true,
-    "n_tissues": 22,
+    "n_tissues": 6,
     "other_genes": [
      "CDK8P2",
      "IL1A",
@@ -11347,7 +12261,7 @@
     "variant_id": "chr10_94781859_G_A_b38",
     "effect_allele": "A",
     "own_gene": true,
-    "n_tissues": 13,
+    "n_tissues": 3,
     "other_genes": [
      "CYP2C18",
      "HELLS",
@@ -11492,7 +12406,7 @@
     "variant_id": "chr22_46234737_G_C_b38",
     "effect_allele": "C",
     "own_gene": false,
-    "n_tissues": 58,
+    "n_tissues": 39,
     "other_genes": [
      "CDPF1",
      "GTSE1-AS1",
@@ -11856,7 +12770,7 @@
     "variant_id": "chr7_99735325_T_G_b38",
     "effect_allele": "G",
     "own_gene": true,
-    "n_tissues": 14,
+    "n_tissues": 3,
     "other_genes": [
      "GS1-259H13.2",
      "TRIM4",
@@ -11885,6 +12799,28 @@
    }
   },
   "tier": 3
+ },
+ {
+  "rsid": "rs45551835",
+  "genes": [
+   "CUBN"
+  ],
+  "consequence": "missense_variant",
+  "sources": {
+   "uniprot": {
+    "protein_changes": [
+     "p.Ala2914Val"
+    ],
+    "curated": [
+     "Imerslund-Grasbeck syndrome",
+     "Imerslund-Grasbeck syndrome type 1",
+     "Imerslund-Grasbeck syndrome type 1 (IGS1)",
+     "a breast cancer sample; somatic mutation"
+    ]
+   }
+  },
+  "protein_change": "p.Ala2914Val",
+  "tier": 5
  },
  {
   "rsid": "rs4570625",
@@ -11949,7 +12885,7 @@
     "variant_id": "chr1_21459575_C_T_b38",
     "effect_allele": "T",
     "own_gene": true,
-    "n_tissues": 84,
+    "n_tissues": 5,
     "other_genes": [
      "NBPF2P",
      "NBPF3"
@@ -12015,7 +12951,7 @@
     "variant_id": "chr22_19963748_G_A_b38",
     "effect_allele": "A",
     "own_gene": true,
-    "n_tissues": 15,
+    "n_tissues": 5,
     "other_genes": [
      "ARVCF",
      "C22orf29",
@@ -12187,7 +13123,7 @@
     "variant_id": "chr6_159692840_A_G_b38",
     "effect_allele": "G",
     "own_gene": true,
-    "n_tissues": 55,
+    "n_tissues": 1,
     "other_genes": [
      "ACAT2",
      "HNRNPH1P1",
@@ -12330,7 +13266,7 @@
     "variant_id": "chr4_2904980_G_T_b38",
     "effect_allele": "T",
     "own_gene": true,
-    "n_tissues": 21,
+    "n_tissues": 2,
     "other_genes": [
      "MFSD10",
      "MSANTD1",
@@ -12452,7 +13388,7 @@
     "variant_id": "chr2_135851076_G_A_b38",
     "effect_allele": "A",
     "own_gene": false,
-    "n_tissues": 42,
+    "n_tissues": 24,
     "other_genes": [
      "CCNT2",
      "DARS",
@@ -12516,7 +13452,7 @@
     "variant_id": "chr8_37966280_A_G_b38",
     "effect_allele": "G",
     "own_gene": false,
-    "n_tissues": 4,
+    "n_tissues": 3,
     "other_genes": [
      "GOT1L1",
      "RAB11FIP1"
@@ -12585,7 +13521,7 @@
     "variant_id": "chr1_161223893_G_A_b38",
     "effect_allele": "A",
     "own_gene": false,
-    "n_tissues": 11,
+    "n_tissues": 9,
     "other_genes": [
      "ADAMTS4",
      "B4GALT3",
@@ -12791,7 +13727,7 @@
     "variant_id": "chr11_17388025_T_C_b38",
     "effect_allele": "C",
     "own_gene": true,
-    "n_tissues": 57,
+    "n_tissues": 6,
     "other_genes": [
      "ABCC8",
      "C11orf58",
@@ -12964,7 +13900,7 @@
     "variant_id": "chr2_31580636_G_C_b38",
     "effect_allele": "C",
     "own_gene": false,
-    "n_tissues": 20,
+    "n_tissues": 14,
     "other_genes": [
      "AL133243.1",
      "NLRC4",
@@ -13226,7 +14162,7 @@
     "variant_id": "chr10_111079821_A_G_b38",
     "effect_allele": "G",
     "own_gene": true,
-    "n_tissues": 3,
+    "n_tissues": 1,
     "other_genes": [
      "RBM20",
      "SHOC2"
@@ -13272,7 +14208,7 @@
     "variant_id": "chr22_24441333_T_C_b38",
     "effect_allele": "C",
     "own_gene": true,
-    "n_tissues": 77,
+    "n_tissues": 4,
     "other_genes": [
      "ADORA2A-AS1",
      "AP000355.2",
@@ -13440,7 +14376,7 @@
     "variant_id": "chr19_48703417_G_A_b38",
     "effect_allele": "A",
     "own_gene": true,
-    "n_tissues": 97,
+    "n_tissues": 16,
     "other_genes": [
      "FAM83E",
      "IZUMO1",
@@ -13595,7 +14531,7 @@
     "variant_id": "chr19_48703728_G_A_b38",
     "effect_allele": "A",
     "own_gene": true,
-    "n_tissues": 97,
+    "n_tissues": 16,
     "other_genes": [
      "FAM83E",
      "IZUMO1",
@@ -13670,7 +14606,7 @@
     "variant_id": "chrX_67545785_G_A_b38",
     "effect_allele": "A",
     "own_gene": true,
-    "n_tissues": 10,
+    "n_tissues": 8,
     "other_genes": [
      "EDA2R",
      "OPHN1"
@@ -13734,7 +14670,7 @@
     "variant_id": "chr2_48963902_C_T_b38",
     "effect_allele": "T",
     "own_gene": true,
-    "n_tissues": 2,
+    "n_tissues": 1,
     "other_genes": [
      "CTBP2P5"
     ],
@@ -13774,7 +14710,7 @@
     "variant_id": "chr2_48962782_C_T_b38",
     "effect_allele": "T",
     "own_gene": true,
-    "n_tissues": 2,
+    "n_tissues": 1,
     "other_genes": [
      "CTBP2P5"
     ],
@@ -13899,6 +14835,58 @@
   "tier": 3
  },
  {
+  "rsid": "rs61730509",
+  "genes": [
+   "ABCB4"
+  ],
+  "consequence": "missense_variant",
+  "sources": {
+   "uniprot": {
+    "protein_changes": [
+     "p.Ala934Thr"
+    ],
+    "curated": [
+     "ABCB4-related disorder",
+     "Cholestasis, intrahepatic, of pregnancy, 3",
+     "Familial intrahepatic cholestasis",
+     "Low phospholipid associated cholelithiasis",
+     "Low phospholipid associated cholelithiasis (GBD1)",
+     "Progressive familial intrahepatic cholestasis type 1",
+     "Progressive familial intrahepatic cholestasis type 3",
+     "Severe early-childhood-onset retinal dystrophy"
+    ]
+   }
+  },
+  "protein_change": "p.Ala934Thr",
+  "tier": 5
+ },
+ {
+  "rsid": "rs61910685",
+  "genes": [
+   "ANO5"
+  ],
+  "consequence": "missense_variant",
+  "sources": {
+   "uniprot": {
+    "protein_changes": [
+     "p.Ser796Leu"
+    ],
+    "curated": [
+     "ANO5-Related Muscle Diseases",
+     "ANO5-related disorder",
+     "Autosomal recessive limb-girdle muscular dystrophy type 2L",
+     "Autosomal recessive limb-girdle muscular dystrophy type 2L (LGMDR12)",
+     "Gnathodiaphyseal dysplasia",
+     "Gnathodiaphyseal dysplasia (GDD)",
+     "LGMDR12; uncertain significance",
+     "Miyoshi muscular dystrophy 3"
+    ]
+   }
+  },
+  "protein_change": "p.Ser796Leu",
+  "tier": 5
+ },
+ {
   "rsid": "rs6214",
   "genes": [
    "IGF1"
@@ -13933,6 +14921,27 @@
   "tier": 2
  },
  {
+  "rsid": "rs62483572",
+  "genes": [
+   "EPO"
+  ],
+  "consequence": "missense_variant",
+  "sources": {
+   "uniprot": {
+    "protein_changes": [
+     "p.Asp70Asn"
+    ],
+    "curated": [
+     "ECYT5; uncertain significance",
+     "EPO-related disorder",
+     "Erythrocytosis, familial, 5 (ECYT5)"
+    ]
+   }
+  },
+  "protein_change": "p.Asp70Asn",
+  "tier": 5
+ },
+ {
   "rsid": "rs6259",
   "genes": [
    "SHBG"
@@ -13951,7 +14960,7 @@
     "variant_id": "chr17_7633209_G_A_b38",
     "effect_allele": "A",
     "own_gene": true,
-    "n_tissues": 59,
+    "n_tissues": 1,
     "other_genes": [
      "AC113189.5",
      "CD68",
@@ -14155,7 +15164,7 @@
     "variant_id": "chr11_113412755_A_G_b38",
     "effect_allele": "G",
     "own_gene": false,
-    "n_tissues": 52,
+    "n_tissues": 39,
     "other_genes": [
      "ANKK1",
      "RP11-159N11.3",
@@ -14450,7 +15459,7 @@
     "variant_id": "chr13_46897343_C_T_b38",
     "effect_allele": "T",
     "own_gene": true,
-    "n_tissues": 3,
+    "n_tissues": 2,
     "other_genes": [
      "ESD"
     ],
@@ -14628,7 +15637,7 @@
     "variant_id": "chr11_73983709_C_T_b38",
     "effect_allele": "T",
     "own_gene": true,
-    "n_tissues": 69,
+    "n_tissues": 31,
     "other_genes": [
      "AP000560.3",
      "AP000577.2",
@@ -14690,7 +15699,7 @@
     "variant_id": "chr11_73978059_G_A_b38",
     "effect_allele": "A",
     "own_gene": true,
-    "n_tissues": 64,
+    "n_tissues": 29,
     "other_genes": [
      "DNAJB13",
      "HNRNPA1P40",
@@ -14759,7 +15768,7 @@
     "variant_id": "chr7_95308134_T_C_b38",
     "effect_allele": "C",
     "own_gene": true,
-    "n_tissues": 4,
+    "n_tissues": 2,
     "other_genes": [
      "ASB4",
      "PON2"
@@ -14859,7 +15868,7 @@
     "variant_id": "chr11_116792991_G_A_b38",
     "effect_allele": "A",
     "own_gene": false,
-    "n_tissues": 30,
+    "n_tissues": 23,
     "other_genes": [
      "AP000892.6",
      "AP006216.5",
@@ -15082,7 +16091,7 @@
     "variant_id": "chr2_166242648_A_G_b38",
     "effect_allele": "G",
     "own_gene": false,
-    "n_tissues": 2,
+    "n_tissues": 1,
     "other_genes": [
      "AC010127.3",
      "SCN1A"
@@ -15221,7 +16230,7 @@
     "variant_id": "chr1_230710048_A_G_b38",
     "effect_allele": "G",
     "own_gene": true,
-    "n_tissues": 19,
+    "n_tissues": 16,
     "other_genes": [
      "COG2"
     ],
@@ -15446,7 +16455,7 @@
     "variant_id": "chr19_1106616_T_C_b38",
     "effect_allele": "C",
     "own_gene": true,
-    "n_tissues": 10,
+    "n_tissues": 6,
     "other_genes": [
      "SBNO2"
     ],
@@ -15503,7 +16512,7 @@
     "variant_id": "chr7_141973545_C_G_b38",
     "effect_allele": "G",
     "own_gene": false,
-    "n_tissues": 87,
+    "n_tissues": 32,
     "other_genes": [
      "AGK",
      "KIAA1147",
@@ -15666,7 +16675,7 @@
     "variant_id": "chr22_43928847_C_G_b38",
     "effect_allele": "G",
     "own_gene": true,
-    "n_tissues": 5,
+    "n_tissues": 2,
     "other_genes": [
      "SAMM50"
     ],
@@ -15734,6 +16743,150 @@
   "tier": 2
  },
  {
+  "rsid": "rs7412",
+  "genes": [
+   "APOE"
+  ],
+  "consequence": "missense_variant",
+  "sources": {
+   "uniprot": {
+    "protein_changes": [
+     "p.Arg176Cys"
+    ],
+    "curated": [
+     "Familial type 3 hyperlipoproteinemia",
+     "HLPP3; ApoE2, ApoE2 Fukuoka, ApoE1 Weisgraber and ApoE3**; ApoE3** is associated with HLPP3; changed protein structure; decreased binding to LDLR and other lipoprotein receptors; decreased in vitro binding to heparin; no effect on distribution among plasma lipoproteins",
+     "Hyperlipoproteinemia 3 (HLPP3)",
+     "Hyperlipoproteinemia due to APOE1"
+    ],
+    "functional": [
+     "HLPP3; ApoE2, ApoE2 Fukuoka, ApoE1 Weisgraber and ApoE3**; ApoE3** is associated with HLPP3; changed protein structure; decreased binding to LDLR and other lipoprotein receptors; decreased in vitro binding to heparin; no effect on distribution among plasma lipoproteins"
+    ]
+   },
+   "gtex": {
+    "variant_id": "chr19_44908822_C_T_b38",
+    "effect_allele": "T",
+    "own_gene": true,
+    "n_tissues": 1,
+    "other_genes": [],
+    "top": [
+     {
+      "gene": "APOE",
+      "tissue": "Skin_Not_Sun_Exposed_Suprapubic",
+      "nes": -0.264777,
+      "p": 1.17119e-07
+     }
+    ]
+   },
+   "clinpgx": [
+    {
+     "level": "3",
+     "chemicals": [
+      "Antivirals for treatment of HIV infections, combinations",
+      "ritonavir"
+     ],
+     "genotypes": [
+      {
+       "genotype": "CC",
+       "phenotype": "Patients with the CC genotype and HIV infection who are treated with antiretroviral regimens containing ritonavir may have a decreased risk of hypertriglyceridemia as compared to patients with the TT genotype. Other genetic and clinical factors may also influence a patient's triglyceride levels."
+      },
+      {
+       "genotype": "CT",
+       "phenotype": "Patients with the CT genotype and HIV infection who are treated with antiretroviral regimens containing ritonavir may have an increased risk of hypertriglyceridemia as compared to patients with the CC genotype or may have a decreased risk of hypertriglyceridemia as compared to patients with the TT g"
+      },
+      {
+       "genotype": "TT",
+       "phenotype": "Patients with the TT genotype and HIV infection who are treated with antiretroviral regimens containing ritonavir may have an increased risk of hypertriglyceridemia as compared to patients with the CC genotype. Other genetic and clinical factors may also influence a patient's triglyceride levels."
+      }
+     ]
+    },
+    {
+     "level": "2B",
+     "chemicals": [
+      "atorvastatin"
+     ],
+     "genotypes": [
+      {
+       "genotype": "CC",
+       "phenotype": "Patients with the rs7412 CC genotype may have decreased response to atorvastatin as compared to patients with the CT or TT genotype. Other genetic and clinical factors may also influence response to atorvastatin treatment."
+      },
+      {
+       "genotype": "CT",
+       "phenotype": "Patients with the rs7412 CT genotype may have increased response to atorvastatin as compared to patients with the CC genotype. Other genetic and clinical factors may also influence response to atorvastatin treatment."
+      },
+      {
+       "genotype": "TT",
+       "phenotype": "Patients with the rs7412 TT genotype may have increased response to atorvastatin as compared to patients with the CC genotype. Other genetic and clinical factors may also influence response to atorvastatin treatment."
+      }
+     ]
+    },
+    {
+     "level": "3",
+     "chemicals": [
+      "Antivirals for treatment of HIV infections, combinations",
+      "ritonavir"
+     ],
+     "genotypes": [
+      {
+       "genotype": "CC",
+       "phenotype": "Patients with the CC genotype may have decreased but not non-existent risk for elevated triglycerides in response to ritonavir containing antiretroviral therapy as compared to patients with the TT or CT genotype. Other genetic and clinical factors may also influence a patient's risk for toxicity."
+      },
+      {
+       "genotype": "CT",
+       "phenotype": "Patients with the CT genotype may have increased risk for elevated triglycerides in response to ritonavir containing antiretroviral therapy as compared to patients with the CC genotype. Other genetic and clinical factors may also influence a patient's risk for toxicity."
+      },
+      {
+       "genotype": "TT",
+       "phenotype": "Patients with the TT genotype may have increased risk for elevated triglycerides in response to ritonavir containing antiretroviral therapy as compared to patients with the CC genotype. Other genetic and clinical factors may also influence a patient's risk for toxicity."
+      }
+     ]
+    },
+    {
+     "level": "3",
+     "chemicals": [
+      "pravastatin"
+     ],
+     "genotypes": [
+      {
+       "genotype": "CC",
+       "phenotype": "Patients with the CC genotype (non-carriers of APOE E2) who are treated with pravastatin may have a reduced response (a smaller reduction in LDL-cholesterol) as compared to patients with the TT genotype (also known as APOE E2/E2). Other genetic and clinical factors may also influence a patient's res"
+      },
+      {
+       "genotype": "CT",
+       "phenotype": "Patients with the CT genotype (carriers of APOE E2) who are treated with pravastatin may have a better response (increased reduction in LDL-cholesterol) as compared to patients with the CC genotype (non-carriers of APOE E2). Other genetic and clinical factors may also influence a patient's response "
+      },
+      {
+       "genotype": "TT",
+       "phenotype": "Patients with the TT genotype (also known as APOE E2/E2) who are treated with pravastatin may have a better response (increased reduction in LDL-cholesterol) as compared to patients with the CC genotype. Other genetic and clinical factors may also influence a patient's response to pravastatin treatm"
+      }
+     ]
+    },
+    {
+     "level": "3",
+     "chemicals": [
+      "fluvastatin"
+     ],
+     "genotypes": [
+      {
+       "genotype": "CC",
+       "phenotype": "Patients with the CC genotype who are treated with fluvastatin may have a reduced response (a smaller reduction in LDL-cholesterol or change in HDL) as compared to patients with the CT genotype (carriers of E2). Other genetic and clinical factors may also influence a patient's response to statin tre"
+      },
+      {
+       "genotype": "CT",
+       "phenotype": "Patients with the CT genotype (carriers of E2) who are treated with fluvastatin may have a better response (increased reduction in LDL-cholesterol or change in HDL) as compared to patients with the CC genotype. Other genetic and clinical factors may also influence a patient's response to statin trea"
+      },
+      {
+       "genotype": "TT",
+       "phenotype": "Patients with the TT genotype (also known as E2/E2) who are treated with fluvastatin may have a better response (increased reduction in LDL-cholesterol or change in HDL) as compared to patients with the CC genotype, although the studies did not have C homozygotes and only reported the effect for the"
+      }
+     ]
+    }
+   ]
+  },
+  "protein_change": "p.Arg176Cys",
+  "tier": 2
+ },
+ {
   "rsid": "rs7454108",
   "genes": [
    "HLA-DQB1"
@@ -15744,7 +16897,7 @@
     "variant_id": "chr6_32713706_T_C_b38",
     "effect_allele": "C",
     "own_gene": true,
-    "n_tissues": 195,
+    "n_tissues": 17,
     "other_genes": [
      "CYP21A1P",
      "HCG23",
@@ -15806,7 +16959,7 @@
     "variant_id": "chr16_28871920_A_G_b38",
     "effect_allele": "G",
     "own_gene": true,
-    "n_tissues": 250,
+    "n_tissues": 14,
     "other_genes": [
      "APOBR",
      "ATP2A1",
@@ -15898,7 +17051,7 @@
     "variant_id": "chr15_74749576_C_A_b38",
     "effect_allele": "A",
     "own_gene": false,
-    "n_tissues": 84,
+    "n_tissues": 33,
     "other_genes": [
      "CPLX3",
      "CSK",
@@ -16239,7 +17392,7 @@
     "variant_id": "chr14_54912273_C_T_b38",
     "effect_allele": "T",
     "own_gene": true,
-    "n_tissues": 5,
+    "n_tissues": 2,
     "other_genes": [
      "MAPK1IP1L",
      "RP11-665C16.6",
@@ -16274,7 +17427,7 @@
     "variant_id": "chr3_171007094_T_C_b38",
     "effect_allele": "C",
     "own_gene": true,
-    "n_tissues": 3,
+    "n_tissues": 1,
     "other_genes": [
      "EIF5A2",
      "RPL22L1"
@@ -16343,7 +17496,7 @@
     "variant_id": "chr19_48756272_A_G_b38",
     "effect_allele": "G",
     "own_gene": false,
-    "n_tissues": 49,
+    "n_tissues": 27,
     "other_genes": [
      "FAM83E",
      "FUT2",
@@ -16416,7 +17569,7 @@
     "variant_id": "chr16_89919746_G_A_b38",
     "effect_allele": "A",
     "own_gene": true,
-    "n_tissues": 28,
+    "n_tissues": 1,
     "other_genes": [
      "AC137932.5",
      "CDH15",
@@ -16449,7 +17602,7 @@
     "variant_id": "chr15_89668592_C_T_b38",
     "effect_allele": "T",
     "own_gene": true,
-    "n_tissues": 6,
+    "n_tissues": 1,
     "other_genes": [
      "ANPEP",
      "PEX11A",
@@ -16687,7 +17840,7 @@
     "variant_id": "chr16_31096368_C_T_b38",
     "effect_allele": "T",
     "own_gene": true,
-    "n_tissues": 183,
+    "n_tissues": 16,
     "other_genes": [
      "AC002310.14",
      "BCKDK",

@@ -18,7 +18,7 @@
   // Library genes carry a function call; API-theme genes outside the library are marked when XY carries a trait-linked allele
   // A gene's call: the library's at its SNP, or gene_calls.py's from the person's own variants (call_source 'api')
   const thCall = (g) => g.genotype || (g.call_source === 'api' && g.function) ? (g.function || 'normal') : g.carried > 0 ? 'variant' : null;
-  const thNote = (g) => g && (g.interpretation || g.fn_evidence);
+  const thNote = (g) => g && g.fn_evidence;
   const thLabel = (g) => g.gene + (g.genotype ? ` ${g.genotype}` : '') + (g.genotype && g.function !== 'normal' && g.dose ? ` ×${g.dose}` : '') +
     (!g.genotype && g.carried > 0 ? ` · ${g.carried}` : '');
   const thPubmed = (parent, id) => {
@@ -288,8 +288,7 @@
     if (g.genotype || g.call_source === 'api') thMake(el, 'p', null, `Effect on the gene: ${g.fn_evidence || 'no evidence collected'} (${TH_BASIS[g.basis] || TH_BASIS.none}).`);
     if (g.genotype && g.outcome && g.outcome !== 'typical' && g.outcome !== 'unknown') thMake(el, 'p', null, `Effect on ${thWho(s)}: ${TH_OUTCOME[g.outcome] || g.outcome}. Whether a change is good or bad is a best-effort reading of the trait; the change itself comes from the evidence.`);
     if (g.call_source === 'api') thMake(el, 'p', 'gx-note', `Called from ${thWho(s)}'s own variants in the gene: protein changes (UniProt, MaveDB, SIFT/PolyPhen) and the gene's strongest expression variant (GTEx).`);
-    else thMake(el, 'p', g.genotype ? 'gx-note' : null, g.genotype ? `Library note for ${g.rsid} ${g.genotype}: ${g.interpretation}. The notes were written with an LLM and are being checked against the evidence; the label above comes from the evidence, not the note.`
-      : s.api ? `Not in the library. ${thWho(s)}'s file ${s.stats && (s.stats.by_confidence || {}).high ? 'measures or confidently imputes' : 'measures'} ${g.ev.n_snps || 0} SNPs in or near this gene.` : `${thWho(s)} has no call at this gene's library SNP.`);
+    else if (!g.genotype) thMake(el, 'p', null, s.api ? `Not in the library. ${thWho(s)}'s file ${s.stats && (s.stats.by_confidence || {}).high ? 'measures or confidently imputes' : 'measures'} ${g.ev.n_snps || 0} SNPs in or near this gene.` : `${thWho(s)} has no call at this gene's library SNP.`);
     if (g.has_lifecycle) {
       const b = thMake(el, 'button', 'lc-btn', 'Open its pathway');
       b.type = 'button';
@@ -438,7 +437,7 @@
     const effect = (name) => {
       const g = s.byName.get(name), fn = g && thCall(g);
       const lines = [fns.get(name) || ''];
-      if (g && g.genotype) lines.push(`${who}: ${g.genotype}, ${TH_TEXT[fn]}${g.dose && fn !== 'normal' ? ` ×${g.dose}` : ''} (${thNote(g)})`);
+      if (g && g.genotype) lines.push(`${who}: ${g.genotype}, ${TH_TEXT[fn]}${g.dose && fn !== 'normal' ? ` ×${g.dose}` : ''}${thNote(g) ? ` (${thNote(g)})` : ''}`);
       else if (g && g.carried) lines.push(`${who} carries ${g.carried} trait-linked ${g.carried === 1 ? 'allele' : 'alleles'} here`);
       else lines.push(`No ${who} call at this gene`);
       return lines.filter(Boolean);

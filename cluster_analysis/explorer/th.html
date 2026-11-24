@@ -1,6 +1,6 @@
   <section class="gx-page" id="clusters" data-page="clusters" hidden>
     <div class="th-picker" data-draw="th-picker" data-source="theme_meta" role="group" aria-label="Theme"></div>
-    <p class="gx-note">A theme gathers every library gene with evidence that it bears on one area of health, grouped by the mechanism it acts
+    <p class="gx-intro">A theme gathers every library gene with evidence that it bears on one area of health, grouped by the mechanism it acts
       through: repair, growth signals, hormones, the supply of building blocks. Evidence comes from Gene Ontology, Reactome, UniProt and GWAS,
       and each gene shows why it is included. Colours are the selected profile's calls: blue more active, green typical function, red less active. Female fertility is shown for female profiles, male fertility for male ones.</p>
     <div class="gx-card" id="theme-head">
@@ -29,11 +29,11 @@
       <div class="nt-detail" data-draw="fit-detail" data-source="fit_tests fit_findings fit_steps"></div>
     </div>
     <div class="gx-card th-off" id="can-overview">
-      <p class="gx-note">Polygenic risk scores. For each cancer, the PGS Catalog score evaluated by the most studies among those built from a
-        GWAS's risk variants in Europeans (cluster_analysis/themes/cancer_scores.py), placed by rank among 525 Europeans in 1000 Genomes scored
-        on the same variants. A score shifts risk modestly: the large inherited risks come from rare variants in genes such as BRCA1, BRCA2 and
-        the Lynch syndrome genes, which a chip mostly can't see. Green is a lower risk than most.</p>
       <div class="nt-overview" data-draw="can-overview" data-source="can_tests can_steps theme_meta"></div>
+      <p class="gx-note">Each cancer's score is the PGS Catalog score evaluated by the most studies among those built from a GWAS's risk
+        variants in Europeans, placed by rank among 525 Europeans in 1000 Genomes scored on the same variants. A score shifts risk modestly:
+        the large inherited risks come from rare variants in genes such as BRCA1, BRCA2 and the Lynch syndrome genes, which a chip mostly
+        can't see. Green is a lower risk than most.</p>
     </div>
     <div class="gx-card th-off" id="can-detail">
       <div class="nt-detail" data-draw="can-detail" data-source="can_tests can_findings can_steps theme_meta"></div>

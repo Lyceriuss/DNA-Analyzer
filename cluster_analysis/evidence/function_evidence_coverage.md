@@ -1,14 +1,14 @@
 # Function evidence coverage
 
-229 library SNPs checked against MaveDB, ClinPGx, UniProt, GTEx and SIFT/PolyPhen.
+247 library SNPs checked against MaveDB, ClinPGx, UniProt, GTEx and SIFT/PolyPhen.
 
 | Source | SNPs with data | Share | What it tells us |
 |---|---|---|---|
-| MaveDB | 3 | 1% | Measured protein function for this exact change |
-| ClinPGx | 109 | 48% | Genotype → drug or metabolism effect, with evidence level |
-| UniProt | 111 | 48% | Protein change and curated effect or disease |
-| GTEx | 184 | 80% | Expression up or down, per tissue (130 for the library gene itself) |
-| SIFT/PolyPhen | 11 | 5% | Predicted damage only |
+| MaveDB | 4 | 2% | Measured protein function for this exact change |
+| ClinPGx | 121 | 49% | Genotype → drug or metabolism effect, with evidence level |
+| UniProt | 124 | 50% | Protein change and curated effect or disease |
+| GTEx | 191 | 77% | Expression up or down, per tissue (135 for the library gene itself) |
+| SIFT/PolyPhen | 11 | 4% | Predicted damage only |
 
 ## Best evidence about function, per SNP
 
@@ -16,18 +16,19 @@ Drug associations (ClinPGx) are not counted here: they say a genotype changes a 
 
 | Tier | SNPs |
 |---|---|
-| 1 measured protein function (MaveDB) | 3 |
-| 2 curated functional effect (UniProt) | 41 |
-| 3 expression effect on the gene (GTEx) | 107 |
+| 1 measured protein function (MaveDB) | 4 |
+| 2 curated functional effect (UniProt) | 44 |
+| 3 expression effect on the gene (GTEx) | 109 |
 | 4 predicted damage only (SIFT/PolyPhen) | 2 |
-| 5 no functional evidence | 76 |
+| 5 no functional evidence | 88 |
 
-83 SNPs without curated or measured function do have a ClinPGx drug association.
+91 SNPs without curated or measured function do have a ClinPGx drug association.
 
 ## Examples of measured evidence
 
 - **rs1042522 TP53** p.Pro72Arg: 85.90 (Scores from arrayed yeast-based assay of TP53 BAX promoter); 64.10 (Scores from arrayed yeast-based assay of TP53 GADD45 promote); 101.30 (Arrayed yeast-based assay of TP53 h1433snWT promoter); 75.10 (Scores from arrayed yeast-based assay of TP53 MDM2 promoter); 127.30 (Scores from arrayed yeast-based assay of TP53 Noxa promoter); 111.00 (Scores from arrayed yeast-based assay of TP53 p21WAF1 promot)
 - **rs1042602 TYR** p.Ser192Tyr: 1.16 (TYR pigmentation-rescue function scores (two biological repl); 0.94 (TYR VAMP-seq abundance scores (two biological replicates))
+- **rs1801131 MTHFR** p.Glu429Ala: 0.84 (MTHFR at 100ug/ml folate in A222V background); 0.75 (MTHFR at 25ug/ml folate in A222V background); 0.86 (MTHFR at 25ug/ml folate in WT background); 0.87 (MTHFR at 12ug/ml folate in WT background); 0.44 (MTHFR at 12ug/ml folate in A222V background); 0.76 (MTHFR at 200ug/ml folate in A222V background)
 - **rs1801133 MTHFR** p.Ala222Val: 0.59 (MTHFR at 25ug/ml folate in WT background); 0.38 (MTHFR at 12ug/ml folate in WT background); 0.78 (MTHFR at 200ug/ml folate in WT background); 0.70 (MTHFR at 100ug/ml folate in WT background)
 
 ## Examples of curated functional effects

@@ -62,7 +62,8 @@ python -m cluster_analysis.explorer.export out/bundle.json \
 
 Gene rows carry the evidence call (`function`: GoF / LoF / normal / altered / unknown) and what it means for the
 person (`outcome`: positive / negative / neutral / unclear / typical / unknown; see
-[evidence.md](evidence.md#from-the-call-to-positive-or-negative)). The library's old 1–10 ratings are not shown.
+[evidence.md](evidence.md#from-the-call-to-positive-or-negative)). Nothing written by the old library is shown: not
+its 1–10 ratings, not its sentences.
 
 Each dataset is a flat list of rows. Nested data (evidence, SNP lists, frequencies) is stored as a JSON string in a
 field and parsed by the page.

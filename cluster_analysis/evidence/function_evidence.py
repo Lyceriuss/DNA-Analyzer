@@ -202,7 +202,9 @@ def collect(rsid, genes, vep, aa=None):
         if rows:
             best = sorted(own or rows, key=lambda r: r["p"])[:5]
             ev["sources"]["gtex"] = {"variant_id": vid["variant_id"], "effect_allele": vid["alt"],
-                                     "own_gene": bool(own), "n_tissues": len(rows),
+                                     "own_gene": bool(own),
+                                     # distinct tissues for the gene the text is about (rows are gene × tissue pairs)
+                                     "n_tissues": len({r["tissue"] for r in (own or rows)}),
                                      "other_genes": sorted({r["gene"] for r in rows} - set(genes))[:6], "top": best}
 
     pgx = clinpgx(rsid)
