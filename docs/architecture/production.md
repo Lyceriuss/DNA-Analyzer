@@ -2,8 +2,7 @@
 
 Where the explorer stands, what it needs before other people can run it, and the ways to get it to them. Written
 2026-11-20. It builds on the product decision of 2026-11-12: people run it themselves, on their own DNA file, on
-their own machine. There is no hosted service and no accounts. [migration.md](migration.md) covers the earlier plan
-for a hosted service.
+their own machine. There is no hosted service and no accounts.
 
 ## Where it stands
 
@@ -33,7 +32,7 @@ for a hosted service.
    `lock` and `verify` commands exist) and a progress bar in the page. Check each source's licence for
    redistribution before hosting a bundle of our own. ClinPGx, ChEMBL and others ask for attribution, some under
    share-alike terms. Downloading from the original sources avoids redistributing.
-4. **The knowledge bundle (migration step 4).** Precompute the lookups the analysis makes per gene and variant
+4. **The knowledge bundle.** Precompute the lookups the analysis makes per gene and variant
    (Open Targets, Ensembl VEP, Europe PMC findings, function evidence) for every variant a supported chip can
    carry. Ship it as a versioned file. This matters most:
    - **Starting at all:** even an empty install looks up public variant data to build the page. Without the cache,
@@ -154,7 +153,7 @@ are wanted. The rule of 2026-11-12 holds for both: the DNA file and the results 
 | Results | kept in the app's data folder | kept in the browser (IndexedDB); a results file can come from the desktop |
 | Our servers see | the download | the page's files, never a DNA file |
 
-The page is already a static site reading datasets (migration.md), so both runtimes share it. What differs is who
+The page is already a static site reading datasets, so both runtimes share it. What differs is who
 writes the datasets: the Python pipeline on the desktop, a browser engine on the web.
 
 ### Phase 0: the shared base (before either ships)

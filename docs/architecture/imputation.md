@@ -1,8 +1,11 @@
 # Imputation and confidence tiers
 
-`genome/impute.py` fills in the SNPs MyHeritage didn't report, by comparing the person's measured SNPs with the
-haplotypes of the people in a 1000 Genomes reference panel. Each new call gets a confidence tier, so later steps can
-decide which calls to trust.
+`genome/impute.py` fills in the positions a consumer DNA test didn't measure, by comparing the person's measured SNPs
+with the haplotypes of the people in a 1000 Genomes reference panel (Beagle 5.5, run locally). Each new call gets a
+confidence tier, so later steps can decide which calls to trust. Nothing leaves the machine.
+
+In the app, imputation is one stage of adding a person (`cluster_analysis/pipeline.py`: check, register, impute,
+analyse, load into the explorer). Where it can't run, the person is added in lite mode (below).
 
 ## Input files
 
@@ -14,6 +17,12 @@ like (MyHeritage files match 98.7%). `python -m genome.formats FILE` shows what 
 The AncestryDNA reader is tested on synthetic files (`tests/test_formats.py`) and on a MyHeritage file rewritten in
 Ancestry's layout: every call reads the same, and chromosome 22 imputes to byte-identical output.
 
+Test files without anyone's private data: `genome/sample_person.py` writes a 1000 Genomes sample's genotypes in any of
+the three formats, at the positions of a real chip file or of an Illumina manifest (`--layout`, `--format`). The
+manifests in `data/reference/chips/download` come from Illumina's support site: the Global Screening Array (GSA v3,
+the base of 23andMe v5) and OmniExpress-24 (close to AncestryDNA v2). Chip names that aren't rsIDs (`1:103380393`) are
+kept as they are, as the companies' own files do.
+
 Beagle's output depends on its thread count (`--threads`): the same file on 6 and 8 threads differed in 1.8% of
 chromosome 22's calls, mostly uncertain ones. Keep the thread count fixed where results must be reproducible.
 
@@ -21,7 +30,8 @@ chromosome 22's calls, mostly uncertain ones. Keep the thread count fixed where 
 
 | Panel | Build | People | Calls kept per person | Where |
 |---|---|---|---|---|
-| `1kgp_hc`: 1000 Genomes high coverage (30×), the default | GRCh38 | 3,202 | ~62 million | 15 GB of bref3 outside the repo (`DNA_PANEL_DIR_1KGP_HC`) |
+| `1kgp_hc`: 1000 Genomes high coverage (30×), the default | GRCh38 | 3,202 | ~62 million | 12 GB of bref3 outside the repo (`DNA_PANEL_DIR_1KGP_HC`) |
+| `1kgp_hc`, the compact pack (below) | GRCh38 | 3,202 | the 1.98 million positions the app reads | 1.2 GB in `data/reference/imputation/pack`, shipped with the installer |
 | `1kg_phase3`: 1000 Genomes phase 3 | GRCh37 | 2,504 | ~28 million | `data/reference/imputation/panel` |
 
 `genome/build.py` (`DNA_BUILD`, default GRCh38) picks the panel and every reference file that must share its
@@ -87,26 +97,62 @@ python -m genome.imputability summary   # summary.json, genes.json, clinvar_vari
 at all (339,655 of 340,908 on chr1–22) and those on chrX (`not_mapped`; chrX isn't mapped yet). The explorer's
 Clusters tab shows it per theme and per gene ("What a chip can see"), so a clean result says how much it rules out.
 
-The rest of this page describes the method; the figures below are from the phase 3 panel.
+### Imputation without the full panel: the compact pack
+
+The full panel is 12 GB and lives on a developer's machine, so an installed app ships a **compact pack** instead: the
+same panel, all 3,202 people, cut to the positions this app needs. `impute.panel()` uses it whenever the full panel's
+folder isn't there; it has the same panel name, so outputs land where they always do.
+
+The pack keeps (`scripts/spike/build_pack.py`, recorded in `pack/pack.json`):
+- the chip positions of the supported formats: MyHeritage's layout, the GSA (23andMe v5) and OmniExpress (AncestryDNA
+  v2) manifests, lifted to GRCh38;
+- every position the analysis reads: the rsIDs every analysis step asks for (traced through `genome.loader`), the
+  genome-wide polygenic scores, and the ClinVar and GWAS Catalog variants inside the theme genes;
+- chrX in the same three ploidy parts as the full panel.
+
+That is 1.98 million biallelic SNVs (3% of the panel's 64 million), 1.2 GB as bref3, about 350 MB in the installer
+after compression. In a genome-wide validation (a panel sample left out of the reference and imputed from its chip
+positions, `scripts/spike/validate_pack.py`) the pack was as accurate as the full panel at every position the analysis
+reads: 99.19% of genotypes exact against 99.20%, r² 0.9875 against 0.9877. Imputing chr1-22 with the pack took about
+11 minutes on a 6-thread desktop. How it was measured, and what remains before it ships everywhere:
+[production.md](production.md), "Imputation without the 12 GB panel".
+
+```bash
+python scripts/spike/build_pack.py targets <analysis-rsids.json> <chip-imputed.csv>   # the positions to keep
+python scripts/spike/build_pack.py extract                                             # cut the raw panel per chromosome
+python scripts/spike/build_pack.py xsplit && python scripts/spike/build_pack.py sites   # chrX parts, the site list
+python scripts/spike/build_pack.py bref3 && python scripts/spike/build_pack.py install  # -> data/reference/imputation/pack
+```
+
+### Lite mode: measured calls only
+
+When imputation can't run (no Java, no panel or pack, or the person chooses it), `genome/lite.py` moves the file's
+measured calls to GRCh38 with the same chain file and writes them in the imputed file's format, every row `measured`:
+`data/output/imputation/<person>/<panel>/…<person>.measured.csv`. `genome.loader.imputed_path` reads it when there is
+no imputed file, so the whole analysis runs on the measured calls; an imputation made later takes its place. It takes
+under a minute. The price is coverage: in a comparison on one profile, the lab-test scores used 17% of the variants
+they use with imputation, and cancer scores 53%.
 
 ## Pipeline
 
 ```mermaid
 flowchart TB
-    CSV["data/input/MyHeritage_raw_dna_data_XY.csv"] --> H["harmonize<br/>match each SNP to a 1000 Genomes site,<br/>flip strand where needed"]
-    SITES["sites.vcf.gz<br/>1000 Genomes site list"] --> H
-    H --> VCF["target VCF per chromosome"]
-    VCF --> B["Beagle 5.5<br/>1000 Genomes phase 3 panel (bref3)<br/>GRCh37 genetic maps"]
+    RAW["raw DNA file<br/>MyHeritage · 23andMe · AncestryDNA (GRCh37)"] --> L["lift to GRCh38<br/>UCSC hg19ToHg38 chain"]
+    L --> H["harmonize<br/>match each SNP to a panel site,<br/>flip strand where needed"]
+    SITES["site list<br/>(the full panel's or the pack's)"] --> H
+    H --> VCF["target VCF per chromosome<br/>chrX in three ploidy parts"]
+    VCF --> B["Beagle 5.5<br/>1000 Genomes high coverage (bref3),<br/>full panel or compact pack;<br/>GRCh38 genetic maps"]
     B --> OUT["imputed VCF<br/>genotype + probability (GP)"]
-    OUT --> F["finalize<br/>keep GP ≥ 0.9, add EUR_AF,<br/>assign a tier"]
+    OUT --> F["finalize<br/>keep GP ≥ 0.9, add EUR_AF and rsIDs,<br/>assign a tier"]
     CAL["calibration table<br/>from --validate"] --> F
-    F --> IMP["data/output/imputation/XY/<br/>…XY.imputed.csv (1.8 GB)"]
+    F --> IMP["data/output/imputation/&lt;person&gt;/1kgp_hc/<br/>…&lt;person&gt;.imputed.csv"]
 ```
 
 ```bash
-bash scripts/fetch_imputation_reference.sh                      # Beagle, panels, maps, site list (~5 GB)
-python -m genome.impute data/input/MyHeritage_raw_dna_data_XY.csv     # impute, then finalize
-python -m genome.impute data/input/... --validate 10                 # hide every 10th measured SNP and score the guesses
+sh scripts/fetch_1kgp_hc_panel.sh "D:/DNA-Analyzer-reference/1kGP_high_coverage_GRCh38"   # the full panel (developers)
+python -m genome.impute data/input/<file>.csv                  # impute 1-22 and X, then finalize
+python -m genome.impute data/input/<file>.csv --validate 10    # hide every 10th measured SNP and score the guesses
+python -m genome.lite data/input/<file>.csv                    # lite mode: measured calls only
 ```
 
 Output columns: `RSID, CHROMOSOME, POSITION, RESULT, SOURCE, GP, EUR_AF, CONFIDENCE`.
@@ -173,4 +219,9 @@ sequenceDiagram
 ```
 
 `imputed_path()` swaps a raw file for its imputed version when one exists, so every command takes the raw path and
-uses the imputed file automatically (`--measured-only` turns that off).
+uses the imputed file automatically (`--measured-only` turns that off). Without one it falls back to the lite file.
+
+A half-written file is never read. `impute.py` writes the CSV under a temporary name (`.partial`) and renames it only
+when complete (`publish`), then writes `summary.json` with its totals; `loader.imputation_complete` accepts an imputed
+file only when a summary with totals is at least as new as the file. So a run stopped half way (closed app, full disk,
+cancelled) leaves no file the analysis could take for a whole one, and Resume carries on from the stage it reached.

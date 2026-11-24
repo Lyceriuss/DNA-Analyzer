@@ -67,25 +67,29 @@ person (`outcome`: positive / negative / neutral / unclear / typical / unknown; 
 Each dataset is a flat list of rows. Nested data (evidence, SNP lists, frequencies) is stored as a JSON string in a
 field and parsed by the page.
 
-## Publishing
+## Building and serving
 
 ```mermaid
 sequenceDiagram
-    participant Dev as local machine
-    participant A as Artifact asset store
-    participant DB as Artifact database
-    participant P as page
-    Dev->>A: upload each changed dataset JSON as an asset
-    A-->>Dev: /_blob/<id>
-    Dev->>DB: batch: datasets/<name> → {source.url: /_blob/<id>} (pinned with if_version)
-    Dev->>DB: files/index.html → {text: page} (when the page changed)
-    P->>DB: read datasets/*
-    P->>A: fetch each dataset
-    P->>P: draw tabs (dash.draw, gx.rows)
+    participant P as pipeline / profiles run
+    participant X as explorer export
+    participant B as build.py --standalone
+    participant S as explorer serve (desktop app)
+    participant W as the app window
+    P->>X: each package's outputs for every finished person
+    X->>B: datasets/*.json (+ version.txt: the app version that exported them)
+    B->>S: site/: index.html, runtime.js, tokens.css, d3, data/*.json
+    W->>S: the page, its datasets, /api/* (add a person, Ask, delete, quit)
+    S-->>W: served on the person's own computer only
 ```
 
-Only changed datasets need uploading; the others keep their asset. Every write is pinned to the version last read, so
-a concurrent change is never overwritten.
+`python -m cluster_analysis.explorer export` writes the datasets, `site` rebuilds the page from its parts, and `serve`
+runs both as needed and serves the result with the API behind "Add a person", Ask and the App menu
+(`explorer/server.py`). The desktop app's launcher starts `serve` and opens the page in its own window. After an update,
+the datasets are exported again once, because `version.txt` names an older app.
+
+The old claude.ai artifact is no longer updated; `python -m cluster_analysis.explorer publish` still writes its
+minified copy and manifest, for when it is asked for (CLAUDE.md).
 
 ## Language (English / Swedish)
 
@@ -124,5 +128,5 @@ values can backtrack for minutes on a long paragraph. Results are remembered per
 `page.html` is the shell and `th.*`, `lc.*`, `md.*`, `nt.*` and `i18n.js` are the parts; `build.py` assembles them into
 `index.html` and the minified copy that is published (`build/publish.json`, checked against the artifact's 256 KiB
 document limit). Colours are CSS tokens with light and dark values. `build.py --standalone` writes the same page as a
-static site with its own runtime (`runtime/dash.js`) and tokens (`runtime/tokens.css`), so it runs without claude.ai;
-see [migration.md](migration.md).
+static site with its own runtime (`runtime/dash.js`) and tokens (`runtime/tokens.css`): the page the desktop app serves.
+How it ships: [production.md](production.md).

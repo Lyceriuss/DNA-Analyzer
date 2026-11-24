@@ -20,7 +20,7 @@ Reactome steps and summaries, Ensembl VEP, GTEx, the Human Protein Atlas and Uni
 flowchart TB
     CFG["nutrients.json<br/>per nutrient: GWAS traits, PGS id,<br/>Reactome pathways, NNR key"] --> BUILD
     GWAS["GWAS Catalog<br/>genome-wide significant,<br/>effect allele and signed beta"] --> BUILD["nutrition.py"]
-    PGS["PGS Catalog<br/>harmonised GRCh37 scores"] --> BUILD
+    PGS["PGS Catalog<br/>harmonised scores (GRCh38)"] --> BUILD
     CV["ClinVar<br/>P/LP in pathway genes"] --> BUILD
     PGX["ClinPGx<br/>gene x nutrient annotations"] --> BUILD
     CALLS["XY's calls (imputed)"] --> BUILD

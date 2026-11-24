@@ -30,7 +30,7 @@ python -m http.server -d data/output/explorer_site 8000   # the same page, self-
 `--standalone` writes the page as a static site with its own runtime (`runtime/dash.js`, `runtime/tokens.css`) and a
 local copy of d3 (`runtime/d3.min.js`, 7.9.0, ISC licence), and copies the datasets from an export folder (`python -m cluster_analysis.explorer export`) next to it. Those datasets hold
 genotypes: keep the site under `data/output` (ignored by git) and don't serve it beyond your own machine. Why and
-where this is heading: [docs/architecture/migration.md](../../docs/architecture/migration.md).
+how it ships: [docs/architecture/production.md](../../docs/architecture/production.md).
 
 | File | Part |
 |---|---|
