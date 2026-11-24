@@ -4,7 +4,8 @@
 
 - **The repo is public.** Never commit DNA files, genotypes, per-person results or anything derived from them, not even
   in docs or examples. `data/input`, `data/output`, `data/reference` and `cluster_analysis/cache` are ignored by git;
-  keep personal output there.
+  keep personal output there. One exception, confirmed by the user on 2026-11-24: `docs/outreach/` (the investor
+  material) may show XY_1's results in its screenshots and PDF; XY_1 consents to that being public. Nothing else.
 - **Profiles are named XX and XY** (see `cluster_analysis/profiles.json`), never by initials. Other DNA files in
   `data/input` belong to other people: don't analyse or publish them unless asked.
 - **Facts come from sources, not from a language model.** Effects, frequencies, pathways and citations are fetched from

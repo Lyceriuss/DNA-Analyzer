@@ -1,0 +1,14 @@
+{
+ "turns": 25,
+ "tool_calls_rerun": 66,
+ "tool_raw_over_clipped": 1.82,
+ "extra_input_tokens_per_turn_raw_tools": 12461,
+ "average": {
+  "actual": 0.072799608,
+  "no_cache": 0.30438424000000003,
+  "no_cache_raw_tools": 0.32930599,
+  "opus_no_cache_raw_tools": 0.65861198,
+  "tokens_in": 149919.12,
+  "tokens_out": 454.6
+ }
+}

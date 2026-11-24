@@ -1,0 +1,100 @@
+[
+ {
+  "q": "Show me the cluster for ACTN3",
+  "seconds": 24.5,
+  "calls": [
+   "understand",
+   "my_gene",
+   "gene",
+   "show_cluster",
+   "answer",
+   "answer"
+  ],
+  "tokens_in": 73621,
+  "cached_share": 0.9999,
+  "out": 394,
+  "usd": 0.050878,
+  "no_cache": 0.1512,
+  "opus_no_cache": 0.3024,
+  "readings_usd": 0.0,
+  "readings_tokens": {
+   "input": 0,
+   "cache_read": 0,
+   "cache_write": 0,
+   "output": 0,
+   "usd": 0.0
+  },
+  "rejections": [
+   "Add links: one per area and strategy, 'area or strategy | the person's genes behind it | refs | the finding in a few words', so the answer can be drawn as a web. Highlights not accepted: rs1815739 gen"
+  ],
+  "cards": 1,
+  "written": 0
+ },
+ {
+  "q": "Why should i care about this gene?",
+  "seconds": 129.2,
+  "calls": [
+   "understand",
+   "research_genotypes",
+   "search_papers",
+   "answer",
+   "answer"
+  ],
+  "tokens_in": 62518,
+  "cached_share": 0.9999,
+  "out": 227,
+  "usd": 0.033718,
+  "no_cache": 0.1273,
+  "opus_no_cache": 0.2546,
+  "readings_usd": 0.003681,
+  "readings_tokens": {
+   "input": 2,
+   "cache_read": 0,
+   "cache_write": 6910,
+   "output": 5635,
+   "usd": 0.003681
+  },
+  "rejections": [
+   "Add links: one per area and strategy, 'area or strategy | the person's genes behind it | refs | the finding in a few words', so the answer can be drawn as a web. Fix all of these in one go."
+  ],
+  "cards": 0,
+  "written": 2
+ },
+ {
+  "q": "Could you show me some other muscle/hormone relevant genes about me that could be interesting for me to know about?",
+  "seconds": 51.5,
+  "calls": [
+   "understand",
+   "cluster",
+   "my_cluster",
+   "show_cluster",
+   "gene",
+   "gene",
+   "answer",
+   "my_cluster",
+   "answer",
+   "my_cluster",
+   "answer"
+  ],
+  "tokens_in": 232355,
+  "cached_share": 0.9999,
+  "out": 717,
+  "usd": 0.100887,
+  "no_cache": 0.4719,
+  "opus_no_cache": 0.9438,
+  "readings_usd": 0.0,
+  "readings_tokens": {
+   "input": 0,
+   "cache_read": 0,
+   "cache_write": 0,
+   "output": 0,
+   "usd": 0.0
+  },
+  "rejections": [
+   "You listed these areas but haven't read them: fibre type, tendons, recovery, inflammation. Read each (my_cluster with the mechanism ids, comma-separated; gene; search_papers), then answer. Links not a",
+   "You listed these areas but haven't read them: recovery. Read each (my_cluster with the mechanism ids, comma-separated; gene; search_papers), then answer. Links missing for: hormones, recovery (a link "
+  ],
+  "cards": 19,
+  "written": 6
+ }
+]
