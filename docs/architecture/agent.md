@@ -176,6 +176,32 @@ results are kept in `data/output/agent/mcp_turn.json`. The answer check runs ins
 `submit_answer`) tool, so it holds whichever model is connected. MCP clients don't enforce the answer schema, so
 `answer.shape` checks it as part of the validation.
 
+## The remote MCP server, with OAuth 2.1 (`remote.py`)
+
+`python -m cluster_analysis.agent remote [--host 127.0.0.1] [--port 8765] [--public-url URL]` serves the **public**
+tools (`tools.PUBLIC`: genes, variants, clusters, drugs, papers, pathways, nutrients) over Streamable HTTP at `/mcp`,
+for MCP clients on other machines. No personal tool, no view and no person sits behind it, so nothing about anyone's
+genome can be reached through it; each call gets a fresh context (its own lookup budget and ledger).
+
+It follows the MCP authorization specification:
+
+- **Discovery.** An unauthenticated request gets 401 with a `WWW-Authenticate` header pointing to the OAuth Protected
+  Resource Metadata (RFC 9728, `/.well-known/oauth-protected-resource/mcp`), which names the authorization server.
+- **Tokens** need the scope `dna.research` and must be issued for this server's own URL (RFC 8707 resource
+  indicators, `validate_token_resource`).
+- **Built-in sign-in** (default): an authorization server in the process, from the MCP SDK's
+  `OAuthAuthorizationServerProvider`. OAuth 2.1 with PKCE (S256), dynamic client registration (RFC 7591), a sign-in page
+  at `/login` guarded by `DNA_OAUTH_PASSWORD` (a random one is printed when unset), single-use codes (5 minutes),
+  access tokens for an hour, rotating refresh tokens for 30 days, revocation. Tokens live in memory: a restart signs
+  everyone out. Meant for demos and one operator.
+- **External identity provider:** with `DNA_OAUTH_ISSUER` and `DNA_OAUTH_JWKS_URL` (and `DNA_OAUTH_AUDIENCE`, default
+  the server's `/mcp` URL) the server is a resource server only and accepts JWTs from that provider (Microsoft Entra ID,
+  Auth0, Amazon Cognito, Keycloak, Google), checked against its published keys, issuer, audience and expiry.
+
+`tests/test_remote_mcp.py` runs the whole flow against a real server: discovery, registration, PKCE, sign-in, the token
+exchange (and that a code works once), an MCP session with the bearer token listing exactly the public tools, and the
+refusal of a wrong password and of a made-up token.
+
 ## The key
 
 The loop takes it from `ANTHROPIC_API_KEY`, or from `data/output/agent/api_key`, which the Ask tab writes when

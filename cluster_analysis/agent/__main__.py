@@ -93,6 +93,10 @@ def main():
     qk.add_argument("--no-studies", action="store_true")
     sub.add_parser("list")
     sub.add_parser("mcp")
+    rm = sub.add_parser("remote", help="the public research tools as a remote MCP server over HTTP, with OAuth 2.1")
+    rm.add_argument("--host", default="127.0.0.1")
+    rm.add_argument("--port", type=int, default=8765)
+    rm.add_argument("--public-url", help="where clients reach it, e.g. https://research.example.org (default http://HOST:PORT)")
     args = ap.parse_args()
     if args.cmd == "index":
         from cluster_analysis.agent import index
@@ -121,6 +125,9 @@ def main():
     elif args.cmd == "mcp":
         from cluster_analysis.agent import mcp_server
         mcp_server.main()
+    elif args.cmd == "remote":
+        from cluster_analysis.agent import remote
+        remote.main(args.host, args.port, args.public_url)
 
 
 if __name__ == "__main__":

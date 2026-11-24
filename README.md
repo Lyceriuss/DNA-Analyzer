@@ -26,6 +26,27 @@ python -m cluster_analysis.explorer check          # renders every tab, profile 
 `data/input`, `data/output`, `data/reference` and `cluster_analysis/cache` are ignored by git. Never commit DNA files or
 anything derived from them. Run the tests with `python -m unittest discover tests`.
 
+## Ask: an agent over MCP, with OAuth
+
+The explorer's **Ask** tab answers questions about a person's genome with a language model the user connects (an
+Anthropic API key, or their Claude Code login). The model works through 27 tools served as a
+[Model Context Protocol](https://modelcontextprotocol.io) (MCP) server; the privacy rules and the answer checks
+(every citation returned by a tool, every figure in its source, no clinical-advice wording) run in that server,
+whichever model is connected.
+
+```bash
+python -m cluster_analysis.agent mcp       # all tools over stdio, for a client on the same machine
+                                           #   claude mcp add dna-research -- python -m cluster_analysis.agent mcp
+python -m cluster_analysis.agent remote    # the public research tools over HTTP, protected by OAuth 2.1
+```
+
+`remote` serves only the public research tools (genes, variants, clusters, drugs, papers, pathways, nutrients), never
+anyone's data, at `http://127.0.0.1:8765/mcp` (`--public-url` behind a proxy). It follows the MCP authorization
+specification: OAuth 2.1 with PKCE, Protected Resource Metadata (RFC 9728), dynamic client registration and resource
+indicators. Tokens come from a built-in sign-in (`DNA_OAUTH_PASSWORD`) or from an identity provider such as Microsoft
+Entra ID, Auth0, Amazon Cognito, Keycloak or Google (`DNA_OAUTH_ISSUER`, `DNA_OAUTH_JWKS_URL`). Details:
+[docs/architecture/agent.md](docs/architecture/agent.md).
+
 ## Layout
 
 ```
@@ -37,6 +58,7 @@ cluster_analysis/    the analysis: one package per feature, each writing its own
   medicines/           drug genes, star alleles, guidelines and drug labels (Medicines tab)
   nutrition/           nutrients, lab tests, fitness and cancer risk scores (Nutrition and Biomarkers tabs, Clusters)
   lifecycle/           a gene's chemical lifecycle (Gene pathway tab)
+  agent/               Ask: the agent, its tools, the answer checks, the MCP server (stdio) and the remote MCP server (OAuth)
   library/             the old 247-SNP library and its reader; being replaced by the packages above
   explorer/            the page (one part per tab), the dataset export, the build and the local server
   sources.py           API clients with an on-disk cache
