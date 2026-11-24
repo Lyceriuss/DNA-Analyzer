@@ -268,7 +268,8 @@
     const CHR = Array.from({ length: 22 }, (_, i) => String(i + 1)).concat('X');
     const GENOME = 3.1e9;   // letters in one copy of the human genome (GRCh38, about 3.1 billion)
     const STEPS = [['themes', 'Health themes'], ['genes', 'Gene calls'], ['medicines', 'Medicines'],
-                   ['nutrition', 'Nutrition'], ['labtests', 'Lab tests'], ['fitness', 'Fitness'], ['cancers', 'Cancer risk']];
+                   ['nutrition', 'Nutrition'], ['labtests', 'Lab tests'], ['fitness', 'Fitness'], ['cancers', 'Cancer risk'],
+                   ['inheritance', 'Inheritance']];
     const SOURCES = ['ClinVar', 'GWAS Catalog', 'UniProt', 'GTEx', 'Ensembl VEP', 'Reactome', 'STRING', 'CPIC', 'DPWG', 'Drug labels',
                      'ClinPGx', '1000 Genomes', 'Europe PMC'];
     // Green on the right, as everywhere in the explorer

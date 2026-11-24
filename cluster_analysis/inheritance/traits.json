@@ -1,0 +1,27 @@
+{
+ "about": "Which single-gene traits the Inheritance tab reads, and which ClinVar record and OMIM entry each one uses. This file only chooses: the variant allele comes from the ClinVar record whose condition matches `clinvar`, and the mode of inheritance from HPO's annotation of the `omim` entry (data/reference/hpo/phenotype.hpoa). A trait whose entry HPO gives no mode is shown with the child's genotype odds and 'mode not given by a source'. Several rsids form one gene: their variant alleles are counted together, each parent passing one of two copies.",
+ "traits": [
+  {"id": "lactase", "name": "Lactase persistence", "about": "Digesting milk sugar after childhood", "gene": "LCT/MCM6",
+   "rsids": ["rs4988235"], "clinvar": "LACTASE_PERSISTENCE", "omim": "OMIM:223100"},
+  {"id": "mc1r", "name": "Red hair and fair skin (MC1R)", "about": "The MC1R variants behind red hair", "gene": "MC1R",
+   "rsids": ["rs1805007", "rs1805008", "rs1805009"], "clinvar": "PIGMENTATION,_VARIATION_IN,_2|Skin/Hair", "omim": "OMIM:266300"},
+  {"id": "gilbert", "name": "Gilbert syndrome", "about": "Mildly raised bilirubin from lower UGT1A1 activity", "gene": "UGT1A1",
+   "rsids": ["rs6742078"], "clinvar": "Gilbert", "omim": "OMIM:143500"},
+  {"id": "actn3", "name": "ACTN3 R577X (alpha-actinin-3)", "about": "Two copies: no alpha-actinin-3 in fast muscle fibres", "gene": "ACTN3",
+   "rsids": ["rs1815739"], "clinvar": "Actn3_deficiency", "omim": "OMIM:617749"},
+  {"id": "eyes", "name": "Blue or non-blue eyes", "about": "The HERC2 variant that controls OCA2 in the iris", "gene": "HERC2",
+   "rsids": ["rs12913832"], "clinvar": "BLUE/NONBLUE", "omim": "OMIM:227220"},
+  {"id": "earwax", "name": "Earwax type", "about": "Wet or dry earwax and underarm odour (ABCC11)", "gene": "ABCC11",
+   "rsids": ["rs17822931"], "clinvar": "APOCRINE", "omim": "OMIM:117800"},
+  {"id": "bitter", "name": "Bitter taste (PTC)", "about": "Tasting phenylthiocarbamide and similar bitter compounds", "gene": "TAS2R38",
+   "rsids": ["rs713598"], "clinvar": "Phenylthiocarbamide", "omim": "OMIM:171200"},
+  {"id": "secretor", "name": "Secretor status (FUT2)", "about": "Whether blood-group antigens appear in saliva and gut", "gene": "FUT2",
+   "rsids": ["rs601338"], "clinvar": "SECRETOR", "omim": "OMIM:182100"}
+ ],
+ "chip_accuracy": {
+  "source": "Weedon MN et al. Use of SNP chips to detect rare pathogenic variants: retrospective, population based diagnostic evaluation. BMJ 2021",
+  "pmid": "33589468",
+  "common": "sensitivity, specificity, positive predictive value, and negative predictive value were all above 99% for 108 574 common variants directly genotyped on the SNP chips and sequenced in the UK Biobank",
+  "very_rare": "for variants that are very rare in the population, with a frequency below 0.001% in UK Biobank, the positive predictive value was very low and only 16% of 4757 heterozygous genotypes from the SNP chips were confirmed with sequencing data"
+ }
+}

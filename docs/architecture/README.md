@@ -12,6 +12,7 @@ data, to the Gene Cluster Explorer.
 | [lifecycles.md](lifecycles.md) | A gene's chemical lifecycle: Reactome steps, cofactors, regulators and papers |
 | [medicines.md](medicines.md) | Drug genes, star alleles, ClinPGx annotations, guidelines, drug labels and ClinVar drug response |
 | [nutrition.md](nutrition.md) | Per nutrient: the uptake and conversion steps, where the person's variants act on them and how, and the net effect on the blood level |
+| [inheritance.md](inheritance.md) | A child of an XX and an XY profile: recessive, dominant and X-linked conditions, single-gene traits and drug types as odds, with how far each parent's call can be trusted |
 | [explorer.md](explorer.md) | The datasets the explorer reads, its tabs, and how a new version is published |
 | [agent.md](agent.md) | Ask: the conversation agent, its 27 tools and answer checks, what the model sees, the research agent, the MCP server and the remote MCP server with OAuth 2.1 |
 | [production.md](production.md) | From dev to production: what other people need to run it, and the ways to ship it (Docker, a desktop app, lite mode) |

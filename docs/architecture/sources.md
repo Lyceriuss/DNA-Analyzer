@@ -48,18 +48,18 @@ flowchart TB
 
 ## Table
 
-The 28 research databases. The list is kept in `cluster_analysis/explorer/sources.json`, which the
+The 29 research databases. The list is kept in `cluster_analysis/explorer/sources.json`, which the
 explorer's Sources tab and the introduction's count are built from; `tests/test_sources_catalog.py` checks that this table,
 that file and `genome/references.json` agree. Bulk files are on GRCh38.
 
 | Source | Run by | Access | Gives us | Tabs | Bulk files (`references.json`) |
 |---|---|---|---|---|---|
 | [1000 Genomes Project](https://www.internationalgenome.org/) | International Genome Sample Resource (EMBL-EBI) | bulk | Full genomes of 3,202 people from 26 populations: the reference panel imputation reads the missing positions from, and allele frequencies per ancestry. | Home, Clusters, Medicines, Clusters: Nutrition, Biomarkers | `panel_raw`, `panel_bref3`, `panel_sites`, `panel_populations` |
-| [ClinVar](https://www.ncbi.nlm.nih.gov/clinvar/) | NCBI, US National Library of Medicine | bulk | Variants submitted by clinical laboratories with their significance: disease-causing, risk factor or drug response, with a review status in stars. | Clusters, Medicines, Clusters: Nutrition, Biomarkers | `clinvar_grch38` |
+| [ClinVar](https://www.ncbi.nlm.nih.gov/clinvar/) | NCBI, US National Library of Medicine | bulk | Variants submitted by clinical laboratories with their significance: disease-causing, risk factor or drug response, with a review status in stars. | Clusters, Medicines, Clusters: Nutrition, Biomarkers, Inheritance | `clinvar_grch38`, `clinvar_submissions` |
 | [GWAS Catalog](https://www.ebi.ac.uk/gwas/) | EMBL-EBI and NHGRI | bulk + API | Genome-wide association studies: which variants are linked to a trait or a lab value, the allele that raises or lowers it, and how strongly. | Clusters, Clusters: Nutrition, Biomarkers | `gwas_catalog` |
 | [PGS Catalog](https://www.pgscatalog.org/) | EMBL-EBI and the University of Cambridge | bulk | Published polygenic scores: the weights that add up many variants into one genetic score for a blood level or a trait. | Clusters: Nutrition, Biomarkers, Clusters | `nutrition_pgs`, `pgs_scoring_genomewide` |
 | [ClinPGx (PharmGKB)](https://www.clinpgx.org/) | Stanford University | bulk + API | How genes change the response to medicines: clinical annotations per variant, dosing guidelines (CPIC, DPWG and others) and drug labels (FDA, EMA, Health Canada, Swissmedic and others). | Medicines | `clinpgx` |
-| [CPIC](https://cpicpgx.org/) | Clinical Pharmacogenetics Implementation Consortium | API, saved | Peer-reviewed dosing recommendations per metaboliser type, and the rules that turn star alleles into a type. | Medicines | `cpic_recommendations` |
+| [CPIC](https://cpicpgx.org/) | Clinical Pharmacogenetics Implementation Consortium | API, saved | Peer-reviewed dosing recommendations per metaboliser type, and the rules that turn star alleles into a type. | Medicines, Inheritance | `cpic_recommendations` |
 | [ChEMBL](https://www.ebi.ac.uk/chembl/) | EMBL-EBI | bulk | The WHO ATC classification of medicines, so a medicine can be found by its class or code. | Medicines | `chembl_atc` |
 | [Ensembl](https://www.ensembl.org/) | EMBL-EBI | bulk + API | The genome itself: where each gene lies (GTF), each variant's identity and position (dbSNP), what a variant does to its gene (VEP) and which variants are inherited together (LD). | Clusters, Clusters: Nutrition, Biomarkers, Gene pathway | `gtf_grch38`, `dbsnp_ensembl` |
 | [UniProt](https://www.uniprot.org/) | UniProt Consortium (EMBL-EBI, SIB, PIR) | bulk + API | Proteins: their function and cofactors, and curated effects of protein changes found in people. | Clusters, Clusters: Nutrition, Gene pathway | `uniprot_humsavar` |
@@ -78,6 +78,7 @@ that file and `genome/references.json` agree. Bulk files are on GRCh38.
 | [IARC Monographs](https://monographs.iarc.who.int/) | International Agency for Research on Cancer (WHO) | API, saved | Which agents cause which cancers in humans, classified by the strength of the evidence. | Home, Clusters | – |
 | [European Code Against Cancer](https://cancer-code-europe.iarc.who.int/) | International Agency for Research on Cancer (WHO) and the European Commission | API, saved | Fourteen recommendations for the public on how to lower the risk of cancer (5th edition), in every EU language. | Home | – |
 | [MedGen](https://www.ncbi.nlm.nih.gov/medgen/) | NCBI, US National Library of Medicine | API | Definitions of medical conditions, gathered from OMIM, GeneReviews and other curated sources. | Home, Clusters | – |
+| [Human Phenotype Ontology](https://hpo.jax.org/) | The Monarch Initiative and the Jackson Laboratory | bulk | Rare diseases annotated with their features and their mode of inheritance: autosomal recessive or dominant, X-linked. | Inheritance | `hpo_annotations` |
 | [PubChem](https://pubchem.ncbi.nlm.nih.gov/) | NCBI, US National Library of Medicine | API | Chemistry of each substance: properties, metabolism and toxicology, from curated sources such as HSDB. | Home | – |
 | [ICD-10-CM](https://clinicaltables.nlm.nih.gov/apidoc/icd10cm/v3/doc.html) | CDC National Center for Health Statistics, served by NLM Clinical Tables | API | The ICD-10 diagnosis codes with their titles: each category and the codes under it. | Clusters | – |
 | [LOINC](https://loinc.org/) | Regenstrief Institute, served by NLM Clinical Tables | API | The codes labs order and report tests under, each with a name that says what is measured and in which sample. | Biomarkers | – |

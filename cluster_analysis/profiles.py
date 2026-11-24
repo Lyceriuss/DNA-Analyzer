@@ -16,6 +16,8 @@ Steps, per profile (outputs in data/output/cluster_analysis/profiles/<id>/ unles
   fitness    nutrition.py with fitness.json (muscle theme scores) -> fit_tests, fit_findings, fit_steps; and
              themes/sport_snps.py (the popular sport genes) -> sport_snps
   cancers    nutrition.py with cancers.json (cancer theme: polygenic risk per cancer) -> can_tests, can_findings, can_steps
+  inheritance  inheritance/ for each pair of this profile with one of the other sex (Inheritance tab)
+             -> data/output/cluster_analysis/pairs/<XX>__<XY>/inh_*
 
 explorer/export.py then builds every dataset for every profile, each row tagged with `person`.
 """
@@ -32,7 +34,7 @@ from genome.loader import iter_calls
 HERE = os.path.dirname(__file__)
 PATH = os.path.join(HERE, "profiles.json")
 PROFILE_DIR = f"{gbuild.OUTPUT}/profiles"
-STEPS = ("themes", "genes", "medicines", "nutrition", "labtests", "fitness", "cancers")
+STEPS = ("themes", "genes", "medicines", "nutrition", "labtests", "fitness", "cancers", "inheritance")
 THEME_SEX = {"XX": "female", "XY": "male"}   # theme_graph.py marks a theme's body layout as XX or XY
 
 
@@ -141,6 +143,8 @@ def run(pids, steps):
         if "cancers" in steps:
             cmds.append(py + ["cluster_analysis.nutrition.nutrition", "--config", "cluster_analysis/nutrition/cancers.json", "--prefix", "can",
                               "--dna", p["dna"], "--out-dir", od, "--sex", "women" if p["sex"] == "female" else "men"])
+        if "inheritance" in steps:
+            cmds.append(py + ["cluster_analysis.inheritance", "--person", p["id"]])
         for c in cmds:
             print(f"\n== {p['id']}: {' '.join(c[2:])}", flush=True)
             running = ",".join(filter(None, [os.environ.get(RUNNING_ENV)] + list(pids or [])))

@@ -14,7 +14,9 @@ flowchart LR
         C["Clusters<br/>th.*"]
         M["Medicines<br/>md.*"]
         N["Nutrition<br/>nt.*"]
+        I["Inheritance<br/>ih.*"]
     end
+    IH["inh_meta, inh_conditions,<br/>inh_traits, inh_drugs (per pair)"] --> I
     HM["hp_modules, hp_links,<br/>hp_bridges, hp_tilts, kpis"] --> P
     BS["biomarker_snps, bio_reach,<br/>module_biomarker"] --> B
     LS["lifecycle_steps"] --> L

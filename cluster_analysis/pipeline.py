@@ -47,7 +47,8 @@ PROFILES = os.path.join(ROOT, "cluster_analysis", "profiles.json")
 ID_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_-]{0,31}$")
 CHROMS = [str(c) for c in range(1, 23)] + ["X"]
 STEPS = [("themes", "Health themes"), ("genes", "Gene calls"), ("medicines", "Medicines"),
-         ("nutrition", "Nutrition"), ("labtests", "Lab tests"), ("fitness", "Fitness"), ("cancers", "Cancer risk")]
+         ("nutrition", "Nutrition"), ("labtests", "Lab tests"), ("fitness", "Fitness"), ("cancers", "Cancer risk"),
+         ("inheritance", "Inheritance")]
 # Share of the whole run each stage takes, for one progress bar (updated from timings.json once runs are recorded)
 WEIGHT = {"check": 0.01, "register": 0.01, "impute": 0.55, "analyse": 0.38, "explorer": 0.05}
 FREE_GB = 5
@@ -705,6 +706,10 @@ def leftovers(pid):
     theme_name("")
     paths += [os.path.join(out, f"gene_calls_{pid}.json"), os.path.join(out, "profiles", pid)]
     paths += [os.path.join(out, f"theme_{pid}_{t}.json") for t in THEME_NAMES]
+    # Inheritance: every pair folder with this person on either side (<XX>__<XY>, split exactly, so XY doesn't take XY_1's)
+    pairs = os.path.join(out, "pairs")
+    if os.path.isdir(pairs):
+        paths += [os.path.join(pairs, n) for n in os.listdir(pairs) if pid in n.split("__")]
     run = Run(pid)
     paths += [run.path, run.log_path]
     src = (run.s or {}).get("src") or ""

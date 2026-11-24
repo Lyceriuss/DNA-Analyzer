@@ -1,0 +1,87 @@
+  /* Inheritance: a child of an XX and an XY profile */
+  .gx { --ih-hit: var(--color-bad); --ih-carrier: var(--color-warn); --ih-clear: var(--typical);
+        --ih-trait: var(--gof); --ih-trait-half: color-mix(in srgb, var(--gof) 45%, var(--color-panel)); --ih-none: var(--cds-chart-muted); }
+  .ih-head { display: grid; gap: var(--cds-gap-md); }
+  .ih-pair { display: flex; flex-wrap: wrap; align-items: center; gap: var(--cds-gap-sm) var(--cds-gap-md); }
+  .ih-pair h2 { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); margin: 0 var(--cds-gap-sm) 0 0; }
+  .ih-pick { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--color-fg-muted); }
+  .ih-pick .gx-profile-set button { font: inherit; font-size: 12px; font-weight: 600; letter-spacing: .04em; padding: 4px 10px; border: 0;
+    background: transparent; color: var(--color-fg-muted); cursor: pointer; }
+  .ih-pick .gx-profile-set button[aria-pressed="true"] { background: var(--color-fg); color: var(--color-bg); }
+  .ih-times { font-size: 18px; color: var(--color-fg-muted); }
+  .ih-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr)); gap: var(--cds-gap-sm); }
+  .ih-kpi { border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-sm) var(--cds-pad-md);
+    background: var(--color-bg); display: grid; gap: 2px; }
+  .ih-kpi b { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: 24px; font-variant-numeric: lining-nums tabular-nums; }
+  .ih-kpi span { font-size: 12px; color: var(--color-fg-muted); }
+  .ih-modes { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: var(--cds-gap-sm); }
+  .ih-modes p { margin: 0; font-size: 12px; color: var(--color-fg-muted); }
+  .ih-modes p .ih-mode { margin-right: 6px; }
+
+  .ih-mode { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .03em; border-radius: 10px; padding: 1px 8px;
+    border: 1px solid var(--color-fg-muted); color: var(--color-fg); white-space: nowrap; }
+  /* A mode is how a trait passes on, not how serious it is: the badges stay neutral, the bars carry the colour */
+  .ih-mode-AR, .ih-mode-AD, .ih-mode-XLR, .ih-mode-XLD, .ih-mode-XL { border-color: var(--color-fg-muted);
+    background: color-mix(in srgb, var(--color-fg) 8%, transparent); }
+  .ih-mode-none { border-style: dashed; color: var(--color-fg-muted); font-weight: 600; }
+
+  .ih-sec-head { display: grid; gap: 4px; margin-bottom: var(--cds-gap-sm); }
+  .ih-sec-head h3 { margin: 0; font-size: var(--cds-font-size-heading); }
+  .ih-sec-head p { margin: 0; max-width: 90ch; font-size: 13px; color: var(--color-fg-muted); text-wrap: pretty; }
+  .ih-list { display: grid; gap: var(--cds-gap-sm); }
+  .ih-row { border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); background: var(--color-bg);
+    padding: var(--cds-pad-md) var(--cds-pad-lg); display: grid; gap: 8px; }
+  .ih-row-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+  .ih-row-head b { font-size: var(--cds-font-size-heading); }
+  .ih-sub { font-size: 12px; color: var(--color-fg-muted); }
+  .ih-conds { display: grid; gap: 2px; font-size: 13px; }
+  .ih-conds span { color: var(--color-fg-muted); }
+  .ih-conds b { font-weight: 500; }
+  .ih-parents { display: grid; gap: 4px; font-size: 13px; }
+  .ih-parent { display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: baseline; }
+  .ih-parent b { min-width: 4.5rem; }
+  .ih-gt { font-family: ui-monospace, monospace; padding: 0 4px; border-radius: 3px; background: color-mix(in srgb, var(--color-fg) 9%, transparent); }
+  .ih-how { font-size: 12px; color: var(--color-fg-muted); }
+  .ih-warn { color: var(--color-warn); }
+
+  /* A child's odds: one stacked bar per child (or per son and daughter), with its shares written out beneath */
+  .ih-odds { display: grid; gap: 6px; max-width: 46rem; }
+  .ih-odds-row { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr); gap: 8px; align-items: center; }
+  .ih-odds-who { font-size: 12px; color: var(--color-fg-muted); }
+  .ih-bar { display: flex; height: 14px; border-radius: 7px; overflow: hidden; background: var(--color-panel); border: 1px solid var(--color-border-line); }
+  .ih-seg { height: 100%; min-width: 2px; }
+  .ih-seg + .ih-seg { box-shadow: inset 1px 0 0 var(--color-bg); }
+  .ih-key { grid-column: 2; display: flex; flex-wrap: wrap; gap: 2px 12px; font-size: 12px; font-variant-numeric: tabular-nums; }
+  .ih-key i { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 4px; vertical-align: baseline; }
+  .t-hit { background: var(--ih-hit); } .t-carrier { background: var(--ih-carrier); } .t-clear { background: var(--ih-clear); }
+  .t-trait { background: var(--ih-trait); } .t-half { background: var(--ih-trait-half); } .t-none { background: var(--ih-none); }
+  .ih-conf { font-size: 12px; color: var(--color-fg-muted); }
+  .ih-conf b { color: var(--color-fg); font-variant-numeric: tabular-nums; }
+
+  /* Traits: a card each, with the Punnett square that gives the odds */
+  .ih-traits { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 21rem), 1fr)); gap: var(--cds-gap-sm); }
+  .ih-trait { border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); background: var(--color-bg);
+    padding: var(--cds-pad-md); display: grid; gap: 8px; align-content: start; }
+  .ih-trait h4 { margin: 0; font-size: 14px; }
+  .ih-trait-top { display: flex; justify-content: space-between; gap: 8px; align-items: start; }
+  .ih-punnett { display: grid; grid-template-columns: auto repeat(2, minmax(2.6rem, 1fr)); gap: 3px; font-size: 12px; max-width: 15rem;
+    font-family: ui-monospace, monospace; text-align: center; }
+  .ih-punnett > span { padding: 4px 2px; border-radius: 4px; }
+  .ih-punnett .ih-pa { color: var(--color-fg-muted); font-family: var(--font-anthropic-sans); font-size: 11px; align-self: center; }
+  .ih-punnett .ih-cell { border: 1px solid var(--color-border-line); background: var(--color-panel); }
+  .ih-punnett .ih-cell.t-trait { background: color-mix(in srgb, var(--ih-trait) 55%, var(--color-panel)); border-color: var(--ih-trait);
+    color: var(--color-fg); font-weight: 700; }
+  .ih-punnett .ih-cell.t-half { background: color-mix(in srgb, var(--ih-trait) 16%, var(--color-panel));
+    border-color: color-mix(in srgb, var(--ih-trait) 45%, var(--color-border-line)); }
+  .ih-snps { display: grid; gap: 2px; font-size: 12px; }
+  .ih-snps span { font-family: ui-monospace, monospace; }
+  .ih-tag { font-size: 11px; color: var(--color-fg-muted); border: 1px solid var(--color-border-line); border-radius: 8px; padding: 0 6px;
+    cursor: help; white-space: nowrap; }
+  .ih-tag.ih-warn { border-color: var(--color-warn); color: var(--color-warn); }
+  .ih-src { font-size: 11px; color: var(--color-fg-muted); }
+
+  .ih-drugs td:first-child { font-weight: 700; }
+  .ih-drugs .ih-bar { max-width: 16rem; }
+  .ih-types { display: flex; flex-wrap: wrap; gap: 2px 10px; font-size: 12px; margin-top: 3px; }
+  .ih-empty { margin: 0; font-size: 13px; color: var(--color-fg-muted); }
+  @media (max-width: 40rem) { .ih-odds-row { grid-template-columns: minmax(0, 1fr); } .ih-key { grid-column: 1; } }

@@ -41,7 +41,7 @@ RECORD = os.path.join(OUT, "published.json")
 # The gene pathway walks shipped with the app, without anyone's genotype: export overlays each person's calls
 LIFECYCLES = os.path.join(ROOT, "cluster_analysis", "lifecycle", "lifecycles.json")
 ARTIFACT = "https://claude.ai/artifact/Rsz3RYugnZyvWnixS9168o"
-TABS = ["home", "clusters", "medicines", "nutrition", "lifecycle", "biomarkers", "ask", "sources"]
+TABS = ["home", "clusters", "medicines", "nutrition", "lifecycle", "biomarkers", "inheritance", "ask", "sources"]
 
 
 def run(*args):

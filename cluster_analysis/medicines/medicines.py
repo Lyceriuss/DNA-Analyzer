@@ -157,6 +157,23 @@ def phenotype(gene, funcs, alleles=()):
     return ("Normal metaboliser", "Intermediate metaboliser", "Poor metaboliser")[min(nofn + dec, 2)]
 
 
+def diplotype_table():
+    """{gene: {"functions": {allele: CPIC function}, "types": {"*1/*2": type}}} for every pair of the gene's star alleles,
+    with the same rules diplotype() and phenotype() apply to a person. Holds no one's genotype."""
+    out = {}
+    for gene, defs in STAR.items():
+        fn = {"*1": "Normal function", **{a: f for a, _, _, f in defs}}
+        if gene == "TPMT":
+            fn["*3A"] = "No function"
+        names = list(fn)
+        types = {}
+        for i, a in enumerate(names):
+            for b in names[i:]:
+                types[f"{a}/{b}"] = phenotype(gene, [fn[a], fn[b]], [a, b])
+        out[gene] = {"functions": fn, "types": types}
+    return out
+
+
 # HLA types read through a tag SNP that travels with them in Europeans
 HLA_TAGS = {"HLA-B*57:01": ("rs2395029", "G")}
 
@@ -812,6 +829,9 @@ def main():
     for name, rows in (("med_genes", genes), ("med_drugs", drugs), ("med_guidance", guidance), ("med_names", names)):
         with open(os.path.join(args.out_dir, name + ".json"), "w", encoding="utf-8") as f:
             json.dump(rows, f, ensure_ascii=False, separators=(",", ":"))
+    # The CPIC type of every pair of star alleles, person-free: the Inheritance tab reads it for a child's possible pairs
+    with open(os.path.join(args.out_dir, "med_diplotypes.json"), "w", encoding="utf-8") as f:
+        json.dump(diplotype_table(), f, ensure_ascii=False, separators=(",", ":"))
     differs = [d for d in drugs if d["status"] == "differs" and d["level"] in ("1A", "1B")]
     print(f"✅ {who}: {len(genes)} drug genes, {len(drugs)} drug annotations ({len(differs)} guideline-level where {who} differs "
           f"from the typical case) → {args.out_dir}")
