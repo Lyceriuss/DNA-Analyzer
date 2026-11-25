@@ -18,10 +18,10 @@
     return { side, bad, good: side !== 'typical' && m.higher !== 'neutral' && !bad };
   };
   const ntLow = (rows) => rows.filter((n) => (ntJ(n.markers) || []).some((m) => m.score && ntSide(m).bad));
-  // Where a percentile sits, in words: a band, and the lowest or highest share of Europeans it falls in
-  const ntBand = (p) => p <= 5 ? 'Very low' : p <= 20 ? 'Low' : p < 40 ? 'Below average' : p <= 60 ? 'Average' : p < 80 ? 'Above average' : p < 95 ? 'High' : 'Very high';
-  const ntPos = (p, long) => p > 40 && p <= 60 ? (long ? 'Near the middle among Europeans.' : 'middle')
-    : p <= 50 ? ntT(long ? 'In the lowest {}% of Europeans.' : 'lowest {}%', Math.max(1, p)) : ntT(long ? 'In the highest {}% of Europeans.' : 'highest {}%', Math.max(1, 100 - p));
+  // Where a percentile sits (CLAUDE.md): "Top N%" or "Bottom N%" of Europeans from the exact percentile, and the
+  // direction in words; never a rank or a fixed band
+  const ntBand = (p) => p >= 50 ? ntT('Top {}%', Math.max(1, Math.round(100 - p))) : ntT('Bottom {}%', Math.max(1, Math.round(p)));
+  const ntPos = (p, long) => long ? (p >= 50 ? '· higher.' : '· lower.') : (p >= 50 ? 'higher' : 'lower');
   const ntBar = (parent, m) => {
     const b = ntMake(parent, 'div', 'nt-bar' + (m.higher === 'worse' ? ' nt-flip' : m.higher === 'neutral' ? ' nt-even' : ''));
     const p = m.score.percentile;

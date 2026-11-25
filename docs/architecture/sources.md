@@ -48,7 +48,7 @@ flowchart TB
 
 ## Table
 
-The 29 research databases. The list is kept in `cluster_analysis/explorer/sources.json`, which the
+The 30 research databases. The list is kept in `cluster_analysis/explorer/sources.json`, which the
 explorer's Sources tab and the introduction's count are built from; `tests/test_sources_catalog.py` checks that this table,
 that file and `genome/references.json` agree. Bulk files are on GRCh38.
 
@@ -56,7 +56,7 @@ that file and `genome/references.json` agree. Bulk files are on GRCh38.
 |---|---|---|---|---|---|
 | [1000 Genomes Project](https://www.internationalgenome.org/) | International Genome Sample Resource (EMBL-EBI) | bulk | Full genomes of 3,202 people from 26 populations: the reference panel imputation reads the missing positions from, and allele frequencies per ancestry. | Home, Clusters, Medicines, Clusters: Nutrition, Biomarkers | `panel_raw`, `panel_bref3`, `panel_sites`, `panel_populations` |
 | [ClinVar](https://www.ncbi.nlm.nih.gov/clinvar/) | NCBI, US National Library of Medicine | bulk | Variants submitted by clinical laboratories with their significance: disease-causing, risk factor or drug response, with a review status in stars. | Clusters, Medicines, Clusters: Nutrition, Biomarkers, Inheritance | `clinvar_grch38`, `clinvar_submissions` |
-| [GWAS Catalog](https://www.ebi.ac.uk/gwas/) | EMBL-EBI and NHGRI | bulk + API | Genome-wide association studies: which variants are linked to a trait or a lab value, the allele that raises or lowers it, and how strongly. | Clusters, Clusters: Nutrition, Biomarkers | `gwas_catalog` |
+| [GWAS Catalog](https://www.ebi.ac.uk/gwas/) | EMBL-EBI and NHGRI | bulk + API | Genome-wide association studies: which variants are linked to a trait or a lab value, the allele that raises or lowers it, and how strongly. | Clusters, Clusters: Nutrition, Biomarkers, Inheritance | `gwas_catalog`, `gwas_trait_mappings` |
 | [PGS Catalog](https://www.pgscatalog.org/) | EMBL-EBI and the University of Cambridge | bulk | Published polygenic scores: the weights that add up many variants into one genetic score for a blood level or a trait. | Clusters: Nutrition, Biomarkers, Clusters | `nutrition_pgs`, `pgs_scoring_genomewide` |
 | [ClinPGx (PharmGKB)](https://www.clinpgx.org/) | Stanford University | bulk + API | How genes change the response to medicines: clinical annotations per variant, dosing guidelines (CPIC, DPWG and others) and drug labels (FDA, EMA, Health Canada, Swissmedic and others). | Medicines | `clinpgx` |
 | [CPIC](https://cpicpgx.org/) | Clinical Pharmacogenetics Implementation Consortium | API, saved | Peer-reviewed dosing recommendations per metaboliser type, and the rules that turn star alleles into a type. | Medicines, Inheritance | `cpic_recommendations` |
@@ -79,6 +79,7 @@ that file and `genome/references.json` agree. Bulk files are on GRCh38.
 | [European Code Against Cancer](https://cancer-code-europe.iarc.who.int/) | International Agency for Research on Cancer (WHO) and the European Commission | API, saved | Fourteen recommendations for the public on how to lower the risk of cancer (5th edition), in every EU language. | Home | – |
 | [MedGen](https://www.ncbi.nlm.nih.gov/medgen/) | NCBI, US National Library of Medicine | API | Definitions of medical conditions, gathered from OMIM, GeneReviews and other curated sources. | Home, Clusters | – |
 | [Human Phenotype Ontology](https://hpo.jax.org/) | The Monarch Initiative and the Jackson Laboratory | bulk | Rare diseases annotated with their features and their mode of inheritance: autosomal recessive or dominant, X-linked. | Inheritance | `hpo_annotations` |
+| [Experimental Factor Ontology (EFO)](https://www.ebi.ac.uk/efo/) | EMBL-EBI | bulk | The terms the GWAS Catalog files every trait under, each with a definition and its place in a tree of broader terms. | Inheritance | `efo_obo` |
 | [PubChem](https://pubchem.ncbi.nlm.nih.gov/) | NCBI, US National Library of Medicine | API | Chemistry of each substance: properties, metabolism and toxicology, from curated sources such as HSDB. | Home | – |
 | [ICD-10-CM](https://clinicaltables.nlm.nih.gov/apidoc/icd10cm/v3/doc.html) | CDC National Center for Health Statistics, served by NLM Clinical Tables | API | The ICD-10 diagnosis codes with their titles: each category and the codes under it. | Clusters | – |
 | [LOINC](https://loinc.org/) | Regenstrief Institute, served by NLM Clinical Tables | API | The codes labs order and report tests under, each with a name that says what is measured and in which sample. | Biomarkers | – |

@@ -425,7 +425,8 @@ if __name__ == "__main__":
         # Medicines, nutrition, lab tests and fitness, run per profile into data/output/cluster_analysis/profiles/<id>/
         # (profiles.py run): one dataset each, rows tagged with their person. The public ones are taken once.
         for name in ("med_genes", "med_drugs", "med_guidance", "nut_nutrients", "nut_findings", "lab_tests", "lab_findings",
-                     "fit_tests", "fit_findings", "sport_snps", "can_tests", "can_findings", "fd_phases", "fd_impact"):
+                     "fit_tests", "fit_findings", "sport_snps", "can_tests", "can_findings", "fd_phases", "fd_impact",
+                     "trait_scores"):
             merged[name] = []
             for p in people:
                 f = os.path.join(prof.PROFILE_DIR, p["id"], name + ".json")
@@ -445,13 +446,13 @@ if __name__ == "__main__":
         # Inheritance (cluster_analysis/inheritance): one folder per XX x XY pair of people shown here; each row carries
         # its pair, and the nested parts (calls, odds, outcomes) as JSON strings like the other datasets
         shown = {p["id"] for p in people}
-        for name in ("inh_meta", "inh_conditions", "inh_traits", "inh_drugs"):
+        for name in ("inh_meta", "inh_predictions", "inh_conditions", "inh_traits", "inh_drugs"):
             merged[name] = []
         for d in sorted(glob.glob(os.path.join(gbuild.OUTPUT, "pairs", "*__*"))):
             xx, xy = os.path.basename(d).split("__", 1)
             if xx not in shown or xy not in shown:
                 continue
-            for name in ("inh_meta", "inh_conditions", "inh_traits", "inh_drugs"):
+            for name in ("inh_meta", "inh_predictions", "inh_conditions", "inh_traits", "inh_drugs"):
                 f = os.path.join(d, name + ".json")
                 if not os.path.exists(f):
                     continue
@@ -469,7 +470,7 @@ if __name__ == "__main__":
         for name, rows in merged.items():
             # Empty is still an answer for the datasets the page reads (the cancer scores have no Reactome steps)
             if not rows and name not in ("profiles", "nut_steps", "lab_steps", "fit_steps", "can_steps", "fd_phases", "fd_genes", "fd_explain", "fd_impact",
-                                             "inh_meta", "inh_conditions", "inh_traits", "inh_drugs"):
+                                             "inh_meta", "inh_predictions", "inh_conditions", "inh_traits", "inh_drugs"):
                 continue
             with open(os.path.join(out_dir, name + ".json"), "w", encoding="utf-8") as f:
                 json.dump(rows, f, ensure_ascii=False, separators=(",", ":"))

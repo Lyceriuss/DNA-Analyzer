@@ -438,25 +438,29 @@ def pairs(person=None):
     return [(a, b) for a in xx for b in xy if person is None or person in (a["id"], b["id"])]
 
 
-def run_pair(a, b, recs, modes, names, cfg):
+def run_pair(a, b, recs, modes, names, cfg, models=()):
     par = gbuild.par()
-    rsids = set(recs)
+    from cluster_analysis.inheritance import predict
+    rsids = set(recs) | predict.model_rsids(models)
     calls, cals = {}, {}
     for side, p in (("XX", a), ("XY", b)):
         calls[side], path = parent_calls(p["dna"], rsids)
         cals[side] = calibration(path)
-    rows = {"inh_conditions": conditions(recs, calls, cals, modes, names, par),
+    rows = {"inh_predictions": predict.predictions(models, calls["XX"], calls["XY"]),
+            "inh_conditions": conditions(recs, calls, cals, modes, names, par),
             "inh_traits": traits(cfg, recs, calls, cals, modes, names, par),
             "inh_drugs": drugs(a["id"], b["id"])}
     meta = {"XX": a["id"], "XY": b["id"], "coverage": coverage(recs, calls),
             "counts": {k: len(v) for k, v in rows.items()}, "chip_accuracy": cfg["chip_accuracy"],
-            "hpo_version": hpo_version()}
+            "hpo_version": hpo_version(), "categories": predict.category_definitions(models),
+            "genome": predict.genome_shares(), "featured": predict.featured(), "efo_version": predict.efo_version()}
     out = os.path.join(PAIRS_DIR, f"{a['id']}__{b['id']}")
     os.makedirs(out, exist_ok=True)
     for name, data in list(rows.items()) + [("inh_meta", meta)]:
         with open(os.path.join(out, name + ".json"), "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, separators=(",", ":"))
-    print(f"✅ {a['id']} × {b['id']}: {len(rows['inh_conditions'])} genes with a pathogenic variant carried, "
+    print(f"✅ {a['id']} × {b['id']}: {len(rows['inh_predictions'])} traits predicted, "
+          f"{len(rows['inh_conditions'])} genes with a pathogenic variant carried, "
           f"{len(rows['inh_traits'])} traits, {len(rows['inh_drugs'])} drug genes; "
           f"{meta['coverage']['both_read']:,} pathogenic positions read in both → {out}")
     return meta
@@ -488,9 +492,12 @@ def main():
     recs = clinvar_records({r for t in cfg["traits"] for r in t["rsids"]}, pathogenic_conditions())
     print(f"ClinVar: {sum(1 for rows in recs.values() if any(r['pathogenic'] for r in rows)):,} reviewed pathogenic positions; "
           f"HPO: {len(modes):,} conditions with a mode")
+    from cluster_analysis.inheritance import predict
+    models = predict.load_models()
+    print(f"GWAS Catalog: {len(models):,} trait models")
     for x, y in todo:
         try:
-            run_pair(x, y, recs, modes, names, cfg)
+            run_pair(x, y, recs, modes, names, cfg, models)
         except SystemExit as e:  # a parent without calls on this build yet: the pair waits for them
             print(f"⚠ {x['id']} × {y['id']}: skipped ({e})")
 

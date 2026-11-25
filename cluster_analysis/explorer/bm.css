@@ -1,0 +1,48 @@
+  /* Biomarkers: one person's genetic baseline, in the Inheritance tab's design (ih.css) */
+  .gx { --bm-less: var(--color-bad); --bm-more: var(--typical); --bm-none: var(--cds-chart-muted); --bm-person: var(--gof); }
+  .bm-tubes { width: 150px; height: auto; }
+  .bm-glass { fill: color-mix(in srgb, var(--color-fg) 6%, var(--color-panel)); stroke: var(--color-fg-muted); stroke-width: 2; }
+  .bm-blood { fill: #c8414b; }
+  .bm-cap-a { fill: #8a6fd1; } .bm-cap-b { fill: #e0a34a; } .bm-cap-c { fill: #3fa39a; }
+  .bm-tick { fill: color-mix(in srgb, var(--color-fg) 35%, transparent); }
+  .bm-rack { fill: color-mix(in srgb, var(--color-fg) 22%, var(--color-panel)); }
+  .ih-cake-slice.bm-c-less { stroke: var(--bm-less); }
+  .ih-cake-slice.bm-c-more { stroke: var(--bm-more); }
+  .ih-cake-slice.bm-c-none { stroke: var(--bm-none); }
+  .ih-cake-key i.bm-c-less { background: var(--bm-less); }
+  .ih-cake-key i.bm-c-more { background: var(--bm-more); }
+  .ih-cake-key i.bm-c-none { background: var(--bm-none); }
+
+  .bm-panels { display: grid; gap: var(--cds-gap-md); }
+  .bm-panel { display: grid; gap: 10px; }
+  .bm-panel-title { margin: 6px 0 0; font-size: var(--cds-font-size-heading); }
+  .bm-name { margin: 0; font-size: 16px; }
+  .bm-leanword { font-size: 12px; font-weight: 600; }
+  .bm-leanword.bm-lean-less { color: var(--bm-less); }
+  .bm-leanword.bm-lean-more { color: var(--bm-more); }
+  .bm-card.bm-lean-less { box-shadow: inset 3px 0 0 var(--bm-less); }
+  .bm-card.bm-lean-more { box-shadow: inset 3px 0 0 var(--bm-more); }
+
+  /* The scale: the person's mark, and the less favourable end tinted */
+  .bm-scale { overflow: hidden; }
+  .bm-worse-hi { background: linear-gradient(90deg, var(--color-bg) 60%, color-mix(in srgb, var(--bm-less) 22%, var(--color-bg))); }
+  .bm-worse-lo { background: linear-gradient(90deg, color-mix(in srgb, var(--bm-less) 22%, var(--color-bg)), var(--color-bg) 40%); }
+  .bm-mk { position: absolute; top: 50%; width: 14px; height: 14px; border-radius: 50%; transform: translate(-50%, -50%);
+    background: var(--bm-person); box-shadow: 0 0 0 3px var(--color-bg); }
+  .ih-axis .bm-worse { color: var(--bm-less); font-weight: 600; }
+  .ih-legend-swatch.sw-person { width: 12px; margin-left: 3px; border-radius: 50%; background: var(--bm-person); }
+  .ih-legend-swatch.sw-mid { width: 2px; height: 14px; margin-left: 8px; border-radius: 0; background: var(--cds-chart-reference); }
+  .ih-legend-swatch.sw-worse { background: color-mix(in srgb, var(--bm-less) 30%, transparent); }
+
+  .bm-note { display: grid; gap: 3px; padding: 8px 10px; border-radius: 8px; font-size: 12px;
+    background: color-mix(in srgb, var(--color-warn) 9%, transparent); border: 1px solid color-mix(in srgb, var(--color-warn) 35%, transparent); }
+  .bm-note b { font-size: 12px; }
+  .bm-note p { margin: 0; color: var(--color-fg-muted); line-height: 1.45; }
+  .bm-go { justify-self: start; margin-top: 6px; }
+
+  /* What the traits cover: the GWAS Catalog's groups */
+  .ih-cake-slice.bm-g1 { stroke: var(--bm-person); } .ih-cake-key i.bm-g1 { background: var(--bm-person); }
+  .ih-cake-slice.bm-g2 { stroke: var(--ih-xy); } .ih-cake-key i.bm-g2 { background: var(--ih-xy); }
+  .ih-cake-slice.bm-g3 { stroke: var(--ih-xx); } .ih-cake-key i.bm-g3 { background: var(--ih-xx); }
+  .ih-cake-slice.bm-g4 { stroke: #8a6fd1; } .ih-cake-key i.bm-g4 { background: #8a6fd1; }
+  .ih-cake-slice.bm-g5 { stroke: var(--cds-chart-muted); } .ih-cake-key i.bm-g5 { background: var(--cds-chart-muted); }

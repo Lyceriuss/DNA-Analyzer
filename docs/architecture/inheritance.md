@@ -53,12 +53,30 @@ A row's confidence is the chance both parents' calls are right, the product of t
 be used, the tab gives what still follows, the chance a child gets the other parent's variant copy, and not the odds of
 being affected.
 
+## The prediction engine: traits for a child, and for one person
+
+`predict.py` turns the GWAS Catalog into one model per trait (2,494): an anchor study (European, at least 10,000 people,
+the most lead variants after keeping the strongest per 500 kb), its effect alleles placed on the forward strand against the
+1000 Genomes sites with their European frequency, and EFO's definition (`efo_obo`). The models are person-free and built
+once (`gwas_trait_models`).
+
+- **A child** (Inheritance tab): each parent passes the effect allele with chance copies/2, so the child's score has an
+  expected value (always between the parents) and a spread from the coin-toss genes (the 8-in-10 and 98-in-100 fields).
+  Genes where both parents carry two identical letters are settled; the others are left to chance; each row lists both.
+- **One person** (Biomarkers tab): the person's own score on every trait (`profiles/<id>/trait_scores.json`, dataset
+  `trait_scores`), with the genes that move them most against the average European.
+
+Results are shown as "Top N%" or "Bottom N%" with the trait's direction (CLAUDE.md). Traits studied in one sex only (the
+study's sample description) are left out for the other.
+
 ## Running it
 
 ```bash
 python -m cluster_analysis.inheritance                     # every XX x XY pair of finished profiles
 python -m cluster_analysis.inheritance --pair XX_1 XY_1
 python -m cluster_analysis.inheritance --person XX_1       # every pair with XX_1 (profiles.py step "inheritance")
+python -m cluster_analysis.inheritance.predict build        # the trait models (once)
+python -m cluster_analysis.inheritance.predict person XY_1  # one person's place on every trait
 ```
 
 The pipeline runs it as the last analysis step when a person is added, and deleting a person removes every pair folder

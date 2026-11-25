@@ -1,0 +1,16 @@
+{
+ "about": "The predicted traits the Inheritance tab shows first, with a plain name and the trait's two directions in words ('more' is the direction the study's score rises in, 'less' the other). This file only chooses and names: the studies, variants, effects and definitions come from the GWAS Catalog and EFO (predict.py). Traits whose study coded them in categories (eye or hair colour, handedness) are not featured: their score has no direction that can be said in words.",
+ "featured": [
+  {"id": "OBA_VT0001253", "name": "Height", "more": "taller", "less": "shorter"},
+  {"id": "EFO_0008328", "name": "Morning or evening person", "more": "more of a morning person", "less": "more of an evening person"},
+  {"id": "OBA_2040171", "name": "Sleep length", "more": "longer sleep", "less": "shorter sleep"},
+  {"id": "EFO_0006781", "name": "Coffee drinking", "more": "drinks more coffee", "less": "drinks less coffee"},
+  {"id": "EFO_0004340", "name": "Body mass index", "more": "higher body mass index", "less": "lower body mass index"},
+  {"id": "EFO_0004611", "name": "LDL cholesterol", "more": "higher LDL cholesterol", "less": "lower LDL cholesterol"},
+  {"id": "OBA_1000968", "name": "Vitamin D", "more": "higher vitamin D level", "less": "lower vitamin D level"},
+  {"id": "HP_0000545", "name": "Short-sightedness", "more": "higher risk of short-sightedness", "less": "lower risk of short-sightedness"},
+  {"id": "EFO_0003963", "name": "Freckles", "more": "more likely to freckle", "less": "less likely to freckle"},
+  {"id": "MONDO_0004979", "name": "Asthma", "more": "higher risk of asthma", "less": "lower risk of asthma"},
+  {"id": "EFO_0007825", "name": "Balding", "more": "more balding", "less": "less balding"}
+ ]
+}

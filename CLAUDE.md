@@ -14,6 +14,12 @@
 - Outputs speak in risk and evidence, never clinical advice (the user's rule, 2026-11-19): no "see a doctor", "ask for a
   test", dose or drug instructions; guidelines are reported as facts about the guideline, prevention as risk factors.
   No disclaimers either. For Ask, `cluster_analysis/agent/language.py` holds the rule and the check that enforces it.
+- **Results are "Top N%" or "Bottom N%" with the trait's direction** (the user's rule, 2026-11-25): the share of people
+  on that side, from the exact percentile, never rounded into fixed bands and never "Nth of 100", with no long
+  sentence around it: "Top 24% · taller", "Bottom 28% · lower LDL cholesterol". Scale ends are labelled in words
+  (shorter · average · taller), and a key says what each mark on the scale is. Explanations start simple and
+  get more detailed as the text goes on, in plain language for adults without a biology degree; no level pickers, no
+  baby talk; the formulas go in a closed technical section at the end.
 - **Ask and the model the user connects.** With `share_results` on (the default, `cluster_analysis/agent/settings.py`),
   the interpreted results for the items a question touches go to the user's own model (their API key or Claude Code
   login) so the summary can weave them; never the DNA file. Off, the model sees public facts only. Public tools never

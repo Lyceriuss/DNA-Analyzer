@@ -85,3 +85,234 @@
   .ih-types { display: flex; flex-wrap: wrap; gap: 2px 10px; font-size: 12px; margin-top: 3px; }
   .ih-empty { margin: 0; font-size: 13px; color: var(--color-fg-muted); }
   @media (max-width: 40rem) { .ih-odds-row { grid-template-columns: minmax(0, 1fr); } .ih-key { grid-column: 1; } }
+
+  /* Predicted traits: one row per trait on a 0-100 scale among Europeans */
+  .ih-controls { display: grid; gap: var(--cds-gap-sm); margin-bottom: var(--cds-gap-sm); }
+  .ih-cats { display: flex; flex-wrap: wrap; gap: 6px; }
+  .ih-cats .md-pill[aria-pressed="true"] { background: var(--color-fg); color: var(--color-bg); border-color: var(--color-fg); }
+  .ih-cats .ih-n { opacity: .7; font-variant-numeric: tabular-nums; }
+  .ih-search { display: flex; flex-wrap: wrap; gap: var(--cds-gap-sm); align-items: center; }
+  .ih-search .md-search { flex: 0 1 26rem; }
+  .ih-pkey { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 12px; color: var(--color-fg-muted); margin: 4px 0 6px; }
+  .ih-pkey > span { display: inline-flex; align-items: center; gap: 6px; }
+  .ih-pkey .ih-mk { position: static; transform: none; }
+  .ih-plist { display: grid; border-top: 1px solid var(--color-border-line); }
+  .ih-prow { border-bottom: 1px solid var(--color-border-line); }
+  .ih-prow > summary { display: grid; grid-template-columns: minmax(12rem, 1.1fr) minmax(10rem, 2fr) 12rem; gap: var(--cds-gap-md);
+    align-items: center; padding: 7px 4px; cursor: pointer; list-style: none; }
+  .ih-prow > summary::-webkit-details-marker { display: none; }
+  .ih-prow > summary:hover { background: color-mix(in srgb, var(--color-fg) 4%, transparent); }
+  .ih-prow[open] > summary { background: color-mix(in srgb, var(--color-fg) 6%, transparent); }
+  .ih-pname { display: grid; min-width: 0; }
+  .ih-pname b { font-weight: 600; font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .ih-scale { position: relative; height: 18px; border-radius: 9px; background: var(--color-bg); border: 1px solid var(--color-border-line); }
+  .ih-mid { position: absolute; left: 50%; top: 2px; bottom: 2px; width: 1px; background: var(--cds-chart-reference); opacity: .6; }
+  .ih-range { position: absolute; top: 4px; bottom: 4px; border-radius: 5px; background: color-mix(in srgb, var(--ih-trait) 35%, transparent); }
+  .ih-mk { position: absolute; top: 50%; transform: translate(-50%, -50%); display: inline-block; }
+  .ih-mk-child { width: 10px; height: 10px; border-radius: 50%; background: var(--ih-trait); box-shadow: 0 0 0 2px var(--color-bg); }
+  .ih-mk-xx, .ih-mk-xy { width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; }
+  .ih-mk-xx { border-top: 8px solid var(--color-warn); top: 3px; transform: translate(-50%, 0); }
+  .ih-mk-xy { border-bottom: 8px solid var(--color-ok); top: auto; bottom: 3px; transform: translate(-50%, 0); }
+  .ih-pkey .ih-mk-xx, .ih-pkey .ih-mk-xy { transform: none; }
+  .ih-pnum { font-size: 12px; color: var(--color-fg); text-align: right; line-height: 1.3; }
+  .ih-pbody { display: grid; gap: 6px; padding: 4px 4px 12px; }
+  .ih-vtable { max-width: 62rem; }
+  @media (max-width: 40rem) { .ih-prow > summary { grid-template-columns: minmax(0, 1fr) 4.5rem; } .ih-scale { grid-column: 1 / -1; grid-row: 2; } }
+
+  /* Drug genes on the explorer's call scale: red less active (LoF), green typical, blue more active (GoF) */
+  .ih-callline { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+  .ih-alleles { display: inline-flex; gap: 3px; }
+  .ih-allele { font-family: ui-monospace, monospace; font-size: 12px; padding: 0 5px; border-radius: 4px; border: 1px solid var(--color-border-line); cursor: help; }
+  .ih-a-LoF { border-color: var(--color-bad); background: color-mix(in srgb, var(--color-bad) 18%, transparent); }
+  .ih-a-GoF { border-color: var(--gof); background: color-mix(in srgb, var(--gof) 18%, transparent); }
+  .ih-a-normal { border-color: var(--typical); background: color-mix(in srgb, var(--typical) 14%, transparent); }
+  .ih-c-LoF { background: color-mix(in srgb, var(--color-bad) 65%, var(--color-panel)); }
+  .ih-c-LoF2 { background: var(--color-bad); }
+  .ih-c-normal { background: var(--typical); }
+  .ih-c-GoF { background: color-mix(in srgb, var(--gof) 65%, var(--color-panel)); }
+  .ih-c-GoF2 { background: var(--gof); }
+  .ih-types { display: grid; gap: 2px; margin-top: 4px; }
+  .ih-type { font-size: 12px; }
+  .ih-type i { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 5px; }
+  .ih-type b { font-weight: 600; }
+  .ih-type .ih-sub { margin-left: 6px; }
+
+  /* Where the predicted traits come from, and how to read them */
+  .ih-origin { display: flex; gap: 10px; align-items: flex-start; padding: var(--cds-pad-sm) var(--cds-pad-md); margin-bottom: var(--cds-gap-sm);
+    border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); background: var(--color-bg); }
+  .ih-origin p { margin: 0; font-size: 13px; color: var(--color-fg-muted); max-width: 100ch; }
+  .ih-origin a, .ih-catdef a { color: var(--color-fg); text-underline-offset: 2px; }
+  .ih-logo { width: 22px; height: 22px; flex: none; border-radius: 4px; background: #fff; padding: 2px; }
+  .ih-how-read { margin-bottom: var(--cds-gap-sm); font-size: 13px; }
+  .ih-how-read summary { cursor: pointer; font-weight: 600; }
+  .ih-how-read ul { margin: 6px 0 0; padding-left: 1.2rem; display: grid; gap: 3px; color: var(--color-fg-muted); max-width: 100ch; }
+  .ih-catdef { margin: 0; font-size: 13px; color: var(--color-fg-muted); max-width: 100ch; }
+  .ih-catdef b { color: var(--color-fg); }
+  .ih-what { display: grid; gap: 2px; max-width: 100ch; }
+  .ih-what p { margin: 0; }
+
+  /* The hero: the child, its parents and where its DNA comes from. Each parent keeps one colour everywhere. */
+  .gx { --ih-xx: var(--color-warn); --ih-xy: color-mix(in srgb, #2fa39a 80%, var(--color-fg)); --ih-skin: #f2cfae; --ih-cheek: #f19a9a;
+        --ih-suit: color-mix(in srgb, #8fb8d8 55%, var(--color-panel)); }
+  .ih-mk-xy { border-bottom-color: var(--ih-xy); }
+  .ih-mk-xx { border-top-color: var(--ih-xx); }
+  .ih-who-xx { color: var(--ih-xx); }
+  .ih-who-xy { color: var(--ih-xy); }
+  .ih-hero-card { background: linear-gradient(135deg, color-mix(in srgb, var(--ih-xx) 7%, var(--color-panel)), var(--color-panel) 45%,
+    color-mix(in srgb, var(--ih-xy) 8%, var(--color-panel))); }
+  .ih-hero { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: var(--cds-gap-lg); align-items: center; }
+  .ih-hero-baby { display: grid; justify-items: center; gap: 10px; }
+  .ih-baby { width: 150px; height: auto; }
+  .ih-b-skin { fill: var(--ih-skin); }
+  .ih-b-suit { fill: var(--ih-suit); }
+  .ih-b-shadow { fill: color-mix(in srgb, var(--color-fg) 10%, transparent); }
+  .ih-b-line, .ih-b-curl { fill: none; stroke: #5b4636; stroke-width: 4; stroke-linecap: round; }
+  .ih-b-curl { stroke-width: 5; }
+  .ih-b-cheek { fill: var(--ih-cheek); opacity: .55; }
+  .ih-b-badge { fill: var(--color-bg); stroke: var(--color-fg-muted); stroke-width: 1.5; }
+  .ih-b-badge-text { font: 700 15px var(--font-anthropic-sans); fill: var(--color-fg); letter-spacing: .06em; }
+  .ih-sexpick button { font: inherit; font-size: 13px; font-weight: 700; letter-spacing: .05em; padding: 5px 16px; border: 0; background: transparent;
+    color: var(--color-fg-muted); cursor: pointer; }
+  .ih-sexpick button[aria-pressed="true"] { background: var(--color-fg); color: var(--color-bg); }
+  .ih-hero-text { display: grid; gap: 8px; min-width: 0; }
+  .ih-hero-title { margin: 0; font-family: var(--font-anthropic-serif); font-weight: 400; font-size: 32px; line-height: 1.15; }
+  .ih-hero-lede { margin: 0; max-width: 56ch; font-size: 15px; line-height: 1.55; text-wrap: pretty; }
+  .ih-picks { display: flex; flex-wrap: wrap; gap: 8px 16px; }
+  .ih-picks .ih-pick > span { font-weight: 700; }
+  .ih-hero-cake { display: grid; gap: 6px; justify-items: start; }
+
+  /* Cakes: donuts of two shares */
+  .ih-cake { display: flex; align-items: center; gap: 12px; }
+  .ih-cake-bg { fill: none; stroke: var(--color-border-line); stroke-width: 16; }
+  .ih-cake-slice { fill: none; stroke-width: 16; }
+  .ih-cake-slice.ih-c-xx { stroke: var(--ih-xx); }
+  .ih-cake-slice.ih-c-xy { stroke: var(--ih-xy); }
+  .ih-cake-centre { font: 700 18px var(--font-anthropic-sans); fill: var(--color-fg); letter-spacing: .05em; }
+  .ih-cake-key { display: grid; gap: 4px; font-size: 13px; font-variant-numeric: tabular-nums; }
+  .ih-cake-key > div { display: grid; grid-template-columns: 10px auto; column-gap: 6px; align-items: baseline; }
+  .ih-cake-key i { width: 10px; height: 10px; border-radius: 3px; align-self: center; }
+  .ih-cake-key i.ih-c-xx { background: var(--ih-xx); }
+  .ih-cake-key i.ih-c-xy { background: var(--ih-xy); }
+  .ih-cake-key .ih-sub { font-size: 11px; line-height: 1.3; }
+  .ih-cake-pct { margin-left: 6px; font-variant-numeric: tabular-nums; }
+
+  /* The explanation ladder */
+  .ih-explain { display: grid; gap: var(--cds-gap-sm); }
+  .ih-explain-title { margin: 0; font-size: var(--cds-font-size-heading); }
+  .ih-steps { display: flex; flex-wrap: wrap; gap: 0; border: 1px solid var(--color-border-line); border-radius: 999px; overflow: hidden; width: fit-content; }
+  .ih-step { font: inherit; font-size: 12px; padding: 5px 14px; border: 0; background: transparent; color: var(--color-fg-muted); cursor: pointer; }
+  .ih-step.is-on { background: color-mix(in srgb, var(--color-fg) 10%, transparent); color: var(--color-fg); }
+  .ih-step[aria-pressed="true"] { background: var(--color-fg); color: var(--color-bg); }
+  .ih-levels { display: grid; gap: 10px; }
+  .ih-level { border-left: 3px solid var(--color-border-line); padding: 2px 0 2px 14px; max-width: 80ch; }
+  .ih-level.is-new { border-left-color: var(--ih-xy); }
+  .ih-level-tag { font-size: 11px; text-transform: uppercase; letter-spacing: .05em; color: var(--color-fg-muted); }
+  .ih-level p { margin: 4px 0 0; line-height: 1.6; text-wrap: pretty; }
+  .ih-level:first-child p { font-size: 16px; }
+  .ih-more { justify-self: start; }
+
+  /* Familiar traits */
+  .ih-feat { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr)); gap: var(--cds-gap-sm); }
+  .ih-fcard { border: 1px solid var(--color-border-line); border-radius: 12px; background: var(--color-bg); padding: var(--cds-pad-md) var(--cds-pad-lg);
+    display: grid; gap: 10px; align-content: start; }
+
+  .ih-fhead { display: grid; gap: 2px; }
+  .ih-fbig { margin: 0; font-family: var(--font-anthropic-serif); font-weight: 400; font-size: 22px; line-height: 1.25; text-wrap: balance; }
+  .ih-fsay { margin: 0; font-size: 13px; line-height: 1.5; text-wrap: pretty; }
+  .ih-ffoot { display: grid; gap: 6px; }
+  .ih-pushrow { display: grid; gap: 4px; }
+  @media (max-width: 52rem) { .ih-hero { grid-template-columns: minmax(0, 1fr); justify-items: start; } .ih-hero-baby { justify-self: center; } }
+
+  /* Scales labelled in words, and positions said in words */
+  .ih-scalewrap { display: grid; gap: 3px; }
+  .ih-axis { display: grid; grid-template-columns: 1fr auto 1fr; font-size: 11px; color: var(--color-fg-muted); }
+  .ih-axis span:first-child { text-align: left; }
+  .ih-axis span:last-child { text-align: right; }
+  .ih-fpar { margin: 0; display: grid; gap: 2px; font-size: 12px; color: var(--color-fg-muted); }
+  .ih-fpar b { color: var(--color-fg); font-weight: 600; }
+
+  /* The explanation as one text, simple first; the formulas folded away */
+  .ih-flow { display: grid; gap: 10px; max-width: 78ch; }
+  .ih-flow p { margin: 0; line-height: 1.6; text-wrap: pretty; }
+  .ih-explain-title + .ih-flow p:first-child { font-size: 16px; }
+  .ih-tech { max-width: 90ch; font-size: 13px; color: var(--color-fg-muted); }
+  .ih-tech summary { cursor: pointer; color: var(--color-fg); font-weight: 600; }
+  .ih-tech p { margin: 8px 0 0; line-height: 1.55; }
+  .ih-tech .ih-origin { margin-top: 10px; }
+  /* A featured result: the band, and the direction beside it */
+  .ih-fbigrow { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+  .ih-fbig { font-size: 26px; }
+  .ih-fdir { font-size: 14px; color: var(--color-fg-muted); }
+
+  /* The source banner: the GWAS Catalog, logo first */
+  .ih-sourcebar { display: flex; align-items: center; gap: 14px; padding: 12px 16px; margin: 4px 0 12px; border-radius: 12px;
+    border: 1px solid var(--color-border-line); background: var(--color-bg); }
+  .ih-sourcelogo { flex: none; display: grid; place-items: center; width: 52px; height: 52px; border-radius: 10px; background: #fff; }
+  .ih-sourcelogo img { width: 40px; height: 40px; }
+  .ih-sourcebar p { margin: 0; font-size: 13px; line-height: 1.55; max-width: 100ch; }
+  .ih-sourcebar a { color: var(--color-fg); text-underline-offset: 2px; }
+  /* How to read a scale */
+  .ih-legend { display: grid; gap: 10px; padding: 14px 16px; margin-bottom: 12px; border-radius: 12px; border: 1px dashed var(--color-border-line); }
+  .ih-legend-head { display: flex; gap: 10px; align-items: baseline; }
+  .ih-legend .ih-scale { height: 22px; }
+  .ih-legend-items { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: 10px 18px; }
+  .ih-legend-item { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 8px; align-items: start; }
+  .ih-legend-item b { font-size: 13px; }
+  .ih-legend-item p { margin: 2px 0 0; font-size: 12px; color: var(--color-fg-muted); line-height: 1.45; }
+  .ih-legend-swatch { width: 18px; height: 12px; margin-top: 3px; border-radius: 3px; }
+  .ih-legend-swatch.sw-xx { background: var(--ih-xx); clip-path: polygon(0 0, 100% 0, 50% 100%); }
+  .ih-legend-swatch.sw-xy { background: var(--ih-xy); clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+  .ih-legend-swatch.sw-dot { width: 12px; margin-left: 3px; border-radius: 50%; background: var(--ih-trait); }
+  .ih-legend-swatch.sw-range { background: color-mix(in srgb, var(--ih-trait) 35%, transparent); }
+
+  /* Parent marks sit just outside the bar, so the child's dot never hides them */
+  .ih-scale { margin: 10px 0; }
+  .ih-mk-xx { top: -11px; transform: translate(-50%, 0); }
+  .ih-mk-xy { top: auto; bottom: -11px; transform: translate(-50%, 0); }
+  /* The genes behind a prediction */
+  .ih-fopen summary { cursor: pointer; font-size: 13px; font-weight: 600; }
+  .ih-fopen[open] summary { margin-bottom: 6px; }
+  .ih-fcard:has(.ih-fopen[open]) { grid-column: 1 / -1; }
+  .ih-genes { display: grid; gap: 6px; overflow-x: auto; }
+  .ih-genes p { margin: 0; }
+  .ih-mono { font-family: ui-monospace, monospace; }
+  .ih-combos { display: flex; flex-wrap: wrap; gap: 4px 10px; }
+  .ih-combo b { font-family: ui-monospace, monospace; font-weight: 700; }
+
+  /* Mendel's law: two small squares */
+  .ih-mendel { display: flex; flex-wrap: wrap; gap: 14px; }
+  .ih-mendel-card { display: grid; gap: 6px; padding: 10px 14px; border: 1px solid var(--color-border-line); border-radius: 10px;
+    background: var(--color-bg); max-width: 19rem; }
+  .ih-mendel-grid { grid-template-columns: 1.6rem repeat(2, 3rem); font-size: 14px; }
+  .ih-mendel-card p { margin: 0; }
+  /* Settled, left to chance, not read */
+  .ih-split { display: grid; gap: 4px; }
+  .ih-splitbar { display: flex; height: 6px; border-radius: 3px; overflow: hidden; background: var(--color-border-line); }
+  .sp-settled { background: var(--color-fg-muted); }
+  .sp-chance { background: var(--ih-trait); }
+  .sp-unread { background: var(--color-border-line); }
+  .sp-t-settled { color: var(--color-fg); font-weight: 600; }
+  .sp-t-chance { color: var(--ih-trait); font-weight: 600; }
+  .ih-genes-head { display: grid; gap: 2px; margin-top: 8px; }
+  .ih-genes-head b { font-size: 13px; }
+  .ih-unread { color: var(--color-fg-muted); font-style: italic; }
+
+  /* The two fields: 98 in 100 children (light) and 8 in 10 (blue) */
+  .ih-range98 { position: absolute; top: 6px; bottom: 6px; border-radius: 4px; background: color-mix(in srgb, var(--ih-trait) 14%, transparent); }
+  .ih-legend-swatch.sw-range98 { background: color-mix(in srgb, var(--ih-trait) 14%, transparent); border: 1px solid color-mix(in srgb, var(--ih-trait) 30%, transparent); }
+  /* Which way a gene pushes the child, against the average European */
+  .ih-cmp { display: grid; gap: 1px; white-space: nowrap; }
+  .ih-up { color: var(--ih-trait); font-weight: 600; font-size: 12px; }
+  .ih-down { color: var(--ih-xx); font-weight: 600; font-size: 12px; }
+
+  /* Mendel's squares, top down: parents, what each passes on, the square, the result */
+  .ih-mendel-card { gap: 10px; }
+  .ih-mendel-parents { display: flex; gap: 18px; flex-wrap: wrap; }
+  .ih-mendel-parent { display: grid; gap: 4px; }
+  .ih-letters { display: flex; gap: 4px; }
+  .ih-letter { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 6px; font: 700 15px ui-monospace, monospace;
+    border: 1px solid var(--color-border-line); background: var(--color-panel); }
+  .ih-mendel-result { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 10px; padding-top: 6px; border-top: 1px solid var(--color-border-line); }
+
+  .ih-fmeas { margin: 0; font-size: 12px; color: var(--color-fg-muted); line-height: 1.45; }
+  .ih-fmeas b { color: var(--color-fg); font-weight: 600; }

@@ -145,6 +145,8 @@ def run(pids, steps):
                               "--dna", p["dna"], "--out-dir", od, "--sex", "women" if p["sex"] == "female" else "men"])
         if "inheritance" in steps:
             cmds.append(py + ["cluster_analysis.inheritance", "--person", p["id"]])
+            # The person's own place on every trait (Biomarkers tab) -> profiles/<id>/trait_scores.json
+            cmds.append(py + ["cluster_analysis.inheritance.predict", "person", p["id"]])
         for c in cmds:
             print(f"\n== {p['id']}: {' '.join(c[2:])}", flush=True)
             running = ",".join(filter(None, [os.environ.get(RUNNING_ENV)] + list(pids or [])))

@@ -91,6 +91,7 @@
   /* @include ap.css */
   /* @include ask.css */
   /* @include ih.css */
+  /* @include bm.css */
   .th-b-untested { background: var(--color-fg-muted); opacity: 0.35; }
 </style>
 
@@ -145,28 +146,17 @@
 
 
   <section class="gx-page bm-lab" id="biomarkers" data-page="biomarkers" hidden>
-    <div class="lb-intro" data-who>
-      <h2>What this tab shows</h2>
-      <p class="lb-intro-lead">A lab test reads the body through a number and a reference range that says what is usual. XY's genes sit
-        behind many of those numbers. This tab sets the common lab tests beside XY's genome, so a result can be read knowing where XY's
-        genes would put it and which of XY's variants can move it.</p>
-      <div class="lb-intro-grid">
-        <div><b>The lab report</b><p>The tests in panels, as a lab reports them: heart and vessels, metabolism, liver and kidneys,
-          blood, hormones, and the nutrients' blood tests. Each analyte carries its LOINC code, the code labs order and report it
-          under, and the sample it is taken from.</p></div>
-        <div><b>XY's genetic baseline</b><p>Where XY's variants put each value among Europeans, scored from the variants large studies
-          tie to it (PGS Catalog, GWAS Catalog). It is where XY's genes start the value from, not a measurement: the measured value
-          also follows diet, weight, medicines and illness.</p></div>
-        <div><b>Genes that move the reading</b><p>Some genes shift the number without changing the body, such as a red blood cell gene
-          that moves HbA1c but not blood sugar: when XY carries one, XY's normal may sit outside the usual range. Others move the
-          level for real, and those are worth following up.</p></div>
-        <div><b>The clinical path</b><p>Select a test for why it is ordered, how to prepare and what the result means (MedlinePlus,
-          US National Library of Medicine), then XY's baseline, the variants behind it and where they act (Reactome, Ensembl VEP,
-          GTEx, UniProt). Every finding carries an evidence grade from A+ to C.</p></div>
-      </div>
+    <div class="gx-card ih-hero-card">
+      <div data-draw="bm-hero" data-source="profiles trait_scores lab_tests nut_nutrients"></div>
     </div>
     <div class="gx-card">
-      <div class="nt-overview" data-draw="lb-overview" data-source="lab_tests lab_steps lab_findings nut_nutrients"></div>
+      <div class="ih-explain" data-draw="bm-explain" data-source="profiles trait_scores"></div>
+    </div>
+    <div class="gx-card">
+      <div data-draw="bm-traits" data-source="profiles trait_scores"></div>
+    </div>
+    <div class="gx-card">
+      <div class="bm-panels" data-draw="bm-panels" data-source="profiles lab_tests nut_nutrients"></div>
     </div>
     <div class="gx-card" id="lb-detail">
       <div class="nt-detail" data-draw="lb-detail" data-source="lab_tests lab_findings lab_steps"></div>
@@ -340,6 +330,7 @@
   // @include fr.js
   // @include ap.js
   // @include ih.js
+  // @include bm.js
 </script>
 
 <script>
