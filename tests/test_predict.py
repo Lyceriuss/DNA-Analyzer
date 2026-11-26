@@ -107,5 +107,84 @@ class TestPredict(unittest.TestCase):
                                                "year": "2020", "n": 1, "kind": "beta"}], both, both)), 1)
 
 
+
+class ImpactTest(unittest.TestCase):
+    """impact.py: a pick (impact_picks.json) counts only when the paper's own sentence holds its quote and figure."""
+
+    def test_pick_needs_its_figure_in_the_sentence(self):
+        from cluster_analysis.inheritance import impact
+        sents = [{"text": "The 78 loci explained 0.69% of the variance in sleep duration.", "where": "full text"},
+                 {"text": "SNP-heritability estimate for the cohort ( h 2 = 0 . 167 , SE=0.014).", "where": "full text"}]
+        self.assertIsNotNone(impact._find(sents, "The 78 loci explained", "0.69"))
+        self.assertIsNone(impact._find(sents, "The 78 loci explained", "0.70"))       # a figure the text doesn't give
+        self.assertIsNotNone(impact._find(sents, "SNP-heritability estimate", "0.167"))  # spaces inside the number
+
+    def test_picks_name_featured_traits(self):
+        import json
+        from cluster_analysis.inheritance import impact, predict
+        ids = {f["id"] for f in predict.featured(raw=True)}
+        for tid, p in impact.picks().items():
+            self.assertIn(tid, ids)
+            self.assertIn(p["kind"], ("variance", "h2", "auc", "hr"))
+            float(p["figure"].replace(",", ""))
+
+
+class GwasImpactTest(unittest.TestCase):
+    """gwas_impact.py: chi2 from -log10 p (exact, and past the float limit), and the sample read from the Catalog text."""
+
+    def test_chi2(self):
+        from cluster_analysis.inheritance import gwas_impact as g
+        self.assertAlmostEqual(g.chi2_of(-__import__("math").log10(5e-8)), 29.72, places=1)   # genome-wide significance
+        self.assertGreater(g.chi2_of(400), g.chi2_of(289))                                     # p below 1e-300 still grows
+        self.assertAlmostEqual(g.chi2_of(289.9), g.chi2_of(290.1), delta=2)                     # the two methods meet
+
+    def test_sample_size(self):
+        from cluster_analysis.inheritance import gwas_impact as g
+        self.assertEqual(g.sample_size("148,726 European ancestry cases, 965,732 European ancestry controls"), 1114458)
+        self.assertEqual(g.sample_size("405,540 European ancestry individuals"), 405540)
+
+
+class XChromosomeTest(unittest.TestCase):
+    """The X outside the pseudo-autosomal regions: a daughter gets one X from each parent (her father's for certain),
+    a son his mother's only, counted 0 or 2; each person is ranked against their own sex. Made-up genotypes."""
+    V = {"rsid": "rsX", "chrom": "X", "pos": 50_000_000, "allele": "A", "ref": "G", "alt": "A", "freq": 0.3, "w": 0.2,
+         "gene": "G1", "x": True}
+    AUTO = [{"rsid": f"rs{i}", "chrom": "1", "pos": i, "allele": "A", "ref": "G", "alt": "A", "freq": 0.5, "w": 0.0, "gene": "g"} for i in range(5)]
+
+    def model(self):
+        return {"variants": [self.V] + self.AUTO}
+
+    def test_moments(self):
+        from cluster_analysis.inheritance import predict
+        self.assertEqual(predict.moments(0.3, False), (0.6, 2 * 0.3 * 0.7))
+        self.assertAlmostEqual(predict.moments(0.3, True)[1], 4 * 0.3 * 0.7)   # a man's single X, counted 0 or 2
+
+    def test_daughter_and_son(self):
+        from cluster_analysis.inheritance import predict
+        mom = {"rsX": {"genotype": "AG", "tier": "measured"}}
+        dad = {"rsX": {"genotype": "AA", "tier": "measured"}}             # his one X, written as a pair
+        auto = {f"rs{i}": {"genotype": "GG", "tier": "measured"} for i in range(5)}
+        d = predict.predict(self.model(), {**mom, **auto}, {**dad, **auto}, "XX")
+        s = predict.predict(self.model(), {**mom, **auto}, {**dad, **auto}, "XY")
+        dx = next(p for p in d["top"] if p["rsid"] == "rsX")
+        sx = next(p for p in s["top"] if p["rsid"] == "rsX")
+        self.assertEqual(dx["child_p"], [0.0, 0.5, 0.5])    # her father's A for certain, her mother's half the time
+        self.assertEqual(sx["child_p"], [0.5, 0.0, 0.5])    # his mother's X only: none or one copy, counted 0 or 2
+        self.assertEqual(dx["child_mean"], 1.5)
+        self.assertEqual(sx["child_mean"], 1.0)
+
+    def test_forecast_odds(self):
+        from cluster_analysis.inheritance import forecast
+        m = [{"variants": [self.V]}]
+        mom = {"rsX": {"genotype": "AG", "tier": "measured"}}
+        dad = {"rsX": {"genotype": "AA", "tier": "measured"}}
+        self.assertEqual(forecast.variant_odds(m, mom, dad, "female")["rsX"]["p"], [0.0, 0.5, 0.5])
+        self.assertEqual(forecast.variant_odds(m, mom, dad, "male")["rsX"]["p"], [0.5, 0.0, 0.5])
+
+    def test_pseudo_autosomal(self):
+        from cluster_analysis.inheritance import predict
+        self.assertFalse(predict.on_x("X", 100_000))         # PAR1: inherited like an autosome
+        self.assertTrue(predict.on_x("X", 50_000_000))
+
 if __name__ == "__main__":
     unittest.main()

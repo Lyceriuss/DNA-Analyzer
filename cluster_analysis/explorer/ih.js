@@ -13,18 +13,28 @@
   };
 
   // The pair: the XX and XY chosen in the picker, else the selected profile and the first of the other sex
+  const ihRelated = (a, b) => {
+    const pa = new Set(a.parents || []), pb = new Set(b.parents || []);
+    return pb.has(a.id) || pa.has(b.id) || [...pa].some((x) => pb.has(x));
+  };
   const ihPair = () => {
     const P = dash.data('profiles');
     if (P.status !== 'ok') return null;
     const xx = P.data.filter((p) => p.sex === 'female'), xy = P.data.filter((p) => p.sex === 'male');
     const prm = dash.params(), who = gx.who();
     const a = (xx.find((p) => p.id === prm.ih_xx) || xx.find((p) => p.id === who) || xx[0] || {}).id;
-    const b = (xy.find((p) => p.id === prm.ih_xy) || xy.find((p) => p.id === who) || xy[0] || {}).id;
-    return { xx, xy, a, b, key: `${a}__${b}` };
+    // Close family (a parent and child, or siblings, by profiles.json's parents) is never a couple
+    const A = xx.find((p) => p.id === a) || {};
+    const partners = xy.filter((p) => !ihRelated(A, p));
+    const b = (partners.find((p) => p.id === prm.ih_xy) || partners.find((p) => p.id === who) || partners[0] || {}).id;
+    return { xx, xy: partners, a, b, key: `${a}__${b}` };
   };
+  // A trait with X variants has a row for a daughter and one for a son (child_sex); the others one for either ("any")
   const ihRows = (id, pair) => {
     const d = dash.data(id);
-    return d.status === 'ok' ? d.data.filter((r) => r.pair === pair.key) : null;
+    if (d.status !== 'ok') return null;
+    const sex = ihSex();
+    return d.data.filter((r) => r.pair === pair.key && (!r.child_sex || r.child_sex === 'any' || r.child_sex === sex));
   };
   const ihModeTag = (parent, m) => ihMake(parent, 'span', 'ih-mode ih-mode-' + (IH_MODE[m] ? m : 'none'), IH_MODE[m] || 'Mode not given by a source');
 
@@ -380,6 +390,66 @@
       { label: pair.b, share: b / (a + b), cls: 'ih-c-xy', note: dir(r.push_XY) }], size);
   };
 
+  // How much a trait's scale says. First the GWAS impact, the same for every trait (gwas_impact.py): the share of the
+  // differences between people the study's lead variants explain, from each variant's p-value and the study's size.
+  // Then, for a familiar trait, what its own paper reports (impact.py, quoted). Shown first under "See the genes".
+  const ihImpactChip = (parent, gi) => {
+    if (gi == null) return null;
+    const [level, cls] = ihImpactLevel(gi);
+    const c = ihMake(parent, 'span', 'ih-impact-level ih-impact-' + cls + ' ih-impact-chip', `${gi < 0.1 ? '<0.1' : Math.round(gi * 10) / 10}%`);
+    c.title = `${level}: the study's strongest variants explain ${gi}% of the differences between people`;
+    return c;
+  };
+  const ihImpactLevel = (x) => x >= 8 ? ['High impact', 'high'] : x >= 3 ? ['Modest impact', 'modest'] : ['Little impact', 'little'];
+  const ihImpact = (parent, imp, used, read, who, gi, flag, rank) => {
+    const box = ihMake(parent, 'div', 'ih-impact');
+    ihMake(box, 'h5', null, 'How much this score says');
+    if (gi != null) {
+      const head = ihMake(box, 'div', 'ih-impact-head');
+      const [level, cls] = ihImpactLevel(gi);
+      ihMake(head, 'span', 'ih-impact-level ih-impact-' + cls, level);
+      ihMake(head, 'span', 'ih-impact-big', `${gi < 0.1 ? '<0.1' : Math.round(gi * 10) / 10}%`);
+      ihMake(head, 'span', null, `GWAS impact: the share of the differences between people that the study's ${used} strongest variants explain. Worked out from each variant's strength in the study and the study's size, the same way for every trait. High impact is 8% and over, modest 3 to 8%, little under 3%.`);
+      // Where this trait stands among all scored traits, and what a typical one explains (gwas_impact.py summary)
+      const sum = ((window.GX_SOURCES || {}).impact || {}).all;
+      if (sum) {
+        const cmp = ihMake(box, 'p', 'ih-impact-rep');
+        if (rank != null) { ihMake(cmp, 'b', null, `Higher than ${Math.min(99, Math.round(rank))}% of the ${Number(sum.traits).toLocaleString('en')} traits scored. `); }
+        cmp.append(`A typical trait's strongest variants explain ${sum.median}% (the median); the average is ${sum.mean}%, pulled up by a few strong ones. Half of all traits fall between ${sum.p25}% and ${sum.p75}%.`);
+      }
+      ihMake(box, 'p', 'ih-sub', `The other ${Math.round((100 - gi) * 10) / 10}% come from weaker variants, other genes, the environment, how the trait was measured, and chance. ` +
+        (gi < 3 ? 'At this strength the scale says little about one person: many people at the low end are above average on the trait, and the other way round.'
+          : gi < 8 ? 'At this strength the scale shifts the odds for one person, but people at the same place on it still differ a lot.'
+            : 'At this strength the scale says a fair amount about one person, though people at the same place still differ.'));
+    } else if (flag) {
+      ihMake(box, 'p', 'ih-impact-rep', `No GWAS impact for this study: ${flag}. Its variants' strengths can't be added up into a share of one trait's differences.`);
+    }
+    const k = imp && imp.kind, v = imp && imp.value;
+    if (imp) {
+      const rep = ihMake(box, 'p', 'ih-impact-rep');
+      ihMake(rep, 'b', null, 'What the study itself reports: ');
+      rep.append(k === 'variance' ? `its variants or score explained ${v}% of the differences.`
+        : k === 'h2' ? `no prediction figure; all common variants together could explain at most ${v}% (its SNP heritability), and a score made from the strongest explains less.`
+        : k === 'auc' ? `an AUC of ${v}: given one person who developed it and one who didn't, its score ranked the first higher ${Math.round(v * 100)} times in 100 (50 is a coin toss).`
+        : k === 'hr' ? `×${v} the rate of the condition for each standard deviation up its score; most people are within two of the average.`
+        : imp.open === false ? 'nothing in its abstract, and its full text isn\'t open.' : 'no figure for how much its score explains, in its abstract or open full text.');
+      if (imp.note) ihMake(box, 'p', 'ih-sub', imp.note);
+    }
+    const n = ihMake(box, 'p', 'ih-sub', `This scale uses the study's ${used} strongest variants (${read} read ${who}).`);
+    const ve = imp && imp.variants_estimate;
+    if (ve) n.append(` The study estimates about ${Number(ve.value).toLocaleString('en')} variants affect the trait in all; most are too weak to find one by one, so they aren't in the scale.`);
+    const quotes = [imp && imp.quote ? { text: imp.quote, where: imp.where } : null, ve ? { text: ve.quote, where: ve.where } : null].filter(Boolean);
+    for (const q of quotes) {
+      const b = ihMake(box, 'blockquote', 'ih-impact-q', `“${q.text}”`);
+      b.setAttribute('data-i18n-skip', '');
+      const c = ihMake(b, 'cite');
+      c.append(` ${q.where === 'abstract' ? 'Abstract' : 'Full text'}, `);
+      const a = ihMake(c, 'a', null, `PMID ${imp.pmid}`);
+      a.href = `https://europepmc.org/article/MED/${imp.pmid}`; a.target = '_blank'; a.rel = 'noopener';
+    }
+    return box;
+  };
+
   // The familiar traits first: where a child is most likely to land among Europeans, as a band and a direction
   dash.draw('ih-featured', (el) => {
     el.replaceChildren();
@@ -388,7 +458,9 @@
     const rows = ihRows('inh_predictions', pair), meta = (ihRows('inh_meta', pair) || [])[0];
     if (!rows || !meta) return;
     const by = new Map(rows.map((r) => [r.id, r]));
-    const picks = ihJ(meta.featured, []).filter((f) => f.more).map((f) => [f, by.get(f.id)]).filter(([, r]) => r && ihForSex(r));
+    // A trait for one sex (featured.json 'sex') shows only for a child of that sex
+    const kid = ihSex() === 'XX' ? 'female' : 'male';
+    const picks = ihJ(meta.featured, []).filter((f) => f.more && (!f.sex || f.sex === kid)).map((f) => [f, by.get(f.id)]).filter(([, r]) => r && ihForSex(r));
     if (!picks.length) return;
     const head = ihMake(el, 'div', 'ih-sec-head');
     ihMake(head, 'h3', null, 'Familiar traits');
@@ -396,10 +468,17 @@
     const ex = picks.find(([f]) => f.id === 'EFO_0008328') || picks[0];
     ihLegend(el, ex[1], pair, ex[0]);
     const grid = ihMake(el, 'div', 'ih-feat');
+    // Traits that belong together (featured.json 'group') share one wide card
+    const groups = new Map();
+    const hostOf = (g) => {
+      if (!g) return grid;
+      if (!groups.has(g)) { const box = ihMake(grid, 'div', 'ih-group'); ihMake(box, 'span', 'gx-label ih-group-label', g); groups.set(g, ihMake(box, 'div', 'ih-group-grid')); }
+      return groups.get(g);
+    };
     for (const [f, r] of picks) {
       const dirs = [f.more, f.less];
       const [band, d] = ihBandOf(r.child_pct);
-      const card = ihMake(grid, 'div', 'ih-fcard');
+      const card = ihMake(hostOf(f.group), 'div', 'ih-fcard');
       const top = ihMake(card, 'div', 'ih-fhead');
       ihMake(top, 'span', 'gx-label', f.name);
       const big = ihMake(top, 'div', 'ih-fbigrow');
@@ -409,7 +488,7 @@
       const meas = ihMake(card, 'p', 'ih-fmeas');
       meas.append('What the study measured: ');
       ihMake(meas, 'b', null, r.reported || r.trait).setAttribute('data-i18n-skip', '');
-      if (r.definition) { const dd = ihMake(meas, 'span', 'ih-fdef', ` · ${r.definition.split(/(?<=\.)\s/)[0]}`); dd.setAttribute('data-i18n-skip', ''); }
+      if (r.definition) { const dd = ihMake(meas, 'span', 'ih-fdef', ` · ${r.definition.split(/(?<=\.)\s/)[0].replace(/^(.{150}\S*)\s.+$/s, '$1 …')}`); dd.setAttribute('data-i18n-skip', ''); }
       ihScale(card, r, pair, dirs);
       const par = ihMake(card, 'p', 'ih-fpar');
       for (const [side, cls, pct] of [[pair.a, 'ih-who-xx', r.XX_pct], [pair.b, 'ih-who-xy', r.XY_pct]]) {
@@ -432,11 +511,12 @@
       if (r.n_unread) st.append(` · ${r.n_unread} not read`);
       const open = ihMake(card, 'details', 'ih-fopen');
       ihMake(open, 'summary', null, 'See the genes and the possible combinations');
+      ihImpact(open, f.impact, r.variants, r.used_both, 'in both parents', r.impact, r.impact_flag, r.impact_rank);
       ihGenes(open, r, pair, dirs);
       const foot = ihMake(card, 'div', 'ih-ffoot');
       ihPushCake(foot, r, pair, 76, dirs);
       const src = ihMake(foot, 'p', 'ih-src');
-      src.textContent = `${r.author} ${r.year}, ${Number(r.n).toLocaleString('en')} people, ${r.used_both} of ${r.variants} variants read in both parents.`;
+      src.textContent = `${r.author} ${r.year}, ${Number(r.n).toLocaleString('en')} people, ${r.used_both} of the study's ${r.variants} strongest variants read in both parents.`;
       src.setAttribute('data-i18n-skip', '');
     }
   });
@@ -444,7 +524,7 @@
   // Predicted traits: for every GWAS trait both parents can be read for, each parent's place among Europeans and the
   // child's expected place with the range 80% of their children would fall in
   let ihShown = 40, ihTyping = false;
-  const IH_SORT = { differs: 'Child furthest from average', parents: 'Parents furthest apart', name: 'A to Z' };
+  const IH_SORT = { differs: 'Child furthest from average', impact: 'Highest impact first', parents: 'Parents furthest apart', name: 'A to Z' };
   dash.draw('ih-predictions', (el) => {
     el.replaceChildren();
     const pair = ihPair();
@@ -455,6 +535,7 @@
     const head = ihMake(el, 'div', 'ih-sec-head');
     const meta = (ihRows('inh_meta', pair) || [])[0] || {};
     const catDefs = ihJ(meta.categories, {});
+    const featById = new Map(ihJ(meta.featured, []).map((f) => [f.id, f]));
     const all = rows;
     const hidden = all.filter((r) => !ihForSex(r)).length;
     const shown = all.filter(ihForSex);
@@ -496,6 +577,7 @@
       (!needle || r.trait.toLowerCase().includes(needle) || ihJ(r.top, []).some((v) => (v.gene || '').toLowerCase().includes(needle))));
     const sort = prm.ih_sort || 'differs';
     list = list.slice().sort(sort === 'name' ? (a, b) => a.trait.localeCompare(b.trait)
+      : sort === 'impact' ? (a, b) => (b.impact || 0) - (a.impact || 0) || Math.abs(b.child_z) - Math.abs(a.child_z)
       : sort === 'parents' ? (a, b) => Math.abs(b.XX_z - b.XY_z) - Math.abs(a.XX_z - a.XY_z)
         : (a, b) => Math.abs(b.child_z) - Math.abs(a.child_z));
     ihMake(el, 'p', 'ih-sub', `${list.length.toLocaleString('en')} traits`);
@@ -515,9 +597,13 @@
       ihMake(name, 'span', 'ih-sub', r.category);
       const dirs = ihDirs(r);
       ihScale(sum, r, pair);
-      ihMake(sum, 'span', 'ih-pnum', ihBand(r.child_pct, ...dirs));
+      const num = ihMake(sum, 'span', 'ih-pnum', ihBand(r.child_pct, ...dirs));
+      ihImpactChip(num, r.impact);
 
       const body = ihMake(row, 'div', 'ih-pbody');
+      // How much this scale says (the GWAS impact, its rank, and for a familiar trait its paper's own figure)
+      const fm = featById.get(r.id);
+      if (r.impact != null || r.impact_flag || (fm && fm.impact)) ihImpact(body, (fm && fm.impact) || null, r.variants, r.used_both, 'in both parents', r.impact, r.impact_flag, r.impact_rank);
       // What it measures: EFO's definition, and the trait as the study named it
       const what = ihMake(body, 'div', 'ih-what');
       ihMake(what, 'span', 'gx-label', 'What this measures');

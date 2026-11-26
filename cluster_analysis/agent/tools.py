@@ -17,7 +17,7 @@ import json
 import os
 import re
 
-from cluster_analysis.agent import evidence, facts, language, morsels, providers, terms
+from cluster_analysis.agent import evidence, facts, functions, language, morsels, pair, providers, terms, traits
 
 PUBLIC, PERSONAL, VIEW, CONTROL = "public", "personal", "view", "control"
 
@@ -153,7 +153,10 @@ def _shape(cards):
             "lab": "the person's genetic baseline per lab test", "nutrient": "the person's genetic baseline per nutrient",
             "fitness": "the person's genetic score per fitness trait", "theme": "where the person's variants change genes in the cluster",
             "findings": "study sentences that name the person's own genotype group", "gene": "the person's result for the gene",
-            "condition": "the person's risk-allele count for the condition", "medicines": "the person's medicine results"}
+            "condition": "the person's risk-allele count for the condition", "medicines": "the person's medicine results",
+            "inheritance": "what a child of the two picked profiles could inherit for the item, drawn as scales and odds",
+            "trait": "where the person's genes place them among Europeans on the GWAS trait, drawn as a scale with the genes behind it",
+            "function": "the person's genes called gain or loss of function, with the variant, genotype and evidence behind each call, drawn as a table"}
     has = sorted({what[c["provider"]] for c in cards if c["provider"] in what and c["level"] != "unknown"})
     return {"shown_to_person": True, "kinds": sorted({c["provider"] for c in cards}) or ["none"], "screen_has": has or ["nothing that answers it"],
             "note": "The person's own values are on their screen, not here. What exists publicly for this item comes "
@@ -505,7 +508,8 @@ def _highlights(ctx, highlights):
                 continue
             # The result the label names (its words in the result's title), and only that result's figures
             want = {w for w in re.findall(r"[a-z0-9]{3,}", label.lower())} - {"genetic", "score", "your", "baseline", "result", "level", "blood"}
-            match = [c for c in interpreted(ctx["cards"]) if want & set(re.findall(r"[a-z0-9]{3,}", (c["result"] or "").lower()))]
+            seen = [c for c in ctx["cards"] if not c.get("pair") or ctx.get("pair_shared")]
+            match = [c for c in interpreted(seen) if want & set(re.findall(r"[a-z0-9]{3,}", (c["result"] or "").lower()))]
             if not match:
                 bad.append(f"{label}: no result of the person's matches this label; name it as the result is named")
                 continue
@@ -655,6 +659,14 @@ TOOLS = {
     "recent_papers": (PUBLIC, t_recent_papers, *_s("The newest papers on a topic, a gene or a muscle group (Europe PMC, newest first), each with the sentences that carry its finding.",
                                                    query=S("topic, e.g. ACTN3 AND training, or hamstring injury genetics"), since_year=I("first year, default 2023", optional=True),
                                                    limit=I("max papers, default 6", optional=True))),
+    "trait_model": (PUBLIC, pair.t_trait_model, *_s("The GWAS Catalog study (its people, lead variants) and the EFO definition behind a trait's prediction in the Inheritance tab, and how a child's prediction is made from it. Facts for everyone.",
+                                                     trait=S("trait name, e.g. height, LDL cholesterol"))),
+    "my_genes_by_function": (PERSONAL, functions.t_my_genes_by_function, *_s("List the person's genes the explorer calls gain of function (GoF), loss of function (LoF) or altered, across the clusters or in one, with the variant and the evidence behind each call (a reviewed protein change, or an expression effect). Use it for 'my GoF genes', 'which genes are less active'.",
+                                                                          function=S("GoF, LoF or altered"), theme=S("theme id, e.g. muscle, cancer (optional)", optional=True))),
+    "my_traits": (PERSONAL, traits.t_my_traits, *_s("Read where the person's genes place them among Europeans on GWAS Catalog traits the question names (height, sleep duration, LDL cholesterol, chronotype; 2,000+ traits, the Biomarkers tab), drawn as a scale with the genes behind it. They see it; you get the result only with Restricted mode off.",
+                                                    about=A("the traits the question names, as written"))),
+    "my_child": (PERSONAL, pair.t_my_child, *_s("Read what a child of the two profiles picked in the explorer could inherit, for the traits, conditions and gene symbols the question names (Inheritance tab): the person sees it; you get the child's bands and odds when Restricted mode is off, otherwise the public part.",
+                                                about=A("the traits, conditions or gene symbols the question names, as written (e.g. height, cystic fibrosis, CYP2C19)"))),
     "my_nutrient": (PERSONAL, t_my_nutrient, *_s("Read the person's genetic baseline for a nutrient and their variants at its steps. They see it; you get its shape.", name=S("nutrient name"))),
     "show_nutrient": (VIEW, t_show_nutrient, *_s("Draw the nutrient's uptake and conversion steps in the answer, with the person's variants marked at each step.", name=S("nutrient name"))),
     "show_papers": (VIEW, t_show_papers, *_s("Show a research digest in the answer: the papers (from recent_papers, search_papers or read_paper) with their key findings.",
@@ -818,15 +830,17 @@ def call(ctx, name, args):
         return f"{name} failed: {type(e).__name__}: {str(e)[:300]}", True
     _trace(ctx, name, args, out, out.get("error") if isinstance(out, dict) and "error" in out and len(out) <= 2 else None,
            ctx["cards"][before:])
-    # Sharing on: a personal tool also gives the model the interpreted results it just put on the screen
-    if kind == PERSONAL and ctx.get("share") and isinstance(out, dict):
-        for c in ctx["cards"][before:]:
+    # Restricted mode off: a personal tool also gives the model the interpreted results it just put on the screen.
+    # A child's results (my_child) are left out here: that tool sends its own, narrower ones
+    new = [c for c in ctx["cards"][before:] if not c.get("pair")]
+    if kind == PERSONAL and ctx.get("share") and isinstance(out, dict) and new:
+        for c in new:
             for m in c.get("findings") or []:
                 pmid = m.get("pmid") or (re.search(r"MED/(\d+)|pubmed/(\d+)", m.get("url") or "") or [None, None])[1]
                 if pmid:
                     ctx["ledger"].ref(f"PMID:{pmid}", f"PMID {pmid}: {m.get('title') or ''}", m.get("url") or f"https://europepmc.org/article/MED/{pmid}")
                     ctx["ledger"].text(f"PMID:{pmid}", m.get("sentence") or "")
-        out = {**out, "results": interpreted(ctx["cards"][before:]),
+        out = {**out, "results": interpreted(new),
                "note": "The person's interpreted results for this item, shared so you can weave them into the summary."}
     err = isinstance(out, dict) and "error" in out and len(out) <= 2
     return facts.clip(out), err

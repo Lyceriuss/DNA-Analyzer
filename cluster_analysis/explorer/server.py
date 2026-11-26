@@ -24,13 +24,18 @@ site has been rebuilt with them, there is nothing to show but the welcome and th
 
 The Ask tab's research agent (cluster_analysis/agent), one question at a time:
     GET  /api/agent/status      {"key", "backend": "api" | "claude-code" | null, "index", "model", "effort", "running", "answers"}
+    POST /api/agent/provider    {"provider", "key"?, "model"?, "small_model"?, "base_url"?}: the model Ask runs on
+                                (agent/models.py); a key is saved encrypted and never sent back
+    POST /api/agent/models      {"provider", "key"?, "base_url"?}: the provider's own model list
+    POST /api/agent/forget      {"provider"}: deletes that provider's saved key
     POST /api/agent/key         {"key", "remember"}: the Anthropic API key, in memory or (remember) in data/output/agent,
                                 encrypted (agent/keystore.py); no endpoint returns it, status says only whether one is set
     POST /api/agent/ask         {"question", "lang"} -> {"job"}: runs the agent in the background
     GET  /api/agent/events?job=J&after=N   {"events", "next", "done", "answer"}
     POST /api/agent/stop        {"job"}
-    POST /api/agent/settings    {"share_results"}: whether interpreted results go to the model (agent/settings.py)
+    POST /api/agent/settings    {"share_results"}: whether interpreted results go to the model, the inverse of Restricted mode (agent/settings.py)
     GET  /api/agent/answer?id=A the saved answer (no personal data)
+    GET  /api/agent/report?session=ID[&turn=N]  the conversation (or one turn) as a PDF (agent/report.py)
     GET  /api/agent/fill?id=A&person=P     the answer read for that person, on this machine
 
 The app's life and the person's data:
@@ -50,6 +55,7 @@ import secrets
 import subprocess
 import sys
 import threading
+import time
 import urllib.parse
 
 from cluster_analysis import pipeline
@@ -151,10 +157,24 @@ class Agent:
     @classmethod
     def status(cls):
         from cluster_analysis.agent import answer, index, run
-        b = "api" if cls.key else run.backend()
+        b = run.backend() or ("api" if cls.key else None)
+        from cluster_analysis.agent import models, settings
+        st = settings.get()
+        provs = [{"id": "claude-code", "label": "Claude Code", "how": "login", "ready": bool(run.claude_cli()), "company": "Anthropic"},
+                 {"id": "anthropic", "label": "Anthropic (Claude)", "how": "key", "ready": bool(cls.key or run.api_key()), "company": "Anthropic"}]
+        provs += [{"id": k, "label": v["label"], "how": "key", "ready": bool(models.api_key(k)) or (k == "custom" and bool(st.get("base_url"))),
+                   "company": v["company"]} for k, v in models.PROVIDERS.items()]
         return {"key": bool(cls.key or run.api_key()), "backend": b, "index": os.path.exists(index.PATH),
-                "model": run.MODEL if b == "api" else f"Claude Code ({run.CC_MODEL})",
-                "effort": run.EFFORT, "running": cls.running, "answers": answer.listing(), "settings": __import__("cluster_analysis.agent.settings", fromlist=["get"]).get()}
+                "model": run.MODEL if b == "api" and cls.key and not run.api_key() else run.model_label(),
+                "company": run.company(), "providers": provs, "provider": st.get("provider"),
+                # Questions still being answered, and ones finished in the last hour: a window that was closed,
+                # reloaded or opened later attaches to them (ask.js) instead of losing the answer
+                "active": [{"job": j, "person": x["person"], "question": x["question"], "session": x.get("session"),
+                            "done": x["done"], "started": x["started"]}
+                           for j, x in list(cls.jobs.items()) if x.get("kind") == "converse"
+                           and (not x["done"] or time.time() - x["started"] < 3600)],
+                "effort": run.EFFORT, "running": cls.running, "answers": answer.listing(), "settings": __import__("cluster_analysis.agent.settings", fromlist=["get"]).get(),
+                "pairs": __import__("cluster_analysis.agent.pair", fromlist=["pairs"]).pairs()}
 
     @classmethod
     def ask(cls, question, lang):
@@ -240,17 +260,20 @@ class Agent:
         return job
 
     @classmethod
-    def converse(cls, question, person, session_id=None):
+    def converse(cls, question, person, session_id=None, pair=None):
         """An Ask conversation turn (agent/converse.py) as a job; its result is the saved turn."""
         from cluster_analysis.agent import converse
         job = secrets.token_hex(6)
-        state = {"events": [], "done": False, "answer": None, "quick": None, "stop": False, "turn": None}
+        # Who asked what, so any window can find a running question again (status: "active") and follow it
+        state = {"events": [], "done": False, "answer": None, "quick": None, "stop": False, "turn": None,
+                 "kind": "converse", "person": person, "question": question, "session": session_id, "started": time.time()}
         cls.jobs[job] = state
 
         def work():
             try:
-                s, turn = converse.ask(question, person, session_id, emit=state["events"].append, stop=lambda: state["stop"])
+                s, turn = converse.ask(question, person, session_id, emit=state["events"].append, stop=lambda: state["stop"], pair=pair)
                 state["turn"] = {"session": s.id, "index": len(s.turns) - 1, **turn}
+                state["session"] = s.id
             except Exception as e:
                 state["events"].append({"type": "error", "message": f"{type(e).__name__}: {e}"})
             finally:
@@ -409,6 +432,22 @@ class Handler(http.server.SimpleHTTPRequestHandler):
                 return self._json(200, Agent.events(q.get("job", ""), int(q.get("after") or 0)))
             if url.path == "/api/agent/answer":
                 return self._json(200, answer.load(q.get("id", "")))
+            if url.path == "/api/agent/report":
+                # The conversation, or one turn, as a structured PDF (agent/report.py), downloaded by the person
+                from cluster_analysis.agent import report
+                sid, turn = q.get("session", ""), q.get("turn")
+                if not re.fullmatch(r"\d{8}-\d{6}-[0-9a-f]{6}", sid) or (turn is not None and not str(turn).isdigit()):
+                    return self._json(400, {"error": "No such conversation."})
+                body = report.build(sid, None if turn is None else int(turn))
+                name = report.filename(sid, None if turn is None else int(turn))
+                self.send_response(200)
+                self.send_header("Content-Type", "application/pdf")
+                self.send_header("Content-Disposition", f'attachment; filename="{name}"')
+                self.send_header("Content-Length", str(len(body)))
+                self.send_header("Cache-Control", "no-store")
+                self.end_headers()
+                self.wfile.write(body)
+                return None
             if url.path == "/api/agent/session":
                 from cluster_analysis.agent import session as sess
                 s = sess.Session.load(q.get("id", ""))
@@ -443,9 +482,51 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             if req.get("remember"):
                 run.save_api_key(key)   # encrypted at rest (agent/keystore.py); never sent back to the page
             return self._json(200, {"ok": True})
+        if path == "/api/agent/provider":
+            # The model Ask runs on: which provider, its key (saved encrypted, never sent back), the models picked
+            from cluster_analysis.agent import models, settings
+            pid = req.get("provider")
+            if pid not in ("anthropic", "claude-code", *models.PROVIDERS):
+                return self._json(400, {"error": "Unknown provider."})
+            base = str(req.get("base_url") or "").strip()
+            if pid == "custom" and base and not re.fullmatch(r"https?://[^\s]{3,290}", base):
+                return self._json(400, {"error": "The base URL must start with http:// or https://."})
+            key = str(req.get("key") or "").strip()
+            if key and pid in models.PROVIDERS:
+                if not re.fullmatch(r"[\x21-\x7e]{8,400}", key):
+                    return self._json(400, {"error": "That doesn't look like an API key."})
+                models.save_key(pid, key)
+            kw = {"provider": pid}
+            for k in ("model", "small_model"):
+                if k in req:
+                    v = str(req.get(k) or "").strip()
+                    if v and not re.fullmatch(r"[A-Za-z0-9._:/@\-]{1,200}", v):
+                        return self._json(400, {"error": "That model name has characters a model id doesn't use."})
+                    kw[k] = v or None
+            if pid == "custom" and "base_url" in req:
+                kw["base_url"] = base or None
+            settings.set(**kw)
+            return self._json(200, Agent.status())
+        if path == "/api/agent/models":
+            from cluster_analysis.agent import models
+            pid = req.get("provider")
+            if pid not in models.PROVIDERS:
+                return self._json(400, {"error": "Unknown provider."})
+            base = str(req.get("base_url") or "").strip() or None
+            if base and not re.fullmatch(r"https?://[^\s]{3,290}", base):
+                return self._json(400, {"error": "The base URL must start with http:// or https://."})
+            try:
+                return self._json(200, {"models": models.list_models(pid, key=str(req.get("key") or "").strip() or None, base=base)})
+            except Exception as e:
+                return self._json(400, {"error": str(e)[:300]})
+        if path == "/api/agent/forget":
+            from cluster_analysis.agent import models
+            if req.get("provider") in models.PROVIDERS:
+                models.forget_key(req["provider"])
+            return self._json(200, Agent.status())
         if path == "/api/agent/settings":
             from cluster_analysis.agent import settings
-            return self._json(200, settings.set(share_results=req.get("share_results", True)))
+            return self._json(200, settings.set(share_results=req.get("share_results", False)))
         if path == "/api/agent/converse":
             question = str(req.get("question") or "").strip()
             if not 2 <= len(question) <= 2000:
@@ -454,9 +535,14 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             if not re.fullmatch(r"[A-Za-z0-9_\-]{1,32}", person):
                 return self._json(400, {"error": "Choose a profile."})
             if not run.backend():
-                return self._json(400, {"error": "Ask needs Claude connected: an API key, or Claude Code logged in."})
+                return self._json(400, {"error": "Ask needs an AI model connected: an API key (Anthropic, OpenAI, Google Gemini, …) or Claude Code logged in."})
             sid = req.get("session") or None
-            return self._json(200, {"job": Agent.converse(question, person, sid)})
+            # The two profiles a child question is about (Ask's picker): one XX and one XY, checked in agent/pair.py
+            pr = req.get("pair") if isinstance(req.get("pair"), dict) else {}
+            pair = {k: str(pr.get(k) or "") for k in ("xx", "xy")}
+            if not all(re.fullmatch(r"[A-Za-z0-9_\-]{1,32}", v) for v in pair.values()):
+                pair = None
+            return self._json(200, {"job": Agent.converse(question, person, sid, pair)})
         if path == "/api/agent/quick":
             question = str(req.get("question") or "").strip()
             if not 3 <= len(question) <= 2000:

@@ -1,0 +1,43 @@
+{
+ "about": "Ask's tools as people see them: an abbreviation (the letter logo in the Ask tab and in Sources and documentation), a name and what it does, per tool in the registry (cluster_analysis/agent/tools.py). build.py merges this with the registry's kinds; tests/test_agent.py checks every tool has an entry and every entry a tool. 'sources' are the databases (ids in sources.json) a tool reads, lit in the Ask tab and listed in the Ask report PDF. 'drawn' lists what the Ask tab draws on its own from a turn's results, not a tool the model calls.",
+ "tools": {
+  "understand": {"abbr": "RQ", "label": "Reading the question", "what": "Its reading of the question and its plan, shown before it starts.", "sources": ["claude"]},
+  "answer": {"abbr": "AN", "label": "The answer", "what": "The summary, key figures and explanation, checked against what the tools returned before you see it.", "sources": ["claude"]},
+  "catalogue": {"abbr": "EH", "label": "What the explorer holds", "what": "The clusters, cancer types, lab tests, nutrients and fitness tests to match a question to.", "sources": ["opentargets"]},
+  "resolve": {"abbr": "NF", "label": "Name finder", "what": "What a name refers to: a drug by any name, a gene, a test, a condition.", "sources": ["opentargets"]},
+  "gene": {"abbr": "GF", "label": "Gene facts", "what": "A gene's function (UniProt), clusters, strongest GWAS variants and ClinVar records.", "sources": ["uniprot", "gwas", "clinvar"]},
+  "variant": {"abbr": "VF", "label": "Variant facts", "what": "A variant's alleles, European frequency, associations, ClinVar and ClinPGx records.", "sources": ["gwas", "clinvar", "1000g", "clinpgx"]},
+  "cluster": {"abbr": "CF", "label": "Cluster facts", "what": "A cluster's mechanisms and traits, or the genes of one of them.", "sources": ["go", "opentargets", "string"]},
+  "trait_variants": {"abbr": "GT", "label": "GWAS traits", "what": "GWAS Catalog traits matching a phrase and their strongest variants.", "sources": ["gwas"]},
+  "trait_model": {"abbr": "SBT", "label": "The study behind a trait", "what": "The GWAS Catalog study and EFO definition behind a trait's scale.", "sources": ["gwas", "efo"]},
+  "drug": {"abbr": "DG", "label": "Drug genetics", "what": "Dosing guidelines (CPIC) and ClinPGx annotations with the effect of every genotype.", "sources": ["clinpgx", "cpic"]},
+  "research_genotypes": {"abbr": "SG", "label": "Studies by genotype", "what": "Study sentences that report results for a genotype group.", "sources": ["europepmc", "1000g"]},
+  "search_papers": {"abbr": "PS", "label": "Paper search", "what": "All of PubMed and the open full texts, through Europe PMC.", "sources": ["europepmc"]},
+  "read_paper": {"abbr": "PR", "label": "Paper reader", "what": "A paper's abstract, and the full-text paragraphs that answer the question.", "sources": ["europepmc"]},
+  "recent_papers": {"abbr": "NR", "label": "Newest research", "what": "The latest papers on a topic or gene, newest first.", "sources": ["europepmc"]},
+  "pathway": {"abbr": "PF", "label": "Pathway facts", "what": "A gene's Reactome reactions with their inputs and outputs.", "sources": ["reactome", "uniprot"]},
+  "nutrient": {"abbr": "NUF", "label": "Nutrient facts", "what": "A nutrient's blood tests and its uptake and conversion steps.", "sources": ["reactome", "nnr"]},
+  "show_cluster": {"abbr": "GN", "label": "Gene network", "what": "The cluster around a gene, as a network of its neighbours from STRING and Gene Ontology, coloured by your results.", "sources": ["string", "go"]},
+  "show_pathway": {"abbr": "GP", "label": "Gene pathway", "what": "A gene's steps in the body from Reactome: what goes in, what comes out, which enzymes act.", "sources": ["reactome"]},
+  "show_nutrient": {"abbr": "NS", "label": "Nutrient steps", "what": "How a nutrient is taken up and converted, with your variants marked at each step.", "sources": ["reactome"]},
+  "show_medicine": {"abbr": "MV", "label": "Medicine view", "what": "A link into the Medicines tab for the drug, with your guideline results.", "sources": ["clinpgx"]},
+  "show_papers": {"abbr": "RD", "label": "Research digest", "what": "The papers behind the answer, each with the sentences that carry its finding.", "sources": ["europepmc"]},
+  "my_scores": {"abbr": "YS", "label": "Your scores", "what": "Your genetic scores for cancers, lab tests, nutrients and fitness, each drawn as a scale with the variants behind it.", "sources": ["pgs", "gwas", "iarc", "ecac"]},
+  "my_traits": {"abbr": "YT", "label": "Your trait scales", "what": "Where your genes place you among Europeans on any of 2,000+ GWAS Catalog traits, drawn as a scale with the genes that push it.", "sources": ["gwas", "efo", "1000g"]},
+  "my_child": {"abbr": "CSO", "label": "A child's scales and odds", "what": "What a child of two profiles could inherit: trait scales with both parents and the child's range, odds bars for conditions and medicine genes.", "sources": ["gwas", "clinvar", "hpo", "cpic"]},
+  "my_medicine": {"abbr": "YM", "label": "Your medicine", "what": "Your guideline and ClinPGx results for one drug.", "sources": ["clinpgx", "cpic", "chembl"]},
+  "my_medicines": {"abbr": "MO", "label": "Your medicines overview", "what": "Every gene whose result changes the dosing guidance for you.", "sources": ["clinpgx", "cpic", "chembl"]},
+  "my_cluster": {"abbr": "YC", "label": "Your genes in a cluster", "what": "Your variants in a cluster's mechanisms and the study findings for your genotypes.", "sources": ["go", "opentargets", "string", "reactome", "europepmc"]},
+  "my_gene": {"abbr": "YG", "label": "Your gene", "what": "Your result for one gene across the clusters, tables and pathways.", "sources": ["uniprot", "reactome", "gwas"]},
+  "my_condition": {"abbr": "IR", "label": "Your inherited risk", "what": "Your risk alleles for a condition from the GWAS Catalog and ClinVar.", "sources": ["gwas", "clinvar", "1000g"]},
+  "my_nutrient": {"abbr": "NB", "label": "Your nutrient baseline", "what": "Your genetic baseline for a nutrient and your variants at its steps.", "sources": ["pgs", "gwas", "nnr"]},
+  "my_genes_by_function": {"abbr": "GA", "label": "Your gene activity calls", "what": "Your genes called gain of function, loss of function or altered, with the variant and the evidence behind each call.", "sources": ["gtex", "uniprot", "clinvar", "mavedb", "ensembl"]}
+ },
+ "drawn": [
+  {"abbr": "KF", "label": "Key figures", "what": "The answer's main numbers as tiles, each tied to its source."},
+  {"abbr": "DNA", "label": "Your DNA at a glance", "what": "The genotypes the answer rests on, coloured by what they do."},
+  {"abbr": "HTT", "label": "How it ties together", "what": "Each area of the question with your genes behind it, the studies and the finding."},
+  {"abbr": "CA", "label": "Cluster areas", "what": "Your changed genes in each mechanism the answer read, grouped as networks."},
+  {"abbr": "SRC", "label": "Sources", "what": "Every paper and database the answer cites, linked."}
+ ]
+}

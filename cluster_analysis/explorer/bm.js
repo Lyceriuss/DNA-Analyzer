@@ -144,7 +144,7 @@
 
   // Every trait, the person's place on each: the Inheritance tab's list with one mark instead of a child's range
   let bmShown = 40, bmTyping = false;
-  const BM_SORT = { far: 'Furthest from average', name: 'A to Z' };
+  const BM_SORT = { studied: 'Largest studies first', impact: 'Highest impact first', name: 'A to Z' };
   const bmAge = (t) => /^age (at|of) /i.test(t.trait || '');
   const bmDirs = (t) => bmAge(t) ? ['later', 'earlier'] : t.kind === 'odds ratio' ? ['higher risk', 'lower risk'] : ['higher', 'lower'];
   dash.draw('bm-traits', (el) => {
@@ -173,12 +173,16 @@
     q.addEventListener('input', () => { clearTimeout(tm); tm = setTimeout(() => { bmShown = 40; bmTyping = true; dash.setParams({ bm_q: q.value }); }, 250); });
     if (bmTyping) { bmTyping = false; q.focus(); q.setSelectionRange(q.value.length, q.value.length); }
     const sel = bmMake(bar, 'select', 'md-select');
-    for (const [k, l] of Object.entries(BM_SORT)) { const o = bmMake(sel, 'option', null, l); o.value = k; o.selected = (prm.bm_sort || 'far') === k; }
+    for (const [k, l] of Object.entries(BM_SORT)) { const o = bmMake(sel, 'option', null, l); o.value = k; o.selected = (prm.bm_sort || 'studied') === k; }
     sel.addEventListener('change', () => dash.setParams({ bm_sort: sel.value }));
     const needle = (prm.bm_q || '').toLowerCase();
     let list = traits.filter((t) => (!cat || t.category === cat) &&
       (!needle || t.trait.toLowerCase().includes(needle) || (t.top || []).some((v) => (v.gene || '').toLowerCase().includes(needle))));
-    list = list.slice().sort((prm.bm_sort || 'far') === 'name' ? (a, b) => a.trait.localeCompare(b.trait) : (a, b) => Math.abs(b.z) - Math.abs(a.z));
+    // Largest studies first: the best-measured traits lead, rather than the few-variant ones that reach the extremes easily
+    const by = prm.bm_sort || 'studied';
+    list = list.slice().sort(by === 'name' ? (a, b) => a.trait.localeCompare(b.trait)
+      : by === 'impact' ? (a, b) => (b.impact || 0) - (a.impact || 0) || (b.n || 0) - (a.n || 0)
+      : (a, b) => (b.n || 0) - (a.n || 0) || b.used - a.used);
     bmMake(el, 'p', 'ih-sub', `${list.length.toLocaleString('en')} traits`);
     const box = bmMake(el, 'div', 'ih-plist');
     for (const t of list.slice(0, bmShown)) {
@@ -194,7 +198,8 @@
       scale.setAttribute('aria-label', `${who}: ${band}`);
       bmMake(scale, 'span', 'ih-mid');
       bmMake(scale, 'span', 'bm-mk').style.left = `${Math.max(1, Math.min(99, t.pct))}%`;
-      bmMake(sum, 'span', 'ih-pnum', `${band} · ${d > 0 ? dirs[0] : dirs[1]}`);
+      const num = bmMake(sum, 'span', 'ih-pnum', `${band} · ${d > 0 ? dirs[0] : dirs[1]}`);
+      if (typeof ihImpactChip === 'function') ihImpactChip(num, t.impact);
       const body = bmMake(row, 'div', 'ih-pbody');
       const what = bmMake(body, 'div', 'ih-what');
       bmMake(what, 'span', 'gx-label', 'What this measures');
@@ -204,9 +209,10 @@
       bmMake(rep, 'i', null, t.reported || t.trait).setAttribute('data-i18n-skip', '');
       rep.append(bmAge(t) ? '. Higher on the scale means later.' : t.kind === 'odds ratio' ? '. Higher on the scale means higher odds of it.' : '. Higher on the scale means more of it.');
       const src = bmMake(body, 'p', 'ih-src');
-      src.append(`${t.author} ${t.year}, ${Number(t.n).toLocaleString('en')} people, ${t.used} of ${t.variants} variants read in ${who}. Effects from `);
+      src.append(`${t.author} ${t.year}, ${Number(t.n).toLocaleString('en')} people, ${t.used} of the study's ${t.variants} strongest variants read in ${who}. Effects from `);
       const a = bmMake(src, 'a', null, t.study); a.href = `https://www.ebi.ac.uk/gwas/studies/${t.study}`; a.target = '_blank'; a.rel = 'noopener';
       src.setAttribute('data-i18n-skip', '');
+      if (typeof ihImpact === 'function' && (t.impact != null || t.impact_flag || (t.featured && t.featured.impact))) ihImpact(body, (t.featured && t.featured.impact) || null, t.variants, t.used, `in ${who}`, t.impact, t.impact_flag, t.impact_rank);
       bmGenes(body, { score: { top: t.top } }, who, dirs);
     }
     if (list.length > bmShown) {
@@ -258,6 +264,104 @@
     }
     return box;
   };
+
+  // One card for one person: a trait or a value, its band and direction, the scale with the person's mark and the
+  // ends in words, what the study measured, and the genes behind it. opts: label, name, dirs [more, less], worse
+  // ('higher' | 'lower' | null: the end the source counts as less favourable), source line, button
+  const bmCard = (grid, r, who, opts) => {
+    const pct = r.pct;
+    const [band, d] = bmBandOf(pct);
+    const [more, less] = opts.dirs;
+    const lean = opts.worse ? ((opts.worse === 'higher') === (pct >= 50) ? 'less' : 'more') : 'none';
+    const card = bmMake(grid, 'div', 'ih-fcard bm-card bm-lean-' + lean);
+    const top = bmMake(card, 'div', 'ih-fhead');
+    bmMake(top, 'span', 'gx-label', opts.label);
+    if (opts.name) bmMake(top, 'h4', 'bm-name', opts.name);
+    const big = bmMake(top, 'div', 'ih-fbigrow');
+    bmMake(big, 'span', 'ih-fbig', band);
+    bmMake(big, 'span', 'ih-fdir', d > 0 ? more : less);
+    if (opts.measured) {
+      const meas = bmMake(card, 'p', 'ih-fmeas');
+      meas.append('What the study measured: ');
+      bmMake(meas, 'b', null, opts.measured).setAttribute('data-i18n-skip', '');
+      if (opts.definition) bmMake(meas, 'span', null, ` · ${opts.definition.split(/(?<=\.)\s/)[0].replace(/^(.{150}\S*)\s.+$/s, '$1 …')}`).setAttribute('data-i18n-skip', '');
+    }
+    const wrap = bmMake(card, 'span', 'ih-scalewrap');
+    const scale = bmMake(wrap, 'span', 'ih-scale bm-scale' + (opts.worse === 'higher' ? ' bm-worse-hi' : opts.worse === 'lower' ? ' bm-worse-lo' : ''));
+    scale.setAttribute('role', 'img');
+    scale.setAttribute('aria-label', `${who}: ${band} · ${d > 0 ? more : less}`);
+    bmMake(scale, 'span', 'ih-mid');
+    bmMake(scale, 'span', 'bm-mk').style.left = `${Math.max(1, Math.min(99, pct))}%`;
+    const ax = bmMake(wrap, 'span', 'ih-axis');
+    bmMake(ax, 'span', opts.worse === 'lower' ? 'bm-worse' : null, less);
+    bmMake(ax, 'span', null, 'average');
+    bmMake(ax, 'span', opts.worse === 'higher' ? 'bm-worse' : null, more);
+    if (opts.source) { const s = bmMake(card, 'p', 'ih-src', opts.source); s.setAttribute('data-i18n-skip', ''); }
+    const open = bmMake(card, 'details', 'ih-fopen');
+    bmMake(open, 'summary', null, 'See the genes');
+    if ((opts.impact !== undefined || r.impact != null || r.impact_flag) && typeof ihImpact === 'function') ihImpact(open, opts.impact || null, r.variants, r.used, `in ${who}`, r.impact, r.impact_flag, r.impact_rank);
+    bmGenes(open, { score: { top: r.top } }, who, opts.dirs);
+    if (opts.button) {
+      const go = bmMake(open, 'button', 'md-pill bm-go', opts.button[0]);
+      go.type = 'button';
+      go.addEventListener('click', opts.button[1]);
+    }
+    return card;
+  };
+
+  // Familiar traits first, the same ones the Inheritance tab shows for a child (featured.json)
+  dash.draw('bm-featured', (el) => {
+    el.replaceChildren();
+    const traits = bmTraits();
+    if (!traits) return;
+    const who = gx.who();
+    // A trait for one sex (featured.json 'sex': grip strength, menopause, …) shows only for a person of that sex
+    const sex = ((dash.data('profiles').data || []).find((p) => p.id === who) || {}).sex;
+    const picks = traits.filter((t) => t.featured && t.featured.more && (!t.featured.sex || t.featured.sex === sex)).sort((a, b) => a.featured.order - b.featured.order);
+    if (!picks.length) return;
+    const head = bmMake(el, 'div', 'ih-sec-head');
+    bmMake(head, 'h3', null, 'Familiar traits');
+    bmMake(head, 'p', null, `Where ${who}'s genes place ${who} among Europeans on traits everyone knows. The dot is ${who}; the middle line is the average.`);
+    const grid = bmMake(el, 'div', 'ih-feat');
+    // Traits that belong together (featured.json 'group': body fat and lean mass) share one wide card
+    const groups = new Map();
+    const hostOf = (g) => {
+      if (!g) return grid;
+      if (!groups.has(g)) { const box = bmMake(grid, 'div', 'ih-group'); bmMake(box, 'span', 'gx-label ih-group-label', g); groups.set(g, bmMake(box, 'div', 'ih-group-grid')); }
+      return groups.get(g);
+    };
+    for (const t of picks) {
+      bmCard(hostOf(t.featured.group), t, who, { label: t.featured.name, dirs: [t.featured.more, t.featured.less], measured: t.reported || t.trait,
+        definition: t.definition, impact: t.featured.impact || null,
+        source: `${t.author} ${t.year}, ${Number(t.n).toLocaleString('en')} people, ${t.used} of the study's ${t.variants} strongest variants read in ${who}.` });
+    }
+  });
+
+  // Which cancers the genes lean toward: one polygenic score per cancer (cancers.json, the PGS Catalog), the highest first
+  dash.draw('bm-cancers', (el) => {
+    el.replaceChildren();
+    const rs = gx.rows('can_tests');
+    if (!rs) return;
+    const who = gx.who();
+    const list = [];
+    for (const t of rs[0]) {
+      const m = bmJ(t.markers, []).find((x) => x.score && x.score.percentile != null);
+      if (m) list.push({ t, m, pct: m.score.percentile, top: m.score.top || [] });
+    }
+    if (!list.length) return;
+    list.sort((a, b) => b.pct - a.pct);
+    const head = bmMake(el, 'div', 'ih-sec-head');
+    bmMake(head, 'h3', null, `Which cancers ${who}'s genes lean toward`);
+    bmMake(head, 'p', null, `For each cancer, the risk variants large studies found, added up for ${who} and compared with Europeans; the highest first. ` +
+      'These common variants each nudge risk a little and together shift it modestly. The large inherited risks come from rare variants, in genes such as BRCA1, BRCA2 and the Lynch syndrome genes, which a chip mostly cannot read.');
+    const grid = bmMake(el, 'div', 'ih-feat');
+    for (const { t, m, pct, top } of list) {
+      const s = m.source || {};
+      bmCard(grid, { pct, top }, who, { label: 'Cancer', name: t.name, dirs: ['higher risk', 'lower risk'], worse: 'higher',
+        source: `${s.source || ''}${s.author ? `, ${s.author} ${s.year}` : ''}${s.n ? `, ${Number(s.n).toLocaleString('en')} people` : ''}, ${m.score.used} of ${m.score.variants} variants read in ${who}.`,
+        button: ['Open in the cancer theme ›', () => { gx.show('clusters'); dash.setParams({ theme: 'cancer', can_n: t.id }); }] });
+    }
+  });
 
   dash.draw('bm-panels', (el) => {
     el.replaceChildren();

@@ -37,6 +37,18 @@ once for everyone, and picked on the computer.
 
 ### The tools (`tools.py`)
 
+`my_genes_by_function` (`functions.py`) lists the person's genes called GoF, LoF or altered (theme_genes and
+gene_function datasets), one row per gene with its clusters merged, reviewed protein changes before expression
+effects; drawn as a table (`functionBox` in `ask.js`).
+
+`my_child`, `my_traits` and `trait_model` carry each trait's GWAS impact (how much its scale says, its level and rank,
+the median and mean of all traits): a property of the study, the same for everyone. The Ask tab draws it beside each trait
+scale as "How much this score says" with the level chip (`impactLine` in `ask.js`); the PDF lists it with each result.
+
+Each tool's abbreviation (its letter logo), name and plain description are in `explorer/ask_tools.json`, shown in
+Sources and documentation and in the Ask tab's Tools group (lit while called); `tests/test_agent.py` checks it covers
+exactly the registry's tools.
+
 Four kinds, by what goes back to the model:
 
 | Kind | Tools | The model gets |
@@ -52,24 +64,70 @@ is cut to 24,000 characters (`facts.clip`, empty fields dropped, compact JSON).
 
 ### What is sent
 
-Ask needs a model, and connecting one is the user's own setup: their Anthropic API key, or their Claude Code login.
-What that model receives is therefore their decision too, set in the AI corner of the Ask tab (`agent/settings.py`,
+Ask needs a model, and connecting one is the user's own setup: their Claude Code login, or their own API key for Anthropic, OpenAI, Google Gemini, Mistral, OpenRouter or any OpenAI-compatible server (the AI model panel in the Ask tab; `agent/models.py`). The privacy note names the connected model and the company that runs it.
+What that model receives is therefore their decision too, set under the Ask box ("External access to my results"; the folded note above the box, "External access to your results, and your consent", explains the switches) (`agent/settings.py`,
 `data/output/agent/settings.json`):
 
-| `share_results` | The model receives | The summary |
+| Restricted mode (`share_results`) | The model receives | The summary |
 |---|---|---|
-| on (default) | the question; the public research the tools return; and, for the items the question touches, the person's interpreted results: a gene's type ("CYP2C9 \*1/\*1, normal metaboliser"), a score's band and which way is better ("homocysteine: top 10%, higher is worse"), the genotype a finding applies to ("PTGS2 rs20417 CC") | written by the model, weaving the person's results and the evidence together |
-| off | the question and public research only; personal tools return just the kind of result shown | the model's general explanation; the person's readings are added on the computer |
+| off (`share_results` on) | the question; the public research the tools return; and, for the items the question touches, the person's interpreted results: a gene's type ("CYP2C9 \*1/\*1, normal metaboliser"), a score's band and which way is better ("homocysteine: top 10%, higher is worse"), the genotype a finding applies to ("PTGS2 rs20417 CC") | written by the model, weaving the person's results and the evidence together |
+| on (default since 2026-11-26; `share_results` off) | the question and public research only; personal tools return just the kind of result shown | the model's general explanation; the person's readings are added on the computer |
 
 Never sent, in either mode: the DNA file, raw genotypes outside the items a question touches, the person's name or
 profile id. Searches are built from public names only (a drug, a gene, a condition the question named), never from a
 list that depends on the person's genotypes. Public tools never read personal data (`tests/test_agent.py`).
+
+#### Pair results (Inheritance)
+
+A child is worked out on this computer from two profiles picked under the Ask box (the "Inheritance" switch, then one XX and one XY from the profiles on this computer;
+the same pick as the Inheritance tab's `ih_xx`/`ih_xy`), so it has no switch of its own: Restricted mode decides, as
+for every result. The pick goes with the question (`pair` in `/api/agent/converse`); `my_child` (`agent/pair.py`)
+reads that pair's results for the traits, conditions and gene symbols the question names, at most 8 items, and puts
+them on the person's screen.
+
+| Restricted mode | The model receives |
+|---|---|
+| off | for each named item: the child's band and its middle 80% and 98% ranges ("Top 24% · taller"), each parent's band, how many of the study's variants are settled, left to chance or unread; for a condition or single-gene trait, the mode, how many copies each parent carries and the child's odds; for a drug gene, each parent's metaboliser type and the child's types with their odds |
+| on (default) | the public part only: which traits, conditions and genes matched, their EFO definitions, the GWAS study, the HPO modes |
+
+Never sent for a pair, in either case: an rsID, a genotype or allele letter, a star allele, a profile id or name (the
+parents are "the XX parent" and "the XY parent"), or an item the question didn't name. The generic `share_results`
+path leaves pair cards out, and a pair result can't be an answer highlight unless it reached the model. The Ask tab draws a child's results as the Inheritance tab does (both parents' marks, the 80 and 98 in 100
+fields, odds bars for conditions and medicine genes) from numbers kept in the screen card (`data`), never sent.
+`my_traits` (`agent/traits.py`) reads the person's own GWAS trait scores (the Biomarkers tab's 2,000+ traits) for the
+traits a question names, drawn as a scale with the genes that push it; it follows Restricted mode like every
+personal tool. `trait_model`
+is public: the study and definition behind a prediction, from the person-free models file. `tests/test_agent.py`
+(`PairTest`) checks Restricted mode, the leaks, the picked pair and that `trait_model` opens no personal file.
 
 A follow-up sends the earlier questions, the readings and plans, the tool calls with their public arguments and the
 model's own explanations (`session.context`), never the person's results or anything shown only on their screen. The
 ledger carries over, so a paper cited earlier isn't fetched again.
 
 Anthropic's handling of API and Claude Code data is set out in its own terms; by default it doesn't train on it.
+
+### The Ask report: a conversation as a PDF (`report.py`)
+
+Every answer has "Save as PDF" beside its question, and a conversation of several questions "Conversation as PDF"
+beside New (`GET /api/agent/report?session=ID[&turn=N]`, or `python -m cluster_analysis.agent.report ID [--turn N]`).
+A follow-up builds on the questions before it, so a question's PDF holds the conversation up to and including it, each
+follow-up marked as one; "Conversation as PDF" holds them all. The PDF is made on this computer from the saved conversation (no model is called, nothing is sent) and downloaded by
+the person; its first page and every footer say it holds personal genetic results. Per question:
+
+1. the question, the model, Restricted mode, time and tokens; how the question was read (reading, aim, plan);
+2. the answer: the summary (with linked citations), key figures with their sources, how it ties together (area,
+   genes, studies, finding), the evidence in more detail;
+3. the person's readings (picked locally) and the results the turn put on their screen, older percentiles rewritten
+   in the explorer's words ("Bottom 45% · lower", `report.ranked`);
+4. **the chain**: every tool called, in order, with its letter logo and kind, the arguments it was called with, what
+   came back or why the answer check sent it back, and the databases it read; then those databases and APIs with
+   who runs them and their links (`explorer/ask_tools.json` "sources", `explorer/sources.json`);
+5. the sources the answer cites, the drawings it made (listed; open the conversation to see them), follow-ups.
+
+The font is one already on the computer (DejaVu Sans from matplotlib, Segoe UI, or the system DejaVu), else
+Helvetica with the few symbols it lacks written out. reportlab ships with the app (`requirements.txt`).
+Text is cut before its formatting goes on, never inside it, and the model's **bold** and paragraphs are kept.
+`tests/test_report.py` builds them from a made-up conversation, a follow-up included.
 
 ### The answer check (`tools.t_answer`)
 
@@ -87,11 +145,12 @@ Anthropic's handling of API and Claude Code data is set out in its own terms; by
 Hard problems always send the answer back. Soft ones send it back up to twice (`MAX_REJECTIONS`); after that the answer
 is kept with the unsupported citations and highlights removed and listed as dropped.
 
-### Engines (`converse._engine_api`, `converse._engine_cc`)
+### Engines (`converse._engine_api`, `converse._engine_cc`, `converse._engine_openai`)
 
 | Engine | When | How |
 |---|---|---|
 | API | an API key is set (the Ask tab, `ANTHROPIC_API_KEY`, or the remembered key) | the Messages API in a hand-written loop: 16 steps at most, 8,000 output tokens a step, prompt caching on (`cache_control`), effort medium. Each tool result is recorded in the ledger and reported to the tab; a failed check goes back as a tool error. With `DNA_AGENT_PTC=1` (prototype) the model can run independent lookups together in a script inside Claude's code execution (programmatic tool calling) |
+| OpenAI-compatible | chosen in the AI model panel, with its key saved (`models.py`: OpenAI, Google Gemini through its OpenAI-compatible endpoint, Mistral, OpenRouter, or a custom base URL) | Chat Completions with function tools in the same hand-written loop: 16 steps, 8,000 output tokens a step. The tool schemas lose `additionalProperties` (Gemini rejects it). The readings and the question router use `models.complete_json` (the schema in the instructions, the reply parsed and its required keys checked, retried once). Plain HTTPS through urllib with waits on 429/5xx; no SDK. Model names come from the provider's own `/models` list, picked by the user; costs show as tokens only (no price table for other providers) |
 | Claude Code | no key, and the Claude Code command line is found (`claude` on PATH, `DNA_CLAUDE_CLI`, or the VS Code extension's copy) | `claude -p` with no built-in tools and only this package's tools over MCP (`--strict-mcp-config`, `--permission-mode dontAsk`), on the user's Claude plan. The MCP server shares the turn through `DNA_TURN_FILE`, so the person's results reach the tab without passing through Claude |
 
 ## The research agent (`run.py`)
@@ -229,3 +288,12 @@ memory. No endpoint returns it: the status says only whether one is set.
 | `data/output/agent/fills/` | no | the research agent's per-person readings (personal) |
 | `data/output/agent/runs/` | no | the research agent's step logs |
 | `data/output/agent/api_key` | no | the remembered key (encrypted on Windows) |
+
+#### Choosing the model
+
+`run.backend()` takes the provider chosen in the panel (`settings.provider`) when it is set up, else the first that is:
+an Anthropic key, Claude Code, a chosen compatible provider. Keys for the other providers are saved like the Anthropic
+one (`keystore.py`, one `api_key_<provider>` file each, DPAPI-encrypted on Windows) or read from `OPENAI_API_KEY`,
+`GEMINI_API_KEY`, `MISTRAL_API_KEY`, `OPENROUTER_API_KEY`; the page never gets a key back. The answer check, the
+drawings and Restricted mode are the same whichever model runs: they are this package's, not the model's.
+`tests/test_models.py` runs the loop against a stand-in server on localhost.

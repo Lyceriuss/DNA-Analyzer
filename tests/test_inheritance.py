@@ -90,5 +90,38 @@ class TestConditions(unittest.TestCase):
         self.assertIsNotNone(ih.REVIEWED.search("reviewed_by_expert_panel"))
 
 
+
+class FamilyTest(unittest.TestCase):
+    """Close family is never a couple: a parent and child, or siblings (profiles.json's parents)."""
+
+    def test_related(self):
+        from cluster_analysis.inheritance import inheritance as ih
+        child = {"id": "C", "parents": ["M", "F"]}
+        self.assertTrue(ih.related(child, {"id": "F"}))                       # daughter and father
+        self.assertTrue(ih.related({"id": "M"}, {"id": "S", "parents": ["M"]}))  # mother and son
+        self.assertTrue(ih.related(child, {"id": "B", "parents": ["F"]}))     # half-siblings
+        self.assertFalse(ih.related({"id": "M"}, {"id": "F"}))                # the parents themselves
+
+
+class ForecastTest(unittest.TestCase):
+    """A sealed forecast: its hash covers every value, so a changed prediction is refused."""
+
+    def test_seal_changes_with_content(self):
+        from cluster_analysis.inheritance import forecast as fc
+        doc = {"traits": [{"id": "T", "child_z": 0.5}], "made": "2026-11-26T17:00:00"}
+        s1 = fc._seal(doc)
+        doc["traits"][0]["child_z"] = 0.6
+        self.assertNotEqual(s1, fc._seal(doc))
+        self.assertEqual(fc._seal({"b": 1, "a": 2}), fc._seal({"a": 2, "b": 1}))   # key order doesn't matter
+
+    def test_mendel_odds(self):
+        from cluster_analysis.inheritance import forecast as fc
+        v = {"rsid": "rs1", "allele": "A", "ref": "G", "alt": "A", "freq": 0.3}
+        m = [{"variants": [v]}]
+        xx = {"rs1": {"genotype": "AA", "tier": "measured"}}
+        xy = {"rs1": {"genotype": "AG", "tier": "measured"}}
+        o = fc.variant_odds(m, xx, xy)["rs1"]
+        self.assertEqual(o["p"], [0.0, 0.5, 0.5])      # AA x AG: never 0 copies; 1 or 2 copies, half each
+
 if __name__ == "__main__":
     unittest.main()

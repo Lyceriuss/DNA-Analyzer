@@ -41,22 +41,14 @@
       const cached = (u.cache_read || 0) + (u.cache_write || 0);
       return [fill('{} new + {} cached tokens in, {} out', fmtN(u.input), fmtN(cached), fmtN(u.output)), usd(u)].filter(Boolean).join(' · ');
     };
-    const EXAMPLES = ['What medicines should I watch out for?', 'What is my response to paracetamol?',
-                      'Show me the cluster for ACTN3', 'What way of working out would suit me best?'];
+    // Short labels on the page, the full question when clicked
+    const EXAMPLES = [['Medicines to watch', 'What medicines should I watch out for?'], ['Paracetamol', 'What is my response to paracetamol?'],
+                      ['Training', 'What way of working out would suit me best?']];
     const STRIP = ['opentargets', 'gwas', 'pgs', 'clinvar', '1000g', 'clinpgx', 'cpic', 'chembl', 'uniprot', 'go', 'string',
                    'reactome', 'iarc', 'ecac', 'nnr', 'europepmc'];
     // The sources each tool draws on (the grid lights them up)
-    const TOOL_SRC = {
-      understand: ['claude'], answer: ['claude'], catalogue: ['opentargets'], resolve: ['opentargets'],
-      gene: ['uniprot', 'gwas', 'clinvar'], variant: ['gwas', 'clinvar', '1000g', 'clinpgx'], cluster: ['go', 'opentargets', 'string'],
-      trait_variants: ['gwas'], drug: ['clinpgx', 'cpic'], research_genotypes: ['europepmc', '1000g'], search_papers: ['europepmc'],
-      read_paper: ['europepmc'], my_medicine: ['clinpgx', 'cpic', 'chembl'], my_medicines: ['clinpgx', 'cpic', 'chembl'],
-      my_scores: ['pgs', 'gwas', 'iarc', 'ecac'], my_cluster: ['go', 'opentargets', 'string', 'reactome', 'europepmc'],
-      my_gene: ['uniprot', 'reactome', 'gwas'], my_condition: ['gwas', 'clinvar', '1000g'],
-      show_cluster: ['string', 'go'], show_pathway: ['reactome'], show_medicine: ['clinpgx'],
-      pathway: ['reactome', 'uniprot'], nutrient: ['reactome', 'nnr'], my_nutrient: ['pgs', 'gwas', 'nnr'],
-      show_nutrient: ['reactome'], recent_papers: ['europepmc'], show_papers: ['europepmc'],
-    };
+    // The databases each tool reads (ask_tools.json "sources", through build.py): lit while the tool is called
+    const TOOL_SRC = Object.fromEntries(((window.GX_SOURCES || {}).agent || []).map((t) => [t.name, t.sources || []]));
     const STEP = {
       understand: () => 'Read the question', catalogue: () => 'Looked at what the explorer holds',
       resolve: (i) => fill('Found what “{}” refers to', i.text), gene: (i) => fill('Gene {}: function, clusters, variants', i.symbol),
@@ -73,38 +65,89 @@
       my_nutrient: (i) => fill('Your {} baseline and variants', i.name), show_nutrient: (i) => fill('Drew how {} is converted', i.name),
       recent_papers: (i) => fill('Latest research: {}{}', i.query, i.since_year ? ' (since ' + i.since_year + ')' : ''),
       show_papers: (i) => fill('Showed {} papers', (i.pmids || []).length),
+      my_child: (i) => fill('What a child could inherit: {}', (i.about || []).join(', ')), trait_model: (i) => fill('The study behind {}', i.trait), my_traits: (i) => fill('Your genes on {}', (i.about || []).join(', ')),
       script: () => 'Wrote a script that runs the lookups and keeps what matters',
     };
-    const KIND_TAG = { public: 'research', personal: 'yours', view: 'view', control: '' };
+    // What a tool reads or does (every tool works for the person): public research, the person's DNA, or a view
+    const KIND_TAG = { public: 'research', personal: 'your DNA', view: 'view', control: '' };
     const KIND_OF = { my_medicine: 'personal', my_medicines: 'personal', my_scores: 'personal', my_cluster: 'personal', my_gene: 'personal',
-      my_condition: 'personal', my_nutrient: 'personal', show_cluster: 'view', show_pathway: 'view', show_medicine: 'view', show_nutrient: 'view',
+      my_condition: 'personal', my_nutrient: 'personal', my_child: 'personal', my_traits: 'personal', show_cluster: 'view', show_pathway: 'view', show_medicine: 'view', show_nutrient: 'view',
       show_papers: 'view', understand: 'control', answer: 'control', script: 'control' };
     const S = { status: null, offline: false, draft: '', error: null, keyOpen: false, session: null, turns: [],
                 live: null, running: false, job: null, lit: new Set(), used: new Set() };
     const redraw = () => dash.draw('ak-main');
 
+    // Memory on this computer (per browser): each profile's last conversation, so a reload, another window or a
+    // switch of profile finds it again. The server keeps running questions itself (status: active).
+    const store = {
+      get: (k) => { try { return JSON.parse(localStorage.getItem('ak.' + k)); } catch (e) { return null; } },
+      set: (k, v) => { try { if (v == null) localStorage.removeItem('ak.' + k); else localStorage.setItem('ak.' + k, JSON.stringify(v)); } catch (e) { /* private window */ } },
+    };
+    const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
+    const remember = () => { if (S.who) store.set('session.' + S.who, S.session || null); };
+    // The Ask tab's dot: pulsing while a question is being answered, solid when an answer waits unread
+    const badge = () => {
+      const t = document.querySelector('.gx-tab[data-tab="ask"]');
+      if (!t) return;
+      t.classList.toggle('ak-tab-busy', !!S.running);
+      if (!S.running && S.unseen && t.getAttribute('aria-selected') !== 'true') t.classList.add('ak-tab-done');
+      if (!S.unseen) t.classList.remove('ak-tab-done');
+    };
+    const openSession = async (id) => {
+      const s = await api('session?id=' + id);
+      S.session = s.id; S.turns = s.turns.map((t, i) => ({ session: s.id, index: i, ...t }));
+      remember();
+    };
+    // On opening (and after a profile switch): the conversation this profile was in, and a question still being
+    // answered for it, followed from its first step
+    const resume = async () => {
+      const who = gx.who();
+      const act = ((S.status || {}).active || []).filter((a) => a.person === who);
+      const running = act.find((a) => !a.done);
+      const sid = (running && running.session) || store.get('session.' + who) || ((act.find((a) => a.done) || {}).session);
+      try { if (sid && !S.turns.length) await openSession(sid); } catch (e) { store.set('session.' + who, null); }
+      try { S.sessions = (await api('sessions')).sessions || []; } catch (e) { S.sessions = []; }
+      if (running && !S.running) {
+        S.live = { question: running.question, understood: null, steps: [], usage: null, views: [] };
+        follow(running.job);
+      } else redraw();
+    };
     const loadStatus = async () => {
       try { S.status = await api('status'); S.offline = false; } catch (e) { S.status = null; S.offline = true; }
+      if (S.status && !S.attached) { S.attached = true; resume(); return; }
       redraw();
     };
     const ask = async (q) => {
       q = (q || S.draft).trim();
       if (!q || S.running) return;
-      S.running = true; S.error = null; S.draft = ''; S.lit = new Set(); S.used = new Set();
+      S.error = null; S.draft = ''; S.used = new Set(); S.toolsUsed = new Set(); S.toolNow = null;
       S.live = { question: q, understood: null, steps: [], usage: null, views: [] };
-      redraw();
+      S.running = true; badge(); redraw();
       try {
-        const { job } = await api('converse', { question: q, person: gx.who(), session: S.session });
-        S.job = job;
-        let after = 0;
+        const pk = S.inherit ? pickPair() : null;
+        const { job } = await api('converse', { question: q, person: gx.who(), session: S.session, pair: pk && pk.a && pk.b ? { xx: pk.a, xy: pk.b } : null });
+        await follow(job);
+      } catch (e) { S.error = e.message; S.running = false; S.live = null; badge(); redraw(); }
+    };
+    // Follow a question's steps until its answer is saved. The work runs on the server: leaving the tab, a slow
+    // or dropped poll, or a reload doesn't stop it, and the poll is simply tried again.
+    const follow = async (job) => {
+      S.running = true; S.job = job; S.lit = new Set(); badge();
+      let after = 0, misses = 0;
+      try {
         for (;;) {
-          const r = await api(`events?job=${job}&after=${after}`);
+          let r;
+          try { r = await api(`events?job=${job}&after=${after}`); misses = 0; } catch (e) {
+            if (/unknown|not found/i.test(e.message) || ++misses > 60) throw new Error('The connection to this question was lost; its answer is saved in the conversation when it finishes.');
+            await sleep(Math.min(10000, 1000 * misses)); continue;
+          }
           for (const ev of r.events) {
-            if (ev.type === 'start') S.session = ev.session;
+            if (ev.type === 'start') { S.session = ev.session; remember(); }
             if (ev.type === 'understood') S.live.understood = ev;
             if (ev.type === 'tool') {
               S.live.steps.push({ name: ev.name, input: ev.input, kind: ev.kind, via: ev.via, ok: null });
               S.lit = new Set(TOOL_SRC[ev.name] || []); (TOOL_SRC[ev.name] || []).forEach((x) => S.used.add(x));
+              S.toolNow = ev.name; (S.toolsUsed = S.toolsUsed || new Set()).add(ev.name);
             }
             if (ev.type === 'tool_done') { const st = [...S.live.steps].reverse().find((x) => x.name === ev.name && x.ok === null); if (st) { st.ok = ev.ok; st.error = ev.error; } }
             if (ev.type === 'step' && ev.step === 'interpret') { S.live.writing = ev; S.lit = new Set(['claude']); S.used.add('claude'); }
@@ -112,50 +155,222 @@
             if (ev.type === 'error') S.error = ev.message;
           }
           after = r.next;
-          if (r.done) { if (r.turn) S.turns.push(r.turn); break; }
+          if (r.done) {
+            if (r.turn && !S.turns.some((t) => t.session === r.turn.session && t.index === r.turn.index)) { S.turns.push(r.turn); S.session = r.turn.session; remember(); }
+            break;
+          }
           redraw();
-          await new Promise((res) => setTimeout(res, 500));
+          await sleep(500);
         }
       } catch (e) { S.error = e.message; }
-      S.running = false; S.live = null; S.lit = new Set();
-      redraw();
+      S.running = false; S.live = null; S.lit = new Set(); S.toolNow = null; S.unseen = true;
+      badge(); redraw();
     };
-    const newConversation = () => { S.session = null; S.turns = []; S.error = null; S.used = new Set(); redraw(); };
+    const newConversation = () => { S.session = null; S.turns = []; S.error = null; S.used = new Set(); remember(); redraw(); };
 
-    // --- the bar: the question (a follow-up once a conversation runs), and the AI connection in the corner
+    // --- the bar: how Ask handles data (folded), the question box with its switches, a few suggestions
+    // The child's parents: one XX and one XY profile, the same pick as the Inheritance tab (ih_xx, ih_xy)
+    const pickPair = () => {
+      const P = dash.data('profiles');
+      if (P.status !== 'ok') return null;
+      const xx = P.data.filter((p) => p.sex === 'female'), xy = P.data.filter((p) => p.sex === 'male');
+      if (!xx.length || !xy.length) return null;
+      const prm = dash.params(), who = gx.who();
+      const a = (xx.find((p) => p.id === prm.ih_xx) || xx.find((p) => p.id === who) || xx[0]).id;
+      // Not close family (profiles.json's parents): the same rule as the Inheritance tab
+      const A = xx.find((p) => p.id === a) || {};
+      const rel = (p) => (p.parents || []).includes(A.id) || (A.parents || []).includes(p.id) || (A.parents || []).some((x) => (p.parents || []).includes(x));
+      const partners = xy.filter((p) => !rel(p));
+      if (!partners.length) return null;
+      const b = (partners.find((p) => p.id === prm.ih_xy) || partners.find((p) => p.id === who) || partners[0]).id;
+      return { xx, xy: partners, a, b };
+    };
+    // Inheritance: a switch; on, two lists of the profiles that exist pick the child's parents, an XX one and an XY one
+    const parentPick = (parent, pk) => {
+      const g = make(parent, 'span', 'ak-parents');
+      toggle(g, 'Inheritance', !!S.inherit, 'Ask about a child of two profiles: pick an XX and an XY parent from the profiles on this computer',
+        async (v) => { S.inherit = v; });
+      if (!S.inherit) return g;
+      for (const [list, cur, param, sex] of [[pk.xx, pk.a, 'ih_xx', 'XX'], [pk.xy, pk.b, 'ih_xy', 'XY']]) {
+        if (sex === 'XY') make(g, 'span', 'ak-switch-head', '+');
+        const sel = make(g, 'select', 'ak-parent ak-parent-' + sex.toLowerCase());
+        sel.title = fill('The {} parent: {} {} profile{}', sex, list.length, sex, list.length === 1 ? '' : 's');
+        for (const p of list) { const o = make(sel, 'option', null, fill('{} · {}', sex, p.id)); o.value = p.id; if (p.id === cur) o.selected = true; }
+        sel.addEventListener('change', () => { dash.setParams({ [param]: sel.value }); redraw(); });
+      }
+      return g;
+    };
+    const toggle = (parent, label, checked, title, onChange) => {
+      const l = make(parent, 'label', 'ak-switch' + (checked ? ' is-on' : ''));
+      const cb = make(l, 'input'); cb.type = 'checkbox'; cb.checked = checked;
+      make(l, 'span', 'ak-switch-track');
+      make(l, 'span', null, label);
+      if (title) l.title = title;
+      cb.addEventListener('change', async () => { try { await onChange(cb.checked); await loadStatus(); } catch (e) { S.error = e.message; redraw(); } });
+      return l;
+    };
+    const privacy = (box, m, who) => {
+      const d = make(box, 'details', 'ak-privacy');
+      if (S.privacyOpen) d.open = true;
+      d.addEventListener('toggle', () => { S.privacyOpen = d.open; });
+      make(d, 'summary', null, 'Restricted mode, external access and your consent');
+      const P = (t) => make(d, 'p', null, t);
+      P('Your DNA file never leaves this computer, and all your results are worked out here. ' + (m.company ? fill('Ask answers through an external AI model, the one you connected: {}, run by {}.', m.model, m.company) : 'Ask answers through an external AI model, the one you connect with your own API key or login.') + ' Your question always reaches it. Restricted mode, on unless you turn it off, keeps all your results from it.');
+      make(d, 'h4', null, 'Restricted mode');
+      const tb = make(d, 'div', 'ak-privacy-modes');
+      // Green for On (nothing of yours leaves), yellow for Off (external access): the switch's own colours
+      const mode = (title, on, lines, cls, warn) => {
+        const c = make(tb, 'div', 'ak-privacy-mode ' + cls + (on ? ' is-current' : ''));
+        make(c, 'b', null, title + (on ? ' · now' : ''));
+        for (const t of lines) make(c, 'p', null, t);
+        if (warn) make(c, 'p', 'ak-privacy-warn', warn);
+      };
+      const shared = !!(m.settings || {}).share_results;
+      mode('On', !shared, ['No external access: only your question and public research go out. Your results stay here; the model learns only what kind of result was shown to you, never what it says.',
+                            'The answer is general, and this computer places your own results next to it.'], 'is-guard-on',
+        'The answers are much weaker: the model can\'t see what your genes say, so it can only explain the research in general terms. It can\'t tell you which findings apply to you, weigh your results against each other, or write the summary around them.');
+      mode('Off', shared, ['The external model may access your results for the things you ask about; to read them, they leave this computer and are processed on ' + (m.company ? fill('{}\'s', m.company) : 'the model provider\'s') + ' servers. Most are interpretations, such as "CYP2C19: intermediate metaboliser" or "LDL cholesterol: Top 20% · higher". Some are the genotype a study finding applies to, such as "PTGS2 rs20417 CC": that is a piece of your DNA itself.',
+                          'In return, the answer is written about you, tying your results to the research.'], 'is-guard-off');
+      P('Never accessible, whichever the mode: the DNA file, results for anything you didn\'t ask about, your name or profile id.');
+      make(d, 'h4', null, 'A child\'s results');
+      P('A child is worked out on this computer from the two profiles picked after switching on Inheritance, one XX and one XY, from the profiles on this computer. Restricted mode decides for it too. Off, the external model may access the child\'s results for the things you ask about, and only as bands and odds ("Top 24% · taller", "1 in 4"), with the parents called "the XX parent" and "the XY parent": no genotypes, variant ids or profile ids.');
+      make(d, 'h4', null, 'EU data protection (GDPR)');
+      const ul = make(d, 'ul', 'ak-privacy-list');
+      for (const t of [
+        'Genetic data is a special category of personal data (Article 9(1)). It may be processed with the person\'s explicit consent (Article 9(2)(a)): here, Restricted mode is on until you turn it off.',
+        'Consent can be withdrawn at any time, as easily as it was given (Article 7(3)): switch it off and nothing more is sent from the next question on.',
+        'Only what a question needs is sent (data minimisation, Article 5(1)(c)): the items it names: interpreted results and, for a study finding, the genotype it applies to. For child results, never genotypes, variant ids, names or profile ids.',
+        'Running the explorer on your own computer for yourself and your family is the personal or household activity that Article 2(2)(c) places outside the regulation; the switches govern what leaves that computer.',
+        m.company === 'Anthropic' ? 'What reaches Anthropic is handled under Anthropic\'s own terms for the API and Claude Code; by default it isn\'t used to train models.'
+          : fill('What reaches {} is handled under its own terms for its API: they say how long it keeps what it receives and whether it trains models on it.', m.company || 'the model provider'),
+      ]) make(ul, 'li', null, t);
+      make(d, 'p', 'ak-off', 'Details: docs/architecture/agent.md, "What is sent". The public research tools never read personal data; tests/test_agent.py checks it.');
+    };
     const bar = (box, who) => {
-      const top = make(box, 'div', 'ak-bar');
-      const ta = make(top, 'textarea', 'ak-input ak-q');
-      ta.rows = 1;
-      ta.placeholder = S.turns.length ? 'Ask a follow-up…' : fill('Ask anything about {}\'s genome', who);
-      ta.value = S.draft; ta.disabled = S.running;
-      ta.addEventListener('input', () => { S.draft = ta.value; });
-      ta.addEventListener('keydown', (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); ask(); } });
-      const b = make(top, 'button', 'ak-btn', S.running ? 'Working…' : S.turns.length ? 'Follow up' : 'Ask'); b.type = 'button'; b.disabled = S.running || !S.status.backend;
-      b.addEventListener('click', () => ask());
-      if (S.turns.length && !S.running) { const n = make(top, 'button', 'ak-btn ak-btn-quiet', 'New'); n.type = 'button'; n.title = 'Start a new conversation'; n.addEventListener('click', newConversation); }
       const m = S.status || {};
-      const chip = make(top, 'button', 'gx-chip ak-ai', m.backend === 'api' ? 'AI: API key' : m.backend === 'claude-code' ? 'AI: Claude Code' : 'AI: not connected');
-      chip.type = 'button'; chip.addEventListener('click', () => { S.keyOpen = !S.keyOpen; redraw(); });
+      const pk = pickPair();
+      privacy(box, m, who);
+      const comp = make(box, 'div', 'ak-composer');
+      const ta = make(comp, 'textarea', 'ak-q');
+      ta.rows = 2;
+      ta.placeholder = S.turns.length ? 'Ask a follow-up…'
+        : pk && S.inherit ? fill('Ask what a child of {} and {} could inherit', pk.a, pk.b)
+        : fill('Ask about {}\'s genome', who);
+      ta.value = S.draft; ta.disabled = S.running;
+      const grow = () => { ta.style.height = 'auto'; ta.style.height = Math.min(Math.max(ta.scrollHeight, 52), 220) + 'px'; };
+      ta.addEventListener('input', () => { S.draft = ta.value; grow(); });
+      ta.addEventListener('keydown', (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); ask(); } });
+      const foot = make(comp, 'div', 'ak-foot');
+      const sw = make(foot, 'div', 'ak-switches');
+      const shared = !!(m.settings || {}).share_results;
+      toggle(sw, shared ? 'Restricted mode off' : 'Restricted mode', !shared, 'On: the external AI model gets your question and public research, none of your results, so its answers stay general and much weaker. Off: it may access your results for what you ask about. Details above.',
+        (v) => api('settings', { share_results: !v })).classList.add('ak-switch-guard');
+      const act = make(foot, 'div', 'ak-acts');
+      if (pk) parentPick(act, pk);
+      const chip = make(act, 'button', 'ak-ai', m.backend ? String(m.model || 'AI model').replace(/^Claude Code \(.*\)$/, 'Claude Code') : 'Connect AI');
+      chip.type = 'button'; chip.title = 'The AI model Ask uses'; chip.addEventListener('click', () => { S.keyOpen = !S.keyOpen; redraw(); });
+      if (S.turns.length > 1 && !S.running) pdfLink(act, 'Conversation as PDF', S.session, null);
+      if (S.turns.length && !S.running) { const n = make(act, 'button', 'ak-btn ak-btn-quiet', 'New'); n.type = 'button'; n.title = 'Start a new conversation'; n.addEventListener('click', newConversation); }
+      const b = make(act, 'button', 'ak-btn', S.running ? 'Working…' : S.turns.length ? 'Follow up' : 'Ask'); b.type = 'button'; b.disabled = S.running || !m.backend;
+      b.addEventListener('click', () => ask());
+      requestAnimationFrame(grow);
       if (S.keyOpen || !m.backend) keyBox(box, m);
       if (!S.turns.length && !S.running && m.backend) {
-        const ex = make(box, 'div', 'ak-row');
-        for (const q of EXAMPLES) { const c = make(ex, 'button', 'gx-chip', q); c.type = 'button'; c.addEventListener('click', () => ask(c.textContent)); }
+        const ex = make(box, 'div', 'ak-try');
+        make(ex, 'span', null, 'Try');
+        const list = pk && S.inherit ? [['Height', 'How tall could the child be?'], ['Conditions', 'Which inherited conditions could the child carry?'], ['Medicines', 'How could the child respond to common medicines?']] : EXAMPLES;
+        for (const [label, q] of list) { const c = make(ex, 'button', 'ak-try-q', label); c.type = 'button'; c.title = q; c.addEventListener('click', () => ask(q)); }
+      }
+      // Earlier conversations of this profile, saved on this computer: reopen one to read it or follow up
+      const earlier = (S.sessions || []).filter((x) => x.person === who && x.id !== S.session).slice(0, 4);
+      if (earlier.length && !S.running) {
+        const ex = make(box, 'div', 'ak-try');
+        make(ex, 'span', null, 'Earlier');
+        for (const x of earlier) {
+          const c = make(ex, 'button', 'ak-try-q', x.question.length > 48 ? x.question.slice(0, 46) + '…' : x.question); c.type = 'button';
+          c.title = fill('{} ({} question{})', x.question, x.turns, x.turns === 1 ? '' : 's');
+          c.addEventListener('click', async () => { try { S.error = null; await openSession(x.id); } catch (e) { S.error = e.message; } redraw(); });
+        }
       }
     };
+    // The AI model Ask runs on: Claude Code by its login, or any provider by the user's own API key (agent/models.py).
+    // Keys are saved encrypted on this computer and never come back to the page; models come from the provider's list.
     const keyBox = (box, m) => {
       const k = make(box, 'div', 'ak-key');
-      make(k, 'p', m.backend ? 'ak-off' : 'ak-err', m.backend ? 'Ask runs on your Claude plan through Claude Code; an Anthropic API key runs it on the API instead.'
-        : 'Ask needs Claude: an Anthropic API key, or Claude Code installed and logged in. Without it there is no answer.');
+      const provs = m.providers || [];
+      const C = S.conn = S.conn || {};
+      if (!C.pid) C.pid = m.provider || (m.backend === 'claude-code' ? 'claude-code' : m.backend === 'api' ? 'anthropic' : (provs.find((p) => p.ready) || provs[0] || {}).id);
+      const head = make(k, 'div', 'ak-key-head');
+      make(head, 'b', null, 'AI model');
+      make(head, 'span', m.backend ? 'ak-off' : 'ak-err', m.backend ? fill('Now: {}', m.model || '') : 'Not connected: Ask needs an AI model to answer.');
       const row = make(k, 'div', 'ak-row');
-      const inp = make(row, 'input', 'ak-input'); inp.type = 'password'; inp.placeholder = 'sk-ant-…'; inp.autocomplete = 'off'; inp.style.flex = '1 1 220px';
-      const lab = make(row, 'label', 'ak-off'); const cb = make(lab, 'input'); cb.type = 'checkbox'; lab.appendChild(document.createTextNode(' Remember on this machine'));
-      const b = make(row, 'button', 'ak-btn ak-btn-quiet', 'Save key'); b.type = 'button';
-      b.addEventListener('click', async () => { try { await api('key', { key: inp.value.trim(), remember: cb.checked }); S.keyOpen = false; await loadStatus(); } catch (e) { S.error = e.message; redraw(); } });
-      const sh = make(k, 'label', 'ak-off ak-share');
-      const scb = make(sh, 'input'); scb.type = 'checkbox'; scb.checked = !!(m.settings || {}).share_results;
-      sh.appendChild(document.createTextNode(' Share interpreted results with the model, so the summary can weave them together (the items a question touches: a gene\'s type, a score\'s band, the genotype a finding applies to; never the DNA file)'));
-      scb.addEventListener('change', async () => { try { await api('settings', { share_results: scb.checked }); await loadStatus(); } catch (e) { S.error = e.message; redraw(); } });
+      const sel = make(row, 'select', 'ak-input ak-prov');
+      for (const p of provs) { const o = make(sel, 'option', null, p.label + (p.how === 'login' ? ' · login' : ' · API key') + (p.ready ? ' ✓' : '')); o.value = p.id; if (p.id === C.pid) o.selected = true; }
+      sel.addEventListener('change', () => { S.conn = { pid: sel.value }; redraw(); });
+      const p = provs.find((x) => x.id === C.pid) || {};
+      const fail = (e) => { S.error = e.message; redraw(); };
+      if (p.id === 'claude-code') {
+        make(k, 'p', 'ak-off', p.ready ? 'Runs on your Claude plan through Claude Code, logged in on this computer. No key needed.'
+          : 'Claude Code isn\'t found on this computer. Install it and log in once, then choose it here.');
+        const b = make(row, 'button', 'ak-btn ak-btn-quiet', 'Use Claude Code'); b.type = 'button'; b.disabled = !p.ready;
+        b.addEventListener('click', async () => { try { await api('provider', { provider: 'claude-code' }); S.keyOpen = false; await loadStatus(); } catch (e) { fail(e); } });
+        return;
+      }
+      if (p.id === 'anthropic') {
+        const inp = make(row, 'input', 'ak-input'); inp.type = 'password'; inp.placeholder = p.ready ? 'Key saved · paste a new one to replace it' : 'sk-ant-…'; inp.autocomplete = 'off'; inp.style.flex = '1 1 220px';
+        const b = make(row, 'button', 'ak-btn ak-btn-quiet', p.ready ? 'Use Anthropic' : 'Save key'); b.type = 'button';
+        b.addEventListener('click', async () => {
+          try { if (inp.value.trim()) await api('key', { key: inp.value.trim(), remember: true }); await api('provider', { provider: 'anthropic' }); S.keyOpen = false; await loadStatus(); } catch (e) { fail(e); }
+        });
+        make(k, 'p', 'ak-off', 'Your Anthropic API key, saved encrypted on this computer.');
+        return;
+      }
+      // An OpenAI-compatible provider: key, (custom) base URL, then the model from the provider's own list
+      const form = make(k, 'div', 'ak-form');
+      const field = (label, el) => { const l = make(form, 'label', 'ak-field'); make(l, 'span', 'ak-off', label); l.appendChild(el); return el; };
+      const st = m.settings || {};
+      let base = null;
+      if (p.id === 'custom') {
+        base = document.createElement('input'); base.className = 'ak-input'; base.placeholder = 'https://…/v1';
+        base.value = C.base != null ? C.base : (st.base_url || ''); base.addEventListener('input', () => { C.base = base.value; });
+        field('Base URL (OpenAI-compatible)', base);
+      }
+      const key = document.createElement('input'); key.className = 'ak-input'; key.type = 'password'; key.autocomplete = 'off';
+      key.placeholder = p.ready ? 'Key saved · paste a new one to replace it' : (p.id === 'custom' ? 'API key, if the server needs one' : 'API key');
+      key.value = C.key || ''; key.addEventListener('input', () => { C.key = key.value; });
+      field(fill('{} API key', p.label), key);
+      const pickRow = make(form, 'div', 'ak-row');
+      const load = make(pickRow, 'button', 'ak-btn ak-btn-quiet', C.models ? 'Reload models' : 'Load models'); load.type = 'button';
+      load.addEventListener('click', async () => {
+        try { const r = await api('models', { provider: p.id, key: (C.key || '').trim() || null, base_url: base ? base.value.trim() : null }); C.models = r.models; S.error = null; redraw(); } catch (e) { fail(e); }
+      });
+      const chosen = (st.provider === p.id) ? st : {};
+      const mk = (label, cur, keyName, allowSame) => {
+        const s2 = document.createElement('select'); s2.className = 'ak-input';
+        if (allowSame) { const o = make(s2, 'option', null, 'Same as above'); o.value = ''; }
+        const list = C.models || (cur ? [cur] : []);
+        for (const id of list) { const o = make(s2, 'option', null, id); o.value = id; if (id === (C[keyName] != null ? C[keyName] : cur)) o.selected = true; }
+        s2.addEventListener('change', () => { C[keyName] = s2.value; });
+        if (!list.length) s2.disabled = true;
+        const l = make(pickRow, 'label', 'ak-field'); make(l, 'span', 'ak-off', label); l.appendChild(s2);
+        return s2;
+      };
+      const mainSel = mk('Model', chosen.model, 'model', false);
+      const smallSel = mk('Model for the short readings', chosen.small_model, 'small_model', true);
+      const acts = make(form, 'div', 'ak-row');
+      const save = make(acts, 'button', 'ak-btn', fill('Use {}', p.label)); save.type = 'button';
+      save.addEventListener('click', async () => {
+        try {
+          if (!mainSel.value) throw new Error('Load the models and pick one first.');
+          await api('provider', { provider: p.id, key: (C.key || '').trim() || null, model: mainSel.value, small_model: smallSel.value || null, base_url: base ? base.value.trim() : undefined });
+          S.conn = null; S.keyOpen = false; S.error = null; await loadStatus();
+        } catch (e) { fail(e); }
+      });
+      if (p.ready && p.id !== 'custom') {
+        const f = make(acts, 'button', 'ak-btn ak-btn-quiet', 'Forget key'); f.type = 'button';
+        f.addEventListener('click', async () => { try { await api('forget', { provider: p.id }); S.conn = { pid: p.id }; await loadStatus(); } catch (e) { fail(e); } });
+      }
+      make(k, 'p', 'ak-off', fill('The key is saved encrypted on this computer and never shown again. Ask sends {} your question and the research it looks up; with Restricted mode off, also your results for what you ask about. The model works through Ask\'s tools by function calling, so pick one that supports tools.', p.company));
     };
     const strip = (box) => {
       const dbs = new Map(((window.GX_SOURCES || {}).databases || []).map((d) => [d.id, d]));
@@ -169,6 +384,22 @@
         const ic = make(el, 'span', 'ak-src-ic');
         if (d.logo) { const img = make(ic, 'img'); img.src = 'logos/' + d.logo; img.alt = ''; } else ic.textContent = d.name.slice(0, 2);
         make(el, 'span', 'ak-src-name', d.name.replace(/ \(.*\)$/, '').replace(/ Project$| Platform$| Recommendations 2023$/, ''));
+      }
+      // The tools the model can call, as letter logos coloured by kind: lit while called, outlined once used.
+      // Names and abbreviations: ask_tools.json, explained in Sources and documentation
+      const reg = ((window.GX_SOURCES || {}).agent || []).filter((t) => t.kind !== 'control');
+      if (reg.length) {
+        const used = S.toolsUsed || new Set();
+        make(s, 'span', 'ak-strip-head ak-tools-head', S.running ? 'Tools · calling now' : used.size ? 'Tools used' : 'Tools');
+        const order = { public: 0, personal: 1, view: 2 };
+        for (const t of reg.slice().sort((a, b) => order[a.kind] - order[b.kind])) {
+          const el = make(s, 'span', 'ak-tool ak-tool-' + t.kind + (S.toolNow === t.name ? ' ak-tool-on' : used.has(t.name) ? ' ak-tool-used' : ''), t.abbr);
+          el.title = `${t.abbr} · ${t.label}: ${t.what}`;
+        }
+        const key = make(s, 'span', 'ak-tools-key');
+        for (const [k, l] of [['public', 'looks up research'], ['personal', 'reads your DNA'], ['view', 'draws a view']]) {
+          const i = make(key, 'span'); make(i, 'i', 'ak-tool-dot ak-tool-' + k); i.append(l);
+        }
       }
     };
     const go = (l) => { if (!l) return; dash.setParams(l.params || {}); gx.show(l.tab); };
@@ -570,10 +801,179 @@
         .filter(Boolean).join(' · ') + fill(' · picked for {} on this machine', who));
     };
     // One turn, the same structure for every question: how it was read, the summary (the narrative), the key figures,
+    // Results as the explorer draws them: a child's scales and odds (the Inheritance tab's scale and legend, ih.js) and
+    // the person's trait scores (a scale with the genes that push it). Drawn on this machine from the turn's cards.
+    const band = (p, more, less) => p == null ? '' : p >= 50 ? fill('Top {}% · {}', Math.max(1, Math.round(100 - p)), more) : fill('Bottom {}% · {}', Math.max(1, Math.round(p)), less);
+    const pctTxt = (x) => fill('{}%', Math.round(100 * (x || 0)));
+    const oddsBar = (parent, segs) => {
+      const bar = make(parent, 'div', 'ak-odds');
+      for (const s of segs) if (s.p > 0) { const e = make(bar, 'span', 'ak-odds-seg ' + s.cls, s.p >= 0.12 ? fill('{} {}', s.label, pctTxt(s.p)) : ''); e.style.flex = String(s.p); e.title = fill('{}: {}', s.label, pctTxt(s.p)); }
+      return bar;
+    };
+    // The Inheritance tab's scale (ih.css): both parents' marks, the child's 98 and 80 in 100 fields, its most likely place
+    const pos = (p) => Math.max(0, Math.min(100, p)) + '%';
+    const childScale = (parent, r, pair) => {
+      const wrap = make(parent, 'span', 'ih-scalewrap');
+      const sc = make(wrap, 'span', 'ih-scale');
+      sc.setAttribute('role', 'img');
+      sc.setAttribute('aria-label', fill('{}: {}; {}: {}; a child: {}', pair.a, band(r.XX_pct, r.more, r.less), pair.b, band(r.XY_pct, r.more, r.less), band(r.child_pct, r.more, r.less)));
+      make(sc, 'span', 'ih-mid');
+      if (r.child_lo98 != null) { const o = make(sc, 'span', 'ih-range98'); o.style.left = pos(r.child_lo98); o.style.width = Math.max(0.8, r.child_hi98 - r.child_lo98) + '%'; }
+      if (r.child_lo != null) { const g = make(sc, 'span', 'ih-range'); g.style.left = pos(r.child_lo); g.style.width = Math.max(0.8, r.child_hi - r.child_lo) + '%'; }
+      if (r.XX_pct != null) { const m = make(sc, 'span', 'ih-mk ih-mk-xx'); m.style.left = pos(r.XX_pct); m.title = fill('{}: {}', pair.a, band(r.XX_pct, r.more, r.less)); }
+      if (r.XY_pct != null) { const m = make(sc, 'span', 'ih-mk ih-mk-xy'); m.style.left = pos(r.XY_pct); m.title = fill('{}: {}', pair.b, band(r.XY_pct, r.more, r.less)); }
+      const c = make(sc, 'span', 'ih-mk ih-mk-child'); c.style.left = pos(r.child_pct); c.title = fill('A child, most likely: {}', band(r.child_pct, r.more, r.less));
+      const ax = make(wrap, 'span', 'ih-axis'); make(ax, 'span', null, r.less); make(ax, 'span', null, 'average'); make(ax, 'span', null, r.more);
+      return wrap;
+    };
+    const childKey = (parent, pair) => {
+      const k = make(parent, 'div', 'ak-key-row');
+      for (const [cls, label] of [['sw-xx', pair.a], ['sw-xy', pair.b], ['sw-dot', 'a child, most likely'], ['sw-range', '8 in 10 children'], ['sw-range98', '98 in 100']]) {
+        const it = make(k, 'span', 'ak-key-item'); make(it, 'span', 'ih-legend-swatch ' + cls); make(it, 'span', null, label);
+      }
+    };
+    // How much a trait's scale says (the GWAS impact, inheritance/gwas_impact.py): the level chip and the figure, as in
+    // the Biomarkers and Inheritance tabs; levels high 8% and over, modest 3-8%, little under 3%
+    const impactLine = (parent, imp) => {
+      if (!imp) return null;
+      const l = make(parent, 'div', 'ak-impact');
+      make(l, 'span', 'ak-impact-head', 'How much this score says');
+      if (imp.explains_pct == null) {
+        make(l, 'span', 'ak-note', imp.why_none ? fill('No figure: {}.', imp.why_none) : 'No figure for this study.');
+        return l;
+      }
+      const v = imp.explains_pct, lvl = imp.level || (v >= 8 ? 'high' : v >= 3 ? 'modest' : 'little');
+      make(l, 'span', 'ih-impact-level ih-impact-' + lvl, fill('{} impact', lvl.charAt(0).toUpperCase() + lvl.slice(1)));
+      make(l, 'b', 'ak-impact-big', fill('{}%', v < 0.1 ? '<0.1' : Math.round(v * 10) / 10));
+      make(l, 'span', 'ak-note', imp.higher_than_pct_of_traits != null
+        ? fill('of the differences between people explained by the study\'s strongest variants; higher than {}% of traits (median {}%)', Math.min(99, Math.round(imp.higher_than_pct_of_traits)), imp.median_trait_pct)
+        : 'of the differences between people explained by the study\'s strongest variants');
+      return l;
+    };
+    const childBox = (box, t) => {
+      const cards = (t.cards || []).filter((c) => c.provider === 'inheritance' && c.data);
+      if (!cards.length) return;
+      const d0 = cards[0].data, pair = { a: d0.xx, b: d0.xy };
+      const sec = make(box, 'section', 'ak-child');
+      make(sec, 'span', 'ak-tag', fill('A child of {} and {}', pair.a, pair.b));
+      const preds = cards.filter((c) => c.data.kind === 'prediction');
+      if (preds.length) childKey(sec, pair);
+      for (const c of preds) {
+        const p = c.data, row = make(sec, 'div', 'ak-child-row');
+        const head = make(row, 'div', 'ak-child-head');
+        make(head, 'b', null, p.name);
+        make(head, 'span', 'ak-child-band', band(p.child_pct, p.more, p.less));
+        impactLine(row, p.impact);
+        childScale(row, p, pair);
+        make(row, 'p', 'ak-note', fill('{}: {} · {}: {} · 8 in 10 children: {} to {}', pair.a, band(p.XX_pct, p.more, p.less), pair.b, band(p.XY_pct, p.more, p.less),
+          band(p.child_lo, p.more, p.less), band(p.child_hi, p.more, p.less)));
+      }
+      for (const c of cards.filter((x) => x.data.kind === 'condition' || x.data.kind === 'trait')) {
+        const p = c.data, row = make(sec, 'div', 'ak-child-row');
+        const head = make(row, 'div', 'ak-child-head');
+        make(head, 'b', null, p.kind === 'condition' ? fill('{} · {}', p.gene || p.name, (p.conditions || []).join(', ')) : p.name);
+        make(head, 'span', 'ak-note', (p.modes || []).join(', '));
+        make(row, 'p', 'ak-note', fill('{}: {} · {}: {}', pair.a, p.XX_copies == null ? 'not readable' : fill('{} of 2 copies', p.XX_copies),
+          pair.b, p.XY_copies == null ? 'not readable' : fill('{} of 2 copies', p.XY_copies)));
+        let drew = false;
+        for (const [mode, by] of Object.entries(p.outcomes || {})) {
+          for (const [kid, o] of Object.entries(by || {})) {
+            if (!o || o.affected == null) continue;
+            drew = true;
+            const line = make(row, 'div', 'ak-odds-line');
+            make(line, 'span', 'ak-odds-label', fill('{} · {}', kid === 'child' ? 'A child' : kid === 'son' ? 'A son' : kid === 'daughter' ? 'A daughter' : kid, mode));
+            const aff = o.affected || 0, car = o.carrier || 0;
+            oddsBar(line, [{ label: p.kind === 'trait' ? 'has the trait' : 'affected', p: aff, cls: p.kind === 'trait' ? 'is-trait' : 'is-hit' },
+              { label: 'carrier', p: car, cls: 'is-carrier' }, { label: p.kind === 'trait' ? 'not' : 'clear', p: Math.max(0, 1 - aff - car), cls: 'is-clear' }]);
+          }
+        }
+        if (!drew) make(row, 'p', 'ak-note', 'The odds can\'t be worked out: a parent\'s copies aren\'t readable from the file.');
+      }
+      for (const c of cards.filter((x) => x.data.kind === 'drug')) {
+        const p = c.data, row = make(sec, 'div', 'ak-child-row');
+        const head = make(row, 'div', 'ak-child-head');
+        make(head, 'b', null, p.name);
+        make(head, 'span', 'ak-note', fill('{}: {} · {}: {}', pair.a, p.XX_type || '?', pair.b, p.XY_type || '?'));
+        const cls = ['is-t1', 'is-t2', 'is-t3', 'is-t4'];
+        oddsBar(row, (p.types || []).map((x, i) => ({ label: x.type, p: x.p, cls: cls[i % 4] })));
+      }
+      const b = make(sec, 'button', 'gx-chip', 'Open in Inheritance'); b.type = 'button';
+      b.addEventListener('click', () => go({ tab: 'inheritance', params: { ih_xx: pair.a, ih_xy: pair.b } }));
+    };
+    // The person's genes called GoF, LoF or altered (my_genes_by_function): gene, call, the variant and genotype,
+    // what the call rests on, and the clusters it shows in
+    const functionBox = (box, t, who) => {
+      const cards = (t.cards || []).filter((c) => c.provider === 'function' && c.data && c.data.kind === 'function_list');
+      for (const c of cards) {
+        const d = c.data;
+        const sec = make(box, 'section', 'ak-child');
+        make(sec, 'span', 'ak-tag', fill('{}\'s {} genes', who, d.function));
+        make(sec, 'p', 'ak-note', fill('{} genes{}: {} from a reviewed protein change, {} from an expression effect (more or less of the same protein in some tissues). The reviewed ones first, then two copies before one.',
+          d.total, d.theme ? ' in the ' + d.theme + ' cluster' : ' across the clusters', d.curated, d.total - d.curated));
+        const tbl = make(sec, 'table', 'ak-fn');
+        const hr = make(make(tbl, 'thead'), 'tr');
+        for (const h of ['Gene', 'Call', 'Variant', 'Copies', 'What it rests on', 'Clusters']) make(hr, 'th', null, h);
+        const tb = make(tbl, 'tbody');
+        for (const g of d.genes) {
+          const tr = make(tb, 'tr');
+          make(make(tr, 'td'), 'b', null, g.gene);
+          make(make(tr, 'td'), 'span', 'ak-fn-call ak-fn-' + d.function.toLowerCase(), d.function);
+          make(tr, 'td', 'ak-mono', fill('{} {}', g.rsid || '', g.genotype || ''));
+          make(tr, 'td', null, g.dose != null ? String(Math.round(g.dose)) : '');
+          const why = make(tr, 'td');
+          make(why, 'span', 'ak-fn-basis' + (g.basis === 'curated' ? ' is-curated' : ''), g.basis === 'curated' ? 'reviewed protein change' : 'expression effect');
+          make(why, 'span', 'ak-note', ' ' + (g.why || ''));
+          make(tr, 'td', 'ak-note', (g.themes || []).join(', ') + (g.pathway ? (g.themes && g.themes.length ? ', ' : '') + 'gene pathway' : ''));
+        }
+        if (d.total > d.genes.length) make(sec, 'p', 'ak-note', fill('{} more in the clusters.', d.total - d.genes.length));
+      }
+    };
+    const traitBox = (box, t, who) => {
+      const cards = (t.cards || []).filter((c) => c.provider === 'trait' && c.data && c.data.pct != null);
+      if (!cards.length) return;
+      const sec = make(box, 'section', 'ak-child');
+      make(sec, 'span', 'ak-tag', fill('Where {}\'s genes place {} among Europeans', who, who));
+      for (const c of cards) {
+        const p = c.data, row = make(sec, 'div', 'ak-child-row');
+        const head = make(row, 'div', 'ak-child-head');
+        make(head, 'b', null, p.name);
+        make(head, 'span', 'ak-child-band', band(p.pct, p.more, p.less));
+        impactLine(row, p.impact);
+        const wrap = make(row, 'span', 'ih-scalewrap');
+        const sc = make(wrap, 'span', 'ih-scale');
+        make(sc, 'span', 'ih-mid');
+        make(sc, 'span', 'ih-mk ih-mk-child').style.left = Math.max(0, Math.min(100, p.pct)) + '%';
+        const ax = make(wrap, 'span', 'ih-axis'); make(ax, 'span', null, p.less); make(ax, 'span', null, 'average'); make(ax, 'span', null, p.more);
+        const top = (p.top || []).filter((v) => v.copies != null && Math.abs(v.shift || 0) > 0).slice(0, 6);
+        if (top.length) {
+          const chips = make(row, 'div', 'fd-tops');
+          for (const v of top) {
+            const up = (v.shift || 0) > 0;
+            const ch = make(chips, 'span', 'fd-top ak-push-' + (up ? 'more' : 'less'));
+            make(ch, 'b', null, String(v.gene || '?').split(/ - |, /)[0]);
+            make(ch, 'span', null, up ? fill('→ {}', p.more) : fill('← {}', p.less));
+          }
+        }
+        if (p.pmid) make(row, 'p', 'ak-note', fill('{} variants from {} {} ({} people), GWAS Catalog', p.used || p.variants || '?', p.author, p.year, p.n ? Math.round(p.n).toLocaleString('en') : '?'));
+      }
+      const b = make(sec, 'button', 'gx-chip', 'Open in Biomarkers'); b.type = 'button';
+      b.addEventListener('click', () => go({ tab: 'biomarkers', params: {} }));
+    };
     // the person's results as the evidence, more detail, the views, and the sources it all rests on
+    // A turn, or the whole conversation, as a PDF (agent/report.py through /api/agent/report): downloaded, nothing sent
+    const pdfLink = (parent, label, session, turn) => {
+      if (!session) return null;
+      const l = make(parent, 'a', 'ak-pdf', label);
+      l.href = '/api/agent/report?session=' + encodeURIComponent(session) + (turn != null ? '&turn=' + turn : '');
+      l.setAttribute('download', '');
+      l.title = 'A structured PDF: the answer, the readings, every tool called with its arguments and results, and the databases it read. It holds your genetic results.';
+      return l;
+    };
     const turnBox = (box, t, who, i) => {
       const w = make(box, 'article', 'ak-turn');
-      make(w, 'h3', 'ak-question', t.question);
+      const qh = make(w, 'div', 'ak-qhead');
+      make(qh, 'h3', 'ak-question', t.question);
+      pdfLink(qh, 'Save as PDF', t.session || S.session, t.index != null ? t.index : i);
       heroBox(w, t, who);
       readBox(w, t.understood, t.trace ? t.trace.map((c) => ({ ...c, input: c.args })) : (t.calls || []).map((c) => ({ ...c, input: c.args, ok: true })), false);
       const a = t.answer || {};
@@ -583,6 +983,9 @@
         prose(sm, a.summary, a.refs);
       } else if (!a.explanation) make(w, 'p', 'ak-err', 'No summary was written for this turn.');
       tilesBox(w, t, who);
+      childBox(w, t);
+      traitBox(w, t, who);
+      functionBox(w, t, who);
       webBox(w, t, who);
       const findings = (t.written || []).filter((x) => x.source !== 'score');
       if (findings.length) yoursBox(w, findings, who);
@@ -634,6 +1037,15 @@
     dash.draw('ak-main', (el) => {
       if (dash.data('profiles').status !== 'ok') return;
       const who = gx.who();
+      // Another profile: its own conversation (the running question of the other one keeps running on the server)
+      if (S.who !== who) {
+        const first = S.who === undefined;
+        S.who = who;
+        if (!first && !S.running) { S.turns = []; S.session = null; S.error = null; S.attached = false; loadStatus(); }
+      }
+      // Seen: the answer that was waiting, once the Ask tab is open
+      const tab = document.querySelector('.gx-tab[data-tab="ask"]');
+      if (S.unseen && !S.running && tab && tab.getAttribute('aria-selected') === 'true') { S.unseen = false; badge(); }
       el.replaceChildren();
       if (S.status === null && !S.offline) { make(el, 'p', 'ak-off', 'Connecting to the local server…'); loadStatus(); return; }
       if (S.offline) { make(el, 'p', 'ak-off', 'Asking needs the local server: start the explorer with python -m cluster_analysis.explorer serve and open http://127.0.0.1:8000.'); return; }
@@ -653,6 +1065,10 @@
       bar(main, who);
       if (!S.status.index) make(main, 'p', 'ak-off', 'The research index is not built yet: run python -m cluster_analysis.agent index once (a few minutes).');
     });
+
+    // Opening the Ask tab marks a waiting answer as seen
+    const askTab = document.querySelector('.gx-tab[data-tab="ask"]');
+    if (askTab) askTab.addEventListener('click', () => { if (!S.running) { S.unseen = false; badge(); } });
 
     // A link to a conversation: #ask=<session id> reopens it, to read or to follow up
     const m = location.hash.match(/^#ask=(\d{8}-\d{6}-[0-9a-f]{6})/);

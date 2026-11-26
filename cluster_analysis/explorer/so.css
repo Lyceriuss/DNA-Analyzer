@@ -1,4 +1,4 @@
-  /* Sources and glossary tab */
+  /* Sources and documentation tab */
   .so-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px; margin-bottom: 12px; }
   .so-head h3 { margin: 0; font-size: 18px; }
   .so-filter { font: inherit; font-size: 14px; padding: 6px 10px; border-radius: 6px; border: 1px solid var(--color-border-line); background: var(--color-bg); color: var(--color-fg); min-width: 220px; }
@@ -20,3 +20,17 @@
   .so-term dt { font-weight: 600; margin-bottom: 2px; }
   .so-term dd { margin: 0; font-size: 13px; line-height: 1.5; color: var(--color-fg); }
   .so-empty { color: var(--color-fg-muted); font-size: 13px; }
+  /* What Ask can show and look up */
+  .so-ask-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); gap: 16px 24px; }
+  .so-ask-col h4 { margin: 0 0 6px; font-size: 14px; }
+  .so-ask-col .so-terms { margin: 0; }
+  /* Letter logos for Ask's tools (ask_tools.json), coloured by kind */
+  .so-abbr { display: inline-grid; place-items: center; min-width: 30px; height: 26px; padding: 0 4px; border-radius: 7px; box-sizing: border-box;
+             font: 800 10.5px/1 ui-sans-serif, system-ui, sans-serif; letter-spacing: .02em; color: #fff; flex: none; }
+  .so-abbr-public { background: #3b6fd8; }
+  .so-abbr-personal { background: #2f9e6a; }
+  .so-abbr-view { background: #8a5cd6; }
+  .so-abbr-control { background: #6b7280; }
+  .so-abbr-drawn { background: transparent; color: var(--color-fg); border: 1.5px dashed var(--color-border-line); }
+  .so-term-logo { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 10px; align-items: start; }
+  .so-abbr-txt { color: var(--color-fg-muted); font-weight: 500; font-size: .9em; }

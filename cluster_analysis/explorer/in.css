@@ -107,7 +107,7 @@
   .in-gtile small { color: var(--color-fg-muted); font-size: 12px; line-height: 1.4; }
   .in-g-ap { --in-gc: var(--grade-ap); } .in-g-a { --in-gc: var(--grade-a); } .in-g-b { --in-gc: var(--grade-b); } .in-g-c { --in-gc: var(--grade-c); }
   .in-gbar { display: flex; height: 22px; border-radius: 6px; overflow: hidden; gap: 2px; }
-  .in-gbar span { display: flex; align-items: center; justify-content: center; background: var(--in-gc); min-width: 3px; }
+  .in-gbar span { display: flex; align-items: center; justify-content: center; background: var(--in-gc); min-width: 28px; flex-shrink: 0; }
   .in-gbar i { font-style: normal; font-size: 11px; font-weight: 700; color: #fff; }
   .in-gbar .in-g-b i, .in-gbar .in-g-c i { color: #1f1f1f; }
   .in-gtile .in-big { color: var(--in-gc); }

@@ -8,3 +8,4 @@ pyliftover==0.4.1   # GRCh37 -> GRCh38 lift (genome/impute.py, genome/sample_per
 pdfplumber==0.11.10 # nutrition reference: reads the NNR 2023 tables from Livsmedelsverket's PDF
 anthropic==2.10.0   # Ask with an API key (cluster_analysis/agent)
 mcp==2.3.0          # Ask's tools as an MCP server, for Claude Code or any MCP client (cluster_analysis/agent/mcp_server.py)
+reportlab==4.4.3 # the Ask report: a conversation as a structured PDF (cluster_analysis/agent/report.py)

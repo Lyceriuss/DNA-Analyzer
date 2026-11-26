@@ -79,6 +79,9 @@ def _ask(question):
     cat = catalogue()
     prompt = f"Catalogue:\n{cat}\n\nQuestion: {question}"
     schema = _schema(None)
+    if run.backend() == "openai":
+        from cluster_analysis.agent import models
+        return models.complete_json(prompt, SYSTEM, schema, small=True)
     if run.backend() == "api":
         import anthropic
         client = anthropic.Anthropic(api_key=run.api_key())

@@ -212,7 +212,8 @@
   .ih-more { justify-self: start; }
 
   /* Familiar traits */
-  .ih-feat { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr)); gap: var(--cds-gap-sm); }
+  .ih-feat { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr)); gap: var(--cds-gap-sm);
+             grid-auto-flow: row dense; }   /* a wide card (.ih-group) leaves no hole */
   .ih-fcard { border: 1px solid var(--color-border-line); border-radius: 12px; background: var(--color-bg); padding: var(--cds-pad-md) var(--cds-pad-lg);
     display: grid; gap: 10px; align-content: start; }
 
@@ -316,3 +317,29 @@
 
   .ih-fmeas { margin: 0; font-size: 12px; color: var(--color-fg-muted); line-height: 1.45; }
   .ih-fmeas b { color: var(--color-fg); font-weight: 600; }
+  /* Traits that belong together (featured.json 'group'): one wide card holding their cards side by side */
+  .ih-group { grid-column: span 2; display: grid; gap: 8px; padding: 12px; border-radius: 12px;
+              border: 1px solid var(--color-border-line); background: color-mix(in srgb, var(--color-fg) 3%, transparent); }
+  .ih-group-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); gap: var(--cds-gap-sm); }
+  .ih-group .ih-fcard { border-style: dashed; }
+  @media (max-width: 700px) { .ih-group { grid-column: auto; } }
+  /* How much a familiar trait's score says (ihImpact): the study's own figure, a bar, its quoted sentences */
+  .ih-impact { display: grid; gap: 6px; margin: 8px 0 12px; padding: 10px 12px; border-radius: 10px;
+               border: 1px solid var(--color-border-line); background: color-mix(in srgb, var(--color-fg) 4%, transparent); }
+  .ih-impact h5 { margin: 0; font-size: 13px; }
+  .ih-impact-head { display: flex; gap: 10px; align-items: baseline; font-size: 13px; }
+  .ih-impact-big { font-size: 22px; font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .ih-impact-bar { height: 8px; border-radius: 4px; background: color-mix(in srgb, var(--color-fg) 10%, transparent); overflow: hidden; }
+  .ih-impact-bar span { display: block; height: 100%; background: var(--ih-trait); border-radius: 4px; }
+  .ih-impact-quotes { display: grid; gap: 6px; }
+  .ih-impact-q { margin: 0; padding-left: 10px; border-left: 2px solid var(--color-border-line); font-size: 12px; color: var(--color-fg-muted); line-height: 1.45; }
+  .ih-impact-q cite { font-style: normal; white-space: nowrap; }
+  .ih-impact-q a { color: var(--color-fg-muted); }
+  .ih-impact-rep { margin: 4px 0 0; font-size: 12.5px; }
+  /* The impact level: high 8% and over, modest 3-8%, little under 3% */
+  .ih-impact-level { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; padding: 2px 8px;
+                     border-radius: 999px; white-space: nowrap; align-self: center; }
+  .ih-impact-high { background: color-mix(in srgb, var(--color-good, #3fb950) 22%, transparent); color: var(--color-good, #3fb950); }
+  .ih-impact-modest { background: color-mix(in srgb, #e3b341 22%, transparent); color: #e3b341; }
+  .ih-impact-little { background: color-mix(in srgb, var(--color-fg) 10%, transparent); color: var(--color-fg-muted); }
+  .ih-impact-chip { margin-left: 8px; font-size: 10px; padding: 1px 6px; vertical-align: 1px; }

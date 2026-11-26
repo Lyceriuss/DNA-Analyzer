@@ -1,23 +1,37 @@
-  <section class="gx-page" id="inheritance" data-page="inheritance" hidden>
+  <section class="gx-page" id="inheritance" data-page="inheritance" data-view="predict" hidden>
+    <div class="ic-views-row" data-draw="ih-views" data-source="profiles inh_checks"></div>
     <div class="gx-card ih-hero-card">
       <div data-draw="ih-hero" data-source="profiles inh_meta"></div>
     </div>
-    <div class="gx-card">
+    <div class="gx-card ih-predict-only">
       <div class="ih-explain" data-draw="ih-explain" data-source="profiles inh_meta"></div>
     </div>
-    <div class="gx-card">
+    <div class="gx-card ih-predict-only">
       <div data-draw="ih-featured" data-source="profiles inh_meta inh_predictions"></div>
     </div>
-    <div class="gx-card">
+    <div class="gx-card ih-predict-only">
       <div data-draw="ih-predictions" data-source="profiles inh_meta inh_predictions"></div>
     </div>
-    <div class="gx-card">
+    <div class="gx-card ih-predict-only">
       <div data-draw="ih-conditions" data-source="profiles inh_meta inh_conditions"></div>
     </div>
-    <div class="gx-card">
+    <div class="gx-card ih-predict-only">
       <div data-draw="ih-traits" data-source="profiles inh_traits"></div>
     </div>
-    <div class="gx-card">
+    <div class="gx-card ih-predict-only">
       <div data-draw="ih-drugs" data-source="profiles inh_drugs"></div>
+    </div>
+    <!-- Predicted vs actual (ic.js): a child in the app against its parents' sealed forecast -->
+    <div class="gx-card ic-compare-only">
+      <div data-draw="ic-summary" data-source="profiles inh_checks"></div>
+    </div>
+    <div class="gx-card ic-compare-only">
+      <div data-draw="ic-featured" data-source="profiles inh_checks inh_meta inh_predictions"></div>
+    </div>
+    <div class="gx-card ic-compare-only">
+      <div data-draw="ic-traits" data-source="profiles inh_checks inh_predictions"></div>
+    </div>
+    <div class="gx-card ic-compare-only">
+      <div data-draw="ic-single" data-source="profiles inh_checks"></div>
     </div>
   </section>

@@ -93,6 +93,9 @@ def _ask(prompt, system=None, schema=None):
     """One structured call on the small model: (object, usage). The API with a key, else Claude Code."""
     from cluster_analysis.agent import run
     system, schema = system or SYSTEM, schema or SCHEMA
+    if run.backend() == "openai":
+        from cluster_analysis.agent import models
+        return models.complete_json(prompt, system, schema, small=True)
     if run.backend() == "api":
         import anthropic
         client = anthropic.Anthropic(api_key=run.api_key())

@@ -88,7 +88,7 @@ def gwas_rows():
             if len(uris) != 1:
                 continue
             m = re.fullmatch(r"(rs\d+)-([ACGT])", (r["STRONGEST SNP-RISK ALLELE"] or "").strip())
-            if not m or r["CHR_ID"] in ("X", "Y", "MT", "") or not (r["CHR_POS"] or "").isdigit():
+            if not m or r["CHR_ID"] in ("Y", "MT", "") or not (r["CHR_POS"] or "").isdigit():
                 continue
             try:
                 p = float(r["P-VALUE"] or 1)
@@ -291,7 +291,8 @@ def build_models(log=print):
                 continue
             allele, f, ref, alt = a
             vs.append({"rsid": r["rsid"], "chrom": r["chrom"], "pos": r["pos"], "allele": allele, "freq": round(f, 5),
-                       "ref": ref, "alt": alt, "w": r["w"], "gene": r["gene"], "p": r["p"]})
+                       "ref": ref, "alt": alt, "w": r["w"], "gene": r["gene"], "p": r["p"],
+                       **({"x": True} if on_x(r["chrom"], r["pos"]) else {})})
         if len(vs) < MIN_VARIANTS:
             continue
         r0 = lead[0]
@@ -337,6 +338,18 @@ def load_models():
 
 # --- A pair ---------------------------------------------------------------------------------------------------------
 
+def on_x(chrom, pos):
+    """On the X outside the two pseudo-autosomal regions (those pair with the Y and are inherited like autosomes)."""
+    return str(chrom) in ("X", "23") and not any(a <= int(pos) <= b for a, b in gbuild.par())
+
+
+def moments(f, hemizygous):
+    """The population mean and variance of a person's copies at one variant: two copies, each with the European
+    frequency f; for a man's X (hemizygous), one copy counted as 0 or 2 (full dosage compensation, a common coding of
+    men's X in genome-wide studies, so the study's effect sizes fit it)."""
+    return (2 * f, 4 * f * (1 - f)) if hemizygous else (2 * f, 2 * f * (1 - f))
+
+
 def copies(call, v):
     """Copies of the effect allele in a parent's call, or None when the call can't be used."""
     if not call or call.get("tier") not in USABLE:
@@ -347,9 +360,12 @@ def copies(call, v):
     return gt.count(v["allele"])
 
 
-def predict(model, xx, xy):
+def predict(model, xx, xy, child_sex="XX"):
     """Where each parent sits and where their child is likely to sit for one trait, as percentiles among Europeans.
-    xx, xy: {rsid: call} with genotype and tier."""
+    xx, xy: {rsid: call} with genotype and tier. child_sex XX or XY matters on the X only: a daughter gets one X from
+    each parent (her father's for certain), a son his mother's only, counted 0 or 2 (moments); each parent and the
+    child are ranked against their own sex."""
+    mom = {"XX": [0.0, 0.0], "XY": [0.0, 0.0]}   # the population's mean and variance, for women and for men
     mean = var = 0.0
     s = {"XX": 0.0, "XY": 0.0}
     c_mean = c_var = 0.0
@@ -358,9 +374,11 @@ def predict(model, xx, xy):
     used = {"XX": 0, "XY": 0, "both": 0}
     parts = []
     for v in model["variants"]:
-        w, f = v["w"], v["freq"]
-        mean += 2 * f * w
-        var += 2 * f * (1 - f) * w * w
+        w, f, x = v["w"], v["freq"], bool(v.get("x"))
+        for sx in ("XX", "XY"):
+            mu, vv = moments(f, x and sx == "XY")
+            mom[sx][0] += mu * w
+            mom[sx][1] += vv * w * w
         d = {"XX": copies(xx.get(v["rsid"]), v), "XY": copies(xy.get(v["rsid"]), v)}
         q = {}
         for side in ("XX", "XY"):
@@ -372,31 +390,43 @@ def predict(model, xx, xy):
                 used[side] += 1
                 q[side] = d[side] / 2
         used["both"] += d["XX"] is not None and d["XY"] is not None
-        c_mean += (q["XX"] + q["XY"]) * w
-        c_var += (q["XX"] * (1 - q["XX"]) + q["XY"] * (1 - q["XY"])) * w * w
-        push["XX"] += (q["XX"] - f) * w
-        push["XY"] += (q["XY"] - f) * w
-        # The child's genotype odds at this variant: copies of the effect allele 0, 1, 2 (each parent passes it with q)
         qa, qb = q["XX"], q["XY"]
-        # The copies a child could get here: a parent with 0 or 2 passes 0 or 1 for certain, with 1 either; unread, either
-        lo = (0 if d["XX"] in (None, 0, 1) else 1) + (0 if d["XY"] in (None, 0, 1) else 1)
-        hi = (1 if d["XX"] in (None, 1, 2) else 0) + (1 if d["XY"] in (None, 1, 2) else 0)
+        if x and child_sex == "XY":
+            # A son's X is his mother's: she passes the variant with qa, and he holds it as 0 or 2 (moments)
+            c_mean += 2 * qa * w
+            c_var += 4 * qa * (1 - qa) * w * w
+            push["XX"] += 2 * (qa - f) * w
+            lo, hi = (0 if d["XX"] in (None, 0, 1) else 2), (2 if d["XX"] in (None, 1, 2) else 0)
+            child_p = [round(1 - qa, 4), 0.0, round(qa, 4)]
+            kind = "unread" if d["XX"] is None else "chance" if 0 < qa < 1 else "settled"
+            spread, child_mean = 4 * qa * (1 - qa) * w * w, 2 * qa
+        else:
+            # Two copies, one from each parent (on a daughter's X her father's single X passes for certain: qb is 0 or 1)
+            c_mean += (qa + qb) * w
+            c_var += (qa * (1 - qa) + qb * (1 - qb)) * w * w
+            push["XX"] += (qa - f) * w
+            push["XY"] += (qb - f) * w
+            # The copies a child could get here: a parent with 0 or 2 passes 0 or 1 for certain, with 1 either; unread, either
+            lo = (0 if d["XX"] in (None, 0, 1) else 1) + (0 if d["XY"] in (None, 0, 1) else 1)
+            hi = (1 if d["XX"] in (None, 1, 2) else 0) + (1 if d["XY"] in (None, 1, 2) else 0)
+            child_p = [round((1 - qa) * (1 - qb), 4), round(qa * (1 - qb) + qb * (1 - qa), 4), round(qa * qb, 4)]
+            # settled: both parents carry two identical letters, so the child's pair is certain; chance: a parent
+            # carries two different ones (a coin toss); unread: a parent's call can't be used
+            kind = "unread" if d["XX"] is None or d["XY"] is None else "chance" if 0 < qa < 1 or 0 < qb < 1 else "settled"
+            spread, child_mean = (qa * (1 - qa) + qb * (1 - qb)) * w * w, qa + qb
         c_min += min(lo * w, hi * w)
         c_max += max(lo * w, hi * w)
         parts.append({"rsid": v["rsid"], "gene": v["gene"], "allele": v["allele"],
                       "other": v["alt"] if v["allele"] == v["ref"] else v["ref"], "freq": v["freq"], "raises": w > 0,
                       "average": round(2 * f, 2),  # the copies an average European carries
-                      "XX": d["XX"], "XY": d["XY"], "child_mean": round(qa + qb, 3),
-                      "child_p": [round((1 - qa) * (1 - qb), 4), round(qa * (1 - qb) + qb * (1 - qa), 4), round(qa * qb, 4)],
-                      # settled: both parents carry two identical letters, so the child's pair is certain; chance: a
-                      # parent carries two different ones (a coin toss); unread: a parent's call can't be used
-                      "kind": "unread" if d["XX"] is None or d["XY"] is None else "chance" if 0 < qa < 1 or 0 < qb < 1 else "settled",
-                      "spread": (qa * (1 - qa) + qb * (1 - qb)) * w * w,
-                      "shift": (qa + qb - 2 * f) * w})
-    if var <= 0:
+                      "XX": d["XX"], "XY": d["XY"], "child_mean": round(child_mean, 3), "child_p": child_p, "kind": kind,
+                      "spread": spread, "shift": (child_mean - 2 * f) * w, **({"x": True} if x else {})})
+    mean, var = mom[child_sex]
+    if var <= 0 or mom["XX"][1] <= 0 or mom["XY"][1] <= 0:
         return None
     sd = math.sqrt(var)
-    z = {k: (s[k] - mean) / sd for k in s}
+    # Each parent against their own sex's population (they differ on the X only)
+    z = {k: (s[k] - mom[k][0]) / math.sqrt(mom[k][1]) for k in s}
     cz, csd = (c_mean - mean) / sd, math.sqrt(c_var) / sd
     for p in parts:
         p["shift"] = round(p["shift"] / sd, 3)
@@ -420,6 +450,9 @@ def predict(model, xx, xy):
             "top": top, "settled": settled, "chance": chance}
 
 
+# GWAS Catalog terms that are not a person's trait: a GWAS of sex itself
+NOT_A_TRAIT = {"biological sex"}
+
 FEMALE = re.compile(r"\b(female|females|women|woman|girls|mothers)\b", re.I)
 MALE = re.compile(r"\b(male|males|men|man|boys|fathers)\b", re.I)
 
@@ -432,26 +465,44 @@ def studied_sex(sample):
 
 def predictions(models, xx_calls, xy_calls, min_share=0.5):
     """Every trait whose variants are read in both parents at least min_share of the time."""
+    from cluster_analysis.inheritance import gwas_impact
+    imp = gwas_impact.load()
     out = []
     for m in models:
-        r = predict(m, xx_calls, xy_calls)
-        if not r or r["used_both"] < max(MIN_VARIANTS, min_share * r["variants"]):
+        if m["trait"] in NOT_A_TRAIT:
             continue
-        out.append({"id": m["id"], "uri": m.get("uri"), "trait": m["trait"], "category": m["category"], "study": m["study"],
-                    "pmid": m["pmid"], "author": m["author"], "year": m["year"], "n": m["n"], "kind": m["kind"],
-                    "reported": m.get("reported"), "definition": m.get("definition"),
-                    "studied_sex": studied_sex(m.get("sample")), "sample": m.get("sample"), **r})
+        on_x_ = any(v.get("x") for v in m["variants"])
+        for child in (("XX", "XY") if on_x_ else ("any",)):
+            r = predict(m, xx_calls, xy_calls, "XX" if child == "any" else child)
+            if not r or r["used_both"] < max(MIN_VARIANTS, min_share * r["variants"]):
+                continue
+            out.append({"id": m["id"], "uri": m.get("uri"), "trait": m["trait"], "category": m["category"], "study": m["study"],
+                        "pmid": m["pmid"], "author": m["author"], "year": m["year"], "n": m["n"], "kind": m["kind"],
+                        "reported": m.get("reported"), "definition": m.get("definition"),
+                        "studied_sex": studied_sex(m.get("sample")), "sample": m.get("sample"),
+                        # which child the row is for: "any" when the trait has no X variants (a son and a daughter alike)
+                        "child_sex": child, "x_variants": sum(1 for v in m["variants"] if v.get("x")),
+                        # GWAS impact: the share of the differences between people the lead variants explain, in %
+                        "impact": round(100 * imp[m["id"]]["r2_lead"], 2) if m["id"] in imp and not imp[m["id"]].get("flag") else None,
+                        "impact_flag": (imp.get(m["id"]) or {}).get("flag"), "impact_rank": (imp.get(m["id"]) or {}).get("rank_pct"), **r})
     return out
 
 
 FEATURED = os.path.join(HERE, "featured.json")
 
 
-def featured():
+def featured(raw=False):
+    """featured.json's traits; unless raw, each with what its study reports about how much the score says
+    (impact.py: quoted from the paper, never estimated here)."""
     try:
-        return json.load(open(FEATURED, encoding="utf-8"))["featured"]
+        fs = json.load(open(FEATURED, encoding="utf-8"))["featured"]
     except (OSError, ValueError, KeyError):
         return []
+    if raw:
+        return fs
+    from cluster_analysis.inheritance import impact
+    imp = impact.load()
+    return [f | ({"impact": imp[f["id"]]} if f["id"] in imp else {}) for f in fs]
 
 
 def genome_shares():
@@ -489,8 +540,13 @@ def person_scores(models, calls, sex=None, min_share=0.5):
     """Where one person's genes place them on every trait, among Europeans (the Biomarkers tab). Traits studied in the
     other sex only are left out; so are traits with fewer than half their variants read."""
     keep = "female" if sex == "female" else "male" if sex == "male" else None
+    feat = {f["id"]: f for f in featured()}
+    from cluster_analysis.inheritance import gwas_impact
+    imp = gwas_impact.load()
     out = []
     for m in models:
+        if m["trait"] in NOT_A_TRAIT:
+            continue
         studied = studied_sex(m.get("sample"))
         if studied and keep and studied != keep:
             continue
@@ -498,8 +554,9 @@ def person_scores(models, calls, sex=None, min_share=0.5):
         used, parts = 0, []
         for v in m["variants"]:
             w, f = v["w"], v["freq"]
-            mean += 2 * f * w
-            var += 2 * f * (1 - f) * w * w
+            mu, vv = moments(f, bool(v.get("x")) and sex == "male")
+            mean += mu * w
+            var += vv * w * w
             d = copies(calls.get(v["rsid"]), v)
             s += (2 * f if d is None else d) * w
             used += d is not None
@@ -515,7 +572,11 @@ def person_scores(models, calls, sex=None, min_share=0.5):
                     "pmid": m["pmid"], "author": m["author"], "year": m["year"], "n": m["n"], "kind": m["kind"],
                     "reported": m.get("reported"), "definition": m.get("definition"), "studied_sex": studied,
                     "z": round(z, 3), "pct": round(100 * phi(z), 1), "used": used, "variants": len(m["variants"]),
-                    "top": sorted(parts, key=lambda p: -abs(p["shift"]))[:10]})
+                    "impact": round(100 * imp[m["id"]]["r2_lead"], 2) if m["id"] in imp and not imp[m["id"]].get("flag") else None,
+                    "impact_flag": (imp.get(m["id"]) or {}).get("flag"), "impact_rank": (imp.get(m["id"]) or {}).get("rank_pct"),
+                    "top": sorted(parts, key=lambda p: -abs(p["shift"]))[:10],
+                    # A familiar trait (featured.json): its plain name and directions, shown first
+                    **({"featured": {**{k: feat[m["id"]].get(k) for k in ("name", "more", "less", "sex", "group", "impact")}, "order": list(feat).index(m["id"])}} if m["id"] in feat else {})})
     return out
 
 

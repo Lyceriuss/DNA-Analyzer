@@ -1,0 +1,41 @@
+  /* Predicted vs actual (ic.js): the Inheritance tab's second view */
+  #inheritance:not([data-view="compare"]) .ic-compare-only { display: none; }
+  #inheritance[data-view="compare"] .ih-predict-only { display: none; }
+  .ic-views { display: inline-flex; flex-wrap: wrap; gap: 4px; padding: 4px; border-radius: 10px; border: 1px solid var(--color-border-line); }
+  .ic-view { font: inherit; font-size: 13px; padding: 6px 14px; border-radius: 7px; border: 0; background: none; color: var(--color-fg-muted); cursor: pointer; }
+  .ic-view.is-on { background: var(--color-fg); color: var(--color-bg); font-weight: 600; }
+  .ic-seal { font-family: ui-monospace, monospace; font-size: 11px; padding: 1px 6px; border-radius: 4px; background: color-mix(in srgb, var(--color-fg) 8%, transparent); cursor: help; }
+  .ic-scores { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: 8px; margin: 10px 0 14px; }
+  .ic-score { display: grid; gap: 3px; align-content: start; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--color-border-line); border-top: 3px solid var(--color-border-line); }
+  .ic-score b { font-size: 12.5px; font-weight: 600; }
+  .ic-score.ic-good { border-top-color: var(--color-good, #3fb950); }
+  .ic-score.ic-warn { border-top-color: #e3b341; }
+  .ic-big { font-size: 24px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .ic-embed { display: grid; gap: 8px; padding: 12px 14px; border-radius: 12px; border: 1px dashed var(--color-border-line); }
+  .ic-embed-axis { position: relative; height: 78px; margin: 4px 8px; border-bottom: 1px solid var(--color-border-line); }
+  .ic-band { position: absolute; top: 30px; height: 14px; border-radius: 7px; }
+  .ic-band.ic-sib { background: color-mix(in srgb, var(--ih-trait) 40%, transparent); }
+  .ic-band.ic-str { background: color-mix(in srgb, var(--color-fg) 14%, transparent); }
+  .ic-band-mid { position: absolute; top: 27px; height: 20px; width: 2px; transform: translateX(-1px); background: var(--color-fg-muted); }
+  .ic-band-label { position: absolute; top: 50px; transform: translateX(-50%); font-size: 11px; color: var(--color-fg-muted); white-space: nowrap; }
+  .ic-dot { position: absolute; top: 31px; width: 12px; height: 12px; border-radius: 50%; transform: translateX(-50%); background: #e3b341; box-shadow: 0 0 0 3px var(--color-bg); }
+  .ic-dot-label { position: absolute; top: 8px; transform: translateX(-50%); font-size: 12px; font-weight: 700; color: #e3b341; white-space: nowrap; }
+  /* The child's actual place on a scale: a gold ring, beside the predicted (blue) dot */
+  .ih-mk.ic-mk-actual { width: 12px; height: 12px; border-radius: 50%; border: 3px solid #e3b341; background: transparent; box-sizing: border-box; z-index: 2; }
+  .ic-swatch-actual { width: 12px; height: 12px; border-radius: 50%; border: 3px solid #e3b341; box-sizing: border-box; display: inline-block; }
+  .ic-key { margin: 6px 0 10px; }
+  .ic-fit { font-size: 10.5px; font-weight: 600; padding: 1px 6px; border-radius: 999px; white-space: nowrap; }
+  .ic-fit-in80 { background: color-mix(in srgb, var(--color-good, #3fb950) 20%, transparent); color: var(--color-good, #3fb950); }
+  .ic-fit-in98 { background: color-mix(in srgb, #e3b341 20%, transparent); color: #e3b341; }
+  .ic-fit-out { background: color-mix(in srgb, var(--color-bad, #f85149) 20%, transparent); color: var(--color-bad, #f85149); }
+  .ic-row { display: grid; gap: 2px; padding: 8px 4px; border-bottom: 1px solid var(--color-border-line); }
+  .ic-sum { display: grid; grid-template-columns: minmax(10rem, 1.2fr) minmax(12rem, 2fr) minmax(9rem, auto); gap: 12px; align-items: center; }
+  .ic-err { margin: 0; }
+  .ic-single { display: grid; gap: 10px; }
+  .ic-srow { display: grid; grid-template-columns: minmax(10rem, 1fr) minmax(14rem, 2fr) auto; gap: 12px; align-items: center; }
+  .ic-odds { display: flex; height: 24px; border-radius: 6px; overflow: hidden; border: 1px solid var(--color-border-line); }
+  .ic-oseg { display: flex; align-items: center; justify-content: center; font-size: 11px; color: var(--color-fg-muted); white-space: nowrap; overflow: hidden;
+             background: color-mix(in srgb, var(--color-fg) 6%, transparent); }
+  .ic-oseg + .ic-oseg { border-left: 1px solid var(--color-bg); }
+  .ic-oseg.is-actual { background: color-mix(in srgb, #e3b341 35%, transparent); color: var(--color-fg); font-weight: 700; }
+  @media (max-width: 760px) { .ic-sum, .ic-srow { grid-template-columns: 1fr; } }

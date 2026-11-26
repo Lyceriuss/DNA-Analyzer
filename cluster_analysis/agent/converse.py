@@ -12,8 +12,9 @@ answer, and explains; this machine adds the person's own results and readings.
 5. readings    on this machine: the readings for the person's own results (categories.py) and for the studies'
                genotype groups (interpret.py), written once for everyone and picked here.
 
-Backends: with an API key, the Messages API in a loop (run.MODEL family); without, Claude Code (claude -p) with the
-same tools served by the MCP server (mcp_server.py), which writes the turn's results to a file this reads back.
+Backends (run.backend): Anthropic's Messages API in a loop; Claude Code (claude -p) with the same tools served by the
+MCP server (mcp_server.py), which writes the turn's results to a file this reads back; or an OpenAI-compatible
+provider's Chat Completions in a loop (models.py: OpenAI, Google Gemini, Mistral, OpenRouter, a custom server).
 """
 import json
 import os
@@ -82,6 +83,12 @@ answer's links: each area and strategy, the person's genes behind it, the refs, 
 
 When you mention a result of the person's (a score, a gene's type), say why: which of their variants drive it and \
 what each does (the result's details list them).
+
+A question about a child (what a child of the two profiles picked in the explorer could inherit: a trait, a condition, a medicine gene) is read with my_child, naming only the traits, conditions or gene symbols the question names; trait_model gives the study and definition behind a trait's prediction. Where the person's own genes place them on a \
+trait (height, sleep duration, LDL cholesterol, any of the GWAS Catalog traits) is read with my_traits; both are drawn on \
+the person's screen as scales, so a sentence on what the scale shows is enough. "My gain-of-function (GoF) or loss-of-function \
+(LoF) genes", or which genes are more or less active, is my_genes_by_function: it lists the explorer's calls with what \
+each rests on (a reviewed protein change, or an expression effect that changes how much of a normal protein is made). When my_child returns results, write the child's band and the odds as given, and the parents as "the XX parent" and "the XY parent"; when it returns the public part only, explain from that: the results are on the person's screen.
 
 Every link you draw between a result and the question's subject (a food, a type of training, a drug, an exposure) must come from a tool result and be cited: research it (search_papers, recent_papers, research_genotypes, read_paper) or leave it out. Never fill in from general knowledge; the answer cites its sources.
 
@@ -449,6 +456,50 @@ def _engine_api(prompt, ctx, s, emit, stop):
     return usage
 
 
+def _engine_openai(prompt, ctx, s, emit, stop):
+    """The same loop on an OpenAI-compatible provider (models.py): the model asks for tools by function calls, each
+    runs here (tools.call) and its result goes back as a tool message."""
+    from cluster_analysis.agent import models
+    p = models.active()
+    if not p:
+        raise RuntimeError("The chosen model provider isn't set up: add its key and pick a model in Ask.")
+    specs = models.tool_specs(tools.schemas())
+    messages = [{"role": "system", "content": system_prompt(ctx["share"])}, {"role": "user", "content": prompt}]
+    usage = cost.new()
+    for _ in range(MAX_TURNS):
+        if stop and stop():
+            raise RuntimeError("Stopped.")
+        msg, u = models.chat(p, messages, tools=specs)
+        usage = cost.add(usage, u)
+        emit({"type": "usage", **usage})
+        calls = msg["tool_calls"]
+        messages.append({"role": "assistant", "content": msg["content"] or None, **({"tool_calls": calls} if calls else {})})
+        if not calls:
+            break
+        for c in calls:
+            fn = c.get("function") or {}
+            name = fn.get("name") or ""
+            try:
+                args = json.loads(fn.get("arguments") or "{}") if isinstance(fn.get("arguments"), str) else (fn.get("arguments") or {})
+            except ValueError:
+                args = None
+            emit({"type": "tool", "name": name, "input": args or {}, "kind": tools.KIND.get(name)})
+            if args is None:
+                text, err = "The arguments were not valid JSON; call the tool again with a JSON object.", True
+            else:
+                text, err = tools.call(ctx, name, args)
+                ctx.setdefault("calls", []).append({"name": name, "args": args, "kind": tools.KIND.get(name)})
+            if name == "understand" and ctx.get("understood"):
+                emit({"type": "understood", "by": "model", **ctx["understood"]})
+            if name.startswith("show_") and not err and ctx["views"]:
+                emit({"type": "view", **ctx["views"][-1]})
+            emit({"type": "tool_done", "name": name, "ok": not err, "error": text[:200] if err else None})
+            messages.append({"role": "tool", "tool_call_id": c.get("id") or name, "content": ("Error: " + text) if err else text})
+        if ctx.get("answer"):
+            break
+    return usage
+
+
 def _engine_cc(prompt, ctx, s, emit, stop):
     """Claude Code on the person's plan: the tools come from the MCP server, which shares this turn's context
     through a file (the person's results never pass through Claude)."""
@@ -552,19 +603,20 @@ def auto_views(ctx):
             ctx["views"].append({"view": "areas", "theme": theme, "mechanisms": [{"id": m, "name": names[m]} for m in ms[:8]], "auto": True})
 
 
-def ask(question, person, session_id=None, emit=lambda ev: None, stop=None):
+def ask(question, person, session_id=None, emit=lambda ev: None, stop=None, pair=None):
     from cluster_analysis.agent import run
     if not run.backend():
-        raise RuntimeError("Ask needs Claude connected (an API key, or Claude Code logged in).")
+        raise RuntimeError("Ask needs an AI model connected: an API key (Anthropic, OpenAI, Google Gemini, …) or Claude Code logged in.")
     s = sess.Session.load(session_id) if session_id else sess.Session(person=person)
     if s.person != person:
         s = sess.Session(person=person)  # another profile: a new conversation
     t0 = time.time()
     ctx = tools.new_context(person, s)
+    ctx["pair"] = pair   # the XX and XY profiles picked for a child question, or None
     ctx["words"] = [w for w in re.findall(r"[a-z]{4,}", question.lower())]
     ctx["question"] = question
     emit({"type": "start", "session": s.id, "question": question})
-    engine = _engine_api if run.backend() == "api" else _engine_cc
+    engine = {"api": _engine_api, "claude-code": _engine_cc, "openai": _engine_openai}[run.backend()]
     history = s.context(share=ctx["share"])
     prompt = (history + "\n\nNew question: " if history else "") + question
     usage = engine(prompt, ctx, s, emit, stop)
@@ -583,7 +635,7 @@ def ask(question, person, session_id=None, emit=lambda ev: None, stop=None):
     hero = genotype_hero(person, question, ctx.get("answer"), written)
     turn = {"question": question, "shared": ctx["share"], "understood": ctx.get("understood"), "calls": ctx.get("calls", []), "cards": ctx["cards"],
             "views": ctx["views"], "answer": ctx.get("answer"), "written": written, "seconds": round(time.time() - t0, 1),
-            "tokens": usage, "written_tokens": wusage, "model": (MODEL_API + (" + scripts" if PTC else "")) if run.backend() == "api" else f"Claude Code ({MODEL_CC})",
+            "tokens": usage, "written_tokens": wusage, "model": (MODEL_API + (" + scripts" if PTC else "")) if run.backend() == "api" else run.model_label(),
             "followup_refs": None, "trace": ctx.get("trace", []), "hero": hero,
             "ranks_asked": language.ranks_asked(question, (ctx.get("understood") or {}).get("aim"))}
     s.turns.append(turn)

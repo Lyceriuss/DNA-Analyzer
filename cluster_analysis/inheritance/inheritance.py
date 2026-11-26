@@ -428,14 +428,21 @@ def drugs(xx_id, xy_id):
 
 # --- A pair --------------------------------------------------------------------------------------------------------
 
+def related(a, b):
+    """Close family by the profiles' "parents" (profiles.json): one is the other's parent, or they share a parent.
+    Such a pair isn't a couple to predict a child for."""
+    pa, pb = set(a.get("parents") or []), set(b.get("parents") or [])
+    return a["id"] in pb or b["id"] in pa or bool(pa & pb)
+
+
 def pairs(person=None):
-    """Every XX x XY pair of finished profiles; with person, that person (finished or being added) with each finished
-    profile of the other sex."""
+    """Every XX x XY pair of finished profiles that aren't close family; with person, that person (finished or being
+    added) with each finished profile of the other sex."""
     ps = json.load(open(PROFILES, encoding="utf-8"))["profiles"]
     ok = lambda p: not p.get("pending") or p["id"] == person
     xx = [p for p in ps if p.get("sex") == "female" and ok(p)]
     xy = [p for p in ps if p.get("sex") == "male" and ok(p)]
-    return [(a, b) for a in xx for b in xy if person is None or person in (a["id"], b["id"])]
+    return [(a, b) for a in xx for b in xy if (person is None or person in (a["id"], b["id"])) and not related(a, b)]
 
 
 def run_pair(a, b, recs, modes, names, cfg, models=()):

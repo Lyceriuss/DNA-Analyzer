@@ -238,5 +238,171 @@ class TestLoop(unittest.TestCase):
         self.assertTrue(results[0]["is_error"] and "PMID:777" in results[0]["content"])
 
 
+
+class PairTest(unittest.TestCase):
+    """Ask's my_child: a child's results reach the model only with Restricted mode off (share_results), never as a
+    genotype, an rsID, a star allele or a profile id, and for the XX and XY picked in Ask. The rows are made up."""
+    P = {"pair": "PA__PB", "xx": "PA", "xy": "PB"}
+    ROWS = {
+        "inh_meta": [{**P, "featured": json.dumps([{"id": "T1", "name": "Height", "more": "taller", "less": "shorter"}])}],
+        "inh_predictions": [{**P, "id": "T1", "trait": "body height", "reported": "Height", "pmid": "9", "author": "A", "year": "2020",
+                             "n": "1000", "sample": "1,000 people", "variants": "40", "definition": "The height of an organism.",
+                             "child_pct": "76.2", "child_lo": "40", "child_hi": "95", "child_lo98": "10", "child_hi98": "99.5",
+                             "XX_pct": "80", "XY_pct": "30", "push_XX": "0.4", "push_XY": "-0.2", "n_settled": "10", "n_chance": "20",
+                             "n_unread": "10", "top": json.dumps([{"rsid": "rs7777777", "allele": "C", "XX": 2, "XY": 1}])}],
+        "inh_conditions": [{**P, "gene": "GENE1", "conditions": json.dumps([{"id": "OMIM:1", "name": "Condition one", "modes": ["AR"]}]),
+                            "clinvar_names": "[]", "modes": '["AR"]', "on_x": "False", "XX_copies": "1", "XY_copies": "1",
+                            "variants": json.dumps([{"rsid": "rs8888888", "XX": {"genotype": "AG"}}]),
+                            "outcomes": json.dumps({"AR": {"child": {"affected": 0.25, "carrier": 0.5}}}), "confidence": "0.95"}],
+        "inh_traits": [], "inh_drugs": [{**P, "gene": "CYP2C19", "XX_alleles": "*1/*2", "XX_type": "Intermediate metaboliser",
+                                         "XY_alleles": "*1/*1", "XY_type": "Normal metaboliser",
+                                         "types": json.dumps([{"type": "Normal metaboliser", "p": 0.5}, {"type": "Intermediate metaboliser", "p": 0.5}])}],
+    }
+
+    def run_tool(self, share, person="PB", picked=None):
+        from cluster_analysis.agent import providers, tools
+        with mock.patch.object(providers, "rows", lambda name, person: self.ROWS.get(name, [])):
+            ctx = tools.new_context(person, share=share)
+            ctx["pair"] = picked
+            text, err = tools.call(ctx, "my_child", {"about": ["height", "condition one", "CYP2C19"]})
+        self.assertFalse(err, text)
+        return json.loads(text), ctx
+
+    def assert_no_leak(self, text):
+        for bad in ("PA", "PB", "rs7777777", "rs8888888", "AG", "*1/*2", "*1/*1"):
+            self.assertNotIn(bad, text.replace("PA__PB", "?"), bad)
+
+    def test_restricted_mode_sends_public_part_only(self):
+        for picked in (None, {"xx": "PA", "xy": "PB"}):
+            out, ctx = self.run_tool(False, picked=picked)
+            self.assertNotIn("results", out)
+            self.assertNotIn("Top", json.dumps(out))
+            self.assertEqual(out["found"], 3)
+            self.assertEqual(len(ctx["cards"]), 3)   # the person still sees them
+            self.assert_no_leak(json.dumps(out))
+
+    def test_shared_is_interpreted_only(self):
+        out, ctx = self.run_tool(True)
+        text = json.dumps(out, ensure_ascii=False)
+        self.assert_no_leak(text)
+        res = {r["item"]: r for r in out["results"]}
+        self.assertEqual(res["body height"]["child"], "Top 24% · taller")
+        self.assertEqual(res["body height"]["the XY parent"], "Bottom 30% · shorter")
+        self.assertEqual(res["GENE1"]["child_outcomes"]["AR"]["child"]["affected"], 0.25)
+        self.assertEqual(res["CYP2C19"]["child_types"][0], {"type": "Normal metaboliser", "odds": 0.5})
+        self.assertEqual(out["asker_is"], "the XY parent")
+        self.assertIn("PMID:9", ctx["ledger"].refs)
+
+    def test_picked_pair(self):
+        # Asked from a third profile with the pair picked: found, and the asker is neither parent
+        out, _ = self.run_tool(True, person="PC", picked={"xx": "PA", "xy": "PB"})
+        self.assertEqual(out["found"], 3)
+        self.assertEqual(out["asker_is"], "neither parent")
+        self.assert_no_leak(json.dumps(out, ensure_ascii=False))
+        # A pick the explorer has no results for falls back to the asker's own pair; none at all is an error
+        out, _ = self.run_tool(True, person="PB", picked={"xx": "PZ", "xy": "PB"})
+        self.assertEqual(out["found"], 3)
+        from cluster_analysis.agent import providers, tools
+        with mock.patch.object(providers, "rows", lambda name, person: self.ROWS.get(name, [])):
+            self.assertTrue(tools.call(tools.new_context("PC", share=True), "my_child", {"about": ["height"]})[1])
+
+    def test_names_only_what_was_asked(self):
+        from cluster_analysis.agent import pair
+        with mock.patch.object(pair.providers, "rows", lambda name, person: self.ROWS.get(name, [])):
+            self.assertEqual([k for k, _ in pair.find(self.P, ["CYP2C19"])], ["drug"])
+            self.assertEqual(pair.find(self.P, ["eye colour"]), [])
+
+    def test_trait_model_reads_no_personal_data(self):
+        from cluster_analysis.agent import pair, tools
+        from cluster_analysis.inheritance import predict
+        if not os.path.exists(predict.MODELS):
+            self.skipTest("the trait models aren't built")
+        pair._MODELS.clear()
+        ctx = tools.new_context("PB")   # reads Ask's settings, before the guard
+        opened, guards = TestPrivacy.guard(self)
+        for g in guards:
+            g.start()
+        try:
+            text, err = tools.call(ctx, "trait_model", {"trait": "height"})
+        finally:
+            for g in guards:
+                g.stop()
+        self.assertFalse(err, text)
+        self.assertIn('"definition"', text)
+        self.assertTrue(opened)
+
+    def test_generic_share_skips_pair_cards(self):
+        from cluster_analysis.agent import tools
+        self.assertEqual(tools.interpreted([c for c in [{"pair": True}] if not c.get("pair")]), [])
+
+
+
+class TraitsTest(unittest.TestCase):
+    """Ask's my_traits: the person's GWAS trait scores. Restricted mode on, the model gets the public part only (no
+    band, no variant); off, the band in words. The screen card carries the numbers the tab draws. The row is made up."""
+    ROW = {"person": "PB", "id": "T1", "trait": "body height", "reported": "Height", "pmid": "9", "author": "A", "year": "2020",
+           "n": 1000, "pct": 76.2, "used": 40, "variants": 40, "definition": "The height of an organism.",
+           "featured": {"name": "Height", "more": "taller", "less": "shorter"},
+           "top": [{"rsid": "rs7777777", "gene": "GENE9", "allele": "C", "raises": True, "copies": 2, "average": 0.5, "shift": 0.3}]}
+
+    def run_tool(self, share):
+        from cluster_analysis.agent import providers, tools
+        with mock.patch.object(providers, "rows", lambda name, person: [self.ROW] if name == "trait_scores" else []):
+            ctx = tools.new_context("PB", share=share)
+            text, err = tools.call(ctx, "my_traits", {"about": ["height"]})
+        self.assertFalse(err, text)
+        return text, ctx
+
+    def test_restricted(self):
+        text, ctx = self.run_tool(False)
+        for bad in ("Top 24", "rs7777777", "GENE9", "76"):
+            self.assertNotIn(bad, text)
+        self.assertIn("The height of an organism.", text)
+        self.assertEqual(ctx["cards"][0]["data"]["pct"], 76.2)      # drawn on the screen
+        self.assertEqual(ctx["cards"][0]["headline"], "Top 24% · taller")
+
+    def test_open(self):
+        text, _ = self.run_tool(True)
+        self.assertIn("Top 24% · taller", json.loads(text)["results"][0]["summary"])
+
+
+class DocumentedTest(unittest.TestCase):
+    def test_every_tool_is_documented(self):
+        """Sources and documentation and the Ask tab show each tool from ask_tools.json: every tool needs its entry
+        (abbreviation, name, description), every entry a tool, and no two share an abbreviation."""
+        from cluster_analysis.agent import tools
+        d = json.load(open(os.path.join(ROOT, "cluster_analysis", "explorer", "ask_tools.json"), encoding="utf-8"))
+        described = set(d["tools"])
+        self.assertEqual(sorted(set(tools.TOOLS) - described), [], "tools without an entry in ask_tools.json")
+        self.assertEqual(sorted(described - set(tools.TOOLS)), [], "ask_tools.json describes tools Ask no longer has")
+        abbrs = [t["abbr"] for t in d["tools"].values()] + [x["abbr"] for x in d["drawn"]]
+        self.assertEqual(len(abbrs), len(set(abbrs)), "two share an abbreviation")
+        for t in d["tools"].values():
+            self.assertTrue(t["label"] and t["what"] and 2 <= len(t["abbr"]) <= 3)
+
+
+class FunctionCallsTest(unittest.TestCase):
+    """my_genes_by_function: one row per gene, reviewed protein changes first, then two copies, then more tissues; the
+    model gets counts only in Restricted mode. Made-up rows."""
+    ROWS = [{"person": "PB", "theme": "muscle", "gene": "EXPR1", "function": "GoF", "basis": "expression", "dose": "2", "rsid": "rs1", "genotype": "AA",
+             "fn_evidence": "A raises EXPR1 expression in 12 tissues"},
+            {"person": "PB", "theme": "cancer", "gene": "EXPR1", "function": "GoF", "basis": "expression", "dose": "2", "rsid": "rs1", "genotype": "AA",
+             "fn_evidence": "A raises EXPR1 expression in 12 tissues"},
+            {"person": "PB", "theme": "muscle", "gene": "CUR1", "function": "GoF", "basis": "curated", "dose": "1", "rsid": "rs2", "genotype": "AG",
+             "fn_evidence": "p.Ile57Val: increased kinase activity"},
+            {"person": "PB", "theme": "muscle", "gene": "LOF1", "function": "LoF", "basis": "curated", "dose": "1", "rsid": "rs3", "genotype": "AG"}]
+
+    def test_order_and_privacy(self):
+        from cluster_analysis.agent import functions, providers, tools
+        with mock.patch.object(providers, "rows", lambda name, person: self.ROWS if name == "theme_genes" else []):
+            ctx = tools.new_context("PB", share=False)
+            text, err = tools.call(ctx, "my_genes_by_function", {"function": "gain of function"})
+        self.assertFalse(err, text)
+        genes = ctx["cards"][0]["data"]["genes"]
+        self.assertEqual([g["gene"] for g in genes], ["CUR1", "EXPR1"])          # reviewed first; LoF left out
+        self.assertEqual(genes[1]["themes"], ["cancer", "muscle"])                # one row per gene, clusters merged
+        for bad in ("rs1", "rs2", "EXPR1", "CUR1", "AA", "AG"):
+            self.assertNotIn(bad, text)                                            # Restricted mode: counts only
+
 if __name__ == "__main__":
     unittest.main()

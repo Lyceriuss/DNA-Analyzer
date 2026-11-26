@@ -221,7 +221,7 @@
           if (!n[g]) continue;
           const seg = inMake(bar, 'span', 'in-g-' + cls(g));
           seg.style.width = `${(n[g] / total) * 100}%`;
-          if (n[g] / total >= 0.08) inMake(seg, 'i', null, g);
+          inMake(seg, 'i', null, g);   // every grade labelled; a small share keeps room for it (in.css min-width)
         }
         if (c.p) inText(sec, inT('{} findings for {} in Medicines, Nutrition, Biomarkers and training, by grade. The tabs show the grade next to every finding, strongest first.', inN(total), c.who));
       }
@@ -313,7 +313,7 @@
         inMake(v, 'span', null, rec);
         const labels = oncRows.filter((r) => r.kind === 'label' && r.status === 'differs' && genesOf(r).includes(gene));
         if (labels.length) inMake(card, 'div', 'in-ccard-note', inT('Drug labels ({}) name {}\'s type for: {}.', [...new Set(labels.map((r) => r.source))].join(', '), c.who, [...new Set(labels.map((r) => r.drug))].sort().join(', ')));
-        if (open.length) inMake(card, 'div', 'in-ccard-warn', inT('{} of the {} variants guidelines test for are too rare for a chip to rule out ({}). Test {} before these medicines.', open.length, snps.length, open.map((x) => x.allele).join(', '), gene));
+        if (open.length) inMake(card, 'div', 'in-ccard-warn', inT('{} of the {} variants guidelines test for are too rare for a chip to rule out ({}).', open.length, snps.length, open.map((x) => x.allele).join(', ')));
       }
       // Which cancers the genes lean toward: one polygenic score per cancer (cancers.json), highest risk first. Green is a
       // lower risk than most (higher is worse, so the marker sits at 100 - percentile, as in the Clusters cards)
@@ -331,15 +331,15 @@
         inMake(rk, 'h4', null, inT('Which cancers {}\'s genes lean toward', c.who));
         inMake(rk, 'p', 'in-risk-lead', inT('For each cancer, how many of the risk variants large studies found {} carries, compared with 525 Europeans:', c.who));
         for (const r of risks) {
-          const [word, cls] = band(r.p);
+          const cls = band(r.p)[1];
           const row = inMake(rk, 'div', 'in-risk-row in-band-' + cls);
           inMake(row, 'b', null, r.name);
           const bar = inMake(row, 'div', 'nt-bar in-risk-bar');
           inMake(bar, 'span', 'in-risk-avg');
           inMake(bar, 'i').style.left = `${100 - r.p}%`;
           const v = inMake(row, 'div', 'in-risk-verdict');
-          inMake(v, 'b', null, word);
-          inMake(v, 'span', null, r.p >= 50 ? inT('higher than {} of 100 Europeans', r.p) : inT('lower than {} of 100 Europeans', 100 - r.p));
+          inMake(v, 'b', null, r.p >= 50 ? inT('Top {}%', Math.max(1, Math.round(100 - r.p))) : inT('Bottom {}%', Math.max(1, Math.round(r.p))));
+          inMake(v, 'span', null, r.p >= 50 ? 'higher risk' : 'lower risk');
         }
         const axis = inMake(rk, 'div', 'in-risk-row in-risk-axis');
         inMake(axis, 'span');
@@ -347,7 +347,7 @@
         inMake(ax, 'span', null, '← Higher risk than most');
         inMake(ax, 'span', null, 'Average');
         inMake(ax, 'span', null, 'Lower risk than most →');
-        inMake(rk, 'p', 'in-ccard-note', 'The common variants behind these bars each nudge risk a little; together they shift it modestly. The large inherited risks come from rare variants (BRCA1, BRCA2, the Lynch syndrome genes) that a chip mostly can\'t see. A cancer far to the left is a reason to start screening on time, not a diagnosis.');
+        inMake(rk, 'p', 'in-ccard-note', 'The common variants behind these bars each nudge risk a little; together they shift it modestly. The large inherited risks come from rare variants (BRCA1, BRCA2, the Lynch syndrome genes) that a chip mostly can\'t see.');
       }
       const cg = changed('cancer');
       const shown = testGenes.filter((g) => mgBy.has(g));

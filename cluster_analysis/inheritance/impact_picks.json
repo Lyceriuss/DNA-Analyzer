@@ -1,0 +1,23 @@
+{
+ "about": "Which sentence of each familiar trait's own study (impact.py's sweep of its abstract and open full text) says how much the score says, and the figure in it. This file only chooses: impact.py keeps a pick only when its 'quote' is found in that paper's text and its 'figure' appears in that sentence. kind: variance (the share of the differences between people the study's variants or score explained), h2 (SNP heritability: the most all common variants together could explain), auc (how well a score sorts people with and without the condition), hr (risk per standard deviation of the score). Traits not listed: the study reports no such figure in its abstract or open text, or its text isn't open. Checked 2026-11-26.",
+ "picks": {
+  "OBA_2040171": {"kind": "variance", "figure": "0.69", "quote": "The 78 loci explained 0.69% of the variance in sleep duration"},
+  "EFO_0004340": {"kind": "variance", "figure": "5.4", "quote": "explained 5.4% of BMI variance in the MVP EA participants"},
+  "EFO_0003963": {"kind": "variance", "figure": "5.2", "quote": "The seven top SNPs across the skin-spots loci accounted for 5.2% of freckles phenotypic variance"},
+  "EFO_0007825": {"kind": "variance", "figure": "25", "quote": "Altogether, these SNPs explained 25% (SE = 1%) of phenotypic variance"},
+  "EFO_0006335": {"kind": "variance", "figure": "7.17", "quote": "These PRSs captured a total of 7.17%, 7.83% and 4.53% of the variance in SBP, DBP and PP"},
+  "EFO_0004343": {"kind": "variance", "figure": "3.9", "quote": "The top-associated index SNPs explain 3.9% of the overall phenotypic variance"},
+  "EFO_0004703": {"kind": "variance", "figure": "2.71", "quote": "the top 123 SNPs together explained 2.71%"},
+  "EFO_0004704": {"kind": "variance", "figure": "10.1", "quote": "we estimated our identified signals cumulatively explained 10.1% of the variance in ANM"},
+  "EFO_0011015": {"kind": "variance", "figure": "15.8", "quote": "This PGI explains 15.8% of the variance in EduYears in Add Health and 12.0% in HRS"},
+  "EFO_0004337": {"kind": "variance", "figure": "5.2", "quote": "the current results explain up to 5.2% of the variance in intelligence in four independent samples"},
+  "HP_0000545": {"kind": "h2", "figure": "0.363", "quote": "The LDSC SNP-based heritability"},
+  "MONDO_0005148": {"kind": "h2", "figure": "19", "quote": "Genome-wide chip heritability analysis explained 19% of T2D risk on a liability scale"},
+  "MONDO_0005277": {"kind": "h2", "figure": "11.2", "quote": "The SNP heritability estimate from LDSC was 11.2%"},
+  "OBA_1000968": {"kind": "h2", "figure": "0.13", "quote": "SNP-based heritability estimates"},
+  "MONDO_0002009": {"kind": "h2", "figure": "0.167", "quote": "We note that the SNP-heritability estimate for the iPSYCH cohort", "variants_estimate": {"figure": "11,700", "quote": "with ~11,700 variants explaining 90% of the single-nucleotide polymorphism heritability"},
+                    "note": "The 0.167 is from hospital-diagnosed cases in Denmark; the paper reports the other, more broadly defined cohorts 0.057 to 0.098 lower."},
+  "MONDO_0005010": {"kind": "hr", "figure": "1.56", "quote": "the 2022 PRS outperformed the 2015 PRS", "note": "The AUC of 0.742 in the same sentence includes age and sex, not the score alone."},
+  "MONDO_0004981": {"kind": "auc", "figure": "0.780", "quote": "Our PGS showed superior predictive performance compared to PGS002814"}
+ }
+}

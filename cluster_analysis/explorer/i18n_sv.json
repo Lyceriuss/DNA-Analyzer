@@ -1,4 +1,13 @@
 {
+"Sources and documentation": "Källor och dokumentation",
+"What Ask can show and look up": "Vad Ask kan visa och slå upp",
+"Restricted mode off": "Begränsat läge av",
+"{} of the {} variants guidelines test for are too rare for a chip to rule out ({}).": "{} av de {} varianter som riktlinjerna testar för är för sällsynta för att ett chip ska kunna utesluta dem ({}).",
+"The common variants behind these bars each nudge risk a little; together they shift it modestly. The large inherited risks come from rare variants (BRCA1, BRCA2, the Lynch syndrome genes) that a chip mostly can't see.": "De vanliga varianterna bakom staplarna knuffar var och en risken lite; tillsammans flyttar de den måttligt. De stora ärftliga riskerna kommer från sällsynta varianter (BRCA1, BRCA2, generna för Lynch syndrom) som ett chip oftast inte ser.",
+"Where {}'s genes place {} among Europeans on traits everyone knows. The dot is {}; the middle line is the average.": "Var {}:s gener placerar {} bland européer i egenskaper alla känner till. Punkten är {}; mittlinjen är genomsnittet.",
+"For each cancer, the risk variants large studies found, added up for {} and compared with Europeans; the highest first. These common variants each nudge risk a little and together shift it modestly. The large inherited risks come from rare variants, in genes such as BRCA1, BRCA2 and the Lynch syndrome genes, which a chip mostly cannot read.": "För varje cancerform de riskvarianter stora studier har hittat, summerade för {} och jämförda med européer; den högsta först. Dessa vanliga varianter knuffar var och en risken lite och flyttar den tillsammans måttligt. De stora ärftliga riskerna kommer från sällsynta varianter, i gener som BRCA1, BRCA2 och generna för Lynch syndrom, som ett chip oftast inte kan läsa.",
+"Open in the cancer theme ›": "Öppna i cancertemat ›",
+"Largest studies first": "Största studierna först",
 "The genetic profile of": "Den genetiska profilen för",
 "Where {}'s genes place {} on {} traits, compared with Europeans: body measures, blood values, sleep, diseases and more, each from a large study. The blood tests a lab reports come last, with what each one measures.": "Var {}:s gener placerar {} på {} egenskaper, jämfört med européer: kroppsmått, blodvärden, sömn, sjukdomar och mer, var och en från en stor studie. Blodproven som ett labb rapporterar kommer sist, med vad vart och ett mäter.",
 "What the traits cover": "Vad egenskaperna täcker",

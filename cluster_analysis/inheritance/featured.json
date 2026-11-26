@@ -1,5 +1,5 @@
 {
- "about": "The predicted traits the Inheritance tab shows first, with a plain name and the trait's two directions in words ('more' is the direction the study's score rises in, 'less' the other). This file only chooses and names: the studies, variants, effects and definitions come from the GWAS Catalog and EFO (predict.py). Traits whose study coded them in categories (eye or hair colour, handedness) are not featured: their score has no direction that can be said in words.",
+ "about": "The predicted traits the Inheritance tab shows first, with a plain name and the trait's two directions in words ('more' is the direction the study's score rises in, 'less' the other). This file only chooses and names: the studies, variants, effects and definitions come from the GWAS Catalog and EFO (predict.py). Traits whose study coded them in categories (eye or hair colour, handedness) are not featured: their score has no direction that can be said in words. 'sex' shows a trait only for that sex (a person's own, or the child's in the Inheritance tab); 'group' draws traits that belong together in one card. 'name' may be the user's own wording for what the study measured (smoking initiation is named Addiction); each card also shows the study's own name for it.",
  "featured": [
   {"id": "OBA_VT0001253", "name": "Height", "more": "taller", "less": "shorter"},
   {"id": "EFO_0008328", "name": "Morning or evening person", "more": "more of a morning person", "less": "more of an evening person"},
@@ -11,6 +11,31 @@
   {"id": "HP_0000545", "name": "Short-sightedness", "more": "higher risk of short-sightedness", "less": "lower risk of short-sightedness"},
   {"id": "EFO_0003963", "name": "Freckles", "more": "more likely to freckle", "less": "less likely to freckle"},
   {"id": "MONDO_0004979", "name": "Asthma", "more": "higher risk of asthma", "less": "lower risk of asthma"},
-  {"id": "EFO_0007825", "name": "Balding", "more": "more balding", "less": "less balding"}
+  {"id": "EFO_0007825", "name": "Balding", "more": "more balding", "less": "less balding", "sex": "male"},
+  {"id": "EFO_0006941", "name": "Grip strength", "more": "stronger grip", "less": "weaker grip", "sex": "male"},
+  {"id": "OBA_1001087", "name": "Pulse rate", "more": "faster pulse", "less": "slower pulse"},
+  {"id": "EFO_0006335", "name": "Blood pressure", "more": "higher blood pressure", "less": "lower blood pressure"},
+  {"id": "EFO_0004530", "name": "Triglycerides", "more": "higher triglycerides", "less": "lower triglycerides"},
+  {"id": "MONDO_0005148", "name": "Type 2 diabetes", "more": "higher risk of type 2 diabetes", "less": "lower risk of type 2 diabetes"},
+  {"id": "EFO_0004343", "name": "Waist-hip ratio", "more": "more weight around the waist", "less": "less weight around the waist", "sex": "female"},
+  {"id": "EFO_0007800", "name": "Body fat", "more": "more body fat", "less": "less body fat", "group": "Body composition"},
+  {"id": "EFO_0004995", "name": "Lean mass", "more": "more lean mass", "less": "less lean mass", "group": "Body composition"},
+  {"id": "EFO_0004703", "name": "Puberty timing", "more": "later first period", "less": "earlier first period", "sex": "female"},
+  {"id": "EFO_0005677", "name": "Puberty timing", "more": "later voice breaking", "less": "earlier voice breaking", "sex": "male"},
+  {"id": "EFO_0004704", "name": "Menopause", "more": "later menopause", "less": "earlier menopause", "sex": "female"},
+  {"id": "OBA_1000840", "name": "Alcohol", "more": "drinks more alcohol", "less": "drinks less alcohol"},
+  {"id": "EFO_0005670", "name": "Addiction", "more": "more likely to start smoking", "less": "less likely to start smoking"},
+  {"id": "MONDO_0013600", "name": "Insomnia", "more": "higher risk of insomnia", "less": "lower risk of insomnia"},
+  {"id": "MONDO_0005277", "name": "Migraine", "more": "higher risk of migraine", "less": "lower risk of migraine"},
+  {"id": "EFO_0004713", "name": "Lung function", "more": "freer airflow", "less": "more restricted airflow"},
+  {"id": "OBA_0003747", "name": "Kidney function", "more": "higher kidney filtration", "less": "lower kidney filtration"},
+  {"id": "OBA_1000110", "name": "Bone density", "more": "denser bones", "less": "less dense bones"},
+  {"id": "MONDO_0005010", "name": "Coronary artery disease", "more": "higher risk of coronary artery disease", "less": "lower risk of coronary artery disease"},
+  {"id": "MONDO_0004981", "name": "Atrial fibrillation", "more": "higher risk of atrial fibrillation", "less": "lower risk of atrial fibrillation"},
+  {"id": "EFO_0011015", "name": "Years of schooling", "more": "more years of schooling", "less": "fewer years of schooling"},
+  {"id": "EFO_0004337", "name": "Intelligence", "more": "higher test scores", "less": "lower test scores"},
+  {"id": "MONDO_0002009", "name": "Depression", "more": "higher risk of depression", "less": "lower risk of depression"},
+  {"id": "EFO_0007660", "name": "Neuroticism", "more": "higher neuroticism", "less": "lower neuroticism"},
+  {"id": "EFO_0008579", "name": "Risk taking", "more": "more risk-taking", "less": "less risk-taking"}
  ]
 }

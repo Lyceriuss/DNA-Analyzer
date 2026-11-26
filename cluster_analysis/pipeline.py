@@ -3,7 +3,7 @@
 Add a person: from a raw DNA file to their profile in the explorer, in one run.
 
     python -m cluster_analysis.pipeline inspect FILE                 # format, calls, sex: what the explorer shows first
-    python -m cluster_analysis.pipeline add FILE --id NAME [--sex female|male]
+    python -m cluster_analysis.pipeline add FILE --id NAME [--sex female|male] [--parents ID ID]
     python -m cluster_analysis.pipeline status                       # every run's state
     python -m cluster_analysis.pipeline machine                      # this computer's specs and the time a run takes
     python -m cluster_analysis.pipeline abandon NAME                 # an unfinished run removed, with all it made
@@ -395,7 +395,7 @@ def preflight(src, lite=False):
     return problems
 
 
-def add(src, pid, sex=None, lite=False):
+def add(src, pid, sex=None, lite=False, parents=None):
     """lite: the measured variants only, no imputation (minutes instead of an hour; no Java, panel or large memory).
     The imputation can be added later by adding the person again without it."""
     run = Run(pid)
@@ -405,6 +405,7 @@ def add(src, pid, sex=None, lite=False):
     if not (run.s and run.s["state"] in ("failed", "cancelled", "running")):
         run.new(pid, src, sex)
         run.s["lite"] = bool(lite)
+        run.s["parents"] = list(parents or [])
     else:  # resume: the stages done stay done, in the mode the run started in
         lite = run.s.get("lite", False)
         run.s.update(state="running", error=None, ended=None, pid=os.getpid())
@@ -446,7 +447,7 @@ def add(src, pid, sex=None, lite=False):
             run.begin(sid)
             if os.path.abspath(src) != os.path.abspath(dest):
                 shutil.copyfile(src, dest)
-            register(pid, sex, os.path.relpath(dest, ROOT).replace(os.sep, "/"), lite)
+            register(pid, sex, os.path.relpath(dest, ROOT).replace(os.sep, "/"), lite, parents=run.s.get("parents"))
             if os.path.abspath(src).startswith(os.path.join(STATE_DIR, "uploads")):
                 shutil.rmtree(os.path.dirname(os.path.abspath(src)), ignore_errors=True)
             run.finish(sid, os.path.relpath(dest, ROOT).replace(os.sep, "/"))
@@ -585,7 +586,7 @@ def add(src, pid, sex=None, lite=False):
             run.save()
             stream(run, sid, [sys.executable, "-m", "cluster_analysis.explorer", "site"])
             run.finish(sid, "Done")
-        register(pid, sex, os.path.relpath(dest, ROOT).replace(os.sep, "/"), lite, pending=False)
+        register(pid, sex, os.path.relpath(dest, ROOT).replace(os.sep, "/"), lite, pending=False, parents=run.s.get("parents"))
         run.s.update(state="done", ended=now())
         run.save()
         record_timings(run.s)
@@ -873,13 +874,16 @@ def _write_profiles(raw, data, rows):
     os.replace(PROFILES + ".tmp", PROFILES)
 
 
-def register(pid, sex, dna, lite=False, pending=True):
-    """The person in profiles.json; pending until the run is done (profiles.finished), so no page lists them before."""
+def register(pid, sex, dna, lite=False, pending=True, parents=None):
+    """The person in profiles.json; pending until the run is done (profiles.finished), so no page lists them before.
+    parents: the profiles who are this person's parents (inheritance.related: never paired as a couple with them).
+    added: when, to the second (forecast.py checks a child's forecast was sealed before the child was added)."""
     raw = open(PROFILES, "rb").read().decode()
     data = json.loads(raw)
     old = next((p for p in data["profiles"] if p["id"] == pid), {})
     row = {**{k: v for k, v in old.items() if k not in ("lite", "pending")}, "id": pid, "sex": sex, "dna": dna,
-           "added": old.get("added") or now()[:10], **({"lite": True} if lite else {}), **({"pending": True} if pending else {})}
+           "added": old.get("added") or now(), **({"lite": True} if lite else {}), **({"pending": True} if pending else {}),
+           **({"parents": list(parents)} if parents else {})}
     rows = [row if p["id"] == pid else p for p in data["profiles"]]
     _write_profiles(raw, data, rows if old else rows + [row])
 
@@ -948,6 +952,7 @@ if __name__ == "__main__":
     ap.add_argument("--id")
     ap.add_argument("--sex", choices=("female", "male"))
     ap.add_argument("--lite", action="store_true", help="add: measured variants only, no imputation")
+    ap.add_argument("--parents", nargs="+", metavar="ID", help="add: this person's parents among the profiles (never paired with them)")
     a = ap.parse_args()
     if a.command == "inspect":
         print(json.dumps(inspect(a.file), indent=1, ensure_ascii=False))
@@ -967,4 +972,4 @@ if __name__ == "__main__":
     else:
         if not a.file or not a.id or not ID_RE.match(a.id):
             raise SystemExit("add needs FILE and --id (letters, digits, _ and -, up to 32)")
-        add(a.file, a.id, a.sex, a.lite)
+        add(a.file, a.id, a.sex, a.lite, a.parents)

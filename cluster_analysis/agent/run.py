@@ -93,11 +93,45 @@ def claude_cli():
 
 
 def backend():
-    """'api' with an API key, else 'claude-code' when its command line is there, else None. DNA_AGENT_BACKEND forces one."""
+    """The model Ask runs on: 'api' (Anthropic, by key), 'claude-code' (its login) or 'openai' (an OpenAI-compatible
+    provider by key: agent/models.py), as chosen in Ask's settings when that one is set up, else the first that is
+    (an Anthropic key, Claude Code, a chosen compatible provider). None without any. DNA_AGENT_BACKEND forces one."""
+    from cluster_analysis.agent import models, settings
     forced = os.environ.get("DNA_AGENT_BACKEND")
-    if forced in ("api", "claude-code"):
+    if forced in ("api", "claude-code", "openai"):
         return forced
+    s = settings.get()
+    chosen = s.get("provider")
+    if chosen == "anthropic" and api_key():
+        return "api"
+    if chosen == "claude-code" and claude_cli():
+        return "claude-code"
+    if chosen in models.PROVIDERS and models.active(s):
+        return "openai"
     return "api" if api_key() else "claude-code" if claude_cli() else None
+
+
+def model_label():
+    """Who answers, for the page and the saved turn: 'Claude Sonnet (Anthropic API)', 'gpt-x (OpenAI)'."""
+    from cluster_analysis.agent import converse, models
+    b = backend()
+    if b == "openai":
+        p = models.active()
+        return f"{p['model']} ({p['label']})"
+    if b == "api":
+        return f"{converse.MODEL_API} (Anthropic API)"
+    if b == "claude-code":
+        return f"Claude Code ({converse.MODEL_CC})"
+    return None
+
+
+def company():
+    """Whose servers the model runs on, for the privacy note."""
+    from cluster_analysis.agent import models
+    b = backend()
+    if b == "openai":
+        return models.active()["company"]
+    return "Anthropic" if b in ("api", "claude-code") else None
 
 
 def run_claude_code(question, lang="en", emit=print, stop=None):

@@ -68,7 +68,37 @@ def sources_catalog():
         version = {r["name"]: r.get("version") for r in json.load(f)["references"]}
     for item in cat["databases"] + cat["tools"]:
         item["versions"] = sorted({version[r] for r in item.get("refs", []) if version.get(r)})
-    return {k: cat[k] for k in ("groups", "databases", "tools", "glossary")}
+    out = {k: cat[k] for k in ("groups", "databases", "tools", "glossary")}
+    out["agent"] = agent_tools()
+    out["agent_drawn"] = json.loads(read("ask_tools.json")).get("drawn", [])
+    out["impact"] = impact_summary()
+    return out
+
+
+def impact_summary():
+    """The GWAS impact statistics over all trait models (inheritance/gwas_impact.py): median, mean, quartiles and the
+    count per level, overall, for measurements and for case-control studies. Empty before the impact is built."""
+    path = os.path.join(HERE, "..", "..", "data", "reference", "inheritance", "trait_impact.json")
+    try:
+        with open(path, encoding="utf-8") as f:
+            return json.load(f).get("summary") or {}
+    except (OSError, ValueError):
+        return {}
+
+
+def agent_tools():
+    """Ask's tools from its registry (agent/tools.py), so Sources and documentation lists exactly what Ask can call:
+    [{name, kind}] (kind: public, personal, view, control). The plain-language descriptions are in so.js."""
+    root = os.path.abspath(os.path.join(HERE, "..", ".."))
+    if root not in sys.path:   # build.py runs as a script (explorer/__main__.py): the package isn't on the path yet
+        sys.path.insert(0, root)
+    try:
+        from cluster_analysis.agent import tools
+    except Exception as e:
+        print(f"Ask's tools not listed in Sources and documentation: {type(e).__name__}: {e}", file=sys.stderr)
+        return []
+    names = json.loads(read("ask_tools.json"))["tools"]
+    return [{"name": n, "kind": k, **names.get(n, {"abbr": n[:2].upper(), "label": n, "what": ""})} for n, k in tools.KIND.items()]
 
 
 def prevention():

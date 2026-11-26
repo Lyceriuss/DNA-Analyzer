@@ -442,7 +442,8 @@ if __name__ == "__main__":
         merged["lab_tests"], merged["lab_findings"] = trim_findings(merged.get("lab_tests", []), merged.get("lab_findings", []))
         merged["fit_tests"], merged["fit_findings"] = trim_findings(merged.get("fit_tests", []), merged.get("fit_findings", []))
         merged["can_tests"], merged["can_findings"] = trim_findings(merged.get("can_tests", []), merged.get("can_findings", []))
-        merged["profiles"] = [{"id": p["id"], "sex": p.get("sex"), **({"lite": True} if p.get("lite") else {})} for p in people]
+        merged["profiles"] = [{"id": p["id"], "sex": p.get("sex"), **({"lite": True} if p.get("lite") else {}),
+                               **({"parents": p["parents"]} if p.get("parents") else {})} for p in people]
         # Inheritance (cluster_analysis/inheritance): one folder per XX x XY pair of people shown here; each row carries
         # its pair, and the nested parts (calls, odds, outcomes) as JSON strings like the other datasets
         shown = {p["id"] for p in people}
@@ -461,6 +462,22 @@ if __name__ == "__main__":
                     merged[name].append({"pair": f"{xx}__{xy}", "xx": xx, "xy": xy,
                                          **{k: json.dumps(v, ensure_ascii=False) if isinstance(v, (dict, list)) else v
                                             for k, v in r.items() if k not in ("XX", "XY")}})
+        # Predicted against actual (inheritance/forecast.py check): per child in the app, its latest check against
+        # the pair's sealed forecast; personal, on this computer only like every dataset here
+        merged["inh_checks"] = []
+        for d in sorted(glob.glob(os.path.join(gbuild.OUTPUT, "pairs", "*__*"))):
+            xx, xy = os.path.basename(d).split("__", 1)
+            latest = {}
+            for f in sorted(glob.glob(os.path.join(d, "check-*.json")), key=os.path.getmtime):
+                try:
+                    rep = json.load(open(f, encoding="utf-8"))
+                except (OSError, ValueError):
+                    continue
+                if rep.get("child") in shown and xx in shown and xy in shown:
+                    latest[rep["child"]] = rep
+            for child, rep in latest.items():
+                merged["inh_checks"].append({"pair": f"{xx}__{xy}", "xx": xx, "xy": xy, "child": child,
+                                             "report": json.dumps(rep, ensure_ascii=False)})
         # People imported from a results file (explorer/results.py): their rows as they came
         from cluster_analysis.explorer import results
         results.merge(merged, {p["id"] for p in people})
@@ -470,7 +487,7 @@ if __name__ == "__main__":
         for name, rows in merged.items():
             # Empty is still an answer for the datasets the page reads (the cancer scores have no Reactome steps)
             if not rows and name not in ("profiles", "nut_steps", "lab_steps", "fit_steps", "can_steps", "fd_phases", "fd_genes", "fd_explain", "fd_impact",
-                                             "inh_meta", "inh_predictions", "inh_conditions", "inh_traits", "inh_drugs"):
+                                             "inh_meta", "inh_predictions", "inh_conditions", "inh_traits", "inh_drugs", "inh_checks"):
                 continue
             with open(os.path.join(out_dir, name + ".json"), "w", encoding="utf-8") as f:
                 json.dump(rows, f, ensure_ascii=False, separators=(",", ":"))
